@@ -95,7 +95,8 @@ ROOT_URLCONF = 'serverSide.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build'),
+        'DIRS': [os.path.join(BASE_DIR, 'public'),
+            os.path.join(BASE_DIR, 'build'),
                  os.path.join(BASE_DIR, 'templates'),
 
                 ],
