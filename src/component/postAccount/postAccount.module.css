@@ -1,0 +1,33 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+
+
+.particulars{
+    animation:showClear 2s ease-in-out;
+    opacity:0.6;
+}
+@keyframes showClear {
+    from {transform:scale(0);}
+    to { transform:scale(1);}
+}
+
+.serviceSummary{
+    display:block;
+    position:absolute;
+    width:70%;
+    top:10%;
+    z-index:1000;
+    background:white;
+    box-shadow:1px 1px 10px 10px grey;
+    padding:1rem;
+    animation:summaryShow 1.5s ease-in-out;
+}
+.hide{
+    display:none;
+}
+
+@keyframes summaryShow {
+    from {transform:scale(0);}
+    to {transform:scale(1);}
+}

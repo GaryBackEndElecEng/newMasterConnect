@@ -1,0 +1,14 @@
+*{margin:0;padding:0;box-sizing:border-box;}
+
+.arrowDown{
+   color:"red";
+}
+
+@keyframes showText {
+    from {opacity:0;transform:translateY(50%);}
+    to{opacity:1;}
+}
+.footer{
+box-shadow:1px 2px 1px 2px lightgrey,-1px -2px 1px 2px lightgrey;
+padding:0.5rem;
+}

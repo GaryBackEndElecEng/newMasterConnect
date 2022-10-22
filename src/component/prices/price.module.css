@@ -1,0 +1,10 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+@keyframes revealItems{
+    from {opacity:0;transform:translateY(100%);}
+    to {opacity:1;transform:translateY(0%);}
+}
+@keyframes slideItems{
+    from {opacity:0;transform:translateX(50%);}
+    to {opacity:1;transform:translateX(0%);}
+}

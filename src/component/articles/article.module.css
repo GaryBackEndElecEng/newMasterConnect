@@ -1,0 +1,120 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+.imageSection{
+    width:100%;
+    margin:1rem auto;
+    animation: growImage 5s ease-in-out;
+}
+.articleSection{
+    animation: growImage 2s ease-in-out;
+}
+@keyframes growImage {
+    from {opacity:0;transform:scale(0.8)}
+    to {opacity:1;transform:scale(1)}
+}
+.articleSectionDangerous{
+    padding:1rem;
+}
+.imageShow {
+    position:absolute;
+    top:80%;
+    width:80%;
+    left:5%;
+    color:white;
+    animation: slideIn 1s ease-in-out;
+}
+.imageShow2 {
+    position:absolute;
+    top:30%;
+    width:80%;
+    color:black;
+    background:rgba(45, 121, 161, 1);
+    padding:1rem;
+    left:5%;
+    color:white;
+    animation: slideIn 1s ease-in-out;
+}
+.closeImageShow2{
+    position:absolute;
+    top:30%;
+    width:80%;
+    color:black;
+    background:rgba(45, 121, 161, 1);
+    padding:1rem;
+    left:5%;
+    color:white;
+    animation: closeshow 3s ease-out;
+}
+.activateTitle{
+    display:block;
+    margin:auto;
+    animation: slideIn 1.5s ease-in-out;
+}
+.showLogo{
+    position:absolute;
+    right:0%;
+    top:70.5%;
+    width:12%;
+    animation:appear 5s ease-in-out;
+}
+
+@keyframes appear {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+.hide{
+    display:none;
+}
+@keyframes closeshow {
+    from {opacity:1;transform:translateX(0%)}
+    to {opacity:0;transform:translateX(-110%)}
+}
+@keyframes slideIn {
+    from {opacity:0;transform:translateX(-100%)}
+    to {opacity:1;transform:translateX(0%)}
+}
+@media screen and (max-width:900px){
+    .imageShow{
+        width:90%;
+        padding:5px;
+        top:60%;
+        font-size:28px;
+    }
+    .imageShow2,.closeImageShow2{
+        width:90%;
+        padding:1rem;
+        background:rgba(45, 121, 161, 1);
+        color:white;
+        top:30%;
+        font-size:34px;
+    }
+    .showLogo{
+        top:82%;
+        width:15%;
+    }
+}
+@media screen and (max-width:600px){
+    .imageShow{
+        width:100%;
+        padding:5px;
+        top:5%;
+        left:0%;
+        background:rgba(0,0,0,.3);
+    }
+    .imageShow2,.closeImageShow2{
+        background:rgba(45, 121, 161, 1);
+        padding:1rem;
+        width:100%;
+        left:0%;
+        color:white;
+        font-size:18px;
+        top:-83%;
+        z-index:1000;transform:scale(0.95);
+    }
+    .showLogo{
+        top:81%;
+        width:20%;
+    }
+}

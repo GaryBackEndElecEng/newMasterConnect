@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+{% load static %}
+{% load CustomTags %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/gif" href="https://master-connect.s3.ca-central-1.amazonaws.com/favico.gif"
+        name="favicon.ico">
+    <?xml version="1.0" encoding="iso-8859-1"?>
+    <meta name="viewport" content="width=device-width, maximum-scale=2.0, minimum-scale=1.0, viewport-fit=cover"
+        user-scalable="yes">
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css"
+        integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <link rel="canonical" href="https://www.master-connect.ca">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+    <title>hello</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .mainHome {
+        width: 100vw;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: center;
+        position: relative;
+        background: linear-gradient(to left, hsl(200, 95%, 94%), hsl(0, 3%, 89%) 50%, hsl(143, 21%, 84%) 75%, hsl(0, 2%, 98%) 75%);
+    }
+
+    .mainHome-mainBox {
+        margin: auto;
+        width: 80%;
+        min-height: 26vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: whitesmoke;
+        position: relative;
+
+    }
+
+    @media screen and (max-width:900px) {
+        .mainHome-mainBox {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width:600px) {
+        .mainHome-mainBox {
+            width: 100%;
+        }
+    }
+
+    h2,
+    h3,h4,h5,h6 {
+        margin: auto;
+        text-decoration:underline;
+        color:red;
+    }
+
+    .mainHome-mainBox-flexHome {
+        margin: 1rem auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 5px;
+        max-height:60vh;
+        overflow-y:scroll;
+        box-shadow:1px 1px 10px 15px grey;
+    }
+
+    .colDiv {
+        box-shadow: 1px 1px 10px 6px grey;
+        padding: 8px;
+        margin: 1rem auto;
+        /* display:flex;
+    align-items:flex-start;
+    justify-content:flex-start;
+    flex-direction:column; */
+
+
+    }
+    .address,.invoice{
+        margin:1rem auto;
+    }
+    .colDivTotal,.colDivTotal>ul{
+        margin:1rem auto;
+        text-align:center;
+        list-style-type:none;
+       
+    }
+</style>
+
+<body>
+    <div class=" mainHome ">
+
+        <div class="mainHome-mainBox">
+            <h2>Invoices</h2>
+            <div class="mainHome-mainBox-flexHome">
+                {% for user in userAccount %}
+                <hr style=" width:100%;border:1px solid black;"/>
+                <h6 style="color:red;font-size:120%;margin-left:1rem;justify-self:flex-start; align-self:flex-start;width:100%;">{{forloop.counter}}</h6>
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <h6>{{forloop.counter}}</h6>
+                    <h5>{{user.name}}</h5>
+                    <div class="flex-d address">
+                        <h6>address</h6>
+                        <div class="p2">{{user.address}},{{user.provState}},{{user.country}},</div>
+                        <div class="p2">{{user.postal}}</div>
+                        <h6>particulars</h6>
+                        <div class="p2">{{user.email}}</div>
+                        <div class="p2">{{user.cell}}</div>
+                    </div>
+                    <ul>
+                        <h5>Products</h5>
+                        {% for product in user.product.all %}
+                        <ul>name:{{product.name}}</ul>
+                        <li>monthly: ${{product.monthly}}.<sup>00</sup></li>
+                        <li>price: ${{product.price}}.<sup>00</sup></li>
+                        {% endfor %}
+                    </ul>
+                    <ul>
+                        <h5>Services</h5>
+                        {% for service in user.service.all %}
+                        <ul>name:{{service.name}}</ul>
+                        <li>monthly: ${{service.monthly}}.<sup>00</sup></li>
+                        <li>price: ${{service.price}}.<sup>00</sup></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <h5>Invoice</h5>
+                    <div class="flex-d invoice">
+                        <div class="p2">monthly sub total:$ {{user.invoice.subTotalMonthly}}.<sup>00</sup></div>
+                        <div class="p2">monthly total:$ {{user.invoice.totalMonthly}}.<sup>00</sup></div>
+                        <div class="p2">sub total:$ {{user.invoice.subTotal}}.<sup>00</sup></div>
+                        <div class="p2">total:$ {{user.invoice.total}}.<sup>00</sup></div>
+                    </div>
+                    <ul>
+                        <h5>particulars</h5>
+                        <li>priceID:{{user.invoice.priceID}}</li>
+                        <li>dateStart: {{user.invoice.dateStart}}</li>
+                        <li>dateEnd: {{user.invoice.dateEnd}}</li>
+                    </ul>
+                    
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <ul>
+                        <h5>Post Services</h5>
+                        {% for service in user.postService.all %}
+                        <ul>name:{{service.name}}</ul>
+                        <li>monthly: ${{service.monthly}}.<sup>00</sup></li>
+                        <li>price: ${{service.price}}.<sup>00</sup></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <h5>Post Invoice</h5>
+                    <div class="flex-d invoice">
+                        <div class="p2">monthly sub total:$ {{user.postInvoice.subTotalMonthly}}.<sup>00</sup></div>
+                        <div class="p2">monthly total:$ {{user.postInvoice.totalMonthly}}.<sup>00</sup></div>
+                        <div class="p2">sub total:$ {{user.postInvoice.subTotal}}.<sup>00</sup></div>
+                        <div class="p2">total:$ {{user.postInvoice.total}}.<sup>00</sup></div>
+                    </div>
+                    <ul>
+                        <h5>particulars</h5>
+                        <li>priceID:{{user.postInvoice.priceID}}</li>
+                        <li>dateStart: {{user.postInvoice.dateStart}}</li>
+                        <li>dateEnd: {{user.postInvoice.dateEnd}}</li>
+                    </ul>
+                    
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <ul>
+                        <h5>Extra Services</h5>
+                        {% for service in user.extraService.all %}
+                        <ul>name:{{service.name}}</ul>
+                        <li>monthly: ${{service.monthly}}.<sup>00</sup></li>
+                        <li>price: ${{service.price}}.<sup>00</sup></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <h5>Extra Invoice</h5>
+                    <div class="flex-d invoice">
+                        <div class="p2">monthly sub total:$ {{user.extraInvoice.subTotalMonthly}}.<sup>00</sup></div>
+                        <div class="p2">monthly total:$ {{user.extraInvoice.totalMonthly}}.<sup>00</sup></div>
+                        <div class="p2">sub total:$ {{user.extraInvoice.subTotal}}.<sup>00</sup></div>
+                        <div class="p2">total:$ {{user.extraInvoice.total}}.<sup>00</sup></div>
+                    </div>
+                    <ul>
+                        <h5>particulars</h5>
+                        <li>priceID:{{user.extraInvoice.priceID}}</li>
+                        <li>dateStart: {{user.extraInvoice.dateStart}}</li>
+                        <li>dateEnd: {{user.extraInvoice.dateEnd}}</li>
+                    </ul>
+                    
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 colDivTotal">
+                    <h5>Totals</h5>
+                    <div class="flex-d invoice">
+                        
+                        <div class="p2">total:$ {{user|totalSum|safe}}<sup>00</sup></div>
+                        <div class="p2">total Monthly:$ {{user|totalMonthly|safe}}<sup>00</sup></div>
+                        
+                    </div>
+                    
+                    
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+                <form method="POST" style="margin:2rem auto">
+                    {% csrf_token %}
+                    {{getFormUpdate.as_p}}
+                    <button type="submit"
+                    class="btn-btn-primary"
+                    >submit</button>
+                </form>
+            </div>
+            <h4>Hits</h4>
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+                    {% for hit in hits %}
+                    <div class="col-xs-6 col-sm-4 col-md-3 colDiv">
+                        <div class="flex-d invoice">
+                            <div class="p2">
+                               <h6> page:{{hit.page}}</h6>
+                            </div>
+                            <div class="p2">
+                               <p>count:{{hit.pageCount}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+            <div class="mainHome-mainBox-flexHome">
+                {% for sumInv in sumInvoice %}
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+
+                    <h5>Sum Invoice</h5>
+                    <div class="flex-d invoice">
+                        <h5>{{sumInv.name}}</h5>
+                        <div class="p2">all Sub Total: $ {{sumInv.allSubTotal}}.<sup>00</sup></div>
+                        <div class="p2">total:$ {{sumInv.allTotal}}.<sup>00</sup></div>
+                        <div class="p2">sub Monthly total:$ {{sumInv.allSubMonthly}}.<sup>00</sup></div>
+                        <div class="p2">total Monthly:$ {{sumInv.allMonthly}}.<sup>00</sup></div>
+                        <div class="p2">total fed:$ {{sumInv.fedTax}}.<sup>00</sup></div>
+                        <div class="p2">total Provincial:$ {{sumInv.provtax}}.<sup>00</sup></div>
+                        {% for priceId in sumInv.allPriceID %}
+                        <div class="p2">priceID: {{priceId}}</div>
+                        {% endfor %}
+                        {% for dateEnd in sumInv.allDateEnd %}
+                        <div class="p2">date End: {{dateEnd}}</div>
+                        {% endfor %}
+                        {% for paid in sumInv.allPaidInvoice %}
+                        <div class="p2">invoice paid: {{paid}}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% for priceCat in priceCatelog %}
+            <h3>{{priceCat.name}}</h3>
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+                {% for serv in priceCat.service.all %}
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <h4>{{serv.name}}</h4>
+                    <div class="flex-d invoice">
+                        <div class="p2" style="font-weight:bold;">Price: $ {{serv.price}}.<sup>00</sup></div>
+                        <div class="p2" style="font-weight:bold;">total Monthly:$ {{serv.monthly}}.<sup>00</sup></div>
+                        <h5>summary</h5>
+                        <div class="p2" style="font-size:90%;">{{serv.summary}}</div>
+                        <h5>desc</h5>
+                        <div class="p2" style="font-size:90%;">{{serv.desc}}</div>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+                {% for postServ in priceCat.postService.all %}
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <h4>{{postServ.name}}</h4>
+                    <div class="flex-d invoice">
+                        <div class="p2" style="font-weight:bold;">Price: $ {{postServ.price}}.<sup>00</sup></div>
+                        <div class="p2" style="font-weight:bold;">total Monthly:$ {{postServ.monthly}}.<sup>00</sup></div>
+                        <h5>summary</h5>
+                        <div class="p2" style="font-size:90%;">{{postServ.summary}}</div>
+                        <h5>desc</h5>
+                        <div class="p2" style="font-size:90%;">{{postServ.desc}}</div>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+                {% for extraServ in priceCat.extraService.all %}
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <h4>{{extraServ.name}}</h4>
+                    <div class="flex-d invoice">
+                        <div class="p2" style="font-weight:bold;">Price: $ {{extraServ.price}}.<sup>00</sup></div>
+                        <div class="p2" style="font-weight:bold;">total Monthly:$ {{extraServ.monthly}}.<sup>00</sup></div>
+                        <h5>summary</h5>
+                        <div class="p2" style="font-size:90%;">{{extraServ.summary}}</div>
+                        <h5>desc</h5>
+                        <div class="p2" style="font-size:90%;">{{extraServ.desc}}</div>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</body>
+<script defer src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</html>

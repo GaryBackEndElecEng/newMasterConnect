@@ -1,0 +1,52 @@
+
+
+
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+.selectMonthlyWarning{
+    position:absolute;
+    transform:translateY(-260%);
+    z-index:1000;
+    animation: showMessage 5s ease-in;
+
+}
+.revealMessage{
+    display:block;
+    height:110px;
+    animation: showMessage1 5s ease-in;
+    background: rgba(255,255,0,.4);
+    box-shadow:1px 2px 3px 10px white;
+
+}
+.noMessage{
+    display:block;
+    box-shadow:1px 2px 3px 10px black;
+    font-size:40px;
+    background:black;
+    color:white;
+}
+
+@keyframes showMessage {
+    from {opacity:0;transform:scale(0) translate(-10%,-600%);}
+    50% {opacity:1;transform:scale(1) translate(0%,-50%);}
+    to {opacity:0;}
+}
+@keyframes showMessage1 {
+    from {opacity:0;transform:scale(0) ;height:0px;}
+    50% {opacity:1;transform:scale(1) ;height:110px}
+    to {opacity:0;}
+}
+.summaryPaymentGrid{
+    display:block;
+    box-shadow:1px 2px 3px 10px white;
+    color:blue;
+}
+.hide{display:none;}
+.summaryPaymentGridNotConfirmed{
+    display:block;
+    box-shadow:1px 2px 3px 10px black;
+    font-size:40px;
+    background:black;
+    color:red;
+}

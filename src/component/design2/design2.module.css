@@ -1,0 +1,68 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+
+
+.ART{
+    position:absolute;
+    right:0%;
+    top:40%;
+    
+}
+.DESIGN{
+    position:absolute;
+    right:-16%;
+    top:18%;
+    /* left:100%; */
+    transform:rotate(270deg);
+}
+
+.DECO{
+    position:absolute;
+    left:0%;
+    top:40%;
+    color:white;
+    z-index:1000;
+    
+}
+@media screen and (max-width:860px){
+    .ART{
+        
+        top:50%;
+        
+    }
+    .DESIGN{
+        position:absolute;
+        right:-15%;
+        top:39%;
+        
+    }
+    
+    .DECO{
+        position:absolute;
+        top:50%;
+        
+        
+    }
+}
+@media screen and (max-width:600px){
+    .ART{
+        
+        top:47%;
+        
+    }
+    .DESIGN{
+        position:absolute;
+        right:-25%;
+        top:39%;
+        
+    }
+    
+    .DECO{
+        position:absolute;
+        top:47%;
+        
+        
+    }
+}
+

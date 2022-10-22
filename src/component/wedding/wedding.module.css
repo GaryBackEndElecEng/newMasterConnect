@@ -1,0 +1,25 @@
+
+.flowerNotSeen{
+opacity:0;
+}
+.flowerSeen{
+    opacity:1;
+    transition:opacity 1s ease-in;
+}
+.scrollGridFrame{
+ max-height:600px !important;
+ width:100%;
+ overflow:hidden;   
+}
+.notWeddingTable{
+opacity:0;
+transform:translate(-400px,-300px);
+}
+.weddingTable{
+opacity:1;
+transform:translate(-400px,-300px);
+transition:opacity 1s ease-in;
+}
+.weddingSky{
+    margin:0;
+}

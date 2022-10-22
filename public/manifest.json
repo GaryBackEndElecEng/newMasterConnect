@@ -1,25 +1,107 @@
+
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Master-connect",
+  "name": "master-connect.ca , Best Website Designs",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico.png",
+      "sizes": "64X63",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico2.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "200X198"
     },
     {
-      "src": "logo512.png",
+      "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "518x510"
     }
   ],
-  "start_url": ".",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "background_color": "#3367D6",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "scope": "/",
+  "theme_color": "#3367D6",
+  "shortcuts": [
+    {
+      "name": "Best Designs, 2022-2023",
+      "short_name": "Clever Designs",
+      "description": "Cheapest and eye-catching Designs on the Web",
+      "url": "/?source=pwa",
+      "icons": [{ "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico2.png", "sizes": "200x198" },{"src":"https://new-master.s3.ca-central-1.amazonaws.com/static/favico97X97.png","sizes":"97x97" }]
+    },
+    {
+      "name": "Clever Designs",
+      "short_name": "Top Designs",
+      "description": "Smart Designs",
+      "url": "/works?source=pwa",
+      "icons": [{ "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico2.png", "sizes": "200x198" },{"src":"https://new-master.s3.ca-central-1.amazonaws.com/static/favico97X97.png","sizes":"97x97" }]
+    },
+    {
+      "name": "Best Blog",
+      "short_name": "Blog",
+      "description": "Smart Blogs for the Mind",
+      "url": "/works?source=pwa",
+      "icons": [{ "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico2.png", "sizes": "200x198" },{"src":"https://new-master.s3.ca-central-1.amazonaws.com/static/favico97X97.png","sizes":"97x97" }]
+    }
+  ],
+  "description": "master-connect Best Designs",
+  "screenshots": [
+    {
+      "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/Memories.png",
+      "type": "image/png",
+      "sizes": "2099X1393"
+    },
+    {
+      "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/Memories.png",
+      "type": "image/png",
+      "sizes": "2099X1393"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+design",
+      "url": "/works?type=%s"
+    },
+    {
+      "protocol": "web+masterconnect",
+      "url": "/?type=%s"
+    },
+    {
+      "protocol": "web+about",
+      "url": "/about?type=%s"
+    },
+    {
+      "protocol": "web+Blog",
+      "url": "/blog?type=%s"
+    },
+    {
+      "protocol": "web+contact",
+      "url": "/contact?type=%s"
+    },
+    {
+      "protocol": "web+biography",
+      "url": "/bio?type=%s"
+    },
+    {
+      "protocol": "web+DesignPrices",
+      "url": "/prices?type=%s"
+    },
+    {
+      "protocol": "web+Register",
+      "url": "/register?type=%s"
+    },
+    {
+      "protocol": "web+Signin",
+      "url": "/signin?type=%s"
+    },
+    {
+      "protocol": "web+Articles",
+      "url": "/articles?type=%s"
+    }
+  ]
+  
 }

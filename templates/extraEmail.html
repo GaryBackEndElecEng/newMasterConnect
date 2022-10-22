@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body style="position:relative;">
+    <strong><a href="https://www.master-connect.ca"><h2>Master-connect.ca</h2></a></strong>
+
+    <h3>Name:{{name|safe}}</h3>
+
+
+<ul style="background:lightgrey;padding:15px; width:50%;">Particulars:
+    <li>address:{{address|safe}}</li>
+    <li>email:{{email|safe}}</li>
+    <li>cell:{{cell|safe}}</li>
+    
+    
+</ul>
+<ul style="background:lightgrey;padding:15px; width:50%;">references:
+    <li>session ID:{{session_id|safe}}</li>
+    <li>price ID:{{priceID|safe}}</li>
+    <ul>Services:
+        {% for service in services %}
+        <li>name: {{service|safe}}</li>
+        {% endfor %}
+    </ul>
+    <li>subTotal:${{subTotal|safe}}.<sup>00</sup> monthly</li>
+    <li>total:${{total|safe}}.<sup>00</sup></li>
+    <li>end date:{{endDate|safe}}</li>
+    
+</ul>
+<small>Note: The services purchased, above are in consideration for a period of five years.</small>
+
+
+<p> Thank you for your patience and consideration. We will commence on the implimentation ASAP!</p>
+
+<p><strong> Yours Truly,</strong></p>
+<hr style="width:50%;margin-left:0px;">
+<h3><strong> Master-connect's Team </strong></h3>
+<hr style="width:50%;margin-left:0px;">
+<a href="https://www.master-connect.ca">www.master-connect.ca</a><br>
+<img src="https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png" style=" border-radius:5% 5% 25% 25%;border:1px solid rgb(0,0,20);width:100px;width:100px;" alt="www.master-connect.ca "/>
+    
+</body>
+</html>

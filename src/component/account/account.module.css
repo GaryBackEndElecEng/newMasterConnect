@@ -1,0 +1,188 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+
+
+.user_name:before,.user_name:after{
+    position:absolute;
+    content:"";
+    top:-2%;
+    min-width:20%;
+    min-height:110%;
+    background:lightblue;
+    border-radius:50%;
+    box-shadow: 1px 2px 20px white,-1px -2px 10px white;
+    animation:blowUp 6s ease-in-out;
+}
+.user_name:before{
+    left:-10%;
+}
+.user_name:after{
+    right:-10%;
+}
+.getMessage{
+    position:absolute;
+    top:20%;
+    margin:auto;
+    ;background:lightblue;
+    animation: blowUp 1.5s ease-in-out;
+}
+
+@keyframes blowUp {
+    from {transform:scale(0);background:red;}
+    to {transform:scale(1);background:lightblue;}
+}
+
+.hideError{
+    display:none;
+    position:absolute;
+    top:-20%;
+    left:0%;
+    opacity:1;
+    animation: reveal 1.5s ease-in;
+}
+.showError{
+    display:block;
+    opacity:1;
+    top:100%;
+    left:20%;
+    animation:reveal 1.5s ease-in;
+    
+}
+@keyframes reveal{
+    from{opacity:0;transform:translateY(-20%);}
+    to{opacity:1; transform:translateY(0%);}
+}
+
+/* InfoCompleteForm section */
+
+.form{
+    margin:auto;
+    width:calc(100% - 50px);
+    background:white;
+    color:blue;
+}
+.not{
+    color:red;
+    font-size:20px;
+}
+.validName,.validAddress,.validCell,.validPostal,.validCountry,.validProvState{
+color:blue;
+font-size:20px;
+animation: growBig 1s ease-in;
+
+}
+@keyframes growBig{
+    from{opacity:0;transform:scale(0) translateX(50%);}
+    50%{opacity:1;transform:scale(1) translateX(20%);}
+    to{opacity:0; transform: scale(1) translateX(0%);}
+}
+.inputLabel{
+    color:blue;
+    font-size: 12px;
+}
+
+.extraInfo {
+    color:red;
+}
+.addProvPost{
+    font-size:12px;
+    color:cyan;
+}
+.formError{
+display:block;
+position:absolute;
+color:red;
+font-weight:bold;
+animation: bringUp 10s ease-in-out;
+}
+@keyframes bringUp{
+    from{opacity:0;transform:scale(0) translateX(50%);}
+    50%{opacity:1;transform:scale(1) translateX(20%);}
+    to{opacity:0; transform: scale(1) translateX(0%);}
+}
+.closeForm{
+opacity:0; 
+transform:scale(0);
+animation: hideForm 2s ease-in;
+}
+.afterPostSvcSummary{
+    position:absolute;
+    top:10%;
+    background:grey;
+    padding:0.5rem;
+    box-shadow:1px 1px 10px 10 grey;
+    animation:showTheInfo 1.5s ease-in;
+}
+.afterPostSvcDesc{
+    position:absolute;
+    top:30%;
+    width:100%;
+    z-index:1000;
+    background:grey;
+    padding:0.5rem;
+    box-shadow:1px 1px 10px 10 grey;
+    animation:showTheInfo 2.5s ease-in;
+}
+@media screen and (max-width:600px){
+    .afterPostSvcSummary{
+        top:15%;
+    }
+    .afterPostSvcDesc{
+        top:35%;
+    }
+}
+.showInfo{
+    display:block;
+    position:relative;
+    left:auto;
+    margin: 2rem auto;
+    animation:showTheInfo 1.5s ease-in;
+}
+
+@keyframes showTheInfo{
+    from{opacity:0;transform:scale(0) }
+    to{opacity:1; transform: scale(1) }
+}
+.formLabel{
+    color:blue;
+    text-align:center;
+}
+.formControl{
+    color:green;
+    background:white;
+}
+.completeFormMessage{
+   position:absolute; 
+   top:66%;
+   left:2%;
+   width:45%;
+   background:darkgrey;
+   color:white;
+   text-align:center;
+   border-radius:15%;
+   padding:20px;
+   animation: InAndOut 10s ease-in-out;
+}
+.completeFormMessage span{
+    color:red;
+}
+@keyframes InAndOut{
+    from{opacity:0;transform:scale(0) }
+    50%{opacity:1; transform: scale(1) }
+    to{opacity:0; transform: scale(0) }
+}
+@media screen and (max-width:860px){
+    .completeFormMessage{
+        top:45%;
+    }
+}
+@media screen and (max-width:600px){
+    .completeFormMessage{
+        top:55%;
+        width:100%;
+    }
+}
+
+
+

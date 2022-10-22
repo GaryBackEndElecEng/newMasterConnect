@@ -1,0 +1,185 @@
+
+[
+    {
+        "id": 0,
+        "title": "Inside Look-Main Developer",
+        "content": [
+            
+            
+            {
+                "id": 1,
+                "para": "The World Trade-Center attack, strongly influenced the Developer to rejoin the military, as a result, serve abroad in the Afghanistan war. The Developer departed the military in sight of applying his knowledge in hands-on-building automation and successfully installed a fully integrated communication system within a 3000-pers apartment complex, in toronto and then was picked up by Mircom Technologies Inc."
+            },
+            {
+                "id": 2,
+                "para": "The military, work experience,COVID and educational experience influenced his descision on pursueing Full Stack Development."
+            },
+            {
+                "id": 3,
+                "para": "In sight of a hands-on approach and the effect of COVID on the world's market, the Developer entered the full web development field due to  its influencing power to market industry, acccentuated by COVID. Today, the primare entry point, into the World Market is through the internet and the difference between the Successful versus Not-so-successful company is just a 'click' away."
+            },
+            {
+                "id": 4,
+                "para": " Full Innovative Web-Development is what we strive for each and every day - Always Striving for new Heights ."
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "title": "Resume",
+        "content": [
+            {
+                "contact": [
+                    {
+                        "id": "0",
+                        "title":"c",
+                        "content": "416-917-5768"
+                    },
+                    {
+                        "id": "1",
+                        "title":"e",
+                        "content": "masterconnect919@gmail.com"
+                    },
+                    {
+                        "id": "2",
+                        "title":"fb",
+                        "content": "facebook"
+                    },
+                    {
+                        "id": "3",
+                        "title":"ln",
+                        "content": "linkedlin"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "image": "https://master-connect.s3.ca-central-1.amazonaws.com/static/profilePic1.png"
+    },
+    {
+        "id": 3,
+        "title": "Achievements",
+        "content": [
+            {
+                "id":0,
+                "title": "AW",
+                "content": "Served in the Afghanistan War,"
+            },
+            {
+                "id":1,
+                "title": "Info.Sec.Syst",
+                "content": "Global Knowledge, Ottawa,"
+            },
+            {
+                "id":3,
+                "title": "Section/Platoon commander certificate:",
+                "content": "Communication, Electronics and Engineering School, Kingston, Ont , 2005"
+            },
+            {
+                "id":4,
+                "title": "B.O.T.C:",
+                "content": "OT, St. Jean,Qc, 2004"
+            },
+            {
+                "id":5,
+                "title": "B.Eng Elect,comms:",
+                "content": "University of Concordia, 1999"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Expertise",
+        "content": "Software Development, Project Management,"
+    },
+    {
+        "id": 5,
+        "title": "Skill Set",
+        "content": [
+            {
+                "id":0,
+                "title": "Bilingual",
+                "content": "French/English"
+            },
+            {
+                "id":1,
+                "title": " SW-Front-end",
+                "content": "JS,Css,HTML,React"
+            },
+            {
+                "id":2,
+                "title": " SW-backend",
+                "content": " Python, SQL/PSQL, Mongol, Express, NodeJS, Django, Rest_framework,JWT, session - HashKey"
+            },
+            {
+                "id":3,
+                "title": "Other framework",
+                "content": "Heroku / GIT / P5 / Canvass, RABBITMQ / Reddit,User / Google, facebook Developer"
+            },
+            {
+                "id":4,
+                "title": "SW/HW",
+                "content": "Gates, Stack, Pic(s), discrete Comp(s),C-Assembly"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Interests",
+        "content": "learning,Creating, projects,building projects"
+    },
+    {
+        "id": 7,
+        "title": "mental Aptitude",
+        "content": " Enneagram:Investigator/Achiever",
+        "link": "https://www.enneagraminstitute.com/type-descriptions"
+    },
+    {
+        "id": 8,
+        "title": "Professional Profile",
+        "content": "Desire to work on contract with start-up to mid-companies who are in need of a well rounded experienced web and portal designer, with knowledge and skills in  front and back end development, database management, electronics and  automation."
+    },
+    {
+        "id": 9,
+        "title": "Full Stack Developer",
+        "quote": "'Learning is living'- Horace Mann",
+        "loc": "Digital Master Connect/Richmond Hill/2021-pres",
+        "content": "Provide a secure end-to-end service for clients, in the aim to maintain high  ranking through the power of React/ API /Python. This is systematically done through smart user-sign-up incentives,manage/automate SEOs,dynamic updates of Blogs and Reviews, as well as , dynamic bi-monthly email distribution of specials. "
+    },
+    {
+        "id": 10,
+        "title": "Project",
+        "content": [
+            {"id":0,"content":"master-connect.ca (React-server connected)"},{"id":1,"content":" STA (Short-Term-Accommodation) site; and "},{"id":2,"content":"https://www.master-sale.ca, from conception to publish."}]
+    },
+    {
+        "id": 11,
+        "title": "Field Engineer",
+        "loc": "Mircom/Vaughan/2012-2019",
+        "content": "Project designed, managed, coordinated,implemented of $90K-$500K communication base projects and acted as 3rd-line support. In doing so,Coordinated sales level contract closures,Coordinated and design assisted new project and H/W improvements for market-level entry, Managed custom-client based projects; and Resolve technical 3rd-level issues."
+    },
+    {
+        "id": 12,
+        "title": "Project",
+        "content": [{"id":0,"content":"Condominium communication and security system, Residence population:1000-5000 Residents"},{"id":1,"content":"Wireless and powerline commercial Fire Alarm systems;"},{"id":2,"content":"Energy saving base wired and wireless base systems;Long-term care facilities communication systems;"}]
+    },
+    {
+        "id": 13,
+        "title": "Communication Information Systems and Security Officer - Captain",
+        "loc": "CFC,TO/Toronto/2007-2012",
+        "content": "Designed/Coordinated/Managed/Implemented communication contracts / Corresponding Projects related to communication and physical/Information security systems. Correspondingly, Managed help desk personnel, Brief higher on project progress, and Acted as the department authority on electronic and communication technologies to higher."
+    },
+    {
+        "id": 14,
+        "title": "Project",
+        "content":[ {"id":0,"content":"  Security Systems DWAN installation instruction procedure"},{"id":1,"content":"Public Works project implementation and contract negotiation"},{"id":2,"content":"Create SOW for special projects to be contracted out"}]
+    },
+    {
+        "id": 15,
+        "title": "Quality Assurance Contract Specialists(QACS), Lieutenant",
+        "loc": "CF/Kandahar/2006-2007 - Stationed at KAF (Kandahar Air Field)",
+        "content": " Manage large existing supply contracts (CANCAP- Canadian National Contractors Agreement Plan, in association with SNC Lavalin Inc) for the Kandahar airfield and surrounding regions which includes Conduct bi-weekly QA accessments per KAF section, as well as, outside-the-wire monthly visits to Forward Observation Bases ( BOFs)."
+    }
+]

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body style="position:relative;">
+    <strong><a href="https://www.master-connect.ca"><h2>Master-connect.ca</h2></a></strong>
+
+    {% if flag|safe == "paid" %}
+    <p> Thank you,{{name|safe}} for purchasing  your website from us.Below, reflexts your confirmation number reflecting your full payment. We will contact you within the next 24 hrs to begin the build.</p>
+    {% endif %}
+    {% if flag|safe == "monthlyPaid" %}
+    <p> Thank you,{{name|safe}} for purchasing  your website from us.Below, reflexts your confirmation number reflecting monthly payment. We will contact you within the next 24 hrs to begin the build.</p>
+    {% endif %}
+    {% if flag|safe == "postPaid" %}
+    <p> Thank you,{{name|safe}} for purchasing  our post deployment services. Below, reflexts your confirmation number reflecting your deployment. We will contact you within the next 24 hrs to begin the build.</p>
+    {% endif %}
+<ul>
+    <li> sub total:{{subTotal|safe}}.<sup>00</sup></li>
+    <li>total:{{total|safe}}.<sup>00</sup></li>
+    <li>sessionID:{{sessionID|safe}}</li>
+    <li>endDate:{{endDate|safe}}</li>
+</ul>
+
+<ul style="background:lightgrey;padding:15px; width:50%;">Particulars:
+    <li>address:{{address|safe}},{{country|safe}},{{provState|safe}}</li>
+    <li>cell:{{cell|safe}}</li>
+</ul>
+
+<p> Until then.</p>
+
+<p><strong> Yours Truly,</strong></p>
+<hr style="width:50%;margin-left:0px;">
+<h3><strong> Master-connect's Team </strong></h3>
+<hr style="width:50%;margin-left:0px;">
+<a href="https://www.master-connect.ca">www.master-connect.ca</a><br>
+<img src="https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png" style=" border-radius:5% 5% 25% 25%;border:1px solid rgb(0,0,20);width:100px;width:100px;" alt="www.master-connect.ca "/>
+    
+</body>
+</html>

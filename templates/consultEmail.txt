@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+    "https://www.master-connect.ca">Master-connect.ca
+
+Name:{{context.name|safe}}: basket price:{{context.subtotal|safe}}
+
+
+Particulars:
+    address:{{context.address|safe}}
+    email:{{context.email|safe}}
+    cell:{{context.cell|safe}}
+    
+    
+
+Question(s):
+    Question1:{{context.question1|safe}}
+    Question2:{{context.question2|safe}}
+    Question3:{{context.question3|safe}}
+    Question4:{{context.question4|safe}}
+    Products:{{context.products|safe}}
+    Services:{{context.services|safe}}
+    
+
+Products/Services:
+    
+    address:{{context.products|safe}}
+    address:{{context.services|safe}}
+    
+
+   
+
+Until then.
+
+ Yours Truly,
+ Master-connect's Team 
+
+ href="https://www.master-connect.ca">www.master-connect.ca

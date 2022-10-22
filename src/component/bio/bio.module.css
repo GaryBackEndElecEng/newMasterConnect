@@ -1,0 +1,15 @@
+*{margin:0;padding:0;box-sizing:border-box;}
+
+.BioTitle{
+  color:red;  
+}
+.project{
+  opacity:0;
+  transition:opacity 2s ease-in-out;
+  animation:showIN 2s ease-in-out;
+}
+
+@keyframes showIN {
+  from {opacity:0;transform:translateX(-100%);}
+  to {opacity:1;transform:translateX(0%);}
+}
