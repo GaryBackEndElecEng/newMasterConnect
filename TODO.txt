@@ -8,6 +8,8 @@ git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
 git push -u origin main
 when it says behing: withingit push -f heroku origin
+git branch delete
+git checkout -b main, git branch -b main or master
 
 #EXISTING REPOSITORY
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
