@@ -5,7 +5,9 @@ git add README.md
 git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
+git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
 git push -u origin main
+when it says behing: withingit push -f heroku origin
 
 #EXISTING REPOSITORY
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
@@ -15,3 +17,12 @@ python manage.py dbshell
   select * from django_migrations
    delete from django_migrations where id=361;
    react-meta-tags
+
+   Rental Template:
+   -Remove 4-pics and give more info.-Take away Hover
+  - btns=>show popup with pictures
+  - add fedback on first page ( create clients-> link db for future submissions)
+  _ Retrospect=> Special Unique Designs
+  -use calculator- show questions for design.
+  -add packages: custom support.
+  
