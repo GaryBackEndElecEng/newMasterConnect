@@ -23,6 +23,17 @@ A crucial thing to remember is that Django’s development server (manage.py run
 
 A quick note, if you’re trying to use Django’s Session Authentication with React by serving React under the same domain, do not use this method for development! You will bang your head against the wall creating the production build every time you make a change. Check out this article on using a reverse proxy to get Django and React under the same domain in development.
 
+GOOD COMMANDS:
+First of all, make sure that NPM is up-to-date.
+npm i -g npm
+CLEAN ALL:
+remove node_modules folder and package-lock.json file
+rm package-lock.json && rm -R node_modules
+Remove dist folder:
+ https://Clear npm cache :
+npm cache clean --force
+To see which version are installed :
+npm ls webpack
 
 #EXISTING REPOSITORY
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
