@@ -34,6 +34,10 @@ Remove dist folder:
 npm cache clean --force
 To see which version are installed :
 npm ls webpack
+GIT!:
+git rm -r --cached node_modules
+git commit -am 'ignore node_modules'
+git commit -am 'ignore npm-debug'
 
 #EXISTING REPOSITORY
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
