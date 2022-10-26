@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
-import {Container,Paper, Typography, Grid, Card, CardContent, CardMedia, Stack} from '@mui/material';
-import styles from './checkout.module.css';
+import {Container, Typography,  Stack} from '@mui/material';
+// import styles from './checkout.module.css';
 import styled from 'styled-components';
 
 const CoverMainContainer=styled.div.attrs({className:"container-fluid"})`

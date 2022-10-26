@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState} from 'react';
 import {useNavigate,useLocation} from 'react-router-dom';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Container, Fab, Grid, Stack, Typography } from '@mui/material';
+import { Container, Fab, Stack, Typography } from '@mui/material';
 import apiProtect from '../axios/apiProtect';
 import styled from 'styled-components';
 import styles from './payment.module.css';
@@ -32,14 +32,14 @@ animation: showCover 2s ease-in-out;
 `;
 const Cancelled = () => {
   const navigate =useNavigate();
-  const location=useLocation();
-  const { session_id, staticImage, setTitle, setStyleName,setChangePage,registerPage,setRegisterPage } = useContext(GeneralContext);
+  
+  const { staticImage, setTitle, setStyleName,setChangePage, } = useContext(GeneralContext);
   const { user_id, loggedIn,  setLoggedIn, userAccount,} = useContext(TokenAccessContext);
   const [message, setMessage] = useState(false);
   const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
   const mainPic = `${staticImage}/mainDesign.png`
   const [growIn, setGrowIn] = useState(false);
-  const [showPayment,setShowPayment]=useState(false);
+  
   const [recievedCanceled,setRecievedCanceled]=useState({});
   const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
   const getRecievedCanceled= recievedCanceled.loaded ? recievedCanceled.data.canceledCount : null;

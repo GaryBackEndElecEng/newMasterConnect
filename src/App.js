@@ -7,7 +7,6 @@ import Design1 from './component/design1/Design1';
 import Design2 from './component/design2/Design2';
 import Miscel from './component/Miscel';
 import { ThemeProvider } from '@mui/material/styles';
-import { orange } from '@mui/material/colors';
 import { theme } from './context/theme';
 import Home from './component/home/Home';
 import About from './component/about/About';

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Card, CardMedia, Box, Stack, Image } from '@mui/material';
+import { Stack } from '@mui/material';
 import { Container } from '@mui/system';
 import ImagesContainer from './ImagesContainer';
 import { GeneralContext } from '../../context/GeneralContextProvider.js';
@@ -7,12 +7,12 @@ import { useTheme } from '@mui/material/styles';
 import ModalContainer from '../utils/ModalContainer';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import RegisterPage from '../RegisterPage';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import GetRegisterPages from '../utils/GetRegisterPages';
 
-//https://master-connect.s3.ca-central-1.amazonaws.com/media/ckeditor/coke.png
+
 const Page1 = () => {
-  const theme = useTheme();
+ 
   const { setTitle, setStyleName,workArr ,setChangePage} = useContext(GeneralContext);
   const [showPurchaseBtn,setShowPurchaseBtn]=useState(false);
 

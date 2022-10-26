@@ -1,5 +1,5 @@
-import React, {  useContext, } from 'react';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React from 'react';
+// import { GeneralContext } from '../../context/GeneralContextProvider';
 import {Helmet} from 'react-helmet';
 
 

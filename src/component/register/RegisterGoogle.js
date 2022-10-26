@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Button, IconButton, Stack, Typography } from '@mui/material'
+import {  IconButton, Stack, Typography } from '@mui/material'
 import jwt_decode from 'jwt-decode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useTheme } from '@mui/material/styles';
@@ -11,7 +11,7 @@ import apiProtect from '../axios/apiProtect';
 
 const RegisterGoogle = () => {
     const navigate = useNavigate();
-    const { gmailUser, setGmailUser, } = useContext(TokenAccessContext);
+    const {  setGmailUser, } = useContext(TokenAccessContext);
     const { setRegister, setRegisterConfirmed, setEmail, setChangePage, } = useContext(GeneralContext);
     const [showSignout, setShowSignout] = useState(false);
     const theme = useTheme();

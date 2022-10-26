@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useState, useContext,  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { Container, Stack, Typography, Fab, Box, Paper, Link, Button, IconButton } from '@mui/material';
+// import { TokenAccessContext } from '../../context/TokenAccessProvider';
+import { Container, Stack,  Box, Paper,  IconButton } from '@mui/material';
 import Styles from './home.module.css';
 import { useTheme } from '@mui/material/styles';
 import BookShelf from './BookShelf';

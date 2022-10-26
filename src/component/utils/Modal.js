@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {useNavigate,useLocation} from 'react-router-dom';
-import styles from './utils.module.css';
+// import styles from './utils.module.css';
 import styled from 'styled-components';
-import { Box, Container, Fab, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Box, Container, Fab, Stack, Typography } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
-import apiProtect from '../axios/apiProtect';
+// import apiProtect from '../axios/apiProtect';
 import TargetRegister from './TargetRegister';
 import Signin from '../signin/Signin';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -38,12 +37,8 @@ animation: showInfo 1.5s ease-in-out;
 `;
 const Modal = () => {
     const theme = useTheme();
-    const location=useLocation();
-    const navigate=useNavigate();
-    const { url, register, setLoggedIn, error,setError, loggedIn,setChangePage,showRegistration, setShowRegistration,openSignin,setOpenSignin } = useContext(GeneralContext);
-    const { priceCatelog } = useContext(PriceContext);
+    const {error,setError, showRegistration, setShowRegistration,openSignin,setOpenSignin } = useContext(GeneralContext);
     const [showBlock, setShowBlock] = useState("none");
-    const registered = register.username !=="" ? register.data : null;
 
     useEffect(()=>{
         const handleOpen = (e) => {

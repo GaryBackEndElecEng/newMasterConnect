@@ -1,8 +1,8 @@
 import React, { useEffect, useState,useContext } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import {GeneralContext} from '../../context/GeneralContextProvider';
-import { Container, Stack, Typography, Fab, Paper } from '@mui/material';
+import {  Paper } from '@mui/material';
 import Styles from './home.module.css';
 import { useTheme } from '@mui/material/styles';
 

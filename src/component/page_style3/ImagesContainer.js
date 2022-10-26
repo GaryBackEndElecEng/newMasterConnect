@@ -1,10 +1,10 @@
-import { Box, ImageList, ImageListItem, Stack, Typography, Paper } from '@mui/material';
-import React ,{useState,useRef} from 'react';
-import styles from './design3.module.css';
+import {  ImageList, ImageListItem, Stack, Typography, Paper } from '@mui/material';
+import React ,{useState} from 'react';
+// import styles from './design3.module.css';
 
 
 const ImagesContainer = () => {
-  const showRef=useRef();
+ 
 const [showTitle_,setShowTitle_]=useState(false);
 
   const handleShowTitle=(e)=>{

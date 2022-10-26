@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useContext,useMemo } from 'react';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { Stack, Container, Paper, Typography, Grid, Card, CardContent, CardMedia, Select, MenuItem, InputLabel } from '@mui/material';
+import {  Container, Typography, Select, MenuItem, InputLabel } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import styles from './checkout.module.css';
-import styled from 'styled-components';
+// import styles from './checkout.module.css';
+// import styled from 'styled-components';
 
 const MonthlyArray = ({isSelectedOneTime,isSelectedMonthly}) => {
-    const theme = useTheme();
-    const { usersInvoice,selectMonthlyValue,selectedPayment,setSelectedPayment } = useContext(TokenAccessContext);
+    
+    const { usersInvoice,selectedPayment,setSelectedPayment } = useContext(TokenAccessContext);
     const [convertArray,setConvertArray]=useState([]);
     const getMonthlyArray = usersInvoice.loaded ? usersInvoice.data.monthlyArray : null;
-    const isSelectedMonthlyValue= selectedPayment !=="" ? true:false;
 // console.log(" usersInvoice.data",usersInvoice.data)
 
 useMemo(()=>{

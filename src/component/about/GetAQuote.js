@@ -12,7 +12,7 @@ import api from '../axios/api'
 
 const GetAQuote = () => {
     const theme = useTheme();
-    const { email, setEmail, name, setName, content, setContent, setRequestQuote, url, requestQuote, infoOkay, setInfoOkay, issue, setIssue,staticImage,setCallBackQuoteRequest,setCallBackConfirmed } = useContext(GeneralContext);
+    const { email, setEmail, name, setName, content, setContent, setRequestQuote, requestQuote, infoOkay, setInfoOkay, issue, setIssue,staticImage,setCallBackQuoteRequest,setCallBackConfirmed } = useContext(GeneralContext);
     const [cell, setCell] = useState("");
     const [coName, setCoName] = useState("");
     const [coSite, setCoSite] = useState("");

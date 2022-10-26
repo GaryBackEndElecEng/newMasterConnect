@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Stack, Container, Card, FormControl, InputLabel, FormHelperText, Input, TextareaAutosize, FormControlLabel, Checkbox, FormLabel, Button, CardContent, Fab, Grid, CardMedia, Typography } from '@mui/material';
-import styled from 'styled-components';
+import { Container, Card, FormControl, InputLabel, FormHelperText, Input, TextareaAutosize, FormControlLabel, Checkbox, FormLabel, CardContent, Fab, Grid, CardMedia, Typography } from '@mui/material';
+// import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import styles from '../contact/contact.module.css';

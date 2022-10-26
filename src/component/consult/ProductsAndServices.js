@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import {  Stack, Container, Paper, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import styles from './consult.module.css'
 
 const ProductsAndServices = () => {
-    const theme = useTheme();
+    // const theme = useTheme();
     const {  usersProduct, usersService, } = useContext(TokenAccessContext);
-    const { setChangePage,staticImage } = useContext(GeneralContext);
+    const { staticImage } = useContext(GeneralContext);
     const [show,setShow]=useState(false);
     const getUsersProducts = usersProduct.loaded ? usersProduct.data : JSON.parse(localStorage.getItem("usersProducts"));
     const getUsersServices = usersService.loaded ? usersService.data : JSON.parse(localStorage.getItem("usersServices"));

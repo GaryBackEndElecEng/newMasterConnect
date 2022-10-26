@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
+import React, {  useContext,  } from 'react';
+
 import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { Container, Stack, Typography, Fab, Box, Paper } from '@mui/material';
+// import { TokenAccessContext } from '../../context/TokenAccessProvider';
+import { Typography, Box } from '@mui/material';
 import Styles from './home.module.css';
-import { useTheme } from '@mui/material/styles';
+
 
 const CustBox = styled(Box).attrs({ className: "customSiteTitle" })`
 margin:1rem auto;

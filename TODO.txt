@@ -10,6 +10,19 @@ git push -u origin main
 when it says behing: withingit push -f heroku origin
 git branch delete
 git checkout -b main, git branch -b main or master
+to find static files=>: withpython manage.py findstatic css => for css files
+python manage.py findstatic js => to find js files
+npm run relocate => gives django access to the index/css files within its build folder
+=>React compresses the project and output a production-ready version in a folder called build. So what we’re doing with this new script is having React create the production build. Once that’s done, we want to move it over into the Django project. So we delete the old production folder with rm (-rf here means; r: delete everything inside the folder, f: don’t prompt, which is useful for us if there is no production build currently there. Otherwise, the command would stop). From there, we move the folder over to the Django project.=> below:
+"/frontend/=> ../ back out and move it (mv) then remove(rm) the folder
+"script":"react-scripts build && rm -rf ../backend/build && mv -f build ../backend".
+
+=>When React creates its production build, it keeps all the CSS, JS, and other static files it needs to run in the build/static folder. You’ll also notice in our Django settings file we’re telling Django to look for static files in build/static (variable: STATICFILES_DIRS)
+
+A crucial thing to remember is that Django’s development server (manage.py runserver) handles static files for you. To serve files in production, there’s a bit more configuration.
+
+A quick note, if you’re trying to use Django’s Session Authentication with React by serving React under the same domain, do not use this method for development! You will bang your head against the wall creating the production build every time you make a change. Check out this article on using a reverse proxy to get Django and React under the same domain in development.
+
 
 #EXISTING REPOSITORY
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
@@ -20,7 +33,11 @@ python manage.py dbshell
    delete from django_migrations where id=361;
    react-meta-tags
 
+
+
+TODO
    Rental Template:
+   Rental App:
    -Remove 4-pics and give more info.-Take away Hover
   - btns=>show popup with pictures
   - add fedback on first page ( create clients-> link db for future submissions)

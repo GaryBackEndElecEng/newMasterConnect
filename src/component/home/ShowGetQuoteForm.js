@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 // import { useNavigate } from 'react-router-dom';
-import loadP5 from './scripts/loadP5.js';
-import { ContainerHomeFluid, } from '../../styled/Container.styled';
+// import loadP5 from './scripts/loadP5.js';
+// import { ContainerHomeFluid, } from '../../styled/Container.styled';
 import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Container, Stack, Paper, Typography, Grid, Fab, IconButton, } from '@mui/material';
+import { Container, Stack, Paper, Typography, Fab,  } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+// import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import RequestAQuote from './RequestAQuote';
 import { useTheme } from '@mui/material/styles';

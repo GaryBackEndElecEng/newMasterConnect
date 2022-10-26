@@ -1,10 +1,10 @@
-import React, { useEffect, useState,useMemo } from 'react';
-import { Box, Grid, Divider, Link, Paper, Container, Typography, Stack, Fab, Card, CardContent, CardMedia } from '@mui/material';
+import React, {  useState,useMemo } from 'react';
+import {  Typography,  } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import styled from 'styled-components';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import styles from "./home.module.css";
+// import styled from 'styled-components';
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+// import styles from "./home.module.css";
 
 
 const PhraseStyling = ({phrase}) => {

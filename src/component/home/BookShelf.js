@@ -1,10 +1,8 @@
 import React, { useEffect, useState,} from 'react';
 import styled from 'styled-components';
-import { GeneralContext } from '../../context/GeneralContextProvider';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import {  Box,  } from '@mui/material';
-import Styles from './home.module.css';
-import { useTheme } from '@mui/material/styles';
+
+// import Styles from './home.module.css';
+// import { useTheme } from '@mui/material/styles';
 import Book from './Book';
 
 

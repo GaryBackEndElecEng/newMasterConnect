@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Paper, Typography, Container, Stack, Grid } from '@mui/material';
+import {  Typography, Container, Stack } from '@mui/material';
 import styled from 'styled-components';
 // import styles from './blog.module.css';
 

@@ -3,11 +3,11 @@ import {useNavigate} from 'react-router-dom';
 // import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { Container, Fab } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
 const UploadCV = () => {
-    const theme = useTheme();
+   
     const navigate=useNavigate();
     const {setChangePage}=useContext(GeneralContext);
     const [loadingData, setLoadingData ] =useState(false);

@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Stack, Container, Paper, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
+import React, {  useMemo, useState } from 'react';
+import {  Paper, Typography, Grid, } from '@mui/material';
+// import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import styles from './consult.module.css';
-import styled from 'styled-components';
-import ParticularsPaidTotals from '../account/ParticularsPaidTotals';
+// import styles from './consult.module.css';
+// import styled from 'styled-components';
+
 
 const AmountOneTimeMonthly = ({ usersInvoice }) => {
     const theme = useTheme();

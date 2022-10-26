@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+
 import styled from 'styled-components';
 
 const BookAnimate = styled.img`

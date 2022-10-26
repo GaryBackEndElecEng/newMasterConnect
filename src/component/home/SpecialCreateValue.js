@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
-import { Box, Grid, Divider, Link, Paper, Container, Typography, Stack, Fab, Card, CardContent, CardMedia } from '@mui/material';
+import {  Grid, Container, Typography} from '@mui/material';
 import SpecialCreatValueCard from './SpecialCreatValueCard';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import styles from "./home.module.css";
+// import styles from "./home.module.css";
 
 
 
@@ -109,7 +109,7 @@ const SpecialCreateValue = () => {
       bg={theme.palette.common.light}
       image={colorWorld}
     >
-      <Typography component="h1" variant="h3"
+      <Typography component="h1" variant="h3" key={`${Math.ceil(Math.random()*1000)}`}
         sx={{
           textAlign: "center", margin: "0.5rem auto", color: theme.palette.common.red
         }}>
@@ -118,7 +118,7 @@ const SpecialCreateValue = () => {
     <Grid container spacing={{ md: 2, xs: 0 }}
         sx={{ minHeight: "22vh", display: "flex", justifyContent: "center", alignItems: "flex-start", margin: "1rem auto", padding: "5px", maxHeight: "45vh", overflowY: "scroll" }}
       >
-          <SpecialCreatValueCard pointer={pointer}/>
+          <SpecialCreatValueCard pointer={pointer} key={`${Math.ceil(Math.random()*10000)}-${0}`}/>
 
       </Grid>
       {pointer && <PointerImg src={pointerImg} alt="www.master-connect.ca" />}

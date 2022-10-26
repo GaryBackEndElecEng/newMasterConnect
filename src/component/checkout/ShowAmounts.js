@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { GeneralContext } from '../../context/GeneralContextProvider';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+import React from 'react'
+
 import { useTheme } from '@mui/material/styles';
 import {  Stack, Container, Paper, Typography, Grid, Card, CardContent, CardMedia, Fab } from '@mui/material';
 import styles from './checkout.module.css';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import NorthIcon from '@mui/icons-material/North';
 import MonthlyArray from './MonthlyArray';

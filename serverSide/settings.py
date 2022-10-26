@@ -44,16 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework_simplejwt.token_blacklist', # adding this requires migrations
     'django.contrib.contenttypes',
+    "ckeditor",'ckeditor_uploader',
+    'django.contrib.staticfiles',
     'django.contrib.postgres',
     "dj_rest_auth",
     'django_filters',
-    "ckeditor",'ckeditor_uploader',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'corsheaders',
     'django.contrib.sessions',
-    'django.contrib.staticfiles',
     "api.apps.ApiConfig",
     "my_account",
     "blogPost.apps.BlogpostConfig",
@@ -71,6 +71,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -164,14 +165,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
@@ -231,8 +224,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "https://newmasterconnect.herokuapp.com",
-    "https://checkout.stripe.com"
+    "https://checkout.stripe.com",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000"
 ]
+CORS_URLS_REGEX =r"^.*$"
 
 
 CORS_ALLOW_METHODS = [
@@ -257,7 +253,7 @@ CORS_ALLOW_HEADERS = [
     'Access-Control-Allow-Origin',
 ]
 # CORS_ALLOW_CREDENTIALS: bool
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","https://checkout.stripe.com","http://127.0.0.1:3000","https://newmasterconnect.herokuapp.com",]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","https://checkout.stripe.com","http://127.0.0.1:3000","https://newmasterconnect.herokuapp.com","http://localhost:8000","http://127.0.0.1:8000"]
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME="X_CSRFToken"
 # ACCESS_CONTROL_ALLOW_HEADERS="*"
@@ -308,11 +304,17 @@ SITE_URL="https://newmasterconnect.herokuapp.com"
 #-----////////////// ---STATIC FILES ------/////////////#
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'build/static'),
-    os.path.join(BASE_DIR,'adminHome/static'),
+
+TEST_DIR= os.path.join(BASE_DIR, 'build',"static")
+
+STATICFILES_DIRS = [
+    BASE_DIR / "build" / "static" ,
+    BASE_DIR / "adminHome" / "static",
+    
     
 ]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 #-------////////// EMAIL ////////////--------#
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -337,11 +339,13 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = 'public-read'
 AWS_LOCATION='static'
 AWS_MEDIA_LOCATION = 'media'
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' # for media
 DEFAULT_FILE_STORAGE = 'serverSide.storages.MediaStore'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.ca-central-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+# STATIC_URL = '/static/'
+
 
 #--- FACEBOOK- GOOGLE-----//////////////////////
 SITE_ID = 1
@@ -380,4 +384,5 @@ CKEDITOR_CONFIGS = {
     },
 }
 import django_heroku
+# This is needed in heroku. It takes care of the static files!!
 django_heroku.settings(locals(),staticfiles=False)

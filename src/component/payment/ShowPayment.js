@@ -1,8 +1,8 @@
-import React, { useEffect, useContext, useState,useMemo } from 'react';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
+import React, { useEffect, useContext, useState, } from 'react';
+// import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Container, Grid, Stack, Typography } from '@mui/material';
-import styled from 'styled-components';
+import { Container, Grid, Typography } from '@mui/material';
+// import styled from 'styled-components';
 import styles from './payment.module.css';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 

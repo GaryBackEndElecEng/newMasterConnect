@@ -1,14 +1,9 @@
 import React, { useContext, useState,useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import {GeneralContext} from '../../context/GeneralContextProvider';
-import { useTheme } from '@mui/material/styles';
-import { Stack, Container, Paper, Typography, Grid, Card, CardContent, CardMedia, Fab, FormControl, FormLabel, ListItem, Button } from '@mui/material';
-import styles from './checkout.module.css';
+import { Stack, Container, Paper, Typography, Card, CardContent, CardMedia, Fab, ListItem } from '@mui/material';
 import styled from 'styled-components';
 import apiProtect from '../axios/apiProtect';
-import api from '../axios/api';
-import { CardElement, useElements, useStripe,CardExpiryElement,CardCvcElement } from "@stripe/react-stripe-js"
 import PaymentsIcon from '@mui/icons-material/Payments';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
@@ -23,8 +18,8 @@ padding:0.5rem;
 
 `;
 const CheckoutForm = () => {
-    const theme = useTheme();
-    const navigate=useNavigate();
+    // const theme = useTheme();
+    // const navigate=useNavigate();
     const { userAccount,user_id, setSentToServer,loggedIn } = useContext(TokenAccessContext);
     const {setChangePage,serverUrl,staticImage}=useContext(GeneralContext);
     const initializegetInvoice={loaded:false,data:{}};

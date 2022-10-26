@@ -2,7 +2,7 @@ import React, { useContext, useEffect,useState  } from 'react'
 // import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 // import { useTheme } from '@mui/material/styles';
 import Amount from './Amount';
 import ProductsAndServices from './ProductsAndServices';
@@ -18,12 +18,12 @@ import {useTheme} from '@mui/material/styles';
 
 const Consult = () => {
     const theme = useTheme();
-    const { usersProduct, usersService, setUser_id, user_id,usersInvoice,usersPostInvoice,usersExtraInvoice } = useContext(TokenAccessContext);
-    const { setTitle, setStyleName, setLoggedIn, loggedIn,setChangePage,staticImage } = useContext(GeneralContext);
+    const {  setUser_id, user_id,usersInvoice,usersPostInvoice,usersExtraInvoice } = useContext(TokenAccessContext);
+    const { setTitle, setStyleName, setLoggedIn, loggedIn,setChangePage, } = useContext(GeneralContext);
     const [invoicePaid, setInvoicePaid] = useState(false);
   const [postInvoicePaid, setPostInvoicePaid] = useState(false);
   const [extraInvoicePaid, setExtraInvoicePaid] = useState(false);
-    const { getProductList, getServiceList } = useContext(PriceContext);
+   
     const userID = user_id ? user_id : parseInt(localStorage.getItem("user_id"));
     const userLoggedIn = loggedIn ? loggedIn : JSON.parse(localStorage.getItem("loggedIn"));
     

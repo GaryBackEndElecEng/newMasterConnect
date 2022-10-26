@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Container, Stack, Paper, Typography, Grid, Fab,Avatar } from '@mui/material';
+import { Container, Stack,  Typography, Grid,  } from '@mui/material';
 import Styles from './home.module.css';
 import MsgArticlePopper from './MsgArticlePopper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';

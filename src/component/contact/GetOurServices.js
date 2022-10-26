@@ -29,7 +29,7 @@ const iconAllServiceArr=[{id:1,icon:<DesignServicesIcon />},{id:2,icon:<ManageHi
 useEffect(()=>{
     const getOurServices= async ()=>{
         try {
-          const res = await api.get();
+          const res = await api.get("/");
           const data= await res.data;
           // Adding icon to data array
           setMainService(data.filter(obj=>(obj.id===1))[0])

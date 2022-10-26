@@ -1,4 +1,4 @@
-import React,{useState,useContext,useEffect} from 'react';
+import React,{useState,useContext} from 'react';
 import Sketch from "react-p5";
 import TypeMConnect from './TypeMConnect';
 import TypeHelpConnect from './TypeHelpConnect';
@@ -17,7 +17,7 @@ const DrawNewerLogo = () => {
     const theme=useTheme();
     const [load1,setLoad1]=useState(false); //INNERCIRCLE-RED
     const [load2,setLoad2]=useState(false); //OUTER-GREEN
-    const {setLoad3,load3,changePage,fadeLogo}=useContext(GeneralContext); //REMOVES LOGO
+    const {setLoad3,changePage,fadeLogo}=useContext(GeneralContext); //REMOVES LOGO
     const stopP5Looping= changePage || fadeLogo ? JSON.parse(sessionStorage.getItem('load3')) : false;
     // fadeLogo timer is set at <Home/>
 

@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import styles from './utils.module.css';
+import React, { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+// import styles from './utils.module.css';
 import styled from 'styled-components';
-import { Box, Container, Fab, Grid, Paper, Stack, Typography } from '@mui/material';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import { Fab,Stack, Typography } from '@mui/material';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
@@ -28,7 +27,7 @@ const UserSignedInPurchaseBtn = () => {
     const location=useLocation();
     const page=location.pathname;
     const theme=useTheme();
-    const { getProductList,staticImage } = useContext(PriceContext);
+    const { getProductList} = useContext(PriceContext);
     const [productAdded,setProductAdded]=useState(false);
     //SetUsersProduct=> FROM MyAccount ( it recieves all user's products and service)
     const { usersProduct, setUsersProduct, setReducedProduct,user_id } = useContext(TokenAccessContext);

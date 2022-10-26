@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext, useRef,useMemo } from 'react';
-import { ContainerHomeFluid, } from '../../styled/Container.styled';
+import React, {  useState, useContext, useRef,} from 'react';
+// import { ContainerHomeFluid, } from '../../styled/Container.styled';
 import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import Styles from './home.module.css';

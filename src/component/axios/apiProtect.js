@@ -1,12 +1,10 @@
+//process.env.NODE_ENV==="PRODUCTION"=> WHEN BUILD IS COMPLETED points to newmasterconnect.herokuapp.com/api
+//process.env.NODE_ENV==="development"=> not using build points to http://localhost:8000
 import axios from 'axios';
 // import {useParams} from 'react-router-dom';
-
-// const HandleGetId=()=>{
-//     const {id}=useParams();
-//     return id
-// }
-// axios.defaults.baseURL =process.env.REACT_APP_API_URL || "http://localhost:8000/api";
-axios.defaults.baseURL =process.env.REACT_APP_API_URL || "http://localhost:8000/api";
+const defaultURL = (process.env.NODE_ENV==="production") ? process.env.REACT_APP_URL : "http://localhost:8000/api";
+axios.defaults.baseURL =defaultURL;
+// axios.defaults.baseURL ="http://localhost:8000/api";
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.xsrfHeaderName = 'accept';
@@ -16,13 +14,13 @@ axios.defaults.xsrfHeaderName = 'origin';
 axios.defaults.xsrfHeaderName = 'dnt';
 axios.defaults.xsrfHeaderName = 'user-agent';
 axios.defaults.xsrfHeaderName = 'authorization';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.xsrfHeaderName = 'Access-Control-Allow-Origin';
 
 const apiProtect = axios.create({
     // baseURL :"http://localhost:8000/api",
     timeout:10000,
     
-    alloworigin:process.env.REACT_APP_API_URL || "http://localhost:3000" || "http://localhost:8000/api",
     headers:{
         Authorization:localStorage.getItem('access_token') ? `Bearer ${localStorage.getItem('access_token')}` :null,
         'Content-Type':'application/json',

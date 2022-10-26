@@ -1,13 +1,13 @@
 import React, { useEffect, useContext, useState,useMemo } from 'react';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Container, Grid, Stack, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import apiProtect from '../axios/apiProtect';
-import api from '../axios/api';
+// import api from '../axios/api';
 import styled from 'styled-components';
 import styles from './payment.module.css';
 import Particulars from '../checkout/Particulars';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+// import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RegisterPage from '../RegisterPage';
 import GetRegisteredPages from '../utils/GetRegisterPages';
 import ShowPayment from './ShowPayment';

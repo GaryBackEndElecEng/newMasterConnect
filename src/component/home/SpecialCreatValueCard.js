@@ -38,8 +38,8 @@ const SpecialCreatValueCard = ({ pointer }) => {
     }
     return (
         <>
-            {getSpecials.loaded && getSpecials.data.map(obj => (
-                <Grid item xs={12} md={4} key={obj.id}
+            {getSpecials.loaded && getSpecials.data.map((obj,index) => (
+                <Grid item xs={12} md={4} key={`${obj.id}-${index}`}
                     sx={{
                         display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column",
                         margin: "1rem 0px"
@@ -74,8 +74,8 @@ const SpecialCreatValueCard = ({ pointer }) => {
 
 
                             <Typography component="h1" variant="h5" sx={{ textDecoration: "underline", textAlign: "center",color:theme.palette.common.teal }}>Product</Typography>
-                            {obj.products.map(obj => (
-                                <Card elevation={3} key={`${obj.id}-1`} sx={{ margin: "1rem auto" }}>
+                            {obj.products.map((obj,index) => (
+                                <Card elevation={3} key={`${obj.id}-1-${index}`} sx={{ margin: "1rem auto" }}>
                                     <CardMedia component={"img"} image={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca" height="200px" />
                                     <CardContent>
                                         <Stack direction={{ xs: "column" }} >
@@ -105,8 +105,8 @@ const SpecialCreatValueCard = ({ pointer }) => {
                          }}>
                                 Services
                             </Typography>
-                            {obj.services.map(obj => (
-                                <Stack direction={{ xs: "column" }} key={obj.id}>
+                            {obj.services.map((obj,index) => (
+                                <Stack direction={{ xs: "column" }} key={`${obj.id}-2-{index}`}>
                                     <Typography component="h1" variant="h6" sx={{color:"blue"}}>{obj.name}</Typography>
                                     <Typography component="h1" variant="body1">Type:{obj.priceCatelog.name}</Typography>
                                     <Typography component="h1" variant="body2">{obj.summary}</Typography>
@@ -119,8 +119,8 @@ const SpecialCreatValueCard = ({ pointer }) => {
                                 {separateWords(obj.desc)[0]} <br/>
                             </Typography>
                             <Typography component="h1" variant="body1">
-                            {separateList(obj.desc).splice(1,5).map(phrase=>(
-                                <ul key={`${phrase}-1`}>
+                            {separateList(obj.desc).splice(1,5).map((phrase,index)=>(
+                                <ul key={`${phrase}-3-${index}`}>
                                     <li>{phrase}</li>
                                 </ul>
                             ))}

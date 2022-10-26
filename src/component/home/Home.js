@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import {useLocation} from 'react-router-dom';
+// import {useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
@@ -10,7 +10,7 @@ import CoverPage from './CoverPage';
 import ThemeExampleSlideIn from './ThemeExampleSlideIn';
 import WeDo from './WeDo';
 import ShowGetQuoteForm from './ShowGetQuoteForm';
-import ViewHidArticles from './ViewHidArticles';
+// import ViewHidArticles from './ViewHidArticles';
 import MiddleBanner from './MiddleBanner'
 import CallBackRequest from '../about/CallBackRequest';
 import RegisterPage from '../RegisterPage';
@@ -21,6 +21,8 @@ import GetRegisterPages from '../utils/GetRegisterPages';
 import HomeHelmet from './HomeHelmet';
 import HomeHelmet2 from './HomeHelmet2';
 import id from 'date-fns/esm/locale/id/index.js';
+
+
 
 
 const ContainerHomeFluid = styled.div.attrs({ className: "ContainerHomeFluid" })`
@@ -62,12 +64,12 @@ margin-top:2.5rem;
 
 
 const Home = () => {
-    const location=useLocation();
+   
     const theme = useTheme();
     // const navigate = useNavigate();
     // let popUpRef=useRef();
-    const { setLoaded, load3, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed ,setChangePage,allCategory} = useContext(GeneralContext);
-    const {loggedIn,signout,signin}=useContext(TokenAccessContext);
+    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed ,setChangePage,allCategory} = useContext(GeneralContext);
+    const {signout,signin}=useContext(TokenAccessContext);
     
     const [window600, setWindow600] = useState(false);
     const [hideDisplay, setHideDisplay] = useState(false);
@@ -77,11 +79,8 @@ const Home = () => {
     const [generalInfoHelmet,setGeneralInfoHelmet]=useState({});
     const[turnOnWeDo,setTurnONWeDo]=useState(false);
     // const homeHeight = removeBlock ? 375 : null;
-    const bGColor = load3 ? theme.palette.home.transparent : theme.palette.home.background2;
-    const signOutTrue= signout && !loggedIn ? "none":"block";
-    const girlLaugh = `${staticImage}/girlLaugh.png`;
+   
     const homeBg2 = `${staticImage}/homeBg3.png`;
-    const grey = `${staticImage}/grey.png`;
     const getGeneralInfoHelmet= generalInfoHelmet ? generalInfoHelmet:null;
 
     const observers= new IntersectionObserver((entries)=>{

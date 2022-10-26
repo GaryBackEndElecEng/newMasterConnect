@@ -3,14 +3,14 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import Styles from './home.module.css';
 import styled from 'styled-components';
 import { useTheme } from '@mui/material/styles';
-import { Container, Stack, Avatar, Box, Paper, Typography, Grid, Link } from '@mui/material';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import { Container,  Box, Paper, Typography, Grid, } from '@mui/material';
+// import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import StorageIcon from '@mui/icons-material/Storage';
-import PaymentIcon from '@mui/icons-material/Payment';
+// import StorageIcon from '@mui/icons-material/Storage';
+// import PaymentIcon from '@mui/icons-material/Payment';
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
-import RssFeedIcon from '@mui/icons-material/RssFeed';
+// import RssFeedIcon from '@mui/icons-material/RssFeed';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import AssistantDirectionIcon from '@mui/icons-material/AssistantDirection';
@@ -18,31 +18,7 @@ import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import api from '../axios/api';
 import WeDoSubComp from './WeDoSubComp';
 
-const SliderBox = styled(Box).attrs({ className: "sliderBox" })`
-display:${({ display }) => (display === true ? "flex" : 'none')};
-position:absolute;
-top:130%;
-left:0%;
-justify-content:flex-start;
-align-items:center;
-flex-direction:column;
-width:100%;
-height:300px;
-transform:scale(0);
-opacity:0;
-overflow-y:hidden;
-transform:translateX(0%);
-transition: transform 1s ease-in-out;
-animation: slider ${({maxTime})=>maxTime}s ease-in;
-@keyframes slider {
-    from {transform:scale(0);opacity:0;
-    }
-    50%{transform:scale(1);opacity:1;
-    }
-    to{opacity:0;
-    }
-}
-`;
+
 
 const ContainerDisplay = styled(Container)`
 margin:1rem auto;
