@@ -140,3 +140,4 @@ cython_debug/
 node_modules
 npm-debug
 newmasterconnect/static
+serverSide/settings_local.py
