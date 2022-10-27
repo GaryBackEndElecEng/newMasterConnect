@@ -40,6 +40,9 @@ GIT!:
 git rm -r --cached node_modules
 git commit -am 'ignore node_modules'
 git commit -am 'ignore git'
+#ADDING A SINGLE FILE:
+git add .gitignore
+git commit -m "adding ignore to git"
 
 HEROKU RUNNING WEB LOCALLY: heroku local web -f Procfile.windows
 

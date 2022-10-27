@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG',"False") == "True"
 
-ALLOWED_HOSTS = ['http://localhost:8000','http://localhost:3000','localhost',"newmasterconnect.herokuapp.com","herokuapp.com","master-connect.ca"]
+ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","herokuapp.com","master-connect.ca"]
 
 
 # Application definition
@@ -72,7 +72,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -390,4 +390,4 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / "staticfiles"
 # This is needed in heroku. It takes care of the static files!!
 django_heroku.settings(locals(),staticfiles=False)
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
