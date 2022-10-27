@@ -43,8 +43,14 @@ git commit -am 'ignore git'
 #ADDING A SINGLE FILE:
 git add .gitignore
 git commit -m "adding ignore to git"
+scale up site:
+heroku ps:scale web=1 ( or web=2)
 
 HEROKU RUNNING WEB LOCALLY: heroku local web -f Procfile.windows
+Heroku:
+heroku addons:create heroku-postgresql:hobby-dev
+your own git branch:
+git push heroku (git repo/your branch):master
 
 #EXISTING REPOSITORY
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
