@@ -29,7 +29,7 @@ const GetRegisterPages = () => {
                 let obj = registerPage.data.filter(obj => (obj.page === pathName))[0]
                 if(obj){
                 setHits({ loaded: true, data: obj.pageCount })
-                }
+                }else{setHits({loaded:false})}
                 // console.log("obj.page", obj.page, "pathname", pathName)
             }
         }, 400);

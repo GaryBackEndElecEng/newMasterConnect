@@ -1,4 +1,4 @@
-import React, { useContext, useEffect,useMemo } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { GeneralContext } from '../context/GeneralContextProvider';
 import api from './axios/api';
@@ -10,14 +10,19 @@ const RegisterPage = () => {
     useEffect(()=>{
         const changePage = async ()=>{
           const params={"page":location.pathname}
-          try {
-            const res= await api.post('/pageCount/',params)
-            const obj=res.data
-            //sends back  "id","canceled(bool)","canceledCount(int)"
-            setRegisterPage({loaded:true,data:[...registerPage.data,obj]})
-          } catch (error) {
-            Promise.reject("server is down")
-          }
+          if(params.page){
+            try {
+              const res= await api.post('/pageCount/',params)
+              const obj=res.data
+              if(obj){
+              setRegisterPage({loaded:true,data:[...registerPage.data,obj]})
+              }else{
+                setRegisterPage({loaded:false})
+              }
+            } catch (error) {
+              console.error(error.message)
+            }
+        }
         }
         changePage();
       },[]);

@@ -391,5 +391,5 @@ STATICFILES_DIRS = [
 ]
 
 # This is needed in heroku. It takes care of the static files!!
-django_heroku.settings(locals(),staticfiles=True)
+# django_heroku.settings(locals(),staticfiles=True)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
