@@ -66,19 +66,20 @@ const SpecialCreateValue = () => {
   const { getPackages } = useContext(PriceContext);
   // const [getSpecials,setGetSpecials]=useState({loaded:false,data:[]});
   const [removeSpecial,setRemoveSpecial]=useState(false);
+  const [getSpecials, setGetSpecials] = useState({ loaded: false, data: [] });
   const pointerImg = `${staticImage}/pointer2.png`;
   const colorWorld = `${staticImage}/newColorWorld.png`;
   const getSpecial = special.loaded ? special.data : null;
-  const getpackages = getPackages.loaded ? getPackages.data : null;
+  const get_packages = getPackages.loaded ? getPackages.data : null;
 
 
   useEffect(()=>{
-    if(getpackages){
-      const filterSpecials=getpackages.filter(obj=>(obj.specialOffer===true));
-      // setGetSpecials({loaded:true,data:filterSpecials})
+    if(get_packages){
+      const filterSpecials=get_packages.filter(obj=>(obj.specialOffer===true));
+      setGetSpecials({ loaded: true, data: filterSpecials })
       if(filterSpecials.length===0) setRemoveSpecial(true)
     }
-  },[getpackages]);
+  },[get_packages]);
 
 
   const observer2 = new IntersectionObserver(entries => {
@@ -101,7 +102,7 @@ const SpecialCreateValue = () => {
  
   return (
     <>
-    { (!removeSpecial && getpackages) &&
+    { (!removeSpecial && get_packages) &&
     
     <SpecialContainer
       maxWidth={"xl"}
@@ -118,7 +119,7 @@ const SpecialCreateValue = () => {
     <Grid container spacing={{ md: 2, xs: 0 }}
         sx={{ minHeight: "22vh", display: "flex", justifyContent: "center", alignItems: "flex-start", margin: "1rem auto", padding: "5px", maxHeight: "45vh", overflowY: "scroll" }}
       >
-          <SpecialCreatValueCard pointer={pointer} key={`${Math.ceil(Math.random()*10000)}-${0}`}/>
+          <SpecialCreatValueCard pointer={pointer} getSpecials={getSpecials} key={`${Math.ceil(Math.random()*10000)}-${0}`}/>
 
       </Grid>
       {pointer && <PointerImg src={pointerImg} alt="www.master-connect.ca" />}

@@ -12,22 +12,14 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import DoneIcon from '@mui/icons-material/Done';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 
-const SpecialCreatValueCard = ({ pointer }) => {
+const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
     const navigate = useNavigate();
     const theme = useTheme();
     const { staticImage,setChangePage } = useContext(GeneralContext);
     const { getPackages } = useContext(PriceContext);
-    const [getSpecials, setGetSpecials] = useState({ loaded: false, data: [] });
 
-    const getpackages = getPackages.loaded ? getPackages.data : null;
+    // const get_packages = getPackages.loaded ? getPackages.data : null;
 
-    useEffect(() => {
-        if (getpackages) {
-            const filterSpecials = getpackages.filter(obj => (obj.specialOffer === true));
-            setGetSpecials({ loaded: true, data: filterSpecials })
-
-        }
-    }, [setGetSpecials, getpackages]);
 
     const handlePageChange=(e,link)=>{
         if(link.startsWith("https")){
