@@ -9,7 +9,7 @@ BuildNotes.txt
 
 # Distribution / packaging
 .Python
-build/
+build
 develop-eggs/
 dist/
 downloads/
@@ -139,3 +139,4 @@ dmypy.json
 cython_debug/
 node_modules
 npm-debug
+newmasterconnect/static
