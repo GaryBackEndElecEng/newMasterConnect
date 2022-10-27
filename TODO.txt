@@ -32,12 +32,14 @@ rm package-lock.json && rm -R node_modules
 Remove dist folder:
  https://Clear npm cache :
 npm cache clean --force
+#Now reinstall the modules
+then npm install
 To see which version are installed :
 npm ls webpack
 GIT!:
 git rm -r --cached node_modules
 git commit -am 'ignore node_modules'
-git commit -am 'ignore npm-debug'
+git commit -am 'ignore git'
 
 HEROKU RUNNING WEB LOCALLY: heroku local web -f Procfile.windows
 
