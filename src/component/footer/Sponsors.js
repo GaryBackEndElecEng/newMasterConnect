@@ -1,10 +1,9 @@
 import React, { useContext, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Grid, Divider, Link, Paper, Stack, Typography, Container, Card, CardContent, Button, CardMedia } from '@mui/material';
+import { Grid, Typography, Container, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import styled from 'styled-components';
-import styles from './footer.module.css';
+// import styles from './footer.module.css';
 
 const CustomContainer = styled(Container)`
 margin:0px;

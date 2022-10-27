@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
+// import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import {Container, Typography,  Stack} from '@mui/material';
@@ -57,14 +56,11 @@ animation: slideIn 2s ease-in;
 
 const CoverPage = () => {
     const theme=useTheme();
-    const navigate=useNavigate();
-    const { usersInvoice, userAccount, usersProduct, usersService, setUserAccount, setUsersService, setUsersProduct, setUsersInvoice, setUser_id, user_id, } = useContext(TokenAccessContext);
+    
     const {staticImage}=useContext(GeneralContext);
     const [activate,setActivate]=useState(false);
     const [activate1,setActivate1]=useState(false);
-    const coverImg2=`${staticImage}/checkout2.png`;
     const coverImg1=`${staticImage}/checkout1.png`;
-    const coverImg3=`${staticImage}/checkout4.png`;
     const coverEffect=`${staticImage}/checkout1Effect.png`;
     
     useEffect(()=>{

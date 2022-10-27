@@ -53,7 +53,6 @@ const ShowGetQuoteForm = () => {
     const innerW=window.innerWidth;
     const [open1, setOpen1] = useState(false);
     let showQuote=open1 ? "block":'none';
-    const animate= open1 ? "openQuote":"closeQuote";
     const shiftQuoteBtn=open1 ? "-100%":"0%";
     const shiftQuoteBtnY=open1 ? ((innerW>680 && innerW < 1200) ? "-100%" :(innerW>1200) ? "-10%":"8%"):"0%";
     const btnColor= open1 ? "primary":"info";

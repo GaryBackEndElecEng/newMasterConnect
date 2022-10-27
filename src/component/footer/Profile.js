@@ -1,8 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Grid, Divider, Link, Paper, Stack, Typography, Container, Avatar, Card, CardContent, CardActions, CardMedia, IconButton } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { ContainerFooterFluid } from '../../styled/Container.styled';
+import {  Stack, Typography, Container, Avatar, Card,  CardMedia, IconButton } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import CallMissedOutgoingIcon from '@mui/icons-material/CallMissedOutgoing';
 

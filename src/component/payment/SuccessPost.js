@@ -35,7 +35,7 @@ animation: showCover 2s ease-in-out;
 const SuccessPost = () => {
   
   const { postSession_id, staticImage, setTitle, setStyleName,setChangePage } = useContext(GeneralContext);
-  const { user_id, loggedIn, setUserAccount,usersPostInvoice,setUsersPostInvoice,setLoggedIn, userAccount, setUser_id } = useContext(TokenAccessContext);
+  const { user_id, loggedIn,usersPostInvoice,setUsersPostInvoice, userAccount, setUser_id } = useContext(TokenAccessContext);
   const getSession_id = postSession_id ? postSession_id : localStorage.getItem("postSession_id");
   const [message, setMessage] = useState(false);
   const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;

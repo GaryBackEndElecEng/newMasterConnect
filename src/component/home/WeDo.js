@@ -38,19 +38,7 @@ animation: growInOnStart 2.5s ease-in-out;
 }
 
 `;
-// const ContainerService = styled(Container)`
-// margin:1rem auto;
-// margin-bottom:3rem;
-// background-image"url(${({bg})=>bg});
-// background-size:100% 100%;
-// display:flex;
-// justify-content:center;
-// min-height:40vh;
-// align-items:center;
-// flex-direction:column;
 
-
-// `;
 
 
 const WeDo = () => {

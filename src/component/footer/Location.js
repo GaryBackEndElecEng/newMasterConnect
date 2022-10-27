@@ -1,16 +1,15 @@
 import React, { useContext,useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Grid, Divider, Link, Paper, Stack, Typography, Container, Avatar } from '@mui/material';
+import {  Divider, Stack, Typography, Container} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ContainerFooterFluid } from '../../styled/Container.styled';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 
 const Location = () => {
-    const {staticImage,generalInfo}=useContext(GeneralContext);
+    const {generalInfo}=useContext(GeneralContext);
     const getSiteArray= generalInfo.loaded ? generalInfo.data:null;
     const [sites,setSites]=useState({loaded:false,data:[]});
     const theme = useTheme();
-    const profilePic=`https://new-master.s3.ca-central-1.amazonaws.com/finalMe.png`
+    
     useEffect(()=>{
         if(getSiteArray){
             setSites({loaded:true,data:getSiteArray})

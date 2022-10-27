@@ -1,16 +1,13 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React, { useContext, useEffect, } from 'react'
+// import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
-import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab } from '@mui/material';
+// import { PriceContext } from '../../context/PriceContextProvider';
+import {  Paper, Typography, Grid, } from '@mui/material';
 import styles from './postAccount.module.css';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 const Particulars = () => {
-    const theme = useTheme();
-    const { setChangePage } = useContext(GeneralContext);
+    
     const { userAccount, setUserAccount } = useContext(TokenAccessContext);
     const getUserAccount = userAccount.loaded ? userAccount.data : JSON.parse(localStorage.getItem("userAccount"));
     useEffect(()=>{

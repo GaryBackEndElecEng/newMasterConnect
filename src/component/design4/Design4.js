@@ -1,14 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Card, CardMedia, Box, Stack, Image, Container, Grid, Typography, Paper, Button, Fab } from '@mui/material';
+import {  Box, Stack, Container, Grid, Typography, Paper, Button,  } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import ImgSlider from './ImgSlider';
 import Stars from './Stars'
 import { useTheme } from '@mui/material/styles';
-import Modal from '../utils/Modal';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
-import Shop2Icon from '@mui/icons-material/Shop2';
-import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ModalContainer from '../utils/ModalContainer';
@@ -19,7 +16,6 @@ import Design4Helmet from './Design4Helmet';
 
 let prevCount = 1;
 const bgflowers = "https://www.coolgreenandshady.com/wp-content/uploads/2020/04/124-GHM_PS-2016-2-1024x375.jpg"
-const bgflowers2 = "http://localhost:3000/images/wallPaperFlower.png"
 const bgPatterns = "http://localhost:3000/images/wallPaperPattern.png"
 
 const ContainerFlowersBgImage=styled.div.attrs({className:"containerFluidImage"})`

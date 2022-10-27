@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState, useMemo, useRef } from 'react'
+import React, { useContext, useEffect, } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab, Card, CardContent, CardActions, } from '@mui/material';
+import {  Stack, Container, Paper, Typography, Grid,  Card, } from '@mui/material';
 import styled from 'styled-components';
 // import SummaryDesc from './SummaryDesc';
 import apiProtect from '../axios/apiProtect';
@@ -31,9 +31,9 @@ align-items:center;
 `;
 const SumaryCost = () => {
     const theme = useTheme();
-    const { priceCatelog, setPriceCatelog, getServiceList, getServices } = useContext(PriceContext);
-    const { extraImages, staticImage, MyRef } = useContext(GeneralContext);
-    const { setUserAccount, user_id, loggedIn, setUsersPostService, usersPostService, usersPostInvoice, setUsersPostInvoice } = useContext(TokenAccessContext);
+    
+    const {  staticImage, } = useContext(GeneralContext);
+    const {  user_id, loggedIn, setUsersPostService, usersPostService, usersPostInvoice, setUsersPostInvoice } = useContext(TokenAccessContext);
     const getUsersPostInvoice = usersPostInvoice.loaded ? usersPostInvoice.data : null;
     const PaperImage = `${staticImage}/homeBg1.png`
 

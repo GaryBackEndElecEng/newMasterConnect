@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState, useMemo, useRef } from 'react'
+import React, { useContext, } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
-import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab, Card, CardContent,CardActions,} from '@mui/material';
-import styled from 'styled-components';
+import {  Stack, Container, Paper, Typography, Fab,} from '@mui/material';
+// import styled from 'styled-components';
 import PaymentsIcon from '@mui/icons-material/Payments';
-import apiProtect from '../axios/apiProtect';
+// import apiProtect from '../axios/apiProtect';
 
 
 const CheckOut = ({getUsersPostInvoice}) => {
-    const theme = useTheme();
+   
     const { user_id, } = useContext(TokenAccessContext);
     const {serverUrl} = useContext(GeneralContext);
    

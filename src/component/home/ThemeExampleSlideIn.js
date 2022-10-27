@@ -1,11 +1,9 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Styles from './home.module.css';
-import { Avatar, Box, Container, Grid, Fab, Paper, Typography, Card, CardMedia, CardContent } from '@mui/material';
+import {  Box, Container, Grid, Typography, Card, CardMedia, CardContent } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import styled from 'styled-components';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import CameraIcon from '@mui/icons-material/Camera';
@@ -13,7 +11,7 @@ import WallpaperIcon from '@mui/icons-material/Wallpaper';
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { theme } from '../../context/theme';
+
 
 const CustBox = styled(Box)`
 display:flex;

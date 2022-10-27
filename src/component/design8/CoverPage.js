@@ -2,7 +2,6 @@ import React, { useEffect, useContext, useState } from 'react';
 import {  Stack, Typography,  } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
-import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import styles from './design8.module.css';
 
@@ -77,17 +76,13 @@ margin-top:-50px;
 
 
 const CoverPage = () => {
-    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,opacity,setOpacity } = useContext(GeneralContext);
+    const {staticImage,opacity,setOpacity } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
-    const [summary, setSummary] = useState(false);
-    const [desc, setDesc] = useState(false);
-    const [keywords, setKeywords] = useState(false);
-    const [image, setimage] = useState(false);
-    const [OBJ, setOBJ] = useState(false);
     const climber=`${staticImage}/design8/climber.png`;
     const clouds=`${staticImage}/design8/clouds.png`;
     const mountainBg=`${staticImage}/design8/mountainBg.png`;
     const [transPos,setTransPos]=useState(0);
+    const [keywords,setKeywords]=useState(0);
     let ticking=false;
     let lastPos=0;
 
@@ -104,11 +99,8 @@ const CoverPage = () => {
             .filter(wd=>(wd !=="of"))
             .filter(wd=>(wd !=="are"))
             .filter(wd=>(wd !=="and"))
-            setSummary(obj.summary);
-            setDesc(obj.desc);
             setKeywords(kewds);
-            setimage(`${staticImage}/${obj.imageName}`);
-            setOBJ(obj)
+            
         }
         if(window.scrollY){
             window.scroll(0,0);

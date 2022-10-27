@@ -1,9 +1,7 @@
-import React, { useEffect, useContext, useState,useMemo } from 'react';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
+import React, { useEffect, useContext, } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Container, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Container, Paper, Stack, Typography } from '@mui/material';
 import styled from 'styled-components';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PolicyHelmet from './PolicyHelmet';
 
 const MainPrivacy = styled(Container)`

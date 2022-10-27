@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect,  } from 'react'
+
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab } from '@mui/material';
-import styles from './postAccount.module.css';
+import {  Stack, Container,} from '@mui/material';
+// import styles from './postAccount.module.css';
 import styled from 'styled-components';
 import Particulars from '../postAccount/Particulars';
 import Services from './Services';
@@ -28,8 +27,7 @@ box-shadow:1px 2px 13px 8px ${({ color }) => color};
 
 const PostAccount = () => {
     const theme = useTheme();
-    const { staticImage, setStyleName, setTitle, setChangePage } = useContext(GeneralContext);
-    const { userAccount, setUserAccount } = useContext(TokenAccessContext);
+    const { staticImage, setStyleName, setTitle, } = useContext(GeneralContext);
     const coverpage = `${staticImage}/homeBg3.png`;
 
 

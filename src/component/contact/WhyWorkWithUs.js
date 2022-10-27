@@ -1,16 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Box, Stack, AppBar, Typography, Grid, Container, Paper } from '@mui/material';
-import { ContainerHomeFluid } from '../../styled/Container.styled';
+import {  Typography, Grid, Container, Paper } from '@mui/material';
 import Styles from './contact.module.css';
-import ScaleIcon from '@mui/icons-material/Scale';
-import WebhookIcon from '@mui/icons-material/Webhook';
-import CloudSyncIcon from '@mui/icons-material/CloudSync';
-import StorageIcon from '@mui/icons-material/Storage';
-import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
-import DnsIcon from '@mui/icons-material/Dns';
 //This doesnt return is stores array in getServiceArray
 import GetOurServices from './GetOurServices'; 
 
@@ -31,7 +24,7 @@ margin-bottom:2rem;
 `;
 const WhyWorkWithUs = () => {
     const theme = useTheme();
-    const { staticImage,getServiceArray,loaded,whyWorkWithUs} = useContext(GeneralContext);
+    const { staticImage,whyWorkWithUs} = useContext(GeneralContext);
     const bgWork=`${staticImage}/work.png`;
     const white=`${staticImage}/white.png`;
     //THIS GETS THE ARRAY FROM THE SERVER

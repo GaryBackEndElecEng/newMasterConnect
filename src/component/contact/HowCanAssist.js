@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Box, Stack, AppBar, Typography, Grid, Container, Paper,Fab } from '@mui/material';
+import {  Typography,Container, Paper, } from '@mui/material';
 import Styles from './contact.module.css';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
@@ -28,8 +28,7 @@ margin-top:-50px;
 `;
 const HowCanAssist = () => {
     const theme = useTheme();
-  const navigate = useNavigate();
-  const { staticImage, removeApp, setRemoveApp,} = useContext(GeneralContext);
+ 
   return (
     <HowcanAssisistContainer bg={theme.palette.common.background} className={`container-fluid `}>
           <Paper elevation={10} component="div" className={Styles.helpYouContainer}

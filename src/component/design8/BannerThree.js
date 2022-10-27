@@ -25,7 +25,7 @@ flex-direction:center;
 
 const BannerThree = () => {
     const theme = useTheme();
-    const { success, opacity, staticImage } = useContext(GeneralContext);
+    const {  staticImage } = useContext(GeneralContext);
     const extraImg = ` ${staticImage}/design8/successPic.png`;
     
 

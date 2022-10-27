@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState, useMemo, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState, } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab, Card, CardContent, Avatar, CardMedia, CardActions, IconButton } from '@mui/material';
-import styles from './postAccount.module.css';
+import { Container,  Typography, Grid, Fab, Card, CardContent,  CardMedia, CardActions, IconButton } from '@mui/material';
+// import styles from './postAccount.module.css';
 import styled from 'styled-components';
 import SummaryDesc from './SummaryDesc';
 import AddIcon from '@mui/icons-material/Add';
@@ -34,22 +33,13 @@ align-items:center;
 const Services = () => {
     const theme = useTheme();
     // const serviceRef = useRef();
-    const { priceCatelog, postService,getServices} = useContext(PriceContext);
-    const { extraImages,staticImage,MyRef } = useContext(GeneralContext);
-    const {setUserAccount,usersPostService,setUsersPostService,setUsersService,usersService,setUsersPostInvoice}=useContext(TokenAccessContext);
+    const {  postService,getServices} = useContext(PriceContext);
+    const { extraImages,staticImage, } = useContext(GeneralContext);
+    const {setUserAccount,usersPostService,setUsersPostService,setUsersPostInvoice}=useContext(TokenAccessContext);
     const {user_id,loggedIn}=useContext(TokenAccessContext);
-    const getPriceCatelog = priceCatelog.loaded ? priceCatelog.data : null;
-    const [preServices, setPreServices] = useState({ loaded: false, data: [] });//id:4
-    const [migration, setMigration] = useState({ loaded: false, data: [] });//id6
-    const [userAccountCreation, setUserAccountCreation] = useState({ loaded: false, data: [] });//id:5
-    const [publish, setPublish] = useState({ loaded: false, data: [] });//id:7
-    const [SEO, setSEO] = useState({ loaded: false, data: [] });//ID:9
-    const [storage, setStorage] = useState({ loaded: false, data: [] });//id:11
     const [RemainderSvc, setRemainderSvc] = useState({ loaded: false, data: [] });
-    const [revealObj, setRevealObj] = useState(false);
     const [targetEle,setTargetEle]=useState({loaded:false,id:0});
     const image = extraImages.loaded ? extraImages.data[1].image : null;
-    const allServiceList = getServices.loaded ? getServices.data :null;
     const getRemainderSvc=localStorage.getItem("remainderSvc") ? JSON.parse(localStorage.getItem("remainderSvc")):(postService.loaded ? postService.data :false);
 
 

@@ -1,7 +1,7 @@
-import React, { useRef,useState,useContext} from 'react';
-import styles from './postAccount.module.css';
+import React, {useContext} from 'react';
+// import styles from './postAccount.module.css';
 import styled from 'styled-components';
-import { Box, Card, CardActions, CardContent, CardMedia, Container, Fab, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import { Container, Paper, Stack, Typography } from '@mui/material';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 import {useTheme} from '@mui/material/styles';
 

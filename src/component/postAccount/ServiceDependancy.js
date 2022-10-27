@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState,  } from 'react';
+
 import { PriceContext } from '../../context/PriceContextProvider';
 import { Stack, Typography, Fab, Paper, } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';

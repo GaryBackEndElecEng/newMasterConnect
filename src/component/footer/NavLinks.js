@@ -1,11 +1,8 @@
 import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Grid, Divider, Link, Paper, Stack, Typography, Container, Button, IconButton, Avatar } from '@mui/material';
+import { Grid, Paper, Typography, IconButton, } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import Styles from './footer.module.css';
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 
 
@@ -14,9 +11,8 @@ const NavLinks = () => {
     const theme = useTheme();
     const MyRef = useRef();
     const navigate = useNavigate();
-    const { setChangePage, footerLinks,staticImage } = useContext(GeneralContext);
+    const { setChangePage, footerLinks, } = useContext(GeneralContext);
     const getFooterLinks=footerLinks ? footerLinks:null;
-    const pointer=`${staticImage}/pointer`;
 
     
     const handleLink = (e, link) => {

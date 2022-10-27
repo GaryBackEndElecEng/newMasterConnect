@@ -1,6 +1,6 @@
 import React from 'react'
 import {LogoSpan} from '../../styled/Div.styled';
-import {Stack,Box} from '@mui/material';
+import {Stack,} from '@mui/material';
 import {useTheme} from '@mui/material/styles' ;
 
 const TypeMConnect = ({load1,fontSize}) => {

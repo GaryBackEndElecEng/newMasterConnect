@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect,useRef } from 'react';
-import { Stack, Grid, Typography,  Fab, Container, Paper } from '@mui/material';
+import React, { useState, useContext, useEffect } from 'react';
+import { Stack, Grid, Container, } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import styles from './design3.module.css';
+// import styles from './design3.module.css';
 import ModalContainer from '../utils/ModalContainer';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import Titlebar from './Titlebar'
@@ -203,11 +203,10 @@ background-size:100% 100%;
 
 
 const Design3 = () => {
-    const MyRef=useRef();
     const {getProductList}=useContext(PriceContext);
     const { setTitle, setStyleName,staticImage, workArr,setChangePage } = useContext(GeneralContext);
     const [moonWalk, setMoonWalk] = useState('none');
-    const [showPara, setShowPara] = useState('none'); const [openModal, setOpenModal] = useState();
+    const [showPara, setShowPara] = useState('none'); 
     const [showPurcahseBtn,setShowPurchaseBtn]=useState(false);
     const [startStatement,setStartStatement]=useState(false);
     const [startMoon,setStartMoon]=useState(false);

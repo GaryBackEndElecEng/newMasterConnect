@@ -1,14 +1,11 @@
 import React, {  useState,useMemo } from 'react';
 import {  Typography,  } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-// import styled from 'styled-components';
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-// import styles from "./home.module.css";
+
+
 
 
 const PhraseStyling = ({phrase}) => {
-    const theme=useTheme();
+    
     
     const [Period,setPeriod]=useState({index:[],phrase:[]});
     const [Arr,setArr]=useState([]);

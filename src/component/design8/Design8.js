@@ -1,14 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Card, CardMedia, Box, Stack, Image, Container, Grid, Typography, Paper, Button, Fab } from '@mui/material';
+import { Stack, Container,} from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
-import { useTheme } from '@mui/material/styles';
-import Modal from '../utils/Modal';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
-import Shop2Icon from '@mui/icons-material/Shop2';
-import CloseIcon from '@mui/icons-material/Close';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ModalContainer from '../utils/ModalContainer';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
@@ -40,7 +34,7 @@ margin-top:-50px;
 
 
 const Design8 = () => {
-    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage } = useContext(GeneralContext);
+    const { setTitle, setStyleName,setChangePage,staticImage } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
     const [summary, setSummary] = useState(false);
     const [desc, setDesc] = useState(false);
@@ -48,7 +42,11 @@ const Design8 = () => {
     const [image, setimage] = useState(false);
     const [OBJ, setOBJ] = useState(false);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
-    
+    useEffect(()=>{
+      setTitle("Success");
+      setStyleName("Success Page here");
+      setChangePage(false);
+    },[]);
     
 
     useEffect(()=>{

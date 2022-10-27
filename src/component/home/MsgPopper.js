@@ -42,7 +42,7 @@ padding: auto 0.75rem;
 const MsgPopper = ({ obj }) => {
     const navigate = useNavigate();
     let popUpRef = useRef();
-    const { staticImage, setFadeLogo, setChangePage } = useContext(GeneralContext);
+    const { staticImage, setChangePage } = useContext(GeneralContext);
     const moon = `${staticImage}/images/moon.png`;
     const design=`${staticImage}/images/design.png`;
 

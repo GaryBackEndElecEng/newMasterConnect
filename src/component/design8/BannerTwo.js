@@ -1,7 +1,7 @@
-import React, { useEffect, useContext, useState, useRef } from 'react';
-import { Card, CardMedia, Box, Stack, Image, Container, Grid, Typography, Paper, Button, Fab } from '@mui/material';
+import React, {  useContext,} from 'react';
+import { Card, CardMedia, Stack, Container, Grid, Typography, Fab } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
@@ -35,7 +35,7 @@ const BannerTwo = () => {
     const array = [{ id: 0, card: "card one", title: " Services", content: " Express your services",image:service }, { id: 1, card: "card two", title: " Your Products", content: " Express your Products",image:service2 }, { id: 2, card: "card three", title: " Your Specials or extras", content: " Express your Specials here",image:service3 },]
     const theme = useTheme();
     const mountainBg = `${staticImage}/design8/mountainBg.png`;
-    const extraImg =` ${staticImage}/design8/successPic.png`;
+    // const extraImg =` ${staticImage}/design8/successPic.png`;
     
     return (
         <MainContainer bg={mountainBg}>

@@ -52,7 +52,6 @@ const MiddleBanner = ({bg}) => {
     const MyRef2=useRef();
     const [makeAppear,setMakeAppear]=useState(false);
     const { staticImage } = useContext(GeneralContext);
-    const bgImage = `${staticImage}/middlebannerWallPaper.png`;
     const beautyGirl = `${staticImage}/beautyGirl.png`;
     
     const observer = new IntersectionObserver(entries=>{

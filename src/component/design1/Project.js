@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Routes, Route } from 'react-router-dom';
-import { Box, Container, Stack, Grid, Typography, Fab, Paper, CardMedia, Button } from '@mui/material';
-import { GeneralContext } from '../../context/GeneralContextProvider.js';
+import React from 'react'
+
+import { Box, Stack, Grid, Typography, Fab, Paper, CardMedia, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+
 const array =[
     {id:0,title:"Service1",content:"This describes the services, provided by the establishment?"},
     {id:1,title:"Service2",content:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa repellat explicabo nobis placeat molestias possimus tenetur facere similique quaerat consectetur?"},

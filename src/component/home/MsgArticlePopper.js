@@ -55,7 +55,7 @@ padding: auto 0.5rem;
 const MsgArticlePopper = ({ obj }) => {
     const theme = useTheme();
     let popUpRef = useRef();
-    const { staticImage, setChangePage } = useContext(GeneralContext);
+    const { staticImage } = useContext(GeneralContext);
     const article = `${staticImage}/article.png`;
 
     const handlePopper = (e, obj) => {

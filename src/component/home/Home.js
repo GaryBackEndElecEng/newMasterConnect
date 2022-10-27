@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext, } from 'react';
 // import {useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
-import { Container, Stack, Typography, Fab, Box, Paper } from '@mui/material';
+import { Container, Stack, Typography, Fab, Paper } from '@mui/material';
 import Styles from './home.module.css';
 import { useTheme } from '@mui/material/styles';
 import CoverPage from './CoverPage';
@@ -20,7 +20,7 @@ import ArticleBanner from './ArticleBanner';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import HomeHelmet from './HomeHelmet';
 import HomeHelmet2 from './HomeHelmet2';
-import id from 'date-fns/esm/locale/id/index.js';
+// import id from 'date-fns/esm/locale/id/index.js';
 
 
 

@@ -74,7 +74,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "corsheaders.middleware.CorsPostCsrfMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -301,22 +301,13 @@ STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_TEST_KEY")
 STRIPE_PUBLIC_KEY = "pk_test_51LhEO0DeW5nEzo25iVgmGlWUD9RmC3Eh32h9ALgT9OScLfYIiAzelvyKQNS6lxbZP36HiI4pzPDKpjp1QeAoz4I300dLnItvBl"
 STRIPE_SECRET_KEY = "sk_test_51LhEO0DeW5nEzo25yBzcZXGZdlENrlRMCW43yb5Wl7cJ0c2ZhTEb50eDit4LZkcThZretAESPyci0HjBS8VZBbTL00vOmGxCiW"
 # STRIPE_SECRET_KEY = "whsec_C4lZl04E6ErVep2QhBzvVqxx2aYsYxjP"
-SITE_URL="https://newmasterconnect.herokuapp.com"
+# SITE_URL="https://newmasterconnect.herokuapp.com"
 #--////////////--------------STRIPE--------------------////////////////////////#
 
 #-----////////////// ---STATIC FILES ------/////////////#
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
-TEST_DIR= os.path.join(BASE_DIR, 'build',"static")
 
-STATICFILES_DIRS = [
-    BASE_DIR / "build" / "static" ,
-    BASE_DIR / "adminHome" / "static",
-    
-    
-]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = BASE_DIR / "staticfiles"
 
 #-------////////// EMAIL ////////////--------#
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -329,25 +320,25 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_PASSWORD=os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER=os.environ.get('EMAIL_HOST_USER')
 #----///////AWS////--------------#
-AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID_CONNECT')
-AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY_CONNECT')
-AWS_USER=os.environ.get('MASTER-CONNECT-USER')
-AWS_STORAGE_BUCKET_NAME='new-master'
-AWS_STORAGE_BUCKET_CNAME = 'static.master-connect.com'
-AWS_S3_REGION_NAME='ca-central-1'
-S3_USE_SIGV4 = True
-AWS_S3_SIGNATURE_VERSION = "s3v4" 
-AWS_S3_ADDRESSING_STYLE = "path"
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = 'public-read'
-AWS_LOCATION='static'
-AWS_MEDIA_LOCATION = 'media'
-DEFAULT_FILE_STORAGE = 'serverSide.storages.MediaStore'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.ca-central-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-# STATIC_URL = '/static/'
+# AWS_ACCESS_KEY_ID=os.environ.get('AWS_ACCESS_KEY_ID_CONNECT')
+# AWS_SECRET_ACCESS_KEY=os.environ.get('AWS_SECRET_ACCESS_KEY_CONNECT')
+# AWS_USER=os.environ.get('MASTER-CONNECT-USER')
+# AWS_STORAGE_BUCKET_NAME='new-master'
+# AWS_STORAGE_BUCKET_CNAME = 'static.master-connect.com'
+# AWS_S3_REGION_NAME='ca-central-1'
+# S3_USE_SIGV4 = True
+# AWS_S3_SIGNATURE_VERSION = "s3v4" 
+# AWS_S3_ADDRESSING_STYLE = "path"
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = 'public-read'
+# AWS_LOCATION='static'
+# AWS_MEDIA_LOCATION = 'media'
+# DEFAULT_FILE_STORAGE = 'serverSide.storages.MediaStore'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.ca-central-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+
 
 
 #--- FACEBOOK- GOOGLE-----//////////////////////
@@ -386,6 +377,20 @@ CKEDITOR_CONFIGS = {
         'width': 900,
     },
 }
+STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+
+TEST_DIR= os.path.join(BASE_DIR, 'build',"static")
+
+STATICFILES_DIRS = [
+    BASE_DIR / "build" / "static" ,
+    BASE_DIR / "adminHome" / "static",
+    
+    
+]
+
 import django_heroku
 # This is needed in heroku. It takes care of the static files!!
 # django_heroku.settings(locals(),staticfiles=False)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"

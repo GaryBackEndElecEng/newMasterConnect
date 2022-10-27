@@ -2,10 +2,8 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
-import { useTheme } from '@mui/material/styles';
-import { Box, Stack, AppBar, Typography, Grid, Container, Paper, FormControl, CheckBox, InputLabel, FormHelperText, Input, TextField, TextareaAutosize, FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia } from '@mui/material';
-import styled from 'styled-components';
-import styles from './signin.module.css';
+import {  Typography,  Container, Card, CardContent, Fab, CardMedia } from '@mui/material';
+
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import apiProtect from '../axios/apiProtect';
 import GetRegisterPages from '../utils/GetRegisterPages';

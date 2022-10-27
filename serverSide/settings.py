@@ -338,13 +338,13 @@ AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_S3_ADDRESSING_STYLE = "path"
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = 'public-read'
-AWS_LOCATION='static'
+# AWS_LOCATION='static'
 AWS_MEDIA_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'serverSide.storages.MediaStore'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.ca-central-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
 # STATIC_URL = '/static/'
 
 
@@ -385,5 +385,7 @@ CKEDITOR_CONFIGS = {
     },
 }
 import django_heroku
+STATIC_URL = '/static/'
 # This is needed in heroku. It takes care of the static files!!
 django_heroku.settings(locals(),staticfiles=False)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"

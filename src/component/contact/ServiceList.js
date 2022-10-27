@@ -1,11 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Box, Stack, AppBar, Typography, Grid, Container, Paper } from '@mui/material';
-import { ContainerHomeFluid } from '../../styled/Container.styled';
-import Styles from './contact.module.css';
+import {  Typography, Grid, Container, Paper } from '@mui/material';
+
 
 
 const SpecialContainer=styled(Container)`
@@ -18,7 +15,6 @@ animation:showContainer 1.5s ease-in-out;
 
 
 const ServiceList = ({ourServices}) => {
-  const {loaded}=useContext(GeneralContext);
   const arrContent2=ourServices.loaded ? ourServices.data:null;
  
   return (

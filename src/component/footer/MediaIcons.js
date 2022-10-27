@@ -1,6 +1,5 @@
 import React, {useContext,useMemo,useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import { Box, Grid, Divider, Link, Paper, Stack, Typography, IconButton } from '@mui/material';
+import { Link, Stack, } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ContainerFooterFluid } from '../../styled/Container.styled';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -12,7 +11,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 const MediaIcons = () => {
     const theme=useTheme();
-    const {staticImage,generalInfo}=useContext(GeneralContext);
+    const {generalInfo}=useContext(GeneralContext);
     const getSiteArray= generalInfo.loaded ? generalInfo.data.siteArray:null;
     const [sites,setSites]=useState({loaded:false,data:[]});
     useMemo(()=>{

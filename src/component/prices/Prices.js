@@ -1,21 +1,15 @@
 import React, { useContext, useEffect,useState } from 'react';
 import {useLocation}from 'react-router-dom';
-import styles from './price.module.css';
 import styled from 'styled-components';
-import { Box, Container, Grid, Paper, Stack, Typography } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {PriceContext} from '../../context/PriceContextProvider';
 import RegisterPage from '../RegisterPage';
 import { useTheme } from '@mui/material/styles';
-import api from '../axios/api';
-import FoundationIcon from '@mui/icons-material/Foundation';
-import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
-import CheckIcon from '@mui/icons-material/Check';
 import DesignPricing from './DesignPricing';
 import CoverPage from './CoverPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import PriceHelmet from './PriceHelmet';
-import { ArrowForwardSharp } from '@mui/icons-material';
+
 
 
 const PriceContainer = styled.div.attrs({ className: "container-fluid priceContainer" })`
@@ -46,10 +40,9 @@ animation: clearIn 1.5s ease-in-out;
 
 
 const Prices = () => {
-  const location=useLocation();
-  const theme = useTheme();
+ 
   const { staticImage, setTitle, setStyleName,} = useContext(GeneralContext);
-  const {baseServices,startingPrices,priceCatelog,getProductList}=useContext(PriceContext);
+  const {baseServices,startingPrices,getProductList}=useContext(PriceContext);
   const [keywords,setKeywords]=useState(null);
   const [summary,setSummary]=useState(null);
   const [desc,setDesc]=useState(null);

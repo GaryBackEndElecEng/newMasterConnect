@@ -1,17 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React from 'react'
 import { useTheme } from '@mui/material/styles';
-import styled from 'styled-components';
-import { Box, Stack, AppBar, Typography, Grid, Container, Paper } from '@mui/material';
-import { ContainerHomeFluid } from '../../styled/Container.styled';
-import Styles from './contact.module.css';
+import { Typography, Grid, Container, Paper } from '@mui/material';
 
 
 const contactInf = [{ id: Math.ceil(Math.random() * 10000), name: "email", value: "masterconnect919@gmail.com" }, { id: Math.ceil(Math.random() * 1000), name: "tel", value: "416-917-5768" }, { id: Math.ceil(Math.random() * 1000), name: "site", value: "www.master-connect.ca" }, { id: Math.ceil(Math.random() * 100), name: "site", value: "www.master-sale.ca" }]
 
 const ContactInfo = () => {
     const theme = useTheme();
-  const { staticImage } = useContext(GeneralContext);
   return (
     <Container maxWidth={"md"}>
     <Paper elevation={2}

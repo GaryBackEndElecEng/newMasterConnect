@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useState, useMemo, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState, } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
-import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab, Card, CardContent, Avatar, CardMedia, CardActions } from '@mui/material';
-import styles from './postAccount.module.css';
+import {  Stack, Container,  Typography, Grid, Fab, Card, CardContent, CardMedia, CardActions } from '@mui/material';
+// import styles from './postAccount.module.css';
 import styled from 'styled-components';
-import SummaryDesc from './SummaryDesc';
-import AddIcon from '@mui/icons-material/Add';
+
 import apiProtect from '../axios/apiProtect';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import ServiceDependancy from './ServiceDependancy';
@@ -35,9 +32,9 @@ border:1px solid red;
 
 const UserSelected = () => {
     // const serviceRef = useRef();
-    const {getServices,postService} = useContext(PriceContext);
-    const { extraImages,staticImage,MyRef } = useContext(GeneralContext);
-    const {setUsersService,usersService,setUserAccount,usersPostService,setUsersPostService,setUsersPostInvoice}=useContext(TokenAccessContext);
+    const {postService} = useContext(PriceContext);
+    const { extraImages, } = useContext(GeneralContext);
+    const {setUserAccount,usersPostService,setUsersPostService,setUsersPostInvoice}=useContext(TokenAccessContext);
     const {user_id,loggedIn}=useContext(TokenAccessContext);
     const [remaindingSvc,setRemaindingSvc]=useState({loaded:false,data:[]})
     const [getUsersService1,setGetUsersService1]=useState({loaded:false,data:[]})
