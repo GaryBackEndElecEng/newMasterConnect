@@ -302,19 +302,7 @@ STRIPE_SECRET_KEY = "sk_test_51LhEO0DeW5nEzo25yBzcZXGZdlENrlRMCW43yb5Wl7cJ0c2ZhT
 SITE_URL="https://newmasterconnect.herokuapp.com"
 #--////////////--------------STRIPE--------------------////////////////////////#
 
-#-----////////////// ---STATIC FILES ------/////////////#
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
-TEST_DIR= os.path.join(BASE_DIR, 'build',"static")
-
-STATICFILES_DIRS = [
-    BASE_DIR / "build" / "static" ,
-    BASE_DIR / "adminHome" / "static",
-    
-    
-]
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
 #-------////////// EMAIL ////////////--------#
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -385,7 +373,21 @@ CKEDITOR_CONFIGS = {
     },
 }
 import django_heroku
+
+#-----////////////// ---STATIC FILES ------/////////////#
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+
+TEST_DIR= os.path.join(BASE_DIR, 'build',"static")
+
+STATICFILES_DIRS = [
+    BASE_DIR / "build" / "static" ,
+    BASE_DIR / "adminHome" / "static",
+    
+    
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 # This is needed in heroku. It takes care of the static files!!
 django_heroku.settings(locals(),staticfiles=False)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
