@@ -1,5 +1,5 @@
 """
-Production Settings for Heroku
+Production Settings for Heroku insert 
 """
 
 import environ
@@ -9,6 +9,8 @@ import os
 from serverSide.settings.base import *
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Take environment variables from .env file if relates to server
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 env = environ.Env(
     # set casting, default value

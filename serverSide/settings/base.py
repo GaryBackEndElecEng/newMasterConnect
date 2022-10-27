@@ -19,7 +19,9 @@ from django.conf import settings
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.join(BASE_DIR,"..")
 
 
 # Quick-start development settings - unsuitable for production
@@ -303,7 +305,7 @@ SITE_URL="https://newmasterconnect.herokuapp.com"
 #--////////////--------------STRIPE--------------------////////////////////////#
 
 
-
+print("BASE_DIR",BASE_DIR)
 #-------////////// EMAIL ////////////--------#
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -382,12 +384,12 @@ STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 TEST_DIR= os.path.join(BASE_DIR, 'build',"static")
 
 STATICFILES_DIRS = [
-    BASE_DIR / "build" / "static" ,
-    BASE_DIR / "adminHome" / "static",
+    os.path.join(BASE_DIR, 'build',"static"),
+    os.path.join(BASE_DIR, 'adminHome',"static"),
     
     
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+
 # This is needed in heroku. It takes care of the static files!!
-django_heroku.settings(locals(),staticfiles=False)
+# django_heroku.settings(locals(),staticfiles=False)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
