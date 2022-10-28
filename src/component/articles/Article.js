@@ -147,7 +147,7 @@ const Article = () => {
         setShortTerm({ loaded: true, data: body.filter(obj => (obj.title === "short-term-rental"))[0] });
         setCognitive({ loaded: true, data: body.filter(obj => (obj.title === "Cognitive Easing"))[0] });
         setSixDegree({ loaded: true, data: body.filter(obj => (obj.title === "6-degrees of connecting"))[0] });
-        setInternet({ loaded: true, data: body.filter(obj => (obj.title === "Connecting To The Internet"))[0] });
+        setInternet({ loaded: true, data: body.filter(obj => (obj.title === "Connecting To the Internet"))[0] });
 
       } catch (error) {
         console.error(error.message)
