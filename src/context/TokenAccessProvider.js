@@ -139,29 +139,31 @@ useEffect(() => {
       if(data.product.length===0){
         setUsersProduct({loaded:false,data:[]});
       }else{setUsersProduct({loaded:true,data:data.product});}
-      if(data.postInvoice){
+      if(data?.postInvoice){
         // console.log(data.postInvoice)
         setUsersPostInvoice({loaded:true,data:data.postInvoice})
       }
-      if(data.invoice !==null){
+      if(data?.invoice !==null){
         
         setUsersInvoice({loaded:true,data:data.invoice})
       }else{setUsersInvoice({loaded:false,data:[]})}
-      if(data.postService !==null){
+      if(data?.postService !==null){
         setUsersPostService({loaded:true,data:data.postService})
       }
-      if(data.extraInvoice !==null){
+      if(data?.extraInvoice !==null){
         setUsersExtraInvoice({loaded:true,data:data.extraInvoice})
       }
       localStorage.setItem("userAccount",JSON.stringify(data));
-      setEmail(data.email);
-      setName(data.name);
-      setAddress(data.address);
-      setCell(data.cell);
-      setProvState(data.provState);
-      setCountry(data.country);
-      setPostal(data.postal);
-      setUserOptions({loaded:true,data:data.options})
+      setEmail(data?.email);
+      setName(data?.name);
+      setAddress(data?.address);
+      setCell(data?.cell);
+      setProvState(data?.provState);
+      setCountry(data?.country);
+      setPostal(data?.postal);
+      if(data?.options){
+      setUserOptions({loaded:true,data:data.options});
+      }
       
       // console.log(data)
     } catch (error) {

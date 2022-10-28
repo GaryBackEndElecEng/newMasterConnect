@@ -1,4 +1,4 @@
-import React,{useState,useRef, useEffect} from 'react';
+import React,{useState, useEffect} from 'react';
 import api from '../component/axios/api';
 
 export const PriceContext=React.createContext();
@@ -38,25 +38,45 @@ export const PriceContextProvider = (props) => {
                   //setGetBaseGeneralPrice=>product[],service[],postService{},extraService[]
                   setGetBaseGeneralPrice({loaded:true,data:body.filter(obj=>(obj.name ==="basePrice"))[0]});
                   //setGetBaseFeatureList=> empty
+                  if(body.filter(obj=>(obj.name==="baseFeature"))[0].price){
                   setGetBaseFeatureList({loaded:true,data:body.filter(obj=>(obj.id===2))[0].price});
-                  //setGetProductList
+                  }
+                  if(body.filter(obj=>(obj.name==="Products"))[0].product){
                   setGetProductList({loaded:true,data:body.filter(obj=>(obj.name==="Products"))[0].product});
-                  //setGetServiceList=>service[],postService[]
-                  setGetServiceList({loaded:true,data:body.filter(obj=>(obj.name==="Service"))[0].service});
-                  //setPostService
-                  setPostService({loaded:true,data:body.filter(obj=>(obj.name==="Post Service"))[0].postService});
-                  //setBasePrice=>product[],service[],postService[],extraService[]
-                  setBasePrice({loaded:true,data:body.filter(obj=>(obj.name==="basePrice"))[0]});
-                  setStartingPrices({loaded:true,data:body.filter(obj=>(obj.name==="baseServices_4"))[0].price});
-                  setGetExtraServices({loaded:true,data:body.filter(obj=>(obj.name==="extra Services"))[0].extraService});
-                  setDNS({loaded:true,data:body.filter(obj=>(obj.name==="DNS"))[0].service});
-                  setServiceImage({loaded:true,data:body.filter(obj=>(obj.name==="image"))[0].service});
-                  setUserAccountGroup({loaded:true,data:body.filter(obj=>(obj.name === "user Account"))[0].service});
-                  setUserAccountPostGroup({loaded:true,data:body.filter(obj=>(obj.name === "user Account"))[0].postService});
-                  setSEO({loaded:true,data:body.filter(obj=>(obj.name === "SEO"))[0].postService});
-
-                  localStorage.setItem("getServiceList2",JSON.stringify(body.filter(obj=>(obj.name==="Service"))[0].service));
                   localStorage.setItem("getProductList2",JSON.stringify(body.filter(obj=>(obj.name==="Products"))[0].product));
+                  }
+                  if(body.filter(obj=>(obj.name==="Service"))[0].service){
+                  setGetServiceList({loaded:true,data:body.filter(obj=>(obj.name==="Service"))[0].service});
+                  localStorage.setItem("getServiceList2",JSON.stringify(body.filter(obj=>(obj.name==="Service"))[0].service));
+                  }
+                  if(body.filter(obj=>(obj.name==="Post Service"))[0].postService){
+                  setPostService({loaded:true,data:body.filter(obj=>(obj.name==="Post Service"))[0].postService});
+                  }
+                  //setBasePrice=>product[],service[],postService[],extraService[]
+                  if(body.filter(obj=>(obj.name==="basePrice"))[0]){
+                  setBasePrice({loaded:true,data:body.filter(obj=>(obj.name==="basePrice"))[0]});
+                  }
+                  if(body.filter(obj=>(obj.name==="baseServices_4"))[0].price){
+                  setStartingPrices({loaded:true,data:body.filter(obj=>(obj.name==="baseServices_4"))[0].price});
+                  }
+                  if(body.filter(obj=>(obj.name==="extra Services"))[0].extraService){
+                  setGetExtraServices({loaded:true,data:body.filter(obj=>(obj.name==="extra Services"))[0].extraService});
+                  }
+                  if(body.filter(obj=>(obj.name==="DNS"))[0].service){
+                  setDNS({loaded:true,data:body.filter(obj=>(obj.name==="DNS"))[0].service});
+                  }
+                  if(body.filter(obj=>(obj.name==="image"))[0].service){
+                  setServiceImage({loaded:true,data:body.filter(obj=>(obj.name==="image"))[0].service});
+                  }
+                  if(body.filter(obj=>(obj.name === "user Account"))[0].service){
+                  setUserAccountGroup({loaded:true,data:body.filter(obj=>(obj.name === "user Account"))[0].service});
+                  }
+                  if(body.filter(obj=>(obj.name === "user Account"))[0].postService){
+                  setUserAccountPostGroup({loaded:true,data:body.filter(obj=>(obj.name === "user Account"))[0].postService});
+                  }
+                  if(body.filter(obj=>(obj.name === "SEO"))[0].postService){
+                  setSEO({loaded:true,data:body.filter(obj=>(obj.name === "SEO"))[0].postService});
+                  }
                 }
             } catch (error) {
                 console.error(error.message)
