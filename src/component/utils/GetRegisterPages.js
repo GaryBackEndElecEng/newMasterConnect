@@ -5,7 +5,7 @@ import api from '../axios/api';
 
 const GetRegisterPages = () => {
     const location = useLocation();
-    const pathName = location.pathname;
+    const pathName = location.pathname ? location.pathname : null;
     
     const { registerPage, setHits, setRegisterPage } = useContext(GeneralContext);
 
@@ -14,7 +14,9 @@ const GetRegisterPages = () => {
           try {
             const res = await api.get('/pageCountGet/');
             const body=res.data
+            if(body && body?.length>0){
             setRegisterPage({loaded:true,data:body})
+            }else{setRegisterPage({loaded:false})}
           } catch (error) {
             console.error(error.message)
           }
@@ -25,7 +27,7 @@ const GetRegisterPages = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            if (registerPage.loaded) {
+            if (registerPage?.loaded && registerPage?.data && pathName) {
                 let obj = registerPage.data.filter(obj => (obj.page === pathName))[0]
                 if(obj){
                 setHits({ loaded: true, data: obj.pageCount })
@@ -33,7 +35,7 @@ const GetRegisterPages = () => {
                 // console.log("obj.page", obj.page, "pathname", pathName)
             }
         }, 400);
-    }, [pathName,registerPage.loaded,registerPage.data]);
+    }, [pathName,registerPage.loaded,registerPage.data,setHits]);
 
 
     return (

@@ -8,8 +8,8 @@ const RegisterPage = () => {
     const location=useLocation();
     
     useEffect(()=>{
+      const params={"page":location.pathname}
         const changePage = async ()=>{
-          const params={"page":location.pathname}
           if(params.page){
             try {
               const res= await api.post('/pageCount/',params)
@@ -24,8 +24,10 @@ const RegisterPage = () => {
             }
         }
         }
+        if(location.pathname){
         changePage();
-      },[]);
+        }
+      },[location.pathname,setRegisterPage,registerPage.data]);
 
   return (
     <></>
