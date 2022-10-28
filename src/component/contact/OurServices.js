@@ -38,16 +38,18 @@ animation: moveAppear1 2s ease-in;
 
 const OurServices = () => {
     const theme=useTheme();
-    const {priceCatelog}=useContext(PriceContext);
     const{allCategory,removeApp}=useContext(GeneralContext);
     const [service,setService]=useState(null);
     const [showIcon, setShowIcon] = useState('none');
     
 
     useEffect(()=>{
-        const getData=allCategory.loaded ? allCategory.data.filter(obj=>(obj.id===1))[0].categories:null;
-            if(getData){
-              setService(getData[0]);
+        const getdataFunc = async ()=>{
+            try {
+                let getData= await allCategory.data.filter(obj=>(parseInt(obj.id)===1))[0].categories;
+                let getdata2=getData;
+            if(getdata2){
+              setService(getdata2[0]);
             }
             if(removeApp){
                 setTimeout(()=>{
@@ -55,6 +57,14 @@ const OurServices = () => {
                 },1500)
                 
             }
+            } catch (error) {
+                console.log("no array")
+            }
+        }
+        if(allCategory.loaded && allCategory?.data.length>0){
+            getdataFunc();
+        }
+        
       },[setService,allCategory.loaded,allCategory.data,removeApp]);
 
 

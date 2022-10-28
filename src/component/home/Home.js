@@ -108,7 +108,7 @@ const Home = () => {
     if(allCategory.loaded && allCategory?.data){
         getAllCats();
     }
-    },[allCategory.loaded,allCategory?.data])
+    },[allCategory.loaded,allCategory.data])
        
 
 

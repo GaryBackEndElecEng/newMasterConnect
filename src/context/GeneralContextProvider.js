@@ -160,7 +160,9 @@ export const GeneralContextProvider = (props) => {
       const getAllcategory= async()=>{
         try {
           const res= await api.get('/category/');
+          
           const body=res.data;
+          console.log("Allcategories",body)
           if(body && body?.length >0){
             setAllCategory({loaded:true,data:body});
             let getInfo=body.filter(obj=>(parseInt(obj.id)===9))[0].categoryGeneralInfo[0]
