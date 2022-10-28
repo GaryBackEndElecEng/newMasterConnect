@@ -30,6 +30,8 @@ from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from .util import sendQuoteEmail
 from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 from django.views import View
 from django.http import HttpResponse, HttpResponseNotFound
@@ -61,8 +63,10 @@ class MiscelaneousCapture(APIView):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+
 class PageCountPost(APIView):
     permission_classes=[AllowAny]
+    @csrf_exempt
     def post(self,request,format=None,**kwargs):
         try:
             data=self.request.data
@@ -133,6 +137,7 @@ class categoryList(APIView):
 
 class PostQuote(APIView):
     permission_classes=[AllowAny]
+    @csrf_exempt
     def post(self,request,format=None):
         serializer = RequestQuotePostSerializer(data=request.data)
         # print(serializer)
