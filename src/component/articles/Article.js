@@ -145,7 +145,7 @@ const Article = () => {
         SetConnecting({ loaded: true, data: body.filter(obj => (obj.title === "Connecting"))[0] });
         setStoreFront({ loaded: true, data: body.filter(obj => (obj.title === "Store-front"))[0] });
         setShortTerm({ loaded: true, data: body.filter(obj => (obj.title === "short-term-rental"))[0] });
-        setCognitive({ loaded: true, data: body.filter(obj => (obj.title === "cognitive"))[0] });
+        setCognitive({ loaded: true, data: body.filter(obj => (obj.title === "Cognitive Easing"))[0] });
         setSixDegree({ loaded: true, data: body.filter(obj => (obj.title === "6-degrees of connecting"))[0] });
         setInternet({ loaded: true, data: body.filter(obj => (obj.title === "Connecting To The Internet"))[0] });
 
