@@ -74,12 +74,22 @@ const SpecialCreateValue = () => {
 
 
   useEffect(()=>{
-    if(getPackages.loaded && getPackages?.data.length>0){
-      const filterSpecials=getPackages.data.filter(obj=>(JSON.parse(obj.specialOffer)===true));
-      if(filterSpecials){
-      setGetSpecials({ loaded: true, data: filterSpecials })
+    const getFilterAwait= async ()=>{
+    try {
+      const filterSpecials= await getPackages.data.filter(obj=>(JSON.parse(obj.specialOffer)===true));
+      const filterSpecials1=filterSpecials
+      if(filterSpecials1){
+      setGetSpecials({ loaded: true, data: filterSpecials1 })
       }else{setRemoveSpecial(true);setGetSpecials({loaded:false})}
+    } catch (error) {
+      setRemoveSpecial(true);setGetSpecials({loaded:false})
     }
+      
+  
+  }
+  if(getPackages.loaded && getPackages?.data.length>0){
+    getFilterAwait();
+  }
   },[getPackages.loaded,getPackages.data,setGetSpecials,setRemoveSpecial]);
 
 
