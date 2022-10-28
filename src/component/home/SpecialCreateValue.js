@@ -70,7 +70,7 @@ const SpecialCreateValue = () => {
   const pointerImg = `${staticImage}/pointer2.png`;
   const colorWorld = `${staticImage}/newColorWorld.png`;
   const getSpecial = special.loaded ? special.data : null;
-  const get_packages = getPackages.loaded ? getPackages.data : null;
+  // const get_packages = getPackages.loaded ? getPackages.data : null;
 
 
   useEffect(()=>{
@@ -80,7 +80,7 @@ const SpecialCreateValue = () => {
       setGetSpecials({ loaded: true, data: filterSpecials })
       }else{setRemoveSpecial(true);setGetSpecials({loaded:false})}
     }
-  },[get_packages,setGetSpecials,setRemoveSpecial]);
+  },[getPackages.loaded,getPackages.data,setGetSpecials,setRemoveSpecial]);
 
 
   const observer2 = new IntersectionObserver(entries => {
@@ -103,7 +103,7 @@ const SpecialCreateValue = () => {
  
   return (
     <>
-    { (!removeSpecial && get_packages) &&
+    { (!removeSpecial && getPackages?.data) &&
     
     <SpecialContainer
       maxWidth={"xl"}

@@ -103,10 +103,10 @@ export const PriceContextProvider = (props) => {
             try {
                 const res= await api.get('account/getPackages/');
                 const body=res.data;
-                if(body?.length >0){
+                if(body && body?.length >0){
                 setGetPackages({loaded:true,data:body})
                 localStorage.setItem("getPackages",JSON.stringify(body))
-                }
+                }else{setGetPackages({loaded:false})}
                 
             } catch (error) {
                 console.error(error.message)
