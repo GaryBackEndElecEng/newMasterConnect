@@ -83,8 +83,8 @@ setImage(priceBg)
   return (
     <PriceContainer >
       <PriceHelmet keywords={keywords} summary={summary} desc={desc} price={price} image={image}/>
-      <GetRegisterPages/>
-      <RegisterPage/>
+      {/* <GetRegisterPages/>
+      <RegisterPage/> */}
       <CoverPage/>
       <DesignPricing productList={getProductList}/>
     </PriceContainer>

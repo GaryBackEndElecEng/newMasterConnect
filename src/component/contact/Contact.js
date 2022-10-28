@@ -127,8 +127,8 @@ const Contact = () => {
 // console.log("removeText",removeText)
   return (
     <>
-    <RegisterPage/>
-    <GetRegisterPages/>
+    {/* <RegisterPage/>
+    <GetRegisterPages/> */}
     <ContactHelmet keywords={keywords} content={content} />
       {/* AUTOMATED WELCOME //HEADER */}
       {!removeApp ?

@@ -158,8 +158,8 @@ const Home = () => {
 
     return (
         <>
-        <RegisterPage/>
-<GetRegisterPages/>
+        {/* <RegisterPage/>
+<GetRegisterPages/> */}
 <HomeHelmet profileHelmet={profileHelmet} generalInfoHelmet={getGeneralInfoHelmet}/>
 <HomeHelmet2 generalInfoHelmet={getGeneralInfoHelmet}/>
         <ContainerHomeFluid style={{marginTop:{xs:"3rem",md:"0px"}}}>

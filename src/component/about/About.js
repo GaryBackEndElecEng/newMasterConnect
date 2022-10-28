@@ -114,8 +114,8 @@ useEffect(()=>{
   return (
     <ContainerAboutFluid>
       <AboutHelmet categories={allcatHelmet} getGeneralInfo={getGeneralInfo}/>
-      <RegisterPage/>
-      <GetRegisterPages/>
+      {/* <RegisterPage/>
+      <GetRegisterPages/> */}
       <ContainerAboutFront
         alpha={counter}
       >
