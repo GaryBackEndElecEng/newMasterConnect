@@ -2,7 +2,7 @@
 //process.env.NODE_ENV==="development"=> not using build points to http://localhost:8000
 import axios from 'axios';
 // import {useParams} from 'react-router-dom';
-const defaultURL = (process.env.NODE_ENV==="production") ? process.env.REACT_APP_URL : "http://localhost:8000/api";
+const defaultURL = (process.env.NODE_ENV==="production") ? "https://newmasterconnect.herokuapp.com/api" :  "http://localhost:8000/api";
 axios.defaults.baseURL =defaultURL;
 // axios.defaults.baseURL ="http://localhost:8000/api";
 axios.defaults.xsrfCookieName = 'csrftoken';
