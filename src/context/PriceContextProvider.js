@@ -33,29 +33,31 @@ export const PriceContextProvider = (props) => {
             try {
                 const res= await api.get('account/priceCatelog/');
                 const body=res.data;
-                setPriceCatelog({loaded:true,data:body})
-                //setGetBaseGeneralPrice=>product[],service[],postService{},extraService[]
-                setGetBaseGeneralPrice({loaded:true,data:body.filter(obj=>(obj.name ==="basePrice"))[0]});
-                //setGetBaseFeatureList=> empty
-                setGetBaseFeatureList({loaded:true,data:body.filter(obj=>(obj.id===2))[0].price});
-                //setGetProductList
-                setGetProductList({loaded:true,data:body.filter(obj=>(obj.name==="Products"))[0].product});
-                //setGetServiceList=>service[],postService[]
-                setGetServiceList({loaded:true,data:body.filter(obj=>(obj.name==="Service"))[0].service});
-                //setPostService
-                setPostService({loaded:true,data:body.filter(obj=>(obj.name==="Post Service"))[0].postService});
-                //setBasePrice=>product[],service[],postService[],extraService[]
-                setBasePrice({loaded:true,data:body.filter(obj=>(obj.name==="basePrice"))[0]});
-                setStartingPrices({loaded:true,data:body.filter(obj=>(obj.name==="baseServices_4"))[0].price});
-                setGetExtraServices({loaded:true,data:body.filter(obj=>(obj.name==="extra Services"))[0].extraService});
-                setDNS({loaded:true,data:body.filter(obj=>(obj.name==="DNS"))[0].service});
-                setServiceImage({loaded:true,data:body.filter(obj=>(obj.name==="image"))[0].service});
-                setUserAccountGroup({loaded:true,data:body.filter(obj=>(obj.name === "user Account"))[0].service});
-                setUserAccountPostGroup({loaded:true,data:body.filter(obj=>(obj.name === "user Account"))[0].postService});
-                setSEO({loaded:true,data:body.filter(obj=>(obj.name === "SEO"))[0].postService});
+                if(body && body?.length>0){
+                  setPriceCatelog({loaded:true,data:body})
+                  //setGetBaseGeneralPrice=>product[],service[],postService{},extraService[]
+                  setGetBaseGeneralPrice({loaded:true,data:body.filter(obj=>(obj.name ==="basePrice"))[0]});
+                  //setGetBaseFeatureList=> empty
+                  setGetBaseFeatureList({loaded:true,data:body.filter(obj=>(obj.id===2))[0].price});
+                  //setGetProductList
+                  setGetProductList({loaded:true,data:body.filter(obj=>(obj.name==="Products"))[0].product});
+                  //setGetServiceList=>service[],postService[]
+                  setGetServiceList({loaded:true,data:body.filter(obj=>(obj.name==="Service"))[0].service});
+                  //setPostService
+                  setPostService({loaded:true,data:body.filter(obj=>(obj.name==="Post Service"))[0].postService});
+                  //setBasePrice=>product[],service[],postService[],extraService[]
+                  setBasePrice({loaded:true,data:body.filter(obj=>(obj.name==="basePrice"))[0]});
+                  setStartingPrices({loaded:true,data:body.filter(obj=>(obj.name==="baseServices_4"))[0].price});
+                  setGetExtraServices({loaded:true,data:body.filter(obj=>(obj.name==="extra Services"))[0].extraService});
+                  setDNS({loaded:true,data:body.filter(obj=>(obj.name==="DNS"))[0].service});
+                  setServiceImage({loaded:true,data:body.filter(obj=>(obj.name==="image"))[0].service});
+                  setUserAccountGroup({loaded:true,data:body.filter(obj=>(obj.name === "user Account"))[0].service});
+                  setUserAccountPostGroup({loaded:true,data:body.filter(obj=>(obj.name === "user Account"))[0].postService});
+                  setSEO({loaded:true,data:body.filter(obj=>(obj.name === "SEO"))[0].postService});
 
-                localStorage.setItem("getServiceList2",JSON.stringify(body.filter(obj=>(obj.name==="Service"))[0].service));
-                localStorage.setItem("getProductList2",JSON.stringify(body.filter(obj=>(obj.name==="Products"))[0].product));
+                  localStorage.setItem("getServiceList2",JSON.stringify(body.filter(obj=>(obj.name==="Service"))[0].service));
+                  localStorage.setItem("getProductList2",JSON.stringify(body.filter(obj=>(obj.name==="Products"))[0].product));
+                }
             } catch (error) {
                 console.error(error.message)
                 
@@ -65,7 +67,7 @@ export const PriceContextProvider = (props) => {
     },[]);
 
     useEffect(()=>{
-      if(basePrice.loaded){
+      if(basePrice.loaded && basePrice?.data.length>0){
         let serviceArr=[],service2Arr=[],service3Arr=[],service4Arr=[];
         service4Arr=basePrice.data.service;
         service2Arr=basePrice.data.postService;
@@ -81,7 +83,7 @@ export const PriceContextProvider = (props) => {
             try {
                 const res= await api.get('account/getPackages/');
                 const body=res.data;
-                if(body.length >0){
+                if(body?.length >0){
                 setGetPackages({loaded:true,data:body})
                 localStorage.setItem("getPackages",JSON.stringify(body))
                 }
@@ -99,7 +101,7 @@ export const PriceContextProvider = (props) => {
           try {
             const res= await api.get('/GetServices/');
             const body=res.data
-            if(body.length>0){
+            if(body?.length>0){
             setGetServices({loaded:true,data:body})
             }
           } catch (error) {
@@ -114,7 +116,7 @@ export const PriceContextProvider = (props) => {
           try {
             const res= await api.get('/GetProducts/');
             const body=res.data
-            if(body.length>0){
+            if(body?.length>0){
             setGetProducts({loaded:true,data:body})
             }
           } catch (error) {

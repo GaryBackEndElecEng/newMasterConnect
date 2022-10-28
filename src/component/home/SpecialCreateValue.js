@@ -76,10 +76,11 @@ const SpecialCreateValue = () => {
   useEffect(()=>{
     if(get_packages){
       const filterSpecials=get_packages.filter(obj=>(obj.specialOffer===true));
+      if(filterSpecials){
       setGetSpecials({ loaded: true, data: filterSpecials })
-      if(filterSpecials.length===0) setRemoveSpecial(true)
+      }else{setRemoveSpecial(true);setGetSpecials({loaded:false})}
     }
-  },[get_packages]);
+  },[get_packages,setGetSpecials,setRemoveSpecial]);
 
 
   const observer2 = new IntersectionObserver(entries => {

@@ -141,11 +141,14 @@ export const GeneralContextProvider = (props) => {
         try {
           const res=await api.get('/account/product/');
           const data=res.data;
+          if(data && data?.length>0){
           setLoadProduct({
             loaded:true,
             data:data
-          })
+          });
           localStorage.setItem("loadedProduct",JSON.stringify(data))
+        }
+          
         } catch (error) {
           console.error(error.message)
         }
@@ -158,21 +161,22 @@ export const GeneralContextProvider = (props) => {
         try {
           const res= await api.get('/category/');
           const body=res.data;
-          setAllCategory({loaded:true,data:body});
-          let getInfo=body.filter(obj=>(parseInt(obj.id)===9))[0].categoryGeneralInfo[0]
-          setGeneralInfo({loaded:true,data:getInfo})
-          let spon=body.filter(obj=>(parseInt(obj.id)===10))[0].categorySponsor
-          setSponsor({loaded:true,data:spon});
-          setFlowerImg({loaded:true,data:body.filter(obj=>(obj.name==="FlowerShop"))[0].imageCategory});
-          setSpecial({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===14))[0].catWordSnippet[0]});
-          setExtraImages({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===13))[0].imageCategory});
-          setWhyWorkWithUs({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===2))[0].categories});
-          setOurServices({loaded:true,data:body.filter(obj=>(obj.name==="AllServices"))[0].categories});
-          setPrivacy({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===16))[0].catWordSnippet});
-          setTermsOfSvc({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===17))[0].catWordSnippet});
-          setProductInfo({loaded:true,data:body.filter(obj=>(obj.id===19))[0].catWordSnippet});
-          setSuccess({loaded:true,data:body.filter(obj=>(obj.name==="Success"))[0].catWordSnippet});
-
+          if(body && body?.length >0){
+            setAllCategory({loaded:true,data:body});
+            let getInfo=body.filter(obj=>(parseInt(obj.id)===9))[0].categoryGeneralInfo[0]
+            setGeneralInfo({loaded:true,data:getInfo})
+            let spon=body.filter(obj=>(parseInt(obj.id)===10))[0].categorySponsor
+            setSponsor({loaded:true,data:spon});
+            setFlowerImg({loaded:true,data:body.filter(obj=>(obj.name==="FlowerShop"))[0].imageCategory});
+            setSpecial({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===14))[0].catWordSnippet[0]});
+            setExtraImages({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===13))[0].imageCategory});
+            setWhyWorkWithUs({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===2))[0].categories});
+            setOurServices({loaded:true,data:body.filter(obj=>(obj.name==="AllServices"))[0].categories});
+            setPrivacy({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===16))[0].catWordSnippet});
+            setTermsOfSvc({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===17))[0].catWordSnippet});
+            setProductInfo({loaded:true,data:body.filter(obj=>(obj.id===19))[0].catWordSnippet});
+            setSuccess({loaded:true,data:body.filter(obj=>(obj.name==="Success"))[0].catWordSnippet});
+          }
         } catch (error) {
           console.error(error.message)
         }
