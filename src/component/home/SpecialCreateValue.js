@@ -75,7 +75,7 @@ const SpecialCreateValue = () => {
 
   useEffect(()=>{
     if(getPackages.loaded && getPackages?.data.length>0){
-      const filterSpecials=getPackages.data.filter(obj=>(obj.specialOffer===true));
+      const filterSpecials=getPackages.data.filter(obj=>(JSON.parse(obj.specialOffer)===true));
       if(filterSpecials){
       setGetSpecials({ loaded: true, data: filterSpecials })
       }else{setRemoveSpecial(true);setGetSpecials({loaded:false})}
