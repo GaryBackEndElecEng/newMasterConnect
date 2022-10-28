@@ -26,6 +26,7 @@ from my_account.serializers import ServiceSerializer,ProductSerializer
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from dj_rest_auth.registration.views import SocialLoginView
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from .util import sendQuoteEmail
@@ -48,6 +49,12 @@ class Assets(View):
         else:
             return HttpResponseNotFound()
             
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+
+    def authenticate(self,request):
+        user = getattr(request._request,"user",None)
+        # self.enforce_csrf(request)
+        return  # To not perform the csrf check previously happening
 
 class GoolgeAuth(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
@@ -65,6 +72,7 @@ class MiscelaneousCapture(APIView):
 
 
 class PageCountPost(APIView):
+    authentication_classes=[CsrfExemptSessionAuthentication]
     permission_classes=[AllowAny]
     @csrf_exempt
     def post(self,request,format=None,**kwargs):
