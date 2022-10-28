@@ -99,15 +99,15 @@ const Home = () => {
     }
 
     useEffect(()=>{
-        if(allCategory.loaded && allCategory.data){
-            setProfileHelmet(
-                allCategory.data.filter(obj=>(obj.section==="bio"))[0].catWordSnippet[0]
-            )
-            setGeneralInfoHelmet(
-                allCategory.data.filter(obj=>(obj.section==="GeneralInfo"))[0].categoryGeneralInfo[0]
-            )
+        const getAllCats= async ()=>{
+            let bio= await allCategory.data.filter(obj=>(obj.section==="bio"))[0].catWordSnippet[0]
+            setProfileHelmet(bio)
+            setGeneralInfoHelmet( bio)
         }
-    },[allCategory.loaded,allCategory.data])
+    if(allCategory.loaded && allCategory?.data){
+        getAllCats();
+    }
+    },[allCategory.loaded,allCategory?.data])
        
 
 

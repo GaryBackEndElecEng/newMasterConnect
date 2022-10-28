@@ -40,13 +40,18 @@ const Faqs = () => {
     const moveLeft=!show ? "35%":"2%";
     const BtnColor= show ? "primary":"info";
     useEffect(()=>{
-        const getFAQS2= allCategory.loaded ? allCategory.data.filter(obj=>(obj.name==="footer"))[0].catFooter:null;
-        let newArray=[];
-        if(getFAQS2){
-            getFAQS2.forEach((obj,index)=>{
-                newArray.push({...obj,id:index})
-            });
-            return setNewArr(newArray)
+        const getFaq = async ()=>{
+            const getFAQS2= await allCategory.data.filter(obj=>(obj.name==="footer"))[0].catFooter;
+            let newArray=[];
+            if(getFAQS2){
+                getFAQS2.forEach((obj,index)=>{
+                    newArray.push({...obj,id:index})
+                });
+                return setNewArr(newArray)
+            }
+        }
+        if(allCategory.loaded && allCategory?.data){
+            getFaq();
         }
     },[setNewArr,allCategory]);
 
