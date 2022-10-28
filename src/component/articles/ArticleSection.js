@@ -31,7 +31,7 @@ const ArticleSection = ({ objArr,title }) => {
 
         if(title === "cognitive"){
             setCognitive(true)
-            setMessage("The right image: easy view, where as the left image:strained view ")
+            setMessage("The left image: 'easy view', where as the right image:'strained view' ")
             
         }else(setCognitive(false))
     },[title,setActivateDoom,setActivateLightning,setCognitive])

@@ -24,15 +24,25 @@ const NavBar = () => {
     }
 
     useEffect(()=>{
-        if(hits.loaded ){
-            if(hits.data > 1000){
-                let mod=`${Math.ceil(hits.data/1000)}K`;
-                setModHits({loaded:true,data:mod})
-            }else{setModHits({loaded:false,data:hits.data})}
+        const hitsLoaded= async ()=>{
+            try {
+                setTimeout(()=>{
+                    let modHold=hits.data;
+                    if(hits.data > 1000){
+                        let mod=`${Math.ceil(modHold/1000)}K`;
+                        setModHits({loaded:true,data:mod})
+                    }else{setModHits({loaded:true,data:hits.data})}
+                },200);
+                
+            } catch (error) {
+                setModHits({loaded:false,data:[]})
+            }
         }
-        
-    },[hits.loaded,hits.data,setModHits]);
-    // console.log("hits",hits)
+        if(hits.loaded){
+            hitsLoaded();
+        }
+    },[hits.loaded,hits.data]);
+   
     return (
         
             <AppBar component="nav" position={"sticky"}

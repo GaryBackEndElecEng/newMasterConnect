@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
-import { useNavigate,useLocation } from 'react-router-dom';
+
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 import { Box,  Paper, Typography } from '@mui/material';
@@ -55,9 +55,7 @@ height:"auto";
 
 
 const About = () => {
-  const location=useLocation();
   const theme = useTheme();
-  const navigate = useNavigate();
   const { setTitle, setStyleName,allCategory,setChangePage,generalInfo } = useContext(GeneralContext);
   const [about,setAbout]=useState([]);
   const [counter, setCounter] = useState(0);
@@ -114,8 +112,8 @@ useEffect(()=>{
   return (
     <ContainerAboutFluid>
       <AboutHelmet categories={allcatHelmet} getGeneralInfo={getGeneralInfo}/>
-      {/* <RegisterPage/>
-      <GetRegisterPages/> */}
+      <RegisterPage/>
+      <GetRegisterPages/>
       <ContainerAboutFront
         alpha={counter}
       >

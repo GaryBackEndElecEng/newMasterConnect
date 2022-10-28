@@ -1,8 +1,6 @@
 import React from 'react';
-import { ContainerFluid } from '../../styled/Container.styled';
-import { Box, Stack, CardMedia, Paper, Grid, Typography } from '@mui/material';
+import {CardMedia, Grid, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import { GridData } from '../../styled/Div.styled';
 import { useTheme } from '@mui/material/styles';
 
 const RightDesign = () => {
@@ -12,7 +10,7 @@ const RightDesign = () => {
     return (
         <Container maxWidth="xl">
             <Grid container spacing={{xs:0,sm:1,md:4}} sx={{justifyContent:"space-between",alignItems:"flex-start"}}>
-                <Grid item xs={12} md={6} direction="column" spacing={1} sx={{ position: "relative", margin: "auto", textAlign: "center" }}>
+                <Grid item xs={12} md={6}  sx={{ position: "relative", margin: "auto", textAlign: "center" }}>
                     <Typography component="h1" variant="h3" sx={{ width: "100%", margin: "1rem 0.5rem", fontFamily: `'Edu TAS Beginner', cursive` }}>
                         Imaginary
                     </Typography>
@@ -21,7 +19,7 @@ const RightDesign = () => {
                         Imagery is defined by the mind and then projected onto a canvas of life.
                     </Typography>
                 </Grid>
-                <Grid item xs={12} md={6} direction="column" spacing={1} sx={{ position: "relative", margin: "auto", textAlign: "center" }}>
+                <Grid item xs={12} md={6}  sx={{ position: "relative", margin: "auto", textAlign: "center" }}>
                     <Typography component="h1" variant="h3" sx={{ width: "100%", margin: "1rem 0.5rem", fontFamily: `'Edu TAS Beginner', cursive` }}>
                         Curious
                     </Typography>
@@ -30,7 +28,7 @@ const RightDesign = () => {
                         Curious is premised on the need to be revealed.
                     </Typography>
                 </Grid>
-                <Grid item xs={12} md={6} direction="column" spacing={1} sx={{ position: "relative", margin: "auto", textAlign: "center" }}>
+                <Grid item xs={12} md={6}  sx={{ position: "relative", margin: "auto", textAlign: "center" }}>
                     <Typography component="h1" variant="h3" sx={{ width: "100%", margin: "1rem 0.5rem", fontFamily: `'Edu TAS Beginner', cursive` }}>
                         Adrenaline
                     </Typography>
@@ -39,7 +37,7 @@ const RightDesign = () => {
                         Adrenaline is derived from bordering the feeling of life with the fear of death.
                     </Typography>
                 </Grid>
-                <Grid item xs={12} md={6} direction="column" spacing={1} sx={{ position: "relative", margin: "auto", textAlign: "center" }}>
+                <Grid item xs={12} md={6}  sx={{ position: "relative", margin: "auto", textAlign: "center" }}>
                     <Typography component="h1" variant="h3" sx={{ width: "100%", margin: "1rem 0.5rem", fontFamily: `'Edu TAS Beginner', cursive` }}>
                         Ponderance
                     </Typography>

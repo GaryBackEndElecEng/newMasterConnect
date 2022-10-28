@@ -162,7 +162,7 @@ export const GeneralContextProvider = (props) => {
           const res= await api.get('/category/');
           
           const body=res.data;
-          console.log("Allcategories",body)
+          // console.log("Allcategories",body)
           if(body && body?.length >0){
             setAllCategory({loaded:true,data:body});
             let getInfo=body.filter(obj=>(parseInt(obj.id)===9))[0].categoryGeneralInfo[0]
@@ -185,6 +185,22 @@ export const GeneralContextProvider = (props) => {
       }
       getAllcategory();
     },[]);
+
+    useEffect(()=>{
+      const getRegisteredPages = async()=>{
+        try {
+          const res = await api.get('/pageCountGet/');
+          const body=res.data
+          if(body && body?.length>0){
+          setRegisterPage({loaded:true,data:body})
+          }else{setRegisterPage({loaded:false})}
+        } catch (error) {
+          console.error(error.message)
+        }
+      }
+    
+      getRegisteredPages();
+    },[registerPage.loaded])
     
 
 

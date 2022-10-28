@@ -128,8 +128,8 @@ const Bio = () => {
     return (
         <BioMmain display={showBlock}>
             <BioHelmet obj={getGeneralInfo} intro ={intro}/>
-            {/* <RegisterPage />
-            <GetRegisterPages/> */}
+            <RegisterPage />
+            <GetRegisterPages/>
             <Container maxWidth='xl' sx={{ margin: "auto", padding: "0px" }} >
                 <Paper elevation={3} sx={{ padding: "0.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", margin: {lg:"1rem -4px",xs:"1rem -20px"}, }}>
                     <Typography component="h1" variant="h3">

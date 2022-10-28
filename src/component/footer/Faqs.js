@@ -42,19 +42,13 @@ const Faqs = () => {
     useEffect(()=>{
         const getFaq = async ()=>{
             const getFAQS2= await allCategory.data.filter(obj=>(obj.name==="footer"))[0].catFooter;
-            let newArray=[];
-            let getFAQS3=getFAQS2
-            if(getFAQS3){
-                getFAQS3.forEach((obj,index)=>{
-                    newArray.push({...obj,id:index})
-                });
-                return setNewArr(newArray)
-            }
+            // console.log("getFAQS2",getFAQS2)
+            setNewArr(getFAQS2)
         }
         if(allCategory.loaded && allCategory?.data){
             getFaq();
         }
-    },[setNewArr,allCategory]);
+    },[setNewArr,allCategory.loaded]);
 
     // console.log(newArr)
     
