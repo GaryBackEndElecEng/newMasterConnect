@@ -13,6 +13,7 @@ import EastIcon from '@mui/icons-material/East';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CallMissedOutgoingIcon from '@mui/icons-material/CallMissedOutgoing';
+import { useEffect } from 'react';
 
 const GlobalBox = styled(Box)`
 margin:auto;
@@ -45,10 +46,25 @@ const CheckOutStuffQuote = () => {
   const { callBackConfirmed, setChangePage, allCategory } = useContext(GeneralContext);
   const [getAQuote, setGetAQuote] = useState(false);
   const [myBool, setMyBool] = useState('false');
-  const [checkoutWks, setCheckoukWks] = useState(false);
+  const [getCheckoutPrices, setGetCheckoutPrices] = useState({loaded:false,data:[]});
   const display = getAQuote && !callBackConfirmed ? "block" : "none";
-  const getCheckPrices = allCategory.loaded ? allCategory.data.filter(obj => (parseInt(obj.id) === 11))[0].categories[0] : null;
+ 
 
+  useEffect(()=>{
+    const getPrices= async ()=>{
+      try {
+        let allCatTemp= await allCategory.data.filter(obj => (parseInt(obj.id) === 11))[0].categories[0]
+        let allCatTemp1=allCatTemp;
+        setGetCheckoutPrices({loaded:true,data:allCatTemp1})
+      } catch (error) {
+        
+      }
+    }
+    if(allCategory.loaded && allCategory?.data){
+      getPrices();
+    }
+  },[allCategory.loaded]);
+  
   const handleHover = () => {
 
     setMyBool('true');
@@ -129,7 +145,7 @@ const CheckOutStuffQuote = () => {
         <Grid item xs={12} md={4}
           sx={{
             textAlign: "justify", borderLeft: "1px solid black", padding: "0 10px",
-            "&:hover": { content: `"${getCheckPrices && getCheckPrices.summary}"` },margin:"1rem auto"
+            "&:hover": { content: `"${getCheckoutPrices.loaded && getCheckoutPrices.data.summary}"` },margin:"1rem auto"
           }}
         >
           <Stack direction={{sm:"row",xs:"column"}} spacing={{xs:0,sm:1,md:2}}>
@@ -141,7 +157,7 @@ const CheckOutStuffQuote = () => {
                 onMouseOver={() => handleHover()}
               >
 
-                {getCheckPrices && getCheckPrices.title}
+                {getCheckoutPrices.loaded && getCheckoutPrices.data.title}
                 
               </Typography>
               <Fab variant="extended" color="primary" onClick={(e)=>handleLinkToPricing(e)}
@@ -152,7 +168,7 @@ const CheckOutStuffQuote = () => {
               <Checked bool={myBool} />
           </Stack>
           <Typography component="h1" variant="h6">
-            {getCheckPrices && getCheckPrices.content}
+            {getCheckoutPrices.loaded && getCheckoutPrices.data.content}
           </Typography>
 
         </Grid>

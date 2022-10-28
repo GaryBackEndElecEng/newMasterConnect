@@ -43,8 +43,9 @@ const Faqs = () => {
         const getFaq = async ()=>{
             const getFAQS2= await allCategory.data.filter(obj=>(obj.name==="footer"))[0].catFooter;
             let newArray=[];
-            if(getFAQS2){
-                getFAQS2.forEach((obj,index)=>{
+            let getFAQS3=getFAQS2
+            if(getFAQS3){
+                getFAQS3.forEach((obj,index)=>{
                     newArray.push({...obj,id:index})
                 });
                 return setNewArr(newArray)

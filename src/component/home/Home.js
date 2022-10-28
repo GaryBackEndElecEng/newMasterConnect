@@ -101,8 +101,9 @@ const Home = () => {
     useEffect(()=>{
         const getAllCats= async ()=>{
             let bio= await allCategory.data.filter(obj=>(obj.section==="bio"))[0].catWordSnippet[0]
-            setProfileHelmet(bio)
-            setGeneralInfoHelmet( bio)
+            let bio1=bio;
+            setProfileHelmet(bio1)
+            setGeneralInfoHelmet( bio1)
         }
     if(allCategory.loaded && allCategory?.data){
         getAllCats();
