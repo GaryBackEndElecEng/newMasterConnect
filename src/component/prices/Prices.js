@@ -1,5 +1,4 @@
 import React, { useContext, useEffect,useState } from 'react';
-import {useLocation}from 'react-router-dom';
 import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {PriceContext} from '../../context/PriceContextProvider';

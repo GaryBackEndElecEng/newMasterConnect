@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import { Box, Container, Grid, Paper, Stack, Typography } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
-import RegisterPage from '../RegisterPage';
 import { useTheme } from '@mui/material/styles';
 import FoundationIcon from '@mui/icons-material/Foundation';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import CheckIcon from '@mui/icons-material/Check';
+
 
 const CoverContainer = styled.div.attrs({ className: "container-fluid priceContainer" })`
 margin:0;
@@ -41,6 +41,7 @@ const CoverPage = () => {
   const { staticImage, } = useContext(GeneralContext);
   const { basePrice, baseServices, startingPrices } = useContext(PriceContext);
   const [activateTitle, setActivateTitle] = useState(false);
+  
 
   const basePrice1 = basePrice.loaded ? basePrice.data : null;
   const baseServices1 = baseServices.loaded ? baseServices.data : null;
@@ -55,7 +56,7 @@ const CoverPage = () => {
     }, 1800);
 
   }, []);
-
+  
 
   return (
     <CoverContainer bg={priceBg}>
@@ -80,11 +81,11 @@ const CoverPage = () => {
           {getStartingPrices && getStartingPrices.map(obj => (
             <Grid item xs={12} sm={6}
               sx={{
-                margin: "2rem auto",
+                margin: "2rem auto",position:"relative"
               }}
               key={`${obj.id}-${Math.ceil(Math.random() * 10000)}`}
             >
-              <Paper elevation={10}
+              <Paper elevation={10} 
                 sx={{
                   background: theme.palette.common.blueGrey, color: theme.palette.common.lighter,
                 }}>
@@ -100,6 +101,7 @@ const CoverPage = () => {
                   }}>
                   {obj.desc}
                 </Typography>
+              
                 <Typography component="div" variant="h5"
                   sx={{
                     fontFamily: "Roboto", zIndex: "20", margin: "auto", width: "100%", padding: "0.25rem 1rem",

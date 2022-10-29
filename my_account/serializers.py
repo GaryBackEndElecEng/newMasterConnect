@@ -61,7 +61,7 @@ class PriceCatelogPriceField(serializers.RelatedField):
     def get_query_set(self):
         return self.name , self.price , self.desc
     def to_representation(self,value):
-        return {"id":value.id,"name":value.name,"price": value.price, "desc":value.desc,"monthly": value.monthly}
+        return {"id":value.id,"name":value.name,"price": value.price, "desc":value.desc,"monthly": value.monthly,"summary": value.summary}
 
 class ExtraServicePriceCatelogField(serializers.RelatedField):
     def get_query_set(self):

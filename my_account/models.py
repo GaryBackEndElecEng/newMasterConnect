@@ -25,6 +25,7 @@ class Price(models.Model):
     price=models.IntegerField(blank=True,default=1)
     monthly=models.IntegerField(default=1,blank=True)
     desc=models.TextField(blank=True)
+    summary=models.TextField(blank=True)
     class Meta:
         ordering=["name"]
 

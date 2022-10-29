@@ -1,22 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Routes, Route } from 'react-router-dom';
-import { Box, Container, Stack, Grid, Typography, Fab } from '@mui/material';
+import { Box, Container, Stack, Grid, Typography} from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider.js';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import CardSample from './CardSample';
 import CardSample2 from './CardSample2';
 import MyWork from './MyWork';
-import { ContainerT } from '../../styled/Container.styled';
 import GridLayer from './GridLayer';
 import ModalContainer from '../utils/ModalContainer';
-import Shop2Icon from '@mui/icons-material/Shop2';
-import CloseIcon from '@mui/icons-material/Close';
 import RegisterPage from '../RegisterPage';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import styled from 'styled-components';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import Design1Helmet from './Design1Helmet';
+import CustomDetails from './CustomDetails';
+import arrayLodges from './imageArr';
+
 
 const CustBoxPageCover = styled(Box)`
 display:flex;
@@ -45,6 +44,7 @@ margin-top:-2px;
 
 // loadGoogleFont("Playfair + Display");
 const Design1 = () => {
+  
   const theme = useTheme();
   const fade1 = 1
   const fade2 = 0.8
@@ -133,25 +133,9 @@ const Design1 = () => {
 
           
             <Container maxWidth={"xl"}
-            sx={{background:theme.palette.fade,color:"white"}}
+            sx={{background:theme.palette.fade,color:"white",position:"relative",minHeight:{xs:"20vh",lg:"18vh"},}}
             >
-              <Typography component="h1" variant="h3"
-                sx={{width:"100%",textAlign:"center"}}
-              >
-                Custom details
-              </Typography>
-              <Typography component="h1" variant="body2"
-                sx={{
-                  padding: { xs: "1rem 0.25rem" },
-                  transform: { xs: "scale(1)", sm: "scale(1)" },
-                  width: { xs: "80%", sm: "100%" },
-                  fontFamily: "Roboto",
-                  // fontStyle: "italic",
-                  fontSize: { xs: "14px", sm: "30px", md: "30px" }
-                }}
-              >
-                This Design is adjustable to the client's interests. The pictures are sample pictures and are randomly selected for staging purposes.
-              </Typography>
+              <CustomDetails />
             </Container>
          
         
@@ -164,12 +148,12 @@ const Design1 = () => {
 
         }}
       >
-        <Grid container spacing={0} sx={{ justifyContent: "flex-start", alignItems: "center",width:"100%" }}>
-          {array2.map(obj => (
-            <Grid item xs={12} sm={6} md={4} key={obj.id}
+        <Grid container spacing={0} sx={{ justifyContent: "center", alignItems: "flex-start",width:"100%" }}>
+          {arrayLodges.map((obj,index) => (
+            <Grid item xs={12} sm={6} md={4} key={`${obj.id}-${index}`}
               sx={{ margin: { xs: "0.5rem auto", sm: "2rem auto" }, width: "100%", }}
             >
-              <CardSample fade={1} comment={obj.comment} title={obj.title} />
+              <CardSample fade={1} comment={obj.comment} title={obj.title} image={obj.image} />
             </Grid>
           ))}
         </Grid>

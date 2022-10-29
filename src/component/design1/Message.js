@@ -13,7 +13,7 @@ const Message = ({comment,title}) => {
               {title}
             </Typography>
           </Paper>
-          <Typography component="h1" variant="h5" sx={{color:theme.palette.common.light,padding:"0.5rem"}}>
+          <Typography component="h1" variant="h6" sx={{color:theme.palette.common.light,padding:"0.5rem"}}>
             {comment}
           </Typography>
 

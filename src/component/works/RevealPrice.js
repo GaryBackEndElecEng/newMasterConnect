@@ -5,6 +5,7 @@ import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import { Box, Container, Grid, Paper, Stack, Typography } from '@mui/material';
+import StartingPrices from './StartingPrices';
 
 
 
@@ -22,6 +23,7 @@ const RevealPrice = () => {
     const { staticImage } = useContext(GeneralContext);
     const { priceCatelog, getServerPrice, setGetServerPrice,startingPrices } = useContext(PriceContext);
     const theme = useTheme();
+    const [showSummary, setShowSummary] = useState({loaded:false,obj:{}});
 
 
     useEffect(() => {
@@ -29,7 +31,14 @@ const RevealPrice = () => {
         if (basePrice2) {
             setGetServerPrice({ data: basePrice2, loaded: true });
         }
-    }, [setGetServerPrice, priceCatelog.loaded, priceCatelog.data])
+    }, [setGetServerPrice, priceCatelog.loaded, priceCatelog.data]);
+
+    const handleSummary =(e,obj)=>{
+        if(obj.id){
+        setShowSummary({loaded:true,obj:obj})
+        }else{setShowSummary({loaded:false})}
+      }
+    
 
     return (
         <Container maxWidth="lg" sx={{ position: "relative", minHeight: "10vh" }}>
@@ -39,7 +48,7 @@ const RevealPrice = () => {
 
                         {startingPrices.loaded && startingPrices.data.map(obj => (
 
-                            <Grid item xs={12} md={6} key={obj.id}>
+                            <Grid item xs={12} md={6} key={obj.id} sx={{position:"relative"}}>
 
                                 <Typography component="h1" variant="h3"
                                  sx={{ fontfamily: "Roboto", color: theme.palette.common.light, margin: "auto ", fontSize: { xs: "30px", sm: "30px" }, textAlign: "center", fontWeight: "bold", 
@@ -47,13 +56,14 @@ const RevealPrice = () => {
                                     {obj.name}
                                 </Typography>
 
-                                <Paper elevation={10}>
+                                <Paper elevation={10} onClick={(e)=>handleSummary(e,obj)} sx={{cursor:"point"}} onMouseOut={()=>setShowSummary({loaded:false,obj:{}})}>
                                     <Typography component="h1" variant="body2" 
                                     sx={{ fontfamily: "Roboto", color: theme.palette.common.background, background: theme.palette.common.mediumBlue2, padding: "0.5rem", margin: " 1rem auto ", fontSize: { xs: "30px", sm: "26px" },
                                      }}>
                                         {obj.desc}
                                     </Typography>
                                 </Paper>
+                                {(showSummary.loaded && showSummary.obj.id===obj.id) &&  <StartingPrices obj={obj}/>}
                                 <Stack direction={{xs:"column",md:"row"}} spacing={2} sx={{alignItems:"flex-start",justifyContent:"flex-start",margin:"1rem "}}>
 
                                     
