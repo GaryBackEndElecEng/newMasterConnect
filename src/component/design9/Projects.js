@@ -84,28 +84,38 @@ const handleSDesc =(obj)=>{
 
                                     >
                                         
+                                        <Stack direction={{xs:"row",sm:"column"}}>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>LOT <GrassIcon sx={{ml:1,color:"green",fontSize:"1.5rem"}}/></Typography>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{obj.size}</Typography>
+                                        </Stack>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={4}
                                     >
+                                        <Stack direction={{xs:"row",sm:"column"}}>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{turnOn ? "Chambre a coucher" :"bedrooms"} <SingleBedIcon sx={{ml:1,color:"blue"}}/></Typography>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{obj.bedrooms}</Typography>
+                                        </Stack>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={4}
                                     >
+                                        <Stack direction={{xs:"row",sm:"column"}}>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{turnOn ? "Chambres" :"rooms"} <MeetingRoomIcon sx={{ml:1,color:"blue"}}/></Typography>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{obj.rooms}</Typography>
+                                        </Stack>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={4}
                                     >
+                                        <Stack direction={{xs:"row",sm:"column"}}>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{turnOn ? "Salle de bains":"bathrooms"} <BathroomIcon sx={{ml:1,background:"blue",color:"white"}}/></Typography>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{obj.bathrooms}</Typography>
+                                        </Stack>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={4}
                                     >
+                                        <Stack direction={{xs:"row",sm:"column"}}>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{turnOn ? "supplementaires":"extras"} <FormatAlignJustifyIcon sx={{ml:1,color:"blue"}}/></Typography>
                                         <Typography component="h1" variant="body1" sx={{ color: "white" }}>{obj.extras}</Typography>
+                                        </Stack>
                                     </Grid>
 
                                 </Grid>
