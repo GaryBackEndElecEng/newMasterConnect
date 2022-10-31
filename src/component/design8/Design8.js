@@ -12,7 +12,7 @@ import BannerTwo from './BannerTwo';
 import BannerThree from './BannerThree';
 import styled from 'styled-components';
 import Design8Helmet from './Design8Helmet';
-import styles from './design8.module.css'
+
 
 
 const Main=styled.div`

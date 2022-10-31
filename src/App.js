@@ -34,7 +34,7 @@ import Privacy from './component/policy/Privacy';
 import TermsOfSvc from './component/policy/TermsOfSvc';
 import SuccessExtra from './component/payment/SuccessExtra';
 import Design8 from './component/design8/Design8';
-
+import Design9 from './component/design9/Design9';
 
 function App() {
   return (
@@ -60,6 +60,7 @@ function App() {
             <Route path="/design2" element={<Design2 />} />
             <Route path="/design1" element={<Design1 />} />
             <Route path="/design8" element={<Design8 />} />
+            <Route path="/design9" element={<Design9 />} />
             <Route path="/design3" element={<Page1 />} />
             <Route path="/prices" element={<Prices />} />
             <Route path="/MyAccount" element={<LayoutSecure />}>
