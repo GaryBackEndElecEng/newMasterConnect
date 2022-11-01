@@ -23,14 +23,14 @@ animation: sweepIn 3.5s ease-in-out;
     top:-16%;
 }
 `;
-const CustomDetails = () => {
+const CustomDetails = ({lang}) => {
     const theme=useTheme();
     return (
         <CustomBox bg={theme.palette.common.cyanPale}>
             <Typography component="h1" variant="h3"
                 sx={{ width: "100%", textAlign: "center" }}
             >
-                Custom details
+                {lang ? "Détails personnalisés" :"Custom details"}
             </Typography>
             <Typography component="h1" variant="body2"
                 sx={{
@@ -42,7 +42,7 @@ const CustomDetails = () => {
                     fontSize: { xs: "14px", sm: "30px", md: "30px" }
                 }}
             >
-                This Short Term Rental Design is adjustable to the client's interests. The pictures are sample pictures and are randomly selected for staging purposes and tailered to draw viewers.
+                {lang ? "Cette conception de location à court terme est ajustable aux intérêts du client. Les images sont des exemples d'images et sont sélectionnées au hasard à des fins de mise en scène et adaptées pour attirer les téléspectateurs.":"This Short Term Rental Design is adjustable to the client's interests. The pictures are sample pictures and are randomly selected for staging purposes and tailered to draw viewers."}
             </Typography>
         </CustomBox>
     )

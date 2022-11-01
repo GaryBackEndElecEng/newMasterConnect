@@ -23,7 +23,7 @@ flex-direction:column;
 max-width:100vw;
 min-height:80vh;
 background:${({bg})=>bg};
-animation: clearIn 1s ease-in-out;
+animation: clearIn 1.5s ease-in-out;
 @keyframes clearIn {
   from {opacity:0;}
   to {opacity:1;}

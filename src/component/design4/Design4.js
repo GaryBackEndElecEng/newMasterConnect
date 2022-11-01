@@ -9,6 +9,7 @@ import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ModalContainer from '../utils/ModalContainer';
+import PageFeedback from '../utils/PageFeedback';
 import RegisterPage from '../RegisterPage';
 import styled from 'styled-components';
 import GetRegisterPages from '../utils/GetRegisterPages';
@@ -54,6 +55,21 @@ animation: showLeft 1s ease-in-out;
 }
 @media screen and (max-width:900px){
     top:10%;
+}
+`;
+const CustomDesign4=styled.div`
+margin:0;
+animation: clearIn 2s ease-in-out;
+@keyframes clearIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+@media screen and (max-width:900px){
+margin-top:-2px;
+}
+@media screen and (max-width:600px){
+  margin-top:-54px;
+
 }
 `;
 
@@ -168,7 +184,7 @@ const Design4 = () => {
     }
 
     return (
-        <>
+        <CustomDesign4>
             <ContainerFlowersBgImage bgImage={bgPatterns} className="sliderHeader" >
                 <Design4Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} />
                 <GetRegisterPages/>
@@ -299,8 +315,10 @@ const Design4 = () => {
                         :
                         <ModalContainer />}
                 </Stack>
+                <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <PageFeedback/>
             </Container>
-        </>
+        </CustomDesign4>
     )
 
 };

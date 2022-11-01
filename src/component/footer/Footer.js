@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Paper, Stack, } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-
+import PageRatings from './PageRatings';
 import MediaIcons from './MediaIcons';
 import Location from './Location';
 import styles from './footer.module.css';
@@ -24,6 +24,7 @@ const Footer = () => {
         sx={{ boxShadow: `3px 3px ${theme.palette.common.medium}`, background: theme.palette.footer.lighter }}>
         <NavLinks/>
       </Paper>
+      <PageRatings/>
       <Sponsors/>
       <Stack direction={{xs:"column"}} sx={{margin:"1rem auto"}} >
       <Profile/>

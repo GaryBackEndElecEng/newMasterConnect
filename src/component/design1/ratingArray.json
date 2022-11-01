@@ -1,0 +1,25 @@
+[
+    {
+         "id": 0, "rating": 3, "name": "Harry", "comment": " I had a really good time. The place was absolutely beautiful. The service was okay!" 
+    },
+    {
+         "id": 1, "rating": 5, "name": "Bob", "comment": " The clientele was curtious and provided all the help available" 
+    },
+    {
+         "id": 2, "rating": 4, "name": "Donna", "comment": " I recommend anyone to book with them. You will not regret this!" 
+    },
+    {
+         "id": 5, "rating": 5, "name": "Smith", "comment": " I met my wife while using one of their facilities. The experience was well worth the expense." 
+    },
+    { 
+         "id": 6, ": 5, ": "Sarah", "comment": " We were well served" 
+
+    },
+    {
+         "id": 7, "rating": 4, "name": "Betty", "comment": " Brought my Mom on vacation. We both enjoyed this trip and location!" 
+    },
+    {
+        "id": 8, "rating": 5, "name": "Won", "comment": " Nice people, appreciated their kindness" 
+    }
+]
+

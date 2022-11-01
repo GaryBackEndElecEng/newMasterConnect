@@ -42,7 +42,7 @@ animation:reveal 1.5s ease-in-out;
 }
 
 `;
-const SalePerson = () => {
+const SalePerson = ({lang}) => {
     const theme=useTheme();
     const { staticImage } = useContext(GeneralContext);
     const [showMessage,setShowMessage]=useState(false);
@@ -51,7 +51,7 @@ const SalePerson = () => {
     useEffect(()=>{
         setTimeout(()=>{
             setShowMessage(true);
-        },6000)
+        },4000)
     },[]);
     return (
         <CustomeContainer maxWidth="lg">
@@ -84,7 +84,7 @@ const SalePerson = () => {
                     {showMessage && <ShowMessage elevation={10} sx={{background:theme.palette.common.orangeFade2,color:"white"}}>
                         <Stack direction="column">
                             <Typography component="h1" variant="h6" sx={{padding:"1rem"}}>
-                                The client can put a mission statement here to reflect his/hers competence of getting the job done! All colors and format can be changed to reflect the client's preference.
+                                {lang ? "Le client peut mettre un énoncé de mission ici pour refléter sa compétence à faire le travail ! Toutes les couleurs et le format peuvent être modifiés pour refléter la préférence du client.":"The client can put a mission statement here to reflect his/hers competence of getting the job done! All colors and format can be changed to reflect the client's preference."}
                             </Typography>
                         </Stack>
                     </ShowMessage>}

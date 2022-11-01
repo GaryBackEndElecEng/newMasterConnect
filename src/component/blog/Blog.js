@@ -4,7 +4,9 @@ import BlogBody from './BlogBody';
 import CoverPage from './CoverPage';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
+import PageFeedback from '../utils/PageFeedback';
 import BlogHelmet from './BlogHelmet';
+import { Typography } from '@mui/material';
 
 const MainBlog = styled.div.attrs({className:"container-fluid"})`
 width:100vw;
@@ -43,7 +45,8 @@ const Blog = () => {
       <GetRegisterPages/>
         <CoverPage/>
 <BlogBody/>
-
+<Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <PageFeedback/>
     </MainBlog>
   )
 }

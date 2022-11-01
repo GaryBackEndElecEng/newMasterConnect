@@ -1,7 +1,11 @@
 from rest_framework import serializers,permissions
-from api.models import Service,Category,CATEGORIES,Quote,FAQS,WordSnippet,Request,Region,Miscelaneous,GeneralInfo,Sponsor
+from api.models import Service,Category,CATEGORIES,Quote,FAQS,WordSnippet,Request,Region,Miscelaneous,GeneralInfo,Sponsor,PageFeedback
 from django.contrib.auth.models import User
 
+class PostFeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=PageFeedback
+        fields="__all__"
 
 class MiscSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,9 +50,10 @@ class CategorySerializer(serializers.ModelSerializer):
     categoryGeneralInfo=GeneralInfoCatField(many=True,read_only=True)
     categorySponsor=SponsorCatField(many=True,read_only=True)
     imageCategory=ImageCatField(many=True,read_only=True)
+    pageFeedback=PostFeedbackSerializer(many=True,read_only=True)
     class Meta:
         model = Category
-        fields=('id', 'name','section','categories',"catWordSnippet","catFooter","categoryGeneralInfo","categorySponsor","imageCategory")
+        fields=('id', 'name','section','categories',"catWordSnippet","catFooter","categoryGeneralInfo","categorySponsor","imageCategory","pageFeedback")
 
 class PageSerializer(serializers.ModelSerializer):
     permission_classes=[permissions.AllowAny,]

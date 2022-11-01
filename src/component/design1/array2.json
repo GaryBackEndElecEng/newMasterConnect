@@ -1,0 +1,6 @@
+[
+    { "id": 0,"title":"Product Summary",  "comment": "This can give a summary of a product"},
+    { "id": 1,"title":"Service Summary", "comment": " This can give a summary of a service" },
+    { "id": 2,"title":"Event Details",  "comment": " This can give directions to an Event" },
+    { "id": 3,"title":"Decription",  "comment": " This can give a summary description of a product" }
+]

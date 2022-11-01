@@ -27,7 +27,7 @@ padding:0.5rem 1rem;
 
 `;
 
-const MyWork = () => {
+const MyWork = ({lang}) => {
     const image = "https://images.unsplash.com/photo-1663327165437-5dbcfbdc29b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY2MzYxMjE1Nw&ixlib=rb-1.2.1&q=80&w=1080"
     const imgWidth = "15vw";
     const imgHeight = imgWidth;
@@ -41,7 +41,7 @@ const MyWork = () => {
                     <CardMedia component={"img"} src={`${image}&w=${imgWidth}&h=${imgHeight}`} sx={{ borderRadius: { sm: "50%", xs: "15%" }, border: "2px solid black", width: { sm: imgWidth, xs: "100%" }, height: { xs: "40vh", sm: imgHeight } }} />
 
                     <CardContent>
-                        <Project/>
+                        <Project lang={lang}/>
                         <CardActions sx={{ display:"flex",justifyContent:"center"}}>
                             <Fab variant="extended" color="primary" aria-label="explore">
                                 <NavigationIcon sx={{ mr: 2, color: theme.palette.secondary.main }} />

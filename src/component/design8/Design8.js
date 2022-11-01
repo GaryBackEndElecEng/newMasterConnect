@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Stack, Container,} from '@mui/material';
+import { Stack, Container, Typography,} from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import ModalContainer from '../utils/ModalContainer';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
+import PageFeedback from '../utils/PageFeedback';
 import CoverPage from './CoverPage';
 import Banner from './Banner';
 import BannerTwo from './BannerTwo';
@@ -24,6 +25,11 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+animation: clearIn 2s ease-in-out;
+@keyframes clearIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
 @media screen and (max-width:900px){
     
 }
@@ -31,6 +37,7 @@ flex-direction:column;
 margin-top:-50px;
 }
 `;
+
 
 
 const Design8 = () => {
@@ -89,6 +96,8 @@ const Design8 = () => {
             :
             <ModalContainer />}
         </Stack>
+        <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <PageFeedback/>
       </Container>
     </Main>
   )

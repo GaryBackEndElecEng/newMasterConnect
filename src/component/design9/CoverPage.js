@@ -12,13 +12,13 @@ position:relative;
 background-image:url(${({bg_image})=>bg_image});
 background-size:100% 100%;
 `;
-const CoverPage = () => {
+const CoverPage = ({lang}) => {
   const {staticImage}=useContext(GeneralContext);
    
     const realtorCoverPage=`${staticImage}/RealtorCoverPage.png`;
   return (
     <CustomBox bg_image={realtorCoverPage}>
-      <SalePerson/>
+      <SalePerson lang={lang}/>
     </CustomBox>
   )
 }

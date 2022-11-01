@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState, } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import {  Fab, Grid, } from '@mui/material';
+import {  Fab, Grid, Typography, } from '@mui/material';
 import styled from 'styled-components';
-// import styles from './article.module.css';
+import PageFeedback from '../utils/PageFeedback';
 import RegisterPage from '../RegisterPage';
 import api from '../axios/api';
 import ArticlePage from './ArticlePage';
@@ -267,6 +267,9 @@ const Article = () => {
       </MainCoverPage>
       
       { article && <ArticlePage getArticle={article} /> }
+
+      <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <PageFeedback/>
     </MainBlog >
   )
 }

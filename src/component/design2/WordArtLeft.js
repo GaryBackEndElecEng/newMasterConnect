@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import styles from './design2.module.css'
 
 const Sidebar = styled(Paper)`
-transform:rotate(90deg) translate(326px,345px);
+transform:rotate(90deg) translate(456px,485px);
 width:47vw;
 
 @media screen and (max-width:900px){

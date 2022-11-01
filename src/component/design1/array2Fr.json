@@ -1,0 +1,6 @@
+[
+    { "id": 0,"title":"détails du produit",  "comment": "Cela peut donner un résumé d'un produit"},
+    { "id": 1,"title":"Résumé des services", "comment": " Cela peut donner un résumé d'un produit" },
+    { "id": 2,"title":"Détails de l'évènement",  "comment": " Cela peut donner des directions à un événement" },
+    { "id": 3,"title":"Description",  "comment": " This can give a summary description of a product" }
+]

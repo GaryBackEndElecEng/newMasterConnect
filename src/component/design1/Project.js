@@ -1,20 +1,34 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react';
 
 import { Box, Stack, Grid, Typography, Fab, Paper, CardMedia, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 const array =[
-    {id:0,title:"Service1",content:"This describes the services, provided by the establishment?"},
-    {id:1,title:"Service2",content:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa repellat explicabo nobis placeat molestias possimus tenetur facere similique quaerat consectetur?"},
-    {id:2,title:"Service3",content:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa repellat explicabo nobis placeat molestias possimus tenetur facere similique quaerat consectetur?"},
-    {id:3,title:"Service4",content:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa repellat explicabo nobis placeat molestias possimus tenetur facere similique quaerat consectetur?"},]
+    {id:0,title:"Our Services",content:"This describes the services, provided by the establishment?"},
+    {id:1,title:"Supplemental",content:"This can dscribe to the client your supplemental services that you provide "},
+    {id:2,title:"Future Growth",content:"This may decribe to your audience, your future growth on purchasing additional rentals."},
+    {id:3,title:"Complementary",content:"This may describe Complementary rewards and gifts for registered gold-line clients."},]
+const arrayFr =[
+    {id:0,title:"Nos services",content:"Cela décrit les services, fournis par l'établissement?"},
+    {id:1,title:"Supplémentaire",content:"Cela peut décrire au client vos services supplémentaires que vous fournissez "},
+    {id:2,title:"Croissance future",content:"Cela peut décrire à votre public votre croissance future en achetant des locations supplémentaires."},
+    {id:3,title:"Complémentaire",content:"Cela peut décrire des récompenses et des cadeaux complémentaires pour les clients Gold Line enregistrés."},]
 
-const Project = () => {
+const Project = ({lang}) => {
     const theme=useTheme();
     const image1="https://images.unsplash.com/photo-1657657871261-2b40053ad9c2?crop=entropy&w=300&h=300";
+    const [changelang,setChangelang]=useState([]);
+    useEffect(()=>{
+        if(lang===true){
+            setChangelang(arrayFr);
+        }
+        if(lang===false){
+            setChangelang(array)
+        }
+    },[lang])
     return (
         <Grid container spacing={0} >
-            {array.map(obj=>(
+            {changelang.map(obj=>(
                 <Grid item xs={12} md={6} sm={6} lg={4} key={obj.id} sx={{padding:"0.25rem"}}> 
             <Paper elevation={4} 
             sx={{ padding: "1rem", height: "auto", backgroundImage:`url(${{image1}})`,backgroundSize:"100% 100%"

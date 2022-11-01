@@ -15,13 +15,13 @@ from rest_framework.response import Response
 from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 # from users.permissions import IsOwnerOrReadOnly
-from api.models import Service,Category,Quote,FAQS,WordSnippet,Region,Miscelaneous,Sponsor
+from api.models import Service,Category,Quote,FAQS,WordSnippet,Region,Miscelaneous,Sponsor,PageFeedback
 from my_account.models import Service,Product
 from my_account.models import Tax
 from rest_framework import status,mixins,generics,viewsets,permissions
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
-from .serializers import PageSerializer,CategorySerializer,RequestQuotePostSerializer,FAQSSerializer,WordSnippetSerializer,RequestPostSerializer,RegionSerializer,ExtraSerializer,MiscSerializer
+from .serializers import PageSerializer,CategorySerializer,RequestQuotePostSerializer,FAQSSerializer,WordSnippetSerializer,RequestPostSerializer,RegionSerializer,ExtraSerializer,MiscSerializer,PostFeedbackSerializer
 from my_account.serializers import ServiceSerializer,ProductSerializer
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
@@ -234,4 +234,25 @@ class GetProducts(APIView):
 
         except Exception as e:
             print("api.GetTax=>",e)
+
+class PostPageFeedback(APIView):
+    permission_classes=[AllowAny]
+    def post(self,request,format=None):
+        data=request.data
+        category=Category.objects.filter(section="feedback").first()
+        if data and category:
+            newPageFb=PageFeedback(
+                name=data["name"],
+                category=category,
+                email=data["email"] or "None",
+                page=data["page"],
+                comment=data["comment"],
+                rating =int(data["rating"])
+            )
+            newPageFb.save()
+            serializer = PostFeedbackSerializer(newPageFb,many=False)
+            if serializer.is_valid:
+                return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
     

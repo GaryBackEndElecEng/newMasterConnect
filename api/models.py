@@ -8,7 +8,7 @@ class Miscelaneous(models.Model):
     def __str__(self):
         return f'{self.page}-{self.pageCount}'
 
-CATEGORIES=(("contact","contact"),("about","about"),("home","home"),("article","article"),("bio","bio"),("main","main"),("footer","footer"),("GeneralInfo","GeneralInfo"),("sponsor","sponsor"),("designs","designs"),("policy","policy"))
+CATEGORIES=(("contact","contact"),("about","about"),("home","home"),("article","article"),("bio","bio"),("main","main"),("footer","footer"),("GeneralInfo","GeneralInfo"),("sponsor","sponsor"),("designs","designs"),("policy","policy"),("feedback","feedback"),)
 SECTION_TYPE=(('allServices','allServices'),('supplemental','supplemental'),('works','works'),('advert','advert'),('main','main'),('general','general'),('restriction','restriction'),('warning','warning'),)
 class Category(models.Model):
     section=models.CharField(max_length=200,choices=CATEGORIES,default="main")
@@ -112,3 +112,14 @@ class Region(models.Model):
 
     def __str__(self):
         return f'{self.country}-{self.provState}'
+
+
+class PageFeedback(models.Model):
+    name=models.CharField(max_length=75,blank=True)
+    category=models.ForeignKey(Category,related_name="pageFeedback",on_delete=models.CASCADE)
+    email=models.CharField(max_length=100,blank=True)
+    page=models.CharField(max_length=50,blank=True)
+    comment=models.TextField(blank=True)
+    rating=models.IntegerField(blank=True)
+    def __str__(self):
+        return f'{self.name}-{self.page}'

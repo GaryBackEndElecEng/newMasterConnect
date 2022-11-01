@@ -10,6 +10,7 @@ import FilterHdrIcon from '@mui/icons-material/FilterHdr';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import ModalContainer from '../utils/ModalContainer';
+import PageFeedback from '../utils/PageFeedback';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import RegisterPage from '../RegisterPage';
 import styled from 'styled-components';
@@ -105,7 +106,7 @@ const Design2 = () => {
                     </Typography>
 
                     <Typography className={styles.ART} componenet="h1" variant="h2"
-                        sx={{ fontSize: { xs: "180%", sm: "auto" }, top: { xs: "38%", lg: "56%",xl:"65%" } }}
+                        sx={{ fontSize: { xs: "180%", sm: "auto" }, top: { xs: "38%", lg: "56%",xl:"52%" } }}
                     >
                         ART
                     </Typography>
@@ -118,7 +119,7 @@ const Design2 = () => {
                 </Grid>
                 <Grid item xs={6} md={6} sx={{ backgroundColor: theme.palette.common.light, height: "100vh", width: { xs: "50vw", md: "30vw" }, position: "relative" }}>
                     <Typography className={styles.DECO} componenet="h1" variant="h2"
-                        sx={{ fontSize: { xs: "180%", sm: "auto" }, top: { xs: "38%", lg: "56%",xl:"65%" } }}
+                        sx={{ fontSize: { xs: "180%", sm: "auto" }, top: { xs: "38%", lg: "56%",xl:"52%" } }}
 
                     >
                         DECO
@@ -141,6 +142,8 @@ const Design2 = () => {
           {showPurchaseBtn  ? <UserSignedInPurchaseBtn /> :
           <ModalContainer />}
         </Stack>
+        <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <PageFeedback/>
       </Container>
       </>
     )

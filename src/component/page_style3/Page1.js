@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import ImagesContainer from './ImagesContainer';
 import { GeneralContext } from '../../context/GeneralContextProvider.js';
@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import ModalContainer from '../utils/ModalContainer';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import RegisterPage from '../RegisterPage';
-// import styled from 'styled-components';
+import PageFeedback from '../utils/PageFeedback';
 import GetRegisterPages from '../utils/GetRegisterPages';
 
 
@@ -49,6 +49,8 @@ const Page1 = () => {
 
       <ModalContainer />}
     </Stack>
+    <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <PageFeedback/>
   </Container>
   </>
 

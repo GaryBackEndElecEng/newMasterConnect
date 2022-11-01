@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Stack, Grid, Container, } from '@mui/material';
+import { Stack, Grid, Container, Typography, } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 // import styles from './design3.module.css';
 import ModalContainer from '../utils/ModalContainer';
+import PageFeedback from '../utils/PageFeedback';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import Titlebar from './Titlebar'
 import RegisterPage from '../RegisterPage';
@@ -200,6 +201,21 @@ background-size:100% 100%;
 }
 
 `;
+const CustomDesign3=styled.div`
+margin:0;
+animation: clearIn 2s ease-in-out;
+@keyframes clearIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+@media screen and (max-width:900px){
+margin-top:-2px;
+}
+@media screen and (max-width:600px){
+  margin-top:-54px;
+
+}
+`;
 
 
 const Design3 = () => {
@@ -260,7 +276,7 @@ const Design3 = () => {
             if(startStatement){
                 setStartMoon(true);
             }
-        },5000);
+        },4000);
         setTimeout(()=>{
             if(startMoon){
                 setStartBoxAnimation(true);
@@ -270,7 +286,7 @@ const Design3 = () => {
     
 
     return (
-        <>
+        <CustomDesign3>
         <GetRegisterPages/>
                 <RegisterPage />
                 <Design3Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} />
@@ -339,8 +355,10 @@ const Design3 = () => {
                     :
                     <ModalContainer />}
                 </Stack>
+                <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <PageFeedback/>
             </Container>
-        </>
+        </CustomDesign3>
 
     )
 }

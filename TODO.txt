@@ -64,14 +64,8 @@ python manage.py dbshell
 
 
 TODO
-   Rental Template:
-   Rental App:
-   -Remove 4-pics and give more info.-Take away Hover
-  - btns=>show popup with pictures
-  - add fedback on first page ( create clients-> link db for future submissions)
+ -format Contact execution advert ( for Iphone)
   _ Retrospect=> Special Unique Designs
-  -Realtor Page
-  -stars + fake recommendations on each design=> feed the best to the front and filter 3-and -above
   -use calculator- show questions for design.
   -add packages: custom support.
   

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, Container, Stack, Grid, Typography} from '@mui/material';
+import { Box, Container, Stack, Grid, Typography,Switch} from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider.js';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
@@ -12,9 +12,16 @@ import RegisterPage from '../RegisterPage';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import styled from 'styled-components';
 import GetRegisterPages from '../utils/GetRegisterPages';
+import PageFeedback from '../utils/PageFeedback';
 import Design1Helmet from './Design1Helmet';
 import CustomDetails from './CustomDetails';
 import arrayLodges from './imageArr';
+import arrayLodgesFR from './imageArrayFr';
+import array2 from './array2.json';
+import array2Fr from './array2Fr.json';
+import array from './ratingArray.json';
+import arrayFr from './ratingArrayFr.json';
+
 
 
 const CustBoxPageCover = styled(Box)`
@@ -37,8 +44,24 @@ margin-top:-2px;
 }
 @media screen and (max-width:600px){
   margin-top:-54px;
+
 }
 
+`;
+const CustomDesign1=styled.div`
+margin:0;
+animation: clearIn 2s ease-in-out;
+@keyframes clearIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+@media screen and (max-width:900px){
+margin-top:-2px;
+}
+@media screen and (max-width:600px){
+  margin-top:-54px;
+
+}
 `;
 
 
@@ -58,6 +81,9 @@ const Design1 = () => {
     const [keywords, setKeywords] = useState(false);
     const [image, setimage] = useState(false);
     const [OBJ, setOBJ] = useState(false);
+    const [lang, setLang] = useState(false);
+    const [langArr, setLangArr] = useState([]);
+    const [langPlaceArr, setLangPlaceArr] = useState([]);
 
     useEffect(()=>{
         if(getProductList.loaded){
@@ -73,19 +99,18 @@ const Design1 = () => {
           
       }
     },[getProductList.loaded]);
-  const array = [
-    { id: 0, rating: 3, name: "Harry", "comment": " I had a really good time. The place was absolutely beautiful. The service was okay!" },
-    { id: 1, rating: 5, name: "Bob", "comment": " The clientele was curtious and provided all the help available" },
-    { id: 2, rating: 4, name: "Donna", "comment": " I recommend anyone to book with them. You will not regret this!" },
-    { id: 5, rating: 5, name: "Smith", "comment": " I met my wife while using one of their facilities. The experience was well worth the expense." },{ id: 6, rating: 5, name: "Sarah", "comment": " We were well served" },
-    { id: 7, rating: 4, name: "Betty", "comment": " Brought my Mom on vacation. We both enjoyed this trip and location!" },
-    { id: 8, rating: 5, name: "Won", "comment": " Nice people, appreciated their kindness" }]
-  const array2 = [
-    { id: 0,"title":"Product Summary",  "comment": "This can give a summary of a product"},
-    { id: 1,"title":"Service Summary", "comment": " This can give a summary of a service" },
-    { id: 2,"title":"Event Details",  "comment": " This can give directions to an Event" },
-    { id: 3,"title":"Decription",  "comment": " This can give a summary description of a product" },
-    ]
+
+    useEffect(()=>{
+      if(lang===true){
+        setLangArr(arrayFr)
+        setLangPlaceArr(arrayLodgesFR)
+      }
+      if(lang===false){
+        setLangArr(array)
+        setLangPlaceArr(arrayLodges)
+      }
+    },[lang]);
+ 
 
   useEffect(() => {
     const title1 = workArr.filter(obj => (obj.id === 0))[0].title
@@ -102,12 +127,12 @@ const Design1 = () => {
   }, []);
 
   return (
-    <>
+    <CustomDesign1>
 
       <RegisterPage />
       <GetRegisterPages/>
       <Design1Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ}/>
-      <CustBoxPageCover bg={image1} sx={{ position: "relative",  }}>
+      <CustBoxPageCover bg={image1} sx={{ position: "relative" }}>
         
           <Grid container spacing={0}
             sx={{
@@ -120,11 +145,20 @@ const Design1 = () => {
               marginTop: "0px", marginBottom: "2rem"
             }}
           >
+            <Stack direction="row"
+             sx={{justifyContent:"flex-start",alignItems:"center",width:{md:"25%",sm:"30%",xs:"50%",lg:"10%"},
+            position:"absolute",top:{sm:"1%",md:"5%",xs:"100%"},right:{sm:"35%",xs:"25%",lg:"45%"},background:theme.palette.common.orangeFade2,paddingLeft:"0.25rem"
+            }}
+             spacing={2}
+            >
+              <Typography component="h1" variant="h5" sx={{paddingLeft:"0.5rem"}}>{lang ? "to english":"a francais"}</Typography>
+              <Switch checked={lang} onChange={(e)=>setLang(e.target.checked)} sx={{ml:1}}/>
+            </Stack>
             {
 
-              array.map((obj) => (
+                langArr.map((obj) => (
                 <Grid item xs={12} sm={6} md={4} lg={6} key={obj.id}
-                  sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+                  sx={{ display: "flex", flexDirection: "column", alignItems: "center",margin:{sm:"1rem auto",md:"auto"}  }}
                 >
                   <CardSample2 fade={fade2} rating={obj.rating} name={obj.name} comment={obj.comment}  />
                 </Grid>
@@ -135,7 +169,7 @@ const Design1 = () => {
             <Container maxWidth={"xl"}
             sx={{background:theme.palette.fade,color:"white",position:"relative",minHeight:{xs:"20vh",lg:"18vh"},}}
             >
-              <CustomDetails />
+              <CustomDetails lang={lang} />
             </Container>
          
         
@@ -149,7 +183,7 @@ const Design1 = () => {
         }}
       >
         <Grid container spacing={0} sx={{ justifyContent: "center", alignItems: "flex-start",width:"100%" }}>
-          {arrayLodges.map((obj,index) => (
+          {langPlaceArr.map((obj,index) => (
             <Grid item xs={12} sm={6} md={4} key={`${obj.id}-${index}`}
               sx={{ margin: { xs: "0.5rem auto", sm: "2rem auto" }, width: "100%", }}
             >
@@ -161,7 +195,7 @@ const Design1 = () => {
       <Container maxWidth={"xl"}>
         <GridLayer />
       </Container>
-      <MyWork />
+      <MyWork lang={lang}/>
 
 
       <Container maxWidth={"md"}>
@@ -170,8 +204,10 @@ const Design1 = () => {
             :
             <ModalContainer />}
         </Stack>
+        <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>{lang ? "Veuillez commenter la conception ci-dessous. Nous nous efforçons de nous améliorer.":"Please comment on the design,below. We strive to improve."}</Typography>
+        <PageFeedback/>
       </Container>
-    </>
+    </CustomDesign1>
 
 
   )

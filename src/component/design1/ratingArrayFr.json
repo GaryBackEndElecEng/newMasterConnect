@@ -1,0 +1,24 @@
+[
+    {
+         "id": 0, "rating": 3, "name": "Harry", "comment": "J'ai vraiment passé un bon moment. L'endroit était absolument magnifique. Le service était correct !" 
+    },
+    {
+         "id": 1, "rating": 5, "name": "Bob", "comment": " La clientèle était curieuse et a fourni toute l'aide disponible" 
+    },
+    {
+         "id": 2, "rating": 4, "name": "Donna", "comment": "Je recommande à quiconque de réserver avec eux. Vous ne le regretterez pas !" 
+    },
+    {
+         "id": 5, "rating": 5, "name": "Smith", "comment": "J'ai rencontré ma femme en utilisant l'une de leurs installations. L'expérience valait bien la dépense." 
+    },
+    { 
+         "id": 6, ": 5, ": "Sarah", "comment": " Nous avons été bien servi" 
+
+    },
+    {
+         "id": 7, "rating": 4, "name": "Betty", "comment": "J'ai amené ma mère en vacances. Nous avons tous les deux apprécié ce voyage et cet emplacement!" 
+    },
+    {
+        "id": 8, "rating": 5, "name": "Won", "comment": " Des gens sympas, apprécié leur gentillesse" 
+    }
+]

@@ -10,6 +10,7 @@ import Styles from './wedding.module.css'
 import SpaIcon from '@mui/icons-material/Spa';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModalContainer from '../utils/ModalContainer';
+import PageFeedback from '../utils/PageFeedback';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
@@ -108,6 +109,11 @@ const MainWeddingContainer = styled.div`
 marginLeft:"0px";
 margin:auto;
 margin-top:0px;
+animation: growIn 1.5s ease-in-out;
+@keyframes growIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
 
 @media screen and (max-width:900px){
   margin-top:-30px
@@ -325,6 +331,8 @@ const Design6Wedding = () => {
             :
             <ModalContainer />}
         </Stack>
+        <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <PageFeedback/>
       </Container>
     </MainWeddingContainer>
   )

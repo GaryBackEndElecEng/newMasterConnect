@@ -48,6 +48,7 @@ export const theme = createTheme({
       background3:alpha(blueGrey[900],.8),
       blueGreyDark:blueGrey[900],
       blueFade:alpha(blue[300],.7),
+      blueFadeLighter:alpha(blue[300],.4),
       orangeFade:alpha(orange[400],.2),
       orangeFade2:alpha(orange[900],.6),
       mediumBlue:alpha(blue[500],.5),
