@@ -6,8 +6,11 @@ import { red } from '@mui/material/colors'
 import { Image } from '@mui/icons-material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import Styles from './contact.module.css';
-const CustGrid =styled(Grid)`
 
+
+const CustGrid =styled(Grid)`
+margin:auto;
+margin-top:-1rem;
 animation: showInfo 4.5s ease-in-out;
 width:100%;
 @keyframes showInfo {
@@ -40,11 +43,12 @@ const DynamicInfo = () => {
 
     return (
         <>
-       {showDisplay && <CustGrid className={showDisplay ? "vanishInfo" :""} container spacing={1}  >
+       {showDisplay && 
+       <CustGrid className={showDisplay ? "vanishInfo" :""} container spacing={1}  >
 
             <Grid item xs={12} md={5}
                 sx={{
-                    padding: "auto 0.5rem", margin: "auto 1rem", display: { xs: "none", sm: "flex" },
+                    padding: "auto 0.5rem", margin: "1rem", display: { xs: "none", sm: "flex" },
                     position: "relative", flexDirection: { xs: "column", sm: "row" }, 
                 }}
             >
@@ -82,7 +86,7 @@ const DynamicInfo = () => {
             </Grid>
             <Grid item xs={12} md={4}
             sx={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
-            <Typography component="h1" variant="h4" sx={{color:theme.palette.common.blueGrey, fontSize:{sm:"20px",xs:"12px"},width:"100%",padding:"0",margin:"0.25rem"}}>Our goal is to satisfy your evey need within reasonable pricing and clear understanding.</Typography>
+            <Typography component="h1" variant="h4" sx={{color:theme.palette.common.blueGrey, fontSize:{sm:"20px",xs:"12px"},width:"100%",padding:"0",margin:"0"}}>Our goal is to satisfy your evey need within reasonable pricing and clear understanding.</Typography>
             </Grid>
 
         </CustGrid>}

@@ -46,6 +46,14 @@ height:24vh;
   to { opacity:1;height:24vh;}
 }
 }
+
+@media screen and (max-width:400px){
+height:29vh;
+@keyframes moveAppear {
+  from { opacity:0;height:0vh}
+  to { opacity:1;height:29vh;}
+}
+}
 `;
 const ContainerContact = styled(ContainerHomeFluid).attrs({className:"containerContact"})`
 margin:2rem auto;

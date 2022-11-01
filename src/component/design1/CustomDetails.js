@@ -22,13 +22,16 @@ animation: sweepIn 3.5s ease-in-out;
 @media screen and (max-width:600px){
     top:-16%;
 }
+@media screen and (max-width:400px){
+    top:-36%;
+}
 `;
 const CustomDetails = ({lang}) => {
     const theme=useTheme();
     return (
         <CustomBox bg={theme.palette.common.cyanPale}>
-            <Typography component="h1" variant="h3"
-                sx={{ width: "100%", textAlign: "center" }}
+            <Typography component="h1" variant="h5"
+                sx={{ width: "100%", textAlign: "center",fontSize:{sm:"120%"} }}
             >
                 {lang ? "Détails personnalisés" :"Custom details"}
             </Typography>
@@ -36,7 +39,7 @@ const CustomDetails = ({lang}) => {
                 sx={{
                     padding: { xs: "1rem 0.25rem" },
                     transform: { xs: "scale(1)", sm: "scale(1)" },
-                    width: { xs: "80%", sm: "100%" },
+                    width: { xs: "100%", sm: "100%" },
                     fontFamily: "Roboto",
                     // fontStyle: "italic",
                     fontSize: { xs: "14px", sm: "30px", md: "30px" }

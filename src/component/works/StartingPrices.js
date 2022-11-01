@@ -25,10 +25,10 @@ const StartingPrices = ({ obj }) => {
   
   return (
     <CustStack direction="column" spacing={{ xs: 0, sm: 1, md: 2 }}
-    bg={theme.palette.common.orangeFade2}
+    bg={theme.palette.common.fadeCharcoal}
     >
-      <Typography component='h1' variant="h5" sx={{padding:"1rem"}}>
-        {obj.summary}here
+      <Typography component='h1' variant="h6" sx={{padding:"1rem"}}>
+        {obj.summary}
       </Typography>
     </CustStack>
   )

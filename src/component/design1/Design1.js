@@ -146,8 +146,8 @@ const Design1 = () => {
             }}
           >
             <Stack direction="row"
-             sx={{justifyContent:"flex-start",alignItems:"center",width:{md:"25%",sm:"30%",xs:"50%",lg:"10%"},
-            position:"absolute",top:{sm:"1%",md:"5%",xs:"100%"},right:{sm:"35%",xs:"25%",lg:"45%"},background:theme.palette.common.orangeFade2,paddingLeft:"0.25rem"
+             sx={{justifyContent:"flex-start",alignItems:"center",width:{md:"25%",sm:"30%",xs:"80%",lg:"10%"},
+            position:"absolute",top:{sm:"1%",md:"5%",xs:"100%"},right:{sm:"35%",xs:"15%",lg:"45%"},background:theme.palette.common.orangeFade2,paddingLeft:"0.25rem"
             }}
              spacing={2}
             >
@@ -182,7 +182,7 @@ const Design1 = () => {
 
         }}
       >
-        <Grid container spacing={0} sx={{ justifyContent: "center", alignItems: "flex-start",width:"100%" }}>
+        <Grid container spacing={0} sx={{ justifyContent: "center", alignItems: "flex-start",width:"100%",marginTop:{xs:"2rem",sm:"auto"} }}>
           {langPlaceArr.map((obj,index) => (
             <Grid item xs={12} sm={6} md={4} key={`${obj.id}-${index}`}
               sx={{ margin: { xs: "0.5rem auto", sm: "2rem auto" }, width: "100%", }}

@@ -64,7 +64,7 @@ python manage.py dbshell
 
 
 TODO
- -format Contact execution advert ( for Iphone)
+ 
   _ Retrospect=> Special Unique Designs
   -use calculator- show questions for design.
   -add packages: custom support.

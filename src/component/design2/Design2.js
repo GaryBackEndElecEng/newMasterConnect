@@ -106,7 +106,7 @@ const Design2 = () => {
                     </Typography>
 
                     <Typography className={styles.ART} componenet="h1" variant="h2"
-                        sx={{ fontSize: { xs: "180%", sm: "auto" }, top: { xs: "38%", lg: "56%",xl:"52%" } }}
+                        sx={{ fontSize: { xs: "180%", sm: "auto" }, top: { xs: "42%", lg: "56%",xl:"52%" } }}
                     >
                         ART
                     </Typography>
@@ -119,7 +119,7 @@ const Design2 = () => {
                 </Grid>
                 <Grid item xs={6} md={6} sx={{ backgroundColor: theme.palette.common.light, height: "100vh", width: { xs: "50vw", md: "30vw" }, position: "relative" }}>
                     <Typography className={styles.DECO} componenet="h1" variant="h2"
-                        sx={{ fontSize: { xs: "180%", sm: "auto" }, top: { xs: "38%", lg: "56%",xl:"52%" } }}
+                        sx={{ fontSize: { xs: "180%", sm: "auto" }, top: { xs: "42%", lg: "56%",xl:"52%" } }}
 
                     >
                         DECO
