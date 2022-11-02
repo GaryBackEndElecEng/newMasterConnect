@@ -87,12 +87,13 @@ export const PriceContextProvider = (props) => {
     },[]);
 
     useEffect(()=>{
-      if(basePrice.loaded && basePrice?.data.length>0){
+      if(basePrice.loaded && basePrice.data){
         let serviceArr=[],service2Arr=[],service3Arr=[],service4Arr=[];
         service4Arr=basePrice.data.service;
         service2Arr=basePrice.data.postService;
         service3Arr=basePrice.data.extraService;
         let returnArr = serviceArr.concat(service2Arr,service3Arr,service4Arr)
+        // console.log("returnArr",returnArr)
         setBaseServices({loaded:true,data:returnArr})
 
       }

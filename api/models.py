@@ -8,7 +8,7 @@ class Miscelaneous(models.Model):
     def __str__(self):
         return f'{self.page}-{self.pageCount}'
 
-CATEGORIES=(("contact","contact"),("about","about"),("home","home"),("article","article"),("bio","bio"),("main","main"),("footer","footer"),("GeneralInfo","GeneralInfo"),("sponsor","sponsor"),("designs","designs"),("policy","policy"),("feedback","feedback"),)
+CATEGORIES=(("contact","contact"),("about","about"),("home","home"),("article","article"),("bio","bio"),("main","main"),("footer","footer"),("GeneralInfo","GeneralInfo"),("sponsor","sponsor"),("designs","designs"),("policy","policy"),("feedback","feedback"),("calculator","calculator"),)
 SECTION_TYPE=(('allServices','allServices'),('supplemental','supplemental'),('works','works'),('advert','advert'),('main','main'),('general','general'),('restriction','restriction'),('warning','warning'),)
 class Category(models.Model):
     section=models.CharField(max_length=200,choices=CATEGORIES,default="main")
@@ -123,3 +123,13 @@ class PageFeedback(models.Model):
     rating=models.IntegerField(blank=True)
     def __str__(self):
         return f'{self.name}-{self.page}'
+
+class Calculator(models.Model):
+    category=models.ForeignKey(Category,related_name="calculator",on_delete=models.CASCADE)
+    Q=models.CharField(max_length=300,blank=True,null=True)
+    yesno=models.BooleanField(default=True)
+    ans=ArrayField(models.CharField(max_length=300,default="no"),default=list)
+    date=models.DateField(auto_now_add=True)
+    def __str__(self):
+        return self.Q
+

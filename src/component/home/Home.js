@@ -18,6 +18,7 @@ import SigninMsg from './SigninMsg';
 import SpecialCreateValue from './SpecialCreateValue';
 import ArticleBanner from './ArticleBanner';
 import GetRegisterPages from '../utils/GetRegisterPages';
+import CalculateBanner from './CalculateBanner';
 import HomeHelmet from './HomeHelmet';
 import HomeHelmet2 from './HomeHelmet2';
 // import id from 'date-fns/esm/locale/id/index.js';
@@ -217,6 +218,7 @@ const Home = () => {
 
                 </Container>
                 <MiddleBanner bg={homeBg2} />
+                <CalculateBanner/>
                     <ArticleBanner/>
 
 

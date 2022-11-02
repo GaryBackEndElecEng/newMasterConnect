@@ -6,6 +6,7 @@ import {  Fab, Grid, Typography, } from '@mui/material';
 import styled from 'styled-components';
 import PageFeedback from '../utils/PageFeedback';
 import RegisterPage from '../RegisterPage';
+import GetRegisterPages from '../utils/GetRegisterPages';
 import api from '../axios/api';
 import ArticlePage from './ArticlePage';
 import TopCoverPage from './TopCoverPage';
@@ -237,6 +238,7 @@ const Article = () => {
   return (
     <MainBlog bg={changeColor}>
       <RegisterPage />
+      <GetRegisterPages/>
       <ArticleHelmet 
       summary={summary} 
       desc={desc} 

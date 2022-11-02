@@ -35,6 +35,7 @@ import TermsOfSvc from './component/policy/TermsOfSvc';
 import SuccessExtra from './component/payment/SuccessExtra';
 import Design8 from './component/design8/Design8';
 import Design9 from './component/design9/Design9';
+import Calculate from './component/calculator/Calculate';
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
             <Route path="/design9" element={<Design9 />} />
             <Route path="/design3" element={<Page1 />} />
             <Route path="/prices" element={<Prices />} />
+            <Route path="/calculate" element={<Calculate />} />
             <Route path="/MyAccount" element={<LayoutSecure />}>
               <Route path="/MyAccount" element={<MyAccount />} />
               <Route path ="/MyAccount/postAccount/" element={<PostAccount/>}/>

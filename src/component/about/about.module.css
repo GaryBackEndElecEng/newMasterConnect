@@ -4,16 +4,23 @@
     margin:auto;
     position:absolute;
     top:20%;
-    left:25%;
+    left:32%;
     color:black;
-    width:100%;
+    width:50%;
     animation: slideInQuote 4s ease-in-out;
+}
+@media screen and (max-width:900px){
+    .msg{
+       top:15%;
+        left:13%;
+        width:80%;
+    }
 }
 @media screen and (max-width:600px){
     .msg{
        top:15%;
-        left:8%;
-        width:100%;
+        left:10%;
+        width:90%;
     }
 }
 @keyframes slideInQuote {

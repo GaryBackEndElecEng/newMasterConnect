@@ -37,6 +37,9 @@ animation:slideInQuote ease-in-out;
   }
   to{opacity:1;transform:translateX(0%);}
   }
+  @media screen and (max-width:600px){
+    box-shadow:1px 1px 8px 5px grey;
+  }
 `;
 
 const CheckOutStuffQuote = () => {
@@ -175,12 +178,12 @@ const CheckOutStuffQuote = () => {
 
 
       </Grid>
-      <Container component="div" maxWidth="lg" >
+      
         <CustDiv ref={MyRef} style={{ display: display }}>
           <GetAQuote />
           <Typography component="h1" variant="h4" className={styles.msg} sx={{ fontSize: { xs: "18px", sm: "30px" } }}>"Connection starts with communication"</Typography>
         </CustDiv>
-      </Container>
+      
       {callBackConfirmed && <CallBackRequest />}
     </Container>
   )

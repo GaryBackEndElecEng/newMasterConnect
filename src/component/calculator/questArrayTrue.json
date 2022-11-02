@@ -1,0 +1,92 @@
+[
+    {
+        "id":0,
+        "Q":"Is this for a company?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":1,
+        "Q":"Are you selling, or would you like to sell products over the internet?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":2,
+        "Q":"Do you want clients to register,have records;such as call records,emails,name,etc,,?",
+        "yesno":true,
+        "ans":"no"
+    },
+  
+    {
+        "id":3,
+        "Q":"There is an easy way and a hard way to secure a site.Do you want a secure site?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":4,
+        "Q":"If this is for a company? and is the company in the high-tech business?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":5,
+        "Q":"The internet is made up of regions that covers the world.If you are selling, are you going to be selling all throughout North America and or the world? ",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":6,
+        "Q":"SEO( Search Engine Optimization) is like a librarian to a library, except, its Google, Fir-Fox, Yahoo, etc the librarians. Do you have resources to deal with the SEO or do you want SEO so that your site will be discovered on the internet?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":7,
+        "Q":"Dynamic SEO registration is simply adding and or refreshing your information so that Google and others will crawl your site more often, improving site ranking.Do you want dynamic SEO registration with your site?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":8,
+        "Q":"Do you want professional image creation or you don't care-meaning no?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":9,
+        "Q":"A company or resource base typically need central access to secure files, both for your staff and clients.Do you require a filing system?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":10,
+        "Q":"Cloud structures, on the internet are heavily dependant on CDNs for static storage. Given, this, do you have a CDN?",
+        "yesno":true,
+        "ans":"no"
+    },
+    
+    {
+        "id":11,
+        "Q":"Would youlike us to handle finding/creating images for you that matches your target audience, inclusive to the above?",
+        "yesno":true,
+        "ans":"no"
+    },
+    
+   
+    {
+        "id":12,
+        "Q":"Are you registering a new domain?",
+        "yesno":true,
+        "ans":"no"
+    },
+    {
+        "id":13,
+        "Q":"Do you have an existing database that needs records transferred?",
+        "yesno":true,
+        "ans":"no"
+    }
+    
+]
+

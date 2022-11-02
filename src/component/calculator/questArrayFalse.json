@@ -1,0 +1,38 @@
+[
+    {
+        "id":14,
+        "Q":"Hits are people going to your site and ultilizing resources.How many hits on the site do you forcast- just a number?",
+        "yesno":false,
+        "ans":"no"
+    },
+    {
+        "id":15,
+        "Q":"if you answered yes, to the previous yes/no question, then what type of database do you have?",
+        "yesno":false,
+        "ans":"no"
+    },
+    {
+        "id":16,
+        "Q":"if you answered yes, to the previous question, then what is your database size?",
+        "yesno":false,
+        "ans":"no"
+    },
+    {
+        "id":17,
+        "Q":"What industry are you in?",
+        "yesno":false,
+        "ans":"no"
+    },
+    {
+        "id":18,
+        "Q":"This determines, the level of difficulty for file extraction.if you do have a CDN, please type your CDN.",
+        "yesno":false,
+        "ans":"no"
+    },
+    {
+        "id":19,
+        "Q":"Do you have an existing site?, if yes, then please enter it below",
+        "yesno":false,
+        "ans":"no"
+    }
+]

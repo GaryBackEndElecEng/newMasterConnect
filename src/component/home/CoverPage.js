@@ -29,13 +29,13 @@ animation: webDesign 1.5s ease-in-out;
 `;
 const PersonBack = styled.img.attrs({ className: "persBack" })`
 position:absolute;
-top:12%;
-left:75%;
-transform:scale(1.2);
+top:29%;
+right:15%;
+transform:scale(1.7);
 animation: mergePersBack 1.25s ease-in;
 @keyframes mergePersBack {
     from {opacity:0;transform:translateX(20%) scale(0.8)}
-    to {opacity:1;transform:translateY(0%) scale(1.2)}
+    to {opacity:1;transform:translateY(0%) scale(1.7)}
 }
 @media screen and (max-width:900px){
     top:42%;
@@ -59,13 +59,23 @@ animation: mergePersBack 1.25s ease-in;
     }
 }
 @media screen and (max-width:500px){
-    top:32%;
+    top:34%;
     left:70%;
-    transform:scale(1);
+    transform:scale(1.1);
 
     @keyframes mergePersBack {
-        from {opacity:0;transform:translateX(20%) scale(1);}
-        to {opacity:1;transform:translateY(0%) scale(1);}
+        from {opacity:0;transform:translateX(20%) scale(0);}
+        to {opacity:1;transform:translateY(0%) scale(1.1);}
+    }
+}
+@media screen and (max-width:400px){
+    top:30%;
+    left:70%;
+    transform:scale(0.7);
+
+    @keyframes mergePersBack {
+        from {opacity:0;transform:translateX(20%) scale(0);}
+        to {opacity:1;transform:translateY(0%) scale(0.7);}
     }
 }
 
@@ -88,8 +98,9 @@ const CoverPage = ({makeEasy}) => {
                     component="h1" variant="h3"
                     sx={{
                         color: "white", padding: { xs: "1rem 10px", sm: "1rem" }, zIndex: "100",
-                        fontSize: { xs: "28px", sm: "30px" }, fontFamily: "Roboto",marginTop:{xs:"0px",sm:"0.5rem",md:"-10px"}
-                        ,marginLeft:{md:"3rem"}
+                        fontSize: { xs: "28px", sm: "30px",md:"40px" }, fontFamily: "Roboto",marginTop:{xs:"0px",sm:"0.5rem",md:"-10px"},
+                        textAlign:{md:"center"},
+                        // marginLeft:{md:"16rem"}
                     }}
                 >
                     The Freedom to Get Exactly What You Want- Hassle-Free!
@@ -99,8 +110,9 @@ const CoverPage = ({makeEasy}) => {
                     className={makeEasy ? Styles.customSiteTitle2 : Styles.noShow}
                     sx={{
                         color: "white", padding: { sm: "1rem", xs: "0" }, zIndex: "100",
-                        fontSize: { xs: "18px", sm: "20px" }, margin: "2rem auto", fontFamily: "Roboto"
-                        ,marginLeft:{md:"3rem"}
+                        fontSize: { xs: "24px", sm: "30px",md:"40px" }, margin: "2rem auto", fontFamily: "Roboto",
+                        textAlign:{md:"center"},
+                        marginLeft:{xs:"3rem"}
 
                     }}
                 >
@@ -111,8 +123,8 @@ const CoverPage = ({makeEasy}) => {
                     className={makeEasy ? Styles.customSiteTitle2 : Styles.noShow}
                     sx={{
                         color: "white", padding: { sm: "1rem", xs: "0" }, zIndex: "100",
-                        fontSize: { xs: "30px", sm: "40px" }, margin: "1rem", fontFamily: "Roboto"
-                        ,marginLeft:{md:"3rem"}
+                        fontSize: { xs: "32px", sm: "60px",md:"70px" }, margin: "1rem", fontFamily: "Roboto"
+                        ,marginLeft:{md:"3rem"},textAlign:{md:"center"}
 
                     }}
                 >

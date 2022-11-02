@@ -15,11 +15,10 @@ import HowCanAssist from './HowCanAssist';
 import ClickToSeeSvc from './ClickToSeeSvc';
 import OurServices from './OurServices';
 import RegisterPage from '../RegisterPage';
-import ArchitectureIcon from '@mui/icons-material/Architecture';
+import GetRegisterPages from '../utils/GetRegisterPages';
 import Styles from './contact.module.css';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import GetRegisterPages from '../utils/GetRegisterPages';
 import ContactHelmet from './ContactHelmet'
 
 const DivEffect = styled.div`

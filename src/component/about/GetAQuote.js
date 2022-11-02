@@ -96,7 +96,7 @@ const GetAQuote = () => {
         
     }
     return (
-        <Container maxWidth={"lg"}>
+        <Container maxWidth={"sm"}>
             <Card
                 sx={{ justifyContent: "flex-start", alignItems: "center",position:"relative" }}
             >

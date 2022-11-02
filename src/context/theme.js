@@ -59,6 +59,7 @@ export const theme = createTheme({
       lightBrow:alpha(brown[300],1),
       fadeCharcoal:alpha("#333",0.6),
       fadeCharcoal2:alpha("#333",0.4),
+      fadeCharcoal3:alpha("#333",0.9),
 
 
     },
