@@ -60,8 +60,8 @@ python manage.py dbshell
   select * from django_migrations
    delete from django_migrations where id=361;
    react-meta-tags
-
-
+column "allPaidInvoice" of relation "adminHome_suminvoice" already exists
+rufetygrguqjbk
 
 TODO
  

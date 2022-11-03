@@ -7,11 +7,6 @@ class PostFeedbackSerializer(serializers.ModelSerializer):
         model=PageFeedback
         fields="__all__"
 
-# class PostCalculatorSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model=Calculator
-#         fields=("id","yesno","Q","ans")
-
 class MiscSerializer(serializers.ModelSerializer):
     class Meta:
         model= Miscelaneous
@@ -102,10 +97,6 @@ class ExtraSerializer(serializers.ModelSerializer):
         model=Miscelaneous
         fields="__all__"
 
-# class PostCalculatorSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model=Calculator
-#         fields=("id","Q","ans")
 
 
 
@@ -115,16 +106,7 @@ class ExtraSerializer(serializers.ModelSerializer):
 
 
 
-# class PostSerializer(serializers.ModelSerializer):
-#     owner = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-#     print("owner",owner)
-#     class Meta:
-#         model = Post
-#         fields=('id','category','title','slug','owner','excerpt','content','status','published','my_user')
-    
-#     def get_my_user(self,obj):
-#         if not hasattr(obj,'id'):
-#             return None
-#         return obj.my_user() 
+
+
 
 

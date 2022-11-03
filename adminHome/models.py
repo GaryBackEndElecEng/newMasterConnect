@@ -18,7 +18,7 @@ class SumInvoice(models.Model):
     provtax=models.IntegerField(default=0,null=True,blank=True)
     allPriceID=ArrayField(models.CharField(max_length=250,blank=True,null=True),default=list,blank=True)
     allDateEnd=ArrayField(models.DateField(default=datetime.now),default=list,blank=True)
-    allPaidInvoice=ArrayField(models.CharField(max_length=70),default=list,blank=True)
+    # allPaidInvoice=ArrayField(models.CharField(max_length=70),default=list,blank=True)
 
     def __str__(self):
         return self.name

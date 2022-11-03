@@ -1,7 +1,12 @@
 from rest_framework import serializers
 from rest_framework import status,mixins,generics,viewsets,permissions
-from .models import Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService
+from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,)
 from django.contrib.auth.models import User
+
+# class PostCalculatorSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=Calculator
+#         fields=("id","Q","ans")
 
 class ExtraServiceSerializer(serializers.ModelSerializer):
     class Meta:
