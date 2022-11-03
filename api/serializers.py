@@ -1,5 +1,5 @@
 from rest_framework import serializers,permissions
-from api.models import Service,Category,CATEGORIES,Quote,FAQS,WordSnippet,Request,Region,Miscelaneous,GeneralInfo,Sponsor,PageFeedback,Calculator
+from api.models import (Service,Category,CATEGORIES,Quote,FAQS,WordSnippet,Request,Region,Miscelaneous,GeneralInfo,Sponsor,PageFeedback)
 from django.contrib.auth.models import User
 
 class PostFeedbackSerializer(serializers.ModelSerializer):
@@ -7,10 +7,10 @@ class PostFeedbackSerializer(serializers.ModelSerializer):
         model=PageFeedback
         fields="__all__"
 
-class PostCalculatorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Calculator
-        fields=("id","yesno","Q","ans")
+# class PostCalculatorSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=Calculator
+#         fields=("id","yesno","Q","ans")
 
 class MiscSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,7 +56,6 @@ class CategorySerializer(serializers.ModelSerializer):
     categorySponsor=SponsorCatField(many=True,read_only=True)
     imageCategory=ImageCatField(many=True,read_only=True)
     pageFeedback=PostFeedbackSerializer(many=True,read_only=True)
-    calculator=PostCalculatorSerializer(many=True,read_only=True)
     class Meta:
         model = Category
         fields=('id', 'name','section','categories',"catWordSnippet","catFooter","categoryGeneralInfo","categorySponsor","imageCategory","pageFeedback","calculator")
@@ -103,10 +102,10 @@ class ExtraSerializer(serializers.ModelSerializer):
         model=Miscelaneous
         fields="__all__"
 
-class PostCalculatorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Calculator
-        fields=("id","Q","ans")
+# class PostCalculatorSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=Calculator
+#         fields=("id","Q","ans")
 
 
 

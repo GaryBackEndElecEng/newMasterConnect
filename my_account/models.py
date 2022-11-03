@@ -248,3 +248,17 @@ class UserAccount(models.Model):
 
     def __str__(self):
         return f'{self.name}-{self.user}'
+
+
+
+# class Calculator(models.Model):
+#     priceCatelog=models.ForeignKey(PriceCatelog,related_name="calculator",on_delete=models.CASCADE,blank=True,null=True)
+#     Q=models.CharField(max_length=300,blank=True,null=True)
+#     service =models.ManyToManyField(Service,blank=True,related_name="services")
+#     postService =models.ManyToManyField(PostService,blank=True,related_name="postServices")
+#     extraService =models.ManyToManyField(Service,blank=True,related_name="extraServices")
+#     yesno=models.BooleanField(default=True)
+#     ans=ArrayField(models.CharField(max_length=300,default="no"),default=list)
+#     date=models.DateField(auto_now_add=True)
+#     def __str__(self):
+#         return f'{self.Q}-{self.yesno}'

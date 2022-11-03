@@ -124,12 +124,12 @@ class PageFeedback(models.Model):
     def __str__(self):
         return f'{self.name}-{self.page}'
 
-class Calculator(models.Model):
-    category=models.ForeignKey(Category,related_name="calculator",on_delete=models.CASCADE)
-    Q=models.CharField(max_length=300,blank=True,null=True)
-    yesno=models.BooleanField(default=True)
-    ans=ArrayField(models.CharField(max_length=300,default="no"),default=list)
-    date=models.DateField(auto_now_add=True)
-    def __str__(self):
-        return self.Q
+# class Calculator(models.Model):
+#     category=models.ForeignKey(Category,related_name="calculator",on_delete=models.CASCADE)
+#     Q=models.CharField(max_length=300,blank=True,null=True)
+#     yesno=models.BooleanField(default=True)
+#     ans=ArrayField(models.CharField(max_length=300,default="no"),default=list)
+#     date=models.DateField(auto_now_add=True)
+#     def __str__(self):
+#         return self.Q
 

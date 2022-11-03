@@ -15,13 +15,13 @@ from rest_framework.response import Response
 from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 # from users.permissions import IsOwnerOrReadOnly
-from api.models import Service,Category,Quote,FAQS,WordSnippet,Region,Miscelaneous,Sponsor,PageFeedback,Calculator
+from api.models import (Service,Category,Quote,FAQS,WordSnippet,Region,Miscelaneous,Sponsor,PageFeedback,)
 from my_account.models import Service,Product
 from my_account.models import Tax
 from rest_framework import status,mixins,generics,viewsets,permissions
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
-from .serializers import PageSerializer,CategorySerializer,RequestQuotePostSerializer,FAQSSerializer,WordSnippetSerializer,RequestPostSerializer,RegionSerializer,ExtraSerializer,MiscSerializer,PostFeedbackSerializer,PostCalculatorSerializer
+from .serializers import (PageSerializer,CategorySerializer,RequestQuotePostSerializer,FAQSSerializer,WordSnippetSerializer,RequestPostSerializer,RegionSerializer,ExtraSerializer,MiscSerializer,PostFeedbackSerializer,)
 from my_account.serializers import ServiceSerializer,ProductSerializer
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
@@ -258,27 +258,27 @@ class PostPageFeedback(APIView):
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-class CalculatorResults(APIView):
-    permission_classes=[AllowAny]
-    def post(self,request,format=None):
-        data=request.data
-        # print(data)
-        category,created =Category.objects.get_or_create(section="calculator")
-        if created:
-            category.name="calculator"
-            category.save()
-        calculators=Calculator.objects.all().order_by("id")
-        if data and calculators:
-            for question in calculators:
-                question.category=category
-                for dict in data:
-                    if question.id == dict.get("id"):
-                        question.ans.append(dict.get("ans"))
-                        question.save()
-                        break
-            serializer = PostCalculatorSerializer(calculators,many=True)
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+# class CalculatorResults(APIView):
+#     permission_classes=[AllowAny]
+#     def post(self,request,format=None):
+#         data=request.data
+#         # print(data)
+#         category,created =Category.objects.get_or_create(section="calculator")
+#         if created:
+#             category.name="calculator"
+#             category.save()
+#         calculators=Calculator.objects.all().order_by("id")
+#         if data and calculators:
+#             for question in calculators:
+#                 question.category=category
+#                 for dict in data:
+#                     if question.id == dict.get("id"):
+#                         question.ans.append(dict.get("ans"))
+#                         question.save()
+#                         break
+#             serializer = PostCalculatorSerializer(calculators,many=True)
+#             return Response(serializer.data,status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     

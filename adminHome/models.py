@@ -3,9 +3,10 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 
 class Rates(models.Model):
+    name=models.CharField(max_length=75,blank=True,null=True)
     interest=models.IntegerField(default=0,blank=True)
     def __str__(self):
-        return f'{self.interest}'
+        return f'{self.name}-{self.interest}'
 
 class SumInvoice(models.Model):
     name=models.CharField(max_length=150,blank=True,null=True)

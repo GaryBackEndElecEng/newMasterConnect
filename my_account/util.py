@@ -324,7 +324,7 @@ class monthlyProductServiceMonthlyPrice:
         self.services= Service.objects.all()
         self.postServices= PostService.objects.all()
         self.extraServices= ExtraService.objects.all()
-        self.rate=Rates.objects.last()
+        self.rate=Rates.objects.filter(name="interest").first()
         if self.rate:
             self.interest=self.rate.interest/100
         self.years=5

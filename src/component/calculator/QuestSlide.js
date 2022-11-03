@@ -31,6 +31,9 @@ padding:1rem;
 padding:1rem;
 transform:translateX(${({ next }) => next * 100.85 * -1}%);
 transition: transform 1s ease-in-out;
+@media screen and (max-width:600px){
+    transform:translateX(${({ next }) => next * 102 * -1}%); 
+}
 `;
 const CustStack = styled(Stack)`
 display:flex;
@@ -45,7 +48,10 @@ animation: appearIn 1.5s ease-in-out;
     from {opacity:0;}
     to {opacity:1;}
 }
-
+@media screen and (max-width:600px){
+    width:calc(${({ cust_width }) => (cust_width * (108.0))}% );
+    margin-left:0px;
+}
 
 `;
 const CustStackSmall1 = styled(Stack)`
@@ -61,6 +67,10 @@ text-align:center;
 padding:1rem;
 transform:translateX(${({ next }) => next * 102.5 * -1}%);
 transition: transform 1s ease-in-out;
+
+@media screen and (max-width:600px){
+    transform:translateX(${({ next }) => next * 106 * -1}%); 
+}
 `;
 const CustStack1 = styled(Stack)`
 display:flex;
@@ -75,6 +85,10 @@ animation: appearIn 1.5s ease-in-out;
 @keyframes appearIn {
     from {opacity:0;}
     to {opacity:1;}
+}
+@media screen and (max-width:600px){
+    width:calc(${({ cust_width }) => (cust_width * (122.0))}% );
+    margin-left:0px;
 }
 
 
@@ -93,14 +107,14 @@ const QuestSlide = () => {
     const [fillOut, setFillOut] = useState({loaded:false,data:[]});
 
     useEffect(() => {
-        let filloutObj = (userQuestionArray.loaded && userQuestionArray.data) ? userQuestionArray.data.filter(obj=>(JSON.parse(obj.yesno)===false)):null;
-        let yesnoObj = (userQuestionArray.loaded && userQuestionArray.data) ? userQuestionArray.data.filter(obj=>(JSON.parse(obj.yesno)===true)):null;
-        if(filloutObj && yesnoObj){
-        setYesnoLength(yesnoObj.length);
-        setFillOutLength(filloutObj.length);
-        setYesno({loaded:true,data:yesnoObj});
-        setFillOut({loaded:true,data:filloutObj});
-        }
+        // let filloutObj = (userQuestionArray.loaded && userQuestionArray.data) ? userQuestionArray.data.filter(obj=>(JSON.parse(obj.yesno)===false)):null;
+        // let yesnoObj = (userQuestionArray.loaded && userQuestionArray.data) ? userQuestionArray.data.filter(obj=>(JSON.parse(obj.yesno)===true)):null;
+        // if(filloutObj && yesnoObj){
+        setYesnoLength(questArrayTrue.length);
+        setFillOutLength(questArrayFalse.length);
+        setYesno({loaded:true,data:questArrayTrue});
+        setFillOut({loaded:true,data:questArrayFalse});
+        // }
     }, [userQuestionArray,setYesno,setFillOut]);
 
     const handleNextYesNo = (e, id) => {
@@ -153,7 +167,7 @@ const QuestSlide = () => {
                     <Paper elevation={20} >
                     <CustStack direction="row" spacing={{xs:1,sm:1}} cust_width={yesnoLength - 1} ref={getRefYesno} sx={{background:theme.palette.common.fadeCharcoal3}} >
 
-                        {(yesno.loaded && yesno.data) && yesno.data.map((obj, index) => (
+                        {(questArrayTrue && questArrayTrue) && questArrayTrue.map((obj, index) => (
                             <CustStackSmall direction="column"
                                 className={styles.question}
                                 key={`${obj.id}-QA-${index}`}
@@ -209,7 +223,7 @@ const QuestSlide = () => {
                     cust_width={fillOutLength - 1} ref={getRefFill}
                     sx={{background:theme.palette.common.fadeCharcoal3,color:"white"}}
                     >
-                        {(fillOut.loaded && fillOut.data) && fillOut.data.map((obj, index) => (
+                        {(questArrayFalse && questArrayFalse) && questArrayFalse.map((obj, index) => (
 
 
                             <CustStackSmall1 direction="column"
