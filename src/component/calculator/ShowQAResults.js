@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
+import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import { Container, Stack, Grid, Typography, Paper } from '@mui/material';
@@ -43,7 +44,7 @@ const ShowQAResults = () => {
     useEffect(()=>{
 const sendInfo = async ()=>{
     try {
-        const res= await api.post('/postCalculatorResults/',userSelectionArray);
+        const res= await api.post('/account/postCalculatorResults/',userSelectionArray);
         const body = res.data;
         setSent(true);
     } catch (error) {

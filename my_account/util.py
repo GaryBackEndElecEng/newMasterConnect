@@ -732,3 +732,10 @@ def insertLowest_price_in():
                 priceInstProd.save()
 
 # insertLowest_price_in()
+
+#CALCULATING ESTIMATE FROM CALCULATOR
+#pop ans=> array,2.) Manto-many=> to Service,Post and extra Services.,Then generate monthly cost minum  and 1.62* amount.
+
+# class CalculateCost:
+#     def __init__(self):
+#         pass

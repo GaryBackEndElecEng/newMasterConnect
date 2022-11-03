@@ -27,6 +27,7 @@ export const PriceContextProvider = (props) => {
     const [userAccountGroup,setUserAccountGroup]=useState({loaded:false,data:[]});
     const [userAccountPostGroup,setUserAccountPostGroup]=useState({loaded:false,data:[]});
     const [SEO,setSEO]=useState({loaded:false,data:[]});
+    const [userQuestionArray,setUserQuestionArray]=useState({loaded:false,data:[]});
     
     useEffect(()=>{
         const getPricecatelog= async ()=>{
@@ -76,6 +77,9 @@ export const PriceContextProvider = (props) => {
                   }
                   if(body.filter(obj=>(obj.name === "SEO"))[0]?.postService){
                   setSEO({loaded:true,data:body.filter(obj=>(obj.name === "SEO"))[0].postService});
+                  }
+                  if(body.filter(obj=>(obj.name === "calculator"))[0]?.calculator){
+                    setUserQuestionArray({loaded:true,data:body.filter(obj=>(obj.name === "calculator"))[0].calculator});
                   }
                 }
             } catch (error) {
@@ -148,7 +152,7 @@ export const PriceContextProvider = (props) => {
       },[])
     
     return (
-        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,getProducts,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup}}>
+        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,getProducts,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray}}>
             {props.children}
         </PriceContext.Provider>
       )

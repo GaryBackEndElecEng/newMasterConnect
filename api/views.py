@@ -258,27 +258,6 @@ class PostPageFeedback(APIView):
                 return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
-# class CalculatorResults(APIView):
-#     permission_classes=[AllowAny]
-#     def post(self,request,format=None):
-#         data=request.data
-#         # print(data)
-#         category,created =Category.objects.get_or_create(section="calculator")
-#         if created:
-#             category.name="calculator"
-#             category.save()
-#         calculators=Calculator.objects.all().order_by("id")
-#         if data and calculators:
-#             for question in calculators:
-#                 question.category=category
-#                 for dict in data:
-#                     if question.id == dict.get("id"):
-#                         question.ans.append(dict.get("ans"))
-#                         question.save()
-#                         break
-#             serializer = PostCalculatorSerializer(calculators,many=True)
-#             return Response(serializer.data,status=status.HTTP_201_CREATED)
-#         else:
-#             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 
     

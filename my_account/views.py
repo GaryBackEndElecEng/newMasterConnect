@@ -16,7 +16,7 @@ from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import authentication
 # from users.permissions import IsOwnerOrReadOnly
-from .models import Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice
+from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator)
 from api.models import Region
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -25,7 +25,7 @@ from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from rest_framework.decorators import api_view
-from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer)
+from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer)
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -962,3 +962,25 @@ class GetExtraSessionInfo(APIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
             
+
+class CalculatorResults(APIView):
+    permission_classes=[AllowAny]
+    def post(self,request,format=None):
+        data=request.data
+        # print(data)
+        category,created =PriceCatelog.objects.get_or_create(name="calculator")
+        if created:
+            category.name="calculator"
+            category.save()
+        calculators=Calculator.objects.all().order_by("id")
+        if data and calculators:
+            for question in calculators:
+                question.priceCatelog=category
+                for dict in data:
+                    if question.id == dict.get("id"):
+                        question.ans.append(dict.get("ans"))
+                        question.save()
+            serializer = PostCalculatorSerializer(calculators,many=True)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)

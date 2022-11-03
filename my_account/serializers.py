@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from rest_framework import status,mixins,generics,viewsets,permissions
-from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,)
+from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator)
 from django.contrib.auth.models import User
 
-# class PostCalculatorSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model=Calculator
-#         fields=("id","Q","ans")
+class PostCalculatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Calculator
+        fields=("id","Q","ans","yesno")
 
 class ExtraServiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -99,10 +99,11 @@ class PriceCatelogSerializer(serializers.ModelSerializer):
     packages=PackageCatelogField(many=True,read_only=True)
     postService=PostServiceCatelogServiceField(many=True,read_only=True)
     extraService=ExtraServicePriceCatelogField(many=True,read_only=True)
+    calculator=PostCalculatorSerializer(many=True,read_only=True)
     permission_classes=[permissions.AllowAny,]
     class Meta:
         model = PriceCatelog
-        fields=('id', 'name','subCategory','price',"product","service","packages","postService","extraService")
+        fields=('id', 'name','subCategory','price',"product","service","packages","postService","extraService","calculator")
 
 #----------PRICECATELOG  ENDDDD-- GOVERNING PRODUCT AND SERVICES-------------------#
 
