@@ -251,15 +251,15 @@ class UserAccount(models.Model):
 
 
 
-# class Calculator(models.Model):
-#     priceCatelog=models.ForeignKey(PriceCatelog,related_name="calculator",on_delete=models.CASCADE,blank=True,null=True)
-#     Q=models.CharField(max_length=300,blank=True,null=True)
-#     service =models.ManyToManyField(Service,blank=True,related_name="services")
-#     postService =models.ManyToManyField(PostService,blank=True,related_name="postServices")
-#     extraService =models.ManyToManyField(Service,blank=True,related_name="extraServices")
-#     yesno=models.BooleanField(default=True)
-#     ans=ArrayField(models.CharField(max_length=300,default="no"),default=list)
-#     dateNow= models.DateTimeField(default=datetime.now)
-#     date=models.DateField(auto_now_add=True)
-#     def __str__(self):
-#         return f'{self.Q}-{self.yesno}'
+class Calculator(models.Model):
+    priceCatelog=models.ForeignKey(PriceCatelog,related_name="calculator",on_delete=models.CASCADE,blank=True,null=True)
+    Q=models.CharField(max_length=300,blank=True,null=True)
+    services =models.ManyToManyField(Service,blank=True,related_name="calc_services")
+    post_services =models.ManyToManyField(PostService,blank=True,related_name="calc_post_services")
+    extra_services =models.ManyToManyField(Service,blank=True,related_name="calc_extra_services")
+    yesno=models.BooleanField(default=True)
+    ans=ArrayField(models.CharField(max_length=300,default="no"),default=list)
+    dateNow= models.DateTimeField(default=datetime.now)
+    date=models.DateField(auto_now_add=True)
+    def __str__(self):
+        return f'{self.Q}-{self.yesno}'
