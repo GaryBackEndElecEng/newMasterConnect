@@ -27,7 +27,7 @@ from my_account.models import *
 from rest_framework.permissions import AllowAny
 from my_account.util import monthlyProductServiceMonthlyPrice,updatePackages,insertLowest_price_in
 from .forms import FormUpdate
-from .util import generateSumInvoice
+# from .util import generateSumInvoice
 from .models import *
 from api.models import *
 from django.views import View
@@ -49,7 +49,7 @@ class Assets(View):
 def AdminHome(request):
     getFormUpdate=FormUpdate()
     userAccount=UserAccount.objects.all()
-    sumInvoice=SumInvoice.objects.all()
+    # sumInvoice=SumInvoice.objects.all()
     priceCatelog=PriceCatelog.objects.all().order_by("id")
     service=Service.objects.all().order_by("id")
     postService=PostService.objects.all().order_by("id")
@@ -73,7 +73,7 @@ def AdminHome(request):
                 updatePackages()
             if calculateAllInvoices == "True":
                 print("calculateAllInvoices")
-                generateSumInvoice()
+                # generateSumInvoice()
             
 
 
