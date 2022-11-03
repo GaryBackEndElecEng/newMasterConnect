@@ -53,7 +53,7 @@ class CategorySerializer(serializers.ModelSerializer):
     pageFeedback=PostFeedbackSerializer(many=True,read_only=True)
     class Meta:
         model = Category
-        fields=('id', 'name','section','categories',"catWordSnippet","catFooter","categoryGeneralInfo","categorySponsor","imageCategory","pageFeedback","calculator")
+        fields=('id', 'name','section','categories',"catWordSnippet","catFooter","categoryGeneralInfo","categorySponsor","imageCategory","pageFeedback",)
 
 class PageSerializer(serializers.ModelSerializer):
     permission_classes=[permissions.AllowAny,]

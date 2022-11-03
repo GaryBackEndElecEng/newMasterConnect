@@ -62,7 +62,7 @@ python manage.py dbshell
    react-meta-tags
 column "allPaidInvoice" of relation "adminHome_suminvoice" already exists
 To RESET DATABASE: use:
-heroku pg:reset DATABASE => this will reset the database and then you must recreate it.NOTE: YOU CAN NOT DROP TABLES FROM HEROKU
+heroku pg:reset DATABASE => this will reset the database and then you must recreate it.NOTE: YOU CAN NOT DROP TABLES OR COLUMNS FROM HEROKU
 TO REMOVE ADDED STATUS FILES FROM GIT :
 git rm -f  "adminHome/migrations/0007_delete_suminvoice.py"  
 TODO
