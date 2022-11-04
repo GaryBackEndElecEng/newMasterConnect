@@ -47,6 +47,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+padding:2rem;
 animation: appearIn 1s ease-in-out;
 @keyframes appearIn {
     from {opacity:0;}
@@ -56,7 +57,7 @@ animation: appearIn 1s ease-in-out;
 const ShowQAResults = () => {
     const theme = useTheme();
     const navigate=useNavigate();
-    const { userSelectionArray, questionResults, setQuestionResults,setChangePage } = useContext(GeneralContext);
+    const { userSelectionArray, questionResults, setQuestionResults,setChangePage,UUID,setUUID } = useContext(GeneralContext);
     const [sent, setSent] = useState(false)
     const [seeResults, setSeeResults] = useState(false);
     const [truncDigit, setTruncDigit] = useState(0);
@@ -67,7 +68,9 @@ const ShowQAResults = () => {
                 const body = res.data.data;
                 // console.log("BODY RESULTS", body)
                 setQuestionResults({ loaded: true, data: body })
-                setTruncDigit(Math.trunc(body.total/10))
+                setTruncDigit(Math.trunc(body.total/10));
+                setUUID({loaded:true,uuid:body.uuid});
+                localStorage.setItem("UUID",JSON.stringify(body.uuid))
                 setSent(true);
             } catch (error) {
                 console.error(error.message)
@@ -87,11 +90,12 @@ const ShowQAResults = () => {
     }
     const handleLogin=(e)=>{
         e.preventDefault();
-        navigate("/signin",setChangePage(true));
+        navigate("/register",setChangePage(true));
     }
     return (
         <ShowResultsMain
             maxWidth="xl"
+            bg={"white"}
             sx={{
                 maxHeight: "50vh",
                 overflowY: "scroll",
@@ -139,19 +143,21 @@ const ShowQAResults = () => {
                         <Grid item xs={12} sm={6} md={4} key={index}
                         sx={{background:"white",boxShadow:"1px 2px 6px 8px blue",padding:"1rem"}}
                         >
-                            <Typography component="h1" variant="h5" sx={{margin:"1rem auto"}}>{obj.name}</Typography>
-                            <Typography component="h1" variant="body1">{obj.summary}</Typography>
+                            <Typography component="h1" variant="h5" sx={{margin:"1rem auto",color:"black"}}>{obj.name}</Typography>
+                            <Typography component="h1" variant="h6" sx={{color:"black"}}>{obj.summary}</Typography>
                         </Grid>
 
                     ))}
                 </Grid>
-                <Typography component="h1" variant="h3" sx={{margin:"2rem auto"}}>
+                <Typography component="h1" variant="h3" sx={{margin:"2rem auto",color:"black"}}>
                     Your total is,
-                        ${(questionResults.loaded && questionResults.data) && Math.trunc(questionResults.data.total/100)}...
+                        ${setTruncDigit}...
                 </Typography>
+                <Typography component="h1" variant="h4" sx={{margin:"2rem auto",color:"black"}}>your info is stored in an id :{UUID.loaded && UUID.uuid}</Typography>
+                <Typography component="h1" variant="h6" sx={{ margin: "2rem auto", textAlign: "center",color:"black" }}>For us to save your long awaited data, we need to know who you are so, you don't have to do this again. Its critical information that we need to serve you well and to give you the right site, the first time around - We get things done!</Typography>
                 <Stack direction="column" sx={{margin:"2rem auto"}} onClick={(e)=>handleLogin(e)}>
                     <Fab variant="extended" color="primary">
-                        login to view results <LoginIcon sx={{color:"green",ml:1}}/>
+                        Register to view results <LoginIcon sx={{color:"green",ml:1}}/>
                     </Fab>
                 </Stack>
             </ShowResults>    

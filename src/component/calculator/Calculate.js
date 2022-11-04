@@ -10,6 +10,7 @@ import { Box, } from '@mui/material';
 import CoverPage from './CoverPage';
 import QuestSlide from './QuestSlide';
 import ShowQAResults from './ShowQAResults';
+import {useTheme} from '@mui/material/styles';
 
 
 const MainCalculator=styled(Box)`
@@ -21,6 +22,8 @@ position:relative;
 background-image:url(${({bg_image})=>bg_image});
 background-size: 100% 50%;
 min-height:100vh;
+background:${({bg})=>bg};
+
 animation: appearIn 1s ease-in;
 @keyframes appearIn {
     from {opacity:0;}
@@ -36,6 +39,7 @@ animation: appearIn 1s ease-in;
 `;
 
 const Calculate = () => {
+    const theme=useTheme();
     const {setTitle,setStyleName,answeredFilled,} =useContext(GeneralContext);
     const MyRef=useRef();
     const calcPic="https://new-master.s3.ca-central-1.amazonaws.com/static/images/calculator1.png";
@@ -53,7 +57,9 @@ const Calculate = () => {
 
 
   return (
-    <MainCalculator bg_image={calcPic} ref={MyRef}>
+    <MainCalculator  ref={MyRef}
+    bg={theme.palette.home.light}
+    >
         <RegisterPage/>
         <GetRegisterPages/>
         <CoverPage/>

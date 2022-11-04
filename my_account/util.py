@@ -1,4 +1,4 @@
-from .models import Product,Service,UserAccount,Invoice,Tax,Package,PostService,PostInvoice,ExtraService,ExtraInvoice,PriceCatelog,Price,Calculator
+from .models import (Product,Service,UserAccount,Invoice,Tax,Package,PostService,PostInvoice,ExtraService,ExtraInvoice,PriceCatelog,Price,Calculator,TempSavedCalculator)
 from adminHome.models import Rates
 from django.contrib.auth.models import User,Group
 import stripe
@@ -741,9 +741,11 @@ class CalculateCost:
         self.service=Service.objects.all().order_by("id")
         self.postService=PostService.objects.all().order_by("id")
         self.calculate=Calculator.objects.all().order_by("id")
+        self.tempSaveCalc=TempSavedCalculator()
         
     def calcServices(self):
         array1=[]
+        ids=[]
         total=0
         ans="no"
         for calc in self.calculate:
@@ -751,6 +753,8 @@ class CalculateCost:
                 ans=calc.ans[len(calc.ans)-1]
                 if ans != 'no':
                     monthly=[obj.monthly for obj in calc.services.all()]
+                    ids=[obj.id for obj in calc.services.all()]
+                    self.tempSaveCalc.serviceIdArr +=ids
                     total+=sum(monthly)
                     summaryArray =[obj.summary for obj in calc.services.all()]
                     serviceNameArray=[obj.name for obj in calc.services.all()]
@@ -760,6 +764,7 @@ class CalculateCost:
 
     def calcPostServices(self):
         array1=[]
+        ids=[]
         total=0
         ans="no"
         for calc in self.calculate:
@@ -768,6 +773,8 @@ class CalculateCost:
                 if ans != 'no':
                     monthly=[obj.monthly for obj in calc.post_services.all()]
                     total+=sum(monthly)
+                    ids=[obj.id for obj in calc.post_services.all()]
+                    self.tempSaveCalc.postServiceIdArr+=ids
                     summaryArray =[obj.summary for obj in calc.post_services.all()]
                     serviceNameArray=[obj.name for obj in calc.post_services.all()]
                     for name,summary in zip(serviceNameArray,summaryArray):
@@ -777,6 +784,8 @@ class CalculateCost:
     def calcCombine(self):
         total= self.calcPostServices()[0] + self.calcServices()[0]
         array2=self.calcPostServices()[1] + self.calcServices()[1]
-        return {"total":total,"data":array2}
+        self.tempSaveCalc.total=total
+        self.tempSaveCalc.save()
+        return {"total":total,"data":array2,"uuid":self.tempSaveCalc.uuid}
 
 

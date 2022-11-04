@@ -304,7 +304,7 @@ SITE_URL="https://newmasterconnect.herokuapp.com"
 #--////////////--------------STRIPE--------------------////////////////////////#
 
 
-print("BASE_DIR",BASE_DIR)
+# print("BASE_DIR",BASE_DIR)
 #-------////////// EMAIL ////////////--------#
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

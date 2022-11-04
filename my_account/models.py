@@ -263,3 +263,11 @@ class Calculator(models.Model):
     date=models.DateField(auto_now_add=True)
     def __str__(self):
         return f'{self.Q}-{self.yesno}'
+
+class TempSavedCalculator(models.Model):
+    uuid=models.UUIDField(primary_key=False,default=uuid.uuid4,editable=False)
+    postServiceIdArr=ArrayField(models.IntegerField(default=0),default=list)
+    total=models.IntegerField(default=0)
+    serviceIdArr=ArrayField(models.IntegerField(default=0),default=list)
+    def __str__(self):
+        return f'{self.uuid}'
