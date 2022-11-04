@@ -1,4 +1,4 @@
-from .models import Product,Service,UserAccount,Invoice,Tax,Package,PostService,PostInvoice,ExtraService,ExtraInvoice,PriceCatelog,Price
+from .models import Product,Service,UserAccount,Invoice,Tax,Package,PostService,PostInvoice,ExtraService,ExtraInvoice,PriceCatelog,Price,Calculator
 from adminHome.models import Rates
 from django.contrib.auth.models import User,Group
 import stripe
@@ -736,6 +736,45 @@ def insertLowest_price_in():
 #CALCULATING ESTIMATE FROM CALCULATOR
 #pop ans=> array,2.) Manto-many=> to Service,Post and extra Services.,Then generate monthly cost minum  and 1.62* amount.
 
-# class CalculateCost:
-#     def __init__(self):
-#         pass
+class CalculateCost:
+    def __init__(self):
+        self.service=Service.objects.all().order_by("id")
+        self.postService=PostService.objects.all().order_by("id")
+        self.calculate=Calculator.objects.all().order_by("id")
+        
+    def calcServices(self):
+        array1=[]
+        total=0
+        for calc in self.calculate:
+            if calc.yesno == True:
+                ans=calc.ans.pop()
+                if ans == 'yes':
+                    monthly=[obj.monthly for obj in calc.services.all()]
+                    total+=sum(monthly)
+                    summaryArray =[obj.summary for obj in calc.services.all()]
+                    serviceNameArray=[obj.name for obj in calc.services.all()]
+                    for name,summary in zip(serviceNameArray,summaryArray):
+                        array1.append({"name":name,"summary":summary})
+        return total , array1
+
+    def calcPostServices(self):
+        array1=[]
+        total=0
+        for calc in self.calculate:
+            if calc.yesno == True:
+                ans=calc.ans.pop()
+                if ans == 'yes':
+                    monthly=[obj.monthly for obj in calc.post_services.all()]
+                    total+=sum(monthly)
+                    summaryArray =[obj.summary for obj in calc.post_services.all()]
+                    serviceNameArray=[obj.name for obj in calc.post_services.all()]
+                    for name,summary in zip(serviceNameArray,summaryArray):
+                        array1.append({"name":name,"summary":summary})
+        return total , array1
+
+    def calcCombine(self):
+        total= self.calcPostServices()[0] + self.calcServices()[0]
+        array2=self.calcPostServices()[1] + self.calcServices()[1]
+        return {"total":total,"data":array2}
+
+

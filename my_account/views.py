@@ -34,7 +34,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
-from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra)
+from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost)
 from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -973,14 +973,16 @@ class CalculatorResults(APIView):
             category.name="calculator"
             category.save()
         calculators=Calculator.objects.all().order_by("id")
-        if data and calculators:
-            for question in calculators:
-                question.priceCatelog=category
-                for dict in data:
-                    if question.id == dict.get("id"):
-                        question.ans.append(dict.get("ans"))
-                        question.save()
-            serializer = PostCalculatorSerializer(calculators,many=True)
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        try:
+            if data and calculators:
+                for question in calculators:
+                    question.priceCatelog=category
+                    for dict in data:
+                        if question.id == dict.get("id"):
+                            question.ans.append(dict.get("ans"))
+                            question.save()
+                senResults=CalculateCost().calcCombine()
+                return Response({"data":senResults,"status":status.HTTP_201_CREATED})
+
+        except Exception as e:
+            return Response({"error":e,"status":status.HTTP_400_BAD_REQUEST})

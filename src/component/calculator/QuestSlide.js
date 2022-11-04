@@ -28,13 +28,12 @@ width:100%;
 height:auto;
 color:white;
 text-align:center;
-padding:1rem;
-padding:1rem;
+padding:2rem;
 transform:translateX(${({ next }) => next * 100.85 * -1}%);
 transition: transform 1s ease-in-out;
 @media screen and (max-width:900px){
-    transform:translateX(${({ next }) => next * 101 * -1}%); 
-    width:101%;
+    transform:translateX(${({ next }) => next * 101.05 * -1}%); 
+    width:101.15%;
 }
 @media screen and (max-width:600px){
     transform:translateX(${({ next }) => next * 102 * -1}%); 
@@ -43,7 +42,7 @@ transition: transform 1s ease-in-out;
 `;
 const CustStack = styled(Stack)`
 display:flex;
-width:${({ cust_width }) => (cust_width * (103.0))}% ;
+width:calc(${({ cust_width }) => (cust_width * (100.0))}% + ${({cust_width})=>(cust_width * 1)}rem) ;
 justify-content:flex-start;
 align-items:center;
 flex-direction:row;
@@ -55,11 +54,11 @@ animation: appearIn 1.5s ease-in-out;
     to {opacity:1;}
 }
 @media screen and (max-width:900px){
-    width:calc(${({ cust_width }) => (cust_width * (103.0))}% );
+    width:calc(${({ cust_width }) => (cust_width * (100.0))}% + ${({cust_width})=>(cust_width * 1)}rem);
     margin-left:0px;
 }
 @media screen and (max-width:600px){
-    width:calc(${({ cust_width }) => (cust_width * (103))}% );
+    width:calc(${({ cust_width }) => (cust_width * (100.0))}% + ${({cust_width})=>(cust_width * 1.5)}rem);
     margin-left:0px;
 }
 
@@ -74,12 +73,12 @@ width:100%;
 height:auto;
 color:white;
 text-align:center;
-padding:1rem;
-transform:translateX(${({ next }) => next * 100.85 * -1}%);
+padding:3rem;
+transform:translateX(${({ next }) => next * 102.85 * -1}%);
 transition: transform 1s ease-in-out;
 
 @media screen and (max-width:900px){
-    transform:translateX(${({ next }) => next * 101.7 * -1}%);
+    transform:translateX(${({ next }) => next * 101.3 * -1}%);
     width:101.7%; 
 }
 @media screen and (max-width:600px){
@@ -89,7 +88,7 @@ transition: transform 1s ease-in-out;
 `;
 const CustStack1 = styled(Stack)`
 display:flex;
-width:calc(${({ cust_width }) => (cust_width * (103))}% );
+width:calc(${({ cust_width }) => (cust_width * (100.0))}% + ${({cust_width})=>(cust_width * 1)}rem);
 justify-content:flex-start;
 align-items:center;
 flex-direction:row;
@@ -102,11 +101,11 @@ animation: appearIn 1.5s ease-in-out;
     to {opacity:1;}
 }
 @media screen and (max-width:900px){
-    width:calc(${({ cust_width }) => (cust_width * (103.0))}% );
+    width:calc(${({ cust_width }) => (cust_width * (100.0))}% + ${({cust_width})=>(cust_width * 1.5)}rem);
     margin-left:0px;
 }
 @media screen and (max-width:600px){
-    width:calc(${({ cust_width }) => (cust_width * (103.0))}% );
+    width:calc(${({ cust_width }) => (cust_width * (100.0))}% + ${({cust_width})=>(cust_width * 1.5)}rem);
     margin-left:0px;
 }
 
@@ -115,7 +114,7 @@ animation: appearIn 1.5s ease-in-out;
 const QuestSlide = () => {
 
     const theme = useTheme();
-    const getRefYesno = useRef();
+    
     const getRefFill = useRef();
     const { userSelection, setUserSelection, userSelectionArray, setUserSelectionArray, setAnsweredFilled } = useContext(GeneralContext);
     const {userQuestionArray}=useContext(PriceContext);
@@ -186,7 +185,7 @@ const QuestSlide = () => {
                 <Container maxWidth="md" sx={{ overflowX: "hidden", overflowY: "hidden", position: "relative", minHeight: { sm: "30vh" },
                 }} >
                     <Paper elevation={20} >
-                    <CustStack direction="row" spacing={{xs:1,sm:1}} cust_width={yesnoLength} ref={getRefYesno} sx={{background:theme.palette.common.fadeCharcoal3}} >
+                    <CustStack direction="row" spacing={{xs:1,sm:1}} cust_width={yesnoLength} sx={{background:theme.palette.common.fadeCharcoal3}} >
 
                         {(yesno1.loaded && yesno1.data) && yesno1.data.map((obj, index) => (
                             <CustStackSmall direction="column"
