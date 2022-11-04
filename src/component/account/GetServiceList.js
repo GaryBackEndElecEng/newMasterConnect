@@ -1,4 +1,4 @@
-import React, { useContext, useState,  } from 'react';
+import React, { useContext, useEffect, useState,  } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
@@ -34,6 +34,21 @@ const GetServiceList = () => {
     // const getServs = getServiceList.loaded ? getServiceList.data : [];
     const reducedService1 = (localStorage.getItem("reducedService")) ? JSON.parse(localStorage.getItem("reducedService")) : getServiceList2;
     const usersServices2 = (usersService.loaded) ? usersService.data : null;
+
+    useEffect(()=>{
+        if(usersService.loaded && getServiceList.loaded){
+            let arr=getServiceList.data
+            arr.forEach((service,index)=>{
+                let Exists = usersService.data.filter(obj=>(parseInt(obj.id)===parseInt(service.id)))[0];
+                    if(Exists){
+                        arr.splice(index,1)
+                        
+                    }
+            });
+            localStorage.setItem("reducedService",JSON.stringify(arr));
+            
+        }
+    },[]);
 
 
 
@@ -109,9 +124,8 @@ const GetServiceList = () => {
                     const body = res.data.service;
                     let object = usersService.data.filter(obj => (parseInt(obj.id) === parseInt(objID)))[0];
                     setReducedService({ loaded: true, data: [...reducedService.data, object] });
-                    const userRemainingSerivices = returnUsersServDelAddSubArray(body, "sub");
-                    // console.log("returnUsersServDelAddSubArray(body)",returnUsersServDelAddSubArray(body))
-                    setUsersService({ data: userRemainingSerivices, loaded: true })
+                    let userRemainder = usersService.data.filter(obj => (parseInt(obj.id) !== parseInt(objID)));
+                    setUsersService({ data: userRemainder, loaded: true })
                 } catch (error) {
                     if (error.response) {
                         setError(true);

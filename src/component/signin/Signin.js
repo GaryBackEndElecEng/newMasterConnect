@@ -26,7 +26,7 @@ min-height:70vh;
 const Signin = () => {
   const theme = useTheme();
     const MyRef = useRef();
-    const { staticImage,email, setEmail,setChangePage,setTitle,setStyleName,setActivate} = useContext(GeneralContext);
+    const { staticImage,email, setEmail,setChangePage,setTitle,setStyleName,setActivate,register,setRegister} = useContext(GeneralContext);
     const {loggedIn,setLoggedIn,setSignin,setTokenIsValid,loginError,setLoginError,setSignout,setGoToSignin}=useContext(TokenAccessContext)
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
@@ -70,6 +70,49 @@ const Signin = () => {
     }
     },[tokenIsValid,setLoggedIn,setGoToSignin,setActivate,setSignout]);
 
+    useEffect(()=>{
+        const postSignin= async ()=>{
+            const getUUID=localStorage.getItem("UUID")? JSON.parse(localStorage.getItem("UUID")):"";
+            try {
+             const params={
+                username:register.data.username,
+                email:register.data.email,
+                password:register.data.password,
+                UUID:getUUID
+              }
+                const res = await apiProtect.post(`/account/login/`,params)
+                const data=res.data
+                if(data && data.status !==503){
+                    setSignin(true);
+                    setLoggedIn(true);
+                    setTokenIsValid(true);
+                    localStorage.setItem('username',JSON.stringify(data.username));
+                    localStorage.setItem('email',JSON.stringify(data.email));
+                    localStorage.setItem('user_id',JSON.stringify(data.user_id));
+                    localStorage.setItem('access_token',data.access_token);
+                    localStorage.setItem('refresh_token',data.refresh_token);
+                    localStorage.setItem('tokenIsValid',true);
+                    localStorage.setItem("loggedIn",true);
+                    localStorage.setItem("goToSignin",false)
+                    setTimeout(()=>{setSignin(false)},6000);
+                    navigate("/",setChangePage(true));
+                    setRegister({loaded:false,data:{'username':data.username,"email":data.email,"password":""}});
+                }else{
+                  setError(true);
+                  new Error(data.error)
+                }
+                
+            } catch (error) {
+                setLoginError(true);
+                console.error(error.message)
+                
+            }
+        }
+        if(register.loaded){
+            postSignin();
+        }
+    },[register.loaded]);
+
     useEffect(() => {
         const email_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         const username_REGEX = /(^[A-Za-z]{6,16})/;
@@ -96,11 +139,13 @@ const Signin = () => {
         e.preventDefault();
     
         const postSignin= async ()=>{
+            
             try {
              const params={
                 username:username,
                 email:email,
-                password:password
+                password:password,
+                UUID:""
               }
                 const res = await apiProtect.post(`/account/login/`,params)
                 const data=res.data
@@ -116,6 +161,7 @@ const Signin = () => {
                     localStorage.setItem('tokenIsValid',true);
                     localStorage.setItem("loggedIn",true);
                     localStorage.setItem("goToSignin",false)
+                    setRegister({loaded:false,data:{'username':data.username,"email":data.email,"password":""}});
                     setTimeout(()=>{setSignin(false)},6000);
                     navigate("/",setChangePage(true));
                 }else{

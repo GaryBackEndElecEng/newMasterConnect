@@ -241,6 +241,7 @@ class UserAccount(models.Model):
     extraInvoice=models.ForeignKey(ExtraInvoice,on_delete=models.CASCADE,null=True,blank=True)
     options=models.ForeignKey(Option,on_delete=models.CASCADE,null=True,blank=True)
     postAccountActivate=models.BooleanField(default=False)
+    calcUUID=models.CharField(max_length=100,blank=True,null=True)
     consult = models.BooleanField(default=False)
     canceled= models.BooleanField(default=False)
     canceledCount=models.IntegerField(default=0)

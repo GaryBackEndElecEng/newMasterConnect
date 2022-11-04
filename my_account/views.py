@@ -34,7 +34,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
-from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost)
+from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin)
 from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -108,7 +108,7 @@ class Register(ObtainAuthToken,APIView):
             email=data['email']
             password=data['password']
             check=data["checked"]
-            # print("username",username,"email",email,"password",password,"check",check,"userEXIST",)
+            print("username",username,"email",email,"password",password,"check",check,"userEXIST",)
             newData={"username":username,"email":email,"password":password}
             if User.objects.filter(username=username).exists():
                 # print("SAME USERNAME")
@@ -147,6 +147,10 @@ class LoginView(APIView):
         data=self.request.data
         username=data['username']
         password=data['password']
+        # print(data['UUID'],"type",type(data['UUID']))
+        if data['UUID']:
+            uuid=data['UUID']
+            CalcAddToUserAccountAtLogin(uuid,username).execute()
         try:
             user=auth.authenticate(username=username,password=password)
             # print("userModel",user)

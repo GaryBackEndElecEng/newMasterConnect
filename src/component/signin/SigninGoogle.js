@@ -12,7 +12,7 @@ import apiProtect from '../axios/apiProtect';
 const RegisterGoogle = () => {
     const navigate = useNavigate();
     const { gmailUser, setGmailUser, setSignin, setLoggedIn, setTokenIsValid, setLoginError } = useContext(TokenAccessContext);
-    const { register, setRegister, staticImage, setRegisterConfirmed, email, setEmail, setChangePage, setTitle, setStyleName } = useContext(GeneralContext);
+    const { register, setRegister, setChangePage, setTitle, setStyleName } = useContext(GeneralContext);
     const [showSignout, setShowSignout] = useState(false);
     const theme = useTheme();
     const handleCallbackResponse = (response) => {

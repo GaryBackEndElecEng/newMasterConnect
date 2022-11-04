@@ -96,11 +96,11 @@ const Register = () => {
                 const res = await apiProtect.post(`/account/register/`,register.data)
                 const data=res.data
                 if(data && data.status !==302){
-                    setRegister({loaded:true});
+                    setRegister({loaded:true,data:register.data});
                     setRegisterConfirmed(true);
                     localStorage.setItem('username',data.username);
                     localStorage.setItem('email',data.email);
-                    navigate("/",setChangePage(true));
+                    navigate("/signin",setChangePage(true));
                 }else{
                     console.log(data.error)
                     setError(true);new Error(data.error);

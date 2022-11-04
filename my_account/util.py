@@ -788,4 +788,34 @@ class CalculateCost:
         self.tempSaveCalc.save()
         return {"total":total,"data":array2,"uuid":self.tempSaveCalc.uuid}
 
+## ADDING SERVICES TO THE USER ACCOUNT
+
+class CalcAddToUserAccountAtLogin:
+    def __init__(self,uuid,username):
+        self.uuid=uuid
+        self.username=username
+        self.calcResults=TempSavedCalculator.objects.filter(uuid=self.uuid).first()
+        self.user=User.objects.filter(username=self.username).first()
+        if self.user:
+            self.userAccount=UserAccount.objects.filter(user=self.user).first()
+            
+
+    def addServicesToUser(self):
+        if self.calcResults and self.userAccount:
+            for id in self.calcResults.serviceIdArr:
+                getService=Service.objects.get(id=id)
+                self.userAccount.service.add(getService)
+
+    def addPostServicesToUser(self):
+        if self.calcResults and self.userAccount:
+            for id in self.calcResults.postServiceIdArr:
+                getPostService=PostService.objects.get(id=id)
+                self.userAccount.postService.add(getPostService)
+
+    def execute(self):
+        self.addServicesToUser()
+        self.addPostServicesToUser()
+        if self.uuid and self.userAccount:
+            self.userAccount.calcUUID=self.uuid
+        self.userAccount.save()
 

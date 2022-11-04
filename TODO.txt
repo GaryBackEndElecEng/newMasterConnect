@@ -70,7 +70,7 @@ TODO
   _ Retrospect=> Special Unique Designs
   -use calculator- show questions for design.
   -add packages: custom support.
-
+-fix bio=> colors
 -Company ( professional verse hobby):=> weighted difference
 -Static Storage Extraction
 -sell products => device what is needed connect to financail + userAccount

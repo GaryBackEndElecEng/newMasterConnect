@@ -49,7 +49,7 @@ class Assets(View):
 def AdminHome(request):
     getFormUpdate=FormUpdate()
     userAccount=UserAccount.objects.all()
-    # sumInvoice=SumInvoice.objects.all()
+    sumInvoice=SumInvoice.objects.all()
     priceCatelog=PriceCatelog.objects.all().order_by("id")
     service=Service.objects.all().order_by("id")
     postService=PostService.objects.all().order_by("id")
