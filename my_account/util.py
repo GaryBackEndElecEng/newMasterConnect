@@ -745,10 +745,11 @@ class CalculateCost:
     def calcServices(self):
         array1=[]
         total=0
+        ans="no"
         for calc in self.calculate:
             if calc.yesno == True:
-                ans=calc.ans.pop()
-                if ans == 'yes':
+                ans=calc.ans[len(calc.ans)-1]
+                if ans != 'no':
                     monthly=[obj.monthly for obj in calc.services.all()]
                     total+=sum(monthly)
                     summaryArray =[obj.summary for obj in calc.services.all()]
@@ -760,10 +761,11 @@ class CalculateCost:
     def calcPostServices(self):
         array1=[]
         total=0
+        ans="no"
         for calc in self.calculate:
             if calc.yesno == True:
-                ans=calc.ans.pop()
-                if ans == 'yes':
+                ans=calc.ans[len(calc.ans)-1]
+                if ans != 'no':
                     monthly=[obj.monthly for obj in calc.post_services.all()]
                     total+=sum(monthly)
                     summaryArray =[obj.summary for obj in calc.post_services.all()]
