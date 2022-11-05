@@ -131,7 +131,7 @@ const Bio = () => {
             <RegisterPage />
             <GetRegisterPages/>
             <Container maxWidth='xl' sx={{ margin: "auto", padding: "0px" }} >
-                <Paper elevation={3} sx={{ padding: "0.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", margin: {lg:"1rem -4px",xs:"1rem -20px"}, }}>
+                <Paper elevation={3} sx={{ padding: "0.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", margin: {lg:"1rem -4px",xs:"1rem -20px"},background:theme.palette.common.lighter}}>
                     <Typography component="h1" variant="h3">
                         {intro.title}
                     </Typography>
@@ -159,7 +159,9 @@ const Bio = () => {
 
                 <Paper elevation={3} sx={{ margin: {lg:"1rem auto",xs:"1rem auto"}, padding: "0.5rem ", }}>
                     <Grid container spacing={0} sx={{ textAlign: "flex-start",display:"flex", justifyContent: "center", alignItems: "flex-start", }}>
-                        <Grid item xs={12} md={3} sx={{ boxShadow: "1px 3px 10px blue", background: theme.palette.common.background3, padding: "0 0.5rem", height: { xs: "auto", lg:resumeHeight },flexGrow:1 }}>
+                        <Grid item xs={12} md={3} sx={{ boxShadow: "1px 3px 10px blue",
+                         backgroundColor:{md: theme.palette.common.background3,xs:theme.palette.common.background3},
+                          padding: "0 0.5rem", height: { xs: "auto", lg:resumeHeight },flexGrow:1 }}>
 
                             <Stack direction={"column"} sx={{ flexGrow: 1 }}>
                                 {resume.loaded && <Avatar src={profileImg.webImage} alt="www.master-connect.ca"

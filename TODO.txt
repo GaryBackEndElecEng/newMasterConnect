@@ -65,12 +65,14 @@ To RESET DATABASE: use:
 heroku pg:reset DATABASE => this will reset the database and then you must recreate it.NOTE: YOU CAN NOT DROP TABLES OR COLUMNS FROM HEROKU
 TO REMOVE ADDED STATUS FILES FROM GIT :
 git rm -f  "adminHome/migrations/0007_delete_suminvoice.py"  
+
+
 TODO
  
   _ Retrospect=> Special Unique Designs
+  - add Signin form,register form, message form to services.
   -use calculator- show questions for design.
   -add packages: custom support.
--fix bio=> colors
 -Company ( professional verse hobby):=> weighted difference
 -Static Storage Extraction
 -sell products => device what is needed connect to financail + userAccount

@@ -735,7 +735,7 @@ def insertLowest_price_in():
 
 #CALCULATING ESTIMATE FROM CALCULATOR
 #pop ans=> array,2.) Manto-many=> to Service,Post and extra Services.,Then generate monthly cost minum  and 1.62* amount.
-
+# BEfore logging in
 class CalculateCost:
     def __init__(self):
         self.service=Service.objects.all().order_by("id")
@@ -781,15 +781,82 @@ class CalculateCost:
                         array1.append({"name":name,"summary":summary})
         return total , array1
 
+    def calcWrittenService(self):
+        array1=[]
+        array2=[{"id":0,"name":"CDN","ans":""},{"id":1,"name":"site","ans":""},{"id":2,"name":"industry","ans":""},{"id":3,"name":"database size","ans":""},{"id":4,"name":"hits"},{"id":5,"name":"type of database","ans":""}]
+        ids=[]
+        total=0
+        monthly=0
+        ans="no"
+        for calc in self.calculate:
+            ans=calc.ans[len(calc.ans)-1]
+            if calc.yesno==False:
+                for dict in array2:
+                    if dict["name"] in calc.Q:
+                        dict["ans"]=ans
+        for calc in self.calculate:
+            for dict in array2:
+                if dict["name"] == "hits":
+                    if int(dict["ans"]) and int(dict["ans"]) >100:
+                        if calc.post_services.all():
+                            monthly=[obj.monthly for obj in calc.post_services.all()]
+                            total+=sum(monthly)
+                            ids=[obj.id for obj in calc.post_services.all()]
+                            self.tempSaveCalc.postServiceIdArr+=ids
+                            summaryArray =[obj.summary for obj in calc.post_services.all()]
+                            serviceNameArray=[obj.name for obj in calc.post_services.all()]
+                            for name,summary in zip(serviceNameArray,summaryArray):
+                                array1.append({"name":name,"summary":summary})
+                        if calc.services.all():
+                            monthly=[obj.monthly for obj in calc.services.all()]
+                            total+=sum(monthly)
+                            ids=[obj.id for obj in calc.services.all()]
+                            self.tempSaveCalc.serviceIdArr+=ids
+                            summaryArray =[obj.summary for obj in calc.services.all()]
+                            serviceNameArray=[obj.name for obj in calc.services.all()]
+                            for name,summary in zip(serviceNameArray,summaryArray):
+                                array1.append({"name":name,"summary":summary})
+
+                if dict["name"] == "database size":
+                    if int(dict["ans"]) and int(dict["ans"]) >64:
+                        if calc.post_services.all():
+                            monthly=[obj.monthly for obj in calc.post_services.all()]
+                            total+=sum(monthly)
+                            ids=[obj.id for obj in calc.post_services.all()]
+                            self.tempSaveCalc.postServiceIdArr+=ids
+                            summaryArray =[obj.summary for obj in calc.post_services.all()]
+                            serviceNameArray=[obj.name for obj in calc.post_services.all()]
+                            for name,summary in zip(serviceNameArray,summaryArray):
+                                array1.append({"name":name,"summary":summary})
+        return total,array1
+                        
+    def calcgetAdditional(self):
+        for calc in self.calculate:
+            ans=calc.ans[len(calc.ans)-1]
+            if calc.yesno==False and "industry" in calc.Q:
+                self.tempSaveCalc.additionalCharArr.append(f'industry:{ans}')
+            if calc.yesno==False and "site" in calc.Q:
+                self.tempSaveCalc.additionalCharArr.append(f'site:{ans}')
+            if calc.yesno==False and "type of database" in calc.Q:
+                self.tempSaveCalc.additionalCharArr.append(f'db:{ans}')
+            if calc.yesno==False and "database MB" in calc.Q:
+                self.tempSaveCalc.additionalCharArr.append(f'dbMb:{ans}')
+            if calc.yesno==True and "for a company" in calc.Q:
+                self.tempSaveCalc.additionalCharArr.append(f'Co:{ans}')
+            if calc.yesno==True and "high-tech" in calc.Q:
+                self.tempSaveCalc.additionalCharArr.append(f'HTech{ans}')
+
+
     def calcCombine(self):
-        total= self.calcPostServices()[0] + self.calcServices()[0]
-        array2=self.calcPostServices()[1] + self.calcServices()[1]
+        total= self.calcPostServices()[0] + self.calcServices()[0] 
+        array2=self.calcPostServices()[1] + self.calcServices()[1] 
+        self.calcgetAdditional()
         self.tempSaveCalc.total=total
         self.tempSaveCalc.save()
         return {"total":total,"data":array2,"uuid":self.tempSaveCalc.uuid}
 
 ## ADDING SERVICES TO THE USER ACCOUNT
-
+## THIS EXECUTES AT LOGIN; IT LOADES THE SELECTED SERVICE AND POSTSERVICES INTO USERACCOUNT 
 class CalcAddToUserAccountAtLogin:
     def __init__(self,uuid,username):
         self.uuid=uuid

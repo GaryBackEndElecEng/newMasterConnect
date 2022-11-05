@@ -36,7 +36,7 @@ z-index:0;
 @media screen and (max-width:600px){
     width:100%;
     height:30vh;
-    opacity:0.2;
+    opacity:1;
 }
 `;
 const CustomImage2=styled.img`
@@ -74,8 +74,8 @@ const CalculateBanner = () => {
         <Container maxWidth="md" 
         sx={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}
         >
-            <Stack direction={{xs:"column"}} spacing={{xs:0,sm:1,md:2}}
-            sx={{justifyContent:{md:"center",xs:"flex-start"},alignItems:{md:"center",xs:"flex-start"},color:theme.palette.common.fadeCharcoal3,padding:{md:"1rem",xs:"2rem"},zIndex:"1",background:{xs:theme.palette.common.orangeFade2,sm:theme.palette.common.blueFade,md:"transparent"}}}
+            <Stack direction={{xs:"column",sm:"row",md:"column"}} spacing={{xs:0,sm:1,md:2}}
+            sx={{justifyContent:{md:"center",xs:"flex-start"},alignItems:{md:"center",xs:"flex-start"},color:theme.palette.common.fadeCharcoal3,padding:{md:"1rem",xs:"2rem"},zIndex:"1",background:{xs:theme.palette.common.blueFade,sm:theme.palette.common.blueFade,md:"transparent"}}}
             >
                 <Stack direction="row" spacing={{xs:1,sm:2}}>
                 <CalculateIcon sx={{mr:2,color:"black",fontSize:{xs:"40px",sm:"40px",md:"60px"}}}/>

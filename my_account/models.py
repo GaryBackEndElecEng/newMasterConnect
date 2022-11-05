@@ -270,5 +270,6 @@ class TempSavedCalculator(models.Model):
     postServiceIdArr=ArrayField(models.IntegerField(default=0),default=list)
     total=models.IntegerField(default=0)
     serviceIdArr=ArrayField(models.IntegerField(default=0),default=list)
+    additionalCharArr=ArrayField(models.CharField(max_length=100,blank=True),default=list)
     def __str__(self):
         return f'{self.uuid}'
