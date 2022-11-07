@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
+from my_account.models import UserAccount
+from django.contrib.auth.models import User
 
 class Rates(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
@@ -22,5 +24,48 @@ class SumInvoice(models.Model):
 
     def __str__(self):
         return self.name
+
+class ServiceTaskTracker(models.Model):
+    name=models.CharField(max_length=75,blank=True,null=True)
+    user_id=models.IntegerField(blank=True,null=True)
+    Id=models.IntegerField(default=0)
+    task=models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
+
+class PostServiceTaskTracker(models.Model):
+    name=models.CharField(max_length=75,blank=True,null=True)
+    user_id=models.IntegerField(blank=True,null=True)
+    Id=models.IntegerField(default=0)
+    task=models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
+
+class ExtraServiceTaskTracker(models.Model):
+    name=models.CharField(max_length=75,blank=True,null=True)
+    user_id=models.IntegerField(blank=True,null=True)
+    Id=models.IntegerField(default=0)
+    task=models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
+
+class ProductTaskTracker(models.Model):
+    name=models.CharField(max_length=75,blank=True,null=True)
+    user_id=models.IntegerField(blank=True,null=True)
+    Id=models.IntegerField(default=0)
+    task=models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
+
+class TaskTracker(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    service=models.ManyToManyField(ServiceTaskTracker,blank=True)
+    postService=models.ManyToManyField(PostServiceTaskTracker,blank=True)
+    extraService=models.ManyToManyField(ExtraServiceTaskTracker,blank=True)
+    product=models.ManyToManyField(ProductTaskTracker,blank=True)
+    def __str__(self):
+        return self.user.username
+    
+
 
 

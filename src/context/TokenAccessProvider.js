@@ -58,6 +58,9 @@ const [reducedProduct, setReducedProduct] = useState([]);
 const [usersInvoice,setUsersInvoice]=useState({data:{},loaded:false});
 const [usersPostInvoice,setUsersPostInvoice]=useState({data:{},loaded:false});
 const [usersExtraInvoice,setUsersExtraInvoice]=useState({data:{},loaded:false});
+const [jobsService,setJobsService]=useState({data:[],loaded:false});
+const [jobsPostService,setJobsPostService]=useState({data:[],loaded:false});
+const [jobsExtraService,setJobsExtraService]=useState({data:[],loaded:false});
 const [selectMonthlyValue,setSelectMonthlyValue]=useState("value");
 const initializeSelectedPayment={loaded:false,numPayment:"",value:""}
 Object.freeze(initializeSelectedPayment);
@@ -153,6 +156,20 @@ useEffect(() => {
       if(data?.extraInvoice !==null){
         setUsersExtraInvoice({loaded:true,data:data.extraInvoice})
       }
+      if (data?.jobs){
+        let userServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].serviceArr;
+        if(userServiceArr.length>0){
+        setJobsService({loaded:true,data:userServiceArr});
+        }
+        let userPostServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].postServiceArr;
+        if(userPostServiceArr.length>0){
+        setJobsPostService({loaded:true,data:userPostServiceArr});
+        }
+        let userExtraServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].extraServiceArr;
+        if(userExtraServiceArr.length>0){
+        setJobsExtraService({loaded:true,data:userExtraServiceArr});
+        }
+      }
       localStorage.setItem("userAccount",JSON.stringify(data));
       setEmail(data?.email);
       setName(data?.name);
@@ -179,7 +196,7 @@ useEffect(() => {
 
 
   return (
-    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,productError,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice}}>
+    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,productError,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,jobsService,jobsPostService,jobsExtraService}}>
         {props.children}
     </TokenAccessContext.Provider>
   )

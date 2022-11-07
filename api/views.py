@@ -33,6 +33,7 @@ from .util import sendQuoteEmail
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from adminHome.models import ServiceTaskTracker,PostServiceTaskTracker,ExtraServiceTaskTracker,ProductTaskTracker
 
 from django.views import View
 from django.http import HttpResponse, HttpResponseNotFound
@@ -48,7 +49,8 @@ class Assets(View):
                 return HttpResponse(file.read(), content_type='application/javascript')
         else:
             return HttpResponseNotFound()
-            
+
+
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def authenticate(self,request):

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework import status,mixins,generics,viewsets,permissions
-from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator)
+from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator,Jobs)
 from django.contrib.auth.models import User
 
 class PostCalculatorSerializer(serializers.ModelSerializer):
@@ -171,6 +171,10 @@ class UserAccountsSerializer(serializers.ModelSerializer):
 
 
 #NEW SERIALIZER------------------
+class JobsSerializer(serializers.RelatedField):
+    def to_representation(self,value):
+        return {"id":value.id,"userId":value.userId,"serviceArr":value.serviceArr,"postServiceArr":value.postServiceArr,"extraServiceArr":value.extraServiceArr}
+
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model=Option
@@ -201,6 +205,7 @@ class ExtraInvoiceSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 class UserAccountAllCombined(serializers.ModelSerializer):
+    jobs=JobsSerializer(many=True,read_only=True)
     invoice=InvoiceTaxSerializer(many=False,read_only=True)
     product=ProductSerializer(many=True,read_only=True)
     service=ServiceSerializer(many=True,read_only=True)

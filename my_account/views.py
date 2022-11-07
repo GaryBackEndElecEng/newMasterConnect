@@ -16,7 +16,7 @@ from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import authentication
 # from users.permissions import IsOwnerOrReadOnly
-from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator)
+from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs)
 from api.models import Region
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -43,7 +43,7 @@ strip_secret_key=settings.STRIPE_SECRET_KEY
 
 from django.views import View
 from django.http import HttpResponse, HttpResponseNotFound
-import os
+import os,json
 
 class Assets(View):
 
@@ -120,10 +120,18 @@ class Register(ObtainAuthToken,APIView):
                 # print("ELSE===>")
                 reg_serializer = RegisterSerializer(data=newData)
                 if reg_serializer.is_valid(raise_exception=True):
+                    arr=[]
                     newuser = reg_serializer.save()
                     getUser=User.objects.get(id=newuser.id)
                     userAccount=UserAccount(user=getUser,name="newuser",cell="newUser cell",email=getUser.email,promotion=check)
                     userAccount.save()
+                    #ADDED THE TASK ARRAY 
+                    services=userAccount.service.all().order_by("id")
+                    if len(services)>0:
+                        for i,obj in enumerate(services):
+                            arr.push({id:obj.id})
+                        job=Jobs(userId=userAccount.user.id,userAccount=userAccount,serviceArr=arr)
+                        job.save()
                     return Response({"username":newuser.username,"email":newuser.email},status=status.HTTP_201_CREATED)
                 
             return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

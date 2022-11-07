@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+{% load static %}
+{% load CustomTags %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="image/gif" href="https://master-connect.s3.ca-central-1.amazonaws.com/favico.gif"
+        name="favicon.ico">
+    <?xml version="1.0" encoding="iso-8859-1"?>
+    <meta name="viewport" content="width=device-width, maximum-scale=2.0, minimum-scale=1.0, viewport-fit=cover"
+        user-scalable="yes">
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css"
+        integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <link rel="canonical" href="https://www.master-connect.ca">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+    <title>hello</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .mainHome {
+        width: 100vw;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: center;
+        position: relative;
+        background: linear-gradient(to left, hsl(200, 95%, 94%), hsl(0, 3%, 89%) 50%, hsl(143, 21%, 84%) 75%, hsl(0, 2%, 98%) 75%);
+    }
+
+    .mainHome-mainBox {
+        margin: auto;
+        width: 80%;
+        min-height: 26vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: whitesmoke;
+        position: relative;
+
+    }
+
+    @media screen and (max-width:900px) {
+        .mainHome-mainBox {
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width:600px) {
+        .mainHome-mainBox {
+            width: 100%;
+        }
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: auto;
+        text-decoration: underline;
+        color: red;
+    }
+
+    .mainHome-mainBox-flexHome {
+        margin: 1rem auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 5px;
+        max-height: 60vh;
+        overflow-y: scroll;
+        box-shadow: 1px 1px 10px 15px grey;
+    }
+
+    .colDiv {
+        box-shadow: 1px 1px 10px 6px grey;
+        padding: 8px;
+        margin: 1rem auto;
+        /* display:flex;
+    align-items:flex-start;
+    justify-content:flex-start;
+    flex-direction:column; */
+
+
+    }
+
+    .address,
+    .invoice {
+        margin: 1rem auto;
+    }
+
+    .colDivTotal,
+    .colDivTotal>ul {
+        margin: 1rem auto;
+        text-align: center;
+        list-style-type: none;
+
+    }
+</style>
+
+<body>
+
+    <div class="mainHome-mainBox">
+        <h2>Invoices</h2>
+        {% for user in userAccounts %}
+        <div class="mainHome-mainBox-flexHome">
+
+            <hr style=" width:100%;border:1px solid black;" />
+            <h6
+                style="color:red;font-size:120%;margin-left:1rem;justify-self:flex-start; align-self:flex-start;width:100%;">
+                {{forloop.counter}}</h6>
+            <div class="col-xs-12 col-sm-12 col-md-12 colDiv">
+                <h6>{{forloop.counter}}</h6>
+                <h5>{{user.name}}</h5>
+                <div class="flex-d address">
+                    <h6>address</h6>
+                    <div class="p2">{{user.address}},{{user.provState}},{{user.country}},</div>
+                    <div class="p2">{{user.postal}}</div>
+                    <h6>particulars</h6>
+                    <div class="p2">{{user.email}}</div>
+                    <div class="p2">{{user.cell}}</div>
+                </div>
+            </div>
+            <!-- ---------------------------------- -->
+            <h3>Products</h3>
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+
+
+                {% for product in user.product.all %}
+                <div class="col-xs-12 col-sm-6 col-md-6 colDiv">
+                    <div>name:{{product.name}}
+                        <div>name:{{product.name}},
+                            {% if user|prodTrackerTask:product.id == True %}
+                            <span style="color:red;">task:{{ user|prodTrackerTask:product.id }}</span>
+                            {% else %}
+                            <span style="color:blue;">task:{{ user|prodTrackerTask:product.id }}</span>
+                            {% endif %}
+                            <span>
+                                <form method="POST" style="margin:2rem auto">
+                                    {% csrf_token %}
+                                    <input type="checkbox" id="product" name="name" value="product">
+                                    <input type="input" id={{product.id}} name=prodId value={{product.id}} hidden>
+                                    <button type="submit" class="btn-btn-primary">submit</button>
+                                </form>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div><h4> nothing here</h4></div>
+                {% endfor %}
+            </div>
+            <!-- --------------------------------- -->
+            <h5>Services</h5>
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+
+                {% for service in user.service.all %}
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+                    <div>name:{{service.name}},
+                        {% if user|servTrackerTask:service.id == True %}
+                        <span style="color:red;">task:{{ user|servTrackerTask:service.id }}</span>
+                        {% else %}
+                        <span style="color:blue;">task:{{ user|servTrackerTask:service.id }}</span>
+                        {% endif %}
+                        <span>
+                            <form method="POST" style="margin:2rem auto">
+                                {% csrf_token %}
+                                <input type="checkbox" id="service" name="name" value="service">
+                                <input type="input" id={{service.id}} name=servId value={{service.id}} hidden>
+                                <button type="submit" class="btn-btn-primary">submit</button>
+                            </form>
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- ---------------------------------------- -->
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+
+                    <h5>Post Services</h5>
+                    {% for postService in user.postService.all %}
+                    <div>name:{{postService.name}},
+                        {% if user|postServTrackerTask:postService.id == True %}
+                        <span style="color:red;">task:{{ user|postServTrackerTask:postService.id }}</span>
+                        {% else %}
+                        <span style="color:blue;">task:{{ user|postServTrackerTask:postService.id }}</span>
+                        {% endif %}
+                        <span>
+                            <form method="POST" style="margin:2rem auto">
+                                {% csrf_token %}
+                                <input type="checkbox" id="postService" name="name" value="postService">
+                                <input type="input" id={{postService.id}} name="postServId" value={{postService.id}} hidden>
+                                <button type="submit" class="btn-btn-primary">submit</button>
+                            </form>
+                        </span>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+
+            </div>
+            <!-- --------------------------------------- -->
+            <div class="mainHome-mainBox-flexHome" style="margin:2rem auto">
+                <div class="col-xs-12 col-sm-6 col-md-4 colDiv">
+
+                    <h5>Extra Services</h5>
+                    {% for extraService in user.extraService.all %}
+                    <div>name:{{extraService.name}},
+                        {% if user|extraServTrackerTask:service.id == True %}
+                        <span style="color:red;">task:{{ user|extraServTrackerTask:service.id }}</span>
+                        {% else %}
+                        <span style="color:blue;">task:{{ user|extraServTrackerTask:service.id }}</span>
+                        {% endif %}
+                        <span>
+                            <form method="POST" style="margin:2rem auto">
+                                {% csrf_token %}
+                                <input type="checkbox" id="extraService" name="name" value="extraService">
+                                <input type="input" id={{extraService.id}} name=extraServId value={{extraService.id}} hidden>
+                                <button type="submit" class="btn-btn-primary">submit</button>
+                            </form>
+                        </span>
+
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <!-- ONE USERACCOUNT -->
+        </div>
+        {% endfor %}
+    </div>
+</body>
+<script defer src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+</html>

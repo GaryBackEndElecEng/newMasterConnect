@@ -36,6 +36,7 @@ import SuccessExtra from './component/payment/SuccessExtra';
 import Design8 from './component/design8/Design8';
 import Design9 from './component/design9/Design9';
 import Calculate from './component/calculator/Calculate';
+import UserOrderList from './component/userOrderList/UserOrderList';
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
               <Route path ="/MyAccount/postAccount/" element={<PostAccount/>}/>
               <Route path="/MyAccount/checkout" element={<Checkout />} />
               <Route path="/MyAccount/consult" element={<Consult />} />
+              <Route path="/MyAccount/orderform" element={<UserOrderList />} />
               <Route path ="/MyAccount/success/" element={<Success/>}/>
               <Route path ="/MyAccount/successPost/" element={<SuccessPost/>}/>
               <Route path ='/MyAccount/successExtra' element={<SuccessExtra/>}/>

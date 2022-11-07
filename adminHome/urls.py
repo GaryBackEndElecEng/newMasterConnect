@@ -10,6 +10,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 app_name="adminHome"
 urlpatterns=[
     path('',views.AdminHome,name="adminHome-view"),
+    path('tasks/',views.tasksUserAccounts,name="tasks-view"),
+    path('tracker/',views.GetTaskTracker.as_view(),name="tracker-view"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

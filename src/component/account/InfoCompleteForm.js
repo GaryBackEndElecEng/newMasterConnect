@@ -83,7 +83,7 @@ useMemo(()=>{
         const GENERIC_REGEX = /(^[a-zA-Z0-9]{1,8})/;
         const fullName_REGEX = /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/;
         const cell_REGEX = /^[0-9]{10}|[0-9]{3}-[0-9]{3}-[0-9]{4}/;
-        const address_REGEX = /(^[0-9]{0,10})([ ]{0,1})([A-Za-z]{3,36})/;
+        const address_REGEX = /(^[0-9]{0,10})([ ]{0,1})([A-Za-z]{1,36})/;
         setValidName(fullName_REGEX.test(name))
         setValidCell(cell_REGEX.test(cell));
         setValidAddress(address_REGEX.test(address));
@@ -180,8 +180,11 @@ useMemo(()=>{
                                 onChange={(e) => setAddress(e.target.value)}
                                 aria-invalid={validName ? "false" : "true"}
                             />
-                            {validAddress ? <span className={styles.validAddress }><CheckCircleOutlineIcon /></span>
-                                : <span className={ styles.not }><CloseIcon /> </span>}
+                            {
+                                validAddress ? <span className={styles.validAddress }><CheckCircleOutlineIcon /></span>
+                                : 
+                                <span className={ styles.not }><CloseIcon /> </span>
+                            }
                             <FormHelperText id={styles.extraInfo}>"111 street, city"</FormHelperText>
                         </FormControl>
                         <FormLabel className={styles.formLabel} component="div" color="primary" filled={true}>Your Country & State/Prov & PO/ZIP </FormLabel>
@@ -205,8 +208,11 @@ useMemo(()=>{
                                         ))}
                                         <MenuItem disabled={true} defaultValue="" value={""}>{"NO_OPTIONS_LABEL"}</MenuItem>
                                     </Select>
-                                    {validAddress ? <span className={styles.validCountry}><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
-                                        : <span className={styles.not }><CloseIcon /> </span>}
+                                    {
+                                        validAddress ? <span className={styles.validCountry}><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+                                            : 
+                                        <span className={styles.not }><CloseIcon /> </span>
+                                    }
                                     <FormHelperText className={styles.addProvPost}>"To help with your Design"</FormHelperText>
                                 </FormControl>
                             </Grid>
@@ -218,19 +224,24 @@ useMemo(()=>{
                                     <Select
                                         label_id="Your State/Province"
                                         label="provState"
-                                        defaultValue="ON"
+                                        defaultValue=""
                                         aria-describedby="valid State/ or Province"
                                         value={provState}
                                         onChange={(e) => setProvState(e.target.value)}
                                         aria-invalid={validProvState ? "false" : "true"}
                                     >
                                          <MenuItem disabled={true} defaultValue="" value={""}>{"NO_OPTIONS_LABEL"}</MenuItem>
-                                        {region.loaded && region.data.map(obj => (
+                                        {
+                                        region.loaded && region.data.map(obj => (
                                             <MenuItem key={obj.id} value={obj.provState}>{obj.provState}</MenuItem>
-                                        ))}
+                                        ))
+                                        }
                                     </Select>
-                                    {validProvState ? <span className={styles.validProvState }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
-                                        : <span className={styles.not }><CloseIcon /> </span>}
+                                    {
+                                        validProvState ? <span className={styles.validProvState }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+                                        :
+                                         <span className={styles.not }><CloseIcon /> </span>
+                                    }
                                     <FormHelperText className={styles.addProvPost}>"To help use determine the theme"</FormHelperText>
                                 </FormControl>
                             </Grid>
@@ -245,8 +256,12 @@ useMemo(()=>{
                                         onChange={(e) => setPostal(e.target.value)}
                                         aria-invalid={validPostal ? "false" : "true"}
                                     />
-                                    {validPostal ? <span className={styles.validPostal }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
-                                        : <span className={styles.not}><CloseIcon /> </span>}
+                                    {
+                                        validPostal ? <span className={styles.validPostal }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+
+                                        :
+                                         <span className={styles.not}><CloseIcon /> </span>
+                                    }
                                     <FormHelperText className={styles.addProvPost}>"eg:A#A#A#/#######"</FormHelperText>
                                 </FormControl>
                             </Grid>

@@ -56,7 +56,7 @@ export const GeneralContextProvider = (props) => {
   }
   const initializeAllCategory={
     loaded:false,
-    data:null
+    data:[]
   }
   Object.freeze(initializeAllCategory);
   const initializeUserSelection={

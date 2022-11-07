@@ -70,9 +70,14 @@ git rm -f  "adminHome/migrations/0007_delete_suminvoice.py"
 TODO
  
   _ Retrospect=> Special Unique Designs
-  - add Signin form,register form, message form to services.
+  - add Signin form,register form, message form to services at the account/Myaccount/particulars=>add btn to switch. This is for additional information needed:
+  -1.Original Website, DNS name,
+  -ADD A CHECKLIST OF COMPLETIONS IN THE CLIENT'S ORDER FOR=>CREATE AN ORDERLIST( under protected layer) FOR original website- Inservices and products
   -use calculator- show questions for design.
   -add packages: custom support.
+  -VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT
+  - ADD WEBSITE AND WANTED DNS NAME IN PARTICULARS IN MyAccount
+  -CREATE ANOTHER INSERT IN ACCOUNT FOR SITE_PREFERENCE FORM
 -Company ( professional verse hobby):=> weighted difference
 -Static Storage Extraction
 -sell products => device what is needed connect to financail + userAccount

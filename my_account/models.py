@@ -250,6 +250,16 @@ class UserAccount(models.Model):
     def __str__(self):
         return f'{self.name}-{self.user}'
 
+class Jobs(models.Model):
+    userId=models.CharField(max_length=100,blank=True,null=True)
+    userAccount=models.ForeignKey(UserAccount,on_delete=models.CASCADE,null=True,related_name='jobs')
+    serviceArr=ArrayField(models.CharField(max_length=200,blank=True),default=list)
+    postServiceArr=ArrayField(models.CharField(max_length=200,blank=True),default=list)
+    extraServiceArr=ArrayField(models.CharField(max_length=200,blank=True),default=list)
+    def __str__(self):
+        return self.userId
+
+
 
 
 class Calculator(models.Model):
@@ -273,3 +283,7 @@ class TempSavedCalculator(models.Model):
     additionalCharArr=ArrayField(models.CharField(max_length=100,blank=True),default=list)
     def __str__(self):
         return f'{self.uuid}'
+
+
+
+

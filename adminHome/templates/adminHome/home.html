@@ -115,9 +115,13 @@
 
 <body>
     <div class=" mainHome ">
+        
 
         <div class="mainHome-mainBox">
             <h2>Invoices</h2>
+            <button style="text-align:center;">
+                <a href="{% url 'adminHome:tasks-view' %}"> <h3>Tasks</h3></a>
+             </button>
             <div class="mainHome-mainBox-flexHome">
                 {% for user in userAccount %}
                 <hr style=" width:100%;border:1px solid black;"/>

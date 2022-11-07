@@ -21,6 +21,7 @@ import GetPage from './GetPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import MyAccountHelmet from './MyAccountHelmet';
 import ProductInfo from './ProductInfo';
+import OrderFormBanner from './OrderFormBanner';
 
 
 const MyAccount = () => {
@@ -120,6 +121,7 @@ const MyAccount = () => {
            postInvoicePaid={postInvoice}
            extraInvoicePaid={extraInvoice}
            />
+          <OrderFormBanner/>
 
          {!invoice.paid && <GetProductList/>}
           

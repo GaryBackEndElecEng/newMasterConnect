@@ -3,11 +3,73 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, Group
 import datetime
 from my_account.models import *
+from adminHome.models import *
 
 
 
 
 register = template.Library()
+
+@register.filter(name="prodTrackerTask")
+def prodTrackerTask(userAccount,id):
+    user_id=userAccount.user.id
+    product=Product.objects.get(id=id)
+    taskTracker,created=TaskTracker.objects.get_or_create(user=userAccount.user)
+    if created:
+        taskTracker.save()
+    if user_id:
+        prodTask, created=ProductTaskTracker.objects.get_or_create(Id=product.id,name=product.name,user_id=user_id)
+        if created:
+            prodTask.save()
+            taskTracker.product.add(prodTask)
+            taskTracker.save()
+        return prodTask.task
+
+@register.filter(name="servTrackerTask")
+def servTrackerTask(userAccount,id):
+    user_id=userAccount.user.id
+    service=Service.objects.get(id=id)
+    taskTracker,created=TaskTracker.objects.get_or_create(user=userAccount.user)
+    if created:
+        taskTracker.save()
+    if user_id:
+        servTask, created=ServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id)
+        if created:
+            servTask.save()
+            taskTracker.service.add(servTask)
+            taskTracker.save()
+        return servTask.task
+
+@register.filter(name="postServTrackerTask")
+def postServTrackerTask(userAccount,id):
+    user_id=userAccount.user.id
+    service=PostService.objects.get(id=id)
+    taskTracker,created=TaskTracker.objects.get_or_create(user=userAccount.user)
+    if created:
+        taskTracker.save()
+    if user_id:
+        servTask, created=PostServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id)
+        if created:
+            servTask.save()
+            taskTracker.postService.add(servTask)
+            taskTracker.save()
+        return servTask.task
+
+@register.filter(name="extraServTrackerTask")
+def extraServTrackerTask(userAccount,id):
+    user_id=userAccount.user.id
+    service=ExtraService.objects.get(id=id)
+    taskTracker,created=TaskTracker.objects.get_or_create(user=userAccount.user)
+    if created:
+        taskTracker.save()
+    if user_id:
+        servTask, created=ExtraServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id)
+        if created:
+            servTask.save()
+            taskTracker.extraService.add(servTask)
+            taskTracker.save()
+        return servTask.task
+
 
 @register.filter(name="getPackage")
 def getPackage(name):
