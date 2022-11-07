@@ -45,10 +45,11 @@ const GetServiceList = () => {
                         
                     }
             });
+            setReducedService({loaded:true,data:arr})
             localStorage.setItem("reducedService",JSON.stringify(arr));
-            
+            console.log("inside useEffect")
         }
-    },[]);
+    },[usersService.loaded,getServiceList.loaded]);
 
 
 
@@ -62,14 +63,15 @@ const GetServiceList = () => {
                     let getReducedArray = localStorage.getItem("reducedService") ? JSON.parse(localStorage.getItem("reducedService")) : getServiceList2;
                     const res = await apiProtect.post("/account/userServicePost/", params);
                     const body = res.data.service;
-                    const reduceArray = getReducedArray.filter(obj => (obj.id !== objID))
-                    let addToUserService = getReducedArray.filter(obj => (obj.id === objID))[0];
+                    const reduceArray = getReducedArray.filter(obj => (parseInt(obj.id) !== parseInt(objID)))
+                    let addToUserService = getReducedArray.filter(obj => (parseInt(obj.id) === parseInt(objID)))[0];
                     // console.log("BODY",body)
-                    setReducedService({ data: reduceArray, loaded: false })
+                    setReducedService({ data: reduceArray, loaded: true })
+                    localStorage.setItem("reducedService",JSON.stringify(reduceArray))
                     // setUsersService({data:[...usersService.data,addToUserService],loaded:true})
-                    const userRemainingSerivices = returnUsersServDelAddSubArray(body, "add");
+                    // const userRemainingSerivices = returnUsersServDelAddSubArray(body, "add");
 
-                    setUsersService({ data: userRemainingSerivices, loaded: true })
+                    setUsersService({ data: [...usersService.data,addToUserService], loaded: true })
                     setError(false);
 
                     // console.log("GET=>",getReducedArray,"userRemainingSerivices",userRemainingSerivices)
@@ -123,9 +125,11 @@ const GetServiceList = () => {
                     const res = await apiProtect.post("/account/userServicePostDelete/", params);
                     const body = res.data.service;
                     let object = usersService.data.filter(obj => (parseInt(obj.id) === parseInt(objID)))[0];
-                    setReducedService({ loaded: true, data: [...reducedService.data, object] });
+                    let reducedServiceNew=[...reducedService.data, object]
+                    setReducedService({ loaded: true, data: reducedServiceNew });
                     let userRemainder = usersService.data.filter(obj => (parseInt(obj.id) !== parseInt(objID)));
                     setUsersService({ data: userRemainder, loaded: true })
+                    localStorage.setItem("reducedService",JSON.stringify(reducedServiceNew))
                 } catch (error) {
                     if (error.response) {
                         setError(true);
@@ -162,8 +166,10 @@ const GetServiceList = () => {
             <Typography component="h1" variant="h3" sx={{ margin: "2rem auto" }}>
                 Add Services
             </Typography>
-            <Grid container spacing={2} onMouseOut={() => handleClosePopUp()}>
-                {reducedService1 && reducedService1.map(obj => (
+            <Grid container spacing={2} onMouseOut={() => handleClosePopUp()}
+            sx={{maxHeight:{md:"50vh",xs:"65vh"},overflowY:"scroll"}}
+            >
+                {reducedService.loaded && reducedService.data.map(obj => (
                     <Grid item xs={12} md={4} key={`${obj.id}-${Math.floor(Math.random() * 10000)}`}
                         sx={{ padding: "0.5rem" }}
                     >

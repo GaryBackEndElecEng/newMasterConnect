@@ -885,6 +885,15 @@ class CalcAddToUserAccountAtLogin:
         if self.user:
             self.userAccount=UserAccount.objects.filter(user=self.user).first()
             
+    def addwebDNSIndustryToUserAcc(self):
+        for item in self.calcResults.additionalCharArr:
+            if "industry:" in item:
+                self.userAccount.industry=item.split(":")[1]
+            if "site:" in item:
+                self.userAccount.website=item.split(":")[1]
+            if "Co:" in item:
+                self.userAccount.co=item.split(":")[1]
+
 
     def addServicesToUser(self):
         if self.calcResults and self.userAccount:
@@ -901,11 +910,12 @@ class CalcAddToUserAccountAtLogin:
     def execute(self):
         self.addServicesToUser()
         self.addPostServicesToUser()
+        self.addwebDNSIndustryToUserAcc()
         if self.uuid and self.userAccount:
             self.userAccount.calcUUID=self.uuid
         self.userAccount.save()
 
-# NOT USED FOR PRODUCTION:IT'S DONE AT LOGIN PER ACCOUNT
+# NOT USED FOR PRODUCTION:IT'S DONE AT LOGIN PER ACCOUNT using CalcAddToUserAccountAtLogin ABOVE
 def generateJobs():
     arr=[]
     dict={}

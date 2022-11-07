@@ -16,7 +16,7 @@ from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import authentication
 # from users.permissions import IsOwnerOrReadOnly
-from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs)
+from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs,SitePreference)
 from api.models import Region
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -25,7 +25,7 @@ from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from rest_framework.decorators import api_view
-from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer)
+from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer)
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -124,14 +124,25 @@ class Register(ObtainAuthToken,APIView):
                     newuser = reg_serializer.save()
                     getUser=User.objects.get(id=newuser.id)
                     userAccount=UserAccount(user=getUser,name="newuser",cell="newUser cell",email=getUser.email,promotion=check)
-                    userAccount.save()
                     #ADDED THE TASK ARRAY 
+                    userAccount.save()
                     services=userAccount.service.all().order_by("id")
                     if len(services)>0:
                         for i,obj in enumerate(services):
                             arr.push({id:obj.id})
-                        job=Jobs(userId=userAccount.user.id,userAccount=userAccount,serviceArr=arr)
-                        job.save()
+                        job,created=Jobs.objects.get_or_create(userId=userAccount.user.id,userAccount=userAccount,serviceArr=arr)
+                        if created:
+                            job.save()
+                    sitePreference,created=SitePreference.get_or_create(name=getUser.username,
+                    q1="What is the one thing that you like with this site?",
+                    q2="What effect do you like of this site?",
+                    q3="What do you think is missing of this site that will improved interests and clicks?"
+                    )
+                    if created:
+                        sitePreference.save()
+                    userAccount.sitePreference=sitePreference
+                    userAccount.save()
+
                     return Response({"username":newuser.username,"email":newuser.email},status=status.HTTP_201_CREATED)
                 
             return Response(reg_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -206,10 +217,14 @@ class UserAccountComplete(APIView):
         country=data['country']
         provState=data['provState']
         postal=data['postal']
+        website=data['website']
+        DNS=data['DNS']
+        industry=data['industry']
+        co=data['comp']
         try:
             user=User.objects.filter(id=user_id).first()
             userAccount=UserAccount.objects.filter(user=user).first()
-            print("userModel",user)
+            # print("userModel",user)
             if user and userAccount:
                 userAccount.name=name
                 userAccount.cell=cell
@@ -217,6 +232,10 @@ class UserAccountComplete(APIView):
                 userAccount.country=country
                 userAccount.provState=provState
                 userAccount.postal=postal
+                userAccount.website=website
+                userAccount.DNS=DNS
+                userAccount.industry=industry
+                userAccount.co=co
                 userAccount.save()
                 if name.split(" "):
                     user.first_name=name.split(" ")[0]
@@ -998,3 +1017,26 @@ class CalculatorResults(APIView):
 
         except Exception as e:
             return Response({"error":e,"status":status.HTTP_400_BAD_REQUEST})
+
+class SitePreferenceView(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    def post(self,request,format=None):
+        data=request.data
+        try:
+            ans1=data["ans1"]
+            ans2=data["ans2"]
+            ans3=data["ans3"]
+            site=data["site"]
+            user_id=data["user_id"]
+            user=User.objects.get(id=user_id)
+            sitePreference=SitePreference.objects.get(name=user.username)
+            sitePreference.ans1=ans1
+            sitePreference.ans2=ans2
+            sitePreference.ans3=ans3
+            sitePreference.site=site
+            sitePreference.save()
+            serializer=SitePreferenceSerializer(sitePreference,many=False)
+            return Response(serializer.data)
+
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

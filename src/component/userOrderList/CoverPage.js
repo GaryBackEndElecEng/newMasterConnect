@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useRef,useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import styles from './userOrderList.module.css'
-import { Box, Stack, Typography, } from '@mui/material';
+// import styles from './userOrderList.module.css'
+import {  Stack, Typography, } from '@mui/material';
 import {useTheme} from '@mui/material/styles';
-import { Container } from '@mui/system';
+
 
 const MainCoverPage=styled.div`
 margin:auto;
@@ -21,9 +21,9 @@ width:100vw;
 //     to {opacity:1;}
 // }
 `;
-const CoverPage = () => {
+const CoverPage = ({coverImage}) => {
     const theme=useTheme();
-    const coverImage="https://new-master.s3.ca-central-1.amazonaws.com/static/images/orderForm.png";
+    
   return (
     <MainCoverPage
     bg_image={coverImage}

@@ -130,7 +130,9 @@ const handleGoToDesign =(e,link)=>{
                     <Typography component="h1" variant="h3" sx={{ width: "100%", margin: " 2rem auto", textAlign: "center", padding:"1rem" }}>
                         Products to Select
                     </Typography>
-                    <Grid container spacing={2} sx={{padding:"0.5rem"}}>
+                    <Grid container spacing={2} 
+                    sx={{padding:"0.5rem",maxHeight:{xs:"56vh"},overflowY:"scroll"}}
+                    >
                         {reducedProduct1 && reducedProduct1.map(obj => (
                             <Grid item xs={12} md={4} key={obj.id}>
                                 <Paper elevation={3}>

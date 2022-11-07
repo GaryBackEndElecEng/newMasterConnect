@@ -70,26 +70,9 @@ git rm -f  "adminHome/migrations/0007_delete_suminvoice.py"
 TODO
  
   _ Retrospect=> Special Unique Designs
-  - add Signin form,register form, message form to services at the account/Myaccount/particulars=>add btn to switch. This is for additional information needed:
-  -1.Original Website, DNS name,
-  -ADD A CHECKLIST OF COMPLETIONS IN THE CLIENT'S ORDER FOR=>CREATE AN ORDERLIST( under protected layer) FOR original website- Inservices and products
-  -use calculator- show questions for design.
   -add packages: custom support.
   -VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT
-  - ADD WEBSITE AND WANTED DNS NAME IN PARTICULARS IN MyAccount
-  -CREATE ANOTHER INSERT IN ACCOUNT FOR SITE_PREFERENCE FORM
--Company ( professional verse hobby):=> weighted difference
--Static Storage Extraction
--sell products => device what is needed connect to financail + userAccount
--if no clients, then => one product sell( click to purchase)=> no basket
-- If CDN ? Then sorting cost to see where all goes
--creating Images
-registering an already Domain ( needs Https) ( needs to communicate with the pers responsible for registering the domain)- time weight.
--secure site + over 100 coonections per instance => JWT
--selling the website throughout to world=> look into Registering your site world wide.
--require a filing system => added cost ( with CDN)=>(secure/unsecure)
--professional images=> purchase from photStock
--hits on site >200 => requires a separation of backend to front-End.=> increase cost ( one database + front-end(registerewd site))
+
 
 
 

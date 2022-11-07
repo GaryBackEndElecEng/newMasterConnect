@@ -85,6 +85,9 @@ const MyAccount = () => {
     setTitle("My Account");
     setStyleName("My Account");
     setChangePage(false);
+    if(window.scrollY){
+      window.scroll(0,0);
+    }
   }, [setTitle, setStyleName]);
 
  
@@ -121,7 +124,7 @@ const MyAccount = () => {
            postInvoicePaid={postInvoice}
            extraInvoicePaid={extraInvoice}
            />
-          <OrderFormBanner/>
+          {(usersInvoice.loaded && usersInvoice.data.paid) && <OrderFormBanner />}
 
          {!invoice.paid && <GetProductList/>}
           

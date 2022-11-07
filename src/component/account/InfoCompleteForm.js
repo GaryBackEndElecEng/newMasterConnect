@@ -14,8 +14,8 @@ import NavigationIcon from '@mui/icons-material/Navigation';
 import MsgFillOutForm from './MsgFillOutForm';
 
 const InfoCompleteForm = () => {
-    const { setUserAccount, user_id, setAddress, address, setCell, cell, setName, name, setFormComplete, formComplete,
-        provState, setProvState,country, setCountry,postal, setPostal } = useContext(TokenAccessContext);
+    const { setUserAccount, user_id, setAddress, address, setCell, cell, setName, name,setWebsite,website,setDNS,DNS, setFormComplete, formComplete,
+        provState, setProvState,country, setCountry,postal, setPostal,industry,setIndustry,setCo,co } = useContext(TokenAccessContext);
     const theme = useTheme();
     const [error, setError] = useState('');
     const [issue, setIssue] = useState(false);
@@ -70,7 +70,7 @@ useMemo(()=>{
     useEffect(() => {
         if (isInfoOk) {
             setRequestInfo({ data:
-                 { name: name, cell: cell, address:address,country:country,provState:provState,postal:postal },
+                 { name: name, cell: cell, address:address,country:country,provState:provState,postal:postal,website:website,DNS:DNS,industry:industry,co:co },
                   loaded: true });
         }
 
@@ -103,7 +103,7 @@ useMemo(()=>{
         e.preventDefault();
         const params = { "user_id": user_id, "name": requestInfo.data.name, "cell": requestInfo.data.cell, 
                         "address": requestInfo.data.address,"country":requestInfo.data.country,
-                        "provState":requestInfo.data.provState,"postal":requestInfo.data.postal}
+                        "provState":requestInfo.data.provState,"postal":requestInfo.data.postal,"website":requestInfo.data.website,"DNS":requestInfo.data.DNS,"industry":requestInfo.data.industry,"comp":requestInfo.data.co}
         const sendServer = async () => {
             try {
                 const res = apiProtect.post("/account/userAccountComplete/", params);
@@ -198,11 +198,11 @@ useMemo(()=>{
                                         label="Country"
                                         defaultValue="CA"
                                         aria-describedby="valid Country"
-                                        value={country}
+                                        value={country ? country : "CA"}
                                         onChange={(e) => setCountry(e.target.value)}
                                         aria-invalid={validCountry ? "false" : "true"}
                                     >
-                                        <MenuItem defaultValue="CA">{"CA"}</MenuItem>
+                                        <MenuItem defaultValue="CA">CA</MenuItem>
                                         {region.loaded && region.data.map(obj => (
                                             <MenuItem key={obj.id} value={obj.country}>{obj.country}</MenuItem>
                                         ))}
@@ -263,6 +263,86 @@ useMemo(()=>{
                                          <span className={styles.not}><CloseIcon /> </span>
                                     }
                                     <FormHelperText className={styles.addProvPost}>"eg:A#A#A#/#######"</FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6} md={4}>
+                                <FormControl className={styles.formControl} size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                    <InputLabel htmlFor="website" className={styles.inputLabel}>website</InputLabel>
+                                    <Input
+                                        label_id="website"
+                                        name="website"
+                                        aria-describedby="Postal Code"
+                                        value={website}
+                                        onChange={(e) => setWebsite(e.target.value)}
+                                        aria-invalid={validPostal ? "false" : "true"}
+                                    />
+                                    {
+                                        website !=="" ? <span className={styles.validPostal }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+
+                                        :
+                                         <span className={styles.not}><CloseIcon /> </span>
+                                    }
+                                    <FormHelperText className={styles.addProvPost}>"www.yoursite.com"</FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6} md={4}>
+                                <FormControl className={styles.formControl} size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                    <InputLabel htmlFor="DNS" className={styles.inputLabel}>Your DNS</InputLabel>
+                                    <Input
+                                        label_id="DNS"
+                                        name="DNS"
+                                        aria-describedby="DNS"
+                                        value={DNS}
+                                        onChange={(e) => setDNS(e.target.value)}
+                                        aria-invalid={validPostal ? "false" : "true"}
+                                    />
+                                    {
+                                        DNS !=="" ? <span className={styles.validPostal }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+
+                                        :
+                                         <span className={styles.not}><CloseIcon /> </span>
+                                    }
+                                    <FormHelperText className={styles.addProvPost}>"eg:AWS,Google,etc"</FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6} md={4}>
+                                <FormControl className={styles.formControl} size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                    <InputLabel htmlFor="industry" className={styles.inputLabel}>Your Industry</InputLabel>
+                                    <Input
+                                        label_id="industry"
+                                        name="industry"
+                                        aria-describedby="industry"
+                                        value={industry}
+                                        onChange={(e) => setIndustry(e.target.value)}
+                                        aria-invalid={validPostal ? "false" : "true"}
+                                    />
+                                    {
+                                        industry !=="" ? <span className={styles.validPostal }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+
+                                        :
+                                         <span className={styles.not}><CloseIcon /> </span>
+                                    }
+                                    <FormHelperText className={styles.addProvPost}>"Area of expertise"</FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6} md={4}>
+                                <FormControl className={styles.formControl} size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                    <InputLabel htmlFor="co" className={styles.inputLabel}>Co name</InputLabel>
+                                    <Input
+                                        label_id="co"
+                                        name="co"
+                                        aria-describedby="co"
+                                        value={co}
+                                        onChange={(e) => setCo(e.target.value)}
+                                        aria-invalid={validPostal ? "false" : "true"}
+                                    />
+                                    {
+                                        co !=="" ? <span className={styles.validPostal }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+
+                                        :
+                                         <span className={styles.not}><CloseIcon /> </span>
+                                    }
+                                    <FormHelperText className={styles.addProvPost}>"Co Name"</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>

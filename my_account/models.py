@@ -156,6 +156,19 @@ class Option(models.Model):
     def __str__(self):
         return self.name
 
+class SitePreference(models.Model):
+    name=models.CharField(max_length=50,blank=True)
+    site=models.CharField(max_length=100,blank=True)
+    q1=models.CharField(max_length=100,blank=True)
+    ans1=models.TextField(blank=True)
+    q2=models.CharField(max_length=100,blank=True)
+    ans2=models.TextField(blank=True)
+    q3=models.CharField(max_length=100,blank=True)
+    ans3=models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
 class UUIModel(models.Model):
     id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
 
@@ -231,6 +244,10 @@ class UserAccount(models.Model):
     country=models.CharField(max_length=50,blank=True)
     provState=models.CharField(max_length=50,blank=True)
     postal=models.CharField(max_length=50,blank=True,null=True)
+    website=models.CharField(max_length=75,blank=True,null=True)
+    DNS=models.CharField(max_length=75,blank=True,null=True)
+    industry=models.CharField(max_length=75,blank=True,null=True)
+    co=models.CharField(max_length=75,blank=True,null=True)
     promotion=models.BooleanField(default=False,blank=True)
     product=models.ManyToManyField(Product,related_name='products',blank=True)
     service=models.ManyToManyField(Service,related_name='services',blank=True)
@@ -240,6 +257,7 @@ class UserAccount(models.Model):
     postInvoice=models.ForeignKey(PostInvoice,on_delete=models.CASCADE,null=True,blank=True)
     extraInvoice=models.ForeignKey(ExtraInvoice,on_delete=models.CASCADE,null=True,blank=True)
     options=models.ForeignKey(Option,on_delete=models.CASCADE,null=True,blank=True)
+    sitePreference=models.ForeignKey(SitePreference,on_delete=models.CASCADE,null=True,blank=True)
     postAccountActivate=models.BooleanField(default=False)
     calcUUID=models.CharField(max_length=100,blank=True,null=True)
     consult = models.BooleanField(default=False)
