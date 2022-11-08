@@ -68,7 +68,8 @@ const SpecialCreateValue = () => {
   const [removeSpecial,setRemoveSpecial]=useState(false);
   const [getSpecials, setGetSpecials] = useState({ loaded: false, data: [] });
   const pointerImg = `${staticImage}/pointer2.png`;
-  const colorWorld = `${staticImage}/newColorWorld.png`;
+  // const colorWorld = `${staticImage}/newColorWorld.png`;
+  const vacationPic = "https://new-master.s3.ca-central-1.amazonaws.com/static/vacationPic.JPG";
   const getSpecial = special.loaded ? special.data : null;
   // const get_packages = getPackages.loaded ? getPackages.data : null;
 
@@ -119,11 +120,11 @@ const SpecialCreateValue = () => {
       maxWidth={"xl"}
       ref={(e) => handleObserver(e)}
       bg={theme.palette.common.light}
-      image={colorWorld}
+      image={vacationPic}
     >
       <Typography component="h1" variant="h3" key={`${Math.ceil(Math.random()*1000)}`}
         sx={{
-          textAlign: "center", margin: "0.5rem auto", color: theme.palette.common.red
+          textAlign: "center", margin: "0.5rem auto", color: "white"
         }}>
         {getSpecial && getSpecial.title}
       </Typography>

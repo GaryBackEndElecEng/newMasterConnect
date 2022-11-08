@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState, } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
+import { PriceContext } from '../../context/PriceContextProvider';
 import { Container, Stack, Grid, Typography, Card, Avatar, CardContent } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Stars from './Stars';
@@ -23,28 +24,38 @@ width:100vw;
 const PageRatings = () => {
     const theme = useTheme();
     const { pageRatings, } = useContext(GeneralContext);
+    const {getProductList} = useContext(PriceContext);
     const [filterRating,setFilterRating]=useState([]);
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
 
     useEffect(()=>{
-        if(pageRatings.loaded && pageRatings.data){
+        let arr=[]
+        if(pageRatings.loaded && pageRatings.data && getProductList.loaded){
             let filtered=pageRatings.data?.filter(obj=>(parseInt(obj.rating) > 2));
-            setFilterRating(filtered);
+            getProductList.data.forEach((product,index)=>{
+                filtered.forEach((obj)=>{
+                    if(obj.page === product.extra_kwargs){
+                        arr.push({...obj,"title":product.name})
+                    }
+                });
+            });
+            
+            setFilterRating(arr);
         }
 
-    },[pageRatings.loaded,pageRatings.data]);
+    },[pageRatings.loaded,pageRatings.data,getProductList.loaded,getProductList.data]);
 
     return (
         <MainPageRating 
-        bg={theme.palette.common.darkBlue}
+        bg={theme.palette.common.fadeCharcoal3}
         >
-            <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto"}}>Client comments</Typography>
+            <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto",color:"white"}}>Client comments</Typography>
             <Grid container spacing={{ xs: 0, sm: 1, md: 2 }}
             sx={{maxHeight:{md:"30vh",xs:"50vh"},overflowY:"scroll"}}
             >
                 {filterRating && filterRating.map((obj, index) => (
-                    <Grid item xs={6} sm={4} md={2} key={`${obj.id}-${index}`} sx={{padding:"1rem"}}>
-                        <Card elevation={10} sx={{padding:"1rem", borderRadius:"10%",backgroundColor:theme.palette.common.lighter}}>
+                    <Grid item xs={12} sm={4} md={2} key={`${obj.id}-${index}`} sx={{padding:"1rem"}}>
+                        <Card elevation={10} sx={{padding:{sm:"1rem",xs:"1.5rem"}, borderRadius:"10%",backgroundColor:theme.palette.common.lighter}}>
                             <Typography component="h1" variant="h5" sx={{textAlign:"center"}}>
                                 {obj.name}
                             </Typography>
@@ -55,6 +66,9 @@ const PageRatings = () => {
                             <CardContent
                                 sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}
                             >
+                                <Typography component="h1" variant="h6">
+                                    title:{obj.title}
+                                </Typography>
                                 <Typography component="h1" variant="h6">
                                     page:{obj.page}
                                 </Typography>
