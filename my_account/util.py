@@ -18,13 +18,13 @@ remainder for (2-5 yrs)
 
 def calculateMonth(mon):
     today=date.today()
-    days=mon*31
+    days=mon*30.5
     setdate=timedelta(days=days) + today
     return setdate.strftime("%Y%m%d"),setdate
 
 def calculateMonthTZ(mon):
     today=date.today()
-    days=mon*30
+    days=mon*30.5
     setdate=timedelta(days=days) + today
     return setdate
 
