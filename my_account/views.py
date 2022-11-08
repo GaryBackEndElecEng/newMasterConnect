@@ -99,8 +99,9 @@ class PackageViewList(APIView):
 
 
 class Register(ObtainAuthToken,APIView):
-    permission_classes=[AllowAny]
-    authentication_classes = [SessionAuthentication]
+    permission_classes=[permissions.AllowAny]
+    authentication_classes = [authentication.TokenAuthentication]
+    # authentication_classes = [SessionAuthentication]
     def post(self,request,*args,**kwargs):
         try:
             data=self.request.data
@@ -153,7 +154,7 @@ class Register(ObtainAuthToken,APIView):
 #so you must pass the CSRF token in the X-CSRFToken header
 class LoginView(APIView):
     permission_classes=[permissions.AllowAny]
-    authentication_classes = [SessionAuthentication]
+    authentication_classes = [authentication.TokenAuthentication]
     # manually create tokens for users ( not needed)
     def get_tokens_for_user(self,user):
         refresh=RefreshToken.for_user(user)
