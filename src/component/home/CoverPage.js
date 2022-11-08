@@ -31,11 +31,11 @@ const PersonBack = styled.img.attrs({ className: "persBack" })`
 position:absolute;
 top:29%;
 right:15%;
-transform:scale(1.7);
+transform:scale(1.4);
 animation: mergePersBack 1.25s ease-in;
 @keyframes mergePersBack {
     from {opacity:0;transform:translateX(20%) scale(0.8)}
-    to {opacity:1;transform:translateY(0%) scale(1.7)}
+    to {opacity:1;transform:translateY(0%) scale(1.4)}
 }
 @media screen and (max-width:900px){
     top:42%;

@@ -34,6 +34,19 @@ animation: moveAppear1 2s ease-in;
         to { opacity:1;transform:translateX(0%) scale(1);}
       }
 }
+@media screen and (max-width:500px){
+    transform:scale(.8);
+    position:absolute;
+    right:0%;
+    opacity:0;
+    
+    top:40%;
+    background:black;
+    @keyframes moveAppear1 {
+        from { opacity:0;transform:translateX(-600%) scale(0);}
+        to { opacity:1;transform:translateX(0%) scale(0.8);}
+      }
+}
 `;
 
 const OurServices = () => {
@@ -78,7 +91,7 @@ const OurServices = () => {
                     fontFamily: "Roboto", padding: "auto 0.5rem", margin: "auto ",position:"relative"
                 }}
             >
-                {service && service.title} {showIcon === 'block' ? <ArchitectIcon /> : <ArchitectureIcon sx={{ml:2,transform:"scale(3)",color:"red"}}/>}
+                {service && service.title} {showIcon === 'block' ? <ArchitectIcon /> : <ArchitectureIcon sx={{ml:2,color:"red"}}/>}
             </Typography>
             <Typography component="h1" variant="h5"
                 sx={{
