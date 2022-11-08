@@ -296,10 +296,9 @@ STRIPE_WEBHOOK_SECRET = 'whsec_C4lZl04E6ErVep2QhBzvVqxx2aYsYxjP'  #whsec_C4lZl04
 # #STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "<your secret key>")
 STRIPE_TEST_SECRET_KEY =os.environ.get("NEW_STRIPE_SECRET_TEST_KEY")
 STRIPE_PUBLIC_KEY = os.environ.get("NEW_STRIPE_PUBLIC_TEST_KEY")
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_TEST_KEY")
-STRIPE_PUBLIC_KEY = "pk_test_51LhEO0DeW5nEzo25iVgmGlWUD9RmC3Eh32h9ALgT9OScLfYIiAzelvyKQNS6lxbZP36HiI4pzPDKpjp1QeAoz4I300dLnItvBl"
-STRIPE_SECRET_KEY = "sk_test_51LhEO0DeW5nEzo25yBzcZXGZdlENrlRMCW43yb5Wl7cJ0c2ZhTEb50eDit4LZkcThZretAESPyci0HjBS8VZBbTL00vOmGxCiW"
-# STRIPE_SECRET_KEY = "whsec_C4lZl04E6ErVep2QhBzvVqxx2aYsYxjP"
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY","sk_test_51KXocrJGIzNDb1wRh4m0Ga1rQ42QpqgEJEv0a0RUuuXsKnJePGHkuXdvUVCydl2N1tcjJdBRy0eVyJ0YTLC74fjQ006Y0wzBMC")
+STRIPE_PUBLIC_KEY =os.environ.get("STRIPE_PUBLIC_KEY","pk_test_51KXocrJGIzNDb1wReap8jX29ZizdYG8s06oxnGIp34OfgfMEBkWc3H0KOXptUvZIysDhUxFfsb37n7LPAgDZY6Of001yjIplsk")
+
 SITE_URL="https://newmasterconnect.herokuapp.com"
 #--////////////--------------STRIPE--------------------////////////////////////#
 
