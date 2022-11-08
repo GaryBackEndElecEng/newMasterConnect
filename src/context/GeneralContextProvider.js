@@ -3,7 +3,8 @@ import api from '../component/axios/api';
 export const GeneralContext=React.createContext();
 export const GeneralContextProvider = (props) => {
   const url="http://localHost:3000";
-  const serverUrl=process.env.REACT_APP_API_URL || "http://localhost:8000/api";
+  const serverUrl=(process.env.NODE_ENV==="production") ? "/api" :  "http://localhost:8000/api";
+  // const serverUrl="/api";
   const staticImage="https://new-master.s3.ca-central-1.amazonaws.com/static"
   const initializeRequestInfo ={
     email:"",

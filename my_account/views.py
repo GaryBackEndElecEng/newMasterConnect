@@ -100,7 +100,7 @@ class PackageViewList(APIView):
 
 class Register(ObtainAuthToken,APIView):
     permission_classes=[AllowAny]
-    # authentication_classes = [SessionAuthentication]
+    authentication_classes = [SessionAuthentication]
     def post(self,request,*args,**kwargs):
         try:
             data=self.request.data
@@ -127,19 +127,19 @@ class Register(ObtainAuthToken,APIView):
                     #ADDED THE TASK ARRAY 
                     userAccount.save()
                     services=userAccount.service.all().order_by("id")
-                    if len(services)>0:
+                    job=Jobs(userId=userAccount.user.id,userAccount=userAccount)
+                    job.save()
+                    if len(services) != 0:
                         for i,obj in enumerate(services):
                             arr.push({id:obj.id})
-                        job,created=Jobs.objects.get_or_create(userId=userAccount.user.id,userAccount=userAccount,serviceArr=arr)
-                        if created:
-                            job.save()
-                    sitePreference,created=SitePreference.get_or_create(name=getUser.username,
+                        job.serviceArr=arr
+                        job.save()
+                    sitePreference=SitePreference(name=getUser.username,
                     q1="What is the one thing that you like with this site?",
                     q2="What effect do you like of this site?",
                     q3="What do you think is missing of this site that will improved interests and clicks?"
                     )
-                    if created:
-                        sitePreference.save()
+                    sitePreference.save()
                     userAccount.sitePreference=sitePreference
                     userAccount.save()
 
@@ -153,6 +153,7 @@ class Register(ObtainAuthToken,APIView):
 #so you must pass the CSRF token in the X-CSRFToken header
 class LoginView(APIView):
     permission_classes=[permissions.AllowAny]
+    authentication_classes = [SessionAuthentication]
     # manually create tokens for users ( not needed)
     def get_tokens_for_user(self,user):
         refresh=RefreshToken.for_user(user)
@@ -523,7 +524,7 @@ class Payment(APIView):
                 getInvoice.total=total
                 getInvoice.numPayment = numPayment
                 getInvoice.dateEnd=calculateMonthTZ(numPayment)
-                getInvoice.paid=True
+                getInvoice.paid=False
                 getInvoice.save()
             elif numPayment < 60:
                 # print("user_id",user_id,totalMonthly,total,"numPayment",numPayment)
@@ -531,7 +532,7 @@ class Payment(APIView):
                 getInvoice.numPayment=numPayment
                 getInvoice.subTotalMonthly=findSubTotalMonthly(getInvoice.id,totalMonthly)
                 getInvoice.dateEnd=calculateMonthTZ(numPayment)
-                getInvoice.paid=True
+                getInvoice.paid=False
                 getInvoice.save()
             else:
                 # print("user_id",user_id,totalMonthly,total,"numPayment",numPayment)
@@ -682,6 +683,9 @@ class GetSessionInfo(APIView):
         if userAccount:
             userAccount.sessionID=session_id
             userAccount.save()
+            getInvoice=Invoice.objects.get(id=userAccount.invoice.id)
+            getInvoice.paid=True
+            getInvoice.save()
             test= GetSession(session_id,user_id)
             test.getSession()
             sendAlertEmail(user_id,type="first")
@@ -1019,9 +1023,10 @@ class CalculatorResults(APIView):
             return Response({"error":e,"status":status.HTTP_400_BAD_REQUEST})
 
 class SitePreferenceView(APIView):
-    authentication_classes = [authentication.TokenAuthentication]
+    # authentication_classes = [authentication.TokenAuthentication]
     def post(self,request,format=None):
         data=request.data
+        # print(data)
         try:
             ans1=data["ans1"]
             ans2=data["ans2"]
@@ -1029,13 +1034,14 @@ class SitePreferenceView(APIView):
             site=data["site"]
             user_id=data["user_id"]
             user=User.objects.get(id=user_id)
-            sitePreference=SitePreference.objects.get(name=user.username)
-            sitePreference.ans1=ans1
-            sitePreference.ans2=ans2
-            sitePreference.ans3=ans3
-            sitePreference.site=site
-            sitePreference.save()
-            serializer=SitePreferenceSerializer(sitePreference,many=False)
+            sitePreference=SitePreference.objects.filter(name=user.username).first()
+            if sitePreference:
+                sitePreference.ans1=ans1
+                sitePreference.ans2=ans2
+                sitePreference.ans3=ans3
+                sitePreference.site=site
+                sitePreference.save()
+                serializer=SitePreferenceSerializer(sitePreference,many=False)
             return Response(serializer.data)
 
         except Exception as e:

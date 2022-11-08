@@ -96,7 +96,7 @@ const Amount = () => {
             const body = res.data
             setUserAccount({data:body,loaded:true})
             setUsersInvoice({loaded:true,data:body.invoice})
-            console.log(body.invoice)
+            // console.log(body.invoice)
             setShowCheckout(true);
             setIsSelectedOneTime(true);
             setIsSelectedMonthly(true);

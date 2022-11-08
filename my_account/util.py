@@ -149,16 +149,16 @@ class StripeCreation:
     def productName(self):
         name=""
         if self.products:
-            name +=",".join([obj.name[:25] for obj in self.userAccount.product.all()])
+            name +=",".join([obj.name[:10] for obj in self.userAccount.product.all()])
         if self.services:
-            name+=",".join([obj.name[:25] for obj in self.userAccount.service.all()])
+            name+=",".join([obj.name[:10] for obj in self.userAccount.service.all()])
         return name
 
     
     def descName(self):
         desc=""
         if self.products:
-            desc+=",".join([obj.desc[:26] for obj in self.userAccount.product.all()])
+            desc+=",".join([obj.desc[:16] for obj in self.userAccount.product.all()])
         if self.services:
             desc+=f'{self.userAccount.service.all()[0].desc}'
         return desc
@@ -561,7 +561,7 @@ def calculate5YrMonthly(userAccount):
         totalMonthly=totalMonthly*(1.03)**(5)
         invoice.totalMonthly=totalMonthly
         invoice.numPayment=60
-        invoice.paid=True
+        invoice.paid=False
         invoice.dateEnd=calculateMonthTZ(60)
         invoice.save()
 
@@ -596,7 +596,7 @@ class StripeCreationExtra:
     def descName(self):
         desc=""
         if self.extraServices:
-            desc+=",".join([obj.desc[:26] for obj in self.extraServices])
+            desc+=",".join([obj.desc[:10] for obj in self.extraServices])
         return desc
 
     def stripeCustomer(self):
@@ -612,7 +612,7 @@ class StripeCreationExtra:
             try:
                 stripeService=stripe.Product.create(
                     name=self.serviceName(),
-                    description=self.descName(),
+                    description="purchasing package",
                     images=['https://master-connect.s3.ca-central-1.amazonaws.com/static/pics/gold.png',],
                 )
                 # print(stripeProduct)
@@ -743,7 +743,7 @@ class CalculateCost:
         self.calculate=Calculator.objects.all().order_by("id")
         self.tempSaveCalc=TempSavedCalculator()
 
-    def wordToIdAnsFinder(self,text): #<==GOOD STUFF BUT USING
+    def wordToIdAnsFinder(self,text): #<==GOOD STUFF BUT NOT USING
         self.text=text
         array2=[]
         if self.calculate:
@@ -807,6 +807,7 @@ class CalculateCost:
 
     def calcWrittenService(self):
         array1=[]
+        total=0
         array2=self.genYesnoFalseArray()
         for calc in self.calculate:
             for dict in array2:
@@ -864,6 +865,7 @@ class CalculateCost:
                 self.tempSaveCalc.additionalCharArr.append(json.dumps({"Co":ans}))
             if calc.yesno==True and "high-tech" in calc.Q:
                 self.tempSaveCalc.additionalCharArr.append(json.dumps({"HTech":ans}))
+        
 
 
     def calcCombine(self):
@@ -886,13 +888,15 @@ class CalcAddToUserAccountAtLogin:
             self.userAccount=UserAccount.objects.filter(user=self.user).first()
             
     def addwebDNSIndustryToUserAcc(self):
-        for item in self.calcResults.additionalCharArr:
-            if "industry:" in item:
-                self.userAccount.industry=item.split(":")[1]
-            if "site:" in item:
-                self.userAccount.website=item.split(":")[1]
-            if "Co:" in item:
-                self.userAccount.co=item.split(":")[1]
+        if self.userAccount and self.calcResults:
+            for item in self.calcResults.additionalCharArr:
+                if "industry:" in item:
+                    self.userAccount.industry=item.split(":")[1]
+                if "site:" in item:
+                    self.userAccount.website=item.split(":")[1]
+                if "Co:" in item:
+                    self.userAccount.co=item.split(":")[1]
+            self.userAccount.save()
 
 
     def addServicesToUser(self):
@@ -913,7 +917,7 @@ class CalcAddToUserAccountAtLogin:
         self.addwebDNSIndustryToUserAcc()
         if self.uuid and self.userAccount:
             self.userAccount.calcUUID=self.uuid
-        self.userAccount.save()
+            self.userAccount.save()
 
 # NOT USED FOR PRODUCTION:IT'S DONE AT LOGIN PER ACCOUNT using CalcAddToUserAccountAtLogin ABOVE
 def generateJobs():

@@ -74,29 +74,30 @@ useMemo(()=>{
                   loaded: true });
         }
 
-    }, [isInfoOk]);
+    }, [isInfoOk,name,cell,address,country,provState,postal,website,DNS,industry,co]);
 
     
 
     useEffect(() => {
         // VALIDATION EMAIL
         const GENERIC_REGEX = /(^[a-zA-Z0-9]{1,8})/;
+        const COUNTRY_REGEX = /(^[a-zA-Z0-9]{0,2})/;
         const fullName_REGEX = /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/;
         const cell_REGEX = /^[0-9]{10}|[0-9]{3}-[0-9]{3}-[0-9]{4}/;
         const address_REGEX = /(^[0-9]{0,10})([ ]{0,1})([A-Za-z]{1,36})/;
         setValidName(fullName_REGEX.test(name))
         setValidCell(cell_REGEX.test(cell));
         setValidAddress(address_REGEX.test(address));
-        setValidCountry(GENERIC_REGEX.test(country));
-        setValidProvState(GENERIC_REGEX.test(provState));
+        setValidCountry(COUNTRY_REGEX.test(country));
+        setValidProvState(COUNTRY_REGEX.test(provState));
         setValidPostal(GENERIC_REGEX.test(postal));
 
     }, [ address, cell,name,country,postal,provState,]);
 
-    useMemo(()=>{
+    useEffect(()=>{
         if (validName && validCell && validAddress && validPostal && validProvState && validCountry) {
             setIsInfoOk(true)
-        } else { setIsInfoOk(false) }
+        } 
     },[validName,validCell,validAddress,validPostal,validProvState,validCountry]);
 
     const handleSubmit = (e) => {
@@ -198,7 +199,7 @@ useMemo(()=>{
                                         label="Country"
                                         defaultValue="CA"
                                         aria-describedby="valid Country"
-                                        value={country ? country : "CA"}
+                                        value={country }
                                         onChange={(e) => setCountry(e.target.value)}
                                         aria-invalid={validCountry ? "false" : "true"}
                                     >
@@ -209,7 +210,7 @@ useMemo(()=>{
                                         <MenuItem disabled={true} defaultValue="" value={""}>{"NO_OPTIONS_LABEL"}</MenuItem>
                                     </Select>
                                     {
-                                        validAddress ? <span className={styles.validCountry}><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+                                        validCountry ? <span className={styles.validCountry}><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
                                             : 
                                         <span className={styles.not }><CloseIcon /> </span>
                                     }

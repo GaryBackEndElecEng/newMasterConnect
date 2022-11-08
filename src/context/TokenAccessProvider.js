@@ -161,7 +161,7 @@ useEffect(() => {
       if(data?.extraInvoice !==null){
         setUsersExtraInvoice({loaded:true,data:data.extraInvoice})
       }
-      if (data?.jobs){
+      if (data.jobs.length>0){
         let userServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].serviceArr;
         if(userServiceArr.length>0){
         setJobsService({loaded:true,data:userServiceArr});

@@ -1,7 +1,7 @@
 import React, { useContext, useState,useEffect } from 'react';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import {GeneralContext} from '../../context/GeneralContextProvider';
-import { Stack, Container, Paper, Typography, Card, CardContent, CardMedia, Fab, ListItem } from '@mui/material';
+import { Stack, Container, Paper, Typography, Card, CardContent, CardMedia, Fab, ListItem, Grid } from '@mui/material';
 import styled from 'styled-components';
 import apiProtect from '../axios/apiProtect';
 import PaymentsIcon from '@mui/icons-material/Payments';
@@ -20,7 +20,7 @@ padding:0.5rem;
 const CheckoutForm = () => {
     // const theme = useTheme();
     // const navigate=useNavigate();
-    const { userAccount,user_id, setSentToServer,loggedIn } = useContext(TokenAccessContext);
+    const { userAccount,user_id, setSentToServer,loggedIn,usersService,usersProduct } = useContext(TokenAccessContext);
     const {setChangePage,serverUrl,staticImage}=useContext(GeneralContext);
     const initializegetInvoice={loaded:false,data:{}};
     Object.freeze(initializegetInvoice);
@@ -30,7 +30,7 @@ const CheckoutForm = () => {
     const clientProducts= userAccount.loaded ? userAccount.data.product.map(obj=>(obj.name)):null; 
     const getSelectedPayment= getInvoice.loaded ? getInvoice.data:null;
     const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) :loggedIn;
-    
+    const serverUrl1="http://localhost:8000/api"
 
      useEffect(()=>{
 
@@ -57,37 +57,42 @@ const CheckoutForm = () => {
     
     return (
         <SpecialContainer maxWidth="md"
-            sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "center",width:"100%" }}
+            sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column",width:"100%" }}
         >
-            <Card elevation={10} sx={{ width: "100%",position:"relative" ,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",padding:"1rem",border:"1px solid black"}}>
+            <Card elevation={10} sx={{ width: "100%",position:"relative" ,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",padding:"1rem",border:"1px solid black",}}>
                {clientProdImgs && clientProdImgs.map(obj=>(
                 
                 <CardMedia key={obj} component="img" image={obj} alt="www.master-connect.ca" sx={{width:"50%", height:"50%",margin:"auto"}}/>))}
                <form method="POST" action={`${serverUrl}/account/stripe/payment/${user_id}` } >
-                <CardContent>
+                <CardContent sx={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
                 <Typography component="h1" varaint="h4" sx={{textAlign:"center",fontWeight:"bold",margin:"1rem auto"}}>Your Products</Typography>
-                <Paper elevation={20}>
-                    <Stack direction={{xs:"column",sm:"row"}} spacing={1}>
+                <Stack direction={{xs:"column",sm:"row"}} spacing={1} sx={{padding:"1rem",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
+                <Paper elevation={20} sx={{padding:"1rem",margin:"auto 2rem",width:"100%",textAlign:"center"}}>
+                    
                         
-                   {clientProducts && clientProducts.map(obj=>(
-                    <ListItem key={obj}
-                    sx={{margin:"auto"}}>
-                        {obj}
+                   {(usersProduct.loaded && usersProduct.data !== null) && usersProduct.data.map(obj=>(
+                    <ListItem key={obj.id}
+                    sx={{margin:"auto",padding:"1rem",color:"black"}}>
+                        {obj.name}
                     </ListItem>
                    ))}
-                   </Stack>
+                   
                    </Paper>
+                   </Stack>
                 <Typography component="h1" varaint="h4" sx={{textAlign:"center",fontWeight:"bold",margin:"1rem auto"}}>Your Services</Typography>
-                <Paper elevation={20}>
-                    <Stack direction={{xs:"column",sm:"row"}} spacing={1}>
-                        
-                   {clientServices && clientServices.map(obj=>(
-                    <ListItem key={obj}
+                <Paper elevation={20} sx={{padding:"1rem"}}>
+                    <Stack direction={{xs:"column",sm:"column"}} spacing={1}
+                    sx={{alignItems: "center", justifyContent: "center",padding:"1rem",margin:"auto 2rem"}}
+                    >
+                        <Grid container spacing={{xs:0,sm:1}} sx={{margin:"1rem auto"}}>
+                   {(usersService.loaded && usersService.data !==null) && usersService.data.map(obj=>(
+                    <Grid item xs={12} sm={6} md={4} key={obj.id}
                     sx={{margin:"auto"}}>
-                        {obj}
-                    </ListItem>
+                        {obj.name}
+                    </Grid>
 
                    ))}
+                   </Grid>
                    
                    </Stack>
                    </Paper>

@@ -47,9 +47,12 @@ const GetServiceList = () => {
             });
             setReducedService({loaded:true,data:arr})
             localStorage.setItem("reducedService",JSON.stringify(arr));
-            console.log("inside useEffect")
-        }
-    },[usersService.loaded,getServiceList.loaded]);
+            // console.log("inside useEffect")
+        }else{
+            setReducedService({loaded:true,data:getServiceList.data});
+            localStorage.setItem("reducedService",JSON.stringify(getServiceList.data));
+    }
+    },[usersService.loaded,getServiceList.loaded,usersService.data,getServiceList.data]);
 
 
 
@@ -169,7 +172,7 @@ const GetServiceList = () => {
             <Grid container spacing={2} onMouseOut={() => handleClosePopUp()}
             sx={{maxHeight:{md:"50vh",xs:"65vh"},overflowY:"scroll"}}
             >
-                {reducedService.loaded && reducedService.data.map(obj => (
+                {(reducedService.loaded && reducedService.data !==null) && reducedService.data.map(obj => (
                     <Grid item xs={12} md={4} key={`${obj.id}-${Math.floor(Math.random() * 10000)}`}
                         sx={{ padding: "0.5rem" }}
                     >
