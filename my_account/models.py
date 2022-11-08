@@ -188,8 +188,8 @@ class Invoice(models.Model):
     sendingForPayment = models.BooleanField(default=False)
     priceID=models.CharField(max_length=150,blank=True,null=True)
     paid=models.BooleanField(default=False)
-    dateStart=models.DateField(default=datetime.now)
-    dateEnd=models.DateField(default=date.today,blank=True)
+    dateStart=models.DateTimeField(default=datetime.now)
+    dateEnd=models.DateTimeField(default=datetime.now,blank=True)
     
     def __str__(self):
         return self.name
@@ -206,8 +206,8 @@ class PostInvoice(models.Model):
     sendingForPayment = models.BooleanField(default=False)
     priceID=models.CharField(max_length=150,blank=True,null=True)
     paid=models.BooleanField(default=False)
-    dateStart=models.DateField(default=datetime.now)
-    dateEnd=models.DateField(default=date.today,blank=True)
+    dateStart=models.DateTimeField(default=datetime.now)
+    dateEnd=models.DateTimeField(default=datetime.now,blank=True)
     
     def __str__(self):
         return self.name
@@ -224,8 +224,8 @@ class ExtraInvoice(models.Model):
     sendingForPayment = models.BooleanField(default=False)
     priceID=models.CharField(max_length=150,blank=True,null=True)
     paid=models.BooleanField(default=False)
-    dateStart=models.DateField(default=datetime.now)
-    dateEnd=models.DateField(default=date.today,blank=True)
+    dateStart=models.DateTimeField(default=datetime.now)
+    dateEnd=models.DateTimeField(default=datetime.now,blank=True)
     
     def __str__(self):
         return self.name
@@ -263,7 +263,7 @@ class UserAccount(models.Model):
     consult = models.BooleanField(default=False)
     canceled= models.BooleanField(default=False)
     canceledCount=models.IntegerField(default=0)
-    date=models.DateField(default=datetime.now)
+    date=models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return f'{self.name}-{self.user}'
