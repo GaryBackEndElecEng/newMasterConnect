@@ -226,6 +226,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
     "https://newmasterconnect.herokuapp.com",
+    "https://www.master-connect.com",
+    "https://www.master-connect.ca",
     "https://checkout.stripe.com",
     "http://localhost:8000",
     "http://127.0.0.1:8000"
@@ -255,7 +257,7 @@ CORS_ALLOW_HEADERS = [
     'Access-Control-Allow-Origin',
 ]
 # CORS_ALLOW_CREDENTIALS: bool
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","https://checkout.stripe.com","http://127.0.0.1:3000","https://newmasterconnect.herokuapp.com","http://localhost:8000","http://127.0.0.1:8000"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","https://checkout.stripe.com","http://127.0.0.1:3000","https://newmasterconnect.herokuapp.com","http://localhost:8000","http://127.0.0.1:8000","https://www.master-connect.ca","https://www.master-connect.com"]
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME="X_CSRFToken"
 # ACCESS_CONTROL_ALLOW_HEADERS="*"
