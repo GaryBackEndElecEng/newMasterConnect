@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","herokuapp.com","master-connect.ca","master-connect.com"]
+ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","herokuapp.com","master-connect.ca","master-connect.com","www.master-connect.ca","www.master-connect.com","webdesign.masterconnect.ca"]
 
 
 # Application definition
@@ -257,7 +257,7 @@ CORS_ALLOW_HEADERS = [
     'Access-Control-Allow-Origin',
 ]
 # CORS_ALLOW_CREDENTIALS: bool
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","https://checkout.stripe.com","http://127.0.0.1:3000","https://newmasterconnect.herokuapp.com","http://localhost:8000","http://127.0.0.1:8000","https://www.master-connect.ca","https://www.master-connect.com"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","https://checkout.stripe.com","http://127.0.0.1:3000","https://newmasterconnect.herokuapp.com","http://localhost:8000","http://127.0.0.1:8000","https://www.master-connect.ca","https://www.master-connect.com","https://webdesign.masterconnect.ca"]
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME="X_CSRFToken"
 # ACCESS_CONTROL_ALLOW_HEADERS="*"
@@ -393,3 +393,8 @@ STATICFILES_DIRS = [
 # This is needed in heroku. It takes care of the static files!!
 django_heroku.settings(locals(),staticfiles=True)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+if os.getcwd() == '/app':
+    SECURE_PROXY_SSL_HEADER =('HTTP_X_FORWARD_PROTO','https')
+    SECURE_SSL_REDIRECT =True
+    DEBUG = False
