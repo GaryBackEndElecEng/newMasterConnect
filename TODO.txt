@@ -68,6 +68,7 @@ git rm -f  "adminHome/migrations/0007_delete_suminvoice.py"
 
 
 TODO
+- TAKE USERS- FROM REGISTER THROUGH LOGIN INTO HOME then show user if they want to see their MyAccount
  - add create a util function in my_account to add postServiceArr and extraServiceArr to jobs upon purchasing or usersPostInvoice.paid
   _ Retrospect=> Special Unique Designs
   -add packages: custom support.

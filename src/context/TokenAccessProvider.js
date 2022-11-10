@@ -47,6 +47,7 @@ const [country, setCountry] = useState("");
 const [postal, setPostal] = useState("");
 const [formComplete,setFormComplete]=useState(false);
 const [address,setAddress]=useState("");
+const [viewAccount,setViewAccount]=useState(false);
 const initializeServProd={data:[],loaded:false};
 const [gmailUser,setGmailUser]=useState({loaded:false,data:{}});
 Object.freeze(initializeServProd);
@@ -209,7 +210,7 @@ useEffect(() => {
 
 
   return (
-    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,productError,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,jobsService,jobsPostService,jobsExtraService,website,setWebsite,DNS,setDNS,industry,setIndustry,co,setCo,sitePreference,setSitePreference}}>
+    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,productError,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,jobsService,jobsPostService,jobsExtraService,website,setWebsite,DNS,setDNS,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount}}>
         {props.children}
     </TokenAccessContext.Provider>
   )

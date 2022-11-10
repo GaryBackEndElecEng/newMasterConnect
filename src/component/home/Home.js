@@ -21,7 +21,7 @@ import GetRegisterPages from '../utils/GetRegisterPages';
 import CalculateBanner from './CalculateBanner';
 import HomeHelmet from './HomeHelmet';
 import HomeHelmet2 from './HomeHelmet2';
-// import id from 'date-fns/esm/locale/id/index.js';
+import ShowGoToMyAccount from './ShowGoToMyAccount';
 
 
 
@@ -70,7 +70,7 @@ const Home = () => {
     // const navigate = useNavigate();
     // let popUpRef=useRef();
     const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed ,setChangePage,allCategory} = useContext(GeneralContext);
-    const {signout,signin}=useContext(TokenAccessContext);
+    const {signout,signin,viewAccount}=useContext(TokenAccessContext);
     
     const [window600, setWindow600] = useState(false);
     const [hideDisplay, setHideDisplay] = useState(false);
@@ -194,9 +194,10 @@ const Home = () => {
                     </Paper>}
                     <SpecialCreateValue />
                     <Typography component="h1" variant="h5"
-                        sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem" }}
+                        sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem",position:"relative" }}
                     >
                         Basic Theme Examples:
+                        { viewAccount && <ShowGoToMyAccount/>}
                     </Typography>
                     
                     <Stack direction={"column"} sx={{ mt: 1, mb: 2, maxWidth: "350px" }} >

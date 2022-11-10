@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 // import styles from './consult.module.css';
 import styled from 'styled-components';
 // import apiProtect from '../axios/apiProtect';
-import ParticularsPaidTotals from '../account/ParticularsPaidTotals';
+import ParticularsPaidTotals from './ParticularsPaidTotals';
 import AmountOneTimeMonthly from './AmountOneTimeMonthly';
 
 const MoveImg = styled.img`
@@ -135,7 +135,7 @@ const Amount = ({ invoicePaid, postInvoicePaid, usersInvoice,extraInvoicePaid })
                     {userAccount.loaded && userAccount.data.cell}
                 </Typography>
             </Stack>
-            <Grid container spacing={0} sx={{ margin: "0px", padding: "0.5rem ", }}>
+            <Grid container spacing={0} sx={{ margin: "0px", padding: "0.5rem ",minHeight:{md:"40vh"} }}>
                 <Grid item xs={12} md={3} sx={{ backgroundImage: `url(${imgConsult1})`, backgroundSize: "100% 100%", minHeight: "20vh", position: "relative" }}>
                     <MoveImg src={imgConsult2} alt="www.master-connect.ca" />
                     <DisplayLeftMsg display={turnOnLeftPhrase} component="h1" variant="h4"
@@ -146,7 +146,7 @@ const Amount = ({ invoicePaid, postInvoicePaid, usersInvoice,extraInvoicePaid })
                     </DisplayLeftMsg>
 
                 </Grid>
-                <Grid item xs={12} md={6} sx={{ margin: "auto 0px", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", padding: { md: "0.25rem", xs: "0px" }, }}>
+                <Grid item xs={12} md={6} sx={{ margin: "auto 0px", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", padding: { md: "0.25rem", xs: "0px" } }}>
                     {(usersInvoice.loaded && !usersInvoice.data.paid) && <AmountOneTimeMonthly usersInvoice={usersInvoice} />}
                     {(usersInvoice.loaded && usersInvoice.data.paid) && <ParticularsPaidTotals
                      invoicePaid={invoicePaid}

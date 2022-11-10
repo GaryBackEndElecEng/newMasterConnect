@@ -27,7 +27,7 @@ const Signin = () => {
   const theme = useTheme();
     const MyRef = useRef();
     const { staticImage,email, setEmail,setChangePage,setTitle,setStyleName,setActivate,register,setRegister} = useContext(GeneralContext);
-    const {loggedIn,setLoggedIn,setSignin,setTokenIsValid,loginError,setLoginError,setSignout,setGoToSignin}=useContext(TokenAccessContext)
+    const {loggedIn,setLoggedIn,setSignin,setTokenIsValid,loginError,setLoginError,setSignout,setGoToSignin,setViewAccount}=useContext(TokenAccessContext)
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
     const [infoOkay, setInfoOkay] = useState(false);
@@ -94,6 +94,7 @@ const Signin = () => {
                     localStorage.setItem('tokenIsValid',true);
                     localStorage.setItem("loggedIn",true);
                     localStorage.setItem("goToSignin",false)
+                    setViewAccount(true);
                     setTimeout(()=>{setSignin(false)},6000);
                     navigate("/",setChangePage(true));
                     setRegister({loaded:false,data:{'username':data.username,"email":data.email,"password":""}});
@@ -162,6 +163,7 @@ const Signin = () => {
                     localStorage.setItem("loggedIn",true);
                     localStorage.setItem("goToSignin",false)
                     setRegister({loaded:false,data:{'username':data.username,"email":data.email,"password":""}});
+                    setViewAccount(true);
                     setTimeout(()=>{setSignin(false)},6000);
                     navigate("/",setChangePage(true));
                 }else{

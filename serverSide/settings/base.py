@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","herokuapp.com","master-connect.ca","master-connect.com","www.master-connect.ca","www.master-connect.com","webdesign.masterconnect.ca","https://www.master-connect.ca"]
+ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","herokuapp.com","master-connect.ca","master-connect.com","www.master-connect.ca","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","masterconnect.ca"]
 
 
 # Application definition
@@ -228,6 +228,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://newmasterconnect.herokuapp.com",
     "https://www.master-connect.com",
     "https://www.master-connect.ca",
+    "https://www.masterconnect.ca",
     "https://checkout.stripe.com",
     "http://localhost:8000",
     "http://127.0.0.1:8000"
