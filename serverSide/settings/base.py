@@ -37,7 +37,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","stormy-dove-lygzcl7slf1aek0oqo6a0gz3.herokudns.com","www.garymaster-connect.com","garymaster-connect.com"]
+ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","www.garymaster-connect.com","garymaster-connect.com"]
 
 
 # Application definition
@@ -260,7 +260,7 @@ CORS_ALLOW_HEADERS = [
     'Access-Control-Allow-Origin',
 ]
 # CORS_ALLOW_CREDENTIALS: bool
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","https://checkout.stripe.com","http://127.0.0.1:3000","https://newmasterconnect.herokuapp.com","http://localhost:8000","http://127.0.0.1:8000","https://www.master-connect.ca","https://www.master-connect.com","https://www.masterconnect.ca"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000","https://checkout.stripe.com","http://127.0.0.1:3000","https://newmasterconnect.herokuapp.com","http://localhost:8000","http://127.0.0.1:8000","https://www.master-connect.ca","https://www.master-connect.com","https://www.masterconnect.ca","https://www.garymaster-connect.com"]
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME="X_CSRFToken"
 # ACCESS_CONTROL_ALLOW_HEADERS="*"
