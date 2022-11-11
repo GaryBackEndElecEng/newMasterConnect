@@ -18,6 +18,7 @@ from django.conf import settings
 
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,7 +36,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","stormy-dove-lygzcl7slf1aek0oqo6a0gz3.herokudns.com"]
+# ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","stormy-dove-lygzcl7slf1aek0oqo6a0gz3.herokudns.com"]
+ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","stormy-dove-lygzcl7slf1aek0oqo6a0gz3.herokudns.com","www.garymaster-connect.com"]
 
 
 # Application definition
