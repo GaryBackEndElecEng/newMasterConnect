@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca"]
+ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","stormy-dove-lygzcl7slf1aek0oqo6a0gz3.herokudns.com"]
 
 
 # Application definition
