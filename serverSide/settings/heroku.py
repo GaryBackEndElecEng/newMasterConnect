@@ -35,7 +35,9 @@ AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY_CONNECT")
 
 
 # Parse database connection url strings like psql://user:pass@127.0.0.1:8458/db
-# DATABASES = {
-#     # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
-#     'default': env.db(),
-# }
+DATABASES = {
+    # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
+    'default': env.db(),
+}
+django_heroku.settings(locals(),staticfiles=True)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
