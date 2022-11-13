@@ -40,7 +40,7 @@ DATABASES = {
     'default': env.db(),
 }
 django_heroku.settings(locals(),staticfiles=True)
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 if os.getcwd() == '/app':
     SECURE_PROXY_SSL_HEADER =('HTTP_X_FORWARD_PROTO','https')

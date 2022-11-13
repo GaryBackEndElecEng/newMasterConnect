@@ -76,7 +76,8 @@ TODO
 -3684
 - DNS domain protection to services
 
-
+/RUN COLLECTSTATIC
+heroku run 'bower install --config.interactive=false;grunt prep;python manage.py collectstatic --noinput'
 
 
 
