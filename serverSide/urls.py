@@ -3,6 +3,7 @@ from django.urls import path,include,re_path
 from django.views.generic import TemplateView
 # from api.views import Assets 
 from django.conf import settings
+from django.views.static import serve
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework.schemas import get_schema_view
@@ -27,7 +28,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('accounts/', include('allauth.urls')),
-    re_path(r'^static/(?P<path>.*)$', Assets.as_view(), {'document_root': settings.TEST_DIR}),
+    re_path(r'^static/(?P<path>.*)$', serve),
     re_path(r'.*',main),
     # path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls'))
     
