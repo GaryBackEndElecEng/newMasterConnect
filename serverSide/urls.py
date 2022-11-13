@@ -13,7 +13,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 
-from .views import main
+from .views import main,Assets
 
 urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name="token_obtain_pair"),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('accounts/', include('allauth.urls')),
+    re_path(r'^static/(?P<path>.*)$', Assets.as_view(), {'document_root': settings.TEST_DIR}),
     re_path(r'.*',main),
     # path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls'))
     
