@@ -217,7 +217,7 @@ animation:showMakeEasy 1.25s ease-in-out;
     from {opacity:0;}
     to {opacity:1;}
 }
-@import url('http://localhost:3000/images/middlebannerWallPaper.png');
+/* @import url('http://localhost:3000/images/middlebannerWallPaper.png'); */
 
 .exampleDisplay{
   animation:mergeIn 1s ease-in-out;

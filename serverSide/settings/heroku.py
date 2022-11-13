@@ -45,7 +45,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 if os.getcwd() == '/app':
     SECURE_PROXY_SSL_HEADER =('HTTP_X_FORWARD_PROTO','https')
     SECURE_SSL_REDIRECT =True
-    # DEBUG = False
+    DEBUG = DEBUG
 
 # Debugging in heroku live
 LOGGING = {

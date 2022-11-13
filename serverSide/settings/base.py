@@ -34,7 +34,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+
 
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","www.garymaster-connect.com","garymaster-connect.com"]
@@ -394,10 +396,10 @@ STATICFILES_DIRS = [
 ]
 
 # This is needed in heroku. It takes care of the static files!!
-django_heroku.settings(locals(),staticfiles=True)
+django_heroku.settings(locals())
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 if os.getcwd() == '/app':
     SECURE_PROXY_SSL_HEADER =('HTTP_X_FORWARD_PROTO','https')
     SECURE_SSL_REDIRECT =True
-    DEBUG = False
+    DEBUG = DEBUG

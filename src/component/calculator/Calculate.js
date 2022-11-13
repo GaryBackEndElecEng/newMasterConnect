@@ -42,7 +42,6 @@ const Calculate = () => {
     const theme=useTheme();
     const {setTitle,setStyleName,answeredFilled,} =useContext(GeneralContext);
     const MyRef=useRef();
-    const calcPic="https://new-master.s3.ca-central-1.amazonaws.com/static/images/calculator1.png";
     const whiteImg="https://new-master.s3.ca-central-1.amazonaws.com/static/images/white.png";
 
    
