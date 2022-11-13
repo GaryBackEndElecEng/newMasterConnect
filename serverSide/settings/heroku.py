@@ -39,8 +39,8 @@ DATABASES = {
     # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
     'default': env.db(),
 }
-django_heroku.settings(locals(),staticfiles=True)
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+django_heroku.settings(locals())
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 if os.getcwd() == '/app':
     SECURE_PROXY_SSL_HEADER =('HTTP_X_FORWARD_PROTO','https')

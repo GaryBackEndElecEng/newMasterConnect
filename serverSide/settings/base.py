@@ -383,7 +383,7 @@ import django_heroku
 
 #-----////////////// ---STATIC FILES ------/////////////#
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
@@ -398,7 +398,7 @@ STATICFILES_DIRS = [
 ]
 
 # This is needed in heroku. It takes care of the static files!!
-django_heroku.settings(locals(),staticfiles=True)
+django_heroku.settings(locals())
 
 
 if os.getcwd() == '/app':
