@@ -2,7 +2,7 @@ import React, { useContext} from 'react'
 // import { useNavigate,useLocation } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Container } from '@mui/material';
+import { Container,Typography } from '@mui/material';
 import styled from 'styled-components';
 
 
@@ -28,6 +28,26 @@ box-shadow: 1px 1px 8px 5px ${({bg})=>bg};
   min-height:30vh;
 }
 `;
+const DisplayMessage=styled(Typography)`
+position:absolute;
+justify-self:center;
+margin:auto 2rem;
+color:white;
+top:40%;
+left:32%;
+animation:sweepIn 2s ease-in-out;
+@keyframes sweepIn {
+  from {opacity:0;transform:translateX(-100%);}
+  to {opacity:1;transform:translateX(0%);}
+}
+@media screen and (max-width:900px){
+  left:23%;
+}
+@media screen and (max-width:600px){
+  left:20%;
+}
+
+`;
 
 const CoverPage = () => {
     const theme=useTheme();
@@ -36,7 +56,7 @@ const CoverPage = () => {
   return (
     <MainCoverpage pic={pic} bg={theme.palette.common.blueGrey}>
         <SpellType/>
-
+    <DisplayMessage component="h1" variant="h4"> just click on the icons below</DisplayMessage>
     </MainCoverpage>
   )
 }

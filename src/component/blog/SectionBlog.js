@@ -49,30 +49,30 @@ const SectionBlog = ({ sectionBlog }) => {
         <MainContainer maxWidth="lg" spacing={{ xs: 0, sm: 1, md: 2 }} sx={{margin:"2rem auto"}}
         >
             {sectionBlog && sectionBlog.map(obj => (
-                <Stack spacing={{ xs: 0, sm: 1, md: 2 }} key={`${obj.id}-${Math.ceil(Math.random()*1000)}`} sx={{ padding: { xs: "0rem  ", sm: "0.5rem" }, margin: "auto", textAlign: "center", width: "100%" }}>
+                <Stack direction="column" spacing={{ xs: 0, sm: 1, md: 2 }} key={`${obj.id}-${Math.ceil(Math.random()*1000)}`} sx={{ padding: { xs: "0rem  ", sm: "0.5rem" }, margin: "auto",  width: "100%",justifyContent:"flex-start",alignItems:"flex-start" }}>
                     <Typography component='h1' variant="h3" sx={{ margin: "2rem auto", textAlign: "center", fontWeight: "bold", }}>
                         {obj.section}
                     </Typography>
                     {obj.sectionImage && <MainImage src={obj.sectionImage} alt="www.master-connect.ca" style={{ width: "90%" }} />}
                     
-                    <div style={{padding:"0.5rem"}}  dangerouslySetInnerHTML={ createMarkup(obj.summary)}/>
+                    <div style={{padding:"0.5rem",textAlign:"left"}}  dangerouslySetInnerHTML={ createMarkup(obj.summary)}/>
                     
                     {obj.sectionImage && <MainImage src={obj.sectionImage} alt="www.master-connect.ca" style={{ width: "100%" }} />}
                     <Typography component='h1' variant="h4" sx={{ margin: "2rem auto", textAlign: "center", fontWeight: "bold", }}>
                         {obj.subSection && obj.subSection}
                     </Typography>
-                    <div style={{padding:"0.5rem"}}  dangerouslySetInnerHTML={ createMarkup(obj.content)}/>
+                    <div style={{padding:"0.5rem",textAlign:"left"}}  dangerouslySetInnerHTML={ createMarkup(obj.content)}/>
                     <Typography component='h1' variant="h5" sx={{ margin: "1rem auto", }}>
                         {obj.subSection1 && obj.subSection1}
                     </Typography>
 
                     {obj.imageSection && <MainImage src={obj.imageSection} alt="www.master-connect.ca" style={{ width: "100%" }} />}
 
-                    <div style={{padding:"0.5rem"}}  dangerouslySetInnerHTML={createMarkup(obj.content1)}/>
+                    <div style={{padding:"0.5rem",textAlign:"left"}}  dangerouslySetInnerHTML={createMarkup(obj.content1)}/>
                     <Typography component='h1' variant="h5" sx={{ margin: "2rem auto", textAlign: "center", fontWeight: "bold", }}>
                         {obj.subSection2 && obj.subSection2}
                     </Typography>
-                    <div style={{padding:"0.5rem"}}  dangerouslySetInnerHTML={createMarkup(obj.content2)}/>
+                    <div style={{padding:"0.5rem",textAlign:"left"}}  dangerouslySetInnerHTML={createMarkup(obj.content2)}/>
                     
                 </Stack>
             ))}

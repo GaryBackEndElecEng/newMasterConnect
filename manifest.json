@@ -27,9 +27,9 @@
   "theme_color": "#3367D6",
   "shortcuts": [
     {
-      "name": "Best Designs, 2022-2023",
-      "short_name": "Clever Designs",
-      "description": "Cheapest and eye-catching Designs on the Web",
+      "name": "Web site Design, 2022-2023",
+      "short_name": "Website Design - make your life easy",
+      "description": "Garrantee to please you!- Must SEE!",
       "url": "/?source=pwa",
       "icons": [{ "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico2.png", "sizes": "200x198" },{"src":"https://new-master.s3.ca-central-1.amazonaws.com/static/favico97X97.png","sizes":"97x97" }]
     },
@@ -41,10 +41,17 @@
       "icons": [{ "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico2.png", "sizes": "200x198" },{"src":"https://new-master.s3.ca-central-1.amazonaws.com/static/favico97X97.png","sizes":"97x97" }]
     },
     {
+      "name": "Articles for your interests",
+      "short_name": "Evergreen articles",
+      "description": "Designed to make you smart",
+      "url": "/articles?source=pwa",
+      "icons": [{ "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico2.png", "sizes": "200x198" },{"src":"https://new-master.s3.ca-central-1.amazonaws.com/static/favico97X97.png","sizes":"97x97" }]
+    },
+    {
       "name": "Best Blog",
       "short_name": "Blog",
       "description": "Smart Blogs for the Mind",
-      "url": "/works?source=pwa",
+      "url": "/blog?source=pwa",
       "icons": [{ "src": "https://new-master.s3.ca-central-1.amazonaws.com/static/favico2.png", "sizes": "200x198" },{"src":"https://new-master.s3.ca-central-1.amazonaws.com/static/favico97X97.png","sizes":"97x97" }]
     }
   ],

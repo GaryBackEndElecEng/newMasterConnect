@@ -40,55 +40,13 @@ padding:auto;
 
 
 `;
-const generateKeyWords = (phrase)=>{
-    let arr=phrase.split(" ");
-    return arr
-}
 
-const BlogBody = () => {
+
+const BlogBody = ({blogBodys}) => {
     const { staticImage } = useContext(GeneralContext);
-    const [blogBodys, setBlogBodys] = useState({ loaded: false, data: [] });
-    const [keywords,setKeywords]=useState();
+    
 
-    useEffect(()=>{
-        let arr=["blog",];
-        const removeTags=/(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g;
-
-        let showBlog=blogBodys.data.filter(obj=>(obj.show===true))[0];
-        
-        if(showBlog){
-            let intro="blog";
-            if(removeTags.test(showBlog.intro)){
-            intro=removeTags.test(showBlog.intro) ? showBlog.intro.split(removeTags).filter(word=>word !=="\r\n\r\n").filter(word=>word !== "")[1].split(" "):"";
-            }
-            arr.concat(intro)
-        
-        arr= arr + "," + intro;
-        arr=arr + generateKeyWords(showBlog.sectionBlog[0].section);
-        arr= arr + generateKeyWords(showBlog.sectionBlog[0].subSection);
-        arr= arr + generateKeyWords(showBlog.sectionBlog[0].subSection2);
-        setKeywords(arr.slice(0,150))
-        
-        
-        }
-        
-
-    },[]);
-
-    useEffect(() => {
-        const getBlog = async () => {
-            try {
-                const res = await api.get('/blog/');
-                const body = res.data;
-                setBlogBodys({ loaded: true, data: body })
-                // console.log(body)
-            } catch (error) {
-                console.error(error.message)
-            }
-        }
-        getBlog();
-    }, [])
-    // console.log(blogBodys)
+    
 
     const createMarkup = (text1)=>{
         let len=text1.split(" ")
@@ -101,16 +59,16 @@ const BlogBody = () => {
 
     return (
         <MainBody>
-            <BlogHelmet blogBodys={blogBodys} keywords={keywords}/>
+            
             <Paper elevation={10}
                 sx={{ margin: { xs: "auto", sm: "auto" }, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", padding: { xs: "0.25rem " }, width: "100%", }}
             >
-                {blogBodys.loaded && blogBodys.data.map(obj => (
+                {blogBodys.loaded && [blogBodys.data].map(obj => (
                    
                      <Stack spacing={{ xs: 0, sm: 1, md: 2 }} key={`${obj.id}-${Math.ceil(Math.random()*1000)}`} 
                      sx={{ padding: { xs: "0rem  ", sm: "0.5rem" }, 
                      margin: " 1rem auto", textAlign: "center", width: "100%",
-                     display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",
+                     display: "flex", justifyContent: "center", alignItems: "flex-center", flexDirection: "column",
                      
                      }}>
                         {obj.mainImage && obj.show &&
@@ -120,7 +78,7 @@ const BlogBody = () => {
                            <>
                            <Typography component="h1" variant="h3">{obj.title}</Typography>
 
-                            <div style={{padding:"0.5rem"}}  dangerouslySetInnerHTML={createMarkup(obj.intro)}/>
+                            <div style={{padding:"0.5rem",textAlign:"left"}}  dangerouslySetInnerHTML={createMarkup(obj.intro)}/>
                             </>
                            }
                             {obj.imageMain && obj.show &&

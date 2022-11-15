@@ -360,7 +360,7 @@ SOCIALACCOUNT_PROVIDERS={
     },
     'instagram':{
         'client_id':'306375078130326',
-        # 'redirect_uri':'https://www.master-connect.ca',
+        'redirect_uri':'https://www.master-connect.ca',
         'code':'code',
         'SCOPE':[
             'user_profile','user_media'

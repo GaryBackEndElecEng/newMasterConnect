@@ -1,0 +1,14 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+.changeColor{
+    background:red !important;
+}
+.noChangeColor{
+    background:blue !important;
+}
+.changeIconColor{
+    color:blue !important;
+}
+.noChangeIconColor{
+    color:red !important;
+}
