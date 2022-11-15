@@ -185,7 +185,9 @@ export const GeneralContextProvider = (props) => {
             let getInfo=body.filter(obj=>(parseInt(obj.id)===9))[0].categoryGeneralInfo[0]
             setGeneralInfo({loaded:true,data:getInfo})
             let spon=body.filter(obj=>(parseInt(obj.id)===10))[0].categorySponsor
+            if(spon && spon.length){
             setSponsor({loaded:true,data:spon});
+            }
             setFlowerImg({loaded:true,data:body.filter(obj=>(obj.name==="FlowerShop"))[0].imageCategory});
             setSpecial({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===14))[0].catWordSnippet[0]});
             setExtraImages({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===13))[0].imageCategory});

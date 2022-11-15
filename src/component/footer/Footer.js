@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useContext} from 'react';
+import {GeneralContext} from '../../context/GeneralContextProvider';
 import {  Paper, Stack, } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import PageRatings from './PageRatings';
@@ -12,9 +13,8 @@ import Profile from './Profile';
 
 const Footer = () => {
   const theme = useTheme();
+  const {sponsor}=useContext(GeneralContext);
  
-
-
   
   return (
     <footer style={{ maxWidth: "100vw", marginTop: "1rem" }} className={styles.footer}>
@@ -25,7 +25,7 @@ const Footer = () => {
         <NavLinks/>
       </Paper>
       <PageRatings/>
-      <Sponsors/>
+      {sponsor.loaded && <Sponsors/>}
       <Stack direction={{xs:"column"}} sx={{margin:"1rem auto"}} >
       <Profile/>
       <Location />
