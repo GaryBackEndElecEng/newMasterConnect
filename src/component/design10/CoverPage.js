@@ -137,6 +137,26 @@ animation:showHere 4s ease-in-out;
     margin:auto 0.5rem;
 }
 `;
+const BtnBox = styled(Box)`
+display:flex;
+
+@media screen and (max-width:800px){
+    position:absolute;
+    top:88%;
+    left:auto;
+}
+@media screen and (max-width:500px){
+    position:absolute;
+    top:92%;
+    left:auto;
+}
+@media screen and (max-width:400px){
+position:absolute;
+top:90%;
+left:auto;
+}
+
+`;
 
 let count = 0;
 const CoverPage = ({arr,opacity,loadArr}) => {
@@ -199,8 +219,8 @@ const CoverPage = ({arr,opacity,loadArr}) => {
                 </WordBox>
             }
                 {image && <MainImage src={image} alt="www.master-connect.ca" keyEffect={transition ? "slideIn" : ""} z_index={z_index} display ={rmBlock} />}
-                <Box
-                    sx={{ margin: {sm:"2rem auto",xs:"0.25rem auto"}, display: "flex" }}
+                <BtnBox
+                    sx={{ margin: {sm:"2rem auto",xs:"0.25rem auto"}, }}
                 >
                     <Fab variant="circle" color="secondary" sx={{ mr: 3 }} onClick={() => handleLeft()}>
                         <ArrowBackIosIcon sx={{ margin: "auto", fontSize: { xs: "20px", sm: "30px", md: "40px" } }} />
@@ -208,7 +228,7 @@ const CoverPage = ({arr,opacity,loadArr}) => {
                     <Fab variant="circle" color="secondary" sx={{ ml: 3 }} onClick={() => handleRight()}>
                         <ArrowForwardIosIcon sx={{ margin: "auto", fontSize: { xs: "20px", sm: "30px", md: "40px" } }} />
                     </Fab>
-                </Box>
+                </BtnBox>
             
 
         </MainCover>

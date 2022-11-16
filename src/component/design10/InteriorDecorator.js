@@ -166,7 +166,7 @@ const InteriorDecorator = () => {
 
             </CoverPageStack>
 
-            <BannerFeedBackStack direction={{ xs: "column" }} sx={{ background: "white", marginBottom: "1rem", zIndex: "100" }} >
+            <BannerFeedBackStack spacing={{xs:0,md:1}} direction={{ xs: "column" }} sx={{ background: "white", marginBottom: "1rem", zIndex: "100" }} >
                 <MidBanner arr={arr} signature={signature} loadArr={loadArr} />
                 <Container maxWidth="md" sx={{ margin: "2rem auto", }} >
 
