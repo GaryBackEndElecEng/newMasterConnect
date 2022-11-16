@@ -12,6 +12,7 @@ import GetRegisterPages from '../utils/GetRegisterPages';
 import PageFeedback from '../utils/PageFeedback';
 import { useTheme } from '@mui/material/styles';
 import MidBanner from './MidBanner';
+import BannerGetQuote from './BannerGetQuote';
 
 const MainContainerDv = styled.div`
 width:100vw;
@@ -84,7 +85,7 @@ const InteriorDecorator = () => {
     const design7 = `${url}/interierDesign7.png`;
     const design8 = `${url}/interierDesign8.png`;
     const design9 = `${url}/interierDesign9.png`;
-    const signature = `${url}/signature.png`;
+    const contact = `${url}/contact.png`;
     const arr = [design1, design2, design3, design4, design5, design6, design7, design8, design9]
     const MyRef = useRef();
     const theme = useTheme();
@@ -165,11 +166,11 @@ const InteriorDecorator = () => {
 
 
             </CoverPageStack>
-
+            
             <BannerFeedBackStack spacing={{xs:0,md:1}} direction={{ xs: "column" }} sx={{ background: "white", marginBottom: "1rem", zIndex: "100" }} >
-                <MidBanner arr={arr} signature={signature} loadArr={loadArr} />
+                <MidBanner arr={arr} signature={contact} loadArr={loadArr} />
                 <Container maxWidth="md" sx={{ margin: "2rem auto", }} >
-
+                <BannerGetQuote contact={contact} />
                     <PageFeedback />
                 </Container>
             </BannerFeedBackStack>

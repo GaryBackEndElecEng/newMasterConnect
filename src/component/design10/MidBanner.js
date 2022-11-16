@@ -21,27 +21,45 @@ box-shadow: 1px 1px 13px 4px ${({ bs }) => bs};
 `;
 const MidBanner = ({ arr,signature,loadArr }) => {
     const theme = useTheme();
+    const [showMsg,setShowMsg]=useState(false);
+    const [msg,setMsg]=useState("");
     
-
+const handleShowClick=(e)=>{
+    let wordMatch= e.currentTarget.textContent
+    if(wordMatch){
+        setMsg(wordMatch);
+        setShowMsg(true);
+        e.currentTarget.style.zIndex="1000";
+    }else{
+        setMsg(false);
+        e.currentTarget.style.zIndex="0"
+    }
+}
 
     return (
         <MainMidBanner
             bg={"white"}
             bs={theme.palette.common.orangeFade2}
         >
-            <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", minHeight: "20vh", background: theme.palette.common.orangeFade2,position:"relative",marginBottom:"1rem" }}>
+            <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", minHeight: "20vh", background: theme.palette.common.orangeFade2,position:"relative",marginBottom:"1rem", }}>
                 <hr style={{ width:"50%",color:"black"}}/>
                 <Stack direction={{xs:"column",sm:"row"}} spacing={2}>
-                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6"> Collection</Typography></Button>
-                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6"> Press</Typography></Button>
-                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6"> Blog</Typography></Button>
-                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6"> About</Typography></Button>
-                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6"> Contact</Typography></Button>
+                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6" key={"collection"} onClick={(e)=>handleShowClick(e)} onMouseOut={()=>setShowMsg(false)}> Collection</Typography></Button>
+                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6" key={"press"} onClick={(e)=>handleShowClick(e)} onMouseOut={()=>setShowMsg(false)}> Press</Typography></Button>
+                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6" key={"blog"} onClick={(e)=>handleShowClick(e)} onMouseOut={()=>setShowMsg(false)}> Blog</Typography></Button>
+                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6" key={"about"} onClick={(e)=>handleShowClick(e)} onMouseOut={()=>setShowMsg(false)}> About</Typography></Button>
+                <Button sx={{"&:hover":{color:"white"}}}><Typography component="h1" variant="h6" key={"contact"} onClick={(e)=>handleShowClick(e)} onMouseOut={()=>setShowMsg(false)}> Contact</Typography></Button>
                 </Stack>
                 <hr style={{ width:"50%",color:"black"}}/>
                 <div><span><DehazeIcon sx={{color:"red"}}/> - </span>  <span>by</span><span> - <DehazeIcon sx={{color:"red"}}/></span></div>
                 <Typography component="h1" variant="h6" sx={{fontFamily:"'Great Vibes', cursive",fontSize:"40px"}}> Gary Wallace</Typography>
-                
+                {showMsg && <Typography component="h1" variant="h5"
+                sx={{position:"absolute",top:{sm:"-0%",xs:"3%",md:"50%"},left:{xs:"auto",md:"20%"},zIndex:"1000"}}
+                className={styles.clickMenuOn}
+                >
+                     This takes you to {msg} page 
+                </Typography>
+                }
             </Stack>
             <Container maxWidth="xl" spacing={{xs:0,sm:1}}>
 
