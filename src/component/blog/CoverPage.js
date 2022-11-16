@@ -33,15 +33,36 @@ position:absolute;
 justify-self:center;
 margin:auto 2rem;
 color:white;
+top:30%;
+left:41.5%;
+animation:sweepIn 1.5s ease-in-out;
+@keyframes sweepIn {
+  from {opacity:0;transform:translateX(-100%);}
+  to {opacity:1;transform:translateX(0%);}
+}
+@media screen and (max-width:900px){
+  left:36%;
+}
+@media screen and (max-width:600px){
+  left:22%;
+  top:28%;
+}
+
+`;
+const DisplayMessage1=styled(Typography)`
+position:absolute;
+justify-self:center;
+margin:auto 2rem;
+color:white;
 top:40%;
-left:32%;
+left:36.5%;
 animation:sweepIn 2s ease-in-out;
 @keyframes sweepIn {
   from {opacity:0;transform:translateX(-100%);}
   to {opacity:1;transform:translateX(0%);}
 }
 @media screen and (max-width:900px){
-  left:23%;
+  left:30%;
 }
 @media screen and (max-width:600px){
   left:20%;
@@ -56,7 +77,8 @@ const CoverPage = () => {
   return (
     <MainCoverpage pic={pic} bg={theme.palette.common.blueGrey}>
         <SpellType/>
-    <DisplayMessage component="h1" variant="h4"> just click on the icons below</DisplayMessage>
+    <DisplayMessage component="h1" variant="h4"> The Blogger</DisplayMessage>
+    <DisplayMessage1 component="h1" variant="h5"> just click on the icons below</DisplayMessage1>
     </MainCoverpage>
   )
 }

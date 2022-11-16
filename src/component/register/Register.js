@@ -42,7 +42,7 @@ const Register = () => {
     useEffect(() => {
         const email_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         const username_REGEX = /(^[A-Za-z]{6,16})/;
-        const password_REGEX = /(^[a-zA-Z]+\w{6,})([?!_&])/;
+        const password_REGEX = /(^[a-zA-Z]+\w{5,})([?!_&#$+])/;
         let emailValid = email_REGEX.test(email);
         let usernameValid = username_REGEX.test(username);
         let passwordValid = password_REGEX.test(password);
@@ -160,21 +160,22 @@ const Register = () => {
                                         />
                                         {validEmail ? <span className={validEmail ? styles.validEmail : styles.not}><CheckCircleOutlineIcon /></span>
                                             : <span className={validEmail ? styles.not : styles.notValidEmail}><CloseIcon /> </span>}
-                                        {/* <FormHelperText id="valid-email">We'll never share your email.</FormHelperText> */}
+                                        <FormHelperText id="valid-email">We'll never share your email.</FormHelperText>
                                     </FormControl>
                                     <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
-                                        <InputLabel htmlFor="username">username</InputLabel>
+                                        <InputLabel htmlFor="username">username -- minumum of 6 characters long with no spaces</InputLabel>
                                         <Input
                                             id="username"
                                             name="username"
-                                            aria-describedby="Your full name"
+                                            placeholder="minumum of 6 characters long with no spaces"
+                                            aria-describedby="Your username 6-char(s)-nospaces"
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
                                             aria-invalid={validUsername ? "false" : "true"}
                                         />
                                         {validUsername ? <span className={validUsername ? styles.validUsername : styles.not}><CheckCircleOutlineIcon /></span>
                                             : <span className={validUsername ? styles.not : styles.notValidName}><CloseIcon /></span>}
-                                        <FormHelperText id="username">username should be more than 5 characters</FormHelperText>
+                                        <FormHelperText id="username">username should be more than 5 characters with a special character-no spaces</FormHelperText>
 
                                     </FormControl>
                                     <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
@@ -184,14 +185,14 @@ const Register = () => {
                                             id="password"
                                             name="password"
                                             placeholder=" minimum 6 characters long with one special character"
-                                            aria-describedby="minimum 6 characters long with one special character"
+                                            aria-describedby="minimum 6 characters long with one special character(!,#,?,,etc)"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             aria-invalid={validPassword ? "false" : "true"}
                                         />
                                         {validPassword ? <span className={validPassword ? styles.validContent : styles.not}><CheckCircleOutlineIcon /></span>
                                             : <span className={validPassword ? styles.not : styles.notValidContent}><CloseIcon /> </span>}
-                                        <FormHelperText id="password">minimum 6 characters long with one special character.</FormHelperText>
+                                        <FormHelperText id="password">minimum 6 characters long with one special character(#,!,?,^,,,etc).</FormHelperText>
                                     </FormControl>
                                     <FormControlLabel
                                         control={<Checkbox defaultValue={false} size="medium" />}

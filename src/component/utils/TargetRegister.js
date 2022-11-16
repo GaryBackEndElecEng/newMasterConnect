@@ -31,7 +31,7 @@ const TargetRegister = () => {
     useEffect(() => {
         const email_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         const username_REGEX = /(^[A-Za-z]{6,16})/;
-        const password_REGEX = /(^[a-zA-Z]+\w{6,})([?!_&])/;
+        const password_REGEX = /(^[a-zA-Z]+\w{5,})([?!_&#$+])/;
         let emailValid = email_REGEX.test(email);
         let usernameValid = username_REGEX.test(username);
         let passwordValid = password_REGEX.test(password);
@@ -143,7 +143,7 @@ const TargetRegister = () => {
                                         {/* <FormHelperText id="valid-email">We'll never share your email.</FormHelperText> */}
                                     </FormControl>
                                     <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
-                                        <InputLabel htmlFor="username">username</InputLabel>
+                                        <InputLabel htmlFor="username">username (6-characters long, no spaces)</InputLabel>
                                         <Input
                                             id="username"
                                             name="username"

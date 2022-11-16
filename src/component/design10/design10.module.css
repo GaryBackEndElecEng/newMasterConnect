@@ -1,0 +1,16 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+.imageClassIn{
+    animation: slideIn 5.5s ease-in-out;
+}
+.imageClassOut{
+    animation:none;
+}
+
+
+@keyframes slideIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+

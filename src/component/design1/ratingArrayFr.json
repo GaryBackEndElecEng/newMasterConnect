@@ -12,7 +12,7 @@
          "id": 5, "rating": 5, "name": "Smith", "comment": "J'ai rencontré ma femme en utilisant l'une de leurs installations. L'expérience valait bien la dépense." 
     },
     { 
-         "id": 6, ": 5, ": "Sarah", "comment": " Nous avons été bien servi" 
+     "id": 6, "rating": 5,"name": "Sarah", "comment": " Nous avons été bien servi" 
 
     },
     {

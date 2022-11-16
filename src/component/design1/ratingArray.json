@@ -12,7 +12,7 @@
          "id": 5, "rating": 5, "name": "Smith", "comment": " I met my wife while using one of their facilities. The experience was well worth the expense." 
     },
     { 
-         "id": 6, ": 5, ": "Sarah", "comment": " We were well served" 
+         "id": 6, "rating": 5,"name": "Sarah", "comment": " We were well served" 
 
     },
     {
