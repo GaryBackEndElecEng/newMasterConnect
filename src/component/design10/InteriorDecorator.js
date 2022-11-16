@@ -30,11 +30,46 @@ animation: fadeIn 1.5s ease-in-out;
     to {opacity:1;}
 }
 @media screen and (max-width:900px){
-    margin-top:0px;
+    margin-top:-0px;
 }
 @media screen and (max-width:600px){
-    margin-top:-50px;
+    margin-top:0px;
 }
+`;
+const BannerFeedBackStack=styled(Stack)`
+width:100%;
+justify-content:center;
+align-items:center;
+min-height:30vh;
+margin-top:93vh;
+@media screen and (max-width:900px){
+    margin-top:94vh;
+}
+@media screen and (max-width:800px){
+margin-top:93vh;
+}
+@media screen and (max-width:600px){
+margin-top:93vh;
+}
+@media screen and (max-width:500px){
+margin-top:100vh;
+}
+`;
+const CoverPageStack=styled(Stack)`
+top:6%;
+@media screen and (max-width:900px){
+top:4%;
+}
+@media screen and (max-width:800px){
+top:4.5%;
+}
+@media screen and (max-width:500px){
+top:4.5%;
+}
+@media screen and (max-width:400px){
+top:5.5%;
+}
+
 `;
 
 const InteriorDecorator = () => {
@@ -56,6 +91,9 @@ const InteriorDecorator = () => {
     const [opacity, setOpacity] = useState(1);
     const [getScroll, setGetScroll] = useState(0);
     const [loadArr, setLoadArr] = useState({ loaded: true, data: [] });
+    const z_index= opacity===0 ? "-1111":"1";
+    let ticking=false;
+    let lastPos=0;
 
     useEffect(() => {
         let builtArr = []
@@ -78,31 +116,37 @@ const InteriorDecorator = () => {
             window.scroll(0,0);
         }
     },[]);
-    const observer = new IntersectionObserver((entries) => {
 
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setOpacity(0);
-                setGetScroll(window.scrollY)
-            } else if (opacity === 0 && getScroll > window.scrollY) { setOpacity(1); }
-        })
-    }, { threshold: 1 })
-    const handleMyRef = (e) => {
-        let findScroll = window.scrollY
-        if (e) {
-            observer.observe(e);
-        }
-        if (opacity === 0 && findScroll < 1000) {
+    const doFunc=(scrollCount)=>{
+        if(scrollCount<1400){
+            setGetScroll(scrollCount)
             setOpacity(1)
-        }
+        // console.log(scrollCount)
+        }else(setOpacity(0))
     }
-    useEffect(() => {
-        // if(opacity===0){
-        if (getScroll < 1500 && opacity === 0) {
-            setOpacity(1);
-        }else{setOpacity(0)}
-        // }
-    }, [opacity, getScroll, setOpacity]);
+    
+    const getScroll1 = ()=>{
+        document.addEventListener("scroll",(e)=>{
+            lastPos = window.scrollY;
+            if(!ticking){
+                window.requestAnimationFrame(()=>{
+                    if(lastPos > 0){
+                        doFunc(lastPos);
+                    
+                    }
+                    ticking=false;
+                });
+                // setOpacity(0);
+                ticking=true;
+            }
+        });
+        
+        
+    }
+    getScroll1();
+
+
+    
 
     return (
         <MainContainerDv
@@ -110,24 +154,25 @@ const InteriorDecorator = () => {
             <RegisterPage />
             <GetRegisterPages />
 
-            <Stack direction={{ md: "row", xs: "column" }}
-                sx={{ marginTop: { md: "1rem", sm: "1rem", xs: "1rem" }, width: "100%", position: "fixed", top: "5%", left: "0%" }}
+            <CoverPageStack direction={{ md: "row", xs: "column" }}
+                sx={{ marginTop: { md: "1rem", sm: "1rem", xs: "1rem" }, width: "100%", position: "fixed", left: "0%",zIndex:z_index,
+
+            }}
             >
 
 
                 <CoverPage arr={arr} opacity={opacity} loadArr={loadArr} />
 
 
-            </Stack>
+            </CoverPageStack>
 
-            <Stack direction={{ xs: "column" }} sx={{ background: "white", width: "100%", minHeight: "30vh", marginTop: {md:"93vh",sm:"73vh",xs:"93vh"}, marginBottom: "1rem", zIndex: "100" }} ref={(e) => handleMyRef(e)}>
+            <BannerFeedBackStack direction={{ xs: "column" }} sx={{ background: "white", marginBottom: "1rem", zIndex: "100" }} >
                 <MidBanner arr={arr} signature={signature} loadArr={loadArr} />
                 <Container maxWidth="md" sx={{ margin: "2rem auto", }} >
 
                     <PageFeedback />
                 </Container>
-            </Stack>
-            <div style={{margin:"2rem auto"}} ref={(e) => handleMyRef(e)}></div>
+            </BannerFeedBackStack>
         </MainContainerDv>
 
     )

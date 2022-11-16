@@ -13,7 +13,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 const MainCover = styled.div`
 width:100%;
 margin:auto;
-min-height:60vh;
 position:relative;
 display:flex;
 z-index:${({z_index})=>z_index};
@@ -35,52 +34,82 @@ animation: fadeIn 1.5s ease-in-out;
 @media screen and (max-width:600px){
     margin-top:0px;
 }
+@media screen and (max-width:500px){
+    margin-top:0px;
+}
+@media screen and (max-width:400px){
+    // height:95vh;
+}
 `;
 const MainImage = styled.img`
 z-index:${({z_index})=>z_index};
+display:${({display})=>display};
 animation:${({ keyEffect }) => keyEffect} 4s ease-in-out;
 @keyframes slideIn {
     from {opacity:0;transform:scale(0.9);}
     to {opacity:1;transform:scale(1);}
 }
 @media screen and (max-width:900px){
-    animation:${({ keyEffect }) => keyEffect} 8s ease-in-out;
+    animation:${({ keyEffect }) => keyEffect} 9.5s ease-in-out;
+    height:83.5vh;
     @keyframes slideIn {
-        from {opacity:0;transform:scale(0.9) translateX(-5%);}
-        50% {opacity:1;transform:scale(0.95) translateX(5%) ;}
-        75% {opacity:1;transform:scale(0.98) translateX(-2.5%) ;}
-        to {opacity:1;transform:scale(1);translateX(0%)}
+        from {opacity:0;transform:scale(0.9) translateX(-19%);}
+        50% {opacity:1;transform:scale(1) translateX(16%);}
+        to {opacity:1;transform:scale(1) translateX(0%);}
+    }
+}
+@media screen and (max-width:800px){
+    animation:${({ keyEffect }) => keyEffect} 9s ease-in-out;
+    height:83.5vh;
+    @keyframes slideIn {
+        from {opacity:0;transform:scale(0.9) translateX(-19%);}
+        50% {opacity:1;transform:scale(1) translateX(16%);}
+        to {opacity:1;transform:scale(1) translateX(0%);}
     }
 }
 @media screen and (max-width:600px){
-    animation:${({ keyEffect }) => keyEffect} 8s ease-in-out;
+    animation:${({ keyEffect }) => keyEffect} 9s ease-in-out;
+    height:86vh;
     @keyframes slideIn {
         from {opacity:0;transform:scale(0.9) translateX(-25%);}
         50% {opacity:1;transform:scale(1) translateX(25%);}
         to {opacity:1;transform:scale(1) translateX(0%);}
     }
 }
+@media screen and (max-width:400px){
+    animation:${({ keyEffect }) => keyEffect} 9.5s ease-in-out;
+    height:84vh;
+    @keyframes slideIn {
+        from {opacity:0;transform:scale(0.9) translateX(-26%);}
+        50% {opacity:1;transform:scale(1) translateX(20%);}
+        to {opacity:1;transform:scale(1) translateX(0%);}
+    }
+}
 `;
 const MediaBox=styled(Box)`
-max-width:15%;
+max-width:35%;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 position:absolute;
+z-index:1000;
 top:20%;
 left:0%;
 box-shadow:1px 1px 8px 2px rgba(150,50,150,0.5);
 @media screen and (max-width:900px){
-top:77.5%;
+top:0%;
 }
 @media screen and (max-width:800px){
-top:86%;
+top:0%;
 }
 @media screen and (max-width:600px){
-    top:92%;
-    max-width:35%;
-    flex-direction:row;
+    top:0%;
+
+}
+@media screen and (max-width:500px){
+    top:0%;
+
 }
 `;
 const WordBox=styled(Box)`
@@ -115,6 +144,7 @@ const CoverPage = ({arr,opacity,loadArr}) => {
     const [image, setImage] = useState(arr[0]);
     const [transition, setTransition] = useState(false);
     const z_index=opacity===0 ? "-100000":"3";
+    const rmBlock = opacity === 0 ? "none": "block";
 
 
     const handleRight = () => {
@@ -168,7 +198,7 @@ const CoverPage = ({arr,opacity,loadArr}) => {
                 <Typography component="h1" variant="h3" sx={{fontSize:{xs:"190%",sm:"320%"}}}>{loadArr.loaded && loadArr.data[count].title}</Typography>
                 </WordBox>
             }
-                {image && <MainImage src={image} alt="www.master-connect.ca" keyEffect={transition ? "slideIn" : ""} z_index={z_index} />}
+                {image && <MainImage src={image} alt="www.master-connect.ca" keyEffect={transition ? "slideIn" : ""} z_index={z_index} display ={rmBlock} />}
                 <Box
                     sx={{ margin: {sm:"2rem auto",xs:"0.25rem auto"}, display: "flex" }}
                 >
