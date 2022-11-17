@@ -4,7 +4,7 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 // import styles from './home.module.css';
 import styled from 'styled-components';
-import { Box, Container, Fab, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Box, Container, Fab, Stack, Typography } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FunctionsIcon from '@mui/icons-material/Functions';
 
@@ -65,7 +65,7 @@ const CalculateBanner = () => {
     const navigate=useNavigate();
     const theme=useTheme();
     const { setChangePage} =useContext(GeneralContext);
-    const calcPic="https://new-master.s3.ca-central-1.amazonaws.com/static/images/calculator.png";
+    const calcPic="https://new-master.s3.ca-central-1.amazonaws.com/static/images/calculator1.png";
     const coffee="https://new-master.s3.ca-central-1.amazonaws.com/static/images/coffee1.JPG";
 
     const handleTransfer = (e)=>{

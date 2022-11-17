@@ -34,16 +34,17 @@ const UserSignedInPurchaseBtn = () => {
     const getProductList2 = (localStorage.getItem("getProductList2")) ? JSON.parse(localStorage.getItem("getProductList2")) :getProductList.data;
     const reducedProduct1 = (localStorage.getItem("reducedProduct") ) ? JSON.parse(localStorage.getItem("reducedProduct")) : getProductList2;
 
-    const addProductToUser = async () => {
+    const addProductToUser = async (e) => {
+        e.preventDefault();
         const GetUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
         const selectedProduct=reducedProduct1 ? reducedProduct1.filter(obj=>(obj.extra_kwargs === page))[0]:null;
-        console.log("outside=> product",selectedProduct)
+        // console.log("outside=> product",selectedProduct)
         if (user_id && selectedProduct) {
             const params = { "user_id": GetUser_id, "prod_id": parseInt(selectedProduct.id) }
             try {
                 const res = await apiProtect.post("/account/userProductPost/", params);
                 const body = res.data.product;
-                console.log(body)
+                // console.log(body)
                 const reduceArray = reducedProduct1.filter(obj => (parseInt(obj.id) !== parseInt(selectedProduct.id)))
                 let addToUserProductProduct = reducedProduct1.filter(obj => (parseInt(obj.id) === parseInt(selectedProduct.id)))[0];
                 setReducedProduct({ data: reduceArray, loaded: false })
@@ -59,7 +60,7 @@ const UserSignedInPurchaseBtn = () => {
 
     return (
         <Stack direction="column" sx={{position:"relative"}}>
-            <Fab variant="extended" color="info" onClick={()=>addProductToUser()}>
+            <Fab variant="extended" color="info" onClick={(e)=>addProductToUser(e)}>
                 purchase <ShoppingCartIcon sx={{ ml: 2 }} />
             </Fab>
             <CusTypography component="h1" variant="h6" sx={{background:theme.palette.common.mediumBlue,color:"white"}}>{productAdded}</CusTypography>

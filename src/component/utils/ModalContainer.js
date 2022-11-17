@@ -22,12 +22,14 @@ useEffect(()=>{
 },[setOpenSignin]);
 
   const handleSignin = (e)=>{
+    e.preventDefault();
     setShowRegistration(false);
     setOpenSignin(true);
     setRemoveSignINBtn(true);
     localStorage.setItem("page",location.pathname)
   }
   const closeHandle=(e)=>{
+    e.preventDefault();
     setOpenSignin(false)
     setOpenModal(false)
     setShowRegistration(false);

@@ -4,7 +4,7 @@ Production Settings for Heroku insert
 
 import environ
 import os
-
+import django_heroku
 # If using in your own project, update the project namespace below
 from serverSide.settings.base import *
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

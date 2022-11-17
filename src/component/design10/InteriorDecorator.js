@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Stack, Box, Switch, Typography, Container } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
+import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
+import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import CoverPage from './CoverPage';
 import styled from 'styled-components';
 import styles from './design10.module.css'
@@ -13,6 +15,7 @@ import PageFeedback from '../utils/PageFeedback';
 import { useTheme } from '@mui/material/styles';
 import MidBanner from './MidBanner';
 import BannerGetQuote from './BannerGetQuote';
+import ModalContainer from '../utils/ModalContainer';
 
 const MainContainerDv = styled.div`
 width:100vw;
@@ -37,7 +40,7 @@ animation: fadeIn 1.5s ease-in-out;
     margin-top:0px;
 }
 `;
-const BannerFeedBackStack=styled(Stack)`
+const BannerFeedBackStack = styled(Stack)`
 width:100%;
 justify-content:center;
 align-items:center;
@@ -56,7 +59,7 @@ margin-top:93vh;
 margin-top:100vh;
 }
 `;
-const CoverPageStack=styled(Stack)`
+const CoverPageStack = styled(Stack)`
 top:6%;
 @media screen and (max-width:900px){
 top:4%;
@@ -74,7 +77,8 @@ top:5.5%;
 `;
 
 const InteriorDecorator = () => {
-    const {setTitle,setStyleName}=useContext(GeneralContext);
+    const { setTitle, setStyleName } = useContext(GeneralContext);
+    const {user_id}=useContext(TokenAccessContext);
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/interiorDesign`;
     const design1 = `${url}/interierDesign1.png`;
     const design2 = `${url}/interierDesign2.png`;
@@ -92,9 +96,12 @@ const InteriorDecorator = () => {
     const [opacity, setOpacity] = useState(1);
     const [getScroll, setGetScroll] = useState(0);
     const [loadArr, setLoadArr] = useState({ loaded: true, data: [] });
-    const z_index= opacity===0 ? "-1111":"1";
-    let ticking=false;
-    let lastPos=0;
+    const [keyWords, setKeyWords] = useState([]);
+    const [desc, setDesc] = useState("");
+    const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
+    const z_index = opacity === 0 ? "-1111" : "1";
+    let ticking = false;
+    let lastPos = 0;
 
     useEffect(() => {
         let builtArr = []
@@ -110,55 +117,74 @@ const InteriorDecorator = () => {
             setLoadArr({ loaded: true, data: builtArr })
         }
     }, [setLoadArr, arr]);
-    useEffect(()=>{
+    useEffect(() => {
         setTitle("Interior Design");
         setStyleName("Beautiful Design");
-        if(window.scrollY){ 
-            window.scroll(0,0);
+        if (window.scrollY) {
+            window.scroll(0, 0);
         }
-    },[]);
+        const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
+        if (getUser_id) {
+          setShowPurchaseBtn(true);
+        }
+    }, [user_id,setTitle,setStyleName]);
 
-    const doFunc=(scrollCount)=>{
-        if(scrollCount<1400){
+    useEffect(() => {
+        let arr = []
+        let desc1 = ""
+        if (loadArr.loaded) {
+            loadArr.data.forEach((obj, index) => {
+                arr.push(obj.title)
+                desc1 = desc1 + ",,, " + obj.desc.slice(0, 50)
+            });
+            setKeyWords(arr)
+            setDesc(desc1)
+        }
+    }, [loadArr, setKeyWords]);
+
+    const doFunc = (scrollCount) => {
+        if (scrollCount < 1400) {
             setGetScroll(scrollCount)
             setOpacity(1)
-        // console.log(scrollCount)
-        }else(setOpacity(0))
+            // console.log(scrollCount)
+        } else (setOpacity(0))
     }
-    
-    const getScroll1 = ()=>{
-        document.addEventListener("scroll",(e)=>{
+
+    const getScroll1 = () => {
+        document.addEventListener("scroll", (e) => {
             lastPos = window.scrollY;
-            if(!ticking){
-                window.requestAnimationFrame(()=>{
-                    if(lastPos > 0){
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (lastPos > 0) {
                         doFunc(lastPos);
-                    
+
                     }
-                    ticking=false;
+                    ticking = false;
                 });
                 // setOpacity(0);
-                ticking=true;
+                ticking = true;
             }
         });
-        
-        
+
+
     }
     getScroll1();
 
 
-    
+
 
     return (
         <MainContainerDv
         >
+            <Design10Helmet desc={desc} keyWords={keyWords} loadArr={loadArr} />
             <RegisterPage />
             <GetRegisterPages />
 
             <CoverPageStack direction={{ md: "row", xs: "column" }}
-                sx={{ marginTop: { md: "1rem", sm: "1rem", xs: "1rem" }, width: "100%", position: "fixed", left: "0%",zIndex:z_index,
+                sx={{
+                    marginTop: { md: "1rem", sm: "1rem", xs: "1rem" }, width: "100%", position: "fixed", left: "0%", zIndex: z_index,
 
-            }}
+                }}
             >
 
 
@@ -166,12 +192,20 @@ const InteriorDecorator = () => {
 
 
             </CoverPageStack>
-            
-            <BannerFeedBackStack spacing={{xs:0,md:1}} direction={{ xs: "column" }} sx={{ background: "white", marginBottom: "1rem", zIndex: "100" }} >
+
+            <BannerFeedBackStack spacing={{ xs: 0, md: 1 }} direction={{ xs: "column" }} sx={{ background: "white", marginBottom: "1rem", zIndex: "100" }} >
                 <MidBanner arr={arr} signature={contact} loadArr={loadArr} />
                 <Container maxWidth="md" sx={{ margin: "2rem auto", }} >
-                <BannerGetQuote contact={contact} />
+                    <BannerGetQuote contact={contact} />
+                    <Typography component="h1" variant="h3" sx={{ textAlign: "center" }}>Feedback</Typography>
+                    <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>Give your thought</Typography>
+                    <hr />
                     <PageFeedback />
+                    <Stack direction="column" sx={{ margin: "1rem auto" }}>
+                        {showPurchaseBtn ? <UserSignedInPurchaseBtn />
+                            :
+                            <ModalContainer />}
+                    </Stack>
                 </Container>
             </BannerFeedBackStack>
         </MainContainerDv>
