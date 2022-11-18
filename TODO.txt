@@ -64,22 +64,20 @@ column "allPaidInvoice" of relation "adminHome_suminvoice" already exists
 To RESET DATABASE: use:
 heroku pg:reset DATABASE => this will reset the database and then you must recreate it.NOTE: YOU CAN NOT DROP TABLES OR COLUMNS FROM HEROKU
 TO REMOVE ADDED STATUS FILES FROM GIT :
-git rm -f  "adminHome/migrations/0007_delete_suminvoice.py"  
+git rm -f  "adminHome/migrations/0007_delete_suminvoice.py" 
+/RUN COLLECTSTATIC
+heroku run 'bower install --config.interactive=false;grunt prep;python manage.py collectstatic --noinput' 
 
 
 TODO
--add pics to contributors, indicating 
--add contact to s3.new-master.interiorDesign.contact
-- TAKE USERS- FROM REGISTER THROUGH LOGIN INTO HOME then show user if they want to see their MyAccount
- - add create a util function in my_account to add postServiceArr and extraServiceArr to jobs upon purchasing or usersPostInvoice.paid
-  _ Retrospect=> Special Unique Designs
-  -add packages: custom support.
-  -VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT
--3684
-- DNS domain protection to services
+-Do a Restaurant design
+- add page addition cost and add how many pages in calculator.
+-test purchasing invoice then Post, then extra(-VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT)
+-register with Google => console.google
+-manifest=>page register
 
-/RUN COLLECTSTATIC
-heroku run 'bower install --config.interactive=false;grunt prep;python manage.py collectstatic --noinput'
+
+
 
 
 

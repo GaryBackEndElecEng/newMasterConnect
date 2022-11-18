@@ -17,7 +17,11 @@ const Footer = () => {
  
   
   return (
-    <footer style={{ maxWidth: "100vw", marginTop: "1rem" }} className={styles.footer}>
+    <footer 
+    style={{
+      width: "100vw", marginTop: "1rem",zIndex:"100000",background:"white"
+     }}
+     className={styles.footer}>
       
       <Faqs/>
       <Paper

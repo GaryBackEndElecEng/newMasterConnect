@@ -7,6 +7,10 @@ import {  Typography, Grid, Container, Paper } from '@mui/material';
 
 const SpecialContainer=styled(Container)`
 animation:showContainer 1.5s ease-in-out;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 @keyframes showContainer{
     from{ opacity:0;transform:translateX(-20%)};
     to{ opacity:1;transform:translateX(-%)};

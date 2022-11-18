@@ -38,6 +38,7 @@ import Design9 from './component/design9/Design9';
 import Calculate from './component/calculator/Calculate';
 import UserOrderList from './component/userOrderList/UserOrderList';
 import InteriorDecorator from './component/design10/InteriorDecorator';
+import Restaurant from './component/design11/Restaurant';
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
             <Route path="/design8" element={<Design8 />} />
             <Route path="/design9" element={<Design9 />} />
             <Route path="/design10" element={<InteriorDecorator />} />
+            <Route path="/design11" element={<Restaurant />} />
             <Route path="/design3" element={<Page1 />} />
             <Route path="/prices" element={<Prices />} />
             <Route path="/calculate" element={<Calculate />} />
