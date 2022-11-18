@@ -69,7 +69,8 @@ z-index:0;
 const SecondMain = styled(Container)`
 margin:2rem auto;
 display:flex;
-width:100%;
+width:100vw;
+min-height:80vh;
 position:relative;
 justify-content:center;
 overflow:scroll;
@@ -85,16 +86,20 @@ animation: growHere 1s ease-in-out;
 const ImageTitle=styled.img`
 width:100%;
 @media screen and (max-width:850px;){
-width:80%;
+width:100%;
+
 }
 @media screen and (max-width:800px;){
 width:80%;
+
 }
 @media screen and (max-width:600px;){
-width:100%;
+width:100vw;
+
 }
 @media screen and (max-width:400px;){
-width:100%;
+width:100vw;
+
 }
 `;
 
