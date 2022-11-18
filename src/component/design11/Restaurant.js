@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect,  } from 'react';
-import { Stack, Typography, Container, Grid, Button } from '@mui/material';
+import React, { useState, useContext, useEffect, } from 'react';
+import { Stack, Typography, Container, Grid, Button,Divider } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 // import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
@@ -8,7 +8,7 @@ import CoverPage from './CoverPage';
 import styled from 'styled-components';
 // import styles from './design11.module.css'
 // import Design11Helmet from './Design11Helmet';
-// import jsonArray from './JsonArray.json';
+import jsonArray from './JsonArray.json';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import PageFeedback from '../utils/PageFeedback';
@@ -17,10 +17,11 @@ import { useTheme } from '@mui/material/styles';
 // import BannerGetQuote from './BannerGetQuote';
 import ModalContainer from '../utils/ModalContainer';
 import StarIcon from '@mui/icons-material/Star';
+import ItemList from './ItemList';
 
 const MainRestaurant = styled.div`
 width:100vw;
-margin:auto;
+// margin:auto;
 margin-top:0px;
 display:flex;
 flex-direction:column;
@@ -28,16 +29,16 @@ justify-content:flex-start;
 align-items:center;
 position:relative;
 @media screen and (max-width:900px){
-    margin-top:10px;
+    margin-top:-25px;
 }
 @media screen and (max-width:800px){
-    margin-top:10px;
+    margin-top:-25px;
 }
 @media screen and (max-width:600px){
-    margin-top:20px;
+    margin-top:-60px;
 }
 @media screen and (max-width:500px){
-    margin-top:-50px;
+    margin-top:-80px;
     
 }
 
@@ -50,6 +51,34 @@ const Restaurant = () => {
     const [opacity, setOpacity] = useState(1);
     const [scrollPos, setScrollPos] = useState(0);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
+    const url = `https://new-master.s3.ca-central-1.amazonaws.com/static/images/Restaurant`;
+    const dinning = `${url}/dinning.png`;
+    const menu = `${url}/menu.png`;
+    const design1 = `${url}/rest1.png`;
+    const design2 = `${url}/rest2.png`;
+    const design3 = `${url}/rest3.png`;
+    const design4 = `${url}/rest4.png`;
+    const design5 = `${url}/rest5.png`;
+    const design6 = `${url}/rest6.png`;
+    const design7 = `${url}/rest7.png`;
+    const design8 = `${url}/rest8.png`;
+    const design9 = `${url}/rest9.png`;
+    const design10 = `${url}/rest10.png`;
+    const arr = [design1, design2, design3, design4, design5, design6]
+    const [resArr, setRestArr] = useState({ loaded: false, data: [] });
+    const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
+
+    useEffect(() => {
+        let tempArr = [];
+        const arr2 = [design1, design2, design3, design4, design5, design6, design7, design8, design9, design10];
+        if (jsonArray) {
+            jsonArray.forEach((obj, index) => {
+                tempArr.push({ ...obj, "image": arr2[index] });
+            });
+            setRestArr({ loaded: true, data: tempArr })
+        }
+
+    }, [design1, design2, design3, design4, design5, design6, design7, design8, design9, design10]);
 
     useEffect(() => {
         setTitle("Restaurant Design");
@@ -59,7 +88,7 @@ const Restaurant = () => {
         }
         const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
         if (getUser_id) {
-          setShowPurchaseBtn(true);
+            setShowPurchaseBtn(true);
         }
     }, []);
     // SCROLL FUNCTION
@@ -101,44 +130,46 @@ const Restaurant = () => {
     return (
         <MainRestaurant
         >
-            <RegisterPage/>
-            <GetRegisterPages/>
-            <Container maxWidth="xl" sx={{ margin: "2rem auto", }}>
-                <hr />
-                <Grid container spacing={{ xs: 1, sm: 2 }}>
+            <RegisterPage />
+            <GetRegisterPages />
+            <Container maxWidth="xl" sx={{ margin: "2rem auto",backgroundImage:{xs:`url(${menu})`,md:"none"},backgroundSize:"100% 100%",marginBottom:{md:"4rem",xs:"0px"} }}>
+                <Divider  sx={{marginBottom:"1rem",color:{xs:"white",md:"black"},border:{md:`2px solid black`,xs:"2px solid white"}}}/>
+                <Grid container spacing={{ xs: 1, sm: 2 }}
+                >
                     <Grid item xs={12} sm={8}>
-                        <Stack direction="row" spacing={1} sx={{ flex: "6" }}>
-                            <Button > Menu</Button>
-                            <Button > Register</Button>
-                            <Button > Extras</Button>
+                        <Stack direction="row" spacing={1} sx={{ flex: "6",color:{xs:"white",md:"black"} }}>
+                            <Button sx={{color:{xs:"white",md:"black"}}}> Menu</Button>
+                            <Button sx={{color:{xs:"white",md:"black"}}}> Register</Button>
+                            <Button sx={{color:{xs:"white",md:"black"}}}> Extras</Button>
                         </Stack>
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <Stack direction="row" spacing={1} sx={{ flex: "6" }}>
-                            <Button> log-in</Button>
+                            <Button sx={{color:{xs:"white",md:"black"}}}> log-in</Button>
                         </Stack>
                     </Grid>
                 </Grid>
-                <hr style={{ marginBottom: "2rem" }} />
+                <Divider sx={{ marginBottom: "2rem",color:{xs:"white",md:"black"},border:{md:`2px solid black`,xs:"2px solid white"} }} />
             </Container>
             <Grid container spacing={{ xs: 0, md: 0 }}
-                sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "60px", sm: "0px" }, margin: "1rem auto", }}
+                sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "0px", sm: "0px" }, margin: "1rem auto", }}
             >
-                <Grid item xs={12} md={2} sx={{padding:"1rem"}} >
-                    <Grid container spacing={0} >
+                <Grid item xs={12} md={2} sx={{ padding: "1rem", backgroundImage: `url(${dinning})`, backgroundSize: "100% 100%" }} >
+                    <Grid container spacing={0} sx={{ color: "white" }} >
                         <Grid item xs={12}  >
                             <Typography component="h1" variant="h1" sx={{ fontFamily: "great vibes" }}>La Cuisine</Typography>
                             <Stack direction="row">
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.orangeFade2, fontSize: "26px" }} />
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.orangeFade2, fontSize: "26px" }} />
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.orangeFade2, fontSize: "26px" }} />
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.orangeFade2, fontSize: "26px" }} />
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.orangeFade2, fontSize: "26px" }} />
+                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
+                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
+                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
+                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
+                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
                             </Stack>
                         </Grid>
                         <Grid item xs={12} >
-                            <Typography component="h1" variant="h5">Great Tasting!</Typography>
-                            <Typography component="h1" variant="h6">123 my address, city, Country</Typography>
+                            <Typography component="h1" variant="h4" sx={{marginLeft:"10px",margin:"1rem auto"}}>Fine Cuisine</Typography>
+                            <Typography component="h1" variant="h6" sx={{marginLeft:"10px"}}>123 my address,</Typography>
+                            <Typography component="h1" variant="h6" sx={{marginLeft:"10px"}}>city, Country</Typography>
 
 
                         </Grid>
@@ -148,20 +179,21 @@ const Restaurant = () => {
                 <Grid item xs={12} md={10}
 
                 >
-                    <Container maxWidth="xl" sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "60px", sm: "0px" }, maxHeight: "100vh", position: "relative",margin:"2rem auto" }}>
-                        <CoverPage scrollPos={scrollPos} />
+                    <Container maxWidth="xl" sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "60px", sm: "0px" }, maxHeight: "100vh", position: "relative", margin: "2rem auto" }}>
+                        <CoverPage scrollPos={scrollPos} arr={arr} />
                     </Container>
                 </Grid>
-
-
             </Grid>
-            <Container maxWidth="lg">
-            <PageFeedback />
-                    <Stack direction="column" sx={{ margin: "1rem auto" }}>
-                        {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-                            :
-                            <ModalContainer />}
-                    </Stack>
+            <Typography component="h1" variant="h3">Top Menu</Typography>
+            <hr style={{ borderBottom: "2px solid red" }} />
+            <ItemList resArr={resArr} title={"Title"} />
+            <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
+                <PageFeedback />
+                <Stack direction="column" sx={{ margin: "1rem auto" }}>
+                    {showPurchaseBtn ? <UserSignedInPurchaseBtn />
+                        :
+                        <ModalContainer />}
+                </Stack>
             </Container>
 
 

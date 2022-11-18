@@ -8,8 +8,8 @@ const MainCover = styled.div`
 width:${({ _width }) => _width}vw;
 height:100vh;
 display:inline-flex;
-gap:2px;
 position:relative;
+margin-left:0px;
 transform:translateX(${({ trans }) => trans}%);
 animation: alignTranslate 1s ease-in-out;
 @keyframes alignTranslate {
@@ -98,17 +98,7 @@ width:100%;
 }
 `;
 
-const CoverPage = ({ scrollPos }) => {
-
-    const url = `https://new-master.s3.ca-central-1.amazonaws.com/static/images/Restaurant`;
-    const design1 = `${url}/rest1.png`;
-    const design2 = `${url}/rest2.png`;
-    const design3 = `${url}/rest3.png`;
-    const design4 = `${url}/rest4.png`;
-    const design5 = `${url}/rest5.png`;
-    const design6 = `${url}/rest6.png`;
-    const arr = [design1, design2, design3, design4, design5, design6]
-    const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
+const CoverPage = ({ scrollPos,arr }) => {
     const [counter, setCounter] = useState(0);
     const [atMax, setAtMax] = useState(false);
     const [opacity, setOpacity] = useState(1);
@@ -154,7 +144,7 @@ const CoverPage = ({ scrollPos }) => {
         <>
             { opacity ===1 ? 
             <MainCover
-                trans={-21 * counter}
+                trans={-20.5 * counter}
                 smTrans={-20 * counter}
                 _width={getWidth}
                 smWidth={5 * 910}

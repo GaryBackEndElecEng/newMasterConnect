@@ -1,56 +1,82 @@
 [
     {
         "id":0,
-        "title":"Array of Design",
-        "desc":"A slice of interior Design view - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"AAA Beef Sirloin - made to perfection",
+        "desc":"Sealed water cooked with herbs and spices and seared beef Sirloin - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":36
         
     },
     {
         "id":1,
-        "title":"Beautiful Summer Accent",
-        "desc":"Granite white wall table accented with a beautiful splash of coral color, overlooking a fresh summer view - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"Atlantic Canadian steam cooked Lobster to perfection",
+        "desc":"7-day,freshly preserved delivery from the Maritimes to plate, boiled with lemmon and ginger and served with perfection - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":36
         
     },
     {
         "id":2,
-        "title":"Kitchen with a Splash",
-        "desc":"Granit counter top with an accented marbled high dense ceramic floor and backsplash, giving contrast with the clear white cupboards.The symetric tall-top and bottom cupboards design, accenting height - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"Ceaser Salad - for the healthy",
+        "desc":"Hand picked and and cleansed Romain leafs dazzled on a plate, sprinkled with light vinaigrette,parmesan flakes and freshly cooked Canadian Bacon - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":22
         
     },
     {
         "id":3,
-        "title":"Arizona delight",
-        "desc":"Oval entries highlighting wall height, accented with soft-summer fresh fabric gives a breath of delight - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"AAA Beef Teriyaki Salad",
+        "desc":"Tender marinated sesame and Teriyaki Sirloin slices on top of hand picked and crafted Romain salad, sprinkled with Light vinaigrette, parmesan flakes and polynesian coutons - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":32
         
     },
     {
         "id":4,
-        "title":"Architecturally atuned",
-        "desc":"Architectural display, where sunk-in cubbies, defines the spacial feature highlighted with a central deco-simulated support structure, giving a breath to its spacial height - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"Tender Chicken Teryaki Salad",
+        "desc":"Tender marinated sesame and Teriyaki Chicken breast slices on top of a mixture of garden fresh salad,lightly splashed with a vinaigrette of your choice. - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":26
         
     },
     {
         "id":5,
-        "title":"Indoor Rec-garden",
-        "desc":"A beautifully-natural light designed giving calm and ponderance of tranquil thought - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"La Cuisine signature Teryaki bowl Chicken delight",
+        "desc":"Craftfully marinated, large-size diced, chicken morsals on top of Asian rice with a healthy serving of iron-enriched steamed Broccoli - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":27
         
     },
     {
         "id":6,
-        "title":"Soft Accented Lounge",
-        "desc":"A soft-color accented lounge where peace-of-mind belongs - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"Simple Pasta",
+        "desc":"a simple side bowl of pasta, sprinkled with fresh parmesan and greenage. - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":4,
+        "price":18
         
     },
     {
         "id":7,
-        "title":"peaceful place to sleep",
-        "desc":"A bedroom that allows deep and restful sleep for the soul - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"Oval-oven cooked Hawaiine pizza",
+        "desc":"Home-made dough, accented with four-cheese tomato sauce,pineapple-slice and diced ham pizza cooked in an authentic oval oven. - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":22
         
     },
     {
         "id":8,
-        "title":"Bathroom of Tranquility",
-        "desc":"A bathroom that gives a woman calmness to her end-day events - (note : Words, phrases and imagery is malleable to the client.)"
+        "title":"Salman Tartar",
+        "desc":"Beautifully designed, fresh lemmon and ginger marinated Salman, covered in high enriched iron and carateen based leaf-base vegatables. - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":24
+        
+    },
+    {
+        "id":9,
+        "title":"French Fruit-Salad",
+        "desc":"Authentic french-Cuisine fruit salad craftfully displayed with 8 variety of fruits. - (note : Words, phrases and imagery is malleable to the client.)",
+        "rating":5,
+        "price":22
         
     }
 ]
