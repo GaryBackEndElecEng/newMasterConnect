@@ -1,83 +1,19 @@
-#NEW REPOSITORY
-echo "# newMasterConnect" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
-git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
-git push -u origin main
-when it says behing: withingit push -f heroku origin
-git branch delete
-git checkout -b main, git branch -b main or master
-to find static files=>: withpython manage.py findstatic css => for css files
-python manage.py findstatic js => to find js files
-npm run relocate => gives django access to the index/css files within its build folder
-=>React compresses the project and output a production-ready version in a folder called build. So what we’re doing with this new script is having React create the production build. Once that’s done, we want to move it over into the Django project. So we delete the old production folder with rm (-rf here means; r: delete everything inside the folder, f: don’t prompt, which is useful for us if there is no production build currently there. Otherwise, the command would stop). From there, we move the folder over to the Django project.=> below:
-"/frontend/=> ../ back out and move it (mv) then remove(rm) the folder
-"script":"react-scripts build && rm -rf ../backend/build && mv -f build ../backend".
-
-=>When React creates its production build, it keeps all the CSS, JS, and other static files it needs to run in the build/static folder. You’ll also notice in our Django settings file we’re telling Django to look for static files in build/static (variable: STATICFILES_DIRS)
-
-A crucial thing to remember is that Django’s development server (manage.py runserver) handles static files for you. To serve files in production, there’s a bit more configuration.
-
-A quick note, if you’re trying to use Django’s Session Authentication with React by serving React under the same domain, do not use this method for development! You will bang your head against the wall creating the production build every time you make a change. Check out this article on using a reverse proxy to get Django and React under the same domain in development.
-
-GOOD COMMANDS:
-First of all, make sure that NPM is up-to-date.
-npm i -g npm
-CLEAN ALL:
-remove node_modules folder and package-lock.json file
-rm package-lock.json && rm -R node_modules
-Remove dist folder:
- https://Clear npm cache :
-npm cache clean --force
-#Now reinstall the modules
-then npm install
-To see which version are installed :
-npm ls webpack
-GIT!:
-git rm -r --cached node_modules
-git commit -am 'ignore node_modules'
-git commit -am 'ignore git'
-#ADDING A SINGLE FILE:
-git add .gitignore
-git commit -m "adding ignore to git"
-scale up site:
-heroku ps:scale web=1 ( or web=2)
-
-HEROKU RUNNING WEB LOCALLY: heroku local web -f Procfile.windows
-Heroku:
-heroku addons:create heroku-postgresql:hobby-dev
-your own git branch:
-git push heroku (git repo/your branch):master
-
-#EXISTING REPOSITORY
-git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
-git branch -M main
-git push -u origin main
-python manage.py dbshell
-  select * from django_migrations
-   delete from django_migrations where id=361;
-   react-meta-tags
-column "allPaidInvoice" of relation "adminHome_suminvoice" already exists
-To RESET DATABASE: use:
-heroku pg:reset DATABASE => this will reset the database and then you must recreate it.NOTE: YOU CAN NOT DROP TABLES OR COLUMNS FROM HEROKU
-TO REMOVE ADDED STATUS FILES FROM GIT :
-git rm -f  "adminHome/migrations/0007_delete_suminvoice.py" 
-/RUN COLLECTSTATIC
-heroku run 'bower install --config.interactive=false;grunt prep;python manage.py collectstatic --noinput' 
+ 
 
 
 TODO
 -Do a Restaurant design
+-add sitemap to service (dynamic/static)
 -Services: add # pages ( calculate a reduce % based on front page),
+-Add "X" top right corner of Get Quote on first Page and "About page".
+-Remove all tabs in the menu and add them in the dropdown(xs, not in sm)
 -When they send a quest for a quote, send them a link of the the calculator.
 - add how many effects do they want per page.( PY- calculate the effects cost per page using another table)
 - add page addition cost and add how many pages in calculator.
 -test purchasing invoice then Post, then extra(-VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT)
 -register with Google => console.google
 -manifest=>page register
+-
 
 
 

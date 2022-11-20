@@ -1,5 +1,5 @@
 from rest_framework import serializers,permissions
-from api.models import (Service,Category,CATEGORIES,Quote,FAQS,WordSnippet,Request,Region,Miscelaneous,GeneralInfo,Sponsor,PageFeedback)
+from api.models import (Service,Category,CATEGORIES,Quote,FAQS,WordSnippet,Request,Region,Miscelaneous,GeneralInfo,Sponsor,PageFeedback,SiteMap)
 from django.contrib.auth.models import User
 
 class PostFeedbackSerializer(serializers.ModelSerializer):
@@ -97,6 +97,10 @@ class ExtraSerializer(serializers.ModelSerializer):
         model=Miscelaneous
         fields="__all__"
 
+class SiteMapSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=SiteMap
+        fields="__all__"
 
 
 

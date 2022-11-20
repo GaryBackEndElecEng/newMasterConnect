@@ -39,12 +39,18 @@ import Calculate from './component/calculator/Calculate';
 import UserOrderList from './component/userOrderList/UserOrderList';
 import InteriorDecorator from './component/design10/InteriorDecorator';
 import Restaurant from './component/design11/Restaurant';
+import MasterConnectCa from './component/sitemap/MasterConnectCa1.js';
+import MasterConnectCom from './component/sitemap/MasterConnectCom.js';
+import MasterconnectCa from './component/sitemap/MasterconnectCa.js';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
+        <Route path="/master_connectCa_sitemap.xml" element={<MasterConnectCa />} />
+        <Route path="/master_connectCom_sitemap.xml" element={<MasterConnectCom />} />
+        <Route path="/masterconnectCa_sitemap.xml" element={<MasterconnectCa />} />
           <Route path="/" element={<Layout />}>
             <Route path="/articles" element={<Article />} />
             <Route path="/privacy" element={<Privacy />} />

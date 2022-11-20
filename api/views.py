@@ -15,13 +15,13 @@ from rest_framework.response import Response
 from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 # from users.permissions import IsOwnerOrReadOnly
-from api.models import (Service,Category,Quote,FAQS,WordSnippet,Region,Miscelaneous,Sponsor,PageFeedback,)
+from api.models import (Service,Category,Quote,FAQS,WordSnippet,Region,Miscelaneous,Sponsor,PageFeedback,SiteMap)
 from my_account.models import Service,Product
 from my_account.models import Tax
 from rest_framework import status,mixins,generics,viewsets,permissions
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
-from .serializers import (PageSerializer,CategorySerializer,RequestQuotePostSerializer,FAQSSerializer,WordSnippetSerializer,RequestPostSerializer,RegionSerializer,ExtraSerializer,MiscSerializer,PostFeedbackSerializer,)
+from .serializers import (PageSerializer,CategorySerializer,RequestQuotePostSerializer,FAQSSerializer,WordSnippetSerializer,RequestPostSerializer,RegionSerializer,ExtraSerializer,MiscSerializer,PostFeedbackSerializer,SiteMapSerializer)
 from my_account.serializers import ServiceSerializer,ProductSerializer
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
@@ -236,6 +236,20 @@ class GetProducts(APIView):
 
         except Exception as e:
             print("api.GetTax=>",e)
+
+class GetSiteMap(APIView):
+    permission_classes=[AllowAny]
+    def get(self,request,format="none"):
+        sitemaps=SiteMap.objects.all().order_by("id")
+        try:
+            if sitemaps:
+                serializer=SiteMapSerializer(sitemaps,many=True)
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                return Response({"error":"empty files", "status":status.HTTP_416_REQUESTED_RANGE_NOT_SATISFIABLE})
+
+        except Exception as e:
+            print("sitemaps=>",e)
 
 class PostPageFeedback(APIView):
     permission_classes=[AllowAny]

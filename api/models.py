@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save, pre_save
+from datetime import datetime
 
 class Miscelaneous(models.Model):
     page=models.CharField(max_length=40,null=True,blank=True)
@@ -134,8 +135,17 @@ def post_save_GenerateAverage(sender,instance,created,*args,**kwargs):
         total=len(feedbacks)
         if total>0:
             average=sum([obj.rating for obj in feedbacks])/total
-            for obj in PageFeedback.objects.all():
+            for obj in feedbacks:
                 obj.average=average
                 obj.save()
 post_save.connect(post_save_GenerateAverage,sender=PageFeedback)
+
+class SiteMap(models.Model):
+    name=models.CharField(max_length=100,blank=True,null=True)
+    loc=models.CharField(max_length=50,blank=True,null=True)
+    changefreq=models.CharField(max_length=50,blank=True,null=True)
+    priority=models.IntegerField(default=10)
+    lastmod=models.DateTimeField(default=datetime.now)
+    def __str__(self):
+        return self.name
 
