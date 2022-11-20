@@ -6,16 +6,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 
 const ServiceDependancy = ({ usersArray }) => {
-    const { DNS, SEO,userAccountGroup,userAccountPostGroup } = useContext(PriceContext);
+    const { DNS, SEO,userAccountPostGroup } = useContext(PriceContext);
     const [returnedArr, setReturnedArr] = useState({ loaded: false, data: [] });
-    const [UserAccountMain, setUserAccountMain] = useState({ loaded: false, data: [] });
 
-    useEffect(()=>{
-        if(userAccountPostGroup.loaded && userAccountGroup.loaded){
-            let combinedArr=userAccountPostGroup.data.concat(userAccountGroup.data);
-            setUserAccountMain({loaded:true,data:combinedArr})
-        }
-    },[userAccountPostGroup.loaded,userAccountGroup.loaded]);
 
     useEffect(() => {
 

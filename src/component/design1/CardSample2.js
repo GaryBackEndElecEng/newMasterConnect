@@ -1,20 +1,9 @@
-import React, { useRef } from 'react'
-import { useTheme } from '@mui/material/styles';
+import React from 'react'
 import { Paper, Typography, Stack, Avatar, Card, CardContent } from '@mui/material';
-import styled from 'styled-components';
-import { GlobalCardDiv1, GlobalCardContent1 } from '../../styled/Global.styled'
-import ArchitectureIcon from '@mui/icons-material/Architecture';
 import CommentIcon from '@mui/icons-material/Comment';
 import Stars from '../design4/Stars';
 
-const GlobalPaper = styled.div.attrs({className:"GlobalPaper"})`
-
-box-shadow: 1px 2px 3px grey;
-background:rgba(255,0,0,0.1);
-
-`;
 const CardSample2 = ({ fade,rating,name,comment }) => {
-    const theme = useTheme();
     return (
         
         <Paper elevation={10} element={<Card/>} sx={{ background: "rgba(255,0,0,0.1)", opacity: fade, transform: `scale(${fade})`, textAlign: "center", maxWidth: "100%" }}>

@@ -52,7 +52,7 @@ const UserSelected = () => {
            
         }
        
-    },[usersPostService.loaded]);
+    },[usersPostService.loaded,getUsersService,usersPostService.data,setUsersPostService]);
 
     const handleDeleteFromBasket = (e,id)=>{
         e.preventDefault();

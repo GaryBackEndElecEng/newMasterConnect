@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const Design4Helmet = ({keywords,summary,desc,image,OBJ}) => {
+const Design4Helmet = ({keywords,summary,desc,image,OBJ,average}) => {
 
   const JSONProduct={
     "@context": "https://schema.org/",
@@ -17,7 +17,7 @@ const Design4Helmet = ({keywords,summary,desc,image,OBJ}) => {
     },
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.4",
+      "ratingValue": average,
       "reviewCount": "89"
     },
     "offers": {
@@ -38,11 +38,17 @@ const Design4Helmet = ({keywords,summary,desc,image,OBJ}) => {
         <title>Wedding page </title>
         <meta name="site_name" content="Web Designs"/>
         <link rel="canonical" href="http://www.master-connect.ca" />
+        <link rel="canonical" href="http://www.masterconnect.ca" />
+        <link rel="canonical" href="http://www.master-connect.com" />
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
         <meta name="site" content="www.master-connect.ca"/>
+        <meta name="site" content="www.masterconnect.ca"/>
+        <meta name="site" content="www.master-connect.com"/>
         <meta name="url" content="https://www.master-connect.ca"/>
+        <meta name="url" content="https://www.masterconnect.ca"/>
+        <meta name="url" content="https://www.master-connect.com"/>
         <meta name="image" content={image}/>
         <script type="application/ld+json">
           {JSON.stringify(JSONProduct)}

@@ -34,7 +34,7 @@ const Privacy = () => {
           }
           setTitle("Privacy Policy")
           setStyleName("Privacy")
-    },[]);
+    },[setTitle,setStyleName]);
     
   return (
     <MainPrivacy>

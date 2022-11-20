@@ -8,7 +8,7 @@ let count=1;
 const SpellTypeMain = styled(Typography)`
 position: absolute;
 top:0%;
-left:37%;
+left:42%;
 width:90%;
 color:white;
 z-index:1000;

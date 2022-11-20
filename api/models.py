@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.db.models.signals import post_save, pre_save
 
 class Miscelaneous(models.Model):
     page=models.CharField(max_length=40,null=True,blank=True)
@@ -121,8 +122,20 @@ class PageFeedback(models.Model):
     page=models.CharField(max_length=50,blank=True)
     comment=models.TextField(blank=True)
     rating=models.IntegerField(blank=True)
+    average=models.IntegerField(default=4)
     def __str__(self):
         return f'{self.name}-{self.page}'
 
-
+def post_save_GenerateAverage(sender,instance,created,*args,**kwargs):
+    average=0
+    total=0
+    if created:
+        feedbacks=PageFeedback.objects.filter(page=instance.page)
+        total=len(feedbacks)
+        if total>0:
+            average=sum([obj.rating for obj in feedbacks])/total
+            for obj in PageFeedback.objects.all():
+                obj.average=average
+                obj.save()
+post_save.connect(post_save_GenerateAverage,sender=PageFeedback)
 

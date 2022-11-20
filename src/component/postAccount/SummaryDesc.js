@@ -35,7 +35,7 @@ animation: growInto 1.5s ease-in-out;
 const SummaryDesc = ({ staticImage,desc,summary}) => {
     const theme=useTheme();
     const {MyRef}=useContext(GeneralContext);
-    const design = `${staticImage}/design.png`
+    // const design = `${staticImage}/design.png`
 
     
 

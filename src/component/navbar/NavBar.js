@@ -1,6 +1,6 @@
 import React,{useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
-import { AppBar, Typography, Divider, Box, List, ListItem, Toolbar, ListItemButton, ListItemText, Link } from '@mui/material';
+import { AppBar, Typography, Divider,  List, ListItem, Toolbar, ListItemButton, ListItemText, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {GeneralContext} from '../../context/GeneralContextProvider'
 import MenuDropDown from './MenuDropDown'; //HAS ALL LINKS
@@ -9,12 +9,10 @@ import { useEffect,useState } from 'react';
 
 
 const NavBar = () => {
-    const {styleName,loaded,setChangePage,navItems,setPage,hits} =useContext(GeneralContext);
+    const {styleName,setChangePage,navItems,setPage,hits} =useContext(GeneralContext);
     const navigate=useNavigate();
     const theme = useTheme();
-    const [widthSet,setWidthSet]=useState(false);
     const [modHits,setModHits]=useState({loaded:false,data:""});
-    const getHits=modHits.loaded ? modHits.data:(hits.loaded ? hits.data :false);
     const cutNav600=window.innerWidth < 600 ? navItems.filter(obj=>(parseInt(obj.id)!==navItems.length)):navItems;
 
     const handleNavigate=(e,link)=>{

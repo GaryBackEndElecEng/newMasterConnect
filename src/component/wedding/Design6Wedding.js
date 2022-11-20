@@ -1,16 +1,14 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Box, Stack, AppBar, Typography, Grid, Container, Paper, Fab, Button, SpeedDial, Card, CardMedia, CardContent } from '@mui/material';
-import { ContainerHomeFluid } from '../../styled/Container.styled';
+import {  Stack,  Typography, Grid, Container, Fab, Card, CardMedia, CardContent } from '@mui/material';
 import Styles from './wedding.module.css'
 import SpaIcon from '@mui/icons-material/Spa';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ModalContainer from '../utils/ModalContainer';
 import PageFeedback from '../utils/PageFeedback';
+import PageRating from '../utils/PageRating';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
@@ -128,7 +126,6 @@ const Design6Wedding = () => {
   const flowerRef = useRef();
   const weddingTableRef = useRef();
   const { staticImage, workArr, setTitle, setStyleName,loadProduct } = useContext(GeneralContext);
-  const { user_id } = useContext(TokenAccessContext);
   const weddingSky = `${staticImage}/weddingSky.png`;
   const weddingTrees = `${staticImage}/weddingTrees.png`;
   const weddingTable = `${staticImage}/weddingTable.png`;
@@ -136,7 +133,6 @@ const Design6Wedding = () => {
   const [weddingSkyPx, setWeddingSkyPx] = useState(0);
   const [weddingTreePx, setWeddingTreePx] = useState(0);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
-  const [weddingTableY, setWeddingtableY] = useState(0);
   const [flowerSeen, setFlowerSeen] = useState(false);
   const [weddingTableSeen, setWeddingTableSeen] = useState(false);
   const [keywords,setKeywords]=useState(null);
@@ -162,7 +158,7 @@ const Design6Wedding = () => {
         
     }
       
-    },[loadProduct.loaded,loadProduct.data])
+    },[loadProduct.loaded,loadProduct.data,staticImage])
 
   useEffect(() => {
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
@@ -176,7 +172,7 @@ const Design6Wedding = () => {
     const title1 = workArr.filter(obj => (obj.id === 6))[0].title
     setTitle(title1);
     setStyleName("A wedding")
-  }, [setTitle, setStyleName]);
+  }, [setTitle, setStyleName,workArr]);
 
   useEffect(() => {
     const funcScroll = () => {
@@ -237,6 +233,7 @@ const Design6Wedding = () => {
       <WeddingHelmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} />
       <GetRegisterPages/>
         <RegisterPage />
+        <PageRating/>
         <MainContainer>
 
           <WeddingSkyImg

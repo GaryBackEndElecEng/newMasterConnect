@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, } from 'react'
+import React, { useContext, useState, } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
@@ -33,7 +33,7 @@ align-items:center;
 const Services = () => {
     const theme = useTheme();
     // const serviceRef = useRef();
-    const {  postService,getServices} = useContext(PriceContext);
+    const {  postService} = useContext(PriceContext);
     const { extraImages,staticImage, } = useContext(GeneralContext);
     const {setUserAccount,usersPostService,setUsersPostService,setUsersPostInvoice}=useContext(TokenAccessContext);
     const {user_id,loggedIn}=useContext(TokenAccessContext);
@@ -41,18 +41,6 @@ const Services = () => {
     const [targetEle,setTargetEle]=useState({loaded:false,id:0});
     const image = extraImages.loaded ? extraImages.data[1].image : null;
     const getRemainderSvc=localStorage.getItem("remainderSvc") ? JSON.parse(localStorage.getItem("remainderSvc")):(postService.loaded ? postService.data :false);
-
-
-    useEffect(()=>{
-        if(getRemainderSvc){
-            setRemainderSvc({loaded:true,data:getRemainderSvc});
-            localStorage.setItem("remainderSvc",JSON.stringify(getRemainderSvc));
-            
-        }else{
-            setRemainderSvc({loaded:false,data:getRemainderSvc}); 
-        }
-    },[]);
-    // console.log(getRemainderSvc)
 
   
 

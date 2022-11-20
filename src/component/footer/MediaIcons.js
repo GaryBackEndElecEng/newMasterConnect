@@ -37,7 +37,7 @@ const MediaIcons = () => {
           });
         setSites({loaded:true,data:arr})
       }
-    },[getSiteArray,setSites]);
+    },[getSiteArray,setSites,theme.palette.footer.main]);
 
   return (
     <ContainerFooterFluid style={{ background: theme.palette.common.medium, minHeight: { xs: "15vh", md: "15vh" }, color: theme.palette.common.light }}>

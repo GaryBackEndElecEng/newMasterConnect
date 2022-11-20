@@ -106,7 +106,7 @@ useEffect(()=>{
       window.scroll(0,0);
       
   }
-  }, []);
+  }, [setTitle,setStyleName,setChangePage]);
 
  
   return (

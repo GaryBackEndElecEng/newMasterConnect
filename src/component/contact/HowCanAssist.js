@@ -1,6 +1,4 @@
-import React, { useContext, } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React from 'react'
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import {  Typography,Container, Paper, } from '@mui/material';

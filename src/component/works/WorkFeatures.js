@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState,  } from 'react'
+import { useNavigate,  } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Box, Card, CardContent, CardMedia, Container, Fab, Grid, Paper, Stack, Typography } from '@mui/material';
+import {  Card, CardContent, CardMedia, Container,  Grid, Paper, Stack, Typography } from '@mui/material';
 import styled from 'styled-components';
-import styles from './works.module.css';
+// import styles from './works.module.css';
 import RevealPrice from './RevealPrice';
 import RegisterPage from '../RegisterPage';
 import Summary from './Summary';
@@ -52,12 +52,9 @@ const WorkFeatures = () => {
 
     const theme = useTheme();
     const navigate = useNavigate();
-    const { workArr, setChangePage, setTitle, setStyleName, loadProduct, staticImage } = useContext(GeneralContext);
-    const getDesinLinks = workArr ? workArr : null;
+    const { setChangePage, setTitle, setStyleName, loadProduct, staticImage } = useContext(GeneralContext);
     const design = `${staticImage}/mainDesign.png`;
     const loadedProduct = loadProduct.loaded ? loadProduct.data : [];
-    const target = useRef(null);
-    const [display, setDisplay] = useState('none');
     const [keywords, setKeywords] = useState(null);
     const [desc, setDesc] = useState(null);
     const [summary, setSummary] = useState(null);
@@ -121,7 +118,7 @@ const WorkFeatures = () => {
                                     <Typography component="h1" variant="h6" sx={{ textAlign: "center", fontFamily: "Roboto" }}>{obj.desc}</Typography>
                                 </CardContent>
                                 <Stack direction="column" sx={{ textAlign: "center" }}>
-                                    <Summary summary={obj.summary} display={display} />
+                                    <Summary summary={obj.summary} />
                                 </Stack>
                             </Card>
                         </Grid>

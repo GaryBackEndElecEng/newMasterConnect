@@ -41,7 +41,6 @@ const SuccessPost = () => {
   const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
   const mainPic = `${staticImage}/mainDesign.png`
   const [growIn, setGrowIn] = useState(false);
-  const [showPayment,setShowPayment]=useState(false);
   const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
   const getUsersInvoice = usersPostInvoice.loaded ? usersPostInvoice.data :null;
   
@@ -74,7 +73,7 @@ const SuccessPost = () => {
      } if(!getSession_id){
       setMessage("We did not recieved the confirmation payment from our financial services. An email will be sent to you to confirm your payment.If persists, we will contact you to sort this out. ");
      }
-  }, [postSession_id, getLoggedIn]);
+  }, [postSession_id, getLoggedIn,getSession_id,getUser_id,setUser_id,setUsersPostInvoice]);
 
   useEffect(() => {
     setChangePage(false);
@@ -83,12 +82,7 @@ const SuccessPost = () => {
     setTimeout(() => {
       setGrowIn(true);
     }, 2000);
-    if(growIn){
-      setTimeout(()=>{
-        setShowPayment(true);
-      },4000);
-    }
-  },[]);
+  },[setTitle,setStyleName,setChangePage]);
 
   
 

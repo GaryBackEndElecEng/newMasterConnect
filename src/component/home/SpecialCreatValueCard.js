@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState, } from 'react';
+import React, { useContext,  } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
-import { Grid, Typography, Stack, Card,Fab, CardContent, CardMedia, IconButton, Avatar } from '@mui/material';
+import { Grid, Typography, Stack, Card, CardContent, CardMedia, IconButton, Avatar } from '@mui/material';
 
 import { useTheme } from '@mui/material/styles';
 // import styled from 'styled-components';
@@ -16,7 +16,7 @@ const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
     const navigate = useNavigate();
     const theme = useTheme();
     const { staticImage,setChangePage } = useContext(GeneralContext);
-    const { getPackages } = useContext(PriceContext);
+    
 
     // const get_packages = getPackages.loaded ? getPackages.data : null;
 

@@ -1,11 +1,9 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, {  useEffect, useState, useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
-import { red } from '@mui/material/colors'
-import { Image } from '@mui/icons-material';
+import {  Grid, Stack, Typography } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import Styles from './contact.module.css';
+
 
 
 const CustGrid =styled(Grid)`

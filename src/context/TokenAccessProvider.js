@@ -1,4 +1,4 @@
-import React,{useState,useRef, useEffect} from 'react';
+import React,{useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import apiProtect from '../component/axios/apiProtect';
 import api from '../component/axios/api';
@@ -33,7 +33,6 @@ const [tokenIsValid,setTokenIsValid]=useState(false);
 const [loggedIn,setLoggedIn]=useState(false);
 const [loginError,setLoginError]=useState(false);
 const [deletedItem,setDeletedItem]=useState(false);
-const [productError,setProductError]=useState("");
 const [user_id,setUser_id]=useState(0);
 const [email,setEmail]=useState("");
 const [name,setName]=useState("");
@@ -130,7 +129,7 @@ const verifyToken= async ()=>{
 if((token !==null || token !=="undefined") && token){
 verifyToken();
 }
-},[setTokenIsValid,setGetVerifyToken,token,refresh_token]);
+},[setTokenIsValid,setGetVerifyToken,token,refresh_token,navigate]);
 
 
 //**** THIS DOWNLOADS USER'S PRODUCTS, ONCE LOGGED IN AT SIGIN BEFORE GOING TO MYACCOUNT****** */
@@ -210,7 +209,7 @@ useEffect(() => {
 
 
   return (
-    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,productError,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,jobsService,jobsPostService,jobsExtraService,website,setWebsite,DNS,setDNS,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount}}>
+    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,jobsService,jobsPostService,jobsExtraService,website,setWebsite,DNS,setDNS,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount}}>
         {props.children}
     </TokenAccessContext.Provider>
   )

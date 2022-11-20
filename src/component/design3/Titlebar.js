@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Stack, Container, Paper, Grid, Divider, Typography } from '@mui/material';
+import {  Stack, Container, Divider, Typography } from '@mui/material';
 import StarPurple500Icon from '@mui/icons-material/StarPurple500';
 import { theme } from '../../context/theme';
 import styled from 'styled-components';

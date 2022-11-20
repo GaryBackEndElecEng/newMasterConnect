@@ -7,6 +7,7 @@ import styled from 'styled-components';
 // import styles from './design3.module.css';
 import ModalContainer from '../utils/ModalContainer';
 import PageFeedback from '../utils/PageFeedback';
+import PageRating from '../utils/PageRating';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import Titlebar from './Titlebar'
 import RegisterPage from '../RegisterPage';
@@ -220,8 +221,7 @@ margin-top:-2px;
 
 const Design3 = () => {
     const {getProductList}=useContext(PriceContext);
-    const { setTitle, setStyleName,staticImage, workArr,setChangePage } = useContext(GeneralContext);
-    const [moonWalk, setMoonWalk] = useState('none');
+    const { setTitle, setStyleName,staticImage, workArr,setChangePage,average } = useContext(GeneralContext);
     const [showPara, setShowPara] = useState('none'); 
     const [showPurcahseBtn,setShowPurchaseBtn]=useState(false);
     const [startStatement,setStartStatement]=useState(false);
@@ -250,18 +250,17 @@ const Design3 = () => {
             window.scroll(0,0);
             
         }
-    },[getProductList.loaded]);
+    },[getProductList.loaded,getProductList.data,staticImage]);
 
     useEffect(() => {
         const title1 = workArr.filter(obj => (obj.id === 3))[0].title
         setTitle(title1);
         setStyleName("Style 4");
-        setMoonWalk("block");
         setChangePage(false);
         setTimeout(() => {
             setShowPara("block");
         }, 3400)
-    }, [setTitle, setStyleName]);
+    }, [setTitle, setStyleName,setChangePage,workArr]);
 
     
     useEffect(()=>{
@@ -289,7 +288,8 @@ const Design3 = () => {
         <CustomDesign3>
         <GetRegisterPages/>
                 <RegisterPage />
-                <Design3Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} />
+                <PageRating/>
+                <Design3Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} />
             <ContainerFluidBgImage bgImage={earthPic} >
                 
                 <Stack direction="column" sx={{ marginTop: "0px", width: "100%",marginBottom:"1rem" }}>

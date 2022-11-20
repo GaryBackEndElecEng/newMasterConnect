@@ -1,6 +1,5 @@
 import React from 'react';
-import { CardMedia, Box, Stack, Image, Container, Grid, Typography } from '@mui/material';
-import { ImgArr } from './ImgArr'; //Image Array
+import {  Box, Typography } from '@mui/material';
 import styled from 'styled-components';
 
 const PictureEffect =styled.img.attrs({className:"PictureEffect"})`

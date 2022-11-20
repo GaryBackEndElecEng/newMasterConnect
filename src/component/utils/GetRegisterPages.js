@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, } from 'react';
 import { useLocation } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import api from '../axios/api';
+// import api from '../axios/api';
 
 const GetRegisterPages = () => {
     const location = useLocation();
@@ -28,7 +28,7 @@ const GetRegisterPages = () => {
       if(pathName && registerPage.loaded){
         getPages();
       }
-    }, []);
+    }, [pathName,registerPage.loaded,setHits,registerPage.data]);
 
 
     return (

@@ -1,8 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Stack, Container, Box, Avatar, Card, CardContent, Typography, Paper, Grid, } from '@mui/material';
+import { Stack, Container, Avatar, Card, Typography, Paper, Grid, } from '@mui/material';
 import styled from 'styled-components';
-import styles from './design9.module.css'
 import { useTheme } from '@mui/material/styles';
 
 const CustomeContainer = styled(Container)`

@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState, useContext } from 'react';
+import React, {  useContext } from 'react';
 import styled from 'styled-components';
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box,Grid, Stack, Typography } from '@mui/material';
 import Sketch from "react-p5";
 import { GeneralContext } from '../../context/GeneralContextProvider';
 

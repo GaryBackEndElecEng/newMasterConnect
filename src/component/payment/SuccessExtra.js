@@ -42,7 +42,6 @@ const SuccessExtra = () => {
   const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
   const mainPic = `${staticImage}/mainDesign.png`
   const [growIn, setGrowIn] = useState(false);
-  const [showPayment,setShowPayment]=useState(false);
   const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
   const getUsersInvoice = usersExtraInvoice.loaded ? usersExtraInvoice.data :null;
   
@@ -75,7 +74,7 @@ const SuccessExtra = () => {
      } if(!getExtraSession_id){
       setMessage("We did not recieved the confirmation payment from our financial services. An email will be sent to you to confirm your payment.If persists, we will contact you to sort this out. ");
      }
-  }, [extraSession_id, getLoggedIn,getExtraSession_id]);
+  }, [extraSession_id, getLoggedIn,getExtraSession_id,getUser_id,setUserAccount,setUser_id,setUsersExtraInvoice]);
 
   useEffect(() => {
     setChangePage(false);
@@ -84,12 +83,8 @@ const SuccessExtra = () => {
     setTimeout(() => {
       setGrowIn(true);
     }, 2000);
-    if(growIn){
-      setTimeout(()=>{
-        setShowPayment(true);
-      },4000);
-    }
-  },[]);
+    
+  },[setStyleName,setTitle,setChangePage]);
 
   
 

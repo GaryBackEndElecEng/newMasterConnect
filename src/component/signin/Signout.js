@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useEffect,  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
@@ -23,7 +23,7 @@ const Signout = () => {
       window.scroll(0,0);
       
   }
-  },[])
+  },[setTitle,setChangePage,setStyleName])
   const handleLogout = () => {
     const postSignout = async () => {
       try {

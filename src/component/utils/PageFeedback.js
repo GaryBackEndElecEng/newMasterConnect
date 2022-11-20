@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Typography, Grid, Container, Paper, FormControl, InputLabel, FormHelperText, Input, FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia, ButtonBase, Select, MenuItem, List, ListItem, TextareaAutosize } from '@mui/material';
+import { Typography,  Container, Paper, FormControl, InputLabel, FormHelperText, Input, FormLabel, Fab, Select, MenuItem, List, ListItem, TextareaAutosize } from '@mui/material';
 import SendToMobileIcon from '@mui/icons-material/SendToMobile';
 import styled from 'styled-components';
 import api from '../axios/api';
@@ -35,7 +34,6 @@ top:10%;
 const PageFeedback = () => {
     const location = useLocation();
     const theme = useTheme();
-    const { staticImage, } = useContext(GeneralContext);
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [rating, setRating] = useState("");

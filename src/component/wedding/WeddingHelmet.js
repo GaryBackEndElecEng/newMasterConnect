@@ -1,5 +1,4 @@
-import React, {  useContext, } from 'react';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
@@ -37,12 +36,19 @@ const WeddingHelmet = ({keywords,summary,desc,image,OBJ}) => {
    
         <Helmet>
         <title>Wedding page </title>
-        <meta name="site_name" content="Web Designs"/>
+        <meta name="site_name" content="Wedding Design"/>
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
+        <link rel="canonical" href="http://www.master-connect.ca/design6" />
+        <link rel="canonical" href="http://www.masterconnect.ca/design6" />
+        <link rel="canonical" href="http://www.master-connect.com/design6" />
         <meta name="site" content="www.master-connect.ca"/>
+        <meta name="site" content="www.masterconnect.ca"/>
+        <meta name="site" content="www.master-connect.com"/>
         <meta name="url" content="https://www.master-connect.ca"/>
+        <meta name="url" content="https://www.masterconnect.ca"/>
+        <meta name="url" content="https://www.master-connect.com"/>
         <meta name="image" content={image}/>
         <script type="application/ld+json">
           {JSON.stringify(JSONProduct)}

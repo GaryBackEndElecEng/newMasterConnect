@@ -10,6 +10,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ModalContainer from '../utils/ModalContainer';
 import PageFeedback from '../utils/PageFeedback';
+import PageRating from '../utils/PageRating';
 import RegisterPage from '../RegisterPage';
 import styled from 'styled-components';
 import GetRegisterPages from '../utils/GetRegisterPages';
@@ -75,7 +76,7 @@ margin-top:-2px;
 
 const Design4 = () => {
     const theme = useTheme();
-    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage } = useContext(GeneralContext);
+    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const getFlowers = flowerImg.loaded ? flowerImg.data : null;
@@ -108,7 +109,7 @@ const Design4 = () => {
             window.scroll(0,0);
             
         }
-    },[getProductList.loaded]);
+    },[getProductList.loaded,getProductList.data,staticImage,]);
 
     const fourArrL = [{ 'id': 0, 'name': 'Sweet Blossom Collection',"comment":"This changes a page: Thanks for pressing Me" }, { 'id': 1, 'name': 'Bunches Collection | 50% Off',"comment":"This changes a page: Pretty cool!" }, { 'id': 2, 'name': 'Sympathy & Funeral Flowers',"comment":"This changes a page: Hope you don't buy this often" }, { 'id': 3, 'name': 'Designer Collection - Half Price',"comment":"This changes a page: BUY ME!" }]
     const fourArrR = [
@@ -153,7 +154,7 @@ const Design4 = () => {
         setTitle(title1);
         setStyleName("Style 5");
         setChangePage(false);
-    }, [setStyleName, setTitle]);
+    }, [setStyleName, setTitle,workArr,setChangePage]);
 
     useEffect(() => {
         const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
@@ -186,9 +187,10 @@ const Design4 = () => {
     return (
         <CustomDesign4>
             <ContainerFlowersBgImage bgImage={bgPatterns} className="sliderHeader" >
-                <Design4Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} />
+                <Design4Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} />
                 <GetRegisterPages/>
                 <RegisterPage />
+                <PageRating/>
                 <Container maxWidth="xl" className="text-center"
                     sx={{
                         margin: { xs: "0.25rem -20px", sm: "1rem -10px", md: "auto" },

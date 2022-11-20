@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Stack, Container, Paper, Grid, Typography, Fab } from '@mui/material';
+import { Stack, Container, Grid, Typography, } from '@mui/material';
 // import { ContainerFluid } from '../../styled/Container.styled';
 
 import { useTheme } from '@mui/material/styles';
@@ -11,6 +11,7 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import ModalContainer from '../utils/ModalContainer';
 import PageFeedback from '../utils/PageFeedback';
+import PageRating from '../utils/PageRating';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import RegisterPage from '../RegisterPage';
 import styled from 'styled-components';
@@ -44,7 +45,7 @@ animation:arrear 1.5s ease-in-out;
 }
 `;
 const Design2 = () => {
-    const { setTitle, setStyleName, workArr,setChangePage,staticImage } = useContext(GeneralContext);
+    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
     const theme = useTheme();
     const [showPurchaseBtn,setShowPurchaseBtn]=useState(false);
@@ -68,7 +69,7 @@ const Design2 = () => {
             window.scroll(0,0);
             
         }
-    },[getProductList.loaded]);
+    },[getProductList.loaded,getProductList.data,setSummary,setKeywords,setimage,staticImage]);
 
     useEffect(()=>{
         const getUser_id=localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):null;
@@ -82,12 +83,13 @@ const Design2 = () => {
         setTitle(title1);
         setStyleName("Style 2");
         setChangePage(false);
-    }, [setTitle, setStyleName])
+    }, [setTitle, setStyleName,setChangePage,workArr])
     return (
         <>
         <RegisterPage />
             <GetRegisterPages/>
-            <Design2Helmet summary={summary} keywords={keywords} image={image} desc={desc} OBJ={OBJ}/>
+            <PageRating/>
+            <Design2Helmet summary={summary} keywords={keywords} image={image} desc={desc} OBJ={OBJ} average={average}/>
         <ContainerFluid >
             <Grid container spacing={0} sx={{borderBottom:"5px solid black",padding:"0px auto"}}>
 

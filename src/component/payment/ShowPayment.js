@@ -20,7 +20,7 @@ const getSession_id= localStorage.getItem("session_id") ? localStorage.getItem("
     if(postSession_id && getUsersInvoice){
         setShowPostPayment(true);
     }
-  },[getUsersInvoice,getSession_id]);
+  },[getUsersInvoice,getSession_id,postSession_id]);
  
     return (
         <>

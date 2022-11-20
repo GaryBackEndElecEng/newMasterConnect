@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState,useRef } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Box, Stack, AppBar, Typography, Grid, Container, Paper, FormControl, CheckBox, InputLabel, FormHelperText, Input, TextField, TextareaAutosize, FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia } from '@mui/material';
+import { Box, Typography, Grid, Container, Paper, FormControl,  InputLabel,  Input,  TextareaAutosize, FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia } from '@mui/material';
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -34,7 +34,7 @@ const CusPaper=styled(Paper)`
 const ImputForm = () => {
     const theme = useTheme();
     const atForRef=useRef();
-    const { email, setEmail, name, setName, content, setContent, requestInfo, setRequestInfo,url,infoOkay,setInfoOkay,setIsRequestInfo,isRequestInfo,staticImage } = useContext(GeneralContext);
+    const { email, setEmail, name, setName, content, setContent, requestInfo, setRequestInfo,infoOkay,setInfoOkay,setIsRequestInfo,isRequestInfo,staticImage } = useContext(GeneralContext);
     const [validEmail, setValidEmail] = useState(false);
     const [validName, setValidName] = useState(false);
     const [validContent, setValidContent] = useState("");

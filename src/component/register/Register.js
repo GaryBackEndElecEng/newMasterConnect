@@ -63,7 +63,7 @@ const Register = () => {
             })
 
         }
-    }, [validEmail, validUsername, validPassword, setInfoOkay, checked]);
+    }, [validEmail, validUsername, validPassword, setInfoOkay, checked,email,password,username,setRegister]);
 
     useEffect(()=>{
         setTitle("Register");
@@ -73,7 +73,7 @@ const Register = () => {
             window.scroll(0,0);
             
         }
-    },[]);
+    },[setStyleName,setTitle,setChangePage]);
 
     const handleChecked = (e) => {
         if (checked === false) {

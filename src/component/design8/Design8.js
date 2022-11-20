@@ -6,6 +6,7 @@ import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import ModalContainer from '../utils/ModalContainer';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
+import PageRating from '../utils/PageRating';
 import PageFeedback from '../utils/PageFeedback';
 import CoverPage from './CoverPage';
 import Banner from './Banner';
@@ -41,7 +42,7 @@ margin-top:-50px;
 
 
 const Design8 = () => {
-  const { setTitle, setStyleName, setChangePage, staticImage } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setChangePage, staticImage,average } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
   const [summary, setSummary] = useState(false);
   const [desc, setDesc] = useState(false);
@@ -53,7 +54,7 @@ const Design8 = () => {
     setTitle("Success");
     setStyleName("Success Page here");
     setChangePage(false);
-  }, []);
+  }, [setTitle,setStyleName,setChangePage]);
 
   useEffect(()=>{
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
@@ -89,9 +90,10 @@ const Design8 = () => {
 
   return (
     <Main>
-      <Design8Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} />
+      <Design8Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} />
       <RegisterPage />
       <GetRegisterPages />
+      <PageRating/>
       <CoverPage />
       <Banner />
       <BannerTwo />

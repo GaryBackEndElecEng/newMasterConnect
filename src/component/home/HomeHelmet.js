@@ -11,6 +11,8 @@ const HomeHelmet = ({profileHelmet,generalInfoHelmet}) => {
         <meta name="description" content={"Full web services"} />
         <meta name="words" content="Web development, back-end database and front-end design"/>
         <link rel="canonical" href="http://www.master-connect.ca" />
+        <link rel="canonical" href="http://www.masterconnect.ca" />
+        <link rel="canonical" href="http://www.master-connect.com" />
         <meta name="image" content="https://master-connect.s3.ca-central-1.amazonaws.com/static/profilePic1.png"/>
         <meta name="email" content={profileHelmet.content1}/>
         <meta name="fb:site" content={profileHelmet.content2}/>

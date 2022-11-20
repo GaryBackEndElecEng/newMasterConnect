@@ -9,6 +9,7 @@ import ModalContainer from '../utils/ModalContainer';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import PageFeedback from '../utils/PageFeedback';
+import PageRating from '../utils/PageRating';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 // import styles from './design9.module.css'
 import { useTheme } from '@mui/material/styles';
@@ -36,7 +37,7 @@ animation: smoothIn 1s ease-in-out;
 
 const Design9 = () => {
   const theme = useTheme();
-  const { setTitle, setStyleName, setChangePage, staticImage } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setChangePage, staticImage,average } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
   const [frenchEnglish, setFrenchEnglish] = useState({ language: thisArray });
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
@@ -52,7 +53,7 @@ const Design9 = () => {
     setTitle("Realtor");
     setStyleName("Realtor Page");
     setChangePage(false);
-  }, []);
+  }, [setTitle,setStyleName,setChangePage]);
 
   useEffect(() => {
     if (getProductList.loaded && getProductList.data) {
@@ -100,8 +101,9 @@ const Design9 = () => {
     <>
     <GetRegisterPages/>
     <RegisterPage/>
+    <PageRating/>
     <CustomBox bg={theme.palette.common.lighter}>
-      <Design9Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} />
+      <Design9Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} />
       <Stack direction="row"
         sx={{ justifyContent: "center", alignItems: "center", position: "absolute", right: "7%", top: { md: "3.5%", xs: "0%" }, zIndex: "1000", background: theme.palette.common.fadeCharcoal, padding: { md: "0.5rem", xs: "0.25rem" }, color: "white" }}
       >

@@ -49,7 +49,6 @@ animation: rotateInf 10s infinite;
 
 
 const Arrow1 = () => {
-    const theme=useTheme();
   return (
     <Paper elevation={0} component="div"
     sx={{display:"flex",

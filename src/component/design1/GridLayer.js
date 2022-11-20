@@ -1,5 +1,5 @@
-import { Box, Paper, Typography } from '@mui/material';
-import React,{useState,useEffect} from 'react';
+import {  Paper, Typography } from '@mui/material';
+import React,{useState,} from 'react';
 import { DivTranslate } from '../../styled/Container.styled';
 import { useTheme } from '@mui/material/styles';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';

@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import {PriceContext} from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Stack,Typography, Grid, Container, Paper,Fab } from '@mui/material';
+import { Typography, Container, Paper, } from '@mui/material';
 import ArchitectureIcon from '@mui/icons-material/Architecture';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 

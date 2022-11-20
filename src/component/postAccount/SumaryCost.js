@@ -51,7 +51,7 @@ const SumaryCost = () => {
         if (loggedIn && user_id) {
             getInvoice();
         }
-    }, [])
+    }, [loggedIn,user_id,setUsersPostService,setUsersPostInvoice])
 
     return (
         <>

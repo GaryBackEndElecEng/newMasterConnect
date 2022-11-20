@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Styles from './home.module.css';
 import {  Box, Container, Grid, Typography, Card, CardMedia, CardContent } from '@mui/material';
@@ -21,7 +21,6 @@ flex-direction:column;
 `;
 let count = 0;
 const ThemeExampleSlideIn = () => {
-  let countRef = useRef(1);
   const navigate = useNavigate();
   const { staticImage, setChangePage, open } = useContext(GeneralContext);
   const [slideInDelayId, setSlideInDelayId] = useState(1);
@@ -46,8 +45,7 @@ const ThemeExampleSlideIn = () => {
       setTimeout(() => {
         if (countVar < designLinks.length && open) {
           countVar = slideInDelayId + 1;
-          countRef = countVar;
-          return setSlideInDelayId(countRef);
+          return setSlideInDelayId(countVar);
 
         } else if (count > designLinks.length) return count = 0
 

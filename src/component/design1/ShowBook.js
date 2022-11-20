@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Stack, Box, Typography, Paper, Grid, } from '@mui/material';
+import React from 'react';
+import { Stack,Typography, Paper,} from '@mui/material';
 import styled from 'styled-components';
 import { useTheme } from '@mui/material/styles';
 

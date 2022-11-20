@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import styles from './price.module.css';
 import styled from 'styled-components';
-import { Box, Container, Grid, Paper, Stack, Typography } from '@mui/material';
+import {  Container, Grid, Paper, Typography } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
@@ -39,11 +39,8 @@ animation: moveIn 1.5s ease-in-out;
 const CoverPage = () => {
   const theme = useTheme();
   const { staticImage, } = useContext(GeneralContext);
-  const { basePrice, baseServices, startingPrices } = useContext(PriceContext);
+  const { baseServices, startingPrices } = useContext(PriceContext);
   const [activateTitle, setActivateTitle] = useState(false);
-  
-
-  const basePrice1 = basePrice.loaded ? basePrice.data : null;
   const baseServices1 = baseServices.loaded ? baseServices.data : null;
   const getStartingPrices = startingPrices.loaded ? startingPrices.data : null;
 

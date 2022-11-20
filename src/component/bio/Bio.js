@@ -160,7 +160,7 @@ const Bio = () => {
                 <Paper elevation={3} sx={{ margin: {lg:"1rem auto",xs:"1rem auto"}, padding: "0.5rem ", }}>
                     <Grid container spacing={0} sx={{ textAlign: "flex-start",display:"flex", justifyContent: "center", alignItems: "flex-start", }}>
                         <Grid item xs={12} md={3} sx={{ boxShadow: "1px 3px 10px blue",
-                         background:{md: theme.palette.common.background3,xs:theme.palette.common.background3},
+                         background:"grey",
                           padding: "0 0.5rem", height: { xs: "auto", lg:resumeHeight },flexGrow:1 }}>
 
                             <Stack direction={"column"} sx={{ flexGrow: 1 }}>

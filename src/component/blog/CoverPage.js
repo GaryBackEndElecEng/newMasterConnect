@@ -9,8 +9,8 @@ import styled from 'styled-components';
 // import styles from './blog.module.css'
 import SpellType from './SpellType';
 
-const MainCoverpage = styled(Container)`
-margin:auto;
+const MainCoverpage = styled.div`
+width:100vw;
 display:flex;
 position:relative;
 justify-content:flex-start;
@@ -33,7 +33,7 @@ position:absolute;
 justify-self:center;
 margin:auto 2rem;
 color:white;
-top:30%;
+top:36%;
 left:41.5%;
 animation:sweepIn 1.5s ease-in-out;
 @keyframes sweepIn {
@@ -54,8 +54,8 @@ position:absolute;
 justify-self:center;
 margin:auto 2rem;
 color:white;
-top:40%;
-left:36.5%;
+top:45.5%;
+left:42%;
 animation:sweepIn 2s ease-in-out;
 @keyframes sweepIn {
   from {opacity:0;transform:translateX(-100%);}
@@ -65,7 +65,7 @@ animation:sweepIn 2s ease-in-out;
   left:30%;
 }
 @media screen and (max-width:600px){
-  left:20%;
+  left:10%;
 }
 
 `;

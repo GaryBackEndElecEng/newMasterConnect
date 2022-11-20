@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Stack, Container, Paper, Grid, Typography } from '@mui/material';
+import { Paper,Typography } from '@mui/material';
 import styled from 'styled-components';
-import styles from './design2.module.css'
+
 
 const Sidebar = styled(Paper)`
 transform:rotate(90deg) translate(456px,485px);

@@ -12,13 +12,12 @@ import RegisterPage from '../RegisterPage';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import styled from 'styled-components';
 import GetRegisterPages from '../utils/GetRegisterPages';
+import PageRating from '../utils/PageRating';
 import PageFeedback from '../utils/PageFeedback';
 import Design1Helmet from './Design1Helmet';
 import CustomDetails from './CustomDetails';
 import arrayLodges from './imageArr';
 import arrayLodgesFR from './imageArrayFr';
-import array2 from './array2.json';
-import array2Fr from './array2Fr.json';
 import array from './ratingArray.json';
 import arrayFr from './ratingArrayFr.json';
 
@@ -49,7 +48,7 @@ margin-top:-2px;
 
 `;
 const CustomDesign1=styled.div`
-margin:0;
+margin: 1rem auto;
 animation: clearIn 2s ease-in-out;
 @keyframes clearIn {
   from {opacity:0;}
@@ -69,9 +68,8 @@ margin-top:-2px;
 const Design1 = () => {
   
   const theme = useTheme();
-  const fade1 = 1
   const fade2 = 0.8
-  const { setTitle, setStyleName, workArr,setChangePage,staticImage } = useContext(GeneralContext);
+  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average } = useContext(GeneralContext);
   const {getProductList}=useContext(PriceContext);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
   const image1 = "https://master-connect.s3.ca-central-1.amazonaws.com/static/pics/shortTermRental2.png";
@@ -96,9 +94,8 @@ const Design1 = () => {
         }
         if(window.scrollY){
           window.scroll(0,0);
-          
       }
-    },[getProductList.loaded]);
+    },[getProductList.loaded,getProductList.data,staticImage]);
 
     useEffect(()=>{
       if(lang===true){
@@ -117,7 +114,7 @@ const Design1 = () => {
     setTitle(title1)
     setStyleName("Style 1");
     setChangePage(false);
-  }, [setTitle, setStyleName]);
+  }, [setTitle, setStyleName,setChangePage,workArr]);
 
   useEffect(() => {
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
@@ -131,7 +128,8 @@ const Design1 = () => {
 
       <RegisterPage />
       <GetRegisterPages/>
-      <Design1Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ}/>
+      <PageRating/>
+      <Design1Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average}/>
       <CustBoxPageCover bg={image1} sx={{ position: "relative" }}>
         
           <Grid container spacing={0}

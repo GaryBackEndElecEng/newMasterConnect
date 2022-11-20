@@ -1,17 +1,14 @@
-import React, { useContext, useEffect, useState, } from 'react'
-import { GeneralContext } from '../../context/GeneralContextProvider';
-// import { useTheme } from '@mui/material/styles';
+import React, {  useState,useEffect } from 'react'
 import {  Paper, Typography, Container, Stack } from '@mui/material';
 import styled from 'styled-components';
-import api from '../axios/api';
 import SectionBlog from "./SectionBlog";
-import BlogHelmet from './BlogHelmet';
 
 
 const MainBody = styled(Container)`
 margin: 1rem auto;
 position:relative;
 display:flex;
+opacity:${({opacity})=>opacity};
 position:relative;
 justify-content:flex-start;
 align-items:center;
@@ -43,11 +40,15 @@ padding:auto;
 
 
 const BlogBody = ({blogBodys}) => {
-    const { staticImage } = useContext(GeneralContext);
-    
+    const [isLoaded,setIsLoaded]=useState(false);
+    const setOpacity=(isLoaded) ? 1 : 0;
 
+    useEffect(()=>{
+        if(blogBodys.loaded && blogBodys.data){
+            setIsLoaded(true);
+        }
+    },[setIsLoaded,blogBodys.loaded,blogBodys.data]);
     
-
     const createMarkup = (text1)=>{
         let len=text1.split(" ")
         if(len.length > 0){
@@ -58,7 +59,8 @@ const BlogBody = ({blogBodys}) => {
     }
 
     return (
-        <MainBody>
+        <>
+        <MainBody opacity={setOpacity}>
             
             <Paper elevation={10}
                 sx={{ margin: { xs: "auto", sm: "auto" }, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", padding: { xs: "0.25rem " }, width: "100%", }}
@@ -93,6 +95,7 @@ const BlogBody = ({blogBodys}) => {
             </Paper>
 
         </MainBody>
+        </>
     )
 }
 

@@ -14,7 +14,7 @@ const Particulars = () => {
         if(getUserAccount && !userAccount.loaded ){
             setUserAccount({loaded:true,data:getUserAccount});
         }
-    },[]);
+    },[getUserAccount,setUserAccount,userAccount.loaded]);
   return (
     <Paper elevation={10} component="div" className={styles.particulars}
                     sx={{ width: "100%", margin: "1rem auto", display: 'flex', justifyContent: "flex-start", alignItems: "center", flexDirection: "column", padding: "0.5rem" ,boxShadow:"1px 1px 13px 10px grey"}}>

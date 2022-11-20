@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import styles from './price.module.css';
+import React from 'react';
+// import styles from './price.module.css';
 import styled from 'styled-components';
-import { Box, Card, CardActions, CardContent, CardMedia, Container, Fab, Grid, Link, Paper, Stack, Typography } from '@mui/material';
+import {  Container,  Paper, Stack, Typography } from '@mui/material';
 
 const CustomContainer = styled(Container)`
 justify-content:center;

@@ -73,7 +73,6 @@ const Home = () => {
     const {signout,signin,viewAccount}=useContext(TokenAccessContext);
     
     const [window600, setWindow600] = useState(false);
-    const [hideDisplay, setHideDisplay] = useState(false);
     const [seeExample, setSeeExample] = useState(false);
     const [makeEasy, setMakeEasy] = useState(false);
     const [profileHelmet,setProfileHelmet]=useState({});
@@ -119,7 +118,7 @@ const Home = () => {
             window.scroll(0,0);
             
         }
-    }, [setTitle,])
+    }, [setTitle,setChangePage])
 
 
     useEffect(() => {
@@ -137,8 +136,7 @@ const Home = () => {
         if (window.innerWidth < 600) {
             setWindow600(true);
         } else { setWindow600(false) }
-        if (changePage) return setHideDisplay(true);
-    }, [setWindow600, window600, changePage, setHideDisplay]);
+    }, [setWindow600, window600, changePage,]);
 
     useEffect(() => {
         setTimeout(() => {

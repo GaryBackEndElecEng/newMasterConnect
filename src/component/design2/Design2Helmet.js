@@ -1,9 +1,8 @@
-import React, {  useContext, } from 'react';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const Design2Helmet = ({keywords,summary,desc,image, OBJ}) => {
+const Design2Helmet = ({keywords,summary,desc,image, OBJ,average}) => {
   const JSONProduct={
             "@context": "https://schema.org/",
             "@type": "Product",
@@ -17,7 +16,7 @@ const Design2Helmet = ({keywords,summary,desc,image, OBJ}) => {
             },
             "aggregateRating": {
               "@type": "AggregateRating",
-              "ratingValue": "4.4",
+              "ratingValue": average,
               "reviewCount": "89"
             },
             "offers": {

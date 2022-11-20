@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const Design8Helmet = ({keywords,summary,desc,image,OBJ,average}) => {
+const Design3Helmet = ({keywords,summary,desc,image,OBJ,average}) => {
 
   const JSONProduct={
     "@context": "https://schema.org/",
@@ -35,11 +35,11 @@ const Design8Helmet = ({keywords,summary,desc,image,OBJ,average}) => {
 }
   return (
     <Helmet>
-        <title>Success page </title>
+        <title>Macabre Page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href="http://www.master-connect.ca/design8" />
-        <link rel="canonical" href="http://www.masterconnect.ca/design8" />
-        <link rel="canonical" href="http://www.master-connect.com/design8" />
+        <link rel="canonical" href="http://www.master-connect.ca" />
+        <link rel="canonical" href="http://www.masterconnect.ca" />
+        <link rel="canonical" href="http://www.master-connect.com" />
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
@@ -57,4 +57,4 @@ const Design8Helmet = ({keywords,summary,desc,image,OBJ,average}) => {
   )
 }
 
-export default Design8Helmet
+export default Design3Helmet

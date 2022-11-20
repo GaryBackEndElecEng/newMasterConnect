@@ -15,54 +15,7 @@ const RegisterGoogle = () => {
     const { setRegister, setRegisterConfirmed, setEmail, setChangePage, } = useContext(GeneralContext);
     const [showSignout, setShowSignout] = useState(false);
     const theme = useTheme();
-    const handleCallbackResponse = (response) => {
-        // actions once the loginin is success
-        var userObject = jwt_decode(response.credential);
-        setGmailUser({
-            loaded: true, data: {
-                email: userObject.email,
-                name: `${userObject.given_name} ${userObject.family_name}`,
-                image: userObject.picture,
-                username: `${userObject.given_name}_${userObject.family_name}`,
-                password: userObject.sub,
-                check: true
-
-            }
-        });
-        setEmail(userObject.email)
-        let signin=document.getElementById("signinDiv");
-        signin.innerHTML="Register with Google";
-        signin.addEventListener("click",(e)=>{
-            e.preventDefault();
-        });
-        signin.hidden = true;
-        setShowSignout(true);
-        //REGISTER
-        const registerUser = async () => {
-            try {
-                const params = {
-                    email: userObject.email,
-                    name: `${userObject.given_name} ${userObject.family_name}`,
-                    image: userObject.picture,
-                    username: `${userObject.given_name}_${userObject.family_name}`,
-                    password: userObject.sub,
-                    check: true
-                }
-                const res = apiProtect.post(`/account/register/`, params);
-                const body = res.data
-                setRegister({ loaded: true });
-                setRegisterConfirmed(true);
-                localStorage.setItem('username', body.username);
-                localStorage.setItem('email', body.email);
-                navigate("/sigin",setChangePage(true))
-            } catch (error) {
-                console.error(error.message)
-            }
-        }
-        registerUser();
-        
-
-    }
+    
     const handleSignOut = (e) => {
         e.preventDefault();
         setGmailUser({ loaded: false, data: {} });
@@ -70,10 +23,58 @@ const RegisterGoogle = () => {
         setShowSignout(false);
     }
     useEffect(() => {
+        const handleCallbackResponse = (response) => {
+            // actions once the loginin is success
+            var userObject = jwt_decode(response.credential);
+            setGmailUser({
+                loaded: true, data: {
+                    email: userObject.email,
+                    name: `${userObject.given_name} ${userObject.family_name}`,
+                    image: userObject.picture,
+                    username: `${userObject.given_name}_${userObject.family_name}`,
+                    password: userObject.sub,
+                    check: true
+    
+                }
+            });
+            setEmail(userObject.email)
+            let signin=document.getElementById("signinDiv");
+            signin.innerHTML="Register with Google";
+            signin.addEventListener("click",(e)=>{
+                e.preventDefault();
+            });
+            signin.hidden = true;
+            setShowSignout(true);
+            //REGISTER
+            const registerUser = async () => {
+                try {
+                    const params = {
+                        email: userObject.email,
+                        name: `${userObject.given_name} ${userObject.family_name}`,
+                        image: userObject.picture,
+                        username: `${userObject.given_name}_${userObject.family_name}`,
+                        password: userObject.sub,
+                        check: true
+                    }
+                    const res = apiProtect.post(`/account/register/`, params);
+                    const body = res.data
+                    setRegister({ loaded: true });
+                    setRegisterConfirmed(true);
+                    localStorage.setItem('username', body.username);
+                    localStorage.setItem('email', body.email);
+                    navigate("/sigin",setChangePage(true))
+                } catch (error) {
+                    console.error(error.message)
+                }
+            }
+            registerUser();
+            
+    
+        }
         //The /*,,,,*/ is s globla linter that tells react that the app is coming from outside the root
         /* global google */
         google.accounts.id.initialize({
-            client_id: "299253563710-q1m9gilc5k9rv6qlklph47umm60gatsd.apps.googleusercontent.com",
+            client_id: "299253563710-89sngvs3h3f6rpkrr0opg8je7056tf81.apps.googleusercontent.com",
             callback: handleCallbackResponse,
             context:"use"
         });

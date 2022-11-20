@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React, { useContext, useEffect, useState,  } from 'react'
 import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
@@ -20,8 +18,7 @@ animation: grow 1.5s ease-in-out;
 }
 `;
 const RevealPrice = () => {
-    const { staticImage } = useContext(GeneralContext);
-    const { priceCatelog, getServerPrice, setGetServerPrice,startingPrices } = useContext(PriceContext);
+    const { priceCatelog, setGetServerPrice,startingPrices } = useContext(PriceContext);
     const theme = useTheme();
     const [showSummary, setShowSummary] = useState({loaded:false,obj:{}});
 
@@ -56,7 +53,7 @@ const RevealPrice = () => {
                                     {obj.name}
                                 </Typography>
 
-                                <Paper elevation={10} onClick={(e)=>handleSummary(e,obj)} sx={{cursor:"point"}} onMouseOut={()=>setShowSummary({loaded:false,obj:{}})}>
+                                <Paper elevation={10} onClick={(e)=>handleSummary(e,obj)} sx={{cursor:"pointer"}} onMouseOut={()=>setShowSummary({loaded:false,obj:{}})}>
                                     <Typography component="h1" variant="body2" 
                                     sx={{ fontfamily: "Roboto", color: theme.palette.common.background, background: theme.palette.common.mediumBlue2, padding: "0.5rem", margin: " 1rem auto ", fontSize: { xs: "30px", sm: "26px" },
                                      }}>

@@ -398,7 +398,7 @@ STATICFILES_DIRS = [
 ]
 
 # This is needed in heroku. It takes care of the static files!!
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 
 if os.getcwd() == '/app':

@@ -52,12 +52,12 @@ const TargetRegister = () => {
             })
 
         }
-    }, [validEmail, validUsername, validPassword, setInfoOkay, checked]);
+    }, [validEmail, validUsername, validPassword, setInfoOkay, checked,email,password,setRegister,username]);
 
     useEffect(()=>{
         setTitle("Register");
         setStyleName("We are Greatful")
-    },[]);
+    },[setTitle,setStyleName]);
 
     const handleChecked = (e) => {
         if (checked === false) {

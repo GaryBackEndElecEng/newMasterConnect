@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState} from 'react';
-import {useNavigate,useLocation} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { Container, Fab, Stack, Typography } from '@mui/material';
@@ -52,7 +52,7 @@ const Cancelled = () => {
     setTimeout(() => {
       setGrowIn(true);
     }, 2000);
-  });
+  },[setTitle,setChangePage,setStyleName]);
   
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const Cancelled = () => {
       console.log("INSIDE)")
       getCancelledUser_id();
     } if (getLoggedIn === false) { setMessage("you need to signin again to check your account. You are not presently logged in.") }
-  }, [ getLoggedIn,user_id]);
+  }, [ getLoggedIn,user_id,getUser_id,setLoggedIn]);
 
   const handleSignin = (e)=>{
       if(getLoggedIn && (getRecievedCanceled > 1 && getRecievedCanceled < 4)){

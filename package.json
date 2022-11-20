@@ -2,7 +2,7 @@
   "name": "master-connect",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://newmasterconnect.herokuapp.com",
+  "homepage": "https://www.master-connect.ca",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.1.0",
     "@emotion/react": "^11.9.3",

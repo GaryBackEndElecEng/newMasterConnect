@@ -7,11 +7,11 @@ import Shop2Icon from '@mui/icons-material/Shop2';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './utils.module.css';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import Signin from '../signin/Signin';
+// import Signin from '../signin/Signin';
 
 const ModalContainer = () => {
   const location=useLocation();
-  const {showRegistration, setShowRegistration,setOpenSignin}=useContext(GeneralContext);
+  const { setShowRegistration,setOpenSignin}=useContext(GeneralContext);
   const [openModal, setOpenModal] = useState();
   const [removeSignINBtn, setRemoveSignINBtn] = useState();
   const toOpen = openModal ? "18%" : "0%";

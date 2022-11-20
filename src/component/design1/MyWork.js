@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Fab, CardMedia, CardContent, Typography, Card, Box, Stack, Paper, Divider, Container, CardActions } from '@mui/material';
+import { Fab, CardMedia, CardContent, Typography, Card, Divider, Container, CardActions } from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import { useTheme } from '@mui/material/styles';
 import Project from './Project';

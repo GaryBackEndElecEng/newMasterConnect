@@ -1,16 +1,15 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { Stack, Box, Switch, Typography, Container } from '@mui/material';
+import { Stack,Typography, Container } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import CoverPage from './CoverPage';
 import styled from 'styled-components';
-import styles from './design10.module.css'
 import Design10Helmet from './Design10Helmet';
 import jsonArray from './JsonArray.json';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
+import PageRating from '../utils/PageRating';
 import PageFeedback from '../utils/PageFeedback';
 import { useTheme } from '@mui/material/styles';
 import MidBanner from './MidBanner';
@@ -77,7 +76,7 @@ top:5.5%;
 `;
 
 const InteriorDecorator = () => {
-    const { setTitle, setStyleName } = useContext(GeneralContext);
+    const { setTitle, setStyleName,average } = useContext(GeneralContext);
     const {user_id}=useContext(TokenAccessContext);
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/interiorDesign`;
     const design1 = `${url}/interierDesign1.png`;
@@ -91,8 +90,6 @@ const InteriorDecorator = () => {
     const design9 = `${url}/interierDesign9.png`;
     const contact = `${url}/contact.png`;
     const arr = [design1, design2, design3, design4, design5, design6, design7, design8, design9]
-    const MyRef = useRef();
-    const theme = useTheme();
     const [opacity, setOpacity] = useState(1);
     const [getScroll, setGetScroll] = useState(0);
     const [loadArr, setLoadArr] = useState({ loaded: true, data: [] });
@@ -104,6 +101,7 @@ const InteriorDecorator = () => {
     let lastPos = 0;
 
     useEffect(() => {
+        const arr = [design1, design2, design3, design4, design5, design6, design7, design8, design9]
         let builtArr = []
         if (arr.length > 0) {
             arr.forEach((img, index) => {
@@ -116,7 +114,7 @@ const InteriorDecorator = () => {
             });
             setLoadArr({ loaded: true, data: builtArr })
         }
-    }, [setLoadArr, arr]);
+    }, [setLoadArr,design1, design2, design3, design4, design5, design6, design7, design8, design9]);
     useEffect(() => {
         setTitle("Interior Design");
         setStyleName("Beautiful Design");
@@ -176,9 +174,10 @@ const InteriorDecorator = () => {
     return (
         <MainContainerDv
         >
-            <Design10Helmet desc={desc} keyWords={keyWords} loadArr={loadArr} />
+            <Design10Helmet desc={desc} keyWords={keyWords} loadArr={loadArr} average={average} />
             <RegisterPage />
             <GetRegisterPages />
+            <PageRating/>
 
             <CoverPageStack direction={{ md: "row", xs: "column" }}
                 sx={{

@@ -30,7 +30,7 @@ const DesignPricing = ({productList}) => {
             setDesignPrice({loaded:true,data:arr});
         }
 
-    }, [setDesignPrice,getDesigns,]);
+    }, [setDesignPrice,getDesigns,staticImage]);
 
 const handleMouseOver = (e,ob)=>{
     const getObj = designPrice.loaded ? designPrice.data.filter(obj=>(obj.id===ob.id))[0]:null;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Button, IconButton, Stack } from '@mui/material'
+import { IconButton, Stack } from '@mui/material'
 import jwt_decode from 'jwt-decode';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useTheme } from '@mui/material/styles';
@@ -11,11 +11,19 @@ import apiProtect from '../axios/apiProtect';
 
 const RegisterGoogle = () => {
     const navigate = useNavigate();
-    const { gmailUser, setGmailUser, setSignin, setLoggedIn, setTokenIsValid, setLoginError } = useContext(TokenAccessContext);
-    const { register, setRegister, setChangePage, setTitle, setStyleName } = useContext(GeneralContext);
+    const {  setGmailUser, setSignin, setLoggedIn, setTokenIsValid, setLoginError } = useContext(TokenAccessContext);
+    const {  setChangePage, } = useContext(GeneralContext);
     const [showSignout, setShowSignout] = useState(false);
     const theme = useTheme();
-    const handleCallbackResponse = (response) => {
+    
+    const handleSignOut = (e) => {
+        e.preventDefault();
+        setGmailUser({ loaded: false, data: {} });
+        document.getElementById("signinDiv").hidden = false;
+        setShowSignout(false);
+    }
+    useEffect(() => {
+        const handleCallbackResponse = (response) => {
             // actions once the loginin is success
             var userObject = jwt_decode(response.credential);
             setGmailUser({
@@ -68,13 +76,6 @@ const RegisterGoogle = () => {
             postSignin();
 
     }
-    const handleSignOut = (e) => {
-        e.preventDefault();
-        setGmailUser({ loaded: false, data: {} });
-        document.getElementById("signinDiv").hidden = false;
-        setShowSignout(false);
-    }
-    useEffect(() => {
         //The /*,,,,*/ is s globla linter that tells react that the app is coming from outside the root
         /* global google */
         google.accounts.id.initialize({
@@ -86,7 +87,7 @@ const RegisterGoogle = () => {
             { theme: "outline", size: "large" }
         )
 
-    }, []);
+    }, [navigate,setChangePage,setGmailUser,setLoggedIn,setLoginError,setTokenIsValid,setSignin]);
 
     //    console.log(gmailUser.data,showSignout)
 

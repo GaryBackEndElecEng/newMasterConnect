@@ -32,7 +32,8 @@ const TermsOfSvc = () => {
           }
           setTitle("Privacy Policy")
           setStyleName("Privacy")
-    },[]);
+    },[setTitle,setStyleName]);
+    
   return (
     <MainPrivacy>
         <PolicyHelmet/>

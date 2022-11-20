@@ -43,15 +43,15 @@ const UserSignedInPurchaseBtn = () => {
             const params = { "user_id": GetUser_id, "prod_id": parseInt(selectedProduct.id) }
             try {
                 const res = await apiProtect.post("/account/userProductPost/", params);
-                const body = res.data.product;
-                // console.log(body)
-                const reduceArray = reducedProduct1.filter(obj => (parseInt(obj.id) !== parseInt(selectedProduct.id)))
-                let addToUserProductProduct = reducedProduct1.filter(obj => (parseInt(obj.id) === parseInt(selectedProduct.id)))[0];
-                setReducedProduct({ data: reduceArray, loaded: false })
-                setUsersProduct({ data: [...usersProduct.data, selectedProduct], loaded: true })
-                localStorage.setItem("reducedProduct", JSON.stringify(reduceArray));
-                localStorage.setItem("usersProduct", JSON.stringify([...usersProduct.data, addToUserProductProduct]));
-                setProductAdded(`Your ${selectedProduct.name},${selectedProduct.extra_kwargs} was added to your basket`);
+                if(res){
+                    const reduceArray = reducedProduct1.filter(obj => (parseInt(obj.id) !== parseInt(selectedProduct.id)))
+                    let addToUserProductProduct = reducedProduct1.filter(obj => (parseInt(obj.id) === parseInt(selectedProduct.id)))[0];
+                    setReducedProduct({ data: reduceArray, loaded: false })
+                    setUsersProduct({ data: [...usersProduct.data, selectedProduct], loaded: true })
+                    localStorage.setItem("reducedProduct", JSON.stringify(reduceArray));
+                    localStorage.setItem("usersProduct", JSON.stringify([...usersProduct.data, addToUserProductProduct]));
+                    setProductAdded(`Your ${selectedProduct.name},${selectedProduct.extra_kwargs} was added to your basket`);
+                }
             } catch (error) {
                 console.error(error.message)
             }

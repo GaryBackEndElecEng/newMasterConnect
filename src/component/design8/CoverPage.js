@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import {  Stack, Typography,  } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
 import styled from 'styled-components';
 import styles from './design8.module.css';
 
@@ -77,36 +76,19 @@ margin-top:-50px;
 
 const CoverPage = () => {
     const {staticImage,opacity,setOpacity } = useContext(GeneralContext);
-    const {getProductList}=useContext(PriceContext);
     const climber=`${staticImage}/design8/climber.png`;
     const clouds=`${staticImage}/design8/clouds.png`;
     const mountainBg=`${staticImage}/design8/mountainBg.png`;
     const [transPos,setTransPos]=useState(0);
-    const [keywords,setKeywords]=useState(0);
     let ticking=false;
     let lastPos=0;
 
     useEffect(()=>{
-        if(getProductList.loaded && getProductList.data){
-            let obj=getProductList.data.filter(obj=>(obj.name==="Success"))[0];
-            let kewds=obj.desc.split(" ")
-            .filter(wd=>(wd !=="the"))
-            .filter(wd=>(wd !=="This"))
-            .filter((wd)=>(wd !=="a"))
-            .filter(wd=>(wd !=="for"))
-            .filter(wd=>(wd !=="in"))
-            .filter(wd=>(wd !=="is"))
-            .filter(wd=>(wd !=="of"))
-            .filter(wd=>(wd !=="are"))
-            .filter(wd=>(wd !=="and"))
-            setKeywords(kewds);
-            
-        }
         if(window.scrollY){
             window.scroll(0,0);
             
         }
-    },[getProductList.loaded,getProductList.data,staticImage]);
+    },[]);
 
     const doFunc=(count)=>{
         if(count<102){

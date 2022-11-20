@@ -1,7 +1,6 @@
-import React, {useEffect,useContext,useState} from 'react';
+import React, {useEffect,useContext,} from 'react';
 import {useNavigate,useLocation} from 'react-router-dom';
 import QueryString from "query-string";
-import { TokenAccessContext } from '../context/TokenAccessProvider';
 import { GeneralContext } from '../context/GeneralContextProvider';
 //THIS SHOULD BE THE MAIN RETURN FROM STRIPE IT REDIRECTS THE TO SUCCESS AND OR CANCELED
 // const query = new URLSearchParams(window.location.search);
@@ -42,7 +41,7 @@ const StripePaymentRedirect = () => {
         setIsCheckoutSuccess(false)
         navigate("MyAccount/canceled",setChangePage(true))
       }
-    },[values,setChangePage,setIsCheckoutSuccess,setSession_id,setExtraSession_id,setPostSession_id]);
+    },[values,setChangePage,setIsCheckoutSuccess,setSession_id,setExtraSession_id,setPostSession_id,navigate]);
   return (
     <></>
   )

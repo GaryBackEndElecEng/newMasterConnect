@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useState, useRef, } from 'react'
-import { useNavigate,useLocation } from 'react-router-dom';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React, {  useState, useRef, } from 'react'
 import { useTheme } from '@mui/material/styles';
-import { Box, Card, CardContent, CardMedia, Container, Fab, Grid, Paper, Typography } from '@mui/material';
+import { Box,  Container, Fab,  Paper, Typography } from '@mui/material';
 import styled from 'styled-components';
-import styles from './works.module.css';
 import MarkUnreadChatAltIcon from '@mui/icons-material/MarkUnreadChatAlt';
 
 const MySummary = styled(Container)`

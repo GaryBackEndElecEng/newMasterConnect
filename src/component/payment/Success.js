@@ -36,13 +36,12 @@ animation: showCover 2s ease-in-out;
 const Success = () => {
   
   const { session_id, staticImage, setTitle, setStyleName,setChangePage } = useContext(GeneralContext);
-  const { user_id, loggedIn, setUserAccount,usersInvoice, setUsersInvoice ,setLoggedIn, userAccount, setUser_id } = useContext(TokenAccessContext);
+  const { user_id, loggedIn,usersInvoice, setUsersInvoice , userAccount, setUser_id } = useContext(TokenAccessContext);
   const getSession_id = session_id ? session_id : localStorage.getItem("session_id");
   const [message, setMessage] = useState(false);
   const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
   const mainPic = `${staticImage}/mainDesign.png`
   const [growIn, setGrowIn] = useState(false);
-  const [showPayment,setShowPayment]=useState(false);
   const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
   const getUsersInvoice = usersInvoice.loaded ? usersInvoice.data :null;
   
@@ -75,7 +74,7 @@ const Success = () => {
      } if(!getSession_id){
       setMessage("We did not recieved the confirmation payment from our financial services. An email will be sent to you to confirm your payment.If persists, we will contact you to sort this out. ");
      }
-  }, [getSession_id, getLoggedIn]);
+  }, [getSession_id, getLoggedIn,getUser_id,setUser_id,setUsersInvoice]);
 
   useEffect(() => {
     setChangePage(false);
@@ -84,12 +83,8 @@ const Success = () => {
     setTimeout(() => {
       setGrowIn(true);
     }, 2000);
-    if(growIn){
-      setTimeout(()=>{
-        setShowPayment(true);
-      },4000);
-    }
-  },[]);
+   
+  },[setTitle,setStyleName,setChangePage]);
 
   
 

@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import { Box, Container, Paper, Typography } from '@mui/material';
+import {useLocation} from 'react-router-dom';
+import { Box, Container, Paper, Stack, Typography } from '@mui/material';
 import { GeneralContext } from '../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles'
 import StripePaymentRedirect from './StripePaymentRedirect';
 import styled from 'styled-components';
+import FunctionsIcon from '@mui/icons-material/Functions';
 
 const HeaderEffect = styled.div.attrs({ className: "HeaderEffect" })`
 display:${({ show }) => show};
@@ -29,16 +31,26 @@ animation: shiftHeader 1.5s ease-in;
 `;
 
 const Header = () => {
+  const location=useLocation();
+  const pathName=location.pathname;
   const MyRef = useRef();
   const theme = useTheme();
   const [start, setStart] = useState(false);
-  const { title, } = useContext(GeneralContext);
+  const { title,average,loadProduct } = useContext(GeneralContext);
   const show = start ? "block" : "none";
+  const [isOnPage,setIsOnPage]=useState(false);
   
 
   useEffect(() => {
-    setStart(true)
-  }, [setStart])
+    setStart(true);
+    if(loadProduct.loaded && loadProduct.data){
+      let filterPage=loadProduct.data.filter(obj=>(obj.extra_kwargs===pathName))
+      let onPage=filterPage && filterPage.length >0 ? filterPage[0] : null;
+      if(onPage){
+        setIsOnPage(true);
+      }else{setIsOnPage(false)}
+    }
+  }, [setStart,loadProduct.loaded,loadProduct.data,setIsOnPage,pathName]);
 
   useEffect(() => {
     // LoadFonts("Play",600)
@@ -64,7 +76,16 @@ const Header = () => {
             }}
             ref={MyRef}
           >
-            <Paper sx={{ padding: "0 1rem", background: theme.palette.background.light }} component="div" elevation={0}><Typography component="h1" variant="h3" sx={{ fontFamily: "Roboto", display: { xs: "none", sm: "block" }, opacity: { sm: 0, md: 1 } }} >{title}</Typography></Paper>
+            <Paper
+            sx={{ padding: "0 1rem", background: theme.palette.background.light }}
+             component="div" elevation={3}>
+              <Stack direction="row" spacing={2} sx={{alignItems:"center",justifyContent:"center"}}>
+              <Typography component="h1" variant="h3" sx={{ fontFamily: "Roboto", display: { xs: "none", sm: "block" }, opacity: { sm: 0, md: 1 } }} >
+                {title} 
+              </Typography>
+              {isOnPage && <Typography component="h1" variant="h5">av:<FunctionsIcon sx={{color:"red",ml:1}}/>{average}</Typography>}
+              </Stack>
+              </Paper>
           </HeaderEffect>
         </Box>
       </Container>

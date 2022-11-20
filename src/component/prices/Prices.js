@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {PriceContext} from '../../context/PriceContextProvider';
 import RegisterPage from '../RegisterPage';
-import { useTheme } from '@mui/material/styles';
 import DesignPricing from './DesignPricing';
 import CoverPage from './CoverPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
@@ -44,28 +43,39 @@ const Prices = () => {
   const {baseServices,startingPrices,getProductList}=useContext(PriceContext);
   const [keywords,setKeywords]=useState(null);
   const [summary,setSummary]=useState(null);
-  const [desc,setDesc]=useState(null);
   const [image,setImage]=useState(null);
   const [price,setPrice]=useState(null);
+  const [descrip,setDescript]=useState("");
+  const [products,setProducts]=useState([]);
   const priceBg = `${staticImage}/prices.png`;
   
 useEffect(()=>{
 if( baseServices.loaded ){
- let arrWords=[],arrDesc=[];
-
+ let arrWords=[],tempDesc="";
+ const lowestPrice=Math.min(...startingPrices.data.map(obj=>(obj.monthly)));
+const statement=`All pricing for a world's best design,starting price $ ${lowestPrice}.00 CAD, including AMAZING effects ALL for an AMAZING low price.Visit https://www.master-connect.ca`
  arrWords=arrWords.concat(baseServices.data.map(obj=>(obj.name)));
  arrWords=arrWords.concat(startingPrices.data.map(obj=>(obj.name)));
  setKeywords(arrWords)
- arrDesc=arrDesc.concat(baseServices.data.map(obj=>(obj.desc)));
- arrDesc=arrDesc.concat(startingPrices.data.map(obj=>(obj.desc)));
- setDesc(arrDesc)
- setSummary("All pricing for a world's best design, including AMAZING effects ALL for an AMAZING low price.Visit https://www.master-connect.ca")
- setPrice(Math.min(...startingPrices.data.map(obj=>(obj.monthly))))
- 
+ tempDesc=statement;
+ baseServices.data.forEach((obj,index)=>{
+  tempDesc=tempDesc + ",,," + index + ")."  + obj.desc
+ });
+ startingPrices.data.forEach((obj,index)=>{
+  tempDesc=tempDesc + ",,," + index + ")." + obj.desc
+ });
+ setDescript(tempDesc)
+ setSummary(statement)
+ setPrice(lowestPrice)
 setImage(priceBg)
 }
-},[ baseServices.loaded, startingPrices.loaded]);
-  
+},[ baseServices.loaded,baseServices.data, startingPrices.loaded,startingPrices.data,priceBg]);
+
+useEffect(()=>{
+  if(getProductList.loaded && getProductList.data){
+    setProducts(getProductList.data)
+  }
+},[getProductList.loaded,getProductList.data]);
 
 // console.log(priceCatelog.data)
   useEffect(() => {
@@ -81,7 +91,7 @@ setImage(priceBg)
 
   return (
     <PriceContainer >
-      <PriceHelmet keywords={keywords} summary={summary} desc={desc} price={price} image={image}/>
+      <PriceHelmet keywords={keywords} summary={summary} desc={descrip} price={price} image={image} products={products} staticImage={staticImage}/>
       <GetRegisterPages/>
       <RegisterPage/>
       <CoverPage/>

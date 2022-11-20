@@ -1,9 +1,8 @@
-import React, {  useContext, } from 'react';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const PriceHelmet = ({keywords,summary,desc,image,price}) => {
+const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage}) => {
   const convertJSON={
     "@context": "https://schema.org/",
     "@id":"https://www.master-connect.ca/prices",
@@ -29,6 +28,34 @@ const PriceHelmet = ({keywords,summary,desc,image,price}) => {
       }
     }
   }
+  
+  const convertJSON2=products.map(obj=>(
+    {
+      "@context": "https://schema.org/",
+      "@id":`https://www.master-connect.ca/${obj.extra_kwargs}`,
+      "@type": "Product",
+      "name": obj.name,
+      "image": `${staticImage}/${obj.imageName}`,
+      "description": obj.desc,
+      "mpn": "N/A",
+      "brand": {
+        "@type": "Thing",
+        "name": "Digital master Connect"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "CAD",
+        "price": obj.monthly,
+        "priceValidUntil":"N/A",
+        "itemCondition": "http://schema.org/UsedCondition",
+        "availability": "http://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "master-connect"
+        }
+      }
+    }
+  ));
   return (
     <Helmet>
         <title>Pricing Page </title>
@@ -38,8 +65,14 @@ const PriceHelmet = ({keywords,summary,desc,image,price}) => {
         <meta name="description" content={desc}/>
         <meta name="site" content="www.master-connect.ca"/>
         <meta name="url" content="https://www.master-connect.ca"/>
+        <meta name="url" content="https://www.masterconnect.ca"/>
+        <meta name="url" content="https://www.master-connect.com"/>
+        <link rel="canonical" href="http://www.master-connect.ca/prices" />
+        <link rel="canonical" href="http://www.masterconnect.ca/prices" />
+        <link rel="canonical" href="http://www.master-connect.com/prices" />
         <meta name="image" content={image}/>
         <script type="application/ld+json">{JSON.stringify(convertJSON)}</script>
+        <script type="application/ld+json">{JSON.stringify(convertJSON2)}</script>
     </Helmet>
   )
 }

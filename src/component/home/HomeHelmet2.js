@@ -11,8 +11,8 @@ const HomeHelmet2 = ({generalInfoHelmet}) => {
       "@type": "Organization",
       "name": "Digital Master Connect",
       "legalName" : "Digital Master Connect inc",
-      "url": "https://www.master-connect.ca/bio",
-      "logo": "https://master-connect.s3.ca-central-1.amazonaws.com/static/logoNew.png",
+      "url":[ "https://www.master-connect.ca/bio","https://www.masterconnect.ca/bio","https://www.master-connect.com/bio"],
+      "logo":"https://master-connect.s3.ca-central-1.amazonaws.com/static/logoNew.png",
       "foundingDate": "2021",
       "founders": [
       {
@@ -32,7 +32,9 @@ const HomeHelmet2 = ({generalInfoHelmet}) => {
       "@type": "ContactPoint",
       "contactType": "customer support",
       "telephone": generalInfoHelmet.cell,
-      "email": "https://www.master-connect.ca/contact"
+      "email": "https://www.master-connect.ca/contact",
+      "email1": "https://www.master-connect.com/contact",
+      "email2": "https://www.masterconnect.ca/contact",
       },
       
     

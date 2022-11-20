@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
-import Button from '@mui/material/Button';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
@@ -8,7 +7,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
-import { CardMedia, IconButton, Link } from '@mui/material';
+import { IconButton, Link } from '@mui/material';
 import Logo from './Logo';
 import MenuLogo from './MenuLogo';
 import { useTheme } from '@mui/material/styles';
@@ -20,7 +19,7 @@ import {NavDropDown} from '../../styled/Div.styled';
 
 const MenuDropDown = () => {
   const navigate=useNavigate();
-  const {setChangePage,setPage,setZIndex,dropDown,signin,signout,loggedIn}=useContext(GeneralContext);
+  const {setChangePage,setPage,setZIndex,dropDown}=useContext(GeneralContext);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [getWidth,setGetWidth]=useState(200);

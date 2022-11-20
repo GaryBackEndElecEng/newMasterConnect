@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Grid, Typography, CardMedia, Fab, Container, Paper } from '@mui/material';
+import { Stack, Typography, Paper } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 

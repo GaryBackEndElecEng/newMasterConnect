@@ -1,7 +1,6 @@
 import React ,{useContext} from 'react';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 import {MenuLogoBox} from '../../styled/Div.styled';
-import { Box } from '@mui/material';
 
 const MenuLogo = () => {
     const {staticImage,}=useContext(GeneralContext);

@@ -7,10 +7,11 @@ import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import CoverPage from './CoverPage';
 import styled from 'styled-components';
 // import styles from './design11.module.css'
-// import Design11Helmet from './Design11Helmet';
+import Design11Helmet from './Design11Helmet';
 import jsonArray from './JsonArray.json';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
+import PageRating from '../utils/PageRating';
 import PageFeedback from '../utils/PageFeedback';
 import { useTheme } from '@mui/material/styles';
 // import MidBanner from './MidBanner';
@@ -46,11 +47,13 @@ position:relative;
 
 const Restaurant = () => {
     const theme = useTheme();
-    const { setTitle, setStyleName } = useContext(GeneralContext);
+    const { setTitle, setStyleName,average } = useContext(GeneralContext);
     let lastPos = 0, ticking = 0;
     const [opacity, setOpacity] = useState(1);
     const [scrollPos, setScrollPos] = useState(0);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
+    const [keyWords,setKeyWords]=useState([]);
+    const [desc,setDesc]=useState([]);
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/static/images/Restaurant`;
     const dinning = `${url}/dinning.png`;
     const menu = `${url}/menu.png`;
@@ -80,8 +83,23 @@ const Restaurant = () => {
 
     }, [design1, design2, design3, design4, design5, design6, design7, design8, design9, design10]);
 
+    useEffect(()=>{
+        let arr=[],arr2=[];
+        let tempDesc="";
+        if(resArr.loaded){
+            resArr.data.forEach((obj,index)=>{
+                arr.push(obj.title)
+                tempDesc= tempDesc + ",,," + obj.desc.slice(0,30);
+                arr2.push(obj.desc.slice(0,30))
+            });
+            setKeyWords(arr);
+            setDesc(tempDesc);
+        }
+
+    },[resArr.loaded,resArr.data]);
+
     useEffect(() => {
-        setTitle("Restaurant Design");
+        setTitle("Restaurant");
         setStyleName(" Great for a restaurant owner");
         if (window.scrollY) {
             window.scroll(0, 0);
@@ -132,6 +150,8 @@ const Restaurant = () => {
         >
             <RegisterPage />
             <GetRegisterPages />
+            <PageRating/>
+            <Design11Helmet desc={desc} keyWords={keyWords} loadArr={resArr} average={average} />
             <Container maxWidth="xl" sx={{ margin: "2rem auto",backgroundImage:{xs:`url(${menu})`,md:"none"},backgroundSize:"100% 100%",marginBottom:{md:"4rem",xs:"0px"} }}>
                 <Divider  sx={{marginBottom:"1rem",color:{xs:"white",md:"black"},border:{md:`2px solid black`,xs:"2px solid white"}}}/>
                 <Grid container spacing={{ xs: 1, sm: 2 }}
@@ -154,7 +174,7 @@ const Restaurant = () => {
             <Grid container spacing={{ xs: 0, md: 0 }}
                 sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "0px", sm: "0px" }, margin: "1rem auto", }}
             >
-                <Grid item xs={12} md={2} sx={{ padding: "1rem", backgroundImage: `url(${dinning})`, backgroundSize: "100% 100%" }} >
+                <Grid item xs={12} md={2} sx={{ padding: "1rem", backgroundImage: `url(${dinning})`, backgroundSize:{xs: "100% 100%",md:"100% 50%" }}} >
                     <Grid container spacing={0} sx={{ color: "white" }} >
                         <Grid item xs={12}  >
                             <Typography component="h1" variant="h1" sx={{ fontFamily: "great vibes" }}>La Cuisine</Typography>
@@ -188,6 +208,7 @@ const Restaurant = () => {
             <hr style={{ borderBottom: "2px solid red" }} />
             <ItemList resArr={resArr} title={"Title"} />
             <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
+            <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment - we aim to improve</Typography>
                 <PageFeedback />
                 <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurchaseBtn ? <UserSignedInPurchaseBtn />

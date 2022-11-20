@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useContext, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useContext,  useMemo } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import Styles from './home.module.css';
 import styled from 'styled-components';
 import { useTheme } from '@mui/material/styles';
-import { Container,  Box, Paper, Typography, Grid, } from '@mui/material';
+import { Container,  Paper, Typography, Grid, } from '@mui/material';
 // import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 // import StorageIcon from '@mui/icons-material/Storage';
@@ -47,7 +47,6 @@ const WeDo = () => {
     const theme = useTheme();
     const { staticImage, allServiceArray, setAllServiceArray } = useContext(GeneralContext);
     const [counterWatch, setCounterWatch] = useState({});
-    const [turnOn, setTurnOn] = useState(false);
     const [endDisplay, setEndDisplay] = useState(false);
     const [closeDisplay, setCloseDisplay] = useState(false);
     const opacity = closeDisplay ? 0 : 1;
@@ -65,32 +64,30 @@ const WeDo = () => {
     const getObj = (arr) => {
         let obj = arr.filter(obj => (parseInt(obj.count) === counter))[0]
         if (obj){ 
-            // console.log("OBJ",obj,"COUNT",counter,turnOn)
-            setTurnOn(true)
             return obj
         }
     }
-    const loopThrough = ()=>{
-        setTimeout(()=>{
-            let obj=getObj(serviceArr);
-            setCounterWatch(obj);
-        },0);
-        
-        setTimeout(() => {
-            
-                if (counter < serviceArr.length ) {
-                    // setTurnOn(false)
-                    counter++;
-                    loopThrough()
-                }
-                if (counter === serviceArr.length ) {
-                    return setEndDisplay(true);
-                }
 
-            }, maxTime)
-    }
 
     useEffect(() => {
+        const loopThrough = ()=>{
+            setTimeout(()=>{
+                let obj=getObj(serviceArr);
+                setCounterWatch(obj);
+            },0);
+            
+            setTimeout(() => {
+                
+                    if (counter < serviceArr.length ) {
+                        counter++;
+                        loopThrough()
+                    }
+                    if (counter === serviceArr.length ) {
+                        return setEndDisplay(true);
+                    }
+    
+                }, maxTime)
+        }
         loopThrough();
     }, []);
 

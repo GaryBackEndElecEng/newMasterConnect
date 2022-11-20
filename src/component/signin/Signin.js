@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
-import { Box, Stack, AppBar, Typography, Grid, Container, Paper, FormControl, CheckBox, InputLabel, FormHelperText, Input, TextField, TextareaAutosize, FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia, Link, ButtonBase } from '@mui/material';
+import { Typography, Grid, Container, Paper, FormControl,  InputLabel, FormHelperText, Input, FormLabel, Card, CardContent, Fab, CardMedia,  ButtonBase } from '@mui/material';
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -27,13 +27,12 @@ const Signin = () => {
   const theme = useTheme();
     const MyRef = useRef();
     const { staticImage,email, setEmail,setChangePage,setTitle,setStyleName,setActivate,register,setRegister} = useContext(GeneralContext);
-    const {loggedIn,setLoggedIn,setSignin,setTokenIsValid,loginError,setLoginError,setSignout,setGoToSignin,setViewAccount}=useContext(TokenAccessContext)
+    const {setLoggedIn,setSignin,setTokenIsValid,loginError,setLoginError,setSignout,setGoToSignin,setViewAccount}=useContext(TokenAccessContext)
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
     const [infoOkay, setInfoOkay] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [checked, setChecked] = useState(false);
     const [error,setError]=useState(false);
     const navigate=useNavigate();
     const cardImg = `${staticImage}/GreatMountain.png`;
@@ -68,7 +67,7 @@ const Signin = () => {
         window.scroll(0,0);
         
     }
-    },[tokenIsValid,setLoggedIn,setGoToSignin,setActivate,setSignout]);
+    },[tokenIsValid,setLoggedIn,setGoToSignin,setActivate,setSignout,setChangePage]);
 
     useEffect(()=>{
         const postSignin= async ()=>{
@@ -112,7 +111,7 @@ const Signin = () => {
         if(register.loaded){
             postSignin();
         }
-    },[register.loaded]);
+    },[register.loaded,navigate,register.data,setChangePage,setLoginError,setRegister,setLoggedIn,setSignin,setTokenIsValid,setViewAccount]);
 
     useEffect(() => {
         const email_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -133,7 +132,7 @@ const Signin = () => {
     useEffect(()=>{
         setTitle("Signin");
         setStyleName("Welcome Back")
-    },[]);
+    },[setStyleName,setTitle]);
 
     
     const handleSubmit = (e) => {

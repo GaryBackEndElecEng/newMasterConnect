@@ -1,8 +1,6 @@
 import React, { useContext,useEffect, useState, useRef } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { Grid, Divider, Typography, Stack, Fab } from '@mui/material';
-import { ContainerFooterFluid } from '../../styled/Container.styled';
-import api from '../axios/api';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -48,7 +46,7 @@ const Faqs = () => {
         if(allCategory.loaded && allCategory?.data){
             getFaq();
         }
-    },[setNewArr,allCategory.loaded]);
+    },[setNewArr,allCategory.loaded,allCategory.data]);
 
     // console.log(newArr)
     

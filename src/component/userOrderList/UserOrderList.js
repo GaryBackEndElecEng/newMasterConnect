@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useRef,useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect,useState } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import styled from 'styled-components';
 // import styles from './userOrderList.module.css'
-import { Container,Stack,Grid,Typography, Checkbox, Paper } from '@mui/material';
+import { Container,Grid,Typography, Checkbox, Paper } from '@mui/material';
 import CoverPage from './CoverPage';
 // import {useTheme} from '@mui/material/styles';
 import api from '../axios/api';
@@ -27,7 +26,7 @@ const UserOrderList = () => {
     const [taskProduct,setTaskProduct]=useState({loaded:false,data:[]});
     const [taskExtraService,setTaskExtraService]=useState({loaded:false,data:[]});
     const [taskPostService,setTaskPostService]=useState({loaded:false,data:[]});
-    const navigate=useNavigate();
+    
     
     useEffect(()=>{
         setTitle("Order List");
@@ -35,7 +34,7 @@ const UserOrderList = () => {
         if(window.scrollY){
             window.scroll(0,0);
         }
-    },[]);
+    },[setTitle,setStyleName]);
 
     useEffect(()=>{
         const url = (process.env.NODE_ENV==="production") ? "https://newmasterconnect.herokuapp.com/adminHome/tracker/" :  "http://localhost:8000/adminHome/tracker/";

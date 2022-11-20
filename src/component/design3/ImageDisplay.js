@@ -1,10 +1,8 @@
 import React, { useContext } from 'react'
-import { Box, Stack, Container, Paper, Grid, Divider, Typography, CardMedia, Fab } from '@mui/material';
-import StarPurple500Icon from '@mui/icons-material/StarPurple500';
+import {  Stack, Container, Paper, Grid, Typography, CardMedia, Fab } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { theme } from '../../context/theme';
 import styled from 'styled-components';
-import styles from './design3.module.css';
 import SatelliteAltIcon from '@mui/icons-material/SatelliteAlt';
 
 const CustomContainer = styled(Container)`
