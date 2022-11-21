@@ -13,7 +13,7 @@ const NavBar = () => {
     const navigate=useNavigate();
     const theme = useTheme();
     const [modHits,setModHits]=useState({loaded:false,data:""});
-    const cutNav600=window.innerWidth < 600 ? navItems.filter(obj=>(parseInt(obj.id)!==navItems.length)):navItems;
+    const cutNav600=window.innerWidth < 600 ? navItems.slice(0,3):navItems;
 
     const handleNavigate=(e,link)=>{
         e.preventDefault();
@@ -80,7 +80,7 @@ const NavBar = () => {
                     <List sx={{ display:"flex",padding:{xs:"1px",sm:"1px 5px"} }}>
                         {cutNav600 && cutNav600.map((obj) => (
                             <ListItem key={obj.id} disablePadding >
-                                <ListItemButton dense={true} sx={{ textAlign: "center",boxShadow:"1px 1px 2px 4px white",padding:{xs:"5px 10px",sm:"5px 7px",md:" 5px 15px",lg:"7px 18px"}}} >
+                                <ListItemButton dense={true} sx={{ textAlign: "center",padding:{xs:"5px 10px",sm:"5px 7px",md:" 5px 15px",lg:"7px 18px"}}} >
                                     <Link 
                                     onClick={(e)=>handleNavigate(e,obj.link)} 
                                     sx={{
@@ -89,7 +89,7 @@ const NavBar = () => {
                                         }}
                                         >
                                         <MarkUpToolBar pageName={obj.title} pageLink={obj.link} />
-                                        <ListItemText primary={obj.title} />
+                                        <ListItemText primary={obj.title.toUpperCase()} />
                                         
                                     </Link>
                                 </ListItemButton>

@@ -46,11 +46,11 @@ const CheckOutStuffQuote = () => {
   const theme = useTheme();
   const MyRef = useRef();
   const navigate = useNavigate();
-  const { callBackConfirmed, setChangePage, allCategory } = useContext(GeneralContext);
+  const { callBackConfirmed, setChangePage, allCategory,setOpenGetQuote,openGetQuote } = useContext(GeneralContext);
   const [getAQuote, setGetAQuote] = useState(false);
   const [myBool, setMyBool] = useState('false');
   const [getCheckoutPrices, setGetCheckoutPrices] = useState({loaded:false,data:[]});
-  const display = getAQuote && !callBackConfirmed ? "block" : "none";
+  const display = (getAQuote && openGetQuote ) && !callBackConfirmed ? "block" : "none";
  
 
   useEffect(()=>{
@@ -66,7 +66,7 @@ const CheckOutStuffQuote = () => {
     if(allCategory.loaded && allCategory?.data){
       getPrices();
     }
-  },[allCategory.loaded]);
+  },[allCategory.loaded,allCategory.data]);
   
   const handleHover = () => {
 
@@ -77,12 +77,14 @@ const CheckOutStuffQuote = () => {
   }
   const handleRequestAQuote = (e) => {
     e.preventDefault();
-    if (getAQuote === false) {
+    if(openGetQuote===false){setGetAQuote(false)}
+    if ((getAQuote || openGetQuote) === false ) {
       setGetAQuote(true)
+      setOpenGetQuote(true)
       setTimeout(() => {
         MyRef.current.style.animation = "slideInQuote 1.5s ease-in-out";
       }, 0);
-    } else { setGetAQuote(false) }
+    } else { setGetAQuote(false);setOpenGetQuote(false) }
   }
   const handleGoToWorks = (e) => {
     e.preventDefault();
@@ -118,7 +120,7 @@ const CheckOutStuffQuote = () => {
               Get a Quote:
               <Fab variant="extended" color='primary' onClick={(e) => handleRequestAQuote(e)} sx={{ marginLeft: "3rem", marginTop: "1rem" }}>
                 Get a Quote 
-                {getAQuote ? <ArrowDownwardIcon sx={{ ml: 2 }} />
+                {(getAQuote && openGetQuote) ? <ArrowDownwardIcon sx={{ ml: 2 }} />
                   :
                   <ArrowUpwardIcon sx={{ ml: 2 }} />}
               </Fab>

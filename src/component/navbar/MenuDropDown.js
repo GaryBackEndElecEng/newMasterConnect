@@ -121,7 +121,7 @@ const MenuDropDown = () => {
             aria-expanded={open ? 'true' : undefined}
             aria-haspopup="true"
             onClick={(e)=>handleToggle(e)}
-            sx={{ color: "white", background: theme.palette.navBar.light, borderRadius: "50%", margin: {xs:"1px 1px",sm:"1px 2px"} }}
+            sx={{ color: "white", background: theme.palette.navBar.light, borderRadius: "50%", margin: {xs:"1px 1px",sm:"1px 2px"},cusor:"pointer" }}
             arai-label="something"
             edge="start"
           >

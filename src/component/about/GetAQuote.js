@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import {  Container, Card, FormControl, InputLabel, FormHelperText, Input, TextareaAutosize, FormControlLabel, Checkbox, FormLabel,  CardContent, Fab, Grid, CardMedia, Typography } from '@mui/material';
+import {  Container, Card, FormControl, InputLabel, FormHelperText, Input, TextareaAutosize, FormControlLabel, Checkbox, FormLabel,  CardContent, Fab, Grid, CardMedia, Typography, Box } from '@mui/material';
 
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -12,7 +12,7 @@ import api from '../axios/api'
 
 const GetAQuote = () => {
     const theme = useTheme();
-    const { email, setEmail, name, setName, content, setContent, setRequestQuote, requestQuote, infoOkay, setInfoOkay, issue, setIssue,staticImage,setCallBackQuoteRequest,setCallBackConfirmed } = useContext(GeneralContext);
+    const { email, setEmail, name, setName, content, setContent, setRequestQuote, requestQuote, infoOkay, setInfoOkay, issue, setIssue,staticImage,setCallBackQuoteRequest,setCallBackConfirmed,setOpenGetQuote } = useContext(GeneralContext);
     const [cell, setCell] = useState("");
     const [coName, setCoName] = useState("");
     const [coSite, setCoSite] = useState("");
@@ -100,6 +100,10 @@ const GetAQuote = () => {
             <Card
                 sx={{ justifyContent: "flex-start", alignItems: "center",position:"relative" }}
             >
+                <Box 
+                sx={{position:"absolute",right:"2.2%",top:"0.25%",zIndex:"1000"}} onClick={()=>setOpenGetQuote(false)}
+                ><CloseIcon sx={{color:"red"}}/>
+                </Box>
                 <CardMedia component="img" height="300" alt="www.master-connect.ca"
                     image={manOnMountain}  />
                 <Typography component="h1" variant="h4"

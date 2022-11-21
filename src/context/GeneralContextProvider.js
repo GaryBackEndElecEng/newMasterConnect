@@ -73,6 +73,7 @@ export const GeneralContextProvider = (props) => {
   const [title,setTitle]=useState("");
   const [hits,setHits]=useState({loaded:false,data:0});
   const [loaded,setLoaded]=useState(false);
+  const[openGetQuote,setOpenGetQuote]=useState(false);
   const [load3,setLoad3]=useState(false);
   const [changePage,setChangePage]=useState(false);
   const [stopP5,setStopP5]=useState(false);
@@ -144,7 +145,7 @@ export const GeneralContextProvider = (props) => {
   
   const navItems = [{ id: 1, title: 'home', link: "/" }, { id: 2, title: 'about', link: "/about" }, { id: 3, title: 'Contact', link: "/contact" },{id:4,title:"Design",link:"/works"},{id:5,title:"Blog",link:"/blog"}]
 
-  const dropDown=[{name:"register",link:"/register"},{name:"Sign in",link:"/signin"},{name:"Sign out",link:"/signout"},{name:"Design",link:"/works"},{name:"Pricing",link:"/prices"},{name:"Blog",link:"/blog"},{name:"My Account",link:"/MyAccount"},{name:"Articles",link:"/articles"},]
+  const dropDown=[{name:"register",link:"/register"},{name:"Sign in",link:"/signin"},{name:"Sign out",link:"/signout"},{name:"Design",link:"/works"},{name:"Pricing",link:"/prices"},{name:"Blog",link:"/blog"},{name:"My Account",link:"/MyAccount"},{name:"Articles",link:"/articles"},{name:"bio",link:"/bio"},]
 
   const linkArr=[{name:"design1",link:"/design1"},{name:"design2",link:"/design2"},{name:"design3",link:"/design3"},{name:"design4",link:"/design4"},{name:"design5",link:"/design5"},{name:"design8",link:"/design8"},{name:"My Account",link:"/MyAccount"}]
 
@@ -230,7 +231,7 @@ export const GeneralContextProvider = (props) => {
 
 
   return (
-    <GeneralContext.Provider value={{allCategory,getServiceArray,setGetServiceArray,ourServices,setOurServices,whyWorkWithUs,setWhyWorkWithUs,mainService,setMainService,allServiceArray,setAllServiceArray,mainLinks,footerLinks,resume,setResume,title,setTitle,styleName,setStyleName,loaded,setLoaded,activate,setActivate,load3,setLoad3,url,changePage,setChangePage,stopP5,setStopP5,navItems,linkArr,dropDown,page,setPage,workArr,turnOn,setTurnOn,zIndex,setZIndex,removeText,setRemoveText,requestInfo,setRequestInfo,isRequestInfo,setIsRequestInfo,requestQuote,setRequestQuote,callbackQuoteRequest,setCallBackQuoteRequest,callBackConfirmed,setCallBackConfirmed,loadProduct,register,setRegister,registerConfirmed,setRegisterConfirmed,email,setEmail,name,setName,content,setContent,removeApp,setRemoveApp,checkHeight, setCheckHeight,stopP5Contact,setStopP5Contact,fadeLogo,setFadeLogo,removeBlock, setRemoveBlock,open, setOpen,infoOkay,setInfoOkay,issue,setIssue,loadingData, setLoadingData,serverUrl,loggedIn,setLoggedIn,error,setError,loginError,setLoginError,isCheckoutSuccess,setIsCheckoutSuccess,session_id,setSession_id,registerPage,setRegisterPage,showRegistration, setShowRegistration,openSignin,setOpenSignin,generalInfo,setGeneralInfo,sponsor,setSponsor,flowerImg,setFlowerImg,special,setSpecial,extraImages,MyRef,postSession_id,setPostSession_id,privacy,termsOfSvc,staticImage,links,setLinks,hits,setHits,extraServices,setExtraServices,extraSession_id,setExtraSession_id,productInfo,success,opacity,setOpacity,pageRatings,userSelection,setUserSelection,userSelectionArray,setUserSelectionArray,answeredFilled, setAnsweredFilled,questionResults, setQuestionResults,UUID,setUUID,blogMain, setBlogMain,average,setAverage}}>
+    <GeneralContext.Provider value={{allCategory,getServiceArray,setGetServiceArray,ourServices,setOurServices,whyWorkWithUs,setWhyWorkWithUs,mainService,setMainService,allServiceArray,setAllServiceArray,mainLinks,footerLinks,resume,setResume,title,setTitle,styleName,setStyleName,loaded,setLoaded,activate,setActivate,load3,setLoad3,url,changePage,setChangePage,stopP5,setStopP5,navItems,linkArr,dropDown,page,setPage,workArr,turnOn,setTurnOn,zIndex,setZIndex,removeText,setRemoveText,requestInfo,setRequestInfo,isRequestInfo,setIsRequestInfo,requestQuote,setRequestQuote,callbackQuoteRequest,setCallBackQuoteRequest,callBackConfirmed,setCallBackConfirmed,loadProduct,register,setRegister,registerConfirmed,setRegisterConfirmed,email,setEmail,name,setName,content,setContent,removeApp,setRemoveApp,checkHeight, setCheckHeight,stopP5Contact,setStopP5Contact,fadeLogo,setFadeLogo,removeBlock, setRemoveBlock,open, setOpen,infoOkay,setInfoOkay,issue,setIssue,loadingData, setLoadingData,serverUrl,loggedIn,setLoggedIn,error,setError,loginError,setLoginError,isCheckoutSuccess,setIsCheckoutSuccess,session_id,setSession_id,registerPage,setRegisterPage,showRegistration, setShowRegistration,openSignin,setOpenSignin,generalInfo,setGeneralInfo,sponsor,setSponsor,flowerImg,setFlowerImg,special,setSpecial,extraImages,MyRef,postSession_id,setPostSession_id,privacy,termsOfSvc,staticImage,links,setLinks,hits,setHits,extraServices,setExtraServices,extraSession_id,setExtraSession_id,productInfo,success,opacity,setOpacity,pageRatings,userSelection,setUserSelection,userSelectionArray,setUserSelectionArray,answeredFilled, setAnsweredFilled,questionResults, setQuestionResults,UUID,setUUID,blogMain, setBlogMain,average,setAverage,openGetQuote,setOpenGetQuote}}>
     {props.children}
     </GeneralContext.Provider>
   )

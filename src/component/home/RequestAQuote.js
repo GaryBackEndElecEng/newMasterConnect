@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Container, Card, FormControl, InputLabel, FormHelperText, Input, TextareaAutosize, FormControlLabel, Checkbox, FormLabel, CardContent, Fab, Grid, CardMedia, Typography } from '@mui/material';
+import { Container, Card, FormControl, InputLabel, FormHelperText, Input, TextareaAutosize, FormControlLabel, Checkbox, FormLabel, CardContent, Fab, Grid, CardMedia, Typography, Box } from '@mui/material';
 // import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -12,7 +12,7 @@ import api from '../axios/api'
 
 const RequestAQuote = () => {
     const theme = useTheme();
-    const { email, setEmail, name, setName, content, setContent, setRequestQuote, staticImage, requestQuote, infoOkay, setInfoOkay, issue, setIssue,setCallBackQuoteRequest,setCallBackConfirmed } = useContext(GeneralContext);
+    const { email, setEmail, name, setName, content, setContent, setRequestQuote, staticImage, requestQuote, infoOkay, setInfoOkay, issue, setIssue,setCallBackQuoteRequest,setCallBackConfirmed,setOpenGetQuote,openGetQuote } = useContext(GeneralContext);
     const [cell, setCell] = useState("");
     const [coName, setCoName] = useState("");
     const [coSite, setCoSite] = useState("");
@@ -101,6 +101,10 @@ const RequestAQuote = () => {
             <Card
                 sx={{ justifyContent: "flex-start", alignItems: "center",position:"relative",width:"100%" }}
             >
+                <Box 
+                sx={{position:"absolute",right:"2.2%",top:"0.25%",zIndex:"1000"}} onClick={()=>setOpenGetQuote(false)}
+                ><CloseIcon sx={{color:"red"}}/>
+                </Box>
                 <CardMedia component="img" height="300" alt="www.master-connect.ca"
                     image={manOnMountain} sx={{ position: "relative" }} />
                 <Typography component="h1" variant="h4"

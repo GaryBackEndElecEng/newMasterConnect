@@ -47,12 +47,12 @@ animation: showUp 1.5s ease-in-out;
 `;
 
 const ShowGetQuoteForm = () => {
-    const { issues} = useContext(GeneralContext);
+    const { issues,openGetQuote,setOpenGetQuote} = useContext(GeneralContext);
     const theme = useTheme();
     const getQuoteRef = useRef();
     const innerW=window.innerWidth;
     const [open1, setOpen1] = useState(false);
-    let showQuote=open1 ? "block":'none';
+    let showQuote=openGetQuote ? "block":'none';
     const shiftQuoteBtn=open1 ? "-100%":"0%";
     const shiftQuoteBtnY=open1 ? ((innerW>680 && innerW < 1200) ? "-100%" :(innerW>1200) ? "-10%":"8%"):"0%";
     const btnColor= open1 ? "primary":"info";
@@ -68,12 +68,14 @@ const ShowGetQuoteForm = () => {
     const handleShowForm = (e) => {
         e.preventDefault();
         getQuoteRef.current.style.display="block ";
+        setOpenGetQuote(true)
             return setOpen1(true);
     }
 
     const handleCloseForm = (e) => {
         e.preventDefault();
         getQuoteRef.current.style.display="none ";
+        setOpenGetQuote(false)
             return setOpen1(false);
     }
 
@@ -86,7 +88,7 @@ const ShowGetQuoteForm = () => {
                     Request a Quote.
                 </Typography>
                 {/* FORM FOR QUOTE */}
-                {!open1 ? <Fab
+                {!openGetQuote ? <Fab
                 variant="extended"
                     aria-label="arrowRight"
                     onClick={(e) => handleShowForm(e)}
