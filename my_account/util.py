@@ -934,3 +934,28 @@ def generateJobs():
             job=Jobs(userId=userAccount.user.id,userAccount=userAccount,serviceArr=arr)
             job.save()
 # generateJobs()
+from django.contrib.sites.models import Site
+def site_url():
+            sites=Site.objects.all()
+            for site in sites:
+                if(site.domain == "www.masterconnect.ca"):
+                    settings.SITE_ID=int(site.id)
+                    settings.SITE_URL="https://www.masterconnect.ca"
+                    return {"SITE_URL":"https://www.masterconnect.ca","id":site.id}
+                elif(site.domain=="newmasterconnect.herokuapp.com"):
+                    settings.SITE_ID=int(site.id)
+                    settings.SITE_URL="https://newmasterconnect.herokuapp.com"
+                    return {"SITE_URL":"https://newmasterconnect.herokuapp.com"}
+                elif(site.domain=="www.master-connect.com"):
+                    settings.SITE_ID=int(site.id)
+                    settings.SITE_URL="https://www.master-connect.com"
+                    return {"SITE_URL":"https://www.master-connect.com"}
+                elif(site.domain=="www.master-connect.ca"):
+                    settings.SITE_ID=int(site.id)
+                    settings.SITE_URL="https://www.master-connect.ca"
+                    return {"SITE_URL":"https://www.master-connect.ca","id":settings.SITE_ID}
+                else:
+                    settings.SITE_URL="http://localhost:8000"
+                    return {"SITE_URL":"http://localhost:8000"}
+
+print(site_url())

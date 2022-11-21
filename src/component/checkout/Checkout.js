@@ -19,18 +19,25 @@ import CheckoutHelmet from './CheckoutHelmet';
 
 const CusCheckout = styled.div`
 position:absolute;
-top:30%;
+top:0%;
 z-index:10000;
-margin-left:20%;
+margin-left:25%;
 
 @media screen and (max-width:900px){
+  margin-left:0%;
+  top:0%;
+}
+
+@media screen and (max-width:800px){
   margin-left:8%;
   top:20%;
 }
-
 @media screen and (max-width:600px){
   width:100%;
+  top:0%;
+  margin-left:0%;
 }
+
 
 
 `;

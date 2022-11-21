@@ -21,11 +21,12 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True
     const theme = useTheme();
     const navigate = useNavigate();
-    const { userAccount, address, cell, name, email, provState, country, postal, formComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct,loggedIn,setFormComplete,usersExtraInvoice } = useContext(TokenAccessContext);
+    const { userAccount, address, cell, name, email, provState, country, postal, formComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct,loggedIn,usersExtraInvoice } = useContext(TokenAccessContext);
     const { setChangePage } = useContext(GeneralContext);
     const [message,setMessage]=useState(null);
+    const [message2,setMessage2]=useState(null);
     const [paid,setPaid]=useState(false);
-    const [needToChangeAddress,setNeedToChangeAddress]=useState(false);
+    const [noProdsServs,setNoProdsServs]=useState({loaded:false,data:""});
     const [getMessage,setGetMessage]=useState({loaded:false,data:""});
     const [postPaid,setPostPaid]=useState(false);
     const isExtraInvoice=usersExtraInvoice.loaded ? 4 : 6;
@@ -33,16 +34,25 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     const getFormComplete= localStorage.getItem("formComplete") ? JSON.parse(localStorage.getItem("formComplete")):formComplete;
 
     useEffect(()=>{
-        setNeedToChangeAddress(formComplete);
         if(invoicePaid){
         setPaid(invoicePaid.paid)
         }else{setPaid(false)}
         setPostPaid(postInvoicePaid.paid)
     },[invoicePaid,postInvoicePaid,formComplete]);
 
+    useEffect(()=>{
+        
+        if(usersProduct.loaded || usersService.loaded){
+            // console.log(usersProduct.data.length)
+            if(usersProduct.data.length === 0 || usersService.data.length===0){
+                setNoProdsServs({loaded:true,data:"you must select al least one product(similar to what you want) and one service (essential for site building) before checking out so we can complete your site within the minimal time possible. If you need to consult us, then please click on the consult button, beside the checkout button. We will call you ASAP and discuss your concerns. "})
+            }
+        }
+    },[usersProduct.loaded, usersService.loaded,usersProduct.data.length,usersService.data.length]);
+
 
     const handleCheckout = (e) => {
-        if(getFormComplete && loggedIn){
+        if(getFormComplete && loggedIn && !noProdsServs.loaded){
             e.preventDefault();
             setMessage(null);
             const calculateCostGetInvoice= async ()=>{
@@ -66,8 +76,15 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                 setMessage("Please complete the form, so we can better understand what you want.");
                 setTimeout(()=>{
                     setMessage(null);
-                },10000)
+                },10000);
+
         }if(!loggedIn){navigate("/signin",setChangePage(true))}
+        if(noProdsServs.loaded){
+            setMessage2(noProdsServs.data);
+            setTimeout(()=>{
+                setMessage2(null);
+            },24000);
+        }
        
     };
     
@@ -157,7 +174,7 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                                 </Paper>
                             </Grid>
                             <Grid item xs={12} md={12} sx={{position:"relative"}}>
-                                <Paper elevation={10} sx={{ margin: "1rem auto", padding: "1rem" }}>
+                                <Paper elevation={10} sx={{ margin: "1rem auto", padding: "1rem",position:"relative" }}>
 
                                     <Typography component="h1" variant="h4" sx={{ textAlign: "center",margin:"1rem auto" }}>
                                         <span style={{  fontWeight: "bold", textAlign: "center" }}>product(s) / Services(s)</span>
@@ -175,7 +192,9 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                                              />
 
                                         }
-
+                                    { message2 && <Stack direction="row" className={styles.completeFormMessage2}>
+                                    <Typography  component="h1" variant="h5"><span>You forgot something:</span> {message2}</Typography>
+                                </Stack>}
                                 </Paper>
                                 <Stack direction="row" spacing={2} sx={{ width: "100%" ,margin:"2rem auto"}} >
                                    {!paid && <Fab variant="extended" color="success" sx={{ fontSize: { xs: "14px", lg: "20px" }, }} onClick={(e) => handleCheckout(e)}>

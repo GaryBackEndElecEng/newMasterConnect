@@ -19,6 +19,7 @@ from django.conf import settings
 
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -34,9 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","www.garymaster-connect.com","garymaster-connect.com"]
@@ -88,8 +87,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # "serverSide.site_url",
    
 ]
+#-----DYNAMICALLY CHANGING WEBSITE BASED ON ---------
+
+SITE_URL="https://www.master-connect.ca"
+SITE_ID = 1
+#-----DYNAMICALLY CHANGING WEBSITE BASED ON ---------
+
 AUTHENTICATION_BACKENDS = [
    
     'django.contrib.auth.backends.ModelBackend',
@@ -307,7 +313,7 @@ STRIPE_PUBLIC_KEY = os.environ.get("NEW_STRIPE_PUBLIC_TEST_KEY")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY","sk_test_51KXocrJGIzNDb1wRh4m0Ga1rQ42QpqgEJEv0a0RUuuXsKnJePGHkuXdvUVCydl2N1tcjJdBRy0eVyJ0YTLC74fjQ006Y0wzBMC")
 STRIPE_PUBLIC_KEY =os.environ.get("STRIPE_PUBLIC_KEY","pk_test_51KXocrJGIzNDb1wReap8jX29ZizdYG8s06oxnGIp34OfgfMEBkWc3H0KOXptUvZIysDhUxFfsb37n7LPAgDZY6Of001yjIplsk")
 
-SITE_URL="https://www.master-connect.ca"
+
 #--////////////--------------STRIPE--------------------////////////////////////#
 
 
@@ -345,7 +351,7 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
 
 
 #--- FACEBOOK- GOOGLE-----//////////////////////
-SITE_ID = 1
+
 SOCIALACCOUNT_PROVIDERS={
     'google':{
         'SCOPE':[

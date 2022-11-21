@@ -164,23 +164,55 @@ animation: hideForm 2s ease-in;
    padding:20px;
    animation: InAndOut 10s ease-in-out;
 }
+.completeFormMessage2{
+   position:absolute; 
+   top:66%;
+   left:2%;
+   width:90%;
+   background:darkgrey;
+   color:white;
+   text-align:center;
+   border-radius:15%;
+   padding:20px;
+   animation: InAndOut2 24s ease-in-out;
+}
+.completeFormMessage2 span{
+    color:red;
+    font-size:30px;
+}
 .completeFormMessage span{
     color:red;
 }
+@keyframes InAndOut2{
+    0%{opacity:0;transform:scale(0.6) }
+    15% {opacity:1;transform:scale(1);}
+    100%{opacity:0.6; transform: scale(1) }
+}
 @keyframes InAndOut{
-    from{opacity:0;transform:scale(0) }
-    50%{opacity:1; transform: scale(1) }
-    to{opacity:0; transform: scale(0) }
+    0%{opacity:0;transform:scale(0) }
+    15%{opacity:1; transform: scale(1) }
+    100%{opacity:0; transform: scale(0) }
 }
 @media screen and (max-width:860px){
     .completeFormMessage{
         top:45%;
+    }
+    .completeFormMessage2{
+        top:65%;
+        width:100%;
+        left:0%;
     }
 }
 @media screen and (max-width:600px){
     .completeFormMessage{
         top:55%;
         width:100%;
+        
+    }
+    .completeFormMessage2{
+        top:75%;
+        width:100%;
+        left:0%;
     }
 }
 

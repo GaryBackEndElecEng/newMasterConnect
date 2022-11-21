@@ -5,7 +5,7 @@ from unittest.util import strclass
 from django.shortcuts import render,get_object_or_404,redirect
 from django.http import Http404
 from django.urls import path
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpRequest
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
@@ -20,6 +20,7 @@ from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoi
 from api.models import Region
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.sites.models import Site
 from django.conf import settings
 from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
@@ -233,7 +234,7 @@ class UserAccountComplete(APIView):
                 userAccount.address=address
                 userAccount.country=country
                 userAccount.provState=provState
-                userAccount.postal=postal
+                userAccount.postal=postal.upper()
                 userAccount.website=website
                 userAccount.DNS=DNS
                 userAccount.industry=industry
@@ -515,6 +516,7 @@ class Payment(APIView):
         # print("numPayment",numPayment)
         # id=self.kwargs["user_id"] # does this given http://addres/id
         # print("user_id",user_id,totalMonthly,total,"numPayment",numPayment)
+        # print("HTTPREQUEST.GET_HOST",request.get_host())
         user=User.objects.get(id=user_id)
         userAccount=UserAccount.objects.filter(user=user).first()
         getInvoice= Invoice.objects.filter(id=userAccount.invoice.id).first()
@@ -552,9 +554,10 @@ class StripePaymentFromClient(APIView):
         CORS_ALLOW_METHODS=list(default_methods) + ["GET"]
         permission_classes=[permissions.AllowAny]
         stripe.api_key = settings.STRIPE_SECRET_KEY
+
         def post(self,request,**kwargs):
             user_id=kwargs.get("user_id")
-            frontEnd= settings.SITE_URL
+            frontEnd=request.build_absolute_uri().split("/api/")[0]
             # id=self.kwargs["user_id"] # does this given http://addres/id
             print("user_id",user_id)
             user=User.objects.get(id=user_id)

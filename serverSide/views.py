@@ -27,10 +27,15 @@ class Assets(View):
 
 class SiteMap_(Sitemap):
     
-    sites=Site.objects.all()
-    for site in sites:
-        if(site.domain == "www.master-connect.ca"):
-            settings.SITE_ID=int(site.id)
+    def site_url(self):
+        sites=Site.objects.all()
+        for site in sites:
+            if(site.domain == "www.master-connect.ca"):
+                settings.SITE_ID=int(site.id)
+            elif(site.domain=="newmasterconnect.herokuapp.com"):
+                settings.SITE_ID=int(site.id)
+
+
     def items(self):
         return SiteMap.objects.all()
 
@@ -48,10 +53,14 @@ class SiteMap_(Sitemap):
 
 class SiteMap_mastercom(Sitemap):
     
-    sites=Site.objects.all()
-    for site in sites:
-        if(site.domain == "www.master-connect.com"):
-            settings.SITE_ID=int(site.id)
+    def site_url(self):
+        sites=Site.objects.all()
+        for site in sites:
+            if(site.domain == "www.master-connect.com"):
+                settings.SITE_ID=int(site.id)
+            elif(site.domain=="newmasterconnect.herokuapp.com"):
+                settings.SITE_ID=int(site.id)
+
     def items(self):
         return SiteMap.objects.all()
 
@@ -69,10 +78,14 @@ class SiteMap_mastercom(Sitemap):
 
 class SiteMap_masterconnect(Sitemap):
     
-    sites=Site.objects.all()
-    for site in sites:
-        if(site.domain == "www.masterconnect.ca"):
-            settings.SITE_ID=int(site.id)
+    def site_url(self):
+        sites=Site.objects.all()
+        for site in sites:
+            if(site.domain == "www.masterconnect.ca"):
+                settings.SITE_ID=int(site.id)
+            elif(site.domain=="newmasterconnect.herokuapp.com"):
+                settings.SITE_ID=int(site.id)
+
     def items(self):
         return SiteMap.objects.all()
 
