@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.messages',
     'django.contrib.sites',
+    "django.contrib.sitemaps",
     'rest_framework_simplejwt.token_blacklist', # adding this requires migrations
     'django.contrib.contenttypes',
     "ckeditor",'ckeditor_uploader',
@@ -306,7 +307,7 @@ STRIPE_PUBLIC_KEY = os.environ.get("NEW_STRIPE_PUBLIC_TEST_KEY")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY","sk_test_51KXocrJGIzNDb1wRh4m0Ga1rQ42QpqgEJEv0a0RUuuXsKnJePGHkuXdvUVCydl2N1tcjJdBRy0eVyJ0YTLC74fjQ006Y0wzBMC")
 STRIPE_PUBLIC_KEY =os.environ.get("STRIPE_PUBLIC_KEY","pk_test_51KXocrJGIzNDb1wReap8jX29ZizdYG8s06oxnGIp34OfgfMEBkWc3H0KOXptUvZIysDhUxFfsb37n7LPAgDZY6Of001yjIplsk")
 
-SITE_URL="https://newmasterconnect.herokuapp.com"
+SITE_URL="https://www.master-connect.ca"
 #--////////////--------------STRIPE--------------------////////////////////////#
 
 
