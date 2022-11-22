@@ -50,7 +50,7 @@ const MyAccount = () => {
     if (usersExtraInvoice.loaded && usersExtraInvoice.data.paid) {
       setExtraInvoice(usersExtraInvoice.data)
     }
-  }, [usersInvoice.loaded,usersPostInvoice.loaded,usersInvoice.data,usersPostInvoice.data]);
+  }, [usersInvoice.loaded,usersPostInvoice.loaded,usersInvoice.data,usersPostInvoice.data,usersExtraInvoice.data,usersExtraInvoice.loaded]);
 
   
   useEffect(() => {

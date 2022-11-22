@@ -47,6 +47,7 @@ class Service(models.Model):
 class PostService(models.Model):
     name=models.CharField(max_length=150,blank=True)
     priceCatelog=models.ManyToManyField(PriceCatelog,related_name="postService",blank=True)
+    services=models.ManyToManyField(Service,related_name="dependantServices",blank=True)
     price=models.IntegerField(blank=True)
     monthly=models.IntegerField(blank=True,default=1)
     summary=models.TextField(blank=True,null=True)

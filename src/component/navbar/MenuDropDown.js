@@ -22,8 +22,8 @@ const MenuDropDown = () => {
   const {setChangePage,setPage,setZIndex,dropDown}=useContext(GeneralContext);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [getWidth,setGetWidth]=useState(200);
-  const [getHeight,setGetHeight]=useState(430);
+  const [getWidth,setGetWidth]=useState(260);
+  const [getHeight,setGetHeight]=useState(630);
   const anchorRef = useRef(null);
   const MyDropDown=useRef(null);
   const dropDownArea=useRef(null);

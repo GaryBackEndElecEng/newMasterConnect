@@ -32,6 +32,7 @@ urlpatterns=[
     path('invoice/',views.getUserInvoiceAccount.as_view(),name="getting_Payment-get"),
     path('post_invoice/',views.ClickCheckout.as_view(),name="checkingout-get"),
     path('getInfoSession/',views.GetSessionInfo.as_view(),name="getting_Payment-get"),
+    path('getPostBareServices/',views.GetPostServices.as_view(),name="getPostBareServices-get"),
     path('getPostInfoSession/',views.GetPostSessionInfo.as_view(),name="getting_post_Payment-get"),
     path('getExtraInfoSession/',views.GetExtraSessionInfo.as_view(),name="getting_extra_Payment-post"),
     path('getPackages/',views.PackageViewList.as_view(),name="getting_Packages-get"),

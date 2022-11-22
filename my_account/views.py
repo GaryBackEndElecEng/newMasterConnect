@@ -26,7 +26,7 @@ from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from rest_framework.decorators import api_view
-from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer)
+from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer)
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -858,6 +858,18 @@ class GetExtraServices(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response({"error":"Table is empty","status":status.HTTP_303_SEE_OTHER})
+
+class GetPostServices(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes=[AllowAny]
+    def get(self,request,format=None):
+        postServs=PostService.objects.all()
+        if postServs:
+            serializer=PostServiceCoreSerializer(postServs,many=True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response({"error":"Table is empty","status":status.HTTP_303_SEE_OTHER})
+
 
 class PostExtraService(APIView):
     authentication_classes = [authentication.TokenAuthentication]

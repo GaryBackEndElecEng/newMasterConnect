@@ -10,6 +10,7 @@ import SummaryDesc from './SummaryDesc';
 import AddIcon from '@mui/icons-material/Add';
 import apiProtect from '../axios/apiProtect';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { useEffect } from 'react';
 
 
 const PostInfo = styled(Container)`
@@ -42,7 +43,25 @@ const Services = () => {
     const image = extraImages.loaded ? extraImages.data[1].image : null;
     const getRemainderSvc=localStorage.getItem("remainderSvc") ? JSON.parse(localStorage.getItem("remainderSvc")):(postService.loaded ? postService.data :false);
 
-  
+  useEffect(()=>{
+    let arr=[];
+    let count=0;
+    if( postService.loaded && usersPostService.loaded){
+        arr=postService.data;
+        arr.forEach((service,index)=>{
+            usersPostService.data.forEach((usersServ,index2)=>{
+                if(parseInt(usersServ.id)===parseInt(service.id)){
+                    arr.splice(index,1);
+                    count++;
+                   
+                }
+            });
+        });
+        localStorage.setItem("remainderSvc",JSON.stringify(arr));
+        localStorage.setItem("usersPostService",JSON.stringify(usersPostService.data))
+        setRemainderSvc({loaded:true,data:arr});
+    }
+  },[postService.loaded,usersPostService.loaded]);
 
 
     const handleAddToBasket= (e,id)=>{
@@ -96,7 +115,7 @@ const Services = () => {
         <Typography component="h1" variant="h4" sx={{marginTop:"2rem"}}> Remaining Svc(s)</Typography>
         {getRemainderSvc&& getRemainderSvc.map(obj=>(
         <Grid item xs={12} md={6} key={obj.id}>
-                <Card elevation={20} key={obj.id} sx={{ position: "relative", margin: "1rem auto", padding: "1rem" }} spacing={{ xs: 1, md: 2 }}
+                <Card elevation={20}  sx={{ position: "relative", margin: "1rem auto", padding: "1rem" }} spacing={{ xs: 1, md: 2 }}
                            
                             >
                                 <CardMedia component="img" variant="rounded" src={image} height="150px" />

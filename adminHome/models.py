@@ -28,34 +28,38 @@ class SumInvoice(models.Model):
 class ServiceTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
     user_id=models.IntegerField(blank=True,null=True)
+    username=models.CharField(max_length=100,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):
-        return self.name
+        return f'{self.name}-{self.username}'
 
 class PostServiceTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
     user_id=models.IntegerField(blank=True,null=True)
+    username=models.CharField(max_length=100,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):
-        return self.name
+        return f'{self.name}-{self.username}'
 
 class ExtraServiceTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
     user_id=models.IntegerField(blank=True,null=True)
+    username=models.CharField(max_length=100,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):
-        return self.name
+        return f'{self.name}-{self.username}'
 
 class ProductTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
     user_id=models.IntegerField(blank=True,null=True)
+    username=models.CharField(max_length=100,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):
-        return self.name
+        return f'{self.name}-{self.username}'
 
 class TaskTracker(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)

@@ -5,7 +5,7 @@ TODO
 -Do a Restaurant design
 -add sitemap to service (dynamic/static)
 -Services: add # pages ( calculate a reduce % based on front page),
-
+-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 -When they send a quest for a quote, send them a link of the the calculator.
 - add how many effects do they want per page.( PY- calculate the effects cost per page using another table)
 - add page addition cost and add how many pages in calculator.

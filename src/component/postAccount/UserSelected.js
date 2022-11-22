@@ -37,7 +37,6 @@ const UserSelected = () => {
     const {setUserAccount,usersPostService,setUsersPostService,setUsersPostInvoice}=useContext(TokenAccessContext);
     const {user_id,loggedIn}=useContext(TokenAccessContext);
     const [remaindingSvc,setRemaindingSvc]=useState({loaded:false,data:[]})
-    const [getUsersService1,setGetUsersService1]=useState({loaded:false,data:[]})
     const image = extraImages.loaded ? extraImages.data[2].image : null;
     const getUsersService= localStorage.getItem("usersPostService") ? JSON.parse(localStorage.getItem("usersPostService")):(usersPostService.loaded ? usersPostService.data :false);
     
@@ -52,7 +51,7 @@ const UserSelected = () => {
            
         }
        
-    },[usersPostService.loaded,getUsersService,usersPostService.data,setUsersPostService]);
+    },[]);
 
     const handleDeleteFromBasket = (e,id)=>{
         e.preventDefault();
@@ -69,7 +68,7 @@ const UserSelected = () => {
                     let remainingUserServices=usersPostService.data.filter(obj=>(parseInt(obj.id)!==id))
                     let remainder=[...getRemainder,selectedService[0]]
                     setUsersPostService({loaded:true,data:remainingUserServices})
-                setGetUsersService1({loaded:true,data:remainingUserServices})
+               
                 
                 setRemaindingSvc({loaded:true,data:remainder})
                 localStorage.setItem("usersPostService",JSON.stringify(remainingUserServices))

@@ -958,4 +958,4 @@ def site_url():
                     settings.SITE_URL="http://localhost:8000"
                     return {"SITE_URL":"http://localhost:8000"}
 
-print(site_url())
+# print(site_url())

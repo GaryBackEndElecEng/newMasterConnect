@@ -1,6 +1,7 @@
 import React, { useContext, useEffect,  } from 'react'
 
 import { GeneralContext } from '../../context/GeneralContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
 import {  Stack, Container,} from '@mui/material';
 // import styles from './postAccount.module.css';
@@ -26,6 +27,7 @@ box-shadow:1px 2px 13px 8px ${({ color }) => color};
 
 const PostAccount = () => {
     const theme = useTheme();
+    const {usersPostService}=useContext(TokenAccessContext);
     const { staticImage, setStyleName, setTitle, } = useContext(GeneralContext);
     const coverpage = `${staticImage}/homeBg3.png`;
 
@@ -53,7 +55,7 @@ const PostAccount = () => {
                     <Particulars />
                 </Container>
             </MainPostAccount>
-            <Container maxWidth={"lg"} sx={{position:"relative"}}>
+            <Container maxWidth={"xl"} sx={{position:"relative"}}>
                 <Stack direction={{xs:"column",md:"row"}} spacing={{ xs: 1,md:2, lg: 2 }}
                 sx={{alignItems:"center",justifyContent:"center"}}
                 >

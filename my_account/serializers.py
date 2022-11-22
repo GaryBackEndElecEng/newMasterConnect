@@ -229,3 +229,9 @@ class UserCancelledCount(serializers.ModelSerializer):
     class Meta:
         model=UserAccount
         fields=("id","canceled","canceledCount")
+
+class PostServiceCoreSerializer(serializers.ModelSerializer):
+    services=ServiceSerializer(many=True,read_only=True)
+    class Meta:
+        model=PostService
+        fields="__all__"

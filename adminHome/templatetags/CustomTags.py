@@ -18,7 +18,7 @@ def prodTrackerTask(userAccount,id):
     if created:
         taskTracker.save()
     if user_id:
-        prodTask, created=ProductTaskTracker.objects.get_or_create(Id=product.id,name=product.name,user_id=user_id)
+        prodTask, created=ProductTaskTracker.objects.get_or_create(Id=product.id,name=product.name,user_id=user_id,username=userAccount.user.username)
         if created:
             prodTask.save()
             taskTracker.product.add(prodTask)
@@ -28,12 +28,13 @@ def prodTrackerTask(userAccount,id):
 @register.filter(name="servTrackerTask")
 def servTrackerTask(userAccount,id):
     user_id=userAccount.user.id
+    user=User.objects.get(id=user_id)
     service=Service.objects.get(id=id)
-    taskTracker,created=TaskTracker.objects.get_or_create(user=userAccount.user)
+    taskTracker,created=TaskTracker.objects.get_or_create(user=user)
     if created:
         taskTracker.save()
     if user_id:
-        servTask, created=ServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id)
+        servTask, created=ServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id,username=user.username)
         if created:
             servTask.save()
             taskTracker.service.add(servTask)
@@ -43,12 +44,13 @@ def servTrackerTask(userAccount,id):
 @register.filter(name="postServTrackerTask")
 def postServTrackerTask(userAccount,id):
     user_id=userAccount.user.id
+    user=User.objects.get(id=user_id)
     service=PostService.objects.get(id=id)
-    taskTracker,created=TaskTracker.objects.get_or_create(user=userAccount.user)
+    taskTracker,created=TaskTracker.objects.get_or_create(user=user)
     if created:
         taskTracker.save()
     if user_id:
-        servTask, created=PostServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id)
+        servTask, created=PostServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id,username=user.username)
         if created:
             servTask.save()
             taskTracker.postService.add(servTask)
@@ -58,12 +60,13 @@ def postServTrackerTask(userAccount,id):
 @register.filter(name="extraServTrackerTask")
 def extraServTrackerTask(userAccount,id):
     user_id=userAccount.user.id
+    user=User.objects.get(id=user_id)
     service=ExtraService.objects.get(id=id)
-    taskTracker,created=TaskTracker.objects.get_or_create(user=userAccount.user)
+    taskTracker,created=TaskTracker.objects.get_or_create(user=user)
     if created:
         taskTracker.save()
     if user_id:
-        servTask, created=ExtraServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id)
+        servTask, created=ExtraServiceTaskTracker.objects.get_or_create(Id=service.id,name=service.name,user_id=user_id,username=user.username)
         if created:
             servTask.save()
             taskTracker.extraService.add(servTask)
