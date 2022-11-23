@@ -22,6 +22,7 @@ import CalculateBanner from './CalculateBanner';
 import HomeHelmet from './HomeHelmet';
 import HomeHelmet2 from './HomeHelmet2';
 import ShowGoToMyAccount from './ShowGoToMyAccount';
+import BioBanner from './BioBanner';
 
 
 
@@ -78,6 +79,7 @@ const Home = () => {
     const [profileHelmet,setProfileHelmet]=useState({});
     const [generalInfoHelmet,setGeneralInfoHelmet]=useState({});
     const[turnOnWeDo,setTurnONWeDo]=useState(false);
+    const[activate,setActivate]=useState(false);
     // const homeHeight = removeBlock ? 375 : null;
    
     const homeBg2 = `${staticImage}/homeBg3.png`;
@@ -87,13 +89,19 @@ const Home = () => {
         entries.forEach((entry,index)=>{
             if(entry.isIntersecting){
                 setTurnONWeDo(true)
-                
-            }
+                setActivate(true);
+            }else{setActivate(false);}
         },{threshold:1});
 
     })
     const handleRef=(e)=>{
         if(e){
+            observers.observe(e)
+        }
+    }
+    const handleRef2=(e)=>{
+        if(e){
+           
             observers.observe(e)
         }
     }
@@ -166,7 +174,7 @@ const Home = () => {
 
             <MainContainer
                 className={`container-fluid ${Styles.mainContainerStyle}`}
-                bg={theme.palette.home.light2}
+                bg={"white"}
                 // bgUrl1={homeBg2}
                 style={{ marginTop:{md: "2rem",xs:"4.5rem"}, }}
 
@@ -219,7 +227,9 @@ const Home = () => {
                 <MiddleBanner bg={homeBg2} />
                 <CalculateBanner/>
                     <ArticleBanner/>
-
+                    <div ref={(e)=>handleRef2(e)}>
+                    {activate && <BioBanner activate={activate} />}
+                    </div>
 
             </MainContainer>
 

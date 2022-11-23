@@ -2,9 +2,9 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import styles from './calculate.module.css';
 import styled from 'styled-components';
-import { Box, Container,Stack, Typography } from '@mui/material';
+import { Box, Container,Stack, Typography,Paper } from '@mui/material';
 
-const MainCoverPage = styled(Box)`
+const MainCoverPage = styled(Paper)`
 margin:auto;
 margin-top:-20px;
 width:100vw;
@@ -60,7 +60,9 @@ const CoverPage = () => {
     const coffee = "https://new-master.s3.ca-central-1.amazonaws.com/static/images/coffee1.JPG";
     return (
         <MainCoverPage
+        component="div"
             bg_image={coffee}
+           elevation={10}
         >
             <SlideInContainer maxWidth={"md"}>
                 <Typography component="h1" variant="h4" sx={{margin:"0.5rem auto"}}>Welcome to the Calculator</Typography>

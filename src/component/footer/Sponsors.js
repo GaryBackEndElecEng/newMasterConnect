@@ -37,7 +37,7 @@ const Sponsors = () => {
     }
 
     return (
-        <CustomContainer bg={theme.palette.common.light}>
+        <CustomContainer bg={"white"}>
             {getSponsor && <Typography component="h1" variant="h3"
             sx={{width:"100%", textAlign:"center",margin:"1rem auto",
             background:theme.palette.splash,boxShadow:"1px 1px 8px 10px white"

@@ -47,15 +47,15 @@ const PageRatings = () => {
 
     return (
         <MainPageRating 
-        bg={theme.palette.common.fadeCharcoal3}
+        bg={theme.palette.common.lighter}
         >
-            <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto",color:"white"}}>Client comments</Typography>
+            <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto",color:"black",}}>Client comments</Typography>
             <Grid container spacing={{ xs: 0, sm: 1, md: 2 }}
-            sx={{maxHeight:{md:"30vh",xs:"50vh"},overflowY:"scroll"}}
+            sx={{maxHeight:{md:"40vh",xs:"50vh"},overflowY:"scroll",borderTop:"1px solid blue"}}
             >
                 {filterRating && filterRating.map((obj, index) => (
                     <Grid item xs={12} sm={4} md={2} key={`${obj.id}-${index}`} sx={{padding:"1rem"}}>
-                        <Card elevation={10} sx={{padding:{sm:"1rem",xs:"1.5rem"}, borderRadius:"10%",backgroundColor:theme.palette.common.lighter}}>
+                        <Card elevation={10} sx={{padding:{sm:"1rem",xs:"1.5rem"}, borderRadius:"10%",backgroundColor:"white"}}>
                             <Typography component="h1" variant="h5" sx={{textAlign:"center"}}>
                                 {obj.name}
                             </Typography>

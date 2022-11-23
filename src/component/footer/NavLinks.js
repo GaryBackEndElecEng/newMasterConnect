@@ -34,12 +34,12 @@ const NavLinks = () => {
                  Links
             </Typography>
             <Paper variant="outlined" component="div" 
-            sx={{ margin: "auto", width: "100%", textAlign: "center", padding: "0.5rem",display:"flex",flexDirection:"column",justifyConetnt:"center",alignItems:"center",background:theme.palette.footer.mediumLight, }}>
+            sx={{ margin: "auto", width: "100%", textAlign: "center", padding: "0.5rem",display:"flex",flexDirection:"column",justifyConetnt:"center",alignItems:"center",background:"white", }}>
                 <Grid container spacing={0} sx={{ margin: "auto",textAlign:"center",width:"100%" }}>
                     
                         {getFooterLinks && getFooterLinks.map(obj => (
                             <Grid item xs={4} md={2} sx={{margin:"1rem auto",display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column"}}key={obj.id} >
-                            <IconButton color={'secondary'} onClick={(e) => handleLink(e, obj.link)} key={obj.id} sx={{  width: "100%", color: theme.palette.footer.dark, '&:hover': { cursor: "pointer",background:"black",color:theme.palette.footer.light},margin:"auto",fontSize:{xs:"18px",sm:"16px"} ,borderRadius:"0%"}}>
+                            <IconButton color={'secondary'} onClick={(e) => handleLink(e, obj.link)} key={obj.id} sx={{  width: "100%", color: theme.palette.footer.dark, '&:hover': { cursor: "pointer",background:"black",color:theme.palette.footer.lighter},margin:"auto",fontSize:{xs:"18px",sm:"16px"} ,borderRadius:"0%"}}>
                                 <LabelImportantIcon sx={{mr:2}}/>
                                {obj.title} 
                                

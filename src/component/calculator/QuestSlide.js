@@ -5,9 +5,10 @@ import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import styles from './calculate.module.css';
 import { Stack, Typography, Container, Fab, FormLabel, FormControl, InputLabel, Select, MenuItem, Input, Box, Paper } from '@mui/material';
-// import questArrayFalse from './questArrayFalse';
+import questArrayFalse from './questArrayFalse';
 // import questArrayTrue from './questArrayTrue';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+
 
 const CustFormLabel = styled(FormLabel)`
 display:flex;
@@ -29,22 +30,22 @@ height:auto;
 color:white;
 text-align:center;
 padding:2rem;
-transform:translateX(${({ next }) => next * 100.85 * -1}%);
+transform:translateX(calc(${({ next }) =>( next * 100 * -1)}% + ${({ next }) => (next * -8)}px));
 transition: transform 1s ease-in-out;
 @media screen and (max-width:900px){
-    transform:translateX(${({ next }) => next * 101.05 * -1}%); 
-    width:101.15%;
+    transform:translateX(calc(${({ next }) =>( next * 100 * -1)}% + ${({ next }) => (next*-1)}%)); 
+    width:100%;
 }
 @media screen and (max-width:600px){
-    transform:translateX(${({ next }) => next * 102 * -1}%); 
+    transform:translateX(calc(${({ next }) =>( next * 100 * -1)}% + ${({ next }) => (next * -8)}px)); 
     width:102%;
 }
 `;
 const CustStack = styled(Stack)`
-display:flex;
+display:inline-flex;
 width:calc(${({ cust_width }) => (cust_width * (100.0))}% + ${({cust_width})=>(cust_width * 1)}rem) ;
 justify-content:flex-start;
-align-items:center;
+align-items:flex-start;
 flex-direction:row;
 flex-wrap:nowrap;
 min-height:30vh;
@@ -73,21 +74,21 @@ width:100%;
 height:auto;
 color:white;
 text-align:center;
-padding:3rem;
-transform:translateX(${({ next }) => next * 102.85 * -1}%);
+padding:2rem;
+transform:translateX(calc(${({ next }) =>( next * 100 * -1)}% + ${({ next }) => (next * -8)}px));
 transition: transform 1s ease-in-out;
 
 @media screen and (max-width:900px){
-    transform:translateX(${({ next }) => next * 101.3 * -1}%);
-    width:101.7%; 
+    transform:translateX(calc(${({ next }) =>( ((next)) * 100 * -1)}% + ${({ next }) => (next*-3)}%));
+    width:100%; 
 }
 @media screen and (max-width:600px){
-    transform:translateX(${({ next }) => next * 105.9 * -1}%); 
-    width:105.9%;
+    transform:translateX(calc(${({ next }) =>( next * 100 * -1)}% + ${({ next }) => (next * -6)}%)); 
+    width:100%;
 }
 `;
 const CustStack1 = styled(Stack)`
-display:flex;
+display:inline-flex;
 width:calc(${({ cust_width }) => (cust_width * (100.0))}% + ${({cust_width})=>(cust_width * 1)}rem);
 justify-content:flex-start;
 align-items:center;
@@ -124,17 +125,22 @@ const QuestSlide = () => {
     const [yesnoLength, setYesnoLength] = useState(0);
     const [yesno1, setYesno1] = useState({loaded:false,data:[]});
     const [fillOut, setFillOut] = useState({loaded:false,data:[]});
-
+    // console.log("next",next)
     useEffect(() => {
-        let filloutObj = (userQuestionArray.loaded && userQuestionArray.data) ? userQuestionArray.data.filter(obj=>(JSON.parse(obj.yesno)===false)):null;
-        let yesnoObj = (userQuestionArray.loaded && userQuestionArray.data) ? userQuestionArray.data.filter(obj=>(JSON.parse(obj.yesno)===true)):null;
-        if(filloutObj && yesnoObj){
-        setYesnoLength(yesnoObj.length);
-        setFillOutLength(filloutObj.length);
-        setYesno1({loaded:true,data:yesnoObj});
-        setFillOut({loaded:true,data:filloutObj});
-        }
-    }, [userQuestionArray,setYesno1,setFillOut]);
+        if(userQuestionArray.loaded && userQuestionArray.data){
+            let yesnoArr=[],fillArr=[];
+            userQuestionArray.data.forEach((obj,index)=>{
+                if(JSON.parse(obj.yesno)===true){
+                    yesnoArr.push(obj)
+                }else{fillArr.push(obj)}
+            });
+        setYesnoLength(yesnoArr.length);
+        setFillOutLength(fillArr.length);
+        setYesno1({loaded:true,data:yesnoArr});
+        setFillOut({loaded:true,data:fillArr});
+        
+    }
+    }, [userQuestionArray,setYesno1,setFillOut,setYesnoLength]);
 
     const handleNextYesNo = (e, id) => {
         e.preventDefault();
@@ -155,7 +161,6 @@ const QuestSlide = () => {
     }
 
     const handleNextFalse = (e, id) => {
-        let b=id
         e.preventDefault();
         let lastLength = userSelectionArray.length
         setUserSelectionArray([...userSelectionArray, userSelection]);
@@ -183,20 +188,20 @@ const QuestSlide = () => {
         <Box sx={{ margin: "2rem auto" }}>
             {!answeredYesno ?
                 <Container maxWidth="md" sx={{ overflowX: "hidden", overflowY: "hidden", position: "relative", minHeight: { sm: "30vh" },
+                boxShadow:`1px 1px 3px 8px ${theme.palette.common.blueGreyLight}`,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"
                 }} >
-                    <Paper elevation={20} >
-                    <CustStack direction="row" spacing={{xs:1,sm:1}} cust_width={yesnoLength} sx={{background:theme.palette.common.fadeCharcoal3}} >
+                    
+                    <CustStack direction="row" spacing={{xs:1,sm:1}} cust_width={yesnoLength} sx={{background:theme.palette.common.fadeCharcoal3,display:"inline-flex",}} >
 
-                        {(yesno1.loaded && yesno1.data) && yesno1.data.map((obj, index) => (
+                        {( yesno1.data && yesno1.loaded) && yesno1.data.map((obj, index) => (
                             <CustStackSmall direction="column"
-                                className={styles.question}
                                 key={`${obj.id}-QA-${index}`}
-                                next={next}
+                                next={next-(yesnoLength-1)/2}
                                 sx={{color:"white"}}
                             >
-                                <Typography component="h1" variant="h4" sx={{margin:"1rem auto"}}>Yes No Question</Typography>
+                                <Typography component="h1" variant="h5" sx={{margin:"1rem auto",fontSize:{sm:"200%"}}}>{obj.id}.)Yes No Question</Typography>
                                 <Typography component="h1" variant="h6" sx={{ width: "100%",margin:"1rem auto" }}>{obj.Q}</Typography>
-                                <CustFormLabel sx={{color:"white"}}>
+                                <CustFormLabel sx={{color:"white",margin:"1rem auto"}}>
 
                                     <FormControl fullWidth sx={{ width: "100%",color:"white" }}>
 
@@ -232,7 +237,7 @@ const QuestSlide = () => {
 
 
                     </CustStack>
-                    </Paper>
+                    
                 </Container>
 
                 :
@@ -255,7 +260,7 @@ const QuestSlide = () => {
 
                                 <Typography component="h1" variant="h6">Fill in Question</Typography>
                                 <Typography component="h1" variant="h6" sx={{ width: "100%" }}>{obj.Q}</Typography>
-                                <CustFormLabel sx={{color:"white"}}>
+                                <CustFormLabel sx={{color:"white",margin:"1rem auto"}}>
 
                                     <FormControl fullWidth sx={{ width: "100%",color:"white" }}>
 

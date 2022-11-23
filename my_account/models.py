@@ -291,6 +291,8 @@ class Calculator(models.Model):
     ans=ArrayField(models.CharField(max_length=300,default="no"),default=list)
     dateNow= models.DateTimeField(default=datetime.now)
     date=models.DateField(auto_now_add=True)
+    class Meta:
+        ordering =['id']
     def __str__(self):
         return f'{self.Q}-{self.yesno}'
 

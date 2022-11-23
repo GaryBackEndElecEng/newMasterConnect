@@ -57,7 +57,7 @@ const Calculate = () => {
 
   return (
     <MainCalculator  ref={MyRef}
-    bg={theme.palette.home.light}
+    bg={theme.palette.home.lighter}
     >
         <RegisterPage/>
         <GetRegisterPages/>
