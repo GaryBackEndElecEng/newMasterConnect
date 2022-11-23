@@ -807,7 +807,7 @@ class StripePaymentPostBuild(APIView):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         def post(self,request,**kwargs):
             user_id=kwargs.get("user_id")
-            frontEnd= settings.SITE_URL
+            frontEnd= frontEnd=request.build_absolute_uri().split("/api/")[0]
             # print("user_id",user_id)
             user=User.objects.get(id=user_id)
             userAccount=UserAccount.objects.filter(user=user).first()
@@ -946,7 +946,7 @@ class AdditionalServiceCheckout(APIView):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         def post(self,request,**kwargs):
             user_id=kwargs.get("user_id")
-            frontEnd= settings.SITE_URL
+            frontEnd=request.build_absolute_uri().split("/api/")[0]
             # id=self.kwargs["user_id"] # does this given http://addres/id
             print("user_id",user_id)
             user=User.objects.get(id=user_id)

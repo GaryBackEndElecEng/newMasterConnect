@@ -221,7 +221,7 @@ margin-top:-2px;
 
 const Design3 = () => {
     const {getProductList}=useContext(PriceContext);
-    const { setTitle, setStyleName,staticImage, workArr,setChangePage,average } = useContext(GeneralContext);
+    const { setTitle, setStyleName,staticImage, workArr,setChangePage,average,conical } = useContext(GeneralContext);
     const [showPara, setShowPara] = useState('none'); 
     const [showPurcahseBtn,setShowPurchaseBtn]=useState(false);
     const [startStatement,setStartStatement]=useState(false);
@@ -289,7 +289,7 @@ const Design3 = () => {
         <GetRegisterPages/>
                 <RegisterPage />
                 <PageRating/>
-                <Design3Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} />
+                <Design3Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} conical={conical.loaded ? conical.data:""} />
             <ContainerFluidBgImage bgImage={earthPic} >
                 
                 <Stack direction="column" sx={{ marginTop: "0px", width: "100%",marginBottom:"1rem" }}>

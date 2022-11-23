@@ -37,7 +37,7 @@ animation: smoothIn 1s ease-in-out;
 
 const Design9 = () => {
   const theme = useTheme();
-  const { setTitle, setStyleName, setChangePage, staticImage,average } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setChangePage, staticImage,average,conical } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
   const [frenchEnglish, setFrenchEnglish] = useState({ language: thisArray });
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
@@ -103,7 +103,7 @@ const Design9 = () => {
     <RegisterPage/>
     <PageRating/>
     <CustomBox bg={theme.palette.common.lighter}>
-      <Design9Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} />
+      <Design9Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} conical={conical.loaded ? conical.data:""} />
       <Stack direction="row"
         sx={{ justifyContent: "center", alignItems: "center", position: "absolute", right: "7%", top: { md: "3.5%", xs: "0%" }, zIndex: "1000", background: theme.palette.common.fadeCharcoal, padding: { md: "0.5rem", xs: "0.25rem" }, color: "white" }}
       >

@@ -9,6 +9,7 @@ app_name="api"
 
 urlpatterns=[
     path('',views.ServiceList.as_view(),name="ServiceList-view"),
+    path('conical/',views.GetConicalAddress.as_view(),name="conical-view"),
     path('category/',views.categoryList.as_view(),name="getCategories"),
     path('FAQS/',views.FAQSList.as_view(),name="FAQSList-view"),
     path('about/',views.AboutList.as_view(),name="About"),

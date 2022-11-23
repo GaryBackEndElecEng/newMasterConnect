@@ -4,7 +4,7 @@ import {Helmet} from 'react-helmet';
 // import api from '../axios/api';
 
 
-const BioHelmet = ({obj,intro}) => {
+const BioHelmet = ({obj,intro,conical}) => {
   let BioJSON={}
   if(obj){
     BioJSON={
@@ -30,14 +30,15 @@ const BioHelmet = ({obj,intro}) => {
             "memberOf": "Conservative Party",
             "nationality": "White",
             "telephone": obj.cell,
-            "url": "http://www.master-connect.ca",
+            "url": `${conical}/bio`,
             "sameAs" :  obj.siteArray
         }
   }
   return (
     <Helmet>
-        <title>Design1 page </title>
+        <title>Biography</title>
         <meta name="description" content={intro.content + " " + intro.content1 + " " + intro.content2 }/>
+        <link rel="canonical" href={`${conical}/bio`}/>
         <script type="application/ld+json">
           {JSON.stringify(BioJSON)}
         </script>

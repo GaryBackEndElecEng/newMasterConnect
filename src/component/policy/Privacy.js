@@ -26,7 +26,7 @@ margin-top:-50px;
 
 `;
 const Privacy = () => {
-    const {privacy,setTitle,setStyleName}=useContext(GeneralContext);
+    const {privacy,setTitle,setStyleName,conical}=useContext(GeneralContext);
 
     useEffect(()=>{
         if(window.scrollY){
@@ -38,7 +38,7 @@ const Privacy = () => {
     
   return (
     <MainPrivacy>
-        <PolicyHelmet/>
+        <PolicyHelmet conical={conical.loaded ? conical.data:""}/>
         <Paper elevation={10}
                 sx={{ margin: { xs: "auto", sm: "auto" }, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", padding: { xs: "0.25rem " },width:"100%", }}
             >

@@ -3,7 +3,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const BlogHelmet = ({blogBodys,keywords}) => {
+const BlogHelmet = ({blogBodys,keywords,conical}) => {
  let articleJSON=" commin soon"
   const wordCount=(phrase)=>{
     let arr=phrase.split(" ");
@@ -38,13 +38,13 @@ let wordTitle="Blog page";
                       "wordcount":[ wordCount(obj.sectionBlog[0].summary),wordCount(obj.sectionBlog[0].content),wordCount(obj.sectionBlog[0].content1),wordCount(obj.sectionBlog[0].content2)].reduce((a,b)=>(a+b),0),
                     "publisher": {
                         "@type": "Organization",
-                        "name": "Google",
+                        "name": "Master Digital connect",
                         "logo": {
                           "@type": "ImageObject",
-                          "url": "https://google.com/logo.jpg"
+                          "url": "https://new-master.s3.ca-central-1.amazonaws.com/static/profilePic1.png"
                         }
                       },
-                      "url": "http://www.example.com",
+                      "url": `${conical}/blog`,
                         "mainEntityOfPage": {
                         "@type": "WebPage",
                         "@id": "https://google.com/article"
@@ -67,6 +67,7 @@ let wordTitle="Blog page";
         <meta name="summary" content="Do you want to better your life and grow your mind?- well this place is for you!!- Truly. Dive into the unknown and intrigued ideas for the mind. Gary Wallace reveals The Best of revealing mind bending thoughts and wonderful revelations- Its Worth Your Time! "/>
         <meta name="title" content="Best Blogs for the educated and the intrigued "/>
         <meta name="keywords" content={keywords}/>
+        <link rel="canonical" href={`${conical}/blog`}/>
         <script type="application/ld+json">
           {JSON.stringify(articleJSON)}
         </script>

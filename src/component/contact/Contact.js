@@ -76,7 +76,7 @@ animation: clearIn 1s ease-in-out;
 const Contact = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { setTitle, setStyleName, turnOn, zIndex, removeText, removeApp, setRemoveApp, setCheckHeight,ourServices,staticImage} = useContext(GeneralContext);
+  const { setTitle, setStyleName, turnOn, zIndex, removeText, removeApp, setRemoveApp, setCheckHeight,ourServices,staticImage,conical,generalInfo} = useContext(GeneralContext);
   const [showService,setShowService]=useState(false);
   const [clickToAnim,setClickToAnim]=useState(false);
   const [ keywords,setKeywords]=useState(null);
@@ -136,7 +136,7 @@ const Contact = () => {
     <>
     <RegisterPage/>
     <GetRegisterPages/>
-    <ContactHelmet keywords={keywords} content={content} />
+    <ContactHelmet keywords={keywords} content={content} conical={conical.loaded ? conical.data:""} generalInfo={generalInfo} />
       {/* AUTOMATED WELCOME //HEADER */}
       {!removeApp ?
        <DivEffect

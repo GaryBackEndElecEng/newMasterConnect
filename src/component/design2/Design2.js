@@ -45,7 +45,7 @@ animation:arrear 1.5s ease-in-out;
 }
 `;
 const Design2 = () => {
-    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average } = useContext(GeneralContext);
+    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
     const theme = useTheme();
     const [showPurchaseBtn,setShowPurchaseBtn]=useState(false);
@@ -89,7 +89,7 @@ const Design2 = () => {
         <RegisterPage />
             <GetRegisterPages/>
             <PageRating/>
-            <Design2Helmet summary={summary} keywords={keywords} image={image} desc={desc} OBJ={OBJ} average={average}/>
+            <Design2Helmet summary={summary} keywords={keywords} image={image} desc={desc} OBJ={OBJ} average={average} conical={conical.loaded ? conical.data:""}/>
         <ContainerFluid >
             <Grid container spacing={0} sx={{borderBottom:"5px solid black",padding:"0px auto"}}>
 

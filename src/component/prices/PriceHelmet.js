@@ -2,10 +2,10 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage}) => {
+const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage,conical}) => {
   const convertJSON={
     "@context": "https://schema.org/",
-    "@id":"https://www.master-connect.ca/prices",
+    "@id":`${conical}/prices`,
     "@type": "Product",
     "name": "Amazing design",
     "image": image,
@@ -32,7 +32,7 @@ const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage}) =
   const convertJSON2=products.map(obj=>(
     {
       "@context": "https://schema.org/",
-      "@id":`https://www.master-connect.ca/${obj.extra_kwargs}`,
+      "@id":`${conical}/${obj.extra_kwargs}`,
       "@type": "Product",
       "name": obj.name,
       "image": `${staticImage}/${obj.imageName}`,
@@ -64,12 +64,8 @@ const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage}) =
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
         <meta name="site" content="www.master-connect.ca"/>
-        <meta name="url" content="https://www.master-connect.ca"/>
-        <meta name="url" content="https://www.masterconnect.ca"/>
-        <meta name="url" content="https://www.master-connect.com"/>
-        <link rel="canonical" href="http://www.master-connect.ca/prices" />
-        <link rel="canonical" href="http://www.masterconnect.ca/prices" />
-        <link rel="canonical" href="http://www.master-connect.com/prices" />
+        <meta name="url" content={conical}/>
+        <link rel="canonical" href={`${conical}/prices`} />
         <meta name="image" content={image}/>
         <script type="application/ld+json">{JSON.stringify(convertJSON)}</script>
         <script type="application/ld+json">{JSON.stringify(convertJSON2)}</script>

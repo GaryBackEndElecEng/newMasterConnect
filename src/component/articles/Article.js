@@ -65,7 +65,7 @@ min-height:46vh;
 const Article = () => {
   const theme = useTheme();
   // const navigate = useNavigate();
-  const { setTitle, setStyleName, staticImage} = useContext(GeneralContext);
+  const { setTitle, setStyleName, staticImage,conical} = useContext(GeneralContext);
   const [changeArticle, setChangeArticle] = useState(null);
   const [glacier, setGlacier] = useState({ loaded: false, data: [] });
   const [lightning, setLightning] = useState({ loaded: false, data: [] });
@@ -246,6 +246,7 @@ const Article = () => {
       images={images} 
       OBJs={OBJs}
       article={getTitle}
+      conical={conical.loaded ? conical.data:""}
       />
       <TopCoverPage/>
       <MainCoverPage

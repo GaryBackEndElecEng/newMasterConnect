@@ -69,7 +69,7 @@ const Design1 = () => {
   
   const theme = useTheme();
   const fade2 = 0.8
-  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average } = useContext(GeneralContext);
+  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical } = useContext(GeneralContext);
   const {getProductList}=useContext(PriceContext);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
   const image1 = "https://master-connect.s3.ca-central-1.amazonaws.com/static/pics/shortTermRental2.png";
@@ -129,7 +129,7 @@ const Design1 = () => {
       <RegisterPage />
       <GetRegisterPages/>
       <PageRating/>
-      <Design1Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average}/>
+      <Design1Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} conical={conical.loaded ? conical.data:""}/>
       <CustBoxPageCover bg={image1} sx={{ position: "relative" }}>
         
           <Grid container spacing={0}

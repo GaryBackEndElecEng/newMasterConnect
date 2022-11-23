@@ -100,4 +100,23 @@ class SiteMap_masterconnect(Sitemap):
 
     def location(self,obj):
         return obj.loc
+
+def robot(request):
+    context={"robot":
+    "User-agent: * \
+        Disallow: /cgi-bin/ \
+        Disallow: /junk/     \
+        Disallow: /MyAccount  \
+        Disallow: /MyAccount/postAccount\
+        Disallow: /MyAccount/success\
+        Disallow: /MyAccount/successPost\
+        Disallow: /MyAccount/successExtra\
+        Disallow: /adminHome/\
+        Disallow: /ckeditor/\
+        Disallow: /dj-rest-auth/\
+        sitemap:https://www.masterconnect.ca/sitemap.xml_masterconnect-ca/\
+        sitemap:https://www.master-connect.ca/sitemap.xml_master-connect-ca/\
+        sitemap:https://www.master-connect.com/sitemap.xml_master-connect-com/"
+    }
+    return HttpResponse(context["robot"])
     

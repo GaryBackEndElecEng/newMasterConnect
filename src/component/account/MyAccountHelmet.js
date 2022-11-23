@@ -3,11 +3,12 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const MyAccountHelmet = () => {
+const MyAccountHelmet = ({conical}) => {
   return (
     <Helmet>
-        <title>Design1 page </title>
-        <meta name="description" content="A Short-term Rental app for sale- automated display - out-of-This-World "/>
+        <title>My Account </title>
+        <meta name="description" content="user's account"/>
+        <link rel="canonical" href={`${conical}/MyAccount`} />
     </Helmet>
   )
 }

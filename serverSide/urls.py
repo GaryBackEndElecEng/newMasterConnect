@@ -21,8 +21,10 @@ from rest_framework_simplejwt.views import (
 from api.models import SiteMap
 
 # print([item for item in GenericSitemap(info_dict).items()])
-from .views import main,Assets,SiteMap_,SiteMap_mastercom,SiteMap_masterconnect
+from .views import main,Assets,SiteMap_,SiteMap_mastercom,SiteMap_masterconnect,robot
+from . import views
 urlpatterns = [
+    path('robots.txt',views.robot),
     path('api/token/', TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="token_refresh"),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),

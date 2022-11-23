@@ -76,7 +76,7 @@ top:5.5%;
 `;
 
 const InteriorDecorator = () => {
-    const { setTitle, setStyleName,average } = useContext(GeneralContext);
+    const { setTitle, setStyleName,average,conical } = useContext(GeneralContext);
     const {user_id}=useContext(TokenAccessContext);
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/interiorDesign`;
     const design1 = `${url}/interierDesign1.png`;
@@ -174,7 +174,7 @@ const InteriorDecorator = () => {
     return (
         <MainContainerDv
         >
-            <Design10Helmet desc={desc} keyWords={keyWords} loadArr={loadArr} average={average} />
+            <Design10Helmet desc={desc} keyWords={keyWords} loadArr={loadArr} average={average} conical={conical.loaded ? conical.data:""} />
             <RegisterPage />
             <GetRegisterPages />
             <PageRating/>

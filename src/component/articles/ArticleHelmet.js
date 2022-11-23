@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 // import { Card, CardMedia } from '@mui/material';
 
 
-const ArticleHelmet = ({ summary, desc, images, OBJs, keywords,article }) => {
+const ArticleHelmet = ({ summary, desc, images, OBJs, keywords,article,conical }) => {
   let articleJSON=[" testing"];
 
   if(OBJs.length > 0){
@@ -14,7 +14,7 @@ const ArticleHelmet = ({ summary, desc, images, OBJs, keywords,article }) => {
       "@type": "NewsArticle",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://www.master-connect.ca/articles"
+        "@id": `${conical}/articles`
       },
       "headline": obj.title,
       "image": [
@@ -42,7 +42,7 @@ const ArticleHelmet = ({ summary, desc, images, OBJs, keywords,article }) => {
       <meta name="description" content={desc} />
       <meta name="summary" content={summary} />
       <meta name="keywords" content={keywords} />
-      <link rel="canonical" href="http://www.master-connect.ca" />
+      <link rel="canonical" href={`${conical}/articles`} />
       
         <script>
           {JSON.stringify(articleJSON)}

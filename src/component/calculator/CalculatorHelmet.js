@@ -3,15 +3,16 @@ import {Helmet} from 'react-helmet';
 
 
 
-const AboutHelmet = ({categories,getGeneralInfo,conical}) => {
+const CalculatorHelmet = ({generalInfo,conical}) => {
+    let url=`${conical}/calculate`;
   let articleJSON={}
-  if(getGeneralInfo){
+  if(generalInfo){
            articleJSON={
                           "@context": "https://schema.org",
                         "@type": "Organization",
                         "name": "Master Connect",
                         "legalName" : "Digital Master Connect",
-                        "url": "http://www.master-connect.ca",
+                        "url": conical,
                         "logo": "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png",
                         "foundingDate": "2021",
                         "founders": [
@@ -25,20 +26,20 @@ const AboutHelmet = ({categories,getGeneralInfo,conical}) => {
                         } ],
                         "address": {
                         "@type": "PostalAddress",
-                        "streetAddress": getGeneralInfo.address,
-                        "addressLocality": getGeneralInfo.city,
-                        "addressRegion": getGeneralInfo.provState,
-                        "postalCode": getGeneralInfo.postal,
-                        "addressCountry": getGeneralInfo.country
+                        "streetAddress": generalInfo.address,
+                        "addressLocality": generalInfo.city,
+                        "addressRegion": generalInfo.provState,
+                        "postalCode": generalInfo.postal,
+                        "addressCountry": generalInfo.country
                         },
                         "contactPoint": {
                         "@type": "ContactPoint",
                         "contactType": "customer support",
-                        "telephone": getGeneralInfo.cell,
+                        "telephone": generalInfo.cell,
                         "email": `${conical}/contact`
                         },
                         "sameAs": [ 
-                          getGeneralInfo.siteArray
+                          generalInfo.siteArray
                         ]
             }
   }
@@ -46,9 +47,9 @@ const AboutHelmet = ({categories,getGeneralInfo,conical}) => {
     <Helmet>
         <title>About Us </title>
         <meta name="description" content="About Master-connect.All the Services you need at a very reasonable price! "/>
-        <meta name="summary" content={categories.map(obj=>(obj.content))}/>
-        <meta name="keywords" content={categories.map(obj=>(obj.subSection))}/>
-        <link rel="canonical" href={`${conical}/about`} />
+        <meta name="summary" content=" This calculates your estimate web-design cost. all you need is 5-minutes of your time."/>
+        <meta name="keywords" content="calculator,find your cost,most respectable prices, industry best,why wait, Freedom to build,gary Wallace,master-connect, web-design"/>
+        <link rel="canonical" href={url} />
         <script type="application/ld+json">
           {JSON.stringify(articleJSON)}
         </script>
@@ -57,4 +58,4 @@ const AboutHelmet = ({categories,getGeneralInfo,conical}) => {
   )
 }
 
-export default AboutHelmet
+export default CalculatorHelmet

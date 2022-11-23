@@ -9,4 +9,6 @@ Disallow: /MyAccount/successExtra
 Disallow: /adminHome/
 Disallow: /ckeditor/
 Disallow: /dj-rest-auth/
-Disallow: /accounts/
+Sitemap:https://www.masterconnect.ca/sitemap.xml_masterconnect-ca/
+Sitemap:https://www.master-connect.ca/sitemap.xml_master-connect-ca/
+sitemap:https://www.master-connect.com/sitemap.xml_master-connect-com/

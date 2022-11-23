@@ -70,7 +70,7 @@ const Home = () => {
     const theme = useTheme();
     // const navigate = useNavigate();
     // let popUpRef=useRef();
-    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed ,setChangePage,allCategory} = useContext(GeneralContext);
+    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed ,setChangePage,allCategory,conical} = useContext(GeneralContext);
     const {signout,signin,viewAccount}=useContext(TokenAccessContext);
     
     const [window600, setWindow600] = useState(false);
@@ -168,8 +168,8 @@ const Home = () => {
         <>
         <RegisterPage/>
 <GetRegisterPages/>
-<HomeHelmet profileHelmet={profileHelmet} generalInfoHelmet={getGeneralInfoHelmet}/>
-<HomeHelmet2 generalInfoHelmet={getGeneralInfoHelmet}/>
+<HomeHelmet profileHelmet={profileHelmet} generalInfoHelmet={getGeneralInfoHelmet}conical={conical.loaded ? conical.data:""}/>
+<HomeHelmet2 generalInfoHelmet={getGeneralInfoHelmet} conical={conical.loaded ? conical.data:""}/>
         <ContainerHomeFluid style={{marginTop:{xs:"3rem",md:"0px"}}}>
 
             <MainContainer

@@ -25,7 +25,7 @@ animation: clearIn 1s ease-in-out;
 const Register = () => {
     const theme = useTheme();
     const MyRef = useRef();
-    const { register, setRegister, staticImage,setRegisterConfirmed,email, setEmail,setChangePage,setTitle,setStyleName } = useContext(GeneralContext);
+    const { register, setRegister, staticImage,setRegisterConfirmed,email, setEmail,setChangePage,setTitle,setStyleName,conical } = useContext(GeneralContext);
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
     const [validPassword, setValidPassword] = useState(false);
@@ -121,7 +121,7 @@ const Register = () => {
         <RegContainer maxWidth="xl" sx={{margin:"3rem auto"}} >
             <GetRegisterPages/>
             <RegisterPage/>
-            <RegisterHelmet/>
+            <RegisterHelmet conical={conical.loaded ? conical.data:""}/>
             <Container maxWidth={"sm"}
                 sx={{
                     marginTop: "3rem",

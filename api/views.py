@@ -39,6 +39,12 @@ from django.views import View
 from django.http import HttpResponse, HttpResponseNotFound
 import os
 
+class GetConicalAddress(APIView):
+    def get(self,request,format=None):
+        frontEnd=request.build_absolute_uri().split("/api/")[0]
+        return Response(frontEnd,status=status.HTTP_200_OK)
+
+
 class Assets(View):
 
     def get(self, _request, filename):

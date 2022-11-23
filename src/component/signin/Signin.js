@@ -26,7 +26,7 @@ min-height:70vh;
 const Signin = () => {
   const theme = useTheme();
     const MyRef = useRef();
-    const { staticImage,email, setEmail,setChangePage,setTitle,setStyleName,setActivate,register,setRegister} = useContext(GeneralContext);
+    const { staticImage,email, setEmail,setChangePage,setTitle,setStyleName,setActivate,register,setRegister,conical} = useContext(GeneralContext);
     const {setLoggedIn,setSignin,setTokenIsValid,loginError,setLoginError,setSignout,setGoToSignin,setViewAccount}=useContext(TokenAccessContext)
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
@@ -181,7 +181,7 @@ const Signin = () => {
     }
     return (
         <SignInContainer maxWidth="xl" sx={{margin:"3rem auto"}} >
-            <SigninHelmet/>
+            <SigninHelmet conical={conical.loaded ? conical.data:""}/>
             <GetRegisterPages/>
             <RegisterPage/>
             <Container maxWidth={"sm"}

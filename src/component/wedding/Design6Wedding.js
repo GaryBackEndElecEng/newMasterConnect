@@ -125,7 +125,7 @@ const Design6Wedding = () => {
   const theme = useTheme();
   const flowerRef = useRef();
   const weddingTableRef = useRef();
-  const { staticImage, workArr, setTitle, setStyleName,loadProduct } = useContext(GeneralContext);
+  const { staticImage, workArr, setTitle, setStyleName,loadProduct,conical } = useContext(GeneralContext);
   const weddingSky = `${staticImage}/weddingSky.png`;
   const weddingTrees = `${staticImage}/weddingTrees.png`;
   const weddingTable = `${staticImage}/weddingTable.png`;
@@ -230,7 +230,7 @@ const Design6Wedding = () => {
   return (
     <MainWeddingContainer>
       < >
-      <WeddingHelmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} />
+      <WeddingHelmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} conical={conical.loaded ? conical.data:""} />
       <GetRegisterPages/>
         <RegisterPage />
         <PageRating/>

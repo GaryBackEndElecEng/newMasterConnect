@@ -36,14 +36,11 @@ animation: clearIn 1s ease-in-out;
 `;
 
 const Bio = () => {
-    const { loadingData, resume, setResume, setTitle, setStyleName ,setChangePage,generalInfo} = useContext(GeneralContext);
-    const MyRef = useRef();
+    const { loadingData, resume, setResume, setTitle, setStyleName ,setChangePage,generalInfo,conical} = useContext(GeneralContext);
     const theme = useTheme();
     const MainResumeRef = useRef();
-    const [showProject, setShowProject] = useState(false);
     const showBlock = !loadingData ? "block" : "none";
     const intro = resume.loaded ? resume.data.filter(obj => (obj.sectionTitle === "Intro"))[0] : "";
-    const contact = resume.loaded ? resume.data.filter(obj => (obj.title === "Contact"))[0] : "";
     const profileImg = resume.loaded ? resume.data.filter(obj => (obj.title === "Image"))[0] : "";
     const mainResume = resume.loaded ? resume.data.filter(obj => (obj.title === "Resume")) : "";
     const sidebar = resume.loaded ? resume.data.filter(obj => (obj.sectionTitle === "sidebar")).filter(obj => (obj.title !== "Image")) : [];
@@ -127,7 +124,7 @@ const Bio = () => {
 
     return (
         <BioMmain display={showBlock}>
-            <BioHelmet obj={getGeneralInfo} intro ={intro}/>
+            <BioHelmet obj={getGeneralInfo} intro ={intro} conical={conical.loaded ? conical.data:""}/>
             <RegisterPage />
             <GetRegisterPages/>
             <Container maxWidth='xl' sx={{ margin: "auto", padding: "0px" }} >

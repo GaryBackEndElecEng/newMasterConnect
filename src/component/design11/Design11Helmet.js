@@ -1,7 +1,7 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 
-const Design11Helmet = ({desc,keyWords,loadArr,average}) => {
+const Design11Helmet = ({desc,keyWords,loadArr,average,conical}) => {
   let JSONProduct=["Interior Design",];
   if(loadArr.loaded){
     JSONProduct = loadArr.data.map(obj=>(
@@ -43,17 +43,13 @@ const Design11Helmet = ({desc,keyWords,loadArr,average}) => {
     <Helmet>
         <title>Restaurant Page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href="http://www.master-connect.ca/design11" />
-        <link rel="canonical" href="http://www.masterconnect.ca/design11" />
-        <link rel="canonical" href="http://www.master-connect.com/design11" />
+        <link rel="canonical" href={`${conical}/design11`} />
         <meta name="keywords" content={keyWords}/>
         <meta name="summary" content=" Interior Design"/>
         <meta name="description" content={desc}/>
         <meta name="rating" content={average}/>
-        <meta name="site" content="www.master-connect.ca"/>
-        <meta name="url" content="https://www.master-connect.ca"/>
-        <meta name="url" content="https://www.masterconnect.ca"/>
-        <meta name="url" content="https://www.master-connect.com"/>
+        <meta name="site" content={conical}/>
+        <meta name="url" content={conical}/>
         <script type="application/ld+json">
           {JSON.stringify(JSONProduct)}
         </script>

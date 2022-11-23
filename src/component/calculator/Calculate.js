@@ -10,6 +10,7 @@ import { Box, } from '@mui/material';
 import CoverPage from './CoverPage';
 import QuestSlide from './QuestSlide';
 import ShowQAResults from './ShowQAResults';
+import CalculatorHelmet from './CalculatorHelmet';
 import {useTheme} from '@mui/material/styles';
 
 
@@ -40,7 +41,7 @@ animation: appearIn 1s ease-in;
 
 const Calculate = () => {
     const theme=useTheme();
-    const {setTitle,setStyleName,answeredFilled,} =useContext(GeneralContext);
+    const {setTitle,setStyleName,answeredFilled,generalInfo,conical} =useContext(GeneralContext);
     const MyRef=useRef();
     const whiteImg="https://new-master.s3.ca-central-1.amazonaws.com/static/images/white.png";
 
@@ -59,6 +60,7 @@ const Calculate = () => {
     <MainCalculator  ref={MyRef}
     bg={theme.palette.home.lighter}
     >
+        <CalculatorHelmet generalInfo={generalInfo} conical={conical.loaded ? conical.data:""}/>
         <RegisterPage/>
         <GetRegisterPages/>
         <CoverPage/>
