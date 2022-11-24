@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework import status,mixins,generics,viewsets,permissions
-from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator,Jobs,SitePreference)
+from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator,Jobs,SitePreference,TempSavedCalculator)
 from django.contrib.auth.models import User
 
 class PostCalculatorSerializer(serializers.ModelSerializer):
@@ -234,4 +234,9 @@ class PostServiceCoreSerializer(serializers.ModelSerializer):
     services=ServiceSerializer(many=True,read_only=True)
     class Meta:
         model=PostService
+        fields="__all__"
+
+class TempSavedCalculatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=TempSavedCalculator
         fields="__all__"

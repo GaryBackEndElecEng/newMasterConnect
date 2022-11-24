@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","webdesign.masterconnect.ca","www.masterconnect.ca","www.master-connect.ca","www.garymaster-connect.com","garymaster-connect.com"]
@@ -93,7 +93,7 @@ MIDDLEWARE = [
 #-----DYNAMICALLY CHANGING WEBSITE BASED ON ---------
 
 SITE_URL="https://www.master-connect.ca"
-SITE_ID = 1
+SITE_ID = 2
 #-----DYNAMICALLY CHANGING WEBSITE BASED ON ---------
 
 AUTHENTICATION_BACKENDS = [

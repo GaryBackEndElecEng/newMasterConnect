@@ -74,7 +74,7 @@ const RegisterGoogle = () => {
         //The /*,,,,*/ is s globla linter that tells react that the app is coming from outside the root
         /* global google */
         google.accounts.id.initialize({
-            client_id: "299253563710-89sngvs3h3f6rpkrr0opg8je7056tf81.apps.googleusercontent.com",
+            client_id: "299253563710-q1m9gilc5k9rv6qlklph47umm60gatsd.apps.googleusercontent.com",
             callback: handleCallbackResponse,
             context:"use"
         });

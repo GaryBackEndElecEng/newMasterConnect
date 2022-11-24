@@ -48,6 +48,7 @@ urlpatterns=[
     path('extraService/checkout/<int:user_id>/',views.AdditionalServiceCheckout.as_view(),name="PostDeleteExtraService-post"),
     path('postCalculatorResults/',views.CalculatorResults.as_view(),name="postCalculatorResults-post"),
     path('sitePreference/',views.SitePreferenceView.as_view(),name="SitePreferenceView-post"),
+    path('getUuid/',views.GetUUIDPost.as_view(),name="GetUUIDPost-post"),
     
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

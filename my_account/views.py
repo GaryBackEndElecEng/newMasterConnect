@@ -16,7 +16,7 @@ from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import authentication
 # from users.permissions import IsOwnerOrReadOnly
-from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs,SitePreference)
+from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs,SitePreference,TempSavedCalculator)
 from api.models import Region
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -26,7 +26,7 @@ from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from rest_framework.decorators import api_view
-from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer)
+from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer)
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -1039,7 +1039,7 @@ class CalculatorResults(APIView):
             return Response({"error":e,"status":status.HTTP_400_BAD_REQUEST})
 
 class SitePreferenceView(APIView):
-    # authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [authentication.TokenAuthentication]
     def post(self,request,format=None):
         data=request.data
         # print(data)
@@ -1062,3 +1062,19 @@ class SitePreferenceView(APIView):
 
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class GetUUIDPost(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    def post(self,request,format="none"):
+        data=request.data
+        uuid=data["uuid"]
+        user_id=data["user_id"]
+        try:
+            if(user_id and uuid):
+                user=User.objects.filter(id=user_id).first()
+                getUuid=TempSavedCalculator.objects.filter(uuid=uuid).first()
+                if user and getUuid:
+                    serializer=TempSavedCalculatorSerializer(getUuid,many=False)
+                    return Response(serializer.data,status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error":f'{e}',"status":status.HTTP_404_NOT_FOUND})

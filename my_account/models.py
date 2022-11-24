@@ -246,7 +246,7 @@ class UserAccount(models.Model):
     provState=models.CharField(max_length=50,blank=True)
     postal=models.CharField(max_length=50,blank=True,null=True)
     website=models.CharField(max_length=75,blank=True,null=True)
-    DNS=models.CharField(max_length=75,blank=True,null=True)
+    CDN=models.CharField(max_length=75,default='False',blank=True)
     industry=models.CharField(max_length=75,blank=True,null=True)
     co=models.CharField(max_length=75,blank=True,null=True)
     promotion=models.BooleanField(default=False,blank=True)

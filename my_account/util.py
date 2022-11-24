@@ -792,7 +792,7 @@ class CalculateCost:
 
 
     def genYesnoFalseArray(self):
-        array2=[{"id":0,"name":"CDN","ans":""},{"id":1,"name":"site","ans":""},{"id":2,"name":"industry","ans":""},{"id":3,"name":"database size","ans":""},{"id":4,"name":"hits"},{"id":5,"name":"type of database","ans":""}]
+        array2=[{"id":0,"name":"CDN","ans":""},{"id":1,"name":"existing site","ans":""},{"id":2,"name":"industry","ans":""},{"id":3,"name":"database size","ans":""},{"id":4,"name":"hits"},{"id":5,"name":"type of database","ans":""},{"id":6,"name":"company","ans":""},]
         ids=[]
         total=0
         monthly=0
@@ -813,7 +813,7 @@ class CalculateCost:
             for dict in array2:
                 if dict["name"] == "hits":
                     try:
-                        if int(dict["ans"]) and int(dict["ans"]) >100:
+                        if int(dict["ans"]) and int(dict["ans"]) and int(dict["ans"]) >100:
                             if calc.post_services.all().exists():
                                 monthly=[obj.monthly for obj in calc.post_services.all()]
                                 total+=sum(monthly)
@@ -834,37 +834,30 @@ class CalculateCost:
                                     array1.append({"name":name,"summary":summary})
                     except Exception as e:
                         print("error",e)
-            if dict["name"] == "database size":
-                try:
-                    if int(dict["ans"]) and int(dict["ans"]) >64:
-                        if calc.post_services.all().exists():
-                            monthly=[obj.monthly for obj in calc.post_services.all()]
-                            total+=sum(monthly)
-                            ids=[obj.id for obj in calc.post_services.all()]
-                            self.tempSaveCalc.postServiceIdArr+=ids
-                            summaryArray =[obj.summary for obj in calc.post_services.all()]
-                            serviceNameArray=[obj.name for obj in calc.post_services.all()]
-                            for name,summary in zip(serviceNameArray,summaryArray):
-                                array1.append({"name":name,"summary":summary})
-                except Exception as e:
-                    print("error",e)
+                if dict["name"] == "database size":
+                    try:
+                        if int(dict["ans"]) and int(dict["ans"]) and int(dict["ans"]) >64:
+                            if calc.post_services.all().exists():
+                                monthly=[obj.monthly for obj in calc.post_services.all()]
+                                total+=sum(monthly)
+                                ids=[obj.id for obj in calc.post_services.all()]
+                                self.tempSaveCalc.postServiceIdArr+=ids
+                                summaryArray =[obj.summary for obj in calc.post_services.all()]
+                                serviceNameArray=[obj.name for obj in calc.post_services.all()]
+                                for name,summary in zip(serviceNameArray,summaryArray):
+                                    array1.append({"name":name,"summary":summary})
+                    except Exception as e:
+                        print("error",e)
         return total,array1
                         
     def calcgetAdditional(self):
+        array2=self.genYesnoFalseArray()
         for calc in self.calculate:
-            ans=calc.ans[len(calc.ans)-1]
-            if calc.yesno==False and "industry" in calc.Q:
-                self.tempSaveCalc.additionalCharArr.append(json.dumps({"industry":ans}))
-            if calc.yesno==False and "site" in calc.Q:
-                self.tempSaveCalc.additionalCharArr.append(json.dumps({"site":ans}))
-            if calc.yesno==False and "type of database" in calc.Q:
-                self.tempSaveCalc.additionalCharArr.append(json.dumps({"db":ans}))
-            if calc.yesno==False and "database MB" in calc.Q:
-                self.tempSaveCalc.additionalCharArr.append(json.dumps({"dbMb":ans}))
-            if calc.yesno==True and "for a company" in calc.Q:
-                self.tempSaveCalc.additionalCharArr.append(json.dumps({"Co":ans}))
-            if calc.yesno==True and "high-tech" in calc.Q:
-                self.tempSaveCalc.additionalCharArr.append(json.dumps({"HTech":ans}))
+            for dict in array2:
+                ans=calc.ans[len(calc.ans)-1]
+                if dict["name"] in calc.Q and calc.yesno==False:
+                    self.tempSaveCalc.additionalCharArr.append(json.dumps({dict["name"]:ans}))
+                    dict["ans"]=ans
         
 
 
@@ -880,6 +873,7 @@ class CalculateCost:
 ## THIS EXECUTES AT LOGIN; IT LOADES THE SELECTED SERVICE AND POSTSERVICES INTO USERACCOUNT 
 class CalcAddToUserAccountAtLogin:
     def __init__(self,uuid,username):
+        self.array2=[{"id":0,"name":"CDN","ans":""},{"id":1,"name":"existing site","ans":""},{"id":2,"name":"industry","ans":""},{"id":3,"name":"database size","ans":""},{"id":4,"name":"hits"},{"id":5,"name":"type of database","ans":""},{"id":6,"name":"Co","ans":""}]
         self.uuid=uuid
         self.username=username
         self.calcResults=TempSavedCalculator.objects.filter(uuid=self.uuid).first()
@@ -890,12 +884,16 @@ class CalcAddToUserAccountAtLogin:
     def addwebDNSIndustryToUserAcc(self):
         if self.userAccount and self.calcResults:
             for item in self.calcResults.additionalCharArr:
-                if "industry:" in item:
-                    self.userAccount.industry=item.split(":")[1]
-                if "site:" in item:
-                    self.userAccount.website=item.split(":")[1]
-                if "Co:" in item:
-                    self.userAccount.co=item.split(":")[1]
+                for dict in self.array2:
+                    if "industry" == dict['name']:
+                        self.userAccount.industry=item.split(':"')[1].split('"}')[0]
+                        break
+                    if "existing site" in dict['name']:
+                        self.userAccount.website=item.split(':"')[1].split('"}')[0]
+                    if "company" in dict['name']:
+                        self.userAccount.co=item.split(':"')[1].split('"}')[0]
+                    if "CDN" in dict['name']:
+                        self.userAccount.CDN=item.split(':"')[1].split('"}')[0]
             self.userAccount.save()
 
 

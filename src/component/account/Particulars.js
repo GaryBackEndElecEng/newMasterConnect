@@ -15,13 +15,14 @@ import apiProtect from '../axios/apiProtect';
 import SignpostIcon from '@mui/icons-material/Signpost';
 import ParticularsUsersProdsServs from './ParticularsUsersProdsServs';
 import ParticularsPaidTotals from './ParticularsPaidTotals';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
 
 const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True
     const theme = useTheme();
     const navigate = useNavigate();
-    const { userAccount, address, cell, name, email, provState, country, postal, formComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct,loggedIn,usersExtraInvoice } = useContext(TokenAccessContext);
+    const { userAccount, address, cell, name, email, provState, country, postal, formComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct,loggedIn,usersExtraInvoice,getUUID } = useContext(TokenAccessContext);
     const { setChangePage } = useContext(GeneralContext);
     const [message,setMessage]=useState(null);
     const [message2,setMessage2]=useState(null);
@@ -29,6 +30,7 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     const [noProdsServs,setNoProdsServs]=useState({loaded:false,data:""});
     const [getMessage,setGetMessage]=useState({loaded:false,data:""});
     const [postPaid,setPostPaid]=useState(false);
+    const [isUUID,setIsUUID]=useState(false);
     const isExtraInvoice=usersExtraInvoice.loaded ? 4 : 6;
     const largeFormat=isExtraInvoice;
     const getFormComplete= localStorage.getItem("formComplete") ? JSON.parse(localStorage.getItem("formComplete")):formComplete;
@@ -39,6 +41,12 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
         }else{setPaid(false)}
         setPostPaid(postInvoicePaid.paid)
     },[invoicePaid,postInvoicePaid,formComplete]);
+
+    useEffect(()=>{
+        if(getUUID.loaded){
+            setIsUUID(true)
+        }
+    },[getUUID]);
 
     useEffect(()=>{
         
@@ -133,6 +141,10 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
         e.preventDefault();
         navigate("/MyAccount/postAccount/",setChangePage(true));
     }
+    const handleGoToUUID=(e)=>{
+        e.preventDefault();
+        navigate("/MyAccount/uuid",setChangePage(true));
+    }
 
     return (
         <Container maxWidth="lg"
@@ -173,6 +185,14 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
 
                                 </Paper>
                             </Grid>
+                            {isUUID && <Grid item xs={12} sm={12}>
+                                <Paper elevation={10} sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",margin:"1rem auto"}}>
+                                    <Typography component="h1" variant="h4" sx={{textAlign:"center"}}>review your questionaire</Typography>
+                                    <Fab variant="extended" color="info" size="large" onClick={(e)=>handleGoToUUID(e)} sx={{margin:"1rem auto"}}>
+                                        Questionaire <QuestionAnswerIcon sx={{color:"red",ml:1}}/>
+                                    </Fab>
+                                </Paper>
+                            </Grid>}
                             <Grid item xs={12} md={12} sx={{position:"relative"}}>
                                 <Paper elevation={10} sx={{ margin: "1rem auto", padding: "1rem",position:"relative" }}>
 

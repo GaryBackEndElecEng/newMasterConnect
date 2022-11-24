@@ -39,20 +39,7 @@ const Signout = () => {
           setSignin(false);
           setSignout(true);
           setLoggedIn(false);
-          localStorage.removeItem('username');
-          localStorage.removeItem('email');
-          localStorage.removeItem('user_id');
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('refresh_token');
-          localStorage.removeItem('csrftoken');
-          localStorage.removeItem('page');
-          localStorage.removeItem("tokenIsValid");
-          localStorage.removeItem("loggedIn");
-          localStorage.removeItem("goToSignin");
-          localStorage.removeItem("userAccount");
-          localStorage.removeItem("reducedService");  //Client's reduced available list
-          localStorage.removeItem("reducedProduct");  //Client's reduced available list
-          localStorage.removeItem("usersProduct");
+          localStorage.clear(); 
           setGoToSignin(true);
           navigate("/", setChangePage(true));
         } else { new Error("nothing returned") }
