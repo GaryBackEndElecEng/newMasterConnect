@@ -3,12 +3,12 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const MyAccountHelmet = ({conical}) => {
+const MyAccountHelmet = ({conical,getPathLocation}) => {
   return (
     <Helmet>
         <title>My Account </title>
         <meta name="description" content="user's account"/>
-        <link rel="canonical" href={`${conical}/MyAccount`} />
+        <link rel="canonical" href={`${getPathLocation}MyAccount`} />
     </Helmet>
   )
 }

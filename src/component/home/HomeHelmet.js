@@ -15,7 +15,7 @@ const HomeHelmet = ({profileHelmet,generalInfoHelmet,conical,getPathLocation}) =
         <meta name="email" content={profileHelmet.content1}/>
         <meta name="fb:site" content={profileHelmet.content2}/>
         <meta name="linkedlin:site" content={profileHelmet.content3}/>
-        <meta name="profilePage" content={`${getPathLocation}/bio`}/>
+        <meta name="profilePage" content={`${getPathLocation}bio`}/>
         <meta name="address" content={"133 Elmwood Avenue"}/>
         <meta name="owner" content={generalInfoHelmet.name}/>
         <meta name="buisness" content={generalInfoHelmet.extra}/>

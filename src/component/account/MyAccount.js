@@ -29,7 +29,7 @@ const MyAccount = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { setSignin, goToSignin, setSignout, setGoToSignin,usersInvoice,usersPostInvoice,usersExtraInvoice,signin } = useContext(TokenAccessContext);
-  const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,conical } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,conical,getPathLocation } = useContext(GeneralContext);
   const [activate, setActivate] = useState(false);
   const [invoice, setInvoice] = useState(false);
   const [postInvoice, setPostInvoice] = useState(false);
@@ -115,7 +115,9 @@ const MyAccount = () => {
     <>
       {activate ?
         <>
-        <MyAccountHelmet conical={conical}/>
+        <MyAccountHelmet conical={conical}
+        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+        />
         <GetPage/>
         <RegisterPage/>
         <GetRegisterPages/>
