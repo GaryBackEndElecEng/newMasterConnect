@@ -6,6 +6,7 @@ import {GeneralContext} from '../../context/GeneralContextProvider'
 import MenuDropDown from './MenuDropDown'; //HAS ALL LINKS
 import MarkUpToolBar from './MarkUpToolBar';
 import { useEffect,useState } from 'react';
+import {GetLocation} from '../Meta';
 
 
 const NavBar = () => {
@@ -50,6 +51,7 @@ const NavBar = () => {
                  margin:"0px",width:"100%"
                  
                  }} >
+                    <GetLocation/>
                 <Toolbar sx={{width:"100%",}}>
         
                     <MenuDropDown/>

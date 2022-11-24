@@ -16,7 +16,7 @@ import Design3Helmet from './Design3Helmet';
 
 const Page1 = () => {
  
-  const { setTitle, setStyleName,workArr ,setChangePage,average,staticImage} = useContext(GeneralContext);
+  const { setTitle, setStyleName,workArr ,setChangePage,average,staticImage,getPathLocation} = useContext(GeneralContext);
   const {getProductList}=useContext(PriceContext);
   
   const [showPurchaseBtn,setShowPurchaseBtn]=useState(false);
@@ -72,7 +72,15 @@ const Page1 = () => {
   return (
     <>
     <GetRegisterPages/>
-    <Design3Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} />
+    <Design3Helmet 
+    summary={summary} 
+    desc={desc}
+     image={image}
+     keywords={keywords}
+     OBJ={OBJ}
+     average={average}
+     getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+     />
     <div className="container-fluid" style={{ posistion: "relative", width: "100vw", display: "flex", justifyContent: "flex-start", alignItems: "center",flexDirection:"column" }}>
       <RegisterPage/>
       <ImagesContainer />

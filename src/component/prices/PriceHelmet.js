@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage,conical}) => {
+const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage,conical,getPathLocation}) => {
   const convertJSON={
     "@context": "https://schema.org/",
     "@id":`${conical}/prices`,
@@ -32,7 +32,7 @@ const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage,con
   const convertJSON2=products.map(obj=>(
     {
       "@context": "https://schema.org/",
-      "@id":`${conical}/${obj.extra_kwargs}`,
+      "@id":`${getPathLocation}${obj.extra_kwargs}`,
       "@type": "Product",
       "name": obj.name,
       "image": `${staticImage}/${obj.imageName}`,
@@ -64,8 +64,8 @@ const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage,con
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
         <meta name="site" content="www.master-connect.ca"/>
-        <meta name="url" content={conical}/>
-        <link rel="canonical" href={`${conical}/prices`} />
+        <meta name="url" content={getPathLocation}/>
+        <link rel="canonical" href={`${getPathLocation}prices`} />
         <meta name="image" content={image}/>
         <script type="application/ld+json">{JSON.stringify(convertJSON)}</script>
         <script type="application/ld+json">{JSON.stringify(convertJSON2)}</script>

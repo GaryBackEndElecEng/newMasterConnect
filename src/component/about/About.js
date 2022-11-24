@@ -56,7 +56,7 @@ height:"auto";
 
 const About = () => {
   const theme = useTheme();
-  const { setTitle, setStyleName,allCategory,setChangePage,generalInfo,conical } = useContext(GeneralContext);
+  const { setTitle, setStyleName,allCategory,setChangePage,generalInfo,conical,getPathLocation } = useContext(GeneralContext);
   const [about,setAbout]=useState([]);
   const [counter, setCounter] = useState(0);
   const [allcatHelmet,setAllcatHelmet]=useState([]);
@@ -111,7 +111,7 @@ useEffect(()=>{
  console.log(conical)
   return (
     <ContainerAboutFluid>
-      <AboutHelmet categories={allcatHelmet} getGeneralInfo={getGeneralInfo} conical={conical.loaded ? conical.data:""}/>
+      <AboutHelmet categories={allcatHelmet} getGeneralInfo={getGeneralInfo} conical={conical.loaded ? conical.data:""} getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}/>
       <RegisterPage/>
       <GetRegisterPages/>
       <ContainerAboutFront

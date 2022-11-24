@@ -2,13 +2,13 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const SigninHelmet = ({conical}) => {
+const SigninHelmet = ({conical,getPathLocation}) => {
   return (
     <Helmet>
         <title>Signin Page </title>
         <meta name="description" content="Signin page for viewing personal accounts"/>
-        <meta name="url" content={`${conical}/signin`}/>
-        <link rel="canonical" href={`${conical}/signin`}/>
+        <meta name="url" content={`${getPathLocation}signin`}/>
+        <link rel="canonical" href={`${getPathLocation}signin`}/>
     </Helmet>
   )
 }

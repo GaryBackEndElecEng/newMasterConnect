@@ -39,7 +39,7 @@ animation: clearIn 1.5s ease-in-out;
 
 const Prices = () => {
  
-  const { staticImage, setTitle, setStyleName,conical,} = useContext(GeneralContext);
+  const { staticImage, setTitle, setStyleName,conical,getPathLocation} = useContext(GeneralContext);
   const {baseServices,startingPrices,getProductList}=useContext(PriceContext);
   const [keywords,setKeywords]=useState(null);
   const [summary,setSummary]=useState(null);
@@ -91,7 +91,17 @@ useEffect(()=>{
 
   return (
     <PriceContainer >
-      <PriceHelmet keywords={keywords} summary={summary} desc={descrip} price={price} image={image} products={products} staticImage={staticImage} conical={conical.loaded ? conical.data:""}/>
+      <PriceHelmet
+       keywords={keywords}
+       summary={summary}
+       desc={descrip} 
+      price={price}
+       image={image}
+       products={products} 
+      staticImage={staticImage}
+       conical={conical.loaded ? conical.data:""}
+       getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+      />
       <GetRegisterPages/>
       <RegisterPage/>
       <CoverPage/>

@@ -34,7 +34,7 @@ animation: clearIn 1s ease-in-out;
 `;
 
 const Blog = () => {
-  const { blogMain, setTitle, setStyleName,conical } = useContext(GeneralContext);
+  const { blogMain, setTitle, setStyleName,conical,getPathLocation } = useContext(GeneralContext);
   const [blogBodys, setBlogBodys] = useState({ loaded: false, data: [] });
   const [keywords, setKeywords] = useState([]);
   const [blog1, setBlog1] = useState({ loaded: false, data: [] });
@@ -140,7 +140,12 @@ const Blog = () => {
 
   return (
     <MainBlog>
-      <BlogHelmet blogBodys={blogMain} keywords={keywords} conical={conical.loaded ? conical.data:""} />
+      <BlogHelmet 
+      blogBodys={blogMain}
+       keywords={keywords}
+       conical={conical.loaded ? conical.data:""}
+       getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+       />
       <RegisterPage />
       <GetRegisterPages />
       <CoverPage />

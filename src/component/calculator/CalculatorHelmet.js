@@ -3,8 +3,8 @@ import {Helmet} from 'react-helmet';
 
 
 
-const CalculatorHelmet = ({generalInfo,conical}) => {
-    let url=`${conical}/calculate`;
+const CalculatorHelmet = ({generalInfo,conical,getPathLocation}) => {
+    let url=`${getPathLocation}/calculate`;
   let articleJSON={}
   if(generalInfo){
            articleJSON={
@@ -36,7 +36,7 @@ const CalculatorHelmet = ({generalInfo,conical}) => {
                         "@type": "ContactPoint",
                         "contactType": "customer support",
                         "telephone": generalInfo.cell,
-                        "email": `${conical}/contact`
+                        "email": `${getPathLocation}/contact`
                         },
                         "sameAs": [ 
                           generalInfo.siteArray

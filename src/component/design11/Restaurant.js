@@ -47,7 +47,7 @@ position:relative;
 
 const Restaurant = () => {
     const theme = useTheme();
-    const { setTitle, setStyleName,average,conical } = useContext(GeneralContext);
+    const { setTitle, setStyleName,average,conical,getPathLocation } = useContext(GeneralContext);
     let lastPos = 0, ticking = 0;
     const [opacity, setOpacity] = useState(1);
     const [scrollPos, setScrollPos] = useState(0);
@@ -151,7 +151,14 @@ const Restaurant = () => {
             <RegisterPage />
             <GetRegisterPages />
             <PageRating/>
-            <Design11Helmet desc={desc} keyWords={keyWords} loadArr={resArr} average={average} conical={conical.loaded ? conical.data:""} />
+            <Design11Helmet
+             desc={desc} 
+            keyWords={keyWords}
+             loadArr={resArr}
+             average={average}
+             conical={conical.loaded ? conical.data:""}
+             getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+             />
             <Container maxWidth="xl" sx={{ margin: "2rem auto",backgroundImage:{xs:`url(${menu})`,md:"none"},backgroundSize:"100% 100%",marginBottom:{md:"4rem",xs:"0px"} }}>
                 <Divider  sx={{marginBottom:"1rem",color:{xs:"white",md:"black"},border:{md:`2px solid black`,xs:"2px solid white"}}}/>
                 <Grid container spacing={{ xs: 1, sm: 2 }}

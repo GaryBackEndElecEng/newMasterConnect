@@ -42,7 +42,7 @@ margin-top:-50px;
 
 
 const Design8 = () => {
-  const { setTitle, setStyleName, setChangePage, staticImage,average,conical } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setChangePage, staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
   const [summary, setSummary] = useState(false);
   const [desc, setDesc] = useState(false);
@@ -90,7 +90,16 @@ const Design8 = () => {
 
   return (
     <Main>
-      <Design8Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} conical={conical.loaded ? conical.data:""} />
+      <Design8Helmet
+       summary={summary}
+       desc={desc}
+       image={image}
+       keywords={keywords}
+       OBJ={OBJ}
+       average={average}
+       conical={conical.loaded ? conical.data:""}
+       getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+       />
       <RegisterPage />
       <GetRegisterPages />
       <PageRating/>

@@ -3,7 +3,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const BlogHelmet = ({blogBodys,keywords,conical}) => {
+const BlogHelmet = ({blogBodys,keywords,conical,getPathLocation}) => {
  let articleJSON=" commin soon"
   const wordCount=(phrase)=>{
     let arr=phrase.split(" ");
@@ -44,7 +44,7 @@ let wordTitle="Blog page";
                           "url": "https://new-master.s3.ca-central-1.amazonaws.com/static/profilePic1.png"
                         }
                       },
-                      "url": `${conical}/blog`,
+                      "url": `${getPathLocation}/blog`,
                         "mainEntityOfPage": {
                         "@type": "WebPage",
                         "@id": "https://google.com/article"
@@ -67,7 +67,7 @@ let wordTitle="Blog page";
         <meta name="summary" content="Do you want to better your life and grow your mind?- well this place is for you!!- Truly. Dive into the unknown and intrigued ideas for the mind. Gary Wallace reveals The Best of revealing mind bending thoughts and wonderful revelations- Its Worth Your Time! "/>
         <meta name="title" content="Best Blogs for the educated and the intrigued "/>
         <meta name="keywords" content={keywords}/>
-        <link rel="canonical" href={`${conical}/blog`}/>
+        <link rel="canonical" href={`${getPathLocation}/blog`}/>
         <script type="application/ld+json">
           {JSON.stringify(articleJSON)}
         </script>

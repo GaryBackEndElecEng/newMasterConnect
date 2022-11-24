@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const ContactHelmet = ({keywords,content,conical,generalInfo}) => {
+const ContactHelmet = ({keywords,content,conical,generalInfo,getPathLocation}) => {
   let articleJSON={}
   if(generalInfo.loaded){
            articleJSON={
@@ -34,7 +34,7 @@ const ContactHelmet = ({keywords,content,conical,generalInfo}) => {
                         "@type": "ContactPoint",
                         "contactType": "customer support",
                         "telephone": generalInfo.data.cell,
-                        "email": `${conical}/contact`
+                        "email": `${getPathLocation}/contact`
                         },
                         "sameAs": [ 
                           generalInfo.data.siteArray
@@ -47,7 +47,7 @@ const ContactHelmet = ({keywords,content,conical,generalInfo}) => {
         <meta name="description" content="A Short-term Rental app for sale- automated display - out-of-This-World "/>
         <meta name="summary" content={content}/>
         <meta name="keywords" content={keywords}/>
-        <link rel="canonical" href={`${conical}/contact`}/>
+        <link rel="canonical" href={`${getPathLocation}/contact`}/>
         <script type="application/ld+json">
           {JSON.stringify(articleJSON)}
         </script>

@@ -3,7 +3,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 import {Card} from '@mui/material';
 
-const HomeHelmet2 = ({generalInfoHelmet,conical}) => {
+const HomeHelmet2 = ({generalInfoHelmet,conical,getPathLocation}) => {
     
  const IdJson={
      
@@ -11,7 +11,7 @@ const HomeHelmet2 = ({generalInfoHelmet,conical}) => {
       "@type": "Organization",
       "name": "Digital Master Connect",
       "legalName" : "Digital Master Connect inc",
-      "url":conical,
+      "url":getPathLocation,
       "logo":"https://master-connect.s3.ca-central-1.amazonaws.com/static/logoNew.png",
       "foundingDate": "2021",
       "founders": [
@@ -32,7 +32,7 @@ const HomeHelmet2 = ({generalInfoHelmet,conical}) => {
       "@type": "ContactPoint",
       "contactType": "customer support",
       "telephone": generalInfoHelmet.cell,
-      "email": `${conical}/contact`,
+      "email": `${getPathLocation}/contact`,
       },
       
     

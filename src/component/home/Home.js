@@ -27,6 +27,7 @@ import BioBanner from './BioBanner';
 
 
 
+
 const ContainerHomeFluid = styled.div.attrs({ className: "ContainerHomeFluid" })`
 margin:0;
 margin-top:-40px;
@@ -66,11 +67,7 @@ margin-top:2.5rem;
 
 
 const Home = () => {
-   
-    const theme = useTheme();
-    // const navigate = useNavigate();
-    // let popUpRef=useRef();
-    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed ,setChangePage,allCategory,conical} = useContext(GeneralContext);
+    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed ,setChangePage,allCategory,conical,getPathLocation} = useContext(GeneralContext);
     const {signout,signin,viewAccount}=useContext(TokenAccessContext);
     
     const [window600, setWindow600] = useState(false);
@@ -163,12 +160,11 @@ const Home = () => {
     }
     
 
-
     return (
         <>
         <RegisterPage/>
 <GetRegisterPages/>
-<HomeHelmet profileHelmet={profileHelmet} generalInfoHelmet={getGeneralInfoHelmet}conical={conical.loaded ? conical.data:""}/>
+<HomeHelmet profileHelmet={profileHelmet} generalInfoHelmet={getGeneralInfoHelmet}conical={conical.loaded ? conical.data:""} getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}/>
 <HomeHelmet2 generalInfoHelmet={getGeneralInfoHelmet} conical={conical.loaded ? conical.data:""}/>
         <ContainerHomeFluid style={{marginTop:{xs:"3rem",md:"0px"}}}>
 

@@ -36,7 +36,7 @@ animation: clearIn 1s ease-in-out;
 `;
 
 const Bio = () => {
-    const { loadingData, resume, setResume, setTitle, setStyleName ,setChangePage,generalInfo,conical} = useContext(GeneralContext);
+    const { loadingData, resume, setResume, setTitle, setStyleName ,setChangePage,generalInfo,conical,getPathLocation} = useContext(GeneralContext);
     const theme = useTheme();
     const MainResumeRef = useRef();
     const showBlock = !loadingData ? "block" : "none";
@@ -124,7 +124,12 @@ const Bio = () => {
 
     return (
         <BioMmain display={showBlock}>
-            <BioHelmet obj={getGeneralInfo} intro ={intro} conical={conical.loaded ? conical.data:""}/>
+            <BioHelmet 
+            obj={getGeneralInfo} 
+            intro ={intro} 
+            conical={conical.loaded ? conical.data:""}
+            getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}
+            />
             <RegisterPage />
             <GetRegisterPages/>
             <Container maxWidth='xl' sx={{ margin: "auto", padding: "0px" }} >
@@ -155,12 +160,13 @@ const Bio = () => {
 
 
                 <Paper elevation={3} sx={{ margin: {lg:"1rem auto",xs:"1rem auto"}, padding: "0.5rem ", }}>
-                    <Grid container spacing={0} sx={{ textAlign: "flex-start",display:"flex", justifyContent: "center", alignItems: "flex-start", }}>
+                    <Grid container spacing={{xs:0,sm:0,md:1}} sx={{ textAlign: "flex-start",display:"flex", justifyContent: "center", alignItems: "flex-start", }}>
                         <Grid item xs={12} md={3} sx={{ boxShadow: "1px 3px 10px blue",
-                         background:"grey",
-                          padding: "0 0.5rem", height: { xs: "auto", lg:resumeHeight },flexGrow:1 }}>
+                          padding: "0 0.5rem", height: { xs: "auto", lg:resumeHeight },flexGrow:1 }}
+                          className={styles.sidebar}
+                          >
 
-                            <Stack direction={"column"} sx={{ flexGrow: 1 }}>
+                            <Stack direction={"column"} spacing={0} sx={{ flexGrow: 1 }} className={styles.sidebar}>
                                 {resume.loaded && <Avatar src={profileImg.webImage} alt="www.master-connect.ca"
                                     sx={{ maxWidth: "350px", maxHeight: "350px", width: "100%", height: "100%", margin: "auto" }}
                                 />}
@@ -176,16 +182,16 @@ const Bio = () => {
                                         {obj.content && <Typography component="li" variant="h6" sx={{ color: theme.palette.common.light, margin: "auto 0" }}>
                                             {obj.content}
                                         </Typography>}
-                                        {obj.content1 && <Typography component="li" variant="h6" sx={{ color: theme.palette.common.light }}>
+                                        {obj.content1 && <Typography component="li" variant="h6" >
                                             {obj.content1}
                                         </Typography>}
-                                        {obj.content2 && <Typography component="li" variant="h6" sx={{ color: theme.palette.common.light }}>
+                                        {obj.content2 && <Typography component="li" variant="h6" >
                                             {obj.content2}
                                         </Typography>}
-                                        {obj.content3 && <Typography component="li" variant="h6" sx={{ color: theme.palette.common.light }}>
+                                        {obj.content3 && <Typography component="li" variant="h6" >
                                             {obj.content3}
                                         </Typography>}
-                                        {obj.webImage && <Typography component="li" variant="h6" sx={{ color: theme.palette.common.light, margin: "auto 0" }}>
+                                        {obj.webImage && <Typography component="li" variant="h6" >
                                             < a href={obj.webImage} style={{ margin: "auto 0" }}>{obj.title} link</a>
                                         </Typography>}
 
@@ -202,7 +208,7 @@ const Bio = () => {
 
                                 }}>
                                 <Paper elevation={3}
-                                    sx={{ background: theme.palette.common.background3, margin: {lg:"0px -6px",xs:"0px -4px"}, minHeight: "10vh", boxShadow: "1px 1px 5px blue", color: theme.palette.common.lighter,display:"flex",justifyContent:"flex-start",alignItems:"center",flexDirection:"column" }}
+                                    sx={{ background:"grey", margin: {lg:"0px -6px",xs:"0px -4px"}, minHeight: "10vh", boxShadow: "1px 1px 5px blue", color:"white",display:"flex",justifyContent:"flex-start",alignItems:"center",flexDirection:"column" }}
                                 >
                                     <Typography component="h1" variant="h3" sx={{ margin: "auto" }}>
                                         Gary Wallace

@@ -76,7 +76,7 @@ margin-top:-2px;
 
 const Design4 = () => {
     const theme = useTheme();
-    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average,conical } = useContext(GeneralContext);
+    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const getFlowers = flowerImg.loaded ? flowerImg.data : null;
@@ -187,7 +187,16 @@ const Design4 = () => {
     return (
         <CustomDesign4>
             <ContainerFlowersBgImage bgImage={bgPatterns} className="sliderHeader" >
-                <Design4Helmet summary={summary} desc={desc} image={image} keywords={keywords} OBJ={OBJ} average={average} conical={conical.loaded ? conical.data:""} />
+                <Design4Helmet 
+                summary={summary}
+                 desc={desc}
+                 image={image}
+                 keywords={keywords}
+                 OBJ={OBJ}
+                 average={average} 
+                conical={conical.loaded ? conical.data:""}
+                getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+                 />
                 <GetRegisterPages/>
                 <RegisterPage />
                 <PageRating/>

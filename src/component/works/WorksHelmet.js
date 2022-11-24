@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const WorksHelmet = ({keywords,summary,desc,products,staticImage,conical}) => {
+const WorksHelmet = ({keywords,summary,desc,products,staticImage,conical,getPathLocation}) => {
   let convertJSON=""
   if (products){
        convertJSON= products.map(obj=>(
@@ -37,13 +37,13 @@ const WorksHelmet = ({keywords,summary,desc,products,staticImage,conical}) => {
     <Helmet>
         <title>Design page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href={`${conical}/works`} />
+        <link rel="canonical" href={`${getPathLocation}works`} />
         <meta name="description" content="Home for all the designs you need to make your decision."/>
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
-        <meta name="site" content={conical}/>
-        <meta name="url" content={conical}/>
+        <meta name="site" content={getPathLocation}/>
+        <meta name="url" content={getPathLocation}/>
         <script type="application/ld+json">{JSON.stringify(convertJSON)}</script>
     </Helmet>
   )

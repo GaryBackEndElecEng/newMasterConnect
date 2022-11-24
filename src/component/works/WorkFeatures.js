@@ -52,7 +52,7 @@ const WorkFeatures = () => {
 
     const theme = useTheme();
     const navigate = useNavigate();
-    const { setChangePage, setTitle, setStyleName, loadProduct, staticImage,conical } = useContext(GeneralContext);
+    const { setChangePage, setTitle, setStyleName, loadProduct, staticImage,conical,getPathLocation } = useContext(GeneralContext);
     const design = `${staticImage}/mainDesign.png`;
     const loadedProduct = loadProduct.loaded ? loadProduct.data : [];
     const [keywords, setKeywords] = useState(null);
@@ -93,7 +93,15 @@ const WorkFeatures = () => {
 
     return (
         <WorksContainer bg={theme.palette.common.lightTeal} >
-            <WorksHelmet keywords={keywords} summary={summary} desc={desc} products={products} staticImage={staticImage} conical={conical.loaded ? conical.data:""} />
+            <WorksHelmet 
+            keywords={keywords}
+             summary={summary}
+             desc={desc}
+             products={products}
+             staticImage={staticImage}
+             conical={conical.loaded ? conical.data:""}
+             getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+             />
             <RegisterPage />
             <GetRegisterPages />
             <Container maxWidth="xl"

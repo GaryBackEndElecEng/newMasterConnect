@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const Design8Helmet = ({keywords,summary,desc,image,OBJ,average,conical}) => {
+const Design8Helmet = ({keywords,summary,desc,image,OBJ,average,conical,getPathLocation}) => {
 
   const JSONProduct={
     "@context": "https://schema.org/",
@@ -37,12 +37,12 @@ const Design8Helmet = ({keywords,summary,desc,image,OBJ,average,conical}) => {
     <Helmet>
         <title>Success page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href={`${conical}/design8`} />
+        <link rel="canonical" href={`${getPathLocation}design8`} />
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
-        <meta name="site" content={conical}/>
-        <meta name="url" content={conical}/>
+        <meta name="site" content={getPathLocation}/>
+        <meta name="url" content={getPathLocation}/>
         <meta name="image" content={image}/>
         <script type="application/ld+json">
           {JSON.stringify(JSONProduct)}
