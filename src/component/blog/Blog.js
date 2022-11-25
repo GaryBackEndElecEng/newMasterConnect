@@ -11,6 +11,7 @@ import BlogHelmet from './BlogHelmet';
 import { Typography } from '@mui/material';
 import BlogBtnPage from './BlogBtnPage';
 
+
 const MainBlog = styled.div.attrs({ className: "container-fluid" })`
 width:100vw;
 margin:2rem auto;
@@ -47,6 +48,9 @@ const Blog = () => {
   const [blog8, setBlog8] = useState({ loaded: false, data: [] });
   const [blog9, setBlog9] = useState({ loaded: false, data: [] });
   const [blog10, setBlog10] = useState({ loaded: false, data: [] });
+  const [SEOBlog, setSEOBlog] = useState({ loaded: false, data: [] });
+  const [SEOMain, setSEOMain] = useState({ loaded: false, data: [] });
+  const [blogPhrase,setBlogPhrase]=useState({loaded:false,data:""});
   // console.log(blogMain)
   const generateKeyWords = (phrase) => {
     let arr = phrase.split(" ");
@@ -66,7 +70,9 @@ const Blog = () => {
       try {
         const res = await api.get('/blog/');
         const body = res.data;
-        setBlogBodys({ loaded: true, data: body.filter(obj => (obj.show === true)) })
+        let ShowBlogs=body.filter(obj => (obj.show === true))
+        setBlogBodys({ loaded: true, data:ShowBlogs.filter(obj=>(obj.title!=="Our Blogs!")) });
+        setSEOMain({loaded:true,data:ShowBlogs.filter(obj=>(obj.title==="Our Blogs!"))})
         // console.log(body)
       } catch (error) {
         console.error(error.message)
@@ -75,6 +81,32 @@ const Blog = () => {
     getBlog();
   }, [setBlogBodys]);
 
+  useEffect(()=>{
+    //THIS IS FOR THE SEO. This only abstract the top portion(intro only) and not the 'sectionBlog[array]'
+    let arr=[],arr2=["Welcome to the Blog page.This page gives the Reader an insight on all the Evergreen topics of WHY?,like,,"];
+    let phrase="";
+    if( SEOMain.loaded){
+      const removeTags = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g;
+      let SEOMain1=SEOMain.data[0]
+      let SEO=SEOMain1.intro
+      if(removeTags.test(SEO)){
+        let filterOutTags = SEO.split(removeTags).filter(snippet=>(snippet !== "\r\n\r\n"));
+        filterOutTags.forEach((snippet,index)=>{
+          if(snippet !=="" || index!==0){
+          arr.push(snippet)
+          }
+        });
+        arr2=arr2.concat(arr)
+        arr2.forEach((phrase1,index)=>{
+          phrase=phrase + phrase1
+        });
+        setBlogPhrase({loaded:true,data:phrase})
+      }
+
+setSEOBlog({loaded:true,data:[{"mainImage":SEOMain1.mainImage,"intro":phrase,"title":SEOMain1.title,"keywords":arr2}]})
+setKeywords(arr2)
+    }
+  },[SEOMain.loaded,SEOMain.data]);
   useEffect(() => {
     let arr = ["blog", "Gary Wallace Blogs"];
     const removeTags = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g;
@@ -145,6 +177,8 @@ const Blog = () => {
        keywords={keywords}
        conical={conical.loaded ? conical.data:""}
        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+       blogPhrase={blogPhrase.loaded ? blogPhrase.data:""}
+       SEOBlog={SEOBlog.loaded ? SEOBlog.data :[]}
        />
       <RegisterPage />
       <GetRegisterPages />

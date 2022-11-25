@@ -5,6 +5,7 @@ import {Helmet} from 'react-helmet';
 
 
 const BioHelmet = ({obj,intro,conical,getPathLocation}) => {
+ 
   let BioJSON={}
   if(obj){
     BioJSON={

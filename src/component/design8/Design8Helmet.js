@@ -37,7 +37,7 @@ const Design8Helmet = ({keywords,summary,desc,image,OBJ,average,conical,getPathL
     <Helmet>
         <title>Success page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href={`${getPathLocation}design8`} />
+        <link rel="canonical" href={`${getPathLocation}/design8`} />
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>

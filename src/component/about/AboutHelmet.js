@@ -3,7 +3,7 @@ import {Helmet} from 'react-helmet';
 
 
 
-const AboutHelmet = ({categories,getGeneralInfo,conical}) => {
+const AboutHelmet = ({categories,getGeneralInfo,conical,getPathLocation}) => {
   let articleJSON={}
   if(getGeneralInfo){
            articleJSON={
@@ -11,7 +11,7 @@ const AboutHelmet = ({categories,getGeneralInfo,conical}) => {
                         "@type": "Organization",
                         "name": "Master Connect",
                         "legalName" : "Digital Master Connect",
-                        "url": "http://www.master-connect.ca",
+                        "url": getPathLocation,
                         "logo": "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png",
                         "foundingDate": "2021",
                         "founders": [
@@ -35,7 +35,7 @@ const AboutHelmet = ({categories,getGeneralInfo,conical}) => {
                         "@type": "ContactPoint",
                         "contactType": "customer support",
                         "telephone": getGeneralInfo.cell,
-                        "email": `${conical}/contact`
+                        "email": `${getPathLocation}/contact`
                         },
                         "sameAs": [ 
                           getGeneralInfo.siteArray
@@ -48,7 +48,7 @@ const AboutHelmet = ({categories,getGeneralInfo,conical}) => {
         <meta name="description" content="About Master-connect.All the Services you need at a very reasonable price! "/>
         <meta name="summary" content={categories.map(obj=>(obj.content))}/>
         <meta name="keywords" content={categories.map(obj=>(obj.subSection))}/>
-        <link rel="canonical" href={`${conical}/about`} />
+        <link rel="canonical" href={`${getPathLocation}/about`} />
         <script type="application/ld+json">
           {JSON.stringify(articleJSON)}
         </script>

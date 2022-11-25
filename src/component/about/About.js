@@ -108,7 +108,7 @@ useEffect(()=>{
   }
   }, [setTitle,setStyleName,setChangePage]);
 
- console.log(conical)
+ 
   return (
     <ContainerAboutFluid>
       <AboutHelmet categories={allcatHelmet} getGeneralInfo={getGeneralInfo} conical={conical.loaded ? conical.data:""} getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}/>

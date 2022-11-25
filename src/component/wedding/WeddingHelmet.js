@@ -40,7 +40,7 @@ const WeddingHelmet = ({keywords,summary,desc,image,OBJ,conical,getPathLocation}
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
-        <link rel="canonical" href={`${getPathLocation}design6`} />
+        <link rel="canonical" href={`${getPathLocation}/design6`} />
         <meta name="site" content={getPathLocation}/>
         <meta name="url" content={getPathLocation}/>
         <meta name="image" content={image}/>

@@ -7,8 +7,8 @@ const SigninHelmet = ({conical,getPathLocation}) => {
     <Helmet>
         <title>Signin Page </title>
         <meta name="description" content="Signin page for viewing personal accounts"/>
-        <meta name="url" content={`${getPathLocation}signin`}/>
-        <link rel="canonical" href={`${getPathLocation}signin`}/>
+        <meta name="url" content={`${getPathLocation}/signin`}/>
+        <link rel="canonical" href={`${getPathLocation}/signin`}/>
     </Helmet>
   )
 }

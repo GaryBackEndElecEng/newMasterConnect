@@ -36,7 +36,7 @@ const Design3Helmet = ({keywords,summary,desc,image,OBJ,average,conical,getPathL
     <Helmet>
         <title>Moon page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href={`${getPathLocation}design3`} />
+        <link rel="canonical" href={`${getPathLocation}/design3`} />
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>

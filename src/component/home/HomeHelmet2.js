@@ -32,7 +32,7 @@ const HomeHelmet2 = ({generalInfoHelmet,conical,getPathLocation}) => {
       "@type": "ContactPoint",
       "contactType": "customer support",
       "telephone": generalInfoHelmet.cell,
-      "email": `${getPathLocation}contact`,
+      "email": `${getPathLocation}/contact`,
       },
       
     

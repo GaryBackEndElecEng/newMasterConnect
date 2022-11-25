@@ -7,8 +7,8 @@ const RegisterHelmet = ({conical,getPathLocation}) => {
     <Helmet>
         <title>Registration</title>
         <meta name="description" content=" www.master-connect.ca registration page"/>
-        <meta name="url" content={`${getPathLocation}register`}/>
-        <link rel="canonical" href={`${getPathLocation}register`}/>
+        <meta name="url" content={`${getPathLocation}/register`}/>
+        <link rel="canonical" href={`${getPathLocation}/register`}/>
     </Helmet>
   )
 }

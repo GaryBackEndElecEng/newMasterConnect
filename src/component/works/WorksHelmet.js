@@ -8,7 +8,7 @@ const WorksHelmet = ({keywords,summary,desc,products,staticImage,conical,getPath
        convertJSON= products.map(obj=>(
                 {
                 "@context": "https://schema.org/",
-                "@id":`${conical}/prices`,
+                "@id":`${getPathLocation}/prices`,
                 "@type": "Product",
                 "name": obj.name,
                 "image": `${staticImage}/${obj.imageName}`,
@@ -37,7 +37,7 @@ const WorksHelmet = ({keywords,summary,desc,products,staticImage,conical,getPath
     <Helmet>
         <title>Design page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href={`${getPathLocation}works`} />
+        <link rel="canonical" href={`${getPathLocation}/works`} />
         <meta name="description" content="Home for all the designs you need to make your decision."/>
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>

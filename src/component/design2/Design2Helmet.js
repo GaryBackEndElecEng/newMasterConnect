@@ -36,11 +36,11 @@ const Design2Helmet = ({keywords,summary,desc,image, OBJ,average,conical,getPath
     <Helmet>
         <title>Art Page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href={`${getPathLocation}design2`} />
+        <link rel="canonical" href={`${getPathLocation}/design2`} />
         <meta name="keywords" content={keywords}/>
         <meta name="summary" content={summary}/>
         <meta name="description" content={desc}/>
-        <meta name="site" content="www.master-connect.ca"/>
+        <meta name="site" content={getPathLocation}/>
         <meta name="url" content={getPathLocation}/>
         <meta name="image" content={image}/>
         <script type="application/ld+json">

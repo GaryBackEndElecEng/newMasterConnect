@@ -43,7 +43,7 @@ const Design10Helmet = ({desc,keyWords,loadArr,average,conical,getPathLocation})
     <Helmet>
         <title>Interior Design Page </title>
         <meta name="site_name" content="Web Designs"/>
-        <link rel="canonical" href={`${getPathLocation}design10`} />
+        <link rel="canonical" href={`${getPathLocation}/design10`} />
         <meta name="keywords" content={keyWords}/>
         <meta name="summary" content=" Interior Design"/>
         <meta name="description" content={desc}/>

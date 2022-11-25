@@ -52,6 +52,7 @@ const NavBar = () => {
                  
                  }} >
                     <GetLocation/>
+                    
                 <Toolbar sx={{width:"100%",}}>
         
                     <MenuDropDown/>
