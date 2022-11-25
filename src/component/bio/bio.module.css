@@ -17,4 +17,14 @@
   background:grey !important;
   color:black !important;
   margin-left:0px !important;
+  animation: slideIn 2.5s ease-in-out;
+}
+@keyframes slideIn {
+  from {transform:translateX(-50%);}
+  to { transform:translateX(0%);}
+}
+@media screen and (max-width:600px){
+  .sidebar {
+    animation: slideIn 3.5s ease-in-out;
+  }
 }

@@ -98,12 +98,15 @@ const CheckOutStuffQuote = () => {
 
   return (
     <Container component="div" maxWidth={"xl"}
-      sx={{ margin: "1rem auto" }}
+      sx={{ margin: "1rem auto",position:"relative",padding:"1rem",paddingTop:"2rem",
+    background:theme.palette.primary.lighter
+    }}
     >
       <Grid container direction={"row"} spacing={{ md: 2, sm: 1, xs: 0 }}
         sx={{
-          backgroundColor: theme.palette.secondary.light,
-          padding: "10px", margin: "1rem auto"
+          backgroundColor:"white",
+          padding: "0.5rem", margin: "2rem auto", display: "flex",boxShadow:`1px 1px 8px 3px ${theme.palette.common.light}`, flexGrow: 1,
+
         }}
       >
         <Grid item xs={12} md={4} >

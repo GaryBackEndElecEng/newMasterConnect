@@ -8,13 +8,15 @@ import styled from 'styled-components';
 // import styles from './bio.module.css';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import ImputForm from './ImputForm';
+import CloseIcon from '@mui/icons-material/Close';
 
 const StackOpenForm = styled(Stack)`
+display:${({display})=>display};
 position:absolute;
 width:100%;
 background:${({ bg }) => bg};
 top:-780%;
-z-index:0;
+z-index:1;
 transform:scale(0.7);
 animation: scaleIn 1.5s ease-in-out;
 
@@ -44,12 +46,15 @@ const SendAMessageContainer = () => {
     const theme = useTheme();
     const { open, setOpen, isRequestInfo } = useContext(GeneralContext);
     const isOpenOpacity= open ? "0" : "1";
+    const showForm= open ? "block":"none";
 
 
 
     const handleOpenQuote = (e) => {
         e.preventDefault();
+        if(open===false){
         setOpen(true);
+        }else{setOpen(false)}
 
     }
 
@@ -70,8 +75,13 @@ const SendAMessageContainer = () => {
             </>
             {open &&
 
-                <StackOpenForm bg={theme.palette.common.fadeCharcoal}>
+                <StackOpenForm bg={theme.palette.common.fadeCharcoal} display={showForm}>
+                    <div style={{position:"relative"}}>
                     <ImputForm />
+                    <CloseIcon sx={{color:"red",position:"absolute",top:"-5%",right:"0.5%",fontSize:"40px"}}
+                    onClick={(e)=>handleOpenQuote(e)}
+                    />
+                    </div>
                 </StackOpenForm>
 
 
