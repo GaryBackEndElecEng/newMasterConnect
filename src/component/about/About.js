@@ -14,6 +14,7 @@ import DottedWorld from './DottedWorld';
 import Stripe1 from './Stripe1';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import AboutHelmet from './AboutHelmet';
+import MyAccountDesc from './MyAccountDesc';
 var preCount = 0;
 
 const ContainerAboutFluid=styled.div.attrs({className:" container-fluid "})`
@@ -183,6 +184,7 @@ useEffect(()=>{
           <Stripe1 scrollRef={scrollRef} />
         </GlobalBox>
       </Container>
+      <MyAccountDesc />
       <CheckOutStuffQuote/>
     </ContainerAboutFluid>
   )

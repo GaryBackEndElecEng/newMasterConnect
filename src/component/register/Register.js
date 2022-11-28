@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
 import {  Typography, Grid, Container, Paper, FormControl, InputLabel, FormHelperText, Input,  FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia, ButtonBase } from '@mui/material';
 // import styled from 'styled-components';
@@ -26,6 +27,7 @@ const Register = () => {
     const theme = useTheme();
     const MyRef = useRef();
     const { register, setRegister, staticImage,setRegisterConfirmed,email, setEmail,setChangePage,setTitle,setStyleName,conical,getPathLocation } = useContext(GeneralContext);
+    const {setFormComplete}=useContext(TokenAccessContext);
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
     const [validPassword, setValidPassword] = useState(false);
@@ -60,7 +62,9 @@ const Register = () => {
                     checked: checked
                 },
                 loaded:false
-            })
+            });
+            localStorage.setItem("formComplete",false);
+            setFormComplete(false)
 
         }
     }, [validEmail, validUsername, validPassword, setInfoOkay, checked,email,password,username,setRegister]);
