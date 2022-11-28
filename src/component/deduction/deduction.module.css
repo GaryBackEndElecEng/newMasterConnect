@@ -1,0 +1,12 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+
+.message {
+    position:absolute;
+    animation: appear 16s ease-in-out;
+}
+@keyframes appear {
+    from {opacity:0.6;}
+    20% {opacity:1;}
+    100% {opacity:0;}
+}

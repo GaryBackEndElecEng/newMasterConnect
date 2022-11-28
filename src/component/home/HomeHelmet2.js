@@ -11,7 +11,7 @@ const HomeHelmet2 = ({generalInfoHelmet,conical,getPathLocation}) => {
       "@type": "Organization",
       "name": "Digital Master Connect",
       "legalName" : "Digital Master Connect inc",
-      "url":getPathLocation,
+      "url":"https://www.master-connect.ca",
       "logo":"https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png",
       "foundingDate": "2021",
       "founders": [

@@ -1,5 +1,5 @@
 import React, {useContext,useMemo,useState} from 'react';
-import { Link, Stack, } from '@mui/material';
+import { Link, Stack, Typography, } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ContainerFooterFluid } from '../../styled/Container.styled';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -11,7 +11,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 const MediaIcons = () => {
     const theme=useTheme();
-    const {generalInfo}=useContext(GeneralContext);
+    const {generalInfo,getPathLocation}=useContext(GeneralContext);
     const getSiteArray= generalInfo.loaded ? generalInfo.data.siteArray:null;
     const [sites,setSites]=useState({loaded:false,data:[]});
     useMemo(()=>{
@@ -48,6 +48,9 @@ const MediaIcons = () => {
             </Link>
             
           ))}
+        </Stack>
+        <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",margin:"0.5rem auto"}}>
+          <Typography component="h1" variant="h6">2021@{getPathLocation.loaded && getPathLocation.data}</Typography>
         </Stack>
       </ContainerFooterFluid>
   )

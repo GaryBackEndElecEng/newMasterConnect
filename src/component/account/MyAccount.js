@@ -115,7 +115,7 @@ const MyAccount = () => {
     <>
       {activate ?
         <>
-        <MyAccountHelmet conical={conical}
+        <MyAccountHelmet
         getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
         />
         <GetPage/>

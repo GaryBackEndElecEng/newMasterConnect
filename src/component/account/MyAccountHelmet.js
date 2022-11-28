@@ -3,7 +3,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const MyAccountHelmet = ({conical,getPathLocation}) => {
+const MyAccountHelmet = ({getPathLocation}) => {
   return (
     <Helmet>
         <title>My Account </title>

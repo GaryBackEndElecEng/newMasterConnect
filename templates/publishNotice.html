@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="position:relative;">
+    <strong style="text-align:center;"><a href="https://www.master-connect.ca">
+            <h2>Master-connect.ca</h2>
+        </a></strong>
+    <h3> {{name|safe}}, we are ready to publish your site.</h3>
+    <div>
+        <small style="margin:auto;">
+            <ul style="background:lightgrey;padding:15px; width:100%;">Particulars:
+                <li>user:{{username|safe}}</li>
+                <li>{{address|safe}}</li>
+                <li>{{address2|safe}}</li>
+                <li>{{email|safe}}</li>
+                <li>{{cell|safe}}</li>
+                <li>cell:{{cell|safe}}</li>
+                <li>original website:{{website|safe}}</li>
+            </ul>
+        </small>
+    </div>
+    <h3> products</h3>
+    <div >
+            <ul style="width:50%;margin:auto">Client's choice:
+                <li>{{products|safe}}</li>
+            </ul>
+    </div>
+    <h3> services</h3>
+    <div >
+            <ul style="width:50%;margin:auto">Client's choice:
+                <li>{{services|safe}}</li>
+            </ul>
+    </div>
+   {% if isCalculator == True %}
+    <h3> Post services</h3>
+    <div >
+        <p> These are your derived selections from using the Calculator. You will see the post Service list in your <a href="https://www.master-connect.ca/signin">user account</a>.
+        </p>
+            <ul style="width:50%;margin:auto">Client's choice from the Calculator:
+                <li>{{postService|safe}}</li>
+            </ul>
+    </div>
+    {% endif %}
+
+    
+<p><a href="https://www.master-connect.ca/signin">Please Signin</a> to view your Post Services that are required to publish your site. These services include static storage spaces for pictures as well as user account used for purchasing ( if applicable), plus other services that you choosen.</p>
+<p> Once complete, your new site will be published with confidence.</p>
+
+<p> Until we next speak,</p>
+
+<p><strong> Yours Truly,</strong></p>
+<hr style="width:50%;margin-left:0px;">
+<h3><strong> Master-connect's Team </strong></h3>
+<hr style="width:50%;margin-left:0px;">
+<a href="https://www.master-connect.ca">www.master-connect.ca</a><br>
+<img src="https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png" style=" border-radius:5% 5% 25% 25%;border:1px solid rgb(0,0,20);width:100px;width:100px;" alt="www.master-connect.ca "/>
+
+</body>
+
+</html>

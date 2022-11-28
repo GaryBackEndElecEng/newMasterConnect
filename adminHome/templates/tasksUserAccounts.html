@@ -232,9 +232,9 @@
                     {% for extraService in user.extraService.all %}
                     <div>name:{{extraService.name}},
                         {% if user|extraServTrackerTask:service.id == True %}
-                        <span style="color:red;">task:{{ user|extraServTrackerTask:service.id }}</span>
+                        <span style="color:red;">task:{{ user|extraServTrackerTask:extraService.id }}</span>
                         {% else %}
-                        <span style="color:blue;">task:{{ user|extraServTrackerTask:service.id }}</span>
+                        <span style="color:blue;">task:{{ user|extraServTrackerTask:extraService.id }}</span>
                         {% endif %}
                         <span>
                             <form method="POST" style="margin:2rem auto">

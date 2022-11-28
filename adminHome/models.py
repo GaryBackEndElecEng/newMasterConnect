@@ -32,7 +32,7 @@ class ServiceTaskTracker(models.Model):
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):
-        return f'{self.name}-{self.username}'
+        return f'{self.name}-{self.username}-{self.task}'
 
 class PostServiceTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
@@ -41,7 +41,7 @@ class PostServiceTaskTracker(models.Model):
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):
-        return f'{self.name}-{self.username}'
+        return f'{self.name}-{self.username}-{self.task}'
 
 class ExtraServiceTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
@@ -50,7 +50,7 @@ class ExtraServiceTaskTracker(models.Model):
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):
-        return f'{self.name}-{self.username}'
+        return f'{self.name}-{self.username}-{self.task}'
 
 class ProductTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
@@ -59,7 +59,7 @@ class ProductTaskTracker(models.Model):
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):
-        return f'{self.name}-{self.username}'
+        return f'{self.name}-{self.username}-{self.task}'
 
 class TaskTracker(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)

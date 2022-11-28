@@ -1,4 +1,4 @@
-from my_account.models import Product,Service,UserAccount,Invoice,PostInvoice,ExtraInvoice
+from my_account.models import UserAccount,Invoice,PostInvoice,ExtraInvoice
 from .models import Quote
 from django.contrib.auth.models import User,Group
 import stripe
@@ -145,5 +145,8 @@ def sendExtraEmail(user_id):
     except BadHeaderError as e:
         return e
     return "done"
+
+
+
 
 

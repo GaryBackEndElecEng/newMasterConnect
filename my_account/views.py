@@ -211,7 +211,10 @@ class UserAccountComplete(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     
     def post(self,request,format=None):
-        # print(request.headers,"data",request.data)
+        website='none'
+        co='none'
+        industry='none'
+        CDN='none'
         data=self.request.data
         user_id=data['user_id']
         name=data['name']
@@ -220,10 +223,14 @@ class UserAccountComplete(APIView):
         country=data['country']
         provState=data['provState']
         postal=data['postal']
-        website=data['website']
-        DNS=data['DNS']
-        industry=data['industry']
-        co=data['comp']
+        if data['website']:
+            website=data['website']
+        if data['CDN']:
+            CDN=data['CDN']
+        if data['comp']:
+            co=data['comp']
+        if data['industry']:
+            industry=data['industry']
         try:
             user=User.objects.filter(id=user_id).first()
             userAccount=UserAccount.objects.filter(user=user).first()
@@ -236,7 +243,7 @@ class UserAccountComplete(APIView):
                 userAccount.provState=provState
                 userAccount.postal=postal.upper()
                 userAccount.website=website
-                userAccount.DNS=DNS
+                userAccount.CDN=CDN
                 userAccount.industry=industry
                 userAccount.co=co
                 userAccount.save()
@@ -470,10 +477,14 @@ class GetClientsOptions(APIView):
         if userAccount:
             #Creates Invoice and tax(if not present) saves it in Invoice and Tax, then this calls it
             getOption,created=Option.objects.get_or_create(name=userAccount.name)
-            getOption.question1=question1
-            getOption.question2=question2
-            getOption.question3=question3
-            getOption.question4=question4
+            if "NA" not in question1:
+                getOption.question1=question1
+            if "NA" not in question2:
+                getOption.question2=question2
+            if "NA" not in question3:
+                getOption.question3=question3
+            if "NA" not in question4:
+                getOption.question4=question4
             getOption.save()
             userAccount.options=getOption
             userAccount.save()
@@ -920,6 +931,11 @@ class PostDeleteExtraService(APIView):
         extraService=ExtraService.objects.filter(id=id).first()
         extraInvoice=userAccount.extraInvoice
         tax=Tax.objects.filter(country=userAccount.country,subRegion=userAccount.provState).first()
+        if not extraInvoice:
+            extraInvoice=ExtraInvoice.objects.create(name=userAccount.name,tax=tax,subTotal=0,total=0,subTotalMonthly=0,totalMonthly=0,numPayment=0)
+            extraInvoice.save()
+            userAccount.extraInvoice=extraInvoice
+            userAccount.save()
         if userAccount and extraService and tax:
             userAccount.extraService.remove(extraService)
             if len(userAccount.extraService.all())>0:

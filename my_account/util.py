@@ -6,6 +6,8 @@ from django.conf import settings
 from datetime import datetime,timedelta,date
 import json
 import math
+from django.core.mail import EmailMultiAlternatives,BadHeaderError
+from django.template.loader import render_to_string
 
 """
 REMAINDER FOR CALCULATING INTERESTS FOR 2-YEARS INSTEAD OF 5-YRS, SHOWING THE REMAINDER
@@ -957,3 +959,5 @@ def site_url():
                     return {"SITE_URL":"http://localhost:8000"}
 
 # print(site_url())
+
+

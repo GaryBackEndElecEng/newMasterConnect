@@ -65,7 +65,7 @@ min-height:46vh;
 const Article = () => {
   const theme = useTheme();
   // const navigate = useNavigate();
-  const { setTitle, setStyleName, staticImage,conical,getPathLocation} = useContext(GeneralContext);
+  const { setTitle, setStyleName, staticImage,getPathLocation} = useContext(GeneralContext);
   const [changeArticle, setChangeArticle] = useState(null);
   const [glacier, setGlacier] = useState({ loaded: false, data: [] });
   const [lightning, setLightning] = useState({ loaded: false, data: [] });
@@ -78,7 +78,7 @@ const Article = () => {
   const [cognitive, setCognitive] = useState({});
   const [sixDegree, setSixDegree] = useState({});
   const [internet, setInternet] = useState({});
-  const [OBJs, setOBJs] = useState([]);
+  const [SEOAll, setSEOAll] = useState({loaded:false,data:[]});
   const bgImage=`${staticImage}/work.png`;
   const [innerW, setInnerW] = useState(false);
   const changeColor = innerW ? theme.palette.fade : theme.palette.common.light;
@@ -88,36 +88,34 @@ const Article = () => {
   const [summary, setSummary] = useState(null);
   const [keywords, setKeywords] = useState(null);
   const [desc, setDesc] = useState(null);
-  const [images, setImages] = useState(null);
 
   useEffect(()=>{
-    if(storeFront.loaded && connecting.loaded && shortTerm.loaded && cognitive.loaded && sixDegree.loaded){
-      let arr=[],arr2=[],arr3=[];
-      arr.push(storeFront.data.section);
-      arr.push(connecting.data.section);
-      arr.push(shortTerm.data.section);
-      arr.push(cognitive.data.section);
-      arr.push(sixDegree.data.section);
-      arr.push(internet.data.section);
-      arr.push(glacier.data.section);
-      arr.push(lightning.data.section);
+    const removeTags = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g;
+    if(SEOAll.loaded){
+      let arr=[];
+      let eachSummary="";
+      SEOAll.data.forEach((obj,index)=>{
+        arr.push(obj.title)
+        arr.push(obj.article[0].subSection)
+          if(removeTags.test(obj.article[0].summary)){
+            let filterSummaryArr=obj.article[0].summary.split(removeTags);
+            if(filterSummaryArr){
+              filterSummaryArr.forEach((phrase,index3)=>{
+                if(phrase.split("").length>200){
+                eachSummary = eachSummary + ",,,,," + index3 +".)" + obj.article[0].subSection + ":" + phrase.slice(0,50);
+                }
+              });
+            }
+          }
+
+        
+      });
       setKeywords(arr);
-      setSummary("A page that provides 9-Amazing Articles for the intrigued.")
-      arr2.concat(storeFront.data.subSection);
-      arr2.concat(connecting.data.subSection);
-      arr2.concat(shortTerm.data.subSection);
-      arr2.concat(cognitive.data.subSection);
-      arr2.concat(sixDegree.data.subSection);
-      arr2.concat(internet.data.subSection);
-      arr2.push(glacier.data.section);
-      arr2.push(lightning.data.section);
-      setDesc(arr2)
-      arr3=[storeFront.data,connecting.data,shortTerm.data,cognitive.data,sixDegree.data,internet.data,]
-      setOBJs(arr3)
+      setSummary(`A page that provides 9-Amazing Articles for the intrigued; such as: ${eachSummary}`)
       
-      setImages([storeFront.data.imageSection,connecting.data.imageSection,shortTerm.data.imageSection,cognitive.data.imageSection,sixDegree.data.imageSection,internet.data.imageSection,lightning.data,glacier.data])
+      setDesc(`A page that provides 9-Amazing Articles for the intrigued; such as: ${eachSummary}`)
     }
-  },[storeFront.loaded,connecting.loaded,shortTerm.loaded,cognitive.loaded,sixDegree.loaded,internet.loaded]);
+  },[SEOAll.loaded,SEOAll.data]);
 
   const ButtonArray=[
 
@@ -139,6 +137,7 @@ const Article = () => {
       try {
         const res = await api.get('/blog/articles/');
         const body = res.data;
+        setSEOAll({loaded:true,data:body})
         setGlacier({ loaded: true, data: body.filter(obj => (obj.title === "Dooms Day Glacier"))[0] });
         setLightning({ loaded: true, data: body.filter(obj => (obj.title === "The Phenomena of lightning"))[0] });
         setCovid({ loaded: true, data: body.filter(obj => (obj.title === "Changed Trends - COVID"))[0] });
@@ -162,6 +161,8 @@ const Article = () => {
     }
 
   }, []);
+ 
+
   useEffect(() => {
     if (changeArticle === "twaites") {
       let temp = glacier.loaded ? glacier.data : null;
@@ -243,10 +244,8 @@ const Article = () => {
       summary={summary} 
       desc={desc} 
       keywords={keywords} 
-      images={images} 
-      OBJs={OBJs}
+      SEOAll={SEOAll.loaded ? SEOAll.data:null}
       article={getTitle}
-      conical={conical.loaded ? conical.data:""}
       getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
       />
       <TopCoverPage/>

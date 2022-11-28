@@ -246,6 +246,7 @@ class UserAccount(models.Model):
     provState=models.CharField(max_length=50,blank=True)
     postal=models.CharField(max_length=50,blank=True,null=True)
     website=models.CharField(max_length=75,blank=True,null=True)
+    newWebsite=models.CharField(max_length=75,blank=True,null=True)
     CDN=models.CharField(max_length=75,default='False',blank=True)
     industry=models.CharField(max_length=75,blank=True,null=True)
     co=models.CharField(max_length=75,blank=True,null=True)
@@ -260,6 +261,9 @@ class UserAccount(models.Model):
     options=models.ForeignKey(Option,on_delete=models.CASCADE,null=True,blank=True)
     sitePreference=models.ForeignKey(SitePreference,on_delete=models.CASCADE,null=True,blank=True)
     postAccountActivate=models.BooleanField(default=False)
+    postActivateEmailSent=models.BooleanField(default=False)
+    publishComplete=models.BooleanField(default=False)
+    publishEmailSent=models.BooleanField(default=False)
     calcUUID=models.CharField(max_length=100,blank=True,null=True)
     consult = models.BooleanField(default=False)
     canceled= models.BooleanField(default=False)
@@ -268,6 +272,8 @@ class UserAccount(models.Model):
 
     def __str__(self):
         return f'{self.name}-{self.user}'
+
+
 
 class Jobs(models.Model):
     userId=models.CharField(max_length=100,blank=True,null=True)

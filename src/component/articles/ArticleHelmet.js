@@ -4,12 +4,12 @@ import { Helmet } from 'react-helmet';
 // import { Card, CardMedia } from '@mui/material';
 
 
-const ArticleHelmet = ({ summary, desc, images, OBJs, keywords,article,conical,getPathLocation }) => {
+const ArticleHelmet = ({ summary, desc, keywords,article,getPathLocation,SEOAll }) => {
   let articleJSON=[" testing"];
 
-  if(OBJs.length > 0){
+  if(SEOAll){
     // console.log(OBJs)
-    articleJSON = OBJs.map(obj=>( {
+    articleJSON = SEOAll.map(obj=>( {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
       "mainEntityOfPage": {

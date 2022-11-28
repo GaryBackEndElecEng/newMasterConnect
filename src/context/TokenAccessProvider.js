@@ -37,7 +37,7 @@ const [user_id,setUser_id]=useState(0);
 const [email,setEmail]=useState("");
 const [name,setName]=useState("");
 const [cell,setCell]=useState("");
-const [DNS,setDNS]=useState("");
+const [CDN,setCDN]=useState("");
 const [website,setWebsite]=useState("");
 const [industry,setIndustry]=useState("");
 const [co,setCo]=useState("");
@@ -58,6 +58,7 @@ const [userAccount,setUserAccount]=useState(initializeUserAccount);
 const[usersService,setUsersService]=useState(initializeServProd);
 const[usersProduct,setUsersProduct]=useState(initializeServProd);
 const[usersPostService,setUsersPostService]=useState({loaded:false,data:[]});
+const[usersExtraService,setUsersExtraService]=useState({loaded:false,data:[]});
 const [userOptions,setUserOptions]=useState({loaded:false,data:{}})
 const [reducedProduct, setReducedProduct] = useState([]);
 const [usersInvoice,setUsersInvoice]=useState({data:{},loaded:false});
@@ -156,11 +157,15 @@ useEffect(() => {
         
         setUsersInvoice({loaded:true,data:data.invoice})
       }else{setUsersInvoice({loaded:false,data:[]})}
+
       if(data?.postService !==null){
         setUsersPostService({loaded:true,data:data.postService})
       }
       if(data?.extraInvoice !==null){
         setUsersExtraInvoice({loaded:true,data:data.extraInvoice})
+      }
+      if(data?.extraService){
+        setUsersExtraService({loaded:true,data:data.extraService})
       }
       if (data.jobs.length>0){
         let userServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].serviceArr;
@@ -174,6 +179,7 @@ useEffect(() => {
         let userExtraServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].extraServiceArr;
         if(userExtraServiceArr.length>0){
         setJobsExtraService({loaded:true,data:userExtraServiceArr});
+        
         }
       }
       localStorage.setItem("userAccount",JSON.stringify(data));
@@ -185,7 +191,7 @@ useEffect(() => {
       setCountry(data?.country);
       setPostal(data?.postal);
       setWebsite(data?.website);
-      setDNS(data?.DNS);
+      setCDN(data?.CDN);
       setIndustry(data?.industry);
       setCo(data?.co);
       if(data.sitePreference){
@@ -214,7 +220,7 @@ useEffect(() => {
 
 
   return (
-    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,jobsService,jobsPostService,jobsExtraService,website,setWebsite,DNS,setDNS,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount,getUUID}}>
+    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,usersExtraService,setUsersExtraService,jobsService,jobsPostService,jobsExtraService,website,setWebsite,CDN,setCDN,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount,getUUID}}>
         {props.children}
     </TokenAccessContext.Provider>
   )

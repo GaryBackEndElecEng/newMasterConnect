@@ -8,6 +8,7 @@ class FormUpdate(forms.Form):
     activateLowestPrice= forms.ChoiceField(required=False, label='Activate Lowest Prices', choices=UPDATE)  
     adjustMonthlyCost= forms.ChoiceField(required=False, label='Adjust monthly prices', choices=UPDATE)  
     calculateAllInvoices= forms.ChoiceField(required=False, label='Calculate allInvoices', choices=UPDATE)  
+    cleanTaskTracker= forms.ChoiceField(required=False, label='cleanTaskTracker', choices=UPDATE)  
 
 
 

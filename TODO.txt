@@ -1,10 +1,13 @@
  
-
+ctrl + G => goto line
 
 TODO
--Services: add # pages ( calculate a reduce % based on front page), about page,contact page,form
+
 -fix admin / taskhandle page ( MUST INCLUDE user_id):
-add form, additional page, additional table, user account, financial services in EXTRA, but filter name with Service to see if they have service already at front end.
+-add populate extraServices ( about page,contact page, effects ( name the effects),etc)
+-make a contract ( for engagement)- using pdf, then create a popUp for signing within APIProtect
+-correct the infoFomComplete in account/Particulars/infoCompleteForm
+-set up deduction on PostServices based Refusal of ( check mark to show).
 -add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 -When they send a quest for a quote, send them a link of the the calculator.
 - add how many effects do they want per page.( PY- calculate the effects cost per page using another table)
@@ -14,8 +17,13 @@ add form, additional page, additional table, user account, financial services in
 -
 
 COMPLETE:
+-in for within MyAccount/Particulars add fill to DNS,Website,industry,co ( incase user does'nt fill out the infor)
 - comleted forwarding to the right url:frontEnd=request.build_absolute_uri().split("/api/")[0]
 -transferred request.build_absolute_uri api to fron app as conical to replace canonical links
+-Services: add # pages ( added about and contact to Services), about page,contact page,form
+-fix articles SEO
+- set email automation on postServices ready to publish
+-add date-year + site
 
 
 

@@ -9,11 +9,13 @@ from django.urls import path
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from django.forms.models import model_to_dict
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import authentication
 # from rest_framework import request
 from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -28,7 +30,7 @@ from rest_framework.permissions import AllowAny
 from my_account.util import monthlyProductServiceMonthlyPrice,updatePackages,insertLowest_price_in
 from .forms import *
 from .serializers import TaskTrackerSerializer
-from .util import generateSumInvoice
+from .util import generateSumInvoice,CleanTaskTracker
 from .models import *
 from api.models import *
 from django.views import View
@@ -64,6 +66,7 @@ def AdminHome(request):
             activateLowestPrice=getFormUpdate.cleaned_data.get("activateLowestPrice")
             adjustMonthlyCost=getFormUpdate.cleaned_data.get("adjustMonthlyCost")
             calculateAllInvoices=getFormUpdate.cleaned_data.get("calculateAllInvoices")
+            cleanTaskTracker=getFormUpdate.cleaned_data.get("cleanTaskTracker")
             
             if activateLowestPrice == "True":
                 insertLowest_price_in()
@@ -76,6 +79,9 @@ def AdminHome(request):
             if calculateAllInvoices == "True":
                 print("calculateAllInvoices")
                 generateSumInvoice()
+            if cleanTaskTracker == "True":
+                CleanTaskTracker().executeAll()
+                print("cleanTaskTracker",cleanTaskTracker)
             
 
 
@@ -158,4 +164,25 @@ class GetTaskTracker(APIView):
             return Response(serializer.data)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@method_decorator(csrf_exempt,name='dispatch')
+class GetTaskTrackerAccount(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    # permission_classes=[AllowAny]
+    def post(self,request,format=None):
+        data=request.data
+        user_id=data['user_id']
+        print(data)
+        user=User.objects.filter(id=user_id).first()
+        if user:
+            try:
+                taskTracker=TaskTracker.objects.filter(user=user).first()
+                serializer=TaskTrackerSerializer(taskTracker,many=False)
+                return Response(serializer.data)
+            except Exception as e:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"error":"no user","status":status.HTTP_400_BAD_REQUEST})
+
+
 

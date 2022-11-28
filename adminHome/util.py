@@ -1,6 +1,7 @@
 from my_account.models import *
 from .models import SumInvoice,Rates
 from datetime import datetime
+from .models import *
 
 
 class StoreAllINvoices:
@@ -87,3 +88,90 @@ def generateSumInvoice():
         StoreAllINvoices(userAccount).saveTable()
 
 # generateSumInvoice()
+
+#//////------ CLEAN TASKTRACKERS --------///////
+
+class CleanTaskTracker:
+    def __init__(self):
+        self.allUsers=User.objects.all()
+
+    def cleanServTaskTracker(self):
+        for user in self.allUsers:
+            self.userAccount=UserAccount.objects.filter(user=user).first()
+            self.userTracker=TaskTracker.objects.filter(user=user).first()
+            if self.userTracker and self.userAccount:
+                if self.userAccount.invoice:
+                    if self.userAccount.invoice.paid ==True:
+                        for serviceTracker in self.userTracker.service.all():
+                            if len(self.userTracker.service.all())>0:
+                                if serviceTracker.Id not in [obj.id for obj in self.userAccount.service.all()]:
+                                    if serviceTracker.id != None:
+                                        serviceTracker.delete()
+
+    def cleanProdTaskTracker(self):
+        for user in self.allUsers:
+            self.userAccount=UserAccount.objects.filter(user=user).first()
+            self.userTracker=TaskTracker.objects.filter(user=user).first()
+            if self.userTracker and self.userAccount:
+                if self.userAccount.invoice:
+                    if self.userAccount.invoice.paid ==True:
+                        for productTracker in self.userTracker.product.all():
+                            if len(self.userTracker.product.all()):
+                                if productTracker.Id not in [obj.id for obj in self.userAccount.product.all()]:
+                                    if productTracker.id != None:
+                                        productTracker.delete()
+
+
+    def cleanPostServTaskTracker(self):
+        for user in self.allUsers:
+            self.userAccount=UserAccount.objects.filter(user=user).first()
+            self.userTracker=TaskTracker.objects.filter(user=user).first()
+            if self.userTracker and self.userAccount:
+                if self.userAccount.postInvoice:
+                    if self.userAccount.postInvoice.paid ==True:
+                        for postServTracker in self.userTracker.postService.all():
+                            if len(self.userTracker.postService.all())>0:
+                                if postServTracker.Id not in [obj.id for obj in self.userAccount.postService.all()]:
+                                    if postServTracker.id != None:
+                                        postServTracker.delete()
+
+
+    def cleanExtraServTaskTracker(self):
+        for user in self.allUsers:
+            self.userAccount=UserAccount.objects.filter(user=user).first()
+            self.userTracker=TaskTracker.objects.filter(user=user).first()
+            if self.userTracker and self.userAccount:
+                if self.userAccount.extraInvoice:
+                    if self.userAccount.extraInvoice.paid ==True:
+                        for extraServTracker in self.userTracker.extraService.all():
+                            if len(self.userTracker.extraService.all())>0:
+                                if extraServTracker.Id not in [obj.id for obj in self.userAccount.postService.all()]:
+                                    if extraServTracker.id != None:
+                                        extraServTracker.delete()
+
+    def removeUserTracker(self):
+        for user in self.allUsers:
+            self.userAccount=UserAccount.objects.filter(user=user).first()
+            self.userTracker=TaskTracker.objects.filter(user=user).first()
+            if self.userTracker and self.userAccount:
+                if self.userAccount.extraInvoice and self.userAccount.postInvoice and self.userAccount.invoice:
+                    check=[self.userAccount.extraInvoice.paid==True and self.userAccount.postInvoice.paid ==True and self.userAccount.invoice == True]
+                    if check[0]:
+                        extraServs=self.userTracker.extraService.all()
+                        postServs=self.userTracker.postService.all()
+                        prods=self.userTracker.product.all()
+                        servs=self.userTracker.service.all()
+                        if len(extraServs)==0 and len(postServs)==0 and len(prods)==0 and len(servs)==0:
+                            self.userTracker.delete()
+
+    def executeAll(self):
+        self.cleanServTaskTracker()
+        self.cleanProdTaskTracker()
+        self.cleanPostServTaskTracker()
+        self.cleanExtraServTaskTracker()
+        self.removeUserTracker()
+
+
+
+# test=CleanTaskTracker().executeAll()
+

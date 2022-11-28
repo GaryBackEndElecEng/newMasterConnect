@@ -14,7 +14,7 @@ import NavigationIcon from '@mui/icons-material/Navigation';
 import MsgFillOutForm from './MsgFillOutForm';
 
 const InfoCompleteForm = () => {
-    const { setUserAccount, user_id, setAddress, address, setCell, cell, setName, name,setWebsite,website,setDNS,DNS, setFormComplete, formComplete,
+    const { setUserAccount, user_id, setAddress, address, setCell, cell, setName, name,setWebsite,website,setCDN,CDN, setFormComplete, formComplete,
         provState, setProvState,country, setCountry,postal, setPostal,industry,setIndustry,setCo,co } = useContext(TokenAccessContext);
     const theme = useTheme();
     const [error, setError] = useState('');
@@ -27,6 +27,10 @@ const InfoCompleteForm = () => {
     const [validCountry, setValidCountry] = useState(false);
     const [validPostal, setValidPostal] = useState(false);
     const [validProvState, setValidProvState] = useState(false);
+    const [validCDN,setValidCDN] = useState(false);
+    const [validCo,setValidCo]=useState(false);
+    const [validIndustry,setValidIndustry]=useState(false);
+    const [validWebsite,setValidWebsite]=useState(false);
     const [msgFillOutForm, setMsgFillOutForm] = useState(true);
 
     const [region, setRegion] = useState({
@@ -40,6 +44,11 @@ const InfoCompleteForm = () => {
             name: "",
             cell: "",
             address: "",
+            country:"",
+            provState:"",
+            CDN:"",
+            industry:"",
+            co:""
         }
     });
 useMemo(()=>{
@@ -70,11 +79,11 @@ useMemo(()=>{
     useEffect(() => {
         if (isInfoOk) {
             setRequestInfo({ data:
-                 { name: name, cell: cell, address:address,country:country,provState:provState,postal:postal,website:website,DNS:DNS,industry:industry,co:co },
+                 { name: name, cell: cell, address:address,country:country,provState:provState,postal:postal,website:website,CDN:CDN,industry:industry,co:co },
                   loaded: true });
         }
 
-    }, [isInfoOk,name,cell,address,country,provState,postal,website,DNS,industry,co]);
+    }, [isInfoOk,name,cell,address,country,provState,postal,website,CDN,industry,co]);
 
     
 
@@ -91,20 +100,25 @@ useMemo(()=>{
         setValidCountry(COUNTRY_REGEX.test(country));
         setValidProvState(COUNTRY_REGEX.test(provState));
         setValidPostal(GENERIC_REGEX.test(postal));
+        setValidCDN(GENERIC_REGEX.test(CDN));
+        setValidCo(GENERIC_REGEX.test(co));
+        setValidWebsite(GENERIC_REGEX.test(website));
+        setValidIndustry(GENERIC_REGEX.test(industry));
+
 
     }, [ address, cell,name,country,postal,provState,]);
 
     useEffect(()=>{
-        if (validName && validCell && validAddress && validPostal && validProvState && validCountry) {
+        if (validName && validCell && validAddress && validPostal && validProvState && validCountry && validCDN && validCo && validWebsite & validIndustry) {
             setIsInfoOk(true)
         } 
-    },[validName,validCell,validAddress,validPostal,validProvState,validCountry]);
+    },[validName,validCell,validAddress,validPostal,validProvState,validCountry,validWebsite,validCDN,validCo,validIndustry]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const params = { "user_id": user_id, "name": requestInfo.data.name, "cell": requestInfo.data.cell, 
                         "address": requestInfo.data.address,"country":requestInfo.data.country,
-                        "provState":requestInfo.data.provState,"postal":requestInfo.data.postal,"website":requestInfo.data.website,"DNS":requestInfo.data.DNS,"industry":requestInfo.data.industry,"comp":requestInfo.data.co}
+                        "provState":requestInfo.data.provState,"postal":requestInfo.data.postal,"website":requestInfo.data.website,"CDN":requestInfo.data.CDN,"industry":requestInfo.data.industry,"comp":requestInfo.data.co}
         const sendServer = async () => {
             try {
                 const res = apiProtect.post("/account/userAccountComplete/", params);
@@ -293,12 +307,12 @@ useMemo(()=>{
                                         label_id="DNS"
                                         name="DNS"
                                         aria-describedby="DNS"
-                                        value={DNS}
-                                        onChange={(e) => setDNS(e.target.value)}
+                                        value={CDN}
+                                        onChange={(e) => setCDN(e.target.value)}
                                         aria-invalid={validPostal ? "false" : "true"}
                                     />
                                     {
-                                        DNS !=="" ? <span className={styles.validPostal }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
+                                        CDN !=="" ? <span className={styles.validPostal }><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
 
                                         :
                                          <span className={styles.not}><CloseIcon /> </span>

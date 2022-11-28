@@ -16,13 +16,14 @@ import SignpostIcon from '@mui/icons-material/Signpost';
 import ParticularsUsersProdsServs from './ParticularsUsersProdsServs';
 import ParticularsPaidTotals from './ParticularsPaidTotals';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 
 
 const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True
     const theme = useTheme();
     const navigate = useNavigate();
-    const { userAccount, address, cell, name, email, provState, country, postal, formComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct,loggedIn,usersExtraInvoice,getUUID } = useContext(TokenAccessContext);
+    const { userAccount, address, cell, name, email, provState, country, postal, formComplete,setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct,loggedIn,usersExtraInvoice,getUUID } = useContext(TokenAccessContext);
     const { setChangePage } = useContext(GeneralContext);
     const [message,setMessage]=useState(null);
     const [message2,setMessage2]=useState(null);
@@ -34,6 +35,14 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     const isExtraInvoice=usersExtraInvoice.loaded ? 4 : 6;
     const largeFormat=isExtraInvoice;
     const getFormComplete= localStorage.getItem("formComplete") ? JSON.parse(localStorage.getItem("formComplete")):formComplete;
+
+    useEffect(()=>{
+        if(getFormComplete){
+            setFormComplete(true);
+        }else{
+            setFormComplete(false);
+        }
+    },[setFormComplete,getFormComplete]);
 
     useEffect(()=>{
         if(invoicePaid){
@@ -127,10 +136,10 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                 console.error(error.message)
             };
         };
-        if (loggedIn && formComplete) {
+        if (loggedIn && getFormComplete) {
             sendConsultCheck();
         }if(!loggedIn){ navigate("/signin", setChangePage(true)) };
-        if(!formComplete){
+        if(!getFormComplete){
             setMessage("Please complete the form, so we can better understand what you want.");
             setTimeout(()=>{
                 setMessage(null);
@@ -144,6 +153,10 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     const handleGoToUUID=(e)=>{
         e.preventDefault();
         navigate("/MyAccount/uuid",setChangePage(true));
+    }
+    const handleDeductionPage=(e)=>{
+        e.preventDefault();
+        navigate("/MyAccount/deductionPage",setChangePage(true))
     }
 
     return (
@@ -236,9 +249,15 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                     <Grid item xs={12} md={6}
                         sx={{ margin: "1rem auto", justifySelf: "center", AlignSelf: "center", background: theme.palette.common.light, color: theme.palette.secondary.background, position: "relative" }}
                     >
-                        {(!formComplete) && <InfoCompleteForm />}
-                        {(formComplete ) && <div className={styles.showInfo}><ShowInfo /></div>}
+                        {(!getFormComplete) && <InfoCompleteForm />}
+                        {(getFormComplete ) && <div className={styles.showInfo}><ShowInfo /></div>}
+                        <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",margin:"2rem auto"}}>
+                            <Fab variant="extended" color="warning" onClick={(e)=>handleDeductionPage(e)}>
+                                Deduction <IndeterminateCheckBoxIcon sx={{ml:1,color:"red"}}/>
+                            </Fab>
+                        </Stack>
                     </Grid>
+                    
                 </Grid>
                 {getMessage.loaded && 
                 <Typography component="h1" variant="h4" className={styles.getMessage}

@@ -43,6 +43,7 @@ import MasterConnectCa from './component/sitemap/MasterConnectCa1.js';
 import MasterConnectCom from './component/sitemap/MasterConnectCom.js';
 import MasterconnectCa from './component/sitemap/MasterconnectCa.js';
 import GetUUID from './component/uuid/GetUUID';
+import DeductionPage from './component/deduction/DeductionPage';
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
             <Route path="/MyAccount" element={<LayoutSecure />}>
               <Route path="/MyAccount" element={<MyAccount />} />
               <Route path ="/MyAccount/postAccount/" element={<PostAccount/>}/>
+              <Route path ="/MyAccount/deductionPage" element={<DeductionPage/>}/>
               <Route path="/MyAccount/checkout" element={<Checkout />} />
               <Route path="/MyAccount/uuid" element={<GetUUID />} />
               <Route path="/MyAccount/consult" element={<Consult />} />
