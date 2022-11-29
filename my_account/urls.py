@@ -29,8 +29,11 @@ urlpatterns=[
     path('get_public/',views.Get_stripe_public_key.as_view(),name="StripePublicKey-get"),
     path('payment/',views.Payment.as_view(),name="getting_Payment-get"),
     path('stripe/payment/<int:user_id>',views.StripePaymentFromClient.as_view(),name="getting_Payment-get"),
+
     path('invoice/',views.getUserInvoiceAccount.as_view(),name="getting_Payment-get"),
     path('post_invoice/',views.ClickCheckout.as_view(),name="checkingout-get"),
+    path('PostDeductService/',views.PostDeductService.as_view(),name="PostDeductService-get"),
+
     path('getInfoSession/',views.GetSessionInfo.as_view(),name="getting_Payment-get"),
     path('getPostBareServices/',views.GetPostServices.as_view(),name="getPostBareServices-get"),
     path('getPostInfoSession/',views.GetPostSessionInfo.as_view(),name="getting_post_Payment-get"),

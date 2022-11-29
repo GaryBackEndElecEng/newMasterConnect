@@ -45,7 +45,7 @@ const CalculatorHelmet = ({generalInfo,conical,getPathLocation}) => {
   }
   return (
     <Helmet>
-        <title>About Us </title>
+        <title>Calculator </title>
         <meta name="description" content="About Master-connect.All the Services you need at a very reasonable price! "/>
         <meta name="summary" content=" This calculates your estimate web-design cost. all you need is 5-minutes of your time."/>
         <meta name="keywords" content="calculator,find your cost,most respectable prices, industry best,why wait, Freedom to build,gary Wallace,master-connect, web-design"/>

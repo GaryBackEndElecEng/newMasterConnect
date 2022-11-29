@@ -72,7 +72,7 @@ class RequestQuotePostSerializer(serializers.ModelSerializer):
     permission_classes=[permissions.AllowAny,]
     class Meta:
         model = Quote
-        fields=("id","fullName","email","cell","coName","coSite","content","promotion")
+        fields=("id","fullName","email","cell","coName","coSite","content","promotion","preferredComms")
 
 class RequestPostSerializer(serializers.ModelSerializer):
     permission_classes=[permissions.AllowAny,]

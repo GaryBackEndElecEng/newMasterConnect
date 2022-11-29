@@ -36,7 +36,7 @@ const MyAccountDesc = () => {
   return (
     <MyAccountContainer maxWidth="xl" bg={theme.palette.common.lighter} sx={{position:"relative"}}>
         <Typography component="h1" variant="h1" 
-        sx={{textAlign:"center",fontSize:{xs:"200%"}}}
+        sx={{textAlign:"center",fontSize:{xs:"200%",sm:"300%",md:"400%"}}}
         >
             {myAccount.loaded && myAccount.data[0].title}
         </Typography>

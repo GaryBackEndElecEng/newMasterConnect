@@ -70,6 +70,12 @@ class Quote(models.Model):
     coSite=models.CharField(max_length=200,blank=True)
     content=models.TextField(blank=True)
     promotion=models.BooleanField(default=False)
+    preferredComms=models.CharField(max_length=50,default="email",blank=True)
+    emailSent=models.BooleanField(default=False)
+    sendThemEmail=models.BooleanField(default=False)
+    answer=models.TextField(blank=True,null=True)
+    sendToFAQ=models.BooleanField(default=False)
+    FAQYes=models.BooleanField(default=False)
 
     def __str__(self):
         return self.fullName

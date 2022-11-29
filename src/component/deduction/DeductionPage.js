@@ -11,6 +11,7 @@ import CoverPageDeduct from './CoverPageDeduct';
 import styles from './deduction.module.css';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import DeleteIcon from '@mui/icons-material/Delete';
+import DeductHelmet from './DeductHelmet';
 
 const MainDeduction = styled.div`
 width:100vw;
@@ -27,16 +28,33 @@ animation: comeIn 1.5s ease-in-out;
 const DeductionPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
-    const { usersProduct, setUsersProduct, setUsersService, usersService, setUsersPostService, usersPostService,usersExtraService,setUsersExtraService, user_id, loggedIn,setUserAccount } = useContext(TokenAccessContext);
+    const { usersProduct, setUsersProduct, setUsersService, usersService, setUsersPostService, usersPostService,usersExtraService,setUsersExtraService, user_id, loggedIn,setUserAccount,credited, setCredited } = useContext(TokenAccessContext);
     const { setTitle, setStyleName, setChangePage } = useContext(GeneralContext);
     const [servTrackerTaskFalse, setServTrackerTaskFalse] = useState({ loaded: false, data: {} });
     const [prodTrackerTaskFalse, setProdTrackerTaskFalse] = useState({ loaded: false, data: {} });
     const [postServTrackerTaskFalse, setPostServTrackerTaskFalse] = useState({ loaded: false, data: {} });
     const [extraServTrackerTaskFalse, setExtraServTrackerTaskFalse] = useState({ loaded: false, data: {} });
+    const [servProdCredit, setServProdCredit] = useState({ loaded: false, data: {} });
     const [message, setMessage] = useState(null);
     const [message1, setMessage1] = useState(null);
     const [message2, setMessage2] = useState(null);
     const [message3, setMessage3] = useState(null);
+
+    useEffect(()=>{
+        const sendCredit = async()=>{
+            try {
+                const res = await apiProtect.post('account/PostDeductService/',servProdCredit.data);
+                const body=res.data;
+                setCredited({loaded:true,data:body});
+                setServProdCredit({loaded:false,data:{}});
+            } catch (error) {
+                console.error(error.message)
+            }
+        }
+        if(servProdCredit.loaded){ 
+            sendCredit();
+        }
+    },[servProdCredit.loaded,servProdCredit.data,setCredited]);
 
     useEffect(() => {
         if (message) {
@@ -111,7 +129,8 @@ const DeductionPage = () => {
                 if (body) {
                     setUsersService({ loaded: true, data: usersService.data.filter(obj => (parseInt(obj.id) !== id)) });
                     setServTrackerTaskFalse({ loaded: true, data: servTrackerTaskFalse.data.filter(obj => (parseInt(obj.id) !== taskId)) });
-                    setMessage(`your service ${name} was deleted. please note that, by refreshing the page will make it reappear until the developer opens his admin page. This is to confirm that it's deleted from your list.`)
+                    setMessage(`your service ${name} was deleted. please note that, by refreshing the page will make it reappear until the developer opens his admin page. This is to confirm that it's deleted from your list and you have been credited.`);
+                    setServProdCredit({loaded:true,data:{user_id:user_id,servProd_id:id}});
                 }
             } catch (error) {
                 console.error(error.message)
@@ -131,7 +150,8 @@ const DeductionPage = () => {
                 if (body) {
                     setUsersPostService({ loaded: true, data: usersPostService.data.filter(obj => (parseInt(obj.id) !== postServ_id)) });
                     setPostServTrackerTaskFalse({ loaded: true, data: postServTrackerTaskFalse.data.filter(obj => (parseInt(obj.id) !== taskId)) });
-                    setMessage1(`your Post service ${name} was deleted. please note that, by refreshing the page will make it reappear until the developer opens his admin page. This is to confirm that it's deleted from your list.`)
+                    setMessage1(`your Post service ${name} was deleted. please note that, by refreshing the page will make it reappear until the developer opens his admin page. This is to confirm that it's deleted from your list and you have been credited.`);
+                    setServProdCredit({loaded:true,data:{user_id:user_id,servProd_id:postServ_id}});
                 }
             } catch (error) {
                 console.error(error.message)
@@ -152,7 +172,8 @@ const DeductionPage = () => {
                 setExtraServTrackerTaskFalse({ loaded: true, data: extraServTrackerTaskFalse.data.filter(obj => (parseInt(obj.id) !== taskId)) });
                 setUserAccount({ loaded: true, data: body });
                 setUsersExtraService({ loaded: true, data: userExtraServiceReduced });
-                setMessage2(`your Post service ${name} was deleted. please note that, by refreshing the page will make it reappear until the developer opens his admin page. This is to confirm that it's deleted from your list.`)
+                setMessage2(`your Post service ${name} was deleted. please note that, by refreshing the page will make it reappear until the developer opens his admin page. This is to confirm that it's deleted from your list and you have been credited.`);
+                setServProdCredit({loaded:true,data:{user_id:user_id,servProd_id:extraServ_id}});
             } catch (error) {
                 console.error(error.message)
             }
@@ -171,7 +192,8 @@ const DeductionPage = () => {
                 if(body){
                     setUsersProduct({loaded:true,data:usersProduct.data.filter(obj=>(parseInt(obj.id) !== parseInt(prod_id)))});
                     setProdTrackerTaskFalse({loaded:true,data:prodTrackerTaskFalse.data.filter(obj=>(parseInt(obj.id) !== parseInt(taskId)))});
-                    setMessage3(`your Post service ${name} was deleted. please note that, by refreshing the page will make it reappear until the developer opens his admin page. This is to confirm that it's deleted from your list.`)
+                    setMessage3(`your Post service ${name} was deleted. please note that, by refreshing the page will make it reappear until the developer opens his admin page. This is to confirm that it's deleted from your list and you have been credited.`);
+                    setServProdCredit({loaded:true,data:{user_id:user_id,servProd_id:prod_id}});
                 }
             } catch (error) {
                 console.error(error.message)
@@ -188,7 +210,8 @@ const DeductionPage = () => {
 
     return (
         <MainDeduction>
-            <CoverPageDeduct />
+            <DeductHelmet/>
+            <CoverPageDeduct credited={credited.loaded ? credited.data:null} />
             <Container maxWidth="lg"
                 sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column", margin: "2rem auto" }}
             >

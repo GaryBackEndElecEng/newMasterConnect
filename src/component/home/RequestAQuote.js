@@ -9,17 +9,20 @@ import styles from '../contact/contact.module.css';
 import styles2 from './home.module.css';
 import NavigationIcon from '@mui/icons-material/Navigation';
 import api from '../axios/api'
+import { Label } from '@mui/icons-material';
 
 const RequestAQuote = () => {
     const theme = useTheme();
-    const { email, setEmail, name, setName, content, setContent, setRequestQuote, staticImage, requestQuote, infoOkay, setInfoOkay, issue, setIssue,setCallBackQuoteRequest,setCallBackConfirmed,setOpenGetQuote,openGetQuote } = useContext(GeneralContext);
+    const { email, setEmail, name, setName, content, setContent, setRequestQuote, staticImage, requestQuote, infoOkay, setInfoOkay, issue, setIssue,setCallBackQuoteRequest,setCallBackConfirmed,setOpenGetQuote } = useContext(GeneralContext);
     const [cell, setCell] = useState("");
     const [coName, setCoName] = useState("");
     const [coSite, setCoSite] = useState("");
+    const [preferredComms, setPreferredComms] = useState("");
     const [validEmail, setValidEmail] = useState(false);
     const [validCell, setValidCell] = useState("");
     const [validSite, setValidSite] = useState(false);
     const [validName, setValidName] = useState(false);
+    const [validComms, setValidComms] = useState(false);
     const [validContent, setValidContent] = useState("");
     const [checked, setChecked] = useState(false);
     const manOnMountain = `${staticImage}/manOnMountain.png`
@@ -46,20 +49,21 @@ const RequestAQuote = () => {
         setValidEmail(emailValid);
         setValidContent(contentValid);
 
-    }, [setValidEmail, email, setValidName, validName, name, setValidContent, content, setRequestQuote, checked, validContent, validEmail, setValidSite, setValidCell, cell, coSite, coName, validSite, validCell, setInfoOkay, infoOkay]);
+    }, [setValidEmail, email, setValidName, validName, name, setValidContent, content, setRequestQuote, checked, validContent, validEmail, setValidSite, setValidCell, cell, coSite, coName, validSite, validCell, setInfoOkay, infoOkay,preferredComms]);
 
     useEffect(() => {
 
         const isInfoOkay = () => {
-            if (validName && validEmail && validContent && validCell && validSite) {
-                setRequestQuote({ email: email, fullName: name, content: content, promotion: checked, cell: cell, coName: coName, coSite: coSite })
+            if(preferredComms !==""){setValidComms(true)}
+            if (validName && validEmail && validContent && validCell && validSite && validComms) {
+                setRequestQuote({ email: email, fullName: name, content: content, promotion: checked, cell: cell, coName: coName, coSite: coSite,preferredComms:preferredComms })
                 setInfoOkay(true);
                 localStorage.setItem("client", JSON.stringify(requestQuote));
                 setIssue(false);
             } else { setInfoOkay(false) }
         }
         isInfoOkay();
-    }, [setInfoOkay, validName, validEmail, validContent, validCell, validSite, content, email, checked, cell, coName, coSite, infoOkay, name, setRequestQuote, setIssue, requestQuote]);
+    }, [setInfoOkay, validName, validEmail, validContent, validCell, validSite, content, email, checked, cell, coName, coSite, infoOkay, name, setRequestQuote, setIssue, requestQuote,preferredComms,validComms,setValidComms]);
 
 
     const handleChecked = (e) => {
@@ -68,7 +72,6 @@ const RequestAQuote = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault(e);
-        const clientRequest = JSON.parse(localStorage.getItem("client"));
         
         const sendQuote = async ()=>{
             try {
@@ -93,9 +96,12 @@ const RequestAQuote = () => {
                 localStorage.setItem("error",JSON.stringify(error.message))
             }
         }
+        if(infoOkay){
         sendQuote();
+        }
         
     }
+
     return (
         <Container maxWidth={"sm"}>
             <Card
@@ -155,11 +161,30 @@ const RequestAQuote = () => {
                                     aria-describedby="Your cell phone"
                                     value={cell}
                                     onChange={(e) => setCell(e.target.value)}
-                                    aria-invalid={validName ? "false" : "true"}
+                                    aria-invalid={validCell ? "false" : "true"}
                                 />
                                 {validCell ? <span className={validCell ? styles.validCell : styles.not}><CheckCircleOutlineIcon /></span>
                                     : <span className={validCell ? styles.not : styles.notValidCell}><CloseIcon /></span>}
                                 <FormHelperText id="your-cell">Please type your number</FormHelperText>
+
+                            </FormControl>
+                            <FormControl className={styles2.formControl} size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                <label htmlFor="comms" style={{padding:"0.5rem"}}>preferred means of communication</label>
+                                <select
+                                    id="comms"
+                                    aria-describedby="Your prefer means of communicating"
+                                    value={preferredComms}
+                                    onChange={(e) => setPreferredComms(e.target.value)}
+                                    style={{margin:"0.5rem auto",padding:"0.25rem"}}
+                                >
+                                    <option disable value="">-choose an option-</option>
+                                    <option value="email">email</option>
+                                    <option value="phone">phone</option>
+                                    <option value="text">text</option>
+                                </select>
+                                {validComms ? <span className={validCell ? styles.validCell : styles.not}><CheckCircleOutlineIcon /></span>
+                                    : <span className={validComms ? styles.not : styles.notValidCell}><CloseIcon /></span>}
+                                <FormHelperText id="-comms-" sx={{color:"blue"}}>for respect</FormHelperText>
 
                             </FormControl>
                             <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>

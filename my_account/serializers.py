@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework import status,mixins,generics,viewsets,permissions
-from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator,Jobs,SitePreference,TempSavedCalculator)
+from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator,Jobs,SitePreference,TempSavedCalculator,CreditInvoice)
 from django.contrib.auth.models import User
 
 class PostCalculatorSerializer(serializers.ModelSerializer):
@@ -175,6 +175,11 @@ class JobsSerializer(serializers.RelatedField):
     def to_representation(self,value):
         return {"id":value.id,"userId":value.userId,"serviceArr":value.serviceArr,"postServiceArr":value.postServiceArr,"extraServiceArr":value.extraServiceArr}
 
+class CreditInvoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CreditInvoice
+        fields= "__all__"
+
 class SitePreferenceSerializer(serializers.ModelSerializer):
     class Meta:
         model=SitePreference
@@ -220,6 +225,7 @@ class UserAccountAllCombined(serializers.ModelSerializer):
     extraInvoice=ExtraInvoiceSerializer(many=False,read_only=True)
     extraService=ExtraServiceSerializer(many=True,read_only=True)
     sitePreference=SitePreferenceSerializer(many=False,read_only=True)
+    credit=CreditInvoiceSerializer(many=False,read_only=True)
     class Meta:
         model=UserAccount
         fields='__all__'

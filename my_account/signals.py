@@ -11,9 +11,9 @@ from django.template.loader import render_to_string
 #CREATING TWO PRICE RECS BASED ON LOWEST PRICE/MONTHLY IN SERVICE AND PRODUCT
 @receiver(post_save,dispatch_uid='createOnpostAccountActivate', sender=UserAccount)
 def createOnpostAccountActivate(instance,created,*args,**kwargs):
-    if instance.postAccountActivate:
+    if instance.postAccountActivate and instance.postActivateEmailSent==False:
             generateReadyToPublish(instance.user,instance.id)
-    if instance.publishComplete:
+    if instance.publishComplete and instance.publishEmailSent==False:
             sendPublishCompleteEmail(instance.user.id,instance.id)
             
         

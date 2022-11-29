@@ -32,7 +32,7 @@ const Signout = () => {
           user_id: localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null,
 
         }
-        console.log(params)
+        // console.log(params)
         const res = await apiProtect.post(`/account/logout/`,params);
         const data = res.data
         if (data) {

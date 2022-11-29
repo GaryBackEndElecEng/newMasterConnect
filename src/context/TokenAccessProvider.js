@@ -69,7 +69,8 @@ const [jobsPostService,setJobsPostService]=useState({data:[],loaded:false});
 const [jobsExtraService,setJobsExtraService]=useState({data:[],loaded:false});
 const [sitePreference,setSitePreference]=useState({data:{},loaded:false});
 const [selectMonthlyValue,setSelectMonthlyValue]=useState("value");
-const initializeSelectedPayment={loaded:false,numPayment:"",value:""}
+const initializeSelectedPayment={loaded:false,numPayment:"",value:""};
+const [credited, setCredited] = useState({loaded:false,data:{}});
 Object.freeze(initializeSelectedPayment);
 const [selectedPayment,setSelectedPayment]=useState(initializeSelectedPayment);
 
@@ -167,6 +168,9 @@ useEffect(() => {
       if(data?.extraService){
         setUsersExtraService({loaded:true,data:data.extraService})
       }
+      if(data?.credit){
+        setCredited({loaded:true,data:data.credit})
+      }
       if (data.jobs.length>0){
         let userServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].serviceArr;
         if(userServiceArr.length>0){
@@ -220,7 +224,7 @@ useEffect(() => {
 
 
   return (
-    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,usersExtraService,setUsersExtraService,jobsService,jobsPostService,jobsExtraService,website,setWebsite,CDN,setCDN,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount,getUUID}}>
+    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,usersExtraService,setUsersExtraService,jobsService,jobsPostService,jobsExtraService,website,setWebsite,CDN,setCDN,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount,getUUID,credited, setCredited}}>
         {props.children}
     </TokenAccessContext.Provider>
   )

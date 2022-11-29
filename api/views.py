@@ -159,7 +159,7 @@ class PostQuote(APIView):
         # print(serializer)
         if serializer.is_valid(raise_exception=True):
             fullName=serializer.validated_data.get("fullName")
-            print("GET ID",fullName)
+            # print("GET ID",fullName)
             serializer.save()
             sendQuoteEmail(fullName)
             return Response(serializer.data,status=status.HTTP_201_CREATED)

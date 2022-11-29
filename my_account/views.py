@@ -16,7 +16,7 @@ from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import authentication
 # from users.permissions import IsOwnerOrReadOnly
-from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs,SitePreference,TempSavedCalculator)
+from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs,SitePreference,TempSavedCalculator,CreditInvoice)
 from api.models import Region
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -26,7 +26,7 @@ from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from rest_framework.decorators import api_view
-from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer)
+from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer,CreditInvoiceSerializer)
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -1094,3 +1094,69 @@ class GetUUIDPost(APIView):
                     return Response(serializer.data,status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error":f'{e}',"status":status.HTTP_404_NOT_FOUND})
+
+class PostDeductService(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    #THESE ARE ALREADY PAID SERVICES TO BE CREDITED. CLIENT CAN ONLY DEDUCT
+    def post(self,request,**kwargs):
+        data=request.data
+        user_id=data["user_id"]
+        servProd_id=data["servProd_id"]
+        user=User.objects.filter(id=user_id).first()
+        userAccount=UserAccount.objects.filter(user=user).first()
+        extraService=ExtraService.objects.filter(id=servProd_id).first()
+        service=Service.objects.filter(id=servProd_id).first()
+        postService=PostService.objects.filter(id=servProd_id).first()
+        product=Product.objects.filter(id=servProd_id).first()
+        extraService=Product.objects.filter(id=servProd_id).first()
+        tax=Tax.objects.filter(country=userAccount.country,subRegion=userAccount.provState).first()
+        creditInvoice=CreditInvoice.objects.filter(name=userAccount.name).first()
+        if userAccount:
+            if not creditInvoice:
+                if not tax:
+                    tax,created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
+                    if created:
+                        tax.save()
+                creditInvoice, created = CreditInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
+                if created:
+                    creditInvoice.save()
+                    userAccount.credit=creditInvoice
+                    userAccount.save()
+            if service and service.id not in creditInvoice.prodsServs_id:
+                creditInvoice.prodsServs.append(service.name)
+                creditInvoice.prodsServs_id.append(service.id)
+                creditInvoice.subTotal += service.price
+                creditInvoice.subTotalMonthly += service.monthly
+                taxApply=tax.provState/100 + tax.fed/100 + 1
+                creditInvoice.total=math.floor(creditInvoice.subTotal*taxApply)
+                creditInvoice.totalMonthly=math.floor(creditInvoice.subTotalMonthly*taxApply)
+            elif postService and postService.id not in creditInvoice.prodsServs_id:
+                creditInvoice.prodsServs.append(postService.name)
+                creditInvoice.prodsServs_id.append(postService.id)
+                creditInvoice.subTotal += postService.price
+                creditInvoice.subTotalMonthly += postService.monthly
+                taxApply=tax.provState/100 + tax.fed/100 + 1
+                creditInvoice.total=math.floor(creditInvoice.subTotal*taxApply)
+                creditInvoice.totalMonthly=math.floor(creditInvoice.subTotalMonthly*taxApply)
+            elif extraService and extraService.id not in creditInvoice.prodsServs_id:
+                creditInvoice.prodsServs.append(extraService.name)
+                creditInvoice.prodsServs_id.append(extraService.id)
+                creditInvoice.subTotal += extraService.price
+                creditInvoice.subTotalMonthly += extraService.monthly
+                taxApply=tax.provState/100 + tax.fed/100 + 1
+                creditInvoice.total=math.floor(creditInvoice.subTotal*taxApply)
+                creditInvoice.totalMonthly=math.floor(creditInvoice.subTotalMonthly*taxApply)
+            elif product and product.id not in creditInvoice.prodsServs_id:
+                creditInvoice.prodsServs.append(product.name)
+                creditInvoice.prodsServs_id.append(extraService.id)
+                creditInvoice.subTotal += product.price
+                creditInvoice.subTotalMonthly += product.monthly
+                taxApply=tax.provState/100 + tax.fed/100 + 1
+                creditInvoice.total=math.floor(creditInvoice.subTotal*taxApply)
+                creditInvoice.totalMonthly=math.floor(creditInvoice.subTotalMonthly*taxApply)
+            creditInvoice.hasCredit=True
+            creditInvoice.save()
+            serializer= CreditInvoiceSerializer(creditInvoice,many=False)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response({"error":"No user account","status":status.HTTP_303_SEE_OTHER})

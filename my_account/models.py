@@ -231,6 +231,23 @@ class ExtraInvoice(models.Model):
     def __str__(self):
         return self.name
 
+class CreditInvoice(models.Model):
+    uuid=models.UUIDField(primary_key=False,default=uuid.uuid4,editable=False)
+    name=models.CharField(max_length=200,blank=True)
+    tax=models.ForeignKey(Tax,on_delete=models.CASCADE,blank=True,null=True)
+    subTotal = models.IntegerField(blank=True,default=0)
+    total = models.IntegerField(blank=True,default=0)
+    subTotalMonthly = models.IntegerField(blank=True,default=0)
+    totalMonthly = models.IntegerField(blank=True,default=0)
+    numPayment= models.IntegerField(default=60,blank=True)
+    prodsServs=ArrayField(models.CharField(max_length=100,blank=True),default=list)
+    prodsServs_id=ArrayField(models.IntegerField(blank=True),default=list)
+    hasCredit=models.BooleanField(default=False)
+    dateStart=models.DateTimeField(default=datetime.now)
+    
+    def __str__(self):
+        return self.name
+
 
 class UserAccount(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
@@ -257,6 +274,7 @@ class UserAccount(models.Model):
     postService=models.ManyToManyField(PostService,related_name='postServices',blank=True)
     invoice=models.ForeignKey(Invoice,on_delete=models.CASCADE,null=True,blank=True)
     postInvoice=models.ForeignKey(PostInvoice,on_delete=models.CASCADE,null=True,blank=True)
+    credit=models.ForeignKey(CreditInvoice,on_delete=models.CASCADE,null=True,blank=True)
     extraInvoice=models.ForeignKey(ExtraInvoice,on_delete=models.CASCADE,null=True,blank=True)
     options=models.ForeignKey(Option,on_delete=models.CASCADE,null=True,blank=True)
     sitePreference=models.ForeignKey(SitePreference,on_delete=models.CASCADE,null=True,blank=True)

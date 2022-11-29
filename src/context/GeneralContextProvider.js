@@ -20,6 +20,7 @@ export const GeneralContextProvider = (props) => {
     coName:"",
     coSite:"",
     content:"",
+    preferredComms:"",
     promotion:false
   }
   Object.freeze(initializeRequestQuote);
