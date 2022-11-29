@@ -177,7 +177,7 @@ const RequestAQuote = () => {
                                     onChange={(e) => setPreferredComms(e.target.value)}
                                     style={{margin:"0.5rem auto",padding:"0.25rem"}}
                                 >
-                                    <option disable value="">-choose an option-</option>
+                                    <option value="">-choose an option-</option>
                                     <option value="email">email</option>
                                     <option value="phone">phone</option>
                                     <option value="text">text</option>

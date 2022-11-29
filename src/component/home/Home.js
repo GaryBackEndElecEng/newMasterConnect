@@ -5,7 +5,6 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import { Container, Stack, Typography, Fab, Paper } from '@mui/material';
 import Styles from './home.module.css';
-import { useTheme } from '@mui/material/styles';
 import CoverPage from './CoverPage';
 import ThemeExampleSlideIn from './ThemeExampleSlideIn';
 import WeDo from './WeDo';
@@ -20,7 +19,6 @@ import ArticleBanner from './ArticleBanner';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import CalculateBanner from './CalculateBanner';
 import HomeHelmet from './HomeHelmet';
-import HomeHelmet2 from './HomeHelmet2';
 import ShowGoToMyAccount from './ShowGoToMyAccount';
 import BioBanner from './BioBanner';
 
@@ -164,8 +162,12 @@ const Home = () => {
         <>
         <RegisterPage/>
 <GetRegisterPages/>
-<HomeHelmet profileHelmet={profileHelmet} generalInfoHelmet={getGeneralInfoHelmet}conical={conical.loaded ? conical.data:""} getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}/>
-<HomeHelmet2 generalInfoHelmet={getGeneralInfoHelmet} conical={conical.loaded ? conical.data:""}/>
+<HomeHelmet 
+profileHelmet={profileHelmet}
+ generalInfoHelmet={getGeneralInfoHelmet} 
+getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+/>
+
         <ContainerHomeFluid style={{marginTop:{xs:"3rem",md:"0px"}}}>
 
             <MainContainer

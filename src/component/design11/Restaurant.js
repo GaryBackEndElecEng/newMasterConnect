@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, } from 'react';
 import { Stack, Typography, Container, Grid, Button,Divider } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-// import { TokenAccessContext } from '../../context/TokenAccessProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import CoverPage from './CoverPage';
@@ -48,6 +48,7 @@ position:relative;
 const Restaurant = () => {
     const theme = useTheme();
     const { setTitle, setStyleName,average,conical,getPathLocation } = useContext(GeneralContext);
+    const {paid}=useContext(TokenAccessContext);
     let lastPos = 0, ticking = 0;
     const [opacity, setOpacity] = useState(1);
     const [scrollPos, setScrollPos] = useState(0);
@@ -155,7 +156,7 @@ const Restaurant = () => {
              desc={desc} 
             keyWords={keyWords}
              loadArr={resArr}
-             average={average}
+             average={average !==0 ? average:"4"}
              conical={conical.loaded ? conical.data:""}
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
              />
@@ -217,11 +218,11 @@ const Restaurant = () => {
             <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
             <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment - we aim to improve</Typography>
                 <PageFeedback />
-                <Stack direction="column" sx={{ margin: "1rem auto" }}>
+                {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurchaseBtn ? <UserSignedInPurchaseBtn />
                         :
                         <ModalContainer />}
-                </Stack>
+                </Stack>}
             </Container>
 
 

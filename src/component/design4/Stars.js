@@ -35,8 +35,8 @@ const Stars = ({ rating }) => {
         <Container  maxWidth={'xs'}>
             <Stack 
             sx={{display:"inline-flex",flexDirection:"row",gap:"5px",color:theme.palette.icon.star.main}}>
-                {rateStar().map(star=>(
-                   <Box key={Math.ceil(Math.random()*100000)}> {star} </Box>
+                {rateStar().map((star,index)=>(
+                   <Box key={`${Math.ceil(Math.random()*100000)}-star-${index}`}> {star} </Box>
                     ))
                 }
                 </Stack>

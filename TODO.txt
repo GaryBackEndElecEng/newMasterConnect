@@ -12,6 +12,7 @@ TODO
 - add how many effects do they want per page.( PY- calculate the effects cost per page using another table)
 -test purchasing invoice then Post, then extra(-VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT)
 -manifest=>page register
+-fix the SEO errors
 -Fix Google register and signin
 
 COMPLETE:

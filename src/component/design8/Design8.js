@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Stack, Container, Typography, } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import ModalContainer from '../utils/ModalContainer';
 import RegisterPage from '../RegisterPage';
@@ -44,6 +45,7 @@ margin-top:-50px;
 const Design8 = () => {
   const { setTitle, setStyleName, setChangePage, staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
+  const {paid}=useContext(TokenAccessContext);
   const [summary, setSummary] = useState(false);
   const [desc, setDesc] = useState(false);
   const [keywords, setKeywords] = useState(false);
@@ -96,7 +98,7 @@ const Design8 = () => {
        image={image}
        keywords={keywords}
        OBJ={OBJ}
-       average={average}
+       average={average !==0 ? average:"4"}
        conical={conical.loaded ? conical.data:""}
        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
        />
@@ -108,11 +110,11 @@ const Design8 = () => {
       <BannerTwo />
       <BannerThree />
       <Container maxWidth="md">
-        <Stack direction="column" sx={{ margin: "1rem auto" }}>
+        {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
           {showPurchaseBtn ? <UserSignedInPurchaseBtn />
             :
             <ModalContainer />}
-        </Stack>
+        </Stack>}
         <Typography component="h1" variant="h5" sx={{ textAlign: "center", margin: "1rem auto" }}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback />
       </Container>

@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import {  Box, Stack, Container, Grid, Typography, Paper, Button,  } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import ImgSlider from './ImgSlider';
 import Stars from './Stars'
 import { useTheme } from '@mui/material/styles';
@@ -78,6 +79,7 @@ const Design4 = () => {
     const theme = useTheme();
     const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
+    const {paid}=useContext(TokenAccessContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const getFlowers = flowerImg.loaded ? flowerImg.data : null;
     const [summary, setSummary] = useState(false);
@@ -193,7 +195,7 @@ const Design4 = () => {
                  image={image}
                  keywords={keywords}
                  OBJ={OBJ}
-                 average={average} 
+                 average={average !==0 ? average:"4"} 
                 conical={conical.loaded ? conical.data:""}
                 getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
                  />
@@ -321,11 +323,11 @@ const Design4 = () => {
 
             </ContainerFlowersBgImage>
             <Container maxWidth="md">
-                <Stack direction="column" sx={{ margin: "1rem auto" }}>
+                {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurchaseBtn ? <UserSignedInPurchaseBtn />
                         :
                         <ModalContainer />}
-                </Stack>
+                </Stack>}
                 <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback/>
             </Container>

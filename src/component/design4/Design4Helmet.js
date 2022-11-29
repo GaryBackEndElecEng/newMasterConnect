@@ -2,8 +2,8 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const Design4Helmet = ({keywords,summary,desc,image,OBJ,average,conical,getPathLocation}) => {
-
+const Design4Helmet = ({keywords,summary,desc,image,OBJ,average,getPathLocation}) => {
+ 
   const JSONProduct={
     "@context": "https://schema.org/",
     "@type": "Product",

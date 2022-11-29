@@ -9,6 +9,7 @@ import RightDesign from './RightDesign';
 import FilterHdrIcon from '@mui/icons-material/FilterHdr';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
+import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import ModalContainer from '../utils/ModalContainer';
 import PageFeedback from '../utils/PageFeedback';
 import PageRating from '../utils/PageRating';
@@ -45,8 +46,9 @@ animation:arrear 1.5s ease-in-out;
 }
 `;
 const Design2 = () => {
-    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
+    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation, } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
+    const {paid}=useContext(TokenAccessContext);
     const theme = useTheme();
     const [showPurchaseBtn,setShowPurchaseBtn]=useState(false);
     const [summary, setSummary] = useState(false);
@@ -95,7 +97,7 @@ const Design2 = () => {
              image={image}
              desc={desc}
              OBJ={OBJ}
-             average={average} 
+             average={average !==0 ? average:"4"} 
             conical={conical.loaded ? conical.data:""}
             getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
             />
@@ -149,10 +151,10 @@ const Design2 = () => {
 
         </ContainerFluid>
         <Container maxWidth="xs">
-        <Stack direction="column" sx={{ margin: "1rem auto" }}>
+        {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
           {showPurchaseBtn  ? <UserSignedInPurchaseBtn /> :
           <ModalContainer />}
-        </Stack>
+        </Stack>}
         <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback/>
       </Container>

@@ -104,7 +104,7 @@ class SiteMap_masterconnect(Sitemap):
 def robot(request):
     context={"robot":
     "User-agent: * \
-        Disallow: /cgi-bin/ \
+        Disallow: /cgi-bin/\
         Disallow: /junk/     \
         Disallow: /MyAccount  \
         Disallow: /MyAccount/postAccount\

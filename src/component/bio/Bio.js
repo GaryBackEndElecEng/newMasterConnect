@@ -249,10 +249,9 @@ const Bio = () => {
                                                 {obj.content3}
                                             </Typography>}
                                         {obj.webImage &&
-                                            <Typography component="a" variant="h6" href={obj.webImage}
-                                                sx={{ color: "black", margin: "1rem 0", fontFamily: "Roboto" }}>
-                                                link
-                                            </Typography>}
+                                            <Avatar  src={obj.webImage} sx={{width:{xs:"125px",sm:"125px"},height:{xs:"125px",sm:"125px"},margin:"1rem auto"}}/>
+                                                
+                                            }
                                     </Box>
                                 ))}
                             </Stack>

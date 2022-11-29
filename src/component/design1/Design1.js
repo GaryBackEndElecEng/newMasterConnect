@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Box, Container, Stack, Grid, Typography,Switch} from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider.js';
 import { PriceContext } from '../../context/PriceContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
 import CardSample from './CardSample';
 import CardSample2 from './CardSample2';
@@ -71,6 +72,7 @@ const Design1 = () => {
   const fade2 = 0.8
   const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
   const {getProductList}=useContext(PriceContext);
+  const {paid}=useContext(TokenAccessContext);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
   const image1 = "https://master-connect.s3.ca-central-1.amazonaws.com/static/pics/shortTermRental2.png";
 
@@ -206,11 +208,11 @@ const Design1 = () => {
 
 
       <Container maxWidth={"md"}>
-        <Stack direction={"column"} sx={{ margin: "1rem auto" }}>
+        {!paid && <Stack direction={"column"} sx={{ margin: "1rem auto" }}>
           {showPurchaseBtn ? <UserSignedInPurchaseBtn />
             :
             <ModalContainer />}
-        </Stack>
+        </Stack>}
         <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>{lang ? "Veuillez commenter la conception ci-dessous. Nous nous efforçons de nous améliorer.":"Please comment on the design,below. We strive to improve."}</Typography>
         <PageFeedback/>
       </Container>

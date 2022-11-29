@@ -224,6 +224,7 @@ export const GeneralContextProvider = (props) => {
             let pageRates=body.filter(obj=>(obj.name==="feedback"))[0].pageFeedback
             if(pageRates){
             setPageRatings({loaded:true,data:body.filter(obj=>(obj.name==="feedback"))[0].pageFeedback});
+            
             }
             setMyAccount({loaded:true,data:body.filter(obj=>(obj.name === "myAccount"))[0].catWordSnippet})
             

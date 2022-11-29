@@ -3,8 +3,8 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 import {Card} from '@mui/material';
 
-const HomeHelmet2 = ({generalInfoHelmet,conical,getPathLocation}) => {
-    
+const HomeHelmet2 = ({generalInfoHelmet,getPathLocation}) => {
+    let contact=`${getPathLocation}/contact`
  const IdJson={
      
         "@context": "https://schema.org",
@@ -32,7 +32,7 @@ const HomeHelmet2 = ({generalInfoHelmet,conical,getPathLocation}) => {
       "@type": "ContactPoint",
       "contactType": "customer support",
       "telephone": generalInfoHelmet.cell,
-      "email": `${getPathLocation}/contact`,
+      "email": contact,
       },
       
     

@@ -78,7 +78,7 @@ top:5.5%;
 const InteriorDecorator = () => {
     const { setTitle, setStyleName,average,conical,getPathLocation
      } = useContext(GeneralContext);
-    const {user_id}=useContext(TokenAccessContext);
+    const {user_id,paid}=useContext(TokenAccessContext);
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/interiorDesign`;
     const design1 = `${url}/interierDesign1.png`;
     const design2 = `${url}/interierDesign2.png`;
@@ -179,7 +179,7 @@ const InteriorDecorator = () => {
             desc={desc}
              keyWords={keyWords}
              loadArr={loadArr}
-             average={average}
+             average={average !==0 ? average:"4"}
              conical={conical.loaded ? conical.data:""}
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
              />
@@ -208,11 +208,11 @@ const InteriorDecorator = () => {
                     <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>Give your thought</Typography>
                     <hr />
                     <PageFeedback />
-                    <Stack direction="column" sx={{ margin: "1rem auto" }}>
+                    {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                         {showPurchaseBtn ? <UserSignedInPurchaseBtn />
                             :
                             <ModalContainer />}
-                    </Stack>
+                    </Stack>}
                 </Container>
             </BannerFeedBackStack>
         </MainContainerDv>

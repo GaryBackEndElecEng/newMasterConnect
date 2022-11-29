@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Stack, Grid, Container, Typography, } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 // import styles from './design3.module.css';
@@ -222,6 +223,7 @@ margin-top:-2px;
 const Design3 = () => {
     const {getProductList}=useContext(PriceContext);
     const { setTitle, setStyleName,staticImage, workArr,setChangePage,average,conical,getPathLocation } = useContext(GeneralContext);
+    const {paid}=useContext(TokenAccessContext);
     const [showPara, setShowPara] = useState('none'); 
     const [showPurcahseBtn,setShowPurchaseBtn]=useState(false);
     const [startStatement,setStartStatement]=useState(false);
@@ -295,7 +297,7 @@ const Design3 = () => {
                  image={image}
                  keywords={keywords}
                  OBJ={OBJ}
-                 average={average}
+                 average={average !==0 ? average:"4"}
                  conical={conical.loaded ? conical.data:""}
                  getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
                  />
@@ -359,11 +361,11 @@ const Design3 = () => {
             <ImageDisplay/>
             
             <Container maxWidth="md">
-                <Stack direction="column" sx={{ margin: "1rem auto" }}>
+                {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurcahseBtn ? <UserSignedInPurchaseBtn />
                     :
                     <ModalContainer />}
-                </Stack>
+                </Stack>}
                 <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback/>
             </Container>

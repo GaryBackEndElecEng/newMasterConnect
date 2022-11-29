@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const WeddingHelmet = ({keywords,summary,desc,image,OBJ,conical,getPathLocation}) => {
+const WeddingHelmet = ({keywords,summary,desc,image,OBJ,getPathLocation}) => {
   const JSONProduct={
     "@context": "https://schema.org/",
     "@type": "Product",

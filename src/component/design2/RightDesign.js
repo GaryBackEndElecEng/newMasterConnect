@@ -23,7 +23,7 @@ const RightDesign = () => {
                     <Typography component="h1" variant="h3" sx={{ width: "100%", margin: "1rem 0.5rem", fontFamily: `'Edu TAS Beginner', cursive` }}>
                         Curious
                     </Typography>
-                    <CardMedia component="img" src="https://source.unsplash.com/random/" sx={{ width: "100%", boxShadow: `3px -3px 3px ${theme.palette.background.main} ` }} />
+                    <CardMedia component="img" src="https://new-master.s3.ca-central-1.amazonaws.com/palmTrees.jpg" sx={{ width: "100%", boxShadow: `3px -3px 3px ${theme.palette.background.main} ` }} />
                     <Typography component="div" variant="body1" sx={{ width: "100%", margin: "2rem 0.5rem", fontFamily: `'Edu TAS Beginner', cursive`,fontSize:{xs:"120%",sm:"180%"} }}>
                         Curious is premised on the need to be revealed.
                     </Typography>

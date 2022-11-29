@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Stack, Box, Switch, Typography,Container } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import CoverPage from './CoverPage';
 import styled from 'styled-components';
 import Design9Helmet from './Design9Helmet';
@@ -39,6 +40,7 @@ const Design9 = () => {
   const theme = useTheme();
   const { setTitle, setStyleName, setChangePage, staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
+  const {paid}=useContext(TokenAccessContext);
   const [frenchEnglish, setFrenchEnglish] = useState({ language: thisArray });
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
   const [turnOn, setTurnedOn] = useState(false);
@@ -109,7 +111,7 @@ const Design9 = () => {
        image={image}
        keywords={keywords}
        OBJ={OBJ}
-       average={average}
+       average={average !==0 ? average:"4"}
        conical={conical.loaded ? conical.data:""} 
        getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}
       />
@@ -128,11 +130,11 @@ const Design9 = () => {
 
     </CustomBox>
     <Container maxWidth={"md"}>
-        <Stack direction={"column"} sx={{ margin: "1rem auto" }}>
+        {!paid && <Stack direction={"column"} sx={{ margin: "1rem auto" }}>
           {showPurchaseBtn ? <UserSignedInPurchaseBtn />
             :
             <ModalContainer />}
-        </Stack>
+        </Stack>}
         <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback/>
       </Container>
