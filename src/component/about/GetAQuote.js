@@ -21,7 +21,9 @@ const GetAQuote = () => {
     const [validSite, setValidSite] = useState(false);
     const [validName, setValidName] = useState(false);
     const [validContent, setValidContent] = useState("");
+    const [validComms, setValidComms] = useState(false);
     const [checked, setChecked] = useState(false);
+    const [preferredComms,setPreferredComms]=useState("");
     const manOnMountain = `${staticImage}/manOnMountain.png`
 
     //////------------- requestQuote=>requestQuote,(name,cell,coName,coSite,email,content) IS TO BE SENT TO THE SERVER THROUGH Axios-----//////////////////////////////
@@ -44,22 +46,24 @@ const GetAQuote = () => {
         setValidName(fullnameValid);
         setValidEmail(emailValid);
         setValidContent(contentValid);
+        if(preferredComms !==""){setValidComms(true)}
 
-    }, [setValidEmail, email, setValidName, validName, name, setValidContent, content, setRequestQuote, checked, validContent, validEmail, setValidSite, setValidCell, cell, coSite, coName, validSite, validCell, setInfoOkay, infoOkay]);
+    }, [setValidEmail, email, setValidName, validName, name, setValidContent, content, setRequestQuote, checked, validContent, validEmail, setValidSite, setValidCell, cell, coSite, coName, validSite, validCell, setInfoOkay, infoOkay,preferredComms]);
 
     useEffect(() => {
 
         const isInfoOkay = () => {
-            if (validName && validEmail && validContent && validCell && validSite) {
-                setRequestQuote({ email: email, fullName: name, content: content, promotion: checked, cell: cell, coName: coName, coSite: coSite })
+            if (validName && validEmail && validContent && validCell && validSite && preferredComms) {
+                setRequestQuote({ email: email, fullName: name, content: content, promotion: checked, cell: cell, coName: coName, coSite: coSite,preferredComms:preferredComms })
                 setInfoOkay(true);
                 localStorage.setItem("client", JSON.stringify(requestQuote));
                 setIssue(false);
             } else { setInfoOkay(false) }
         }
         isInfoOkay();
-    }, [setInfoOkay, validName, validEmail, validContent, validCell, validSite, content, email, checked, cell, coName, coSite, infoOkay, name, setRequestQuote, setIssue, requestQuote]);
+    }, [setInfoOkay, validName, validEmail, validContent, validCell, validSite, content, email, checked, cell, coName, coSite, infoOkay, name, setRequestQuote, setIssue, requestQuote,preferredComms]);
 
+    
 
     const handleChecked = (e) => {
         if (checked === true) return setChecked(false)
@@ -67,8 +71,6 @@ const GetAQuote = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault(e);
-
-        const clientRequest = JSON.parse(localStorage.getItem("client"));
         const sendQuote = async ()=>{
             try {
                 const res= await api.post(`/post/`,requestQuote);
@@ -95,6 +97,7 @@ const GetAQuote = () => {
         sendQuote();
         
     }
+    
     return (
         <Container maxWidth={"sm"}>
             <Card
@@ -114,15 +117,16 @@ const GetAQuote = () => {
                 </Typography>
                 <CardContent>
                     <form style={{
-                        margin: "auto", width: "100%", flexGrow: 1, background: theme.palette.common.light, borderRadius: "2%",
-                        boxShadow: "1px 2px 10px white,-1px -2px 10px white"
+                        margin: "auto", width: "100%", flexGrow: 1, background: theme.palette.common.cyanPale, borderRadius: "2%",
+                        boxShadow: "1px 2px 10px 8px lightgrey"
                     }}>
                         <FormLabel component="div" color="primary"
-                            sx={{ display: "flex", justifyContent: "flex-start", alignItems: "flex-start", flexDirection: "column", padding: "1rem", width: "100%" }}
+                            sx={{ display: "flex", justifyContent: "flex-start", alignItems: "flex-start", flexDirection: "column", padding: "1rem", width: "100%",background:theme.palette.common.cyanPale }}
                         >
-                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
                                 <InputLabel htmlFor="email">Email Address</InputLabel>
                                 <Input
+                                sx={{background:"white"}}
                                     id="email"
                                     aria-describedby="valid email"
                                     value={email}
@@ -130,10 +134,10 @@ const GetAQuote = () => {
                                     aria-invalid={validEmail ? "false" : "true"}
                                 />
                                 {validEmail ? <span className={validEmail ? styles.validEmail : styles.not}><CheckCircleOutlineIcon /></span>
-                                    : <span className={validEmail ? styles.not : styles.notValidEmail}><CloseIcon /> </span>}
+                                    : <CloseIcon className={styles.not } sx={{color:"red"}} /> }
                                 {/* <FormHelperText id="valid-email">We'll never share your email.</FormHelperText> */}
                             </FormControl>
-                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
                                 <InputLabel htmlFor="name">Full Name</InputLabel>
                                 <Input
                                     id="name"
@@ -143,11 +147,11 @@ const GetAQuote = () => {
                                     aria-invalid={validName ? "false" : "true"}
                                 />
                                 {validName ? <span className={validName ? styles.validName : styles.not}><CheckCircleOutlineIcon /></span>
-                                    : <span className={validName ? styles.not : styles.notValidName}><CloseIcon /></span>}
+                                    : <CloseIcon className={styles.not } sx={{color:"red"}} />}
                                 {/* <FormHelperText id="your-full-name">full name</FormHelperText> */}
 
                             </FormControl>
-                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
                                 <InputLabel htmlFor="cell">Cell phone</InputLabel>
                                 <Input
                                     id="cell"
@@ -157,15 +161,33 @@ const GetAQuote = () => {
                                     aria-invalid={validName ? "false" : "true"}
                                 />
                                 {validCell ? <span className={validCell ? styles.validCell : styles.not}><CheckCircleOutlineIcon /></span>
-                                    : <span className={validCell ? styles.not : styles.notValidCell}><CloseIcon /></span>}
+                                    : <CloseIcon className={styles.not} sx={{color:"red"}} />}
                                 <FormHelperText id="your-cell">Please type your number</FormHelperText>
 
                             </FormControl>
-                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                            <FormControl className={styles2.formControl} size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
+                                <label htmlFor="comms" style={{padding:"0.5rem"}}>preferred means of communication</label>
+                                <select
+                                    id="comms"
+                                    aria-describedby="Your prefer means of communicating"
+                                    value={preferredComms}
+                                    onChange={(e) => setPreferredComms(e.target.value)}
+                                    style={{margin:"0.5rem auto",padding:"0.25rem"}}
+                                >
+                                    <option value="">-choose an option-</option>
+                                    <option value="email">email</option>
+                                    <option value="phone">phone</option>
+                                    <option value="text">text</option>
+                                </select>
+                                {validComms ? <span className={ styles.validCell }><CheckCircleOutlineIcon /></span>
+                                    : <CloseIcon className={styles.not } sx={{color:"red"}} />}
+                                <FormHelperText id="-comms-" sx={{color:"blue"}}>for respect</FormHelperText>
 
-                                <TextareaAutosize
+                            </FormControl>
+                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
+
+                                <Input
                                     sx={{ width: "100%" }}
-                                    minRows={3}
                                     id="coName"
                                     placeholder="Company Name?"
                                     aria-describedby="how can know what to ask"
@@ -176,27 +198,27 @@ const GetAQuote = () => {
 
                                 <FormHelperText id="coName-helper">So we know who you are.</FormHelperText>
                             </FormControl>
-                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
-
-                                <TextareaAutosize
+                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
+                            <InputLabel htmlFor="coSite">Yours or preferred website</InputLabel>
+                                <Input
                                     sx={{ width: "100%" }}
                                     minRows={3}
                                     id="coSite"
-                                    placeholder="Company's or preferred site'?"
+                                    placeholder="https://www.yoursOrpreferredSite.com"
                                     aria-describedby="so we know what to do"
                                     value={coSite}
                                     onChange={(e) => setCoSite(e.target.value)}
                                     aria-invalid={validContent ? "false" : "true"}
                                 />
                                 {validSite ? <span className={validSite ? styles.validSite : styles.not}><CheckCircleOutlineIcon /></span> :
-                                    <span className={!validSite ? styles.notValidSite : styles.validSite}><CloseIcon /> </span>}
-                                <FormHelperText id="coName-helper">So we know what to do.</FormHelperText>
+                                    <span className={!validSite ? styles.notValidSite : styles.validSite}><CloseIcon sx={{color:"red"}}  /> </span>}
+                                <FormHelperText id="coName-helper">"https://www.example.com"-So we know what to do.</FormHelperText>
                             </FormControl>
-                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                            <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
 
                                 <TextareaAutosize
                                     sx={{ width: "100%" }}
-                                    minRows={3}
+                                    minRows={4}
                                     id="content"
                                     placeholder="How can we help?"
                                     aria-describedby="how can we help"

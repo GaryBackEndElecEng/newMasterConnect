@@ -1,5 +1,15 @@
 *{margin:0;padding:0;box-sizing:border-box;}
-
+.not{
+    color:red;
+}
+.validCell{
+    color:"blue";
+    animation:moveRight 1s ease-in-out;
+}
+@keyframes moveRight {
+    from {transform:translateX(50%);}
+    to {transform:translateX(0%);}
+}
 .msg{
     margin:auto;
     position:absolute;

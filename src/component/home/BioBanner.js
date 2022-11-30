@@ -15,7 +15,8 @@ position:relative;
 width:100vw;
 background-image:url(${({bg_image})=>bg_image});
 background-size: 100% 100%;
-animation:swipeIn 1.5s ease-in-out;
+opacity:${({opacity})=>opacity};
+animation:${({animate})=>animate} 1.5s ease-in-out;
 @keyframes swipeIn {
 from { opacity:0;}
 to {opacity:1;}
@@ -26,7 +27,7 @@ position:absolute;
 top: 0%;
 left:20%;
 width:20%;
-animation:crossIn 2.5s ease-in-out;
+animation:${({animate})=>animate} 2.5s ease-in-out;
 @keyframes crossIn {
     from { opacity:0;transform:translate(-100%,-150%) scale(0);}
     to { opacity:1;transform:translate(0%,0%)scale(1);}
@@ -58,15 +59,15 @@ z-index:100;
 
 `;
 
-const BioBanner = () => {
+const BioBanner = ({activate}) => {
     const navigate = useNavigate();
     const {setChangePage}=useContext(GeneralContext);
     const url="https://new-master.s3.ca-central-1.amazonaws.com/static/images";
     const bannerBioLogo=`${url}/bannerBioProfile.png`;
     const bannerBio=`${url}/bannerBio.png`;
-    // const initiateMain= activate ? "swipeIn":"";
-    // const initiateImg= activate ? "crossIn":"";
-
+    const animateMain = activate ? "swipeIn":"";
+    const animateImg = activate ? "crossIn":"";
+    const opacity = activate ? "1":"0";
     const handleChangePage=(e)=>{
             e.preventDefault();
         navigate("/bio",setChangePage(true));
@@ -75,11 +76,12 @@ const BioBanner = () => {
   return (
     <MainBanner
     bg_image={bannerBio}
-    // swipeIn={initiateMain}
+    opacity={opacity}
+    animate ={animateMain}
     elevation={10}
     >
        
-         <LogoImg  src={bannerBioLogo} alt="www.masterconnect.ca"/>
+         <LogoImg  src={bannerBioLogo} animate={animateImg} alt="www.masterconnect.ca"/>
         <Stack direction="column"spacing={{xs:0,sm:1}}>
             <CustTypo component="h1" variant="h5" sx={{color:"white", margin:"1rem auto"}}>about the developer</CustTypo>
             <Fab variant="extended" color="info" size="medium" onClick={(e)=>handleChangePage(e)} >

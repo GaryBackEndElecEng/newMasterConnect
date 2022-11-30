@@ -44,6 +44,7 @@ import MasterConnectCom from './component/sitemap/MasterConnectCom.js';
 import MasterconnectCa from './component/sitemap/MasterconnectCa.js';
 import GetUUID from './component/uuid/GetUUID';
 import DeductionPage from './component/deduction/DeductionPage';
+import Contract from "./component/contract/Contract";
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
               <Route path ="/MyAccount/successPost/" element={<SuccessPost/>}/>
               <Route path ='/MyAccount/successExtra' element={<SuccessExtra/>}/>
               <Route path ="/MyAccount/canceled/" element={<Cancelled/>}/> 
+              <Route path ="/MyAccount/contract" element={<Contract/>}/> 
             </Route>
             
 

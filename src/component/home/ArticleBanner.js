@@ -12,14 +12,14 @@ import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 
 const Banner = styled.div`
 width:100vw;
-margin:3rem auto;
+margin:1rem auto;
 margin-top:7rem;
 position:relative;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-min-height:36vh;
+min-height:30vh;
 background-image:url(${({ bgImg }) => bgImg}),${({ splash }) => splash};
 background-size:5% 5%;
 

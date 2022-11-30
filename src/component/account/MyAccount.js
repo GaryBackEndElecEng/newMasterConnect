@@ -4,7 +4,7 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Container,Fab } from '@mui/material';
+import { Container,Fab,Stack } from '@mui/material';
 // import { ContainerHomeFluid } from '../../styled/Container.styled';
 // import styles from './account.module.css';
 // import styled from 'styled-components';
@@ -22,13 +22,14 @@ import GetRegisterPages from '../utils/GetRegisterPages';
 import MyAccountHelmet from './MyAccountHelmet';
 import ProductInfo from './ProductInfo';
 import OrderFormBanner from './OrderFormBanner';
+import GavelIcon from '@mui/icons-material/Gavel';
 
 
 
 const MyAccount = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { setSignin, goToSignin, setSignout, setGoToSignin,usersInvoice,usersPostInvoice,usersExtraInvoice,signin } = useContext(TokenAccessContext);
+  const { setSignin, goToSignin, setSignout, setGoToSignin,usersInvoice,usersPostInvoice,usersExtraInvoice,signin,paid } = useContext(TokenAccessContext);
   const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,conical,getPathLocation } = useContext(GeneralContext);
   const [activate, setActivate] = useState(false);
   const [invoice, setInvoice] = useState(false);
@@ -109,7 +110,10 @@ const MyAccount = () => {
     setGoToSignin(true);
     navigate("/signin", setChangePage(true))
   }
-
+const handleContract=(e)=>{
+  e.preventDefault();
+  navigate("/MyAccount/contract", setChangePage(true));
+}
 
   return (
     <>
@@ -138,7 +142,13 @@ const MyAccount = () => {
             
             {productInfo.loaded && <ProductInfo productInfo={productInfo} />}
             
-         
+         {paid && <Stack direction="column" spacing={{xs:0,sm:1,md:2}}
+         sx={{alignItens:"center", margin:"1rem auto"}}
+         >
+          <Fab variant="extended" size="medium" color="info" onClick={(e)=>handleContract(e)}>
+            agreement <GavelIcon sx={{ml:1,color:"red"}}/>
+          </Fab>
+         </Stack>}
         </>
         :
         <Container maxWidth="md" sx={{ textAlign: "center", margin: "3rem auto" }}>

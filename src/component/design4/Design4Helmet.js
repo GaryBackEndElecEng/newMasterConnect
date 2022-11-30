@@ -35,7 +35,7 @@ const Design4Helmet = ({keywords,summary,desc,image,OBJ,average,getPathLocation}
 }
   return (
     <Helmet>
-        <title>Wedding page </title>
+        <title>Flower Store</title>
         <meta name="site_name" content="Web Designs"/>
         <link rel="canonical" href={`${getPathLocation}/design4`} />
         <meta name="keywords" content={keywords}/>

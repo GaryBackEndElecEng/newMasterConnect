@@ -27,9 +27,10 @@ animation: growIn 1.5s ease-in-out;
     to {opacity:1;transform:translateX(0%);}
 }
 @media screen and (max-width:900px){
-  top:-60%;
-  left:60%;
+  top:-200%;
+  left:30%;
 }
+
 @media screen and (max-width:600px){
   top:-100%;
   left:15%;

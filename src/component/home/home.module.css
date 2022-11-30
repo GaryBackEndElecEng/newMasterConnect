@@ -12,11 +12,30 @@
    margin-top:0vh;
    height:100vh;
 }
-
-
+.showHello{
+    opacity:1;
+    text-align:center;
+    animation: showMakeEasy 3.5s ease-in-out;
+}
+.hide{
+    opacity:0;
+}
+.lightbulb {
+    color:red;
+    margin-right:0;
+    animation:growUp 3.5s ease-in-out;
+}
 .customSiteTitle2{
  display:block;  
 animation:showMakeEasy 1.25s ease-in-out;
+}
+@keyframes growUp{
+    from {
+        opacity:0;
+        transform:translateX(20%) scale(0.5);
+        color:black;
+    }
+    to{opacity:1;transform:translateX(0%) scale(1);}
 }
 @keyframes showMakeEasy{
     from {opacity:0;transform:translateX(20%);}

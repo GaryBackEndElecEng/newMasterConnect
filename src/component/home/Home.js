@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useContext, } from 'react';
+import React, { useEffect, useState, useContext, useCallback, useRef } from 'react';
 // import {useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import {TokenAccessContext} from '../../context/TokenAccessProvider';
-import { Container, Stack, Typography, Fab, Paper } from '@mui/material';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
+import { Container, Stack, Typography, Fab, Paper, Box } from '@mui/material';
 import Styles from './home.module.css';
+import { useTheme } from '@mui/material/styles';
 import CoverPage from './CoverPage';
 import ThemeExampleSlideIn from './ThemeExampleSlideIn';
 import WeDo from './WeDo';
@@ -21,6 +22,7 @@ import CalculateBanner from './CalculateBanner';
 import HomeHelmet from './HomeHelmet';
 import ShowGoToMyAccount from './ShowGoToMyAccount';
 import BioBanner from './BioBanner';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 
 
@@ -65,63 +67,80 @@ margin-top:2.5rem;
 
 
 const Home = () => {
-    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed ,setChangePage,allCategory,conical,getPathLocation} = useContext(GeneralContext);
-    const {signout,signin,viewAccount}=useContext(TokenAccessContext);
-    
+    const theme = useTheme();
+    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed, setChangePage, allCategory, conical, getPathLocation } = useContext(GeneralContext);
+    const { signout, signin, viewAccount, loggedIn } = useContext(TokenAccessContext);
+
     const [window600, setWindow600] = useState(false);
     const [seeExample, setSeeExample] = useState(false);
     const [makeEasy, setMakeEasy] = useState(false);
-    const [profileHelmet,setProfileHelmet]=useState({});
-    const [generalInfoHelmet,setGeneralInfoHelmet]=useState({});
-    const[turnOnWeDo,setTurnONWeDo]=useState(false);
-    const[activate,setActivate]=useState(false);
+    const [profileHelmet, setProfileHelmet] = useState({});
+    const [generalInfoHelmet, setGeneralInfoHelmet] = useState({});
+    const [turnOnWeDo, setTurnONWeDo] = useState(false);
+    const [activate, setActivate] = useState(false);
+    const [activateBio, setActivateBio] = useState(false);
+    const [hello, setHello] = useState(false);
+    const myRef = useRef();
     // const homeHeight = removeBlock ? 375 : null;
-   
-    const homeBg2 = `${staticImage}/homeBg3.png`;
-    const getGeneralInfoHelmet= generalInfoHelmet ? generalInfoHelmet:null;
 
-    const observers= new IntersectionObserver((entries)=>{
-        entries.forEach((entry,index)=>{
-            if(entry.isIntersecting){
+    const homeBg2 = `${staticImage}/homeBg3.png`;
+    const getGeneralInfoHelmet = generalInfoHelmet ? generalInfoHelmet : null;
+
+    const observers = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
                 setTurnONWeDo(true)
                 setActivate(true);
-            }else{setActivate(false);}
-        },{threshold:1});
+                if (entry.target.id === "bio") {
+                    setActivateBio(true);
+                    return
+                } if (entry.target.id === "test") {
+                    setHello(true);
 
-    })
-    const handleRef=(e)=>{
-        if(e){
+                }
+            } else {
+                setActivateBio(false);
+                setActivate(false);
+            }
+        }, { threshold: 1 });
+
+    });
+
+    const handleRef = (e) => {
+        if (e) {
             observers.observe(e)
         }
     }
-    const handleRef2=(e)=>{
-        if(e){
-           
+
+    const handleRef3 = (e) => {
+        if (e) {
+
             observers.observe(e)
+
         }
     }
 
-    useEffect(()=>{
-        const getAllCats= async ()=>{
-            let bio= await allCategory.data.filter(obj=>(obj.section==="bio"))[0].catWordSnippet[0]
-            let bio1=bio;
+    useEffect(() => {
+        const getAllCats = async () => {
+            let bio = await allCategory.data.filter(obj => (obj.section === "bio"))[0].catWordSnippet[0]
+            let bio1 = bio;
             setProfileHelmet(bio1)
-            setGeneralInfoHelmet( bio1)
+            setGeneralInfoHelmet(bio1)
         }
-    if(allCategory.loaded && allCategory?.data){
-        getAllCats();
-    }
-    },[allCategory.loaded,allCategory.data])
-       
+        if (allCategory.loaded && allCategory?.data) {
+            getAllCats();
+        }
+    }, [allCategory.loaded, allCategory.data])
+
 
     useEffect(() => {
         setTitle("Web Service");
         setChangePage(false);;
-        if(window.scrollY){
-            window.scroll(0,0);
-            
+        if (window.scrollY) {
+            window.scroll(0, 0);
+
         }
-    }, [setTitle,setChangePage])
+    }, [setTitle, setChangePage])
 
 
     useEffect(() => {
@@ -150,86 +169,116 @@ const Home = () => {
         } else { setOpen(false) }
     }, [setOpen, seeExample]);
 
-  
+
     const handleExample = (e) => {
         if (seeExample === false) {
             setSeeExample(true);
         } else { setSeeExample(false); }
     }
-    
+
+    const testMyRef = useCallback(e => {
+        if (e === null) return
+        observers.observe(e)
+    }, [])
 
     return (
         <>
-        <RegisterPage/>
-<GetRegisterPages/>
-<HomeHelmet 
-profileHelmet={profileHelmet}
- generalInfoHelmet={getGeneralInfoHelmet} 
-getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
-/>
+            <RegisterPage />
+            <GetRegisterPages />
+            <HomeHelmet
+                profileHelmet={profileHelmet}
+                generalInfoHelmet={getGeneralInfoHelmet}
+                getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
+            />
 
-        <ContainerHomeFluid style={{marginTop:{xs:"3rem",md:"0px"}}}>
+            <ContainerHomeFluid style={{ marginTop: { xs: "3rem", md: "0px" } }}>
 
-            <MainContainer
-                className={`container-fluid ${Styles.mainContainerStyle}`}
-                bg={"white"}
-                // bgUrl1={homeBg2}
-                style={{ marginTop:{md: "2rem",xs:"4.5rem"}, }}
-
-
-            >
-                
-                <CoverPage makeEasy={makeEasy}/>
-                <Container maxWidth="xl" className={Styles.msgContainer} spacing={0} sx={{ textAlign: "left",position:"relative" }}>
-                    
-                    <hr style={{ borderBottom: `5px solid white`, width: "100%", background: "white" }} />
-                    <Stack direction="column">
-                         <SigninMsg 
-                         signin={signin}
-                          registerConfirmed={registerConfirmed}
-                          signout={signout}
-                          />
-                    </Stack>
+                <MainContainer
+                    className={`container-fluid ${Styles.mainContainerStyle}`}
+                    bg={"white"}
+                    // bgUrl1={homeBg2}
+                    style={{ marginTop: { md: "2rem", xs: "4.5rem" }, }}
 
 
-                    {!callBackConfirmed && <ShowGetQuoteForm />}
-                    {callBackConfirmed && <Paper elevation={3} component="div" sx={{ width: "100%", margin: { xs: "1rem auto", sm: "0.5rem auto" } ,transform:{sm:"translateY(-10%)"}}}>
-                        <CallBackRequest />
-                    </Paper>}
-                    <SpecialCreateValue />
-                    <Typography component="h1" variant="h5"
-                        sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem",position:"relative" }}
-                    >
-                        Basic Theme Examples:
-                        { viewAccount && <ShowGoToMyAccount/>}
-                    </Typography>
-                    
-                    <Stack direction={"column"} sx={{ mt: 1, mb: 2, maxWidth: "350px" }} >
-                        <Fab variant="extended" size={"small"} ref={(e)=>handleRef(e)}
-                            onClick={(e) => handleExample(e)}
-                            sx={{ fontFamily: "Roboto", m: 2, padding: { xs: "10px", sm: "20px" }, fontSize: { xs: "15px", sm: "20px" },zIndex:"2" }}
-                            color={"primary"}
-                        >see examples</Fab>
-                    </Stack>
-                    
-                    {/* THEME EXAMPLES */}
-                    <Container maxWidth="lg" sx={{position:"relative"}}>
-                    {seeExample && <ThemeExampleSlideIn />}
+                >
+
+                    <CoverPage makeEasy={makeEasy} />
+                    <Container maxWidth="xl" className={Styles.msgContainer} spacing={0} sx={{ textAlign: "left", position: "relative" }}>
+
+                        <hr style={{ borderBottom: `5px solid white`, width: "100%", background: "white" }} />
+                        <Stack direction="column">
+                            <SigninMsg
+                                signin={signin}
+                                registerConfirmed={registerConfirmed}
+                                signout={signout}
+                            />
+                        </Stack>
+
+
+                        {!callBackConfirmed && <ShowGetQuoteForm />}
+                        {callBackConfirmed && <Paper elevation={3} component="div" sx={{ width: "100%", margin: { xs: "1rem auto", sm: "0.5rem auto" }, transform: { sm: "translateY(-10%)" } }}>
+                            <CallBackRequest />
+                        </Paper>}
+                        <SpecialCreateValue />
+                        <Typography component="h1" variant="h5"
+                            sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem", position: "relative" }}
+                        >
+                            Basic Theme Examples:
+                            {viewAccount && <ShowGoToMyAccount />}
+                        </Typography>
+
+                        <Stack direction={"column"} sx={{ mt: 1, mb: 2, maxWidth: "350px" }} >
+                            <Fab variant="extended" size={"small"} ref={(e) => handleRef(e)}
+                                onClick={(e) => handleExample(e)}
+                                sx={{ fontFamily: "Roboto", m: 2, padding: { xs: "10px", sm: "20px" }, fontSize: { xs: "15px", sm: "20px" }, zIndex: "2" }}
+                                color={"primary"}
+                            >see examples</Fab>
+                        </Stack>
+
+                        {/* THEME EXAMPLES */}
+                        <Container maxWidth="lg" sx={{ position: "relative" }}>
+                            {seeExample && <ThemeExampleSlideIn />}
+                        </Container>
+                        {/* SLIDER */}
+                        <Container maxWidth="lg" sx={{ position: "relative", margin: "2rem auto" }}>
+                            {turnOnWeDo && <WeDo />}
+                        </Container>
+
                     </Container>
-                    {/* SLIDER */}
-                    <Container maxWidth="lg" sx={{position:"relative",margin:"2rem auto"}}>
-                   {turnOnWeDo && <WeDo />}
-                    </Container>
+                    <MiddleBanner bg={homeBg2} />
+                    {!loggedIn &&
+                        <>
+                            <CalculateBanner />
 
-                </Container>
-                <MiddleBanner bg={homeBg2} />
-                <CalculateBanner/>
-                    <ArticleBanner/>
-                    <div ref={(e)=>handleRef2(e)}>
-                    {activate && <BioBanner activate={activate} />}
+                            <Stack id="test" ref={(e) => testMyRef(e)}
+                                sx={{
+                                    margin: "1rem auto", padding: "0.5rem", background: theme.palette.common.fadeCharcoal,
+                                    justifyContent: "center", alignItems: "center", width: { xs: "100%", md: "80%", sm: "85%" }, position: "relative", boxShadow: "1px 1px 10px 5px lightgrey"
+                                }}
+                                direction="column"
+                            >
+                                <LightbulbIcon
+                                    sx={{
+                                        fontSize: { md: "60px", sm: "60px", xs: "30px" }, left: { xs: "0%", sm: "-10%", md: "0%" }
+                                    }}
+                                    className={hello ? Styles.lightbulb : Styles.hide}
+                                />
+                                <Typography component="h1" variant="h5"
+                                    className={hello ? Styles.showHello : Styles.hide}
+                                    sx={{ color: "white" }}
+                                >
+
+                                    The Calculator can help you determine your cost and give you peace-of-mind.
+                                </Typography>
+                            </Stack>
+                        </>
+                    }
+                    <ArticleBanner />
+                    <div id="bio" ref={(e) => handleRef3(e)}>
+                        <BioBanner activate={activateBio} />
                     </div>
 
-            </MainContainer>
+                </MainContainer>
 
 
 
@@ -243,7 +292,7 @@ getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
 
 
 
-        </ContainerHomeFluid>
+            </ContainerHomeFluid>
         </>
     )
 }

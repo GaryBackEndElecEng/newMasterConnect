@@ -34,7 +34,7 @@ const MyAccountDesc = () => {
     const myAccountPic=`${staticImage}/myAccount.png`;
     const myAccountPic2=`${staticImage}/myAccount2.png`;
   return (
-    <MyAccountContainer maxWidth="xl" bg={theme.palette.common.lighter} sx={{position:"relative"}}>
+    <MyAccountContainer maxWidth="xl" bg={"white"} sx={{position:"relative"}}>
         <Typography component="h1" variant="h1" 
         sx={{textAlign:"center",fontSize:{xs:"200%",sm:"300%",md:"400%"}}}
         >
@@ -49,19 +49,19 @@ const MyAccountDesc = () => {
         </Stack>
         <Stack direction="column">
             <Box>
-            <Typography component="h1" variant="h3" sx={{margin:"1rem auto",textAlign:"center"}}>What We Offer</Typography>
+            <Typography component="h1" variant="h3" sx={{margin:"1rem auto",textAlign:"center",color:theme.palette.common.blueGrey}}>What We Offer</Typography>
             <Typography component="h1" variant="h6">{myAccount.loaded && myAccount.data[0].content}</Typography>
             </Box>
             <Box>
-            <Typography component="h1" variant="h3" sx={{textAlign:"center"}}>Specifics</Typography>
+            <Typography component="h1" variant="h3" sx={{textAlign:"center",color:theme.palette.common.blueGrey}}>Specifics</Typography>
             <Typography component="h1" variant="h6">{myAccount.loaded && myAccount.data[0].content1}</Typography>
             </Box>
             <Box>
-            <Typography component="h1" variant="h3" sx={{textAlign:"center"}}>Order List Form</Typography>
+            <Typography component="h1" variant="h3" sx={{textAlign:"center",color:theme.palette.common.blueGrey}}>Order List Form</Typography>
             <Typography component="h1" variant="h6">{myAccount.loaded && myAccount.data[0].content2}</Typography>
             </Box>
             <Box>
-            <Typography component="h1" variant="h3" sx={{textAlign:"center"}}>Consult Page</Typography>
+            <Typography component="h1" variant="h3" sx={{textAlign:"center",color:theme.palette.common.blueGrey}}>Consult Page</Typography>
             <Typography component="h1" variant="h6">{myAccount.loaded && myAccount.data[0].content3}</Typography>
             </Box>
         </Stack>
