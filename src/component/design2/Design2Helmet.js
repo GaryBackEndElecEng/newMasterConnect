@@ -2,7 +2,26 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const Design2Helmet = ({keywords,summary,desc,image, OBJ,average,conical,getPathLocation}) => {
+const Design2Helmet = ({keywords,summary,desc,image, OBJ,average,getPathLocation,pageRatings}) => {
+  const review=pageRatings.map((obj,index)=>(
+          {
+          "@type": "Review",
+          "datePublished": `2022-04-0${index}`,
+          "reviewBody": obj.comment,
+          "name": OBJ.name,
+          "reviewRating": {
+            "@type": "Rating",
+            "bestRating": "5",
+            "ratingValue": obj.rating,
+            "worstRating": "1"
+          },
+          "author": {
+            "@type": "Person",
+            "name": obj.name
+          }
+          }
+
+        ));
   const JSONProduct={
             "@context": "https://schema.org/",
             "@type": "Product",
@@ -11,9 +30,11 @@ const Design2Helmet = ({keywords,summary,desc,image, OBJ,average,conical,getPath
             "description": desc,
             "mpn": "N/A",
             "brand": {
-              "@type": "Thing",
-              "name": "Digital Master Connect"
+              "@type": "Brand",
+              "name": "RETROSPECT"
             },
+            review
+            ,
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": average,
@@ -21,6 +42,7 @@ const Design2Helmet = ({keywords,summary,desc,image, OBJ,average,conical,getPath
             },
             "offers": {
               "@type": "Offer",
+              "url":"https://www.master-connect.ca/design2",
               "priceCurrency": "CAD",
               "price": OBJ.monthly,
               "priceValidUntil": "N/A",
@@ -34,7 +56,10 @@ const Design2Helmet = ({keywords,summary,desc,image, OBJ,average,conical,getPath
   }
   return (
     <Helmet>
-        <title>Art Page </title>
+        <title>RETROSPECT </title>
+        <script type="application/ld+json">
+          {JSON.stringify(JSONProduct)}
+        </script>
         <meta name="site_name" content="Web Designs"/>
         <link rel="canonical" href={`${getPathLocation}/design2`} />
         <meta name="keywords" content={keywords}/>
@@ -43,9 +68,7 @@ const Design2Helmet = ({keywords,summary,desc,image, OBJ,average,conical,getPath
         <meta name="site" content={getPathLocation}/>
         <meta name="url" content={getPathLocation}/>
         <meta name="image" content={image}/>
-        <script type="application/ld+json">
-          {JSON.stringify(JSONProduct)}
-        </script>
+        
     </Helmet>
   )
 }

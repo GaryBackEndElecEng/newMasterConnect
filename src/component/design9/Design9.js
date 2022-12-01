@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import {useLocation} from 'react-router-dom';
 import { Stack, Box, Switch, Typography,Container } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
@@ -37,8 +38,10 @@ animation: smoothIn 1s ease-in-out;
 `;
 
 const Design9 = () => {
+  const location=useLocation();
+    const pathname=location.pathname;
   const theme = useTheme();
-  const { setTitle, setStyleName, setChangePage, staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setChangePage, staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
   const {paid}=useContext(TokenAccessContext);
   const [frenchEnglish, setFrenchEnglish] = useState({ language: thisArray });
@@ -50,6 +53,13 @@ const Design9 = () => {
   const [image, setimage] = useState(false);
   const [OBJ, setOBJ] = useState(false);
   const [lang, setLang] = useState(false);
+  const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    
+    useEffect(()=>{
+        if(pageRatings.loaded && pageRatings.data){
+            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+        }
+    },[pathname,pageRatings]);
 
   useEffect(() => {
     setTitle("Realtor");
@@ -114,6 +124,7 @@ const Design9 = () => {
        average={average !==0 ? average:"4"}
        conical={conical.loaded ? conical.data:""} 
        getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}
+       pageRatings={pageRatingHelmet}
       />
       <Stack direction="row"
         sx={{ justifyContent: "center", alignItems: "center", position: "absolute", right: "7%", top: { md: "3.5%", xs: "0%" }, zIndex: "1000", background: theme.palette.common.fadeCharcoal, padding: { md: "0.5rem", xs: "0.25rem" }, color: "white" }}

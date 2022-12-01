@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import {useLocation} from 'react-router-dom';
 import { Stack, Grid, Container, Typography, } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
@@ -221,8 +222,10 @@ margin-top:-2px;
 
 
 const Design3 = () => {
+    const location=useLocation();
+    const pathname=location.pathname
     const {getProductList}=useContext(PriceContext);
-    const { setTitle, setStyleName,staticImage, workArr,setChangePage,average,conical,getPathLocation } = useContext(GeneralContext);
+    const { setTitle, setStyleName,staticImage, workArr,setChangePage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
     const {paid}=useContext(TokenAccessContext);
     const [showPara, setShowPara] = useState('none'); 
     const [showPurcahseBtn,setShowPurchaseBtn]=useState(false);
@@ -237,7 +240,13 @@ const Design3 = () => {
     const [image, setimage] = useState(false);
     const [OBJ, setOBJ] = useState({});
     const theme = useTheme();
+    const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
     
+    useEffect(()=>{
+        if(pageRatings.loaded && pageRatings.data){
+            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+        }
+    },[pathname,pageRatings]);
 
     useEffect(()=>{
         if(getProductList.loaded){
@@ -300,6 +309,7 @@ const Design3 = () => {
                  average={average !==0 ? average:"4"}
                  conical={conical.loaded ? conical.data:""}
                  getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+                 pageRatings={pageRatingHelmet}
                  />
             <ContainerFluidBgImage bgImage={earthPic} >
                 

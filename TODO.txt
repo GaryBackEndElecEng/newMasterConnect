@@ -4,13 +4,15 @@ ctrl + G => goto line
 TODO
 
 -fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
--make a contract ( for engagement)- using pdf, then create a popUp for signing within APIProtect
+
 -Change out the email for masterconnect919@gmail.com
 
 -test purchasing invoice then Post, then extra(-VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT)
 -manifest=>page register
--fix the SEO errors
+-create a financial hook on balance owing.
+-correct packages
 -Fix Google register and signin
+-finish .com all
 -correct the infoFomComplete in account/Particulars/infoCompleteForm
 
 COMPLETE:
@@ -29,6 +31,7 @@ COMPLETE:
 -fix articles SEO
 - set email automation on postServices ready to publish
 -add date-year + site
+-make a contract ( for engagement)- using pdf, then create a popUp for signing within APIProtect
 
 
 

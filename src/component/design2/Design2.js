@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import {useLocation} from 'react-router-dom';
 import { Stack, Container, Grid, Typography, } from '@mui/material';
 // import { ContainerFluid } from '../../styled/Container.styled';
 
@@ -46,7 +47,9 @@ animation:arrear 1.5s ease-in-out;
 }
 `;
 const Design2 = () => {
-    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation, } = useContext(GeneralContext);
+    const location=useLocation();
+    const pathname=location.pathname;
+    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
     const {paid}=useContext(TokenAccessContext);
     const theme = useTheme();
@@ -56,7 +59,13 @@ const Design2 = () => {
     const [keywords, setKeywords] = useState(false);
     const [image, setimage] = useState(false);
     const [OBJ, setOBJ] = useState({});
+    const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
     
+    useEffect(()=>{
+        if(pageRatings.loaded && pageRatings.data){
+            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+        }
+    },[pathname,pageRatings]);
 
     useEffect(()=>{
         if(getProductList.loaded){
@@ -100,6 +109,7 @@ const Design2 = () => {
              average={average !==0 ? average:"4"} 
             conical={conical.loaded ? conical.data:""}
             getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+            pageRatings={pageRatingHelmet}
             />
         <ContainerFluid >
             <Grid container spacing={0} sx={{borderBottom:"5px solid black",padding:"0px auto"}}>

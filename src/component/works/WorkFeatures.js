@@ -52,14 +52,26 @@ const WorkFeatures = () => {
 
     const theme = useTheme();
     const navigate = useNavigate();
-    const { setChangePage, setTitle, setStyleName, loadProduct, staticImage,conical,getPathLocation } = useContext(GeneralContext);
+    const { setChangePage, setTitle, setStyleName, loadProduct, staticImage,getPathLocation,pageRatings,average } = useContext(GeneralContext);
     const design = `${staticImage}/mainDesign.png`;
     const loadedProduct = loadProduct.loaded ? loadProduct.data : [];
     const [keywords, setKeywords] = useState(null);
     const [desc, setDesc] = useState(null);
     const [summary, setSummary] = useState(null);
     const [products, setProducts] = useState([]);
+    const [helmetProduct,setHelmetProduct]=useState({loaded:false,data:[]});
 
+    useEffect(()=>{
+        let arr=[];
+        if(loadProduct.loaded && loadProduct.data && pageRatings.loaded){
+            loadProduct.data.forEach((obj,index)=>{
+                let getReview= pageRatings.data.filter(rateObj=>(rateObj.page===obj.extra_kwargs))
+                arr.push({...obj,"review":getReview});
+            });
+            setHelmetProduct({loaded:true,data:arr})
+        }
+        
+    },[loadProduct.loaded,loadProduct.data,pageRatings.loaded,pageRatings.data])
 
     useEffect(() => {
         setTitle("Designs");
@@ -97,10 +109,10 @@ const WorkFeatures = () => {
             keywords={keywords}
              summary={summary}
              desc={desc}
-             products={products}
+             products={helmetProduct.loaded ? helmetProduct.data:null}
              staticImage={staticImage}
-             conical={conical.loaded ? conical.data:""}
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+             average={average !== 0 ? average:"4"}
              />
             <RegisterPage />
             <GetRegisterPages />

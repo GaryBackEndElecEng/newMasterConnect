@@ -2,35 +2,59 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const Design1Helmet = ({keywords,summary,desc,image, OBJ,average,conical,getPathLocation}) => {
+const Design1Helmet = ({keywords,summary,desc,image, OBJ,average,conical,getPathLocation,pageRatings}) => {
+
+  const review=pageRatings.map((obj,index)=>(
+    {
+    "@type": "Review",
+    "datePublished": `2022-04-0${index}`,
+    "reviewBody": obj.comment,
+    "name": OBJ.name,
+    "reviewRating": {
+      "@type": "Rating",
+      "bestRating": "5",
+      "ratingValue": obj.rating,
+      "worstRating": "1"
+    },
+    "author": {
+      "@type": "Person",
+      "name": obj.name
+    }
+    }
+
+  ));
+
   const JSONProduct={
     "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": OBJ.name,
-    "image": image,
-    "description": desc,
-    "mpn": "N/A",
-    "brand": {
-      "@type": "Thing",
-      "name": "Digital Master Connect"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": average,
-      "reviewCount": "89"
-    },
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "CAD",
-      "price": OBJ.monthly,
-      "priceValidUntil": "N/A",
-      "itemCondition": "http://schema.org/UsedCondition",
-      "availability": "http://schema.org/InStock",
-      "seller": {
-        "@type": "Organization",
-        "name": "Digital master Connect"
-      }
-    }
+            "@type": "Product",
+            "name": OBJ.name,
+            "image": image,
+            "description": desc,
+            "mpn": "N/A",
+            "brand": {
+              "@type": "Brand",
+              "name": "RETROSPECT"
+            },
+            review
+            ,
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": average,
+              "reviewCount": "89"
+            },
+            "offers": {
+              "@type": "Offer",
+              "url":"https://www.master-connect.ca/design2",
+              "priceCurrency": "CAD",
+              "price": OBJ.monthly,
+              "priceValidUntil": "N/A",
+              "itemCondition": "http://schema.org/UsedCondition",
+              "availability": "http://schema.org/InStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "Digital master Connect"
+              }
+            }
 }
 return (
 <Helmet>

@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
+import {useLocation} from 'react-router-dom';
 import { Box, Container, Stack, Grid, Typography,Switch} from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider.js';
 import { PriceContext } from '../../context/PriceContextProvider';
@@ -69,8 +70,10 @@ margin-top:-2px;
 const Design1 = () => {
   
   const theme = useTheme();
+  const location=useLocation();
+    const pathname=location.pathname
   const fade2 = 0.8
-  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
+  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
   const {getProductList}=useContext(PriceContext);
   const {paid}=useContext(TokenAccessContext);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
@@ -84,6 +87,13 @@ const Design1 = () => {
     const [lang, setLang] = useState(false);
     const [langArr, setLangArr] = useState([]);
     const [langPlaceArr, setLangPlaceArr] = useState([]);
+    const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+
+    useEffect(()=>{
+      if(pageRatings.loaded && pageRatings.data){
+          setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+      }
+  },[pathname,pageRatings]);
 
     useEffect(()=>{
         if(getProductList.loaded){
@@ -140,6 +150,7 @@ const Design1 = () => {
       average={average} 
       conical={conical.loaded ? conical.data:""}
       getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+      pageRatings={pageRatingHelmet}
       />
       <CustBoxPageCover bg={image1} sx={{ position: "relative" }}>
         

@@ -129,7 +129,10 @@ class PageFeedback(models.Model):
     page=models.CharField(max_length=50,blank=True)
     comment=models.TextField(blank=True)
     rating=models.IntegerField(blank=True)
+    pageCount=models.IntegerField(default=1,blank=True)
     average=models.IntegerField(default=4)
+    class Meta:
+        ordering=('-rating','page')
     def __str__(self):
         return f'{self.name}-{self.page}'
 
@@ -143,6 +146,7 @@ def post_save_GenerateAverage(sender,instance,created,*args,**kwargs):
             average=sum([obj.rating for obj in feedbacks])/total
             for obj in feedbacks:
                 obj.average=average
+                obj.pageCount=total
                 obj.save()
 post_save.connect(post_save_GenerateAverage,sender=PageFeedback)
 

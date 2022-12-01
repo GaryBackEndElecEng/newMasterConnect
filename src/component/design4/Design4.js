@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import {useLocation} from 'react-router-dom';
 import {  Box, Stack, Container, Grid, Typography, Paper, Button,  } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
@@ -76,8 +77,10 @@ margin-top:-2px;
 `;
 
 const Design4 = () => {
+    const location=useLocation();
+    const pathname=location.pathname
     const theme = useTheme();
-    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
+    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
     const {getProductList}=useContext(PriceContext);
     const {paid}=useContext(TokenAccessContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
@@ -88,6 +91,13 @@ const Design4 = () => {
     const [image, setimage] = useState(false);
     const [OBJ, setOBJ] = useState(false);
     const [show, setShow] = useState({loaded:false,id:null});
+    const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    
+    useEffect(()=>{
+        if(pageRatings.loaded && pageRatings.data){
+            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+        }
+    },[pathname,pageRatings]);
 
     useEffect(()=>{
         if(getProductList.loaded){
@@ -198,6 +208,7 @@ const Design4 = () => {
                  average={average !==0 ? average:"4"} 
                 conical={conical.loaded ? conical.data:""}
                 getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+                pageRatings={pageRatingHelmet}
                  />
                 <GetRegisterPages/>
                 <RegisterPage />

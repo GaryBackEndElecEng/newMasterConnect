@@ -11,6 +11,13 @@ const BioHelmet = ({obj,intro,conical,getPathLocation}) => {
     BioJSON={
             "@context": "https://schema.org",
             "@type": "Person",
+            "name":obj.name,
+            "gender": "male",
+            "telephone": obj.cell,
+            "image": "https://new-master.s3.ca-central-1.amazonaws.com/static/profilePic1.png",
+            "email": obj.email,
+            "openingHours":obj.extra,
+            "url": `${getPathLocation}/bio`,
             "address": {
               "@type": "PostalAddress",
               "addressLocality": obj.city,
@@ -18,20 +25,6 @@ const BioHelmet = ({obj,intro,conical,getPathLocation}) => {
               "postalCode": obj.postal,
               "streetAddress": obj.address
             },
-            "openingHours":obj.extra,
-            "email": obj.email,
-            "image": "https://new-master.s3.ca-central-1.amazonaws.com/static/profilePic1.png",
-            "jobTitle": "Developer",
-            "name": obj.name,
-            
-            "birthPlace": "Etobicoke, ON",
-            "birthDate": "1965-02-21",
-            "height": "70 inches",
-            "gender": "male",
-            "memberOf": "Conservative Party",
-            "nationality": "White",
-            "telephone": obj.cell,
-            "url": `${getPathLocation}/bio`,
             "sameAs" :  obj.siteArray
         }
   }

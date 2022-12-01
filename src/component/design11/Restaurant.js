@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, } from 'react';
+import {useLocation} from 'react-router-dom';
 import { Stack, Typography, Container, Grid, Button,Divider } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
@@ -46,15 +47,14 @@ position:relative;
 `;
 
 const Restaurant = () => {
+    const location=useLocation();
+    const pathname=location.pathname;
     const theme = useTheme();
-    const { setTitle, setStyleName,average,conical,getPathLocation } = useContext(GeneralContext);
+    const { setTitle, setStyleName,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
     const {paid}=useContext(TokenAccessContext);
-    let lastPos = 0, ticking = 0;
-    const [opacity, setOpacity] = useState(1);
-    const [scrollPos, setScrollPos] = useState(0);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const [keyWords,setKeyWords]=useState([]);
-    const [desc,setDesc]=useState([]);
+    const [desc,setDesc]=useState("");
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/static/images/Restaurant`;
     const dinning = `${url}/dinning.png`;
     const menu = `${url}/menu.png`;
@@ -69,35 +69,36 @@ const Restaurant = () => {
     const design9 = `${url}/rest9.png`;
     const design10 = `${url}/rest10.png`;
     const arr = [design1, design2, design3, design4, design5, design6]
-    const [resArr, setRestArr] = useState({ loaded: false, data: [] });
+    const [restArr, setRestArr] = useState({ loaded: false, data: [] });
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
+    const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+
+    useEffect(()=>{
+        if(pageRatings.loaded && pageRatings.data){
+            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+        }
+    },[pathname,pageRatings]);
 
     useEffect(() => {
         let tempArr = [];
         const arr2 = [design1, design2, design3, design4, design5, design6, design7, design8, design9, design10];
-        if (jsonArray) {
+        let arr=[];
+        let tempDesc="";
+        
             jsonArray.forEach((obj, index) => {
                 tempArr.push({ ...obj, "image": arr2[index] });
+                tempDesc= tempDesc + ",,," + obj.desc.slice(0,30);
+                arr.push(obj.title)
+                
             });
-            setRestArr({ loaded: true, data: tempArr })
-        }
+            setRestArr({ loaded: true, data: tempArr });
+            setDesc(tempDesc);
+            setKeyWords(arr);
+        
 
     }, [design1, design2, design3, design4, design5, design6, design7, design8, design9, design10]);
 
-    useEffect(()=>{
-        let arr=[],arr2=[];
-        let tempDesc="";
-        if(resArr.loaded){
-            resArr.data.forEach((obj,index)=>{
-                arr.push(obj.title)
-                tempDesc= tempDesc + ",,," + obj.desc.slice(0,30);
-                arr2.push(obj.desc.slice(0,30))
-            });
-            setKeyWords(arr);
-            setDesc(tempDesc);
-        }
 
-    },[resArr.loaded,resArr.data]);
 
     useEffect(() => {
         setTitle("Restaurant");
@@ -109,42 +110,9 @@ const Restaurant = () => {
         if (getUser_id) {
             setShowPurchaseBtn(true);
         }
-    }, []);
-    // SCROLL FUNCTION
-    const scrollActivate = (lastPos) => {
-
-        if (lastPos < 800) {
-            setScrollPos(lastPos);
-            setOpacity(1);
-        } else { setOpacity(0); setScrollPos(0) }
-
-        if (lastPos > 1400) {
-            setOpacity(0);
-        } else { setOpacity(1) }
-    }
-    // SCROLL EVENT LISTENER
-    const getScroll = async (e) => {
-        document.addEventListener("scroll", (e) => {
-            lastPos = window.scrollY;
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    if (lastPos > 0) {
-                        scrollActivate(lastPos);
-
-                    }
-                    ticking = false;
-                });
-                // setOpacity(0);
-                ticking = true;
-            }
-        });
-    }
-    // getScroll();
-    //  END SCROLL
-    // COUNT TIMER
+    }, [setTitle,setStyleName]);
 
 
-    // COUNT TIMER
 
     return (
         <MainRestaurant
@@ -155,10 +123,10 @@ const Restaurant = () => {
             <Design11Helmet
              desc={desc} 
             keyWords={keyWords}
-             loadArr={resArr}
+             loadArr={restArr.loaded ? restArr.data:null}
              average={average !==0 ? average:"4"}
-             conical={conical.loaded ? conical.data:""}
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+             pageRatings={pageRatingHelmet}
              />
             <Container maxWidth="xl" sx={{ margin: "2rem auto",backgroundImage:{xs:`url(${menu})`,md:"none"},backgroundSize:"100% 100%",marginBottom:{md:"4rem",xs:"0px"} }}>
                 <Divider  sx={{marginBottom:"1rem",color:{xs:"white",md:"black"},border:{md:`2px solid black`,xs:"2px solid white"}}}/>
@@ -208,13 +176,13 @@ const Restaurant = () => {
 
                 >
                     <Container maxWidth="xl" sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "60px", sm: "0px" }, maxHeight: "100vh", position: "relative", margin: "2rem auto" }}>
-                        <CoverPage scrollPos={scrollPos} arr={arr} />
+                        <CoverPage  arr={arr} />
                     </Container>
                 </Grid>
             </Grid>
             <Typography component="h1" variant="h3">Top Menu</Typography>
             <hr style={{ borderBottom: "2px solid red" }} />
-            <ItemList resArr={resArr} title={"Title"} />
+            <ItemList resArr={restArr} title={"Title"} />
             <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
             <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment - we aim to improve</Typography>
                 <PageFeedback />

@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import {useLocation} from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
@@ -122,10 +123,12 @@ animation: growIn 1.5s ease-in-out;
 `;
 
 const Design6Wedding = () => {
+  const location=useLocation();
+    const pathname=location.pathname;
   const theme = useTheme();
   const flowerRef = useRef();
   const weddingTableRef = useRef();
-  const { staticImage, workArr, setTitle, setStyleName,loadProduct,conical,getPathLocation } = useContext(GeneralContext);
+  const { staticImage, workArr, setTitle, setStyleName,loadProduct,conical,getPathLocation,pageRatings,average } = useContext(GeneralContext);
   const weddingSky = `${staticImage}/weddingSky.png`;
   const weddingTrees = `${staticImage}/weddingTrees.png`;
   const weddingTable = `${staticImage}/weddingTable.png`;
@@ -141,6 +144,13 @@ const Design6Wedding = () => {
   const [desc,setDesc]=useState(null);
   const [OBJ,setOBJ]=useState({});
   const activateWeddingTable = weddingTableSeen ? "block" : "none";
+  const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    
+    useEffect(()=>{
+        if(pageRatings.loaded && pageRatings.data){
+            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+        }
+    },[pathname,pageRatings]);
 
     useEffect(()=>{
       if(loadProduct.loaded){
@@ -238,6 +248,8 @@ const Design6Wedding = () => {
        OBJ={OBJ}
        conical={conical.loaded ? conical.data:""}
        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+       pageRatings={pageRatingHelmet}
+       average={average !==0 ? average:"4"}
        />
       <GetRegisterPages/>
         <RegisterPage />

@@ -19,10 +19,6 @@ const CalculatorHelmet = ({generalInfo,conical,getPathLocation}) => {
                         {
                         "@type": "Person",
                         "name": "Gary Wallace"
-                        },
-                        {
-                        "@type": "Person",
-                        "name": "N/A"
                         } ],
                         "address": {
                         "@type": "PostalAddress",
@@ -38,9 +34,9 @@ const CalculatorHelmet = ({generalInfo,conical,getPathLocation}) => {
                         "telephone": generalInfo.cell,
                         "email": `${getPathLocation}/contact`
                         },
-                        "sameAs": [ 
+                        "sameAs":  
                           generalInfo.siteArray
-                        ]
+                        
             }
   }
   return (

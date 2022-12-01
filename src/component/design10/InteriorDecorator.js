@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
+import {useLocation} from 'react-router-dom';
 import { Stack,Typography, Container } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
@@ -76,7 +77,9 @@ top:5.5%;
 `;
 
 const InteriorDecorator = () => {
-    const { setTitle, setStyleName,average,conical,getPathLocation
+    const location=useLocation();
+    const pathname=location.pathname;
+    const { setTitle, setStyleName,average,conical,getPathLocation,pageRatings,
      } = useContext(GeneralContext);
     const {user_id,paid}=useContext(TokenAccessContext);
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/interiorDesign`;
@@ -100,22 +103,36 @@ const InteriorDecorator = () => {
     const z_index = opacity === 0 ? "-1111" : "1";
     let ticking = false;
     let lastPos = 0;
+    const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    
+    useEffect(()=>{
+        if(pageRatings.loaded && pageRatings.data){
+            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+        }
+    },[pathname,pageRatings]);
 
     useEffect(() => {
         const arr = [design1, design2, design3, design4, design5, design6, design7, design8, design9]
-        let builtArr = []
+        let desc1=""
+        let builtArr = [];
+        let arr2=[];
         if (arr.length > 0) {
             arr.forEach((img, index) => {
                 jsonArray.forEach((obj, index2) => {
                     if (index2 === index) {
                         builtArr.push({ ...obj, "image": img })
+                        desc1 = desc1 + ",,, " + obj.desc.slice(0, 50)
+                        arr2.push(obj.title)
                     }
                 });
 
             });
             setLoadArr({ loaded: true, data: builtArr })
+            setDesc(desc1)
+            setKeyWords(arr2)
         }
-    }, [setLoadArr,design1, design2, design3, design4, design5, design6, design7, design8, design9]);
+    }, [setLoadArr,design1, design2, design3, design4, design5, design6, design7, design8, design9,setDesc,setKeyWords]);
+
     useEffect(() => {
         setTitle("Interior Design");
         setStyleName("Beautiful Design");
@@ -127,19 +144,6 @@ const InteriorDecorator = () => {
           setShowPurchaseBtn(true);
         }
     }, [user_id,setTitle,setStyleName]);
-
-    useEffect(() => {
-        let arr = []
-        let desc1 = ""
-        if (loadArr.loaded) {
-            loadArr.data.forEach((obj, index) => {
-                arr.push(obj.title)
-                desc1 = desc1 + ",,, " + obj.desc.slice(0, 50)
-            });
-            setKeyWords(arr)
-            setDesc(desc1)
-        }
-    }, [loadArr, setKeyWords]);
 
     const doFunc = (scrollCount) => {
         if (scrollCount < 1400) {
@@ -178,10 +182,11 @@ const InteriorDecorator = () => {
             <Design10Helmet 
             desc={desc}
              keyWords={keyWords}
-             loadArr={loadArr}
+             loadArr={loadArr.loaded ? loadArr.data : null}
              average={average !==0 ? average:"4"}
              conical={conical.loaded ? conical.data:""}
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+             pageRatings={pageRatingHelmet}
              />
             <RegisterPage />
             <GetRegisterPages />

@@ -103,7 +103,7 @@ width:100vw;
 }
 `;
 
-const CoverPage = ({ scrollPos,arr }) => {
+const CoverPage = ({ arr }) => {
     const [counter, setCounter] = useState(0);
     const [atMax, setAtMax] = useState(false);
     const [opacity, setOpacity] = useState(1);

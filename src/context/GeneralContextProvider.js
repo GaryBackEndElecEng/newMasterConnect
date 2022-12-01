@@ -223,7 +223,9 @@ export const GeneralContextProvider = (props) => {
             setSuccess({loaded:true,data:body.filter(obj=>(obj.name==="Success"))[0].catWordSnippet});
             let pageRates=body.filter(obj=>(obj.name==="feedback"))[0].pageFeedback
             if(pageRates){
-            setPageRatings({loaded:true,data:body.filter(obj=>(obj.name==="feedback"))[0].pageFeedback});
+              let rating=body.filter(obj=>(obj.name==="feedback"))[0].pageFeedback
+            setPageRatings({loaded:true,data:rating});
+            setAverage(rating[0].average)
             
             }
             setMyAccount({loaded:true,data:body.filter(obj=>(obj.name === "myAccount"))[0].catWordSnippet})

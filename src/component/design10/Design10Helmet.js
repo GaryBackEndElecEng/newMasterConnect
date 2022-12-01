@@ -1,21 +1,40 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 
-const Design10Helmet = ({desc,keyWords,loadArr,average,conical,getPathLocation}) => {
-  let JSONProduct=["Interior Design",];
-  if(loadArr.loaded){
-    JSONProduct = loadArr.data.map(obj=>(
-        {
+const Design10Helmet = ({desc,keyWords,loadArr,average,conical,getPathLocation,pageRatings}) => {
+  const review=pageRatings.map((obj,index)=>(
+    {
+    "@type": "Review",
+    "datePublished": `2022-04-0${index}`,
+    "reviewBody": obj.comment,
+    "name": "REAL-ESTATE PAGE",
+    "reviewRating": {
+      "@type": "Rating",
+      "bestRating": "5",
+      "ratingValue": obj.rating,
+      "worstRating": "1"
+    },
+    "author": {
+      "@type": "Person",
+      "name": obj.name
+    }
+    }
+
+  ));
+const JSONProduct=loadArr.map((obj,index)=>(
+      {
           "@context": "https://schema.org/",
           "@type": "Product",
-          "name": obj.title,
+          "name": obj.name,
           "image": obj.image,
           "description": obj.desc,
           "mpn": "N/A",
           "brand": {
-            "@type": "Thing",
-            "name": "Digital Master Connect"
+            "@type": "Brand",
+            "name": "INTERIOR DESIGN"
           },
+          review
+          ,
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": average,
@@ -23,8 +42,9 @@ const Design10Helmet = ({desc,keyWords,loadArr,average,conical,getPathLocation})
           },
           "offers": {
             "@type": "Offer",
+            "url":"https://www.master-connect.ca/design10",
             "priceCurrency": "CAD",
-            "price": 15,
+            "price": "20",
             "priceValidUntil": "N/A",
             "itemCondition": "http://schema.org/UsedCondition",
             "availability": "http://schema.org/InStock",
@@ -32,16 +52,18 @@ const Design10Helmet = ({desc,keyWords,loadArr,average,conical,getPathLocation})
               "@type": "Organization",
               "name": "Digital master Connect"
             }
-          },
-        }
-    ));
-  }
+          }
+    }
+));
   
 
    
   return (
     <Helmet>
-        <title>Interior Design Page </title>
+        <title>INTERIOR DESIGN </title>
+        <script type="application/ld+json">
+          {JSON.stringify(JSONProduct)}
+        </script>
         <meta name="site_name" content="Web Designs"/>
         <link rel="canonical" href={`${getPathLocation}/design10`} />
         <meta name="keywords" content={keyWords}/>
@@ -49,9 +71,7 @@ const Design10Helmet = ({desc,keyWords,loadArr,average,conical,getPathLocation})
         <meta name="description" content={desc}/>
         <meta name="site" content={getPathLocation}/>
         <meta name="url" content={getPathLocation}/>
-        <script type="application/ld+json">
-          {JSON.stringify(JSONProduct)}
-        </script>
+        
     </Helmet>
   )
   }

@@ -14,7 +14,12 @@ const BlogHelmet = ({blogBodys,keywords,conical,getPathLocation,blogPhrase,SEOBl
                   "@type": "Article",
                   "headline": obj.title,
                   "image": obj.mainImage,
-                  "author": "Gary Wallace", 
+                  "author":{ 
+                    "@type":"thing",
+                    "name":"Gary Wallace",
+                    "url":"https://www.master-connect.ca/blog",
+                  
+                  }, 
                   "award": "Best Article For The Mind",
                   "editor": "Gary Wallace", 
                   "genre": "Technology, Education", 

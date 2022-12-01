@@ -2,7 +2,7 @@ import React from 'react';
 // import { GeneralContext } from '../../context/GeneralContextProvider';
 import { Helmet } from 'react-helmet';
 
-const HomeHelmet = ({ profileHelmet, generalInfoHelmet, conical, getPathLocation }) => {
+const HomeHelmet = ({ profileHelmet, generalInfoHelmet, getPathLocation }) => {
   let contact = `${getPathLocation}/contact`
   const IdJson = {
 
@@ -10,7 +10,7 @@ const HomeHelmet = ({ profileHelmet, generalInfoHelmet, conical, getPathLocation
     "@type": "Organization",
     "name": "Digital Master Connect",
     "legalName": "Digital Master Connect inc",
-    "url": "https://www.master-connect.ca",
+    "url": getPathLocation,
     "logo": "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png",
     "foundingDate": "2021",
     "founders": [

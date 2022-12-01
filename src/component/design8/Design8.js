@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import {useLocation} from 'react-router-dom';
 import { Stack, Container, Typography, } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
@@ -43,7 +44,9 @@ margin-top:-50px;
 
 
 const Design8 = () => {
-  const { setTitle, setStyleName, setChangePage, staticImage,average,conical,getPathLocation } = useContext(GeneralContext);
+  const location=useLocation();
+    const pathname=location.pathname;
+  const { setTitle, setStyleName, setChangePage, staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
   const {paid}=useContext(TokenAccessContext);
   const [summary, setSummary] = useState(false);
@@ -52,6 +55,14 @@ const Design8 = () => {
   const [image, setimage] = useState(false);
   const [OBJ, setOBJ] = useState(false);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
+  const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    
+    useEffect(()=>{
+        if(pageRatings.loaded && pageRatings.data){
+            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+        }
+    },[pathname,pageRatings]);
+
   useEffect(() => {
     setTitle("Success");
     setStyleName("Success Page here");
@@ -101,6 +112,7 @@ const Design8 = () => {
        average={average !==0 ? average:"4"}
        conical={conical.loaded ? conical.data:""}
        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+       pageRatings={pageRatingHelmet}
        />
       <RegisterPage />
       <GetRegisterPages />
