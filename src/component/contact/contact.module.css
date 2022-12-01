@@ -79,8 +79,7 @@
 }
 
 .removeAppBar{
-    display:block;
-    animation:removeAppbar 1.5s ease-out;
+    display:none;
 }
 @keyframes removeAppbar {
 from{transform:scale(1);}

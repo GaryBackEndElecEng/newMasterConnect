@@ -24,6 +24,7 @@ import ContactHelmet from './ContactHelmet'
 const DivEffect = styled.div`
 margin:auto;
 height:13vh;
+position:relative;
 background:${({bg})=>bg};
 z-index:${({zIndex})=>zIndex};
 animation: moveAppear 4s ease-in;
@@ -32,10 +33,17 @@ animation: moveAppear 4s ease-in;
   to { opacity:1;height:13vh;}
 }
 @media screen and (max-width:900px){
-  height:24vh;
+  height:26vh;
   @keyframes moveAppear {
     from { opacity:0;height:0vh;}
-    to { opacity:1;height:24vh;}
+    to { opacity:1;height:26vh;}
+  }
+}
+@media screen and (max-width:800px){
+  height:27vh;
+  @keyframes moveAppear {
+    from { opacity:0;height:0vh;}
+    to { opacity:1;height:27vh;}
   }
 }
 @media screen and (max-width:600px){
@@ -46,18 +54,27 @@ height:24vh;
 }
 }
 
-@media screen and (max-width:400px){
-height:29vh;
+@media screen and (max-width:440px){
+height:26vh;
+margin-top:-50px;
 @keyframes moveAppear {
   from { opacity:0;height:0vh}
-  to { opacity:1;height:29vh;}
+  to { opacity:1;height:26vh;}
+}
+}
+
+@media screen and (max-width:400px){
+height:34vh;
+margin-top:-50px;
+@keyframes moveAppear {
+  from { opacity:0;height:0vh}
+  to { opacity:1;height:34vh;}
 }
 }
 `;
 const ContainerContact = styled(ContainerHomeFluid).attrs({className:"containerContact"})`
 margin:2rem auto;
 margin-bottom:5rem;
-background-image:url(${({ bgImage }) => bgImage});
 margin-top:0vh;
 position:relative;
 padding:2rem auto;
@@ -75,15 +92,15 @@ animation: clearIn 1s ease-in-out;
 
 const Contact = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  const { setTitle, setStyleName, turnOn, zIndex, removeText, removeApp, setRemoveApp, setCheckHeight,ourServices,staticImage,conical,generalInfo,getPathLocation} = useContext(GeneralContext);
+  // const navigate = useNavigate();
+  const { setTitle, setStyleName, zIndex, removeText, removeApp, setRemoveApp, setCheckHeight,ourServices,generalInfo,getPathLocation} = useContext(GeneralContext);
   const [showService,setShowService]=useState(false);
   const [clickToAnim,setClickToAnim]=useState(false);
   const [ keywords,setKeywords]=useState(null);
   const [ content,setContent]=useState(null);
   const getOurServices= ourServices.loaded ? ourServices.data : null;
  
-  const bgImage = `${staticImage}/contactWallpaper2.png`;
+  // const bgImage = `${staticImage}/contactWallpaper2.png`;
 
   useEffect(()=>{
     if(getOurServices){
@@ -102,10 +119,8 @@ const Contact = () => {
     setTitle("Contact")
     setStyleName("Contact Us")
     if (removeText) {
-      setCheckHeight("auto")
-      setTimeout(() => {
+      setCheckHeight("auto");
         setRemoveApp(true);
-      }, 1000)
     }
     if(window.scrollY){
       window.scroll(0,0);
@@ -131,7 +146,7 @@ const Contact = () => {
  const handleOnOutToAnim =(e)=>{
   setClickToAnim(false)
  }
-// console.log("removeText",removeText)
+
   return (
     <>
     <RegisterPage/>
@@ -139,23 +154,21 @@ const Contact = () => {
     <ContactHelmet 
     keywords={keywords}
      content={content} 
-    conical={conical.loaded ? conical.data:""}
      generalInfo={generalInfo}
      getPathLocation={getPathLocation.loaded ?getPathLocation.data:""}
       />
       {/* AUTOMATED WELCOME //HEADER */}
       {!removeApp ?
        <DivEffect
-       bg={theme.palette.common.light}
+       bg={"white"}
        zIndex={zIndex}
-        className={removeText ? Styles.removeAppBar : Styles.showAppBar}
         >
-        <Grid container spacing={3} >
+        <Grid container spacing={1} sx={{margin:{sm:"0.5rem",md:"auto"}}} >
           <Grid item xs={12} md={3} sx={{padding:"0.5rem"}}>
             <DrawSignature />
           </Grid>
-          <Grid item xs={12} md={9} sx={{marginTop:{xs:"0",sm:"1rem"},padding:"0.5rem"}}>
-            {turnOn ? <DynamicInfo /> : <></>}
+          <Grid item xs={12} md={8} sx={{marginTop:{xs:"0",sm:"0rem",md:"0.25rem"},padding:"0.5rem",margin:{md:"0.5rem 0.25rem",sm:"0.5rem 0.25rem"},position:"relative",}}>
+             <DynamicInfo />
           </Grid>
         </Grid>
 
@@ -167,7 +180,7 @@ const Contact = () => {
       }
       {/*---- END AUTOMATED WELCOME //HEADER---- */}
       {/* CONTENT */}
-      <ContainerContact className={Styles.containerContact } bgImage={bgImage}>
+      <ContainerContact className={Styles.containerContact } >
         <Container maxWidth="lg"
           sx={{ display: "flex", justifyContent: "center", alignItems: "flex-start", flexDirection: { xs: "column", sm: "column" },marginTop:{xs:"1rem",sm:"1rem"} }}
         >

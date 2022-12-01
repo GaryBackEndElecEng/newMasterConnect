@@ -80,13 +80,13 @@ const OurServices = () => {
 
 
     return (
-        <Container maxWidth="xl" sx={{margin:"1rem auto",background:theme.palette.common.background,padding:"0.5rem",justifyContent:"center",alignItems:"center"}}>
+        <Container maxWidth="xl" sx={{margin:"1rem auto",padding:"0.5rem",justifyContent:"center",alignItems:"center"}}>
         <Paper component="div" elevation={9}
             sx={{ margin: "auto", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", padding: "0.5rem" }}
         >
             <Typography component="h1" variant="h2"
                 sx={{
-                    fontFamily: "Roboto", padding: "auto 0.5rem", margin: "auto ",position:"relative"
+                    fontFamily: "Roboto", padding: "auto 0.5rem", margin: "auto ",position:"relative",fontSize:{xs:"280%",sm:"400%",md:"500%"}
                 }}
             >
                 {service && service.title} {showIcon === 'block' ? <ArchitectIcon /> : <ArchitectureIcon sx={{ml:2,color:"red"}}/>}

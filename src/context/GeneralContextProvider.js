@@ -147,9 +147,9 @@ export const GeneralContextProvider = (props) => {
 
   const workArr = [ {id:0, "title": "HomeStyle", "link": "/design1" }, {id:1, "title": "Retrospect", "link": "/design2" },{id:2, "title": "ImageWall", "link": "/design3" }, {id:3, "title": "Space Frontier", "link": "/design4" }, {id:4, "title": "Flower Store", "link": "/design5" },{id:5,"title":"Store Front",link:"https://www.master-connect.ca"},{id:6,title:"Wedding",link:"design6/"}]
   
-  const navItems = [{ id: 1, title: 'home', link: "/" }, { id: 2, title: 'about', link: "/about" }, { id: 3, title: 'Contact', link: "/contact" },{id:4,title:"Design",link:"/works"},{id:5,title:"Blog",link:"/blog"}]
+  const navItems = [{ id: 1, title: 'home', link: "/" }, { id: 2, title: 'about', link: "/about" }, { id: 3, title: 'Designs', link: "/works" },{id:4,title:"contact",link:"/contact"},{id:5,title:"Blog",link:"/blog"}]
 
-  const dropDown=[{name:"register",link:"/register"},{name:"Sign in",link:"/signin"},{name:"Sign out",link:"/signout"},{name:"Design",link:"/works"},{name:"Pricing",link:"/prices"},{name:"Blog",link:"/blog"},{name:"My Account",link:"/MyAccount"},{name:"Articles",link:"/articles"},{name:"bio",link:"/bio"},]
+  const dropDown=[{name:"register",link:"/register"},{name:"Sign in",link:"/signin"},{name:"Sign out",link:"/signout"},{name:"Design",link:"/works"},{name:"Pricing",link:"/prices"},{name:"Contact",link:"/contact"},{name:"Blog",link:"/blog"},{name:"My Account",link:"/MyAccount"},{name:"Articles",link:"/articles"},{name:"bio",link:"/bio"},]
 
   const linkArr=[{name:"design1",link:"/design1"},{name:"design2",link:"/design2"},{name:"design3",link:"/design3"},{name:"design4",link:"/design4"},{name:"design5",link:"/design5"},{name:"design8",link:"/design8"},{name:"My Account",link:"/MyAccount"}]
 

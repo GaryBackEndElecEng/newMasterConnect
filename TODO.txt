@@ -3,19 +3,20 @@ ctrl + G => goto line
 
 TODO
 
--fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
-
--Change out the email for masterconnect919@gmail.com
-
--test purchasing invoice then Post, then extra(-VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT)
--manifest=>page register
--create a financial hook on balance owing.
--correct packages
+-create Top rated pages ( based on GeneralContext=>pageRatings(-rating,count)) within Design
+-correct packages-if they click on purchase=> it should take them to registration page and then upload the products into their basket.
 -Fix Google register and signin
--finish .com all
 -correct the infoFomComplete in account/Particulars/infoCompleteForm
+-create a financial hook on balance owing.
+-Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+-improve on intro on contact
+-replace contact with designs in xs,sm format
+-add contact to drop-down
+-finish .com all
+-test purchasing invoice then Post, then extra(-VERIFY AMOUNTS IN INVOICES BEFORE CHECKOUT)
+-manifest=>page register
 -fixed home page BannerBio ( opacity switch on)
 -- add how many effects do they want per page.
 - preferred means of communication to quotes

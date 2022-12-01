@@ -41,7 +41,7 @@ animation: clearIn 1s ease-in-out;
     margin-top:-32px;
 }
 @media screen and (max-width:600px){
-    margin-top:-95px;
+    margin-top:-50px;
 }
 `;
 
@@ -149,7 +149,7 @@ const Home = () => {
             setLoaded(false)
 
         }, 2000)
-        setStyleName("Digital Master Connect")
+        setStyleName("master-connect")
 
     }, [setLoaded, setStyleName]);
 

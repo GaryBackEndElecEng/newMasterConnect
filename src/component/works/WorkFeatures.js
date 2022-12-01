@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState,  } from 'react'
 import { useNavigate,  } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import {  Card, CardContent, CardMedia, Container,  Grid, Paper, Stack, Typography } from '@mui/material';
+import {  Card, CardContent, CardMedia, Container,  Fab,  Grid, Paper, Stack, Typography } from '@mui/material';
 import styled from 'styled-components';
 // import styles from './works.module.css';
 import RevealPrice from './RevealPrice';
@@ -10,6 +10,9 @@ import RegisterPage from '../RegisterPage';
 import Summary from './Summary';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import WorksHelmet from './WorksHelmet';
+import RatedPages from './RatedPages';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 
@@ -59,7 +62,9 @@ const WorkFeatures = () => {
     const [desc, setDesc] = useState(null);
     const [summary, setSummary] = useState(null);
     const [products, setProducts] = useState([]);
-    const [helmetProduct,setHelmetProduct]=useState({loaded:false,data:[]});
+    const [helmetProduct,setHelmetProduct]=useState([]);
+    const [sendRated,setSendRated]=useState([]);
+    const [showReview,setShowReview]=useState(false);
 
     useEffect(()=>{
         let arr=[];
@@ -68,7 +73,8 @@ const WorkFeatures = () => {
                 let getReview= pageRatings.data.filter(rateObj=>(rateObj.page===obj.extra_kwargs))
                 arr.push({...obj,"review":getReview});
             });
-            setHelmetProduct({loaded:true,data:arr})
+            setHelmetProduct(arr)
+            setSendRated(arr)
         }
         
     },[loadProduct.loaded,loadProduct.data,pageRatings.loaded,pageRatings.data])
@@ -102,14 +108,19 @@ const WorkFeatures = () => {
         } else { window.open(link); }
 
     }
-
+    const handleShowReview = (e)=>{
+        e.preventDefault();
+        if(!showReview ){
+            setShowReview(true)
+        }else{setShowReview(false)}
+    }
     return (
         <WorksContainer bg={theme.palette.common.lightTeal} >
             <WorksHelmet 
             keywords={keywords}
              summary={summary}
              desc={desc}
-             products={helmetProduct.loaded ? helmetProduct.data:null}
+             products={helmetProduct}
              staticImage={staticImage}
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
              average={average !== 0 ? average:"4"}
@@ -125,6 +136,32 @@ const WorkFeatures = () => {
             </Container>
             <Container maxWidth="xl" sx={{ margin: " 1rem auto" }}>
                 <RevealPrice />
+                <Stack direction="column" spacing={{xs:0,sm:1}} 
+                sx={{justifyContent:"flex-start",alignItems:"center"}}
+                >
+                    {!showReview ? <Fab variant="extended" color="info" size="medium" onClick={(e)=>handleShowReview(e)}
+                    sx={{margin:"1rem auto"}}
+                    >
+                        see Reviews <ExpandMoreIcon sx={{ml:1,color:"red"}}/>
+                    </Fab>
+                    :
+                    <Fab variant="extended" color="info" size="medium" onClick={(e)=>handleShowReview(e)}
+                    sx={{margin:"1rem auto"}}
+                    >
+                        close Reviews <ExpandLessIcon sx={{ml:1,color:"red"}}/>
+                    </Fab>}
+                </Stack>
+                {showReview && <RatedPages helmetProduct={sendRated}/>}
+                <Stack direction="column" spacing={{xs:0,sm:1}} 
+                sx={{justifyContent:"flex-start",alignItems:"center"}}
+                >
+                    {showReview &&
+                    <Fab variant="extended" color="info" size="medium" onClick={(e)=>handleShowReview(e)}
+                    sx={{margin:"1rem auto"}}
+                    >
+                        close Reviews <ExpandLessIcon sx={{ml:1,color:"red"}}/>
+                    </Fab>}
+                </Stack>
                 <Grid container spacing={3}>
                     {loadedProduct.map(obj => (
 
