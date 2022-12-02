@@ -29,10 +29,11 @@ const RatedPages = ({ helmetProduct }) => {
     const handleSeeRev = (e, id,review) => {
         e.preventDefault();
         if (seeRev.loaded === false) {
-            setSeeRev({ loaded: true, id: id,review:review.slice(0,4) });
+            setSeeRev({ loaded: true, id: id,review:review });
         } else { setSeeRev({ loaded: false, id: 0,review:[] }) }
 
     }
+    
     return (
         <MainRatedContainer
             maxWidth="xl"
@@ -46,6 +47,7 @@ const RatedPages = ({ helmetProduct }) => {
                             <Card elevation={3} sx={{ padding: "0.5rem" }}>
                                 <Avatar src={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca" sx={{ padding: "5px", background: theme.palette.common.blueGrey, height: "110%" }} />
                                 <Typography component="h1" variant="h5">{obj.name}</Typography>
+                                <span><span style={{color:"red",marginRight:"5px"}}>count:</span>{obj.review.length}</span>
                                 <Typography component="h1" variant="h6">
                                     <AttachMoneyIcon sx={{ ml: 1, color: "green", fontSize: "120%" }} />
                                     {obj.monthly}<sup>00</sup>

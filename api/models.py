@@ -10,7 +10,7 @@ class Miscelaneous(models.Model):
     def __str__(self):
         return f'{self.page}-{self.pageCount}'
 
-CATEGORIES=(("contact","contact"),("about","about"),("home","home"),("article","article"),("bio","bio"),("main","main"),("footer","footer"),("GeneralInfo","GeneralInfo"),("sponsor","sponsor"),("designs","designs"),("policy","policy"),("feedback","feedback"),)
+CATEGORIES=(("contact","contact"),("about","about"),("home","home"),("article","article"),("bio","bio"),("main","main"),("footer","footer"),("GeneralInfo","GeneralInfo"),("sponsor","sponsor"),("designs","designs"),("policy","policy"),("feedback","feedback"),("customTemplate","customTemplate"),)
 SECTION_TYPE=(('allServices','allServices'),('supplemental','supplemental'),('works','works'),('advert','advert'),('main','main'),('general','general'),('restriction','restriction'),('warning','warning'),)
 class Category(models.Model):
     section=models.CharField(max_length=200,choices=CATEGORIES,default="main")

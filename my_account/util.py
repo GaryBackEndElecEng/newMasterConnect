@@ -960,4 +960,12 @@ def site_url():
 
 # print(site_url())
 
+def storeCustomId(customId,username):
+    user=User.objects.filter(username=username).first()
+    if user:
+        product=Product.objects.get(id=customId)
+        userAccount=UserAccount.objects.get(user=user)
+        userAccount.product.add(product)
+        userAccount.save()
+
 

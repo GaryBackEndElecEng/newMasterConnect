@@ -35,7 +35,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
-from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin)
+from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId)
 from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -165,7 +165,9 @@ class LoginView(APIView):
                 "access_token":str(refresh.access_token)        
                 }
     def post(self,request,format=None):
-        # print(request.headers,"data",request.data)
+        customId=0
+        uuid=""
+        # print("data",request.data)
         data=self.request.data
         username=data['username']
         password=data['password']
@@ -173,6 +175,10 @@ class LoginView(APIView):
         if data['UUID']:
             uuid=data['UUID']
             CalcAddToUserAccountAtLogin(uuid,username).execute()
+        if data["customId"]:
+            customId=data["customId"]
+            #STORES CUSTOM PRODUCT TO USERACCOUT
+            storeCustomId(customId,username)
         try:
             user=auth.authenticate(username=username,password=password)
             # print("userModel",user)

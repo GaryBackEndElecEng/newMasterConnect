@@ -3,7 +3,11 @@ ctrl + G => goto line
 
 TODO
 
--create Top rated pages ( based on GeneralContext=>pageRatings(-rating,count)) within Design
+-Custom Templates
+ :Temp save and display description
+ :Create a new PriceCategory for CustomTemplates under Products products
+ :ie body.filter(obj=>(obj.name==="templates"))[0] in account/priceCategory
+ 
 -correct packages-if they click on purchase=> it should take them to registration page and then upload the products into their basket.
 -Fix Google register and signin
 -correct the infoFomComplete in account/Particulars/infoCompleteForm
@@ -11,6 +15,7 @@ TODO
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+-create Top rated pages ( based on GeneralContext=>pageRatings(-rating,count)) within Design
 -improve on intro on contact
 -replace contact with designs in xs,sm format
 -add contact to drop-down

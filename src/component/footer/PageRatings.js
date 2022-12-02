@@ -70,7 +70,7 @@ const PageRatings = () => {
         }}
             >
                 {filterRating && filterRating.map((obj, index) => (
-                    <Grid item xs={12} sm={6} md={2} key={`${obj.id}-${index}`}
+                    <Grid item xs={12} sm={6} md={2} key={`${obj.id}-${index}-${Math.floor(Math.random()*10000)}`}
                      sx={{padding:{xs:"0.5rem",sm:"1rem"},
                      margin:"auto",justifyContent:"center",alignItems:"center",textAlign:"center",
                     }}
@@ -84,11 +84,12 @@ const PageRatings = () => {
                          onClick={(e)=>handledesc(e,obj)}
                          onMouseOut={(e)=>handleClose(e)}
                         >
+                            <Avatar src={logo} alt="www.master-connect.ca" sx={{ width: { sm: "25%", xs: "25%", md: "25%" }, height: { sm: "25%", xs: "25%", md: "25%" }, boxShadow: `1px 1px 10px 8px ${theme.palette.common.blueFade}` }} />
                             <Typography component="h1" variant="h5" sx={{textAlign:"center"}}>
                                 {obj.name}
                             </Typography>
                             <Stack direction={{xs:"column",sm:"column",md:"row"}} spacing={2}>
-                            <Avatar src={logo} alt="www.master-connect.ca" sx={{ width: { sm: "25%", xs: "25%", md: "25%" }, height: { sm: "25%", xs: "25%", md: "25%" }, boxShadow: `1px 1px 10px 8px ${theme.palette.common.blueFade}` }} />
+                            
                             <Stars rating={obj.rating} sx={{ml:0}}/>
                             </Stack>
                             <CardContent
@@ -109,7 +110,7 @@ const PageRatings = () => {
                                 
                                 {desc.data.id === obj.id &&
                                  <Typography component="h1" variant="body1"
-                                 sx={{position:"absolute",top:"40%",left:"auto",background:theme.palette.footer.blueGrey,color:"white",padding:"1rem",width:"100%"}}
+                                 sx={{position:"absolute",top:"0%",left:"auto",background:theme.palette.footer.blueGrey,color:"white",padding:"1rem",width:"100%"}}
                                  >
                                     {desc.data.comment}
                                 </Typography>}

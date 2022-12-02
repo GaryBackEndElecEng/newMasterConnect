@@ -40,7 +40,6 @@ const Register = () => {
     const navigate=useNavigate();
     const cardImg = `${staticImage}/register.png`;
 
-
     useEffect(() => {
         const email_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         const username_REGEX = /(^[A-Za-z]{6,16})/;
@@ -54,20 +53,22 @@ const Register = () => {
     useEffect(() => {
         if (validEmail && validPassword && validUsername) {
             setInfoOkay(true);
-            setRegister({
-                data: {
-                    email: email,
-                    username: username,
-                    password: password,
-                    checked: checked
-                },
-                loaded:false
-            });
+            
+                setRegister({
+                    data: {
+                        email: email,
+                        username: username,
+                        password: password,
+                        checked: checked,
+                    },
+                    loaded:false
+                });
+            
             localStorage.setItem("formComplete",false);
             setFormComplete(false)
 
         }
-    }, [validEmail, validUsername, validPassword, setInfoOkay, checked,email,password,username,setRegister]);
+    }, [validEmail, validUsername, validPassword, setInfoOkay, checked,email,password,username,setRegister,setFormComplete]);
 
     useEffect(()=>{
         setTitle("Register");

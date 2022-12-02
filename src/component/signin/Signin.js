@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import {TokenAccessContext} from '../../context/TokenAccessProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
-import { Typography, Grid, Container, Paper, FormControl,  InputLabel, FormHelperText, Input, FormLabel, Card, CardContent, Fab, CardMedia,  ButtonBase } from '@mui/material';
+import { Typography, Grid, Container, Paper, FormControl, InputLabel, FormHelperText, Input, FormLabel, Card, CardContent, Fab, CardMedia, ButtonBase } from '@mui/material';
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -15,7 +15,7 @@ import SigninGoogle from './SigninGoogle';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import SigninHelmet from './SigninHelmet';
 
-const SignInContainer=styled(Container)`
+const SignInContainer = styled(Container)`
 animation: clearIn 1s ease-in-out;
 min-height:70vh;
 @keyframes clearIn {
@@ -24,94 +24,115 @@ min-height:70vh;
 }
 `;
 const Signin = () => {
-  const theme = useTheme();
+    const theme = useTheme();
     const MyRef = useRef();
-    const { staticImage,email, setEmail,setChangePage,setTitle,setStyleName,setActivate,register,setRegister,conical,getPathLocation} = useContext(GeneralContext);
-    const {setLoggedIn,setSignin,setTokenIsValid,loginError,setLoginError,setSignout,setGoToSignin,setViewAccount}=useContext(TokenAccessContext)
+    const { staticImage, email, setEmail, setChangePage, setTitle, setStyleName, setActivate, register, setRegister, conical, getPathLocation } = useContext(GeneralContext);
+    const { setLoggedIn, setSignin, setTokenIsValid, loginError, setLoginError, setSignout, setGoToSignin, setViewAccount } = useContext(TokenAccessContext)
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
     const [infoOkay, setInfoOkay] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [error,setError]=useState(false);
-    const navigate=useNavigate();
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
     const cardImg = `${staticImage}/GreatMountain.png`;
-    const clientUsername=localStorage.getItem("username")? localStorage.getItem("username"):"";
-    const clientEmail=localStorage.getItem("email") ? localStorage.getItem("email"):"";
-    const tokenIsValid = localStorage.getItem("tokenIsValid") ? JSON.parse(localStorage.getItem("tokenIsValid")):false;
+    const clientUsername = localStorage.getItem("username") ? localStorage.getItem("username") : "";
+    const clientEmail = localStorage.getItem("email") ? localStorage.getItem("email") : "";
+    const tokenIsValid = localStorage.getItem("tokenIsValid") ? JSON.parse(localStorage.getItem("tokenIsValid")) : false;
+    const [getCustom, setGetCustom] = useState({ loaded: false, data: {} });
+
+    useEffect(() => {
+        //SELECTED CUSTOM TEMPLATE
+        let testCustom = localStorage.getItem("custTemplate") ? JSON.parse(localStorage.getItem("custTemplate")) : null;
+        if (testCustom) {
+            setGetCustom({ loaded: true, data: { id: testCustom.id, pathname: testCustom.path } });
+        }
+    }, [setGetCustom]);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         setChangePage(false);
-      if( !tokenIsValid){
-        localStorage.removeItem('username');
-          localStorage.removeItem('email');
-          localStorage.removeItem('user_id');
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('refresh_token');
-          localStorage.removeItem('csrftoken');
-          localStorage.removeItem('page');
-          localStorage.removeItem("tokenIsValid");
-          localStorage.removeItem("loggedIn");
-          localStorage.removeItem("goToSignin");
-          localStorage.removeItem("userAccount");
-          localStorage.removeItem("reducedProduct");
-          localStorage.removeItem("usersProduct");
-          localStorage.removeItem("extraSession_id");
-          setSignout(true);
-          setActivate(false);
-          setLoggedIn(false);
-          setGoToSignin(true);
-      }
-      if(window.scrollY){
-        window.scroll(0,0);
-        
-    }
-    },[tokenIsValid,setLoggedIn,setGoToSignin,setActivate,setSignout,setChangePage]);
+        if (!tokenIsValid) {
+            localStorage.removeItem('username');
+            localStorage.removeItem('email');
+            localStorage.removeItem('user_id');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            localStorage.removeItem('csrftoken');
+            localStorage.removeItem('page');
+            localStorage.removeItem("tokenIsValid");
+            localStorage.removeItem("loggedIn");
+            localStorage.removeItem("goToSignin");
+            localStorage.removeItem("userAccount");
+            localStorage.removeItem("reducedProduct");
+            localStorage.removeItem("usersProduct");
+            localStorage.removeItem("extraSession_id");
+            setSignout(true);
+            setActivate(false);
+            setLoggedIn(false);
+            setGoToSignin(true);
+        }
+        if (window.scrollY) {
+            window.scroll(0, 0);
 
-    useEffect(()=>{
-        const postSignin= async ()=>{
-            const getUUID=localStorage.getItem("UUID")? JSON.parse(localStorage.getItem("UUID")):"";
+        }
+    }, [tokenIsValid, setLoggedIn, setGoToSignin, setActivate, setSignout, setChangePage]);
+
+    useEffect(() => {
+        const postSignin = async () => {
+            const getUUID = localStorage.getItem("UUID") ? JSON.parse(localStorage.getItem("UUID")) : "";
+            let params={};
             try {
-             const params={
-                username:register.data.username,
-                email:register.data.email,
-                password:register.data.password,
-                UUID:getUUID
-              }
-                const res = await apiProtect.post(`/account/login/`,params)
-                const data=res.data
-                if(data && data.status !==503){
+                if (getCustom.loaded) {
+                    params = {
+                        username: register.data.username,
+                        email: register.data.email,
+                        password: register.data.password,
+                        UUID: getUUID,
+                        customId: getCustom.data.id
+                    }
+                } else {
+                    params = {
+                        username: register.data.username,
+                        email: register.data.email,
+                        password: register.data.password,
+                        UUID: getUUID,
+                        customId:null
+                    }
+                }
+                const res = await apiProtect.post(`/account/login/`, params)
+                const data = res.data
+                if (data && data.status !== 503) {
                     setSignin(true);
                     setLoggedIn(true);
                     setTokenIsValid(true);
-                    localStorage.setItem('username',JSON.stringify(data.username));
-                    localStorage.setItem('email',JSON.stringify(data.email));
-                    localStorage.setItem('user_id',JSON.stringify(data.user_id));
-                    localStorage.setItem('access_token',data.access_token);
-                    localStorage.setItem('refresh_token',data.refresh_token);
-                    localStorage.setItem('tokenIsValid',true);
-                    localStorage.setItem("loggedIn",true);
-                    localStorage.setItem("goToSignin",false)
+                    localStorage.setItem('username', JSON.stringify(data.username));
+                    localStorage.setItem('email', JSON.stringify(data.email));
+                    localStorage.setItem('user_id', JSON.stringify(data.user_id));
+                    localStorage.setItem('access_token', data.access_token);
+                    localStorage.setItem('refresh_token', data.refresh_token);
+                    localStorage.setItem('tokenIsValid', true);
+                    localStorage.setItem("loggedIn", true);
+                    localStorage.setItem("goToSignin", false)
                     setViewAccount(true);
-                    setTimeout(()=>{setSignin(false)},6000);
-                    navigate("/",setChangePage(true));
-                    setRegister({loaded:false,data:{'username':data.username,"email":data.email,"password":""}});
-                }else{
-                  setError(true);
-                  new Error(data.error)
+                    setTimeout(() => { setSignin(false) }, 6000);
+                    navigate("/", setChangePage(true));
+                    setRegister({ loaded: false, data: { 'username': data.username, "email": data.email, "password": "" } });
+                } else {
+                    setError(true);
+                    new Error(data.error)
                 }
-                
+
             } catch (error) {
                 setLoginError(true);
                 console.error(error.message)
-                
+
             }
         }
-        if(register.loaded){
+        if (register.loaded) {
             postSignin();
         }
-    },[register.loaded,navigate,register.data,setChangePage,setLoginError,setRegister,setLoggedIn,setSignin,setTokenIsValid,setViewAccount]);
+    }, [register.loaded, navigate, register.data, setChangePage, setLoginError, setRegister, setLoggedIn, setSignin, setTokenIsValid, setViewAccount,getCustom.loaded,getCustom.data.id]);
 
     useEffect(() => {
         const email_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -124,69 +145,80 @@ const Signin = () => {
     useEffect(() => {
         if (validEmail && validUsername) {
             setInfoOkay(true)
-            
+
 
         }
     }, [validEmail, validUsername, setInfoOkay]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setTitle("Signin");
         setStyleName("Welcome Back")
-    },[setStyleName,setTitle]);
+    }, [setStyleName, setTitle]);
 
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
-    
-        const postSignin= async ()=>{
-            
+
+        const postSignin = async () => {
+            let params={};
             try {
-             const params={
-                username:username,
-                email:email,
-                password:password,
-                UUID:""
-              }
-                const res = await apiProtect.post(`/account/login/`,params)
-                const data=res.data
-                if(data && data.status !==503){
+                if (getCustom.loaded) {
+                params = {
+                    username: username,
+                    email: email,
+                    password: password,
+                    UUID: "",
+                    customId:getCustom.data.id
+                    }
+                }else{
+                    params = {
+                        username: username,
+                        email: email,
+                        password: password,
+                        UUID: "",
+                        customId:null
+                        }
+                }
+                const res = await apiProtect.post(`/account/login/`, params)
+                const data = res.data
+                if (data && data.status !== 503) {
                     setSignin(true);
                     setLoggedIn(true);
                     setTokenIsValid(true);
-                    localStorage.setItem('username',JSON.stringify(data.username));
-                    localStorage.setItem('email',JSON.stringify(data.email));
-                    localStorage.setItem('user_id',JSON.stringify(data.user_id));
-                    localStorage.setItem('access_token',data.access_token);
-                    localStorage.setItem('refresh_token',data.refresh_token);
-                    localStorage.setItem('tokenIsValid',true);
-                    localStorage.setItem("loggedIn",true);
-                    localStorage.setItem("goToSignin",false)
-                    setRegister({loaded:false,data:{'username':data.username,"email":data.email,"password":""}});
+                    localStorage.setItem('username', JSON.stringify(data.username));
+                    localStorage.setItem('email', JSON.stringify(data.email));
+                    localStorage.setItem('user_id', JSON.stringify(data.user_id));
+                    localStorage.setItem('access_token', data.access_token);
+                    localStorage.setItem('refresh_token', data.refresh_token);
+                    localStorage.setItem('tokenIsValid', true);
+                    localStorage.setItem("loggedIn", true);
+                    localStorage.setItem("goToSignin", false)
+                    setRegister({ loaded: false, data: { 'username': data.username, "email": data.email, "password": "" } });
                     setViewAccount(true);
-                    setTimeout(()=>{setSignin(false)},6000);
-                    navigate("/",setChangePage(true));
-                }else{
-                  setError(true);
-                  new Error(data.error)
+                    setTimeout(() => { setSignin(false) }, 6000);
+                    navigate("/", setChangePage(true));
+                } else {
+                    setError(true);
+                    new Error(data.error)
                 }
-                
+
             } catch (error) {
                 setLoginError(true);
                 console.error(error.message)
-                
+
             }
         }
-        if(e){postSignin();}
-        
+        if (e) { postSignin(); }
+
     }
     return (
-        <SignInContainer maxWidth="xl" sx={{margin:"3rem auto"}} >
+        <SignInContainer maxWidth="xl" sx={{ margin: "3rem auto" }} >
             <SigninHelmet
-             conical={conical.loaded ? conical.data:""}
-             getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+                conical={conical.loaded ? conical.data : ""}
+                getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
             />
-            <GetRegisterPages/>
-            <RegisterPage/>
+            <GetRegisterPages />
+            <RegisterPage />
             <Container maxWidth={"sm"}
                 sx={{
                     marginTop: "3rem",
@@ -198,12 +230,12 @@ const Signin = () => {
                     }}
                 >
                     <Card sx={{ position: "relative" }}>
-                        <SigninGoogle/>
+                        <SigninGoogle />
                         <CardMedia component={"img"} image={cardImg} height="100%" alt="www.master-connect.ca" />
                         <Typography component="h1" variant="h5" className={styles.contactMsg} ref={MyRef}
                             sx={{
                                 fontFamily: "Roboto", justifySelf: "center", alignSelf: "center",
-                                fontSize: { sm: "26px", xs: "26px" },top:{xs:"22%",sm:"22%"},left:{xs:"5%",sm:"10%"},position:"absolute"
+                                fontSize: { sm: "26px", xs: "26px" }, top: { xs: "22%", sm: "22%" }, left: { xs: "5%", sm: "10%" }, position: "absolute"
                             }}
                         >
                             "Sign in and view your Account"
@@ -233,7 +265,7 @@ const Signin = () => {
                                             id="username"
                                             name="username"
                                             aria-describedby="Your full name"
-                                            value={username ? username :clientUsername}
+                                            value={username ? username : clientUsername}
                                             onChange={(e) => setUsername(e.target.value)}
                                             aria-invalid={validUsername ? "false" : "true"}
                                         />
@@ -253,36 +285,36 @@ const Signin = () => {
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
-                                        
+
                                         <FormHelperText id="password">enter your password.</FormHelperText>
                                     </FormControl>
-                                    
+
                                 </FormLabel>
                                 <Grid container spacing={1} sx={{ justifyContent: "center" }}>
                                     {infoOkay ? <Fab color="primary" type={"submit"} variant="extended" onClick={(e) => handleSubmit(e)}>
                                         <NavigationIcon sx={{ mr: 1 }} />
-                                       Signin
+                                        Signin
                                     </Fab> : <div>"submit pending"</div>}
                                 </Grid>
                             </form>
-                            {error && 
-                            <Container maxWidth="xs" sx={{margin:"2rem",cursor:"pointer"}}>
-                              <Paper component="h3" elevation={10}>
-                                
-                                <ButtonBase component="a" href="/register">
-                                Sorry could not find your account.
-                                  click here</ButtonBase>
-                              </Paper>
-                            </Container>
+                            {error &&
+                                <Container maxWidth="xs" sx={{ margin: "2rem", cursor: "pointer" }}>
+                                    <Paper component="h3" elevation={10}>
+
+                                        <ButtonBase component="a" href="/register">
+                                            Sorry could not find your account.
+                                            click here</ButtonBase>
+                                    </Paper>
+                                </Container>
                             }
-                            {loginError && 
-                            <Container maxWidth="xs" sx={{margin:"2rem",cursor:"pointer"}}>
-                            <Paper component="h3" elevation={10}>
-                              
-                              <ButtonBase  onClick={()=>window.location.reload()}>
-                              Sorry you have to refresh to page -server thinks you are someone else-Click here!</ButtonBase>
-                            </Paper>
-                          </Container>
+                            {loginError &&
+                                <Container maxWidth="xs" sx={{ margin: "2rem", cursor: "pointer" }}>
+                                    <Paper component="h3" elevation={10}>
+
+                                        <ButtonBase onClick={() => window.location.reload()}>
+                                            Sorry you have to refresh to page -server thinks you are someone else-Click here!</ButtonBase>
+                                    </Paper>
+                                </Container>
                             }
                         </CardContent>
                     </Card>

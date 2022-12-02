@@ -13,11 +13,10 @@ animation: growUp 1s ease-in-out;
 }
 `;
 const SeeReview = ({review}) => {
-
   return (
     <MainReview container spacing={{xs:0,sm:1}}>
 
-        { review.map((obj,index)=>(
+        { review.slice(0,4).map((obj,index)=>(
             <Grid item xs={12} sm={6} key={`${obj.id}-eachReview-${index}`}
             sx={{width:"100%"}}
             >

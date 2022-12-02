@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState,  } from 'react'
 import { useNavigate,  } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
+import {PriceContext} from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import {  Card, CardContent, CardMedia, Container,  Fab,  Grid, Paper, Stack, Typography } from '@mui/material';
 import styled from 'styled-components';
@@ -55,21 +56,20 @@ const WorkFeatures = () => {
 
     const theme = useTheme();
     const navigate = useNavigate();
-    const { setChangePage, setTitle, setStyleName, loadProduct, staticImage,getPathLocation,pageRatings,average } = useContext(GeneralContext);
+    const { setChangePage, setTitle, setStyleName, staticImage,getPathLocation,pageRatings,average } = useContext(GeneralContext);
+    const {getProductList} =useContext(PriceContext);
     const design = `${staticImage}/mainDesign.png`;
-    const loadedProduct = loadProduct.loaded ? loadProduct.data : [];
     const [keywords, setKeywords] = useState(null);
     const [desc, setDesc] = useState(null);
     const [summary, setSummary] = useState(null);
-    const [products, setProducts] = useState([]);
     const [helmetProduct,setHelmetProduct]=useState([]);
     const [sendRated,setSendRated]=useState([]);
     const [showReview,setShowReview]=useState(false);
 
     useEffect(()=>{
         let arr=[];
-        if(loadProduct.loaded && loadProduct.data && pageRatings.loaded){
-            loadProduct.data.forEach((obj,index)=>{
+        if(getProductList.loaded && getProductList.data && pageRatings.loaded){
+            getProductList.data.forEach((obj,index)=>{
                 let getReview= pageRatings.data.filter(rateObj=>(rateObj.page===obj.extra_kwargs))
                 arr.push({...obj,"review":getReview});
             });
@@ -77,7 +77,22 @@ const WorkFeatures = () => {
             setSendRated(arr)
         }
         
-    },[loadProduct.loaded,loadProduct.data,pageRatings.loaded,pageRatings.data])
+    },[getProductList.loaded,getProductList.data,pageRatings.loaded,pageRatings.data]);
+
+    useEffect(() => {
+        if (getProductList.loaded) {
+            setKeywords(
+                getProductList.data.map(obj => (obj.name)).concat(["Products", "sale", "buy"])
+            )
+            setDesc(
+                getProductList.data.map(obj => (obj.desc).slice(0, 100))
+            )
+            setSummary(
+                getProductList.data.map(obj => (obj.desc).slice(0, 100))
+            )
+            
+        }
+    }, [getProductList.loaded, getProductList.data]);
 
     useEffect(() => {
         setTitle("Designs");
@@ -87,20 +102,7 @@ const WorkFeatures = () => {
         }
     }, [setTitle, setStyleName]);
 
-    useEffect(() => {
-        if (loadProduct.loaded) {
-            setKeywords(
-                loadProduct.data.map(obj => (obj.name)).concat(["Products", "sale", "buy"])
-            )
-            setDesc(
-                loadProduct.data.map(obj => (obj.desc).slice(0, 100))
-            )
-            setSummary(
-                loadProduct.data.map(obj => (obj.desc).slice(0, 100))
-            )
-            setProducts(loadProduct.data)
-        }
-    }, [loadProduct.loaded, loadProduct.data])
+   
 
     const handleNavigate = (e, link) => {
         if (!link.startsWith("https")) {
@@ -142,7 +144,7 @@ const WorkFeatures = () => {
                     {!showReview ? <Fab variant="extended" color="info" size="medium" onClick={(e)=>handleShowReview(e)}
                     sx={{margin:"1rem auto"}}
                     >
-                        see Reviews <ExpandMoreIcon sx={{ml:1,color:"red"}}/>
+                        see Top Reviews <ExpandMoreIcon sx={{ml:1,color:"red"}}/>
                     </Fab>
                     :
                     <Fab variant="extended" color="info" size="medium" onClick={(e)=>handleShowReview(e)}
@@ -163,7 +165,7 @@ const WorkFeatures = () => {
                     </Fab>}
                 </Stack>
                 <Grid container spacing={3}>
-                    {loadedProduct.map(obj => (
+                    {getProductList.loaded && getProductList.data.map(obj => (
 
                         <Grid item xs={12} md={4} key={obj.id} >
                             <Card sx={{ width: "100%", "&:hover": { cursor: "pointer" }, position: "relative" }} >

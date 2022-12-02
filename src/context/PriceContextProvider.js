@@ -24,6 +24,7 @@ export const PriceContextProvider = (props) => {
     const [startingPrices,setStartingPrices]=useState({loaded:false,data:[]});
     const [baseServices,setBaseServices]=useState({loaded:false,data:[]});
     const [serviceImage,setServiceImage]=useState({loaded:false,data:[]});
+    const [customTemplates,setCustomTemplates]=useState({loaded:false,data:[]});
     const [userAccountGroup,setUserAccountGroup]=useState({loaded:false,data:[]});
     const [userAccountPostGroup,setUserAccountPostGroup]=useState({loaded:false,data:[]});
     const [SEO,setSEO]=useState({loaded:false,data:[]});
@@ -80,6 +81,10 @@ export const PriceContextProvider = (props) => {
                   }
                   if(body.filter(obj=>(obj.name === "calculator"))[0]?.calculator){
                     setUserQuestionArray({loaded:true,data:body.filter(obj=>(obj.name === "calculator"))[0].calculator});
+                  }
+                  let custTemplates=body.filter(obj=>(obj.name==="customTemplates"))[0].product
+                  if(custTemplates){
+                    setCustomTemplates({loaded:true,data:custTemplates})
                   }
                 }
             } catch (error) {
@@ -152,7 +157,7 @@ export const PriceContextProvider = (props) => {
       },[])
     
     return (
-        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,getProducts,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray}}>
+        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,getProducts,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray,customTemplates}}>
             {props.children}
         </PriceContext.Provider>
       )

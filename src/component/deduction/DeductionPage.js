@@ -25,6 +25,7 @@ animation: comeIn 1.5s ease-in-out;
     to {opacity:1;}
 }
 `;
+
 const DeductionPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();

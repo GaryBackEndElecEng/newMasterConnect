@@ -1,0 +1,18 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+.transitionIn{
+margin:auto;
+animation: moveIn 2s ease-in-out;
+align-self:center;
+}
+.popUp{
+    animation: growIn 1s ease-in-out;
+}
+@keyframes moveIn {
+    from {transform:translateX(-100%);}
+    to {transform:translateX(0%);}
+}
+@keyframes growIn {
+    from {transform:scale(0);}
+    to {transform:scale(1);}
+}

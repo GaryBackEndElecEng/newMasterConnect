@@ -11,7 +11,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const ArchitectIcon = styled(ArrowBackIcon)`
 margin:auto;
 margin-left:3rem;
-transform:scale(3);
+transform:scale(2);
 color:red;
 background:black;
 position:absolute;
@@ -19,7 +19,19 @@ top:30%;
 animation: moveAppear1 2s ease-in;
 @keyframes moveAppear1 {
   from { opacity:0;transform:translateX(600%) scale(0);}
-  to { opacity:1;transform:translateX(0%) scale(3);}
+  to { opacity:1;transform:translateX(0%) scale(2);}
+}
+@media screen and (max-width:900px){
+    transform:scale(1);
+    position:absolute;
+    margin-right:0rem;
+    right:-10%;
+    top:40%;
+    background:black;
+    @keyframes moveAppear1 {
+        from { opacity:0;transform:translateX(-600%) scale(0);}
+        to { opacity:1;transform:translateX(0%) scale(1);}
+      }
 }
 @media screen and (max-width:600px){
     transform:scale(1);
@@ -89,7 +101,7 @@ const OurServices = () => {
                     fontFamily: "Roboto", padding: "auto 0.5rem", margin: "auto ",position:"relative",fontSize:{xs:"280%",sm:"400%",md:"500%"}
                 }}
             >
-                {service && service.title} {showIcon === 'block' ? <ArchitectIcon /> : <ArchitectureIcon sx={{ml:2,color:"red"}}/>}
+                {service && service.title} {showIcon === 'block' ? <ArchitectIcon /> : <ArchitectureIcon sx={{color:"red"}}/>}
             </Typography>
             <Typography component="h1" variant="h5"
                 sx={{
