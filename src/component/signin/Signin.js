@@ -80,7 +80,8 @@ const Signin = () => {
 
     useEffect(() => {
         const postSignin = async () => {
-            const getUUID = localStorage.getItem("UUID") ? JSON.parse(localStorage.getItem("UUID")) : "";
+            const getUUID = localStorage.getItem("UUID") ? JSON.parse(localStorage.getItem("UUID")) : null;
+            const getpackageId = localStorage.getItem("buypackage") ? JSON.parse(localStorage.getItem("buypackage")) : null;
             let params={};
             try {
                 if (getCustom.loaded) {
@@ -89,7 +90,8 @@ const Signin = () => {
                         email: register.data.email,
                         password: register.data.password,
                         UUID: getUUID,
-                        customId: getCustom.data.id
+                        customId: getCustom.data.id,
+                        packageId:getpackageId
                     }
                 } else {
                     params = {
@@ -97,7 +99,8 @@ const Signin = () => {
                         email: register.data.email,
                         password: register.data.password,
                         UUID: getUUID,
-                        customId:null
+                        customId:null,
+                        packageId:getpackageId
                     }
                 }
                 const res = await apiProtect.post(`/account/login/`, params)
@@ -115,9 +118,10 @@ const Signin = () => {
                     localStorage.setItem("loggedIn", true);
                     localStorage.setItem("goToSignin", false)
                     setViewAccount(true);
-                    setTimeout(() => { setSignin(false) }, 6000);
+                    setTimeout(() => { setSignin(false) },0);
                     navigate("/", setChangePage(true));
                     setRegister({ loaded: false, data: { 'username': data.username, "email": data.email, "password": "" } });
+                    localStorage.removeItem("buypackage");
                 } else {
                     setError(true);
                     new Error(data.error)
@@ -129,7 +133,7 @@ const Signin = () => {
 
             }
         }
-        if (register.loaded) {
+        if (register.loaded && register.data) {
             postSignin();
         }
     }, [register.loaded, navigate, register.data, setChangePage, setLoginError, setRegister, setLoggedIn, setSignin, setTokenIsValid, setViewAccount,getCustom.loaded,getCustom.data.id]);
@@ -160,6 +164,7 @@ const Signin = () => {
         e.preventDefault();
 
         const postSignin = async () => {
+            const getpackageId = localStorage.getItem("buypackage") ? JSON.parse(localStorage.getItem("buypackage")) : null;
             let params={};
             try {
                 if (getCustom.loaded) {
@@ -168,7 +173,8 @@ const Signin = () => {
                     email: email,
                     password: password,
                     UUID: "",
-                    customId:getCustom.data.id
+                    customId:getCustom.data.id,
+                    packageId:getpackageId
                     }
                 }else{
                     params = {
@@ -176,7 +182,8 @@ const Signin = () => {
                         email: email,
                         password: password,
                         UUID: "",
-                        customId:null
+                        customId:null,
+                        packageId:getpackageId
                         }
                 }
                 const res = await apiProtect.post(`/account/login/`, params)

@@ -919,21 +919,24 @@ class CalcAddToUserAccountAtLogin:
             self.userAccount.calcUUID=self.uuid
             self.userAccount.save()
 
-# NOT USED FOR PRODUCTION:IT'S DONE AT LOGIN PER ACCOUNT using CalcAddToUserAccountAtLogin ABOVE
-def generateJobs():
-    arr=[]
-    dict={}
-    userAccounts=UserAccount.objects.all()
-    for userAccount in userAccounts:
-        services=userAccount.service.all().order_by("id")
-        if len(services)>0:
-            servicesName=[obj.name for obj in services]
-            servicesId=[obj.id for obj in services]
-            for id in servicesId:
-                arr.append({"id":id})
-            job=Jobs(userId=userAccount.user.id,userAccount=userAccount,serviceArr=arr)
-            job.save()
-# generateJobs()
+
+def generateUserJobs(user_id):
+    user=User.objects.filter(id=user_id).first()
+    userAccount=UserAccount.objects.filter(user=user).first()
+    jobs=Jobs.objects.filter(userAccount=userAccount).first()
+    if userAccount and jobs:
+        services=[obj.name for obj in userAccount.service.all()]
+        postServices=[obj.name for obj in userAccount.postService.all()]
+        extraServices=[obj.name for obj in userAccount.extraService.all()]
+        if services:
+            jobs.serviceArr=services
+        if postServices:
+            jobs.postServiceArr=postServices
+        if extraServices:
+            jobs.extraServiceArr=extraServices
+        jobs.save()
+
+
 from django.contrib.sites.models import Site
 def site_url():
             sites=Site.objects.all()
@@ -967,5 +970,24 @@ def storeCustomId(customId,username):
         userAccount=UserAccount.objects.get(user=user)
         userAccount.product.add(product)
         userAccount.save()
+
+
+def saveUsersPackage(user_id,packageId):
+    if user_id:
+            # print("user_id",user_id,"packageId",packageId)
+            user=User.objects.get(id=user_id)
+            userAccount=UserAccount.objects.filter(user=user).first()
+            package=Package.objects.filter(id=packageId).first()
+            if userAccount and package:
+                products = package.products.all()
+                services=package.services.all()
+                postServices=package.postServices.all()
+                if products:
+                    userAccount.product.add(*products)
+                if services:
+                    userAccount.service.add(*services)
+                if postServices:
+                    userAccount.postService.add(*postServices)
+                userAccount.save()
 
 

@@ -12,8 +12,8 @@ const ParticularsUsersProdsServs = ({ usersProduct, usersService }) => {
     return (
         <>
             <Grid container spacing={0}>
-                {usersProduct.loaded && usersProduct.data.map(obj => (
-                    <Grid item xs={12} sm={6} key={obj.id}>
+                {usersProduct.loaded && usersProduct.data.map((obj,index) => (
+                    <Grid item xs={12} sm={6} key={`${obj.id}-product-${Math.ceil(Math.random()*100000)}`}>
                         <ListItem sx={{ color: theme.palette.common.mediumGreen, fontWeight: "bold", textDecoration: "underline", fontSize: { xs: "80%", sm: "120%" } }}>product:{obj.name},</ListItem>
                         <Stack sx={{ fontSize: "100%" }}>
                             <ListItem>
@@ -30,7 +30,7 @@ const ParticularsUsersProdsServs = ({ usersProduct, usersService }) => {
 
 
                 {usersService.loaded && usersService.data.map(obj => (
-                    <Grid item xs={12} sm={6} key={obj.id}>
+                    <Grid item xs={12} sm={6} key={`${obj.id}-usersServices-${Math.ceil(Math.random()*100000)}`}>
                         <ListItem sx={{ color: theme.palette.common.lightRed, fontWeight: "bold", textDecoration: "underline", fontSize: { xs: "80%", sm: "120%" } }}>Service:{obj.name},</ListItem>
                         <Stack sx={{ fontSize: "100%" }}>
                             <ListItem>

@@ -37,6 +37,7 @@ const ThemeExampleSlideIn = () => {
     { id: 9, name: "Realtor", link: "/design9", summary: "realtor Specialist page", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design9.png`, display: "none" },
     { id: 10, name: "Interior Design", link: "/design10", summary: "Beautifully Design Page", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design10.png`, display: "none" },
     { id: 10, name: "Restaurant Design", link: "/design11", summary: "5-Star restaurant", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design11.png`, display: "none" },
+    { id: 10, name: "Custom templates", link: "/customPage", summary: "Choose your template", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/customPage.png`, display: "none" },
   ]
 
   useEffect(() => {

@@ -38,6 +38,7 @@ from adminHome.models import ServiceTaskTracker,PostServiceTaskTracker,ExtraServ
 from django.views import View
 from django.http import HttpResponse, HttpResponseNotFound
 import os
+from datetime import datetime,timedelta
 
 class GetConicalAddress(APIView):
     def get(self,request,format=None):
@@ -80,6 +81,7 @@ class MiscelaneousCapture(APIView):
 
 
 class PageCountPost(APIView):
+    days=1
     authentication_classes=[CsrfExemptSessionAuthentication]
     permission_classes=[AllowAny]
     @csrf_exempt
@@ -94,6 +96,10 @@ class PageCountPost(APIView):
                 misc.save()
             else:
                 misc.pageCount += 1
+                days=misc.dateHit - misc.firstDate
+                # print("NOW",misc.dateHit,"first",misc.firstDate,"Days",days.days)
+                if days.days > 0:
+                    misc.avg = misc.pageCount/days.days
                 misc.save()
             serializer=ExtraSerializer(misc,many=False)
             return Response(serializer.data)

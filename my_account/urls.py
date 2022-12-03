@@ -43,6 +43,7 @@ urlpatterns=[
 
     path('addPostService/',views.AddPostServices.as_view(),name="addPostService-post"),
     path('subPostService/',views.RemovePostServices.as_view(),name="subPostService-post"),
+    path('savePackage/',views.UserPostPackage.as_view(),name="savePackage-post"),
     path('postCheckout/<int:user_id>',views.StripePaymentPostBuild.as_view(),name="postCheckout-post"),
 
     path('extraServices/',views.GetExtraServices.as_view(),name="GetExtraServices-get"),

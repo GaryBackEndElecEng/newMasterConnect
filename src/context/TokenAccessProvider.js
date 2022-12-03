@@ -109,7 +109,7 @@ useEffect(()=>{
 
 const verifyToken= async ()=>{
   const user_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
-    if(token){
+    if(token && user_id){
         setUser_id(user_id);
         console.log("CHECKED INSIDE")
         try {

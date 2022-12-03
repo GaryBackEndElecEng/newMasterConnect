@@ -1,14 +1,19 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save, pre_save
-from datetime import datetime
+from datetime import datetime,timedelta
 
 class Miscelaneous(models.Model):
     page=models.CharField(max_length=40,null=True,blank=True)
     pageCount=models.IntegerField(default=0,null=True)
+    avg=models.IntegerField(default=1,null=True,blank=True)
+    dateHit=models.DateTimeField(auto_now=True)
+    firstDate=models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return f'{self.page}-{self.pageCount}'
+
+
 
 CATEGORIES=(("contact","contact"),("about","about"),("home","home"),("article","article"),("bio","bio"),("main","main"),("footer","footer"),("GeneralInfo","GeneralInfo"),("sponsor","sponsor"),("designs","designs"),("policy","policy"),("feedback","feedback"),("customTemplate","customTemplate"),)
 SECTION_TYPE=(('allServices','allServices'),('supplemental','supplemental'),('works','works'),('advert','advert'),('main','main'),('general','general'),('restriction','restriction'),('warning','warning'),)
@@ -22,6 +27,8 @@ class ImageField(models.Model):
     name=models.CharField(max_length=50,null=True,blank=True)
     category=models.ForeignKey(Category,related_name="imageCategory",on_delete=models.CASCADE)
     image=models.CharField(max_length=300,null=True,blank=True)
+    class Meta:
+        ordering= ("id","name",)
 
     def __str__(self):
         return self.name
@@ -115,8 +122,8 @@ class Region(models.Model):
     country=models.CharField(max_length=50,blank=True,null=True)
     provState=models.CharField(max_length=50,blank=True,null=True)
     class Meta:
-        unique_together = ("country","provState")
-        ordering = ('country',"provState")
+        unique_together = ("country","provState",)
+        ordering = ('country',"provState",)
 
     def __str__(self):
         return f'{self.country}-{self.provState}'
@@ -132,7 +139,7 @@ class PageFeedback(models.Model):
     pageCount=models.IntegerField(default=1,blank=True)
     average=models.IntegerField(default=4)
     class Meta:
-        ordering=('-rating','page')
+        ordering=('-rating','page',)
     def __str__(self):
         return f'{self.name}-{self.page}'
 

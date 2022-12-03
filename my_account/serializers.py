@@ -118,7 +118,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         password = validated_data.pop("password",None)
         # checked=validated_data.pop("checked")
         instance = self.Meta.model(**validated_data)
-        print("INSTANCE=>>",instance)
+        # print("INSTANCE=>>",instance)
         if password is not None:
             instance.set_password(password)
             instance.save()
@@ -162,7 +162,7 @@ class InvoiceField(serializers.RelatedField):
 class UserAccountsSerializer(serializers.ModelSerializer):
     options=ShowOptionSerializer(many=False,read_only=True)
     product= ProductCatelogProductField(many=True,read_only=True)
-    print("product",product)
+    # print("product",product)
     service=ServiceCatelogServiceField(many=True,read_only=True)
     invoice=InvoiceField(many=False,read_only=True)
     class Meta:

@@ -9,8 +9,10 @@ TODO
  :ie body.filter(obj=>(obj.name==="templates"))[0] in account/priceCategory
  
 -correct packages-if they click on purchase=> it should take them to registration page and then upload the products into their basket.
+-ADD 2 X image injection per page, 3 X image injection per page( tie it to the pages selected,About,Contact,etc)
+-Add additional pages to extra and Post
 -Fix Google register and signin
--correct the infoFomComplete in account/Particulars/infoCompleteForm
+-correct the infoFomComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 

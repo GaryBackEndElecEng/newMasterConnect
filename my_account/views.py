@@ -35,7 +35,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
-from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId)
+from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs)
 from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -110,7 +110,7 @@ class Register(ObtainAuthToken,APIView):
             email=data['email']
             password=data['password']
             check=data["checked"]
-            print("username",username,"email",email,"password",password,"check",check,"userEXIST",)
+            # print("username",username,"email",email,"password",password,"check",check,"userEXIST",)
             newData={"username":username,"email":email,"password":password}
             if User.objects.filter(username=username).exists():
                 # print("SAME USERNAME")
@@ -131,11 +131,6 @@ class Register(ObtainAuthToken,APIView):
                     services=userAccount.service.all().order_by("id")
                     job=Jobs(userId=userAccount.user.id,userAccount=userAccount)
                     job.save()
-                    if len(services) != 0:
-                        for i,obj in enumerate(services):
-                            arr.push({id:obj.id})
-                        job.serviceArr=arr
-                        job.save()
                     sitePreference=SitePreference(name=getUser.username,
                     q1="What is the one thing that you like with this site?",
                     q2="What effect do you like of this site?",
@@ -167,6 +162,7 @@ class LoginView(APIView):
     def post(self,request,format=None):
         customId=0
         uuid=""
+        packageId=None
         # print("data",request.data)
         data=self.request.data
         username=data['username']
@@ -179,17 +175,26 @@ class LoginView(APIView):
             customId=data["customId"]
             #STORES CUSTOM PRODUCT TO USERACCOUT
             storeCustomId(customId,username)
+        if data["packageId"]:
+            # STORE USERS SELECTED PACKAGE TO THE USERS ACCOUNT
+            packageId=data["packageId"]
+
         try:
             user=auth.authenticate(username=username,password=password)
             # print("userModel",user)
             if user is not None:
                 auth.login(request,user)
+                if packageId:
+                    saveUsersPackage(user.id,packageId)
+                    # print("inside",packageId)
+                generateUserJobs(user.id)
                 token=self.get_tokens_for_user(user)
                 return Response({"access_token":token["access_token"],"refresh_token":token["refresh_token"],"username":user.username,"email":user.email,"user_id":user.id},status=status.HTTP_200_OK)
             else:
                 return Response({"error":"No user assigned","status":status.HTTP_503_SERVICE_UNAVAILABLE})
         except Exception as e:
-            return Response({"error":e,"status":status.HTTP_503_SERVICE_UNAVAILABLE})
+            print("loginError",e)
+            return Response({"error":"either package object error or generateUserJobs error","status":status.HTTP_503_SERVICE_UNAVAILABLE})
 
 class LogoutView(APIView):
     #TO LOGOUT YOU NEED THE CSRF TOKEN=> if using
@@ -205,7 +210,7 @@ class LogoutView(APIView):
         try:
             data=self.request.data
             user_id=data["user_id"]
-            print(user_id)
+            # print(user_id)
             user=User.objects.get(id=user_id)
             auth.logout(request)
             return Response({"msg":"logged out"},status=status.HTTP_200_OK)
@@ -363,7 +368,7 @@ class UserProducts(APIView):
     def post(self,request):
         data=self.request.data
         user_id=data["user_id"]
-        print("user_id",user_id)
+        # print("user_id",user_id)
         user=User.objects.filter(id=user_id).first()
         if user:
             userAccount=UserAccount.objects.filter(user=user).last()
@@ -405,13 +410,13 @@ class UserProductDelete(APIView):
         user_id=data["user_id"]
         prod_id=data["prod_id"]
         # id=self.kwargs["user_id"] # does this given http://addres/id
-        print("user_id",user_id,"prod_id",prod_id)
+        # print("user_id",user_id,"prod_id",prod_id)
         user=User.objects.get(id=user_id)
         userAccount=UserAccount.objects.filter(user=user).first()
         product=Product.objects.filter(id=prod_id).first()
         userAccount.product.remove(product)
         userAccount.save()
-        print("userAccount",userAccount)
+        # print("userAccount",userAccount)
         if userAccount:
             serializer= UserAccountSerializer(userAccount)
             # print("serializer",serializer)
@@ -442,6 +447,35 @@ class UserCombinedProductServices(APIView):
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class UserPostPackage(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    def post(self,request,format=None):
+        data=self.request.data
+        user_id=data["user_id"]
+        packageId=data["packageId"]
+        if user_id:
+            # print("user_id",user_id,"packageId",packageId)
+            user=User.objects.get(id=user_id)
+            userAccount=UserAccount.objects.filter(user=user).first()
+            package=Package.objects.filter(id=packageId).first()
+            if userAccount and package:
+                products = package.products.all()
+                services=package.services.all()
+                postServices=package.postServices.all()
+                if products:
+                    userAccount.product.add(*products)
+                if services:
+                    userAccount.service.add(*services)
+                if postServices:
+                    userAccount.postService.add(*postServices)
+                userAccount.save()
+                if not userAccount.invoice:
+                    Calculate(user_id).execute()
+                serializer= UserAccountSerializer(userAccount)
+                return Response(serializer.data)
+        else:
+            return Response({data:"no user or prod"},status=status.HTTP_400_BAD_REQUEST)
+
 class UserCombinedProductServicesConsultCheck(APIView):
 
     authentication_classes = [authentication.TokenAuthentication]
@@ -460,7 +494,7 @@ class UserCombinedProductServicesConsultCheck(APIView):
             test.execute()
             userAccount.consult=consult
             userAccount.save()
-            print("userAccount=>consult",userAccount.consult)
+            # print("userAccount=>consult",userAccount.consult)
             serializer= UserAccountsSerializer(userAccount)
             # print("serializer",serializer)
             return Response(serializer.data)
@@ -576,7 +610,7 @@ class StripePaymentFromClient(APIView):
             user_id=kwargs.get("user_id")
             frontEnd=request.build_absolute_uri().split("/api/")[0]
             # id=self.kwargs["user_id"] # does this given http://addres/id
-            print("user_id",user_id)
+            # print("user_id",user_id)
             user=User.objects.get(id=user_id)
             userAccount=UserAccount.objects.filter(user=user).first()
             getInvoice= Invoice.objects.filter(id=userAccount.invoice.id).first()
@@ -970,7 +1004,7 @@ class AdditionalServiceCheckout(APIView):
             user_id=kwargs.get("user_id")
             frontEnd=request.build_absolute_uri().split("/api/")[0]
             # id=self.kwargs["user_id"] # does this given http://addres/id
-            print("user_id",user_id)
+            # print("user_id",user_id)
             user=User.objects.get(id=user_id)
             userAccount=UserAccount.objects.filter(user=user).first()
             getInvoice= ExtraInvoice.objects.filter(id=userAccount.extraInvoice.id).first()
@@ -1018,7 +1052,7 @@ class GetExtraSessionInfo(APIView):
         data=self.request.data
         user_id=data["user_id"]
         extraSession_id=data["extraSession_id"]
-        print('GET SESSION KEY',extraSession_id)
+        # print('GET SESSION KEY',extraSession_id)
         user=User.objects.filter(id=user_id).first()
         userAccount=UserAccount.objects.filter(user=user).first()
         extraInvoice=ExtraInvoice.objects.filter(id=userAccount.extraInvoice.id).first()
