@@ -97,7 +97,7 @@ const CoverPage = ({makeEasy}) => {
                 <Typography
                     component="h1" variant="h3"
                     sx={{
-                        color: "white", padding: { xs: "1rem 10px", sm: "1rem" }, zIndex: "100",
+                        color: "white", padding: { xs: "0.05rem 10px", sm: "1rem" }, zIndex: "100",
                         fontSize: { xs: "28px", sm: "30px",md:"40px" }, fontFamily: "Roboto",marginTop:{xs:"0px",sm:"0.5rem",md:"-10px"},
                         textAlign:{md:"center"},
                         // marginLeft:{md:"16rem"}
@@ -131,7 +131,7 @@ const CoverPage = ({makeEasy}) => {
                     Custom Web Design
                 </WebDesign>}
             </CustBox>
-            {makeEasy && <PersonBack src={persBack} alt="www.master-connect.ca" />}
+            {/* {makeEasy && <PersonBack src={persBack} alt="www.master-connect.ca" />} */}
 
 
         </div>

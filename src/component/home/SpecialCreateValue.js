@@ -25,6 +25,8 @@ flex-direction:column;
 box-shadow:1px 1px 18px 8px grey;
 
 `;
+
+//NOT USED- CHRIS SUGGESTION
 const PointerImg = styled.img`
 width:250px;
 height:250px;
@@ -67,7 +69,7 @@ const SpecialCreateValue = () => {
   // const [getSpecials,setGetSpecials]=useState({loaded:false,data:[]});
   const [removeSpecial,setRemoveSpecial]=useState(false);
   const [getSpecials, setGetSpecials] = useState({ loaded: false, data: [] });
-  const pointerImg = `${staticImage}/pointer2.png`;
+  // const pointerImg = `${staticImage}/pointer2.png`;
   // const colorWorld = `${staticImage}/newColorWorld.png`;
   const vacationPic = "https://new-master.s3.ca-central-1.amazonaws.com/static/vacationPic.JPG";
   const getSpecial = special.loaded ? special.data : null;
@@ -134,7 +136,7 @@ const SpecialCreateValue = () => {
           <SpecialCreatValueCard pointer={pointer} getSpecials={getSpecials} key={`${Math.ceil(Math.random()*10000)}-${0}`}/>
 
       </Grid>
-      {pointer && <PointerImg src={pointerImg} alt="www.master-connect.ca" />}
+      {/* {pointer && <PointerImg src={pointerImg} alt="www.master-connect.ca" />} */}
     </SpecialContainer>
 
     }

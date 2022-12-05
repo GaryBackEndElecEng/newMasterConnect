@@ -19,11 +19,11 @@ jstustify-content:flex-start;
 align-items:center;
 flex-direction:column;
 `;
-let count = 0;
+
 const ThemeExampleSlideIn = () => {
   const navigate = useNavigate();
-  const { staticImage, setChangePage, open } = useContext(GeneralContext);
-  const [slideInDelayId, setSlideInDelayId] = useState(1);
+  const { staticImage, setChangePage, } = useContext(GeneralContext);
+  
   // Array
   const designLinks = [
     { id: 1, name: "homeStyle", link: "/design1", summary: "Rental,vacation or home-style Design.", icon: <CarRentalIcon sx={{mr:1,color:"red"}} />, pic: `${staticImage}/design1.png`, display: "none" },
@@ -40,24 +40,7 @@ const ThemeExampleSlideIn = () => {
     { id: 10, name: "Custom templates", link: "/customPage", summary: "Choose your template", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/customPage.png`, display: "none" },
   ]
 
-  useEffect(() => {
-    const slideInFunc = (countVar) => {
-
-      setTimeout(() => {
-        if (countVar < designLinks.length && open) {
-          countVar = slideInDelayId + 1;
-          return setSlideInDelayId(countVar);
-
-        } else if (count > designLinks.length) return count = 0
-
-      }, 2000)
-    }
-    if (open) {
-      count = 0;
-      slideInFunc(count);
-    }
-  }, [setSlideInDelayId, slideInDelayId, designLinks.length, open]);
-  if (count > designLinks.length) return count = 0; //This resets count
+  
 
 
   const handleLink = (e, link) => {
@@ -70,14 +53,14 @@ const ThemeExampleSlideIn = () => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ margin: "1rem auto", marginBottom: "3rem" }}>
-      <Grid container spacing={2} sx={{ maxHeight: "40vh", overflowY: "scroll" }}>
-        {designLinks.slice(0, slideInDelayId).map(obj => (
-          <Grid item xs={12} md={4} key={obj.id} sx={{ position: "relative" }} >
+    <Container maxWidth="xl" sx={{ margin: "1rem auto", marginBottom: "3rem" }}>
+      <Grid container spacing={2} sx={{ maxHeight: {xs:"60vh"}, overflowY: "scroll" }}>
+        {designLinks.map(obj => (
+          <Grid item xs={12} md={4} key={`${obj.id}--see more designs-${Math.ceil(Math.random()*10000)}`} sx={{ position: "relative" }} >
             <Card className={Styles.exampleDisplay}>
               <CustBox onClick={(e) => handleLink(e, obj.link)}>
                 {obj.icon}
-                <CardMedia component="img" image={obj.pic} height={120} alt="www.master-connect.ca" />
+                <CardMedia component="img" image={obj.pic} height={220} alt="www.master-connect.ca" />
                 <CardContent>
                   <Typography component="h1" variant="h5" sx={{ fontFamily: "Roboto" }}>
                     {obj.summary}

@@ -9,6 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import CoverPage from './CoverPage';
 import ThemeExampleSlideIn from './ThemeExampleSlideIn';
 import WeDo from './WeDo';
+import TopDesigns from './TopDesigns';
 import ShowGetQuoteForm from './ShowGetQuoteForm';
 // import ViewHidArticles from './ViewHidArticles';
 import MiddleBanner from './MiddleBanner'
@@ -203,6 +204,31 @@ const Home = () => {
                 >
 
                     <CoverPage makeEasy={makeEasy} />
+                    <Typography component="h1" variant="h5"
+                                sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem", position: "relative" }}
+                            >
+                                Designs
+                            </Typography>
+                           <TopDesigns makeEasy={makeEasy}/>
+                    {!seeExample ?
+                        <>
+                            {viewAccount && <ShowGoToMyAccount />}
+                            <Stack direction={"column"} sx={{ mt: 1, mb: 2, maxWidth: "350px" }} >
+                                <Fab variant="extended" size={"small"} ref={(e) => handleRef(e)}
+                                    onClick={(e) => handleExample(e)}
+                                    sx={{ fontFamily: "Roboto", m: 2, padding: { xs: "10px", sm: "20px" }, fontSize: { xs: "15px", sm: "20px" }, zIndex: "2" }}
+                                    color={"primary"}
+                                >see More!
+                                </Fab>
+                            </Stack>
+                            </>
+                            :
+                            <Container maxWidth="xl" sx={{ position: "relative" ,margin:"2rem auto"}}>
+                                <ThemeExampleSlideIn />
+                            </Container>
+                        
+                        }
+
                     <Container maxWidth="xl" className={Styles.msgContainer} spacing={0} sx={{ textAlign: "left", position: "relative" }}>
 
                         <hr style={{ borderBottom: `5px solid white`, width: "100%", background: "white" }} />
@@ -220,26 +246,7 @@ const Home = () => {
                             <CallBackRequest />
                         </Paper>}
                         <SpecialCreateValue />
-                        <Typography component="h1" variant="h5"
-                            sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem", position: "relative" }}
-                        >
-                            Basic Theme Examples:
-                            {viewAccount && <ShowGoToMyAccount />}
-                        </Typography>
 
-                        <Stack direction={"column"} sx={{ mt: 1, mb: 2, maxWidth: "350px" }} >
-                            <Fab variant="extended" size={"small"} ref={(e) => handleRef(e)}
-                                onClick={(e) => handleExample(e)}
-                                sx={{ fontFamily: "Roboto", m: 2, padding: { xs: "10px", sm: "20px" }, fontSize: { xs: "15px", sm: "20px" }, zIndex: "2" }}
-                                color={"primary"}
-                            >see examples</Fab>
-                        </Stack>
-
-                        {/* THEME EXAMPLES */}
-                        <Container maxWidth="lg" sx={{ position: "relative" }}>
-                            {seeExample && <ThemeExampleSlideIn />}
-                        </Container>
-                        {/* SLIDER */}
                         <Container maxWidth="lg" sx={{ position: "relative", margin: "2rem auto" }}>
                             {turnOnWeDo && <WeDo />}
                         </Container>
