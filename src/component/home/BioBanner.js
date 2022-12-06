@@ -82,7 +82,7 @@ const BioBanner = ({activate}) => {
     >
        
          <LogoImg  src={bannerBioLogo} animate={animateImg} alt="www.masterconnect.ca"/>
-        <Stack direction="column"spacing={{xs:0,sm:1}}>
+        <Stack direction="column"spacing={{xs:0,sm:1}} sx={{background:"rgba(0,0,0,.5)",padding:"1rem",boxShadow:"1px 1px 10px 5px grey"}}>
             <CustTypo component="h1" variant="h5" sx={{color:"white", margin:"1rem auto"}}>about the developer</CustTypo>
             <Fab variant="extended" color="info" size="medium" onClick={(e)=>handleChangePage(e)} >
                 intriqued <CallMissedOutgoingIcon sx={{ml:1,color:"red"}} />

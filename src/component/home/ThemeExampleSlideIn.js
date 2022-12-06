@@ -54,7 +54,10 @@ const ThemeExampleSlideIn = () => {
 
   return (
     <Container maxWidth="xl" sx={{ margin: "1rem auto", marginBottom: "3rem" }}>
-      <Grid container spacing={2} sx={{ maxHeight: {xs:"60vh"}, overflowY: "scroll" }}>
+      <Typography component="h1" variant="h3" sx={{ fontFamily: "Roboto" }}>
+                    More Designs
+                  </Typography>
+      <Grid container spacing={2} sx={{ maxHeight: {xs:"60vh"}, overflowY: "scroll",marginTop:"2rem" }}>
         {designLinks.map(obj => (
           <Grid item xs={12} md={4} key={`${obj.id}--see more designs-${Math.ceil(Math.random()*10000)}`} sx={{ position: "relative" }} >
             <Card className={Styles.exampleDisplay}>

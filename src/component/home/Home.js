@@ -100,7 +100,6 @@ const Home = () => {
 
                 }
             } else {
-                setActivateBio(false);
                 setActivate(false);
             }
         }, { threshold: 1 });

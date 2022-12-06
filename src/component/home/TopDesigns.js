@@ -102,7 +102,7 @@ const TopDesigns = ({makeEasy}) => {
       },[getProductList.loaded]);
   return (
     <Container maxWidth="lg"
-    sx={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:{md:"row",xs:"column"},minHeight:{xs:"30vh",sm:"20vh",md:"30vh"},position:"relative"}}
+    sx={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:{md:"row",xs:"column"},minHeight:{xs:"30vh",sm:"20vh",md:"30vh"},position:"relative",marginBottom:"1rem"}}
     >
         { (turnOn && getDesigns) && getDesigns.map((obj,index)=>(
         <ItemCard 

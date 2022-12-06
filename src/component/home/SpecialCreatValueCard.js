@@ -17,6 +17,7 @@ import FactCheckIcon from '@mui/icons-material/FactCheck';
 import InfoIcon from '@mui/icons-material/Info';
 
 const HaveAccountStack = styled(Stack)`
+display:${({display})=>display};
 animation: growIn 1s ease-in-out;
 @keyframes growIn {
     from {transform:scale(0);}
@@ -28,10 +29,10 @@ const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
     const theme = useTheme();
     const { staticImage, setChangePage } = useContext(GeneralContext);
     const { user_id, loggedIn, setUserAccount,setUsersService,setUsersProduct,setUsersPostService } = useContext(TokenAccessContext);
-    const [activatePopUp, setActivatePopUp] = useState(false);
+    const [activatePopUp, setActivatePopUp] = useState({loaded:false,id:0});
     const get_user_id=localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
     const get_loggedIn=localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
-
+    let hideShow="none";
     // const get_packages = getPackages.loaded ? getPackages.data : null;
 
 
@@ -89,14 +90,21 @@ const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
         e.preventDefault();
         localStorage.setItem("buypackage", package_id)
         handleBuyPackage(e, package_id,true);
+        setActivatePopUp({loaded:false,id:0});
 
     }
     const handleSigninNo=(e, package_id)=>{
         e.preventDefault();
         localStorage.setItem("buypackage", package_id)
         handleBuyPackage(e, package_id,false);
+        setActivatePopUp({loaded:false,id:0});
     }
 
+const handleActivatePopUp=(e,id)=>{
+    e.preventDefault();
+    setActivatePopUp({loaded:true,id:id});
+
+}
     return (
         <>
             {getSpecials.loaded && getSpecials.data.map((obj, index) => (
@@ -120,21 +128,21 @@ const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
                             <DoneIcon className={pointer ? styles.rotateDeal : styles.noRotateDeal} sx={{ ml: 2, fontSize: { xs: "40px", sm: "45px", md: "50px" } }} />
                         </Typography>
 
-                        {!activatePopUp ?
+                        {(!activatePopUp.loaded && activatePopUp.id !==obj.id) ?
                         
                         <Stack direction="column" spacing={0}
                             sx={{ alignItems: "center", justifyContent: "center" }}
                         >
                             <Fab variant="extended" color="info" size="medium"
                                 // onClick={(e)=>handleBuyPackage(e,obj.id)}
-                                onClick={() => setActivatePopUp(true)}
+                                onClick={(e) => handleActivatePopUp(e,obj.id)}
                             >
                                 purchase <ShopIcon sx={{ ml: 1, color: "red" }} />
                             </Fab>
 
                         </Stack>
                         :
-                        <HaveAccountStack direction="column" spacing={0}
+                        <HaveAccountStack display={activatePopUp.id === obj.id ? "block":"none"} direction="column" spacing={0}
                             sx={{ alignItems: "center", justifyContent: "center", position: "absolute", top: "10%", left: "0%", width: "100%" ,background:"white",padding:"1rem",boxShadow:"1px 1px 12px 4px grey",zIndex:1000}}
                         >
                             <Typography component="h1" variant="h4"> Do you have an account with us?</Typography>
