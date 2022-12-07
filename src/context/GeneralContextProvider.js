@@ -208,11 +208,15 @@ export const GeneralContextProvider = (props) => {
           // console.log("Allcategories",body)
           if(body && body?.length >0){
             setAllCategory({loaded:true,data:body});
+            let whyChooseUs=body.filter(obj=>(obj.name==="Why Choose Us?"))
+            if(whyChooseUs.length>0){
+              setWhyChooseUs({loaded:true,data:whyChooseUs[0].categories});
+            }
             let getInfo=body.filter(obj=>(parseInt(obj.id)===9))[0].categoryGeneralInfo[0]
             setGeneralInfo({loaded:true,data:getInfo})
-            let spon=body.filter(obj=>(parseInt(obj.id)===10))[0].categorySponsor
-            if(spon && spon.length){
-            setSponsor({loaded:true,data:spon});
+            let spon=body.filter(obj=>(parseInt(obj.id)===10))
+            if(spon.length>0){
+            setSponsor({loaded:true,data:spon[0].categorySponsor});
             }
             setFlowerImg({loaded:true,data:body.filter(obj=>(obj.name==="FlowerShop"))[0].imageCategory});
             setSpecial({loaded:true,data:body.filter(obj=>(parseInt(obj.id)===14))[0].catWordSnippet[0]});
@@ -231,14 +235,11 @@ export const GeneralContextProvider = (props) => {
             
             }
             setMyAccount({loaded:true,data:body.filter(obj=>(obj.name === "myAccount"))[0].catWordSnippet})
-            let custTemplate=body.filter(obj=>(obj.name==="templates"))[0].imageCategory
-            if(custTemplate){
-              setTemplates({loaded:true,data:custTemplate})
+            let custTemplate=body.filter(obj=>(obj.name==="templates"))
+            if(custTemplate.length>0){
+              setTemplates({loaded:true,data:custTemplate[0].imageCategory})
             }
-            let whyChooseUs=body.filter(obj=>(obj.name==="Why Choose Us?"))[0].categories
-            if(whyChooseUs){
-              setWhyChooseUs({loaded:true,data:whyChooseUs});
-            }
+           
             
           }
         } catch (error) {

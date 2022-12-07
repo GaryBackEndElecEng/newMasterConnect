@@ -1,7 +1,7 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 
-const Store12Helmet = ({desc,keyWords,helmetArr,average,getPathLocation,pageRatings,storeProd}) => {
+const Store12Helmet = ({desc,keyWords,helmetArr,average,getPathLocation,pageRatings,storeProd,video}) => {
   let JSONProduct=["Product Page",];
 
   const review=pageRatings.map((obj,index)=>(
@@ -30,6 +30,7 @@ const Store12Helmet = ({desc,keyWords,helmetArr,average,getPathLocation,pageRati
           "name": storeProd.name,
           "image":helmetArr.map(obj=>(obj.image)),
           "description": storeProd.desc,
+          "contentUrl": video,
           "mpn": "N/A",
           "brand": {
             "@type": "Brand",
@@ -75,6 +76,7 @@ const Store12Helmet = ({desc,keyWords,helmetArr,average,getPathLocation,pageRati
         <meta name="rating" content={average}/>
         <meta name="site" content={getPathLocation}/>
         <meta name="url" content={getPathLocation}/>
+        <meta name="video" content={video}/>
         
     </Helmet>
   )

@@ -108,6 +108,7 @@ const StoreProduct = () => {
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
              pageRatings={pageRatingHelmet}
              storeProd={storeProd}
+             video={video}
              />
             <Stack direction="column" spacing={1} 
             sx={{position:"absolute",top:{md:"5%",sm:"2%",xs:"1.4%"},right:{sm:"5%",xs:"2%"},zIndex:"1000",

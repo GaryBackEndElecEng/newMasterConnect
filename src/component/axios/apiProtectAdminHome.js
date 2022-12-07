@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import {useParams} from 'react-router-dom';
 const defaultURL = (process.env.NODE_ENV==="production") ? "https://newmasterconnect.herokuapp.com/adminHome" :  "http://localhost:8000/adminHome";
 axios.defaults.baseURL =defaultURL;
 // axios.defaults.baseURL = "http://localhost:8000/adminHome";
@@ -16,7 +15,6 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 // axios.defaults.xsrfHeaderName = 'Access-Control-Allow-Origin';
 
 const apiProtectAdminHome = axios.create({
-    // baseURL :"http://localhost:8000/api",
     timeout:10000,
     
     headers:{
