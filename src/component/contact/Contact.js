@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Stack,Typography, Grid, Container, Paper,Fab } from '@mui/material';
+import { Stack, Typography, Grid, Container, Paper, Fab } from '@mui/material';
 import { ContainerHomeFluid } from '../../styled/Container.styled';
 import ImputForm from './ImputForm';
 import ServiceList from './ServiceList';
@@ -12,6 +12,7 @@ import DynamicInfo from './DynamicInfo';
 import WhyWorkWithUs from './WhyWorkWithUs';
 import ContactInfo from './ContactInfo';
 import HowCanAssist from './HowCanAssist';
+import WhyChooseUs from './WhyChooseUs';
 import ClickToSeeSvc from './ClickToSeeSvc';
 import OurServices from './OurServices';
 import RegisterPage from '../RegisterPage';
@@ -25,8 +26,8 @@ const DivEffect = styled.div`
 margin:auto;
 height:13vh;
 position:relative;
-background:${({bg})=>bg};
-z-index:${({zIndex})=>zIndex};
+background:${({ bg }) => bg};
+z-index:${({ zIndex }) => zIndex};
 animation: moveAppear 4s ease-in;
 @keyframes moveAppear {
   from { opacity:0;height:0vh;}
@@ -72,7 +73,7 @@ margin-top:-50px;
 }
 }
 `;
-const ContainerContact = styled(ContainerHomeFluid).attrs({className:"containerContact"})`
+const ContainerContact = styled(ContainerHomeFluid).attrs({ className: "containerContact" })`
 margin:2rem auto;
 margin-bottom:5rem;
 margin-top:0vh;
@@ -93,26 +94,26 @@ animation: clearIn 1s ease-in-out;
 const Contact = () => {
   const theme = useTheme();
   // const navigate = useNavigate();
-  const { setTitle, setStyleName, zIndex, removeText, removeApp, setRemoveApp, setCheckHeight,ourServices,generalInfo,getPathLocation} = useContext(GeneralContext);
-  const [showService,setShowService]=useState(false);
-  const [clickToAnim,setClickToAnim]=useState(false);
-  const [ keywords,setKeywords]=useState(null);
-  const [ content,setContent]=useState(null);
-  const getOurServices= ourServices.loaded ? ourServices.data : null;
- 
+  const { setTitle, setStyleName, zIndex, removeText, removeApp, setRemoveApp, setCheckHeight, ourServices, generalInfo, getPathLocation, whyChooseUs } = useContext(GeneralContext);
+  const [showService, setShowService] = useState(false);
+  const [clickToAnim, setClickToAnim] = useState(false);
+  const [keywords, setKeywords] = useState(null);
+  const [content, setContent] = useState(null);
+  const getOurServices = ourServices.loaded ? ourServices.data : null;
+
   // const bgImage = `${staticImage}/contactWallpaper2.png`;
 
-  useEffect(()=>{
-    if(getOurServices){
+  useEffect(() => {
+    if (getOurServices) {
       setKeywords(
-        getOurServices.map(obj=>(obj.title))
+        getOurServices.map(obj => (obj.title))
       )
       setContent(
-        getOurServices.map(obj=>(obj.content))
+        getOurServices.map(obj => (obj.content))
       )
     }
-   
-  },[setKeywords,getOurServices]);
+
+  }, [setKeywords, getOurServices]);
 
   useEffect(() => {
     //Not used setTitle
@@ -120,106 +121,114 @@ const Contact = () => {
     setStyleName("Contact Us")
     if (removeText) {
       setCheckHeight("auto");
-        setRemoveApp(true);
+      setRemoveApp(true);
     }
-    if(window.scrollY){
-      window.scroll(0,0);
+    if (window.scrollY) {
+      window.scroll(0, 0);
     }
 
   }, [setTitle, setStyleName, removeText, setCheckHeight, setRemoveApp]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setShowService(false);
-  },[])
+  }, [])
 
-  const handleShowService=(e)=>{
-      e.preventDefault();
-      setShowService(true);
+  const handleShowService = (e) => {
+    e.preventDefault();
+    setShowService(true);
   }
-  const handleCloseService=(e)=>{
+  const handleCloseService = (e) => {
     e.preventDefault();
     setShowService(false);
   }
- const handleOnHoverToAnim =(e)=>{
-  setClickToAnim(true)
- }
- const handleOnOutToAnim =(e)=>{
-  setClickToAnim(false)
- }
+  const handleOnHoverToAnim = (e) => {
+    setClickToAnim(true)
+  }
+  const handleOnOutToAnim = (e) => {
+    setClickToAnim(false)
+  }
 
   return (
     <>
-    <RegisterPage/>
-    <GetRegisterPages/>
-    <ContactHelmet 
-    keywords={keywords}
-     content={content} 
-     generalInfo={generalInfo}
-     getPathLocation={getPathLocation.loaded ?getPathLocation.data:""}
+      <RegisterPage />
+      <GetRegisterPages />
+      <ContactHelmet
+        keywords={keywords}
+        content={content}
+        generalInfo={generalInfo}
+        getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
       />
       {/* AUTOMATED WELCOME //HEADER */}
       {!removeApp ?
-       <DivEffect
-       bg={"white"}
-       zIndex={zIndex}
+        <DivEffect
+          bg={"white"}
+          zIndex={zIndex}
         >
-        <Grid container spacing={1} sx={{margin:{sm:"0.5rem",md:"auto"}}} >
-          <Grid item xs={12} md={3} sx={{padding:"0.5rem"}}>
-            <DrawSignature />
+          <Grid container spacing={1} sx={{ margin: { sm: "0.5rem", md: "auto" } }} >
+            <Grid item xs={12} md={3} sx={{ padding: "0.5rem" }}>
+              <DrawSignature />
+            </Grid>
+            <Grid item xs={12} md={8} sx={{ marginTop: { xs: "0", sm: "0rem", md: "0.25rem" }, padding: "0.5rem", margin: { md: "0.5rem 0.25rem", sm: "0.5rem 0.25rem" }, position: "relative", }}>
+              <DynamicInfo />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={8} sx={{marginTop:{xs:"0",sm:"0rem",md:"0.25rem"},padding:"0.5rem",margin:{md:"0.5rem 0.25rem",sm:"0.5rem 0.25rem"},position:"relative",}}>
-             <DynamicInfo />
-          </Grid>
-        </Grid>
 
-      </DivEffect> :
-          
-        <HowCanAssist/>
-      
+        </DivEffect> :
+
+        <HowCanAssist />
+
 
       }
       {/*---- END AUTOMATED WELCOME //HEADER---- */}
       {/* CONTENT */}
-      <ContainerContact className={Styles.containerContact } >
+      <ContainerContact className={Styles.containerContact} >
         <Container maxWidth="lg"
-          sx={{ display: "flex", justifyContent: "center", alignItems: "flex-start", flexDirection: { xs: "column", sm: "column" },marginTop:{xs:"1rem",sm:"1rem"} }}
+          sx={{ display: "flex", justifyContent: "center", alignItems: "flex-start", flexDirection: { xs: "column", sm: "column" }, marginTop: { xs: "1rem", sm: "1rem" } }}
         >
           {/* ---AUTOMATED SERVICE ICON  WITH SERVICE----*/}
-          <OurServices/>
+          <OurServices />
           {/*------ END AUTOMATED SERVICE ICON  WITH SERVICE-----*/}
         </Container>
-        
-          {/* WHY WORK WITH US */}
-          <WhyWorkWithUs />
-          {/* END WHY WORK WITH US */}
-        {/* ---CONTACT INFO---- */}
-         <ContactInfo/>
-         {/* --- END CONTACT INFO---- */}
-        {/* IMPUT FORM */}
-            <ImputForm />
 
-            <Stack direction={"column"} sx={{fontSize:{xs:"40px",sm:"50px",margin:"1rem auto"},ml:3,position:"relative"}} onMouseOver={(e)=>handleOnHoverToAnim(e)} onMouseOut={(e)=>handleOnOutToAnim(e)}>
-              See services
-             
-              {
-               
-               !showService ? 
-               <>
-               <KeyboardDoubleArrowUpIcon sx={{fontSize:{xs:"40px",sm:"50px"}}} key={2000} onClick={(e)=>handleShowService(e)}/>
-               {clickToAnim && <ClickToSeeSvc />}
-              </>
-                      :
+        {/* WHY WORK WITH US */}
+        <WhyWorkWithUs />
+        {/* END WHY WORK WITH US */}
+        <Grid container spacing={{ xs: 0, sm: 1 }}>
+          <Grid item xs={12} md={6}>
+            {/* WHY CHOOSE US */}
+            <WhyChooseUs whyChooseUs={whyChooseUs} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            {/* ---CONTACT INFO---- */}
+            <ContactInfo />
+            {/* --- END CONTACT INFO---- */}
+            {/* IMPUT FORM */}
+            <ImputForm />
+          </Grid>
+        </Grid>
+
+        <Stack direction={"column"} sx={{ fontSize: { xs: "40px", sm: "50px", margin: "1rem auto" }, ml: 3, position: "relative" }} onMouseOver={(e) => handleOnHoverToAnim(e)} onMouseOut={(e) => handleOnOutToAnim(e)}>
+          See services
+
+          {
+
+            !showService ?
               <>
-                <KeyboardDoubleArrowDownIcon key={2221} sx={{fontSize:{xs:"40px",sm:"50px"}}} onClick={(e)=>handleCloseService(e)}/>
-                
-                <ServiceList ourServices={ourServices}/> 
-                
-                <hr style={{borderBottom:`2px solid ${theme.palette.common.background}`}}/>
+                <KeyboardDoubleArrowUpIcon sx={{ fontSize: { xs: "40px", sm: "50px" } }} key={2000} onClick={(e) => handleShowService(e)} />
+                {clickToAnim && <ClickToSeeSvc />}
               </>
-              }
-            </Stack>
-            
-          
+              :
+              <>
+                <KeyboardDoubleArrowDownIcon key={2221} sx={{ fontSize: { xs: "40px", sm: "50px" } }} onClick={(e) => handleCloseService(e)} />
+
+                <ServiceList ourServices={ourServices} />
+
+                <hr style={{ borderBottom: `2px solid ${theme.palette.common.background}` }} />
+              </>
+          }
+        </Stack>
+
+
 
 
       </ContainerContact>

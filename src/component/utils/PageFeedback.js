@@ -93,7 +93,8 @@ const PageFeedback = () => {
    
 
     return (
-        <Container maxWidth="sm" sx={{position:"relative"}}>
+        <Container maxWidth="sm" sx={{position:"relative",margin:"1rem auto"}}>
+            <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on this page. We would be honored. We respect your privacy.</Typography>
         <form style={{ background: theme.palette.common.blueFade, padding: "0.5rem" }}>
             <FormLabel component="div" filled={true} required={false}
                 sx={{ display: "flex", justifyContent: "flex-start", alignItems: "flex-start", flexDirection: "column", padding: "1rem", width: "100%", margin: "1rem auto", background: theme.palette.common.lighter }}

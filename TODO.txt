@@ -4,15 +4,16 @@ ctrl + G => goto line
 TODO
 
 
--Create a product sale page ( choose top line product sales => feed it to helmet)
 
-
+-add calculator to about banner an contact banner
 -Fix Google register and signin
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+
+-Create a product sale page ( choose top line product sales => feed it to helmet)
 -correct the popup button for package purchasing
 -ADD 2 X image injection per page, 3 X image injection per page( tie it to the pages selected,About,Contact,etc)
 -Add additional pages to extra and Post

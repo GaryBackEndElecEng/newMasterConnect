@@ -46,11 +46,12 @@ const CheckOutStuffQuote = () => {
   const theme = useTheme();
   const MyRef = useRef();
   const navigate = useNavigate();
-  const { callBackConfirmed, setChangePage, allCategory,setOpenGetQuote,openGetQuote } = useContext(GeneralContext);
+  const { callBackConfirmed, setChangePage, allCategory,setOpenGetQuote,openGetQuote,staticImage } = useContext(GeneralContext);
   const [getAQuote, setGetAQuote] = useState(false);
   const [myBool, setMyBool] = useState('false');
   const [getCheckoutPrices, setGetCheckoutPrices] = useState({loaded:false,data:[]});
   const display = (getAQuote && openGetQuote ) && !callBackConfirmed ? "block" : "none";
+  const coffee = `${staticImage}/images/coffee1.JPG`;
  
 
   useEffect(()=>{
@@ -95,7 +96,10 @@ const CheckOutStuffQuote = () => {
     e.preventDefault();
     navigate("/prices",setChangePage(true))
   }
-
+const handleCalculator=(e)=>{
+  e.preventDefault();
+    navigate("/calculate",setChangePage(true))
+}
   return (
     <Container component="div" maxWidth={"xl"}
       sx={{ margin: "1rem auto",position:"relative",padding:"1rem",paddingTop:"2rem",
@@ -109,7 +113,7 @@ const CheckOutStuffQuote = () => {
 
         }}
       >
-        <Grid item xs={12} md={4} >
+        <Grid item xs={12} md={3} >
           <Typography componet="h1" variant={"h4"} onMouseOver={() => handleHover()}
             sx={{ fontFamily: "Roboto", fontWeight: "bold", position: "relative", cursor: "pointer", borberRight: "1px solid black",margin:"2rem auto" }}
           >
@@ -119,44 +123,68 @@ const CheckOutStuffQuote = () => {
           
           
           <GlobalBox>
+          <Typography component="h1" variant="h6" sx={{color:"red",fontWeight:"bold"}}>Get a Quote!</Typography>
             <Typography componet="h1" variant={"body2"} sx={{ fontSize: "18px", display: "flex",position:"relative" }}>
-              Get a Quote:
-              <Fab variant="extended" color='primary' onClick={(e) => handleRequestAQuote(e)} sx={{ marginLeft: "3rem", marginTop: "1rem" }}>
+              
+              If it's complicated, we can help.
+              
+            </Typography>
+            <Fab variant="extended" color='primary' onClick={(e) => handleRequestAQuote(e)} sx={{ marginLeft: "3rem", marginTop: "1rem" ,margin:"1rem auto"}}>
                 Get a Quote 
                 {(getAQuote && openGetQuote) ? <ArrowDownwardIcon sx={{ ml: 2 }} />
                   :
                   <ArrowUpwardIcon sx={{ ml: 2 }} />}
               </Fab>
+          </GlobalBox>
+        </Grid>
+        <Grid item xs={12} md={3}
+        sx={{backgroundImage:`url(${coffee})`,backgroundSize:"100% 100%",}}
+        >
+          <Typography component="h1" variant={"h4"} onMouseOver={() => handleHover()}
+            sx={{ fontFamily: "Roboto", fontWeight: "bold", position: "relative", cursor: "pointer", borberRight: "1px solid black",margin:"2rem auto",background:"rgba(255,255,255,0.6)",padding:"0.5rem" }}
+          >
+            <Checked bool={myBool} />
+             Calculate your cost with Coffee Calculator
+             
+          </Typography>
+          
+          
+          <GlobalBox>
+              <Fab variant="extended" color='warning' onClick={(e) => handleCalculator(e)} sx={{ marginLeft: "3rem", marginTop: "1rem",margin:{xs:"1rem auto"} }}>
+                Calculate 
+                 <CallMissedOutgoingIcon sx={{ ml: 2,mr:3 }} />
+              </Fab>
+              
+          </GlobalBox>
+        </Grid>
+        <Grid item xs={12} md={3}
+          sx={{ textAlign: "justify", padding: "0 10px", position: "relative",margin:"1rem auto" }}
+        >
+          <GlobalBox>
+            <Typography component="h1" variant="h3" sx={{textAlign:'center',color:theme.palette.common.blueGrey}}>Designs</Typography>
+            <Typography componet="h1" variant={"h4"} onMouseOver={() => handleHover()} sx={{
+              fontSize: { xs: "25px", sm: "auto" }, display: "flex", flexDirection: "column", fontFamily: "Roboto", fontWeight: "bold", position: "relative", cursor: "pointer",
+            }}>
+              Checkout Our Designs to give you insight on what we can do for you.
+
+              <Fab variant="extended" color='secondary' onClick={(e) => handleGoToWorks(e)} sx={{ marginLeft: "3rem", marginTop: "1rem", color: "white" }}>
+                Go to Designs 
+
+                <EastIcon />
+                <Checked bool={myBool} />
+              </Fab>
               
             </Typography>
           </GlobalBox>
         </Grid>
-        <Grid item xs={12} md={4}
-          sx={{ textAlign: "justify", padding: "0 10px", position: "relative",margin:"1rem auto" }}
-        >
-          <GlobalBox>
-            
-            <Typography componet="h1" variant={"h4"} onMouseOver={() => handleHover()} sx={{
-              fontSize: { xs: "25px", sm: "auto" }, display: "flex", flexDirection: "column", fontFamily: "Roboto", fontWeight: "bold", position: "relative", cursor: "pointer",
-            }}>
-              Checkout Our Works
-
-              <Fab variant="extended" color='secondary' onClick={(e) => handleGoToWorks(e)} sx={{ marginLeft: "3rem", marginTop: "1rem", color: "white" }}>
-                Go to Works 
-
-                <EastIcon />
-              </Fab>
-              <Checked bool={myBool} />
-            </Typography>
-          </GlobalBox>
-        </Grid>
-        <Grid item xs={12} md={4}
+        <Grid item xs={12} md={3}
           sx={{
             textAlign: "justify", borderLeft: "1px solid black", padding: "0 10px",
             "&:hover": { content: `"${getCheckoutPrices.loaded && getCheckoutPrices.data.summary}"` },margin:"1rem auto"
           }}
         >
-          <Stack direction={{sm:"row",xs:"column"}} spacing={{xs:0,sm:1,md:2}}>
+          <Typography component="h1" variant="h3" sx={{textAlign:'center',color:theme.palette.common.blueGrey}}>Prices</Typography>
+          <GlobalBox>
               <Typography component="h1" variant="h4"
                 sx={{
                   fontFamily: "Roboto", fontWeight: "bold", position: "relative", cursor: "pointer",
@@ -174,7 +202,7 @@ const CheckOutStuffQuote = () => {
                 pricing <CallMissedOutgoingIcon sx={{ml:1,color:"red"}}/>
               </Fab>
               <Checked bool={myBool} />
-          </Stack>
+          </GlobalBox>
           <Typography component="h1" variant="h6">
             {getCheckoutPrices.loaded && getCheckoutPrices.data.content}
           </Typography>

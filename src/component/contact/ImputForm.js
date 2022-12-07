@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState,useRef } from 'react'
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Box, Typography, Grid, Container, Paper, FormControl,  InputLabel,  Input,  TextareaAutosize, FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia } from '@mui/material';
+import { Box, Typography, Grid, Container, Paper, FormControl,  InputLabel,  Input,  TextareaAutosize, FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia, Stack } from '@mui/material';
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -153,11 +153,11 @@ const ImputForm = () => {
                         "Great Communication, Will Always help You Find Your Way"
                     </CustTypography>
                     <CardContent>
-                        <form style={{ margin: "auto", width: "100%", flexGrow: 1, background: theme.palette.common.light }}>
+                        <form style={{ margin: "auto", width: "100%", flexGrow: 1, background: theme.palette.common.blueGrey }}>
                             <FormLabel component="div" color="primary"
                                 sx={{ display: "flex", justifyContent: "flex-start", alignItems: "flex-start", flexDirection: "column", padding: "1rem", width: "100%" }}
                             >
-                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
                                     <InputLabel htmlFor="email">Email Address</InputLabel>
                                     <Input
                                         id="email"
@@ -170,7 +170,7 @@ const ImputForm = () => {
                                         : <span className={validEmail ? styles.not : styles.notValidEmail}><CloseIcon /> </span>}
                                     {/* <FormHelperText id="valid-email">We'll never share your email.</FormHelperText> */}
                                 </FormControl>
-                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
                                     <InputLabel htmlFor="name">Full Name</InputLabel>
                                     <Input
                                         id="name"
@@ -184,7 +184,7 @@ const ImputForm = () => {
                                     {/* <FormHelperText id="your-full-name">full name</FormHelperText> */}
 
                                 </FormControl>
-                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
 
                                     <TextareaAutosize
                                         sx={{ width: "100%" }}
@@ -207,17 +207,17 @@ const ImputForm = () => {
                                     labelPlacement="bottom"
                                     value={checked}
                                     onChange={(e) => handleChecked(e)}
-                                    sx={{ position: "relative", margin: "auto", color: theme.palette.common.blueGrey }}
+                                    sx={{ position: "relative", margin: "auto", color: theme.palette.common.blueGrey,background:"white",padding:"0.5rem" }}
                                 >
 
                                 </FormControlLabel>
                             </FormLabel>
-                            <Grid container spacing={1} sx={{ justifyContent: "center" }}>
+                            <Stack direction="column" spacing={1} sx={{ justifyContent: "center",margin:"0.5rem auto",alignItems:"center" }}>
                                 { infoOkay ?<Fab color="primary" type={"submit"} variant="extended" onClick={(e)=>handleSubmit(e)}>
                                     <NavigationIcon sx={{ mr: 1 }} />
                                     send request
                                 </Fab>: <div>"submit pending"</div>}
-                            </Grid>
+                            </Stack>
                         </form>
                     </CardContent>
                 </Card>

@@ -1,8 +1,7 @@
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
 import styles from './calculate.module.css';
 import styled from 'styled-components';
-import { Box, Container,Stack, Typography,Paper } from '@mui/material';
+import { Container,Stack, Typography,Paper } from '@mui/material';
 
 const MainCoverPage = styled(Paper)`
 margin:auto;
@@ -56,7 +55,7 @@ left:0%;
 
 `;
 const CoverPage = () => {
-    const theme = useTheme();
+    
     const coffee = "https://new-master.s3.ca-central-1.amazonaws.com/static/images/coffee1.JPG";
     return (
         <MainCoverPage

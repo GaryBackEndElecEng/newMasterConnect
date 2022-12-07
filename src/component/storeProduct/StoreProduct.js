@@ -161,6 +161,7 @@ const StoreProduct = () => {
                     <Player src={video} bgChanged={bgChanged}/>
                 </Grid>
             </Grid>
+            
             <PageFeedback />
                 {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurchaseBtn ? <UserSignedInPurchaseBtn />

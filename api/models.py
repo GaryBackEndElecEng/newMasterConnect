@@ -67,7 +67,7 @@ class Service(models.Model):
     content=models.TextField(blank=True)
 
     def __str__(self):
-        return f'{self.title}-{self.category.section}'
+        return f'{self.title}-{self.category.section}-{self.category.name}'
 
 class Quote(models.Model):
     fullName=models.CharField(max_length=200,blank=True)

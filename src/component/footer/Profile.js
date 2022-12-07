@@ -16,9 +16,9 @@ const Profile = () => {
     const handleEnlarge =()=>{
         if(widthLarge===false){
         setWidthLarge(true);
-        console.log("true")
+        // console.log("true")
         }else{
-            console.log(false)
+            // console.log(false)
             setWidthLarge(false)}
     }
     const handleLink=(e)=>{
