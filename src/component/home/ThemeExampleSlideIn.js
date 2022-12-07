@@ -36,8 +36,9 @@ const ThemeExampleSlideIn = () => {
     { id: 8, name: "success", link: "/design8", summary: "Success, motivation page", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design8.png`, display: "none" },
     { id: 9, name: "Realtor", link: "/design9", summary: "realtor Specialist page", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design9.png`, display: "none" },
     { id: 10, name: "Interior Design", link: "/design10", summary: "Beautifully Design Page", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design10.png`, display: "none" },
-    { id: 10, name: "Restaurant Design", link: "/design11", summary: "5-Star restaurant", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design11.png`, display: "none" },
-    { id: 10, name: "Custom templates", link: "/customPage", summary: "Choose your template", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/customPage.png`, display: "none" },
+    { id: 11, name: "Restaurant Design", link: "/design11", summary: "5-Star restaurant", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design11.png`, display: "none" },
+    { id: 12, name: "Product Detail Page", link: "/design12", summary: "Well Designed Product Detail display", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design12.png`, display: "none" },
+    { id: 13, name: "Custom templates", link: "/customPage", summary: "Choose your template", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/customPage.png`, display: "none" },
   ]
 
   
