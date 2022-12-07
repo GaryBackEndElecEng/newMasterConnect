@@ -6,6 +6,7 @@ TODO
 
 
 -add calculator to about banner an contact banner
+-email automate requests responses && to FAQs
 -Fix Google register and signin
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.

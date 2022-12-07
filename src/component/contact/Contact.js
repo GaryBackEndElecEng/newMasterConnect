@@ -200,7 +200,7 @@ const Contact = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             {/* ---CONTACT INFO---- */}
-            <ContactInfo />
+            <ContactInfo generalInfo={generalInfo} />
             {/* --- END CONTACT INFO---- */}
             {/* IMPUT FORM */}
             <ImputForm />

@@ -212,8 +212,11 @@ export const GeneralContextProvider = (props) => {
             if(whyChooseUs.length>0){
               setWhyChooseUs({loaded:true,data:whyChooseUs[0].categories});
             }
-            let getInfo=body.filter(obj=>(parseInt(obj.id)===9))[0].categoryGeneralInfo[0]
-            setGeneralInfo({loaded:true,data:getInfo})
+            let getInfo=body.filter(obj=>(parseInt(obj.id)===9))
+            if(getInfo.length>0){
+              setGeneralInfo({loaded:true,data:getInfo[0].categoryGeneralInfo[0]})
+            }
+            
             let spon=body.filter(obj=>(parseInt(obj.id)===10))
             if(spon.length>0){
             setSponsor({loaded:true,data:spon[0].categorySponsor});
