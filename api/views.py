@@ -281,9 +281,9 @@ class PostPageFeedback(APIView):
                 rating =int(data["rating"])
             )
             newPageFb.save()
+            print(newPageFb)
             serializer = PostFeedbackSerializer(newPageFb,many=False)
-            if serializer.is_valid:
-                return Response(serializer.data,status=status.HTTP_201_CREATED)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 

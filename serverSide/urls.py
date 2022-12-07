@@ -25,6 +25,7 @@ from .views import main,Assets,SiteMap_,SiteMap_mastercom,SiteMap_masterconnect,
 from . import views
 urlpatterns = [
     path('robots.txt',views.robot),
+    path('googlecc372f98e6bf9e30.html',views.googleSiteVerify),
     path('api/token/', TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="token_refresh"),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),

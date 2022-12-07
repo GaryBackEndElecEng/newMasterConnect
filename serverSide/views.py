@@ -8,6 +8,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from api.models import SiteMap
 
+def googleSiteVerify(request):
+    context={"google":"google-site-verification: googlecc372f98e6bf9e30.html"}
+    return HttpResponse(context["google"])
 
 def main(request):
     getStatic=static(settings.STATIC_URL,document_root=settings.TEST_DIR)

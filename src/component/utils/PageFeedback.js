@@ -65,13 +65,23 @@ const PageFeedback = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("item.loaded",getvalid)
+        
         if (getvalid===true) {
            const sendData = async ()=>{
             try {
                 const res= await api.post("postPageFeedback/",item.body);
                 const body=res.data;
-                setReturnedItem({loaded:true,data:body});
+                if(body){
+                    setReturnedItem({loaded:true,data:body});
+                    setTimeoutMsg(false);
+                    setTimeout(()=>{
+                        setTimeoutMsg(true);
+                        setEmail("");
+                        setName("");
+                        setRating("");
+                        setComment("");
+                    },4000);
+            }
                 // console.log("Body",body)
             } catch (error) {
                 console.error(error.message)
@@ -80,17 +90,7 @@ const PageFeedback = () => {
            sendData();
         }
     }
-    useEffect(()=>{
-        if(returnedItem.loaded===true){
-            setTimeout(()=>{
-                setTimeoutMsg(true);
-                setEmail("");
-                setName("");
-                setRating("");
-                setComment("");
-            },4000);
-        }
-    },[returnedItem.loaded]);
+   
 
     return (
         <Container maxWidth="sm" sx={{position:"relative"}}>
@@ -184,14 +184,10 @@ const PageFeedback = () => {
         <CustomStack direction="column" spacing={{xs:0,sm:1}}
         bs={theme.palette.common.blueFade}
         >
-            <Paper elevation={3} sx={{margin:"auto"}}>
+            <Paper elevation={3} sx={{margin:"auto",zIndex:"10000"}}>
             <Typography component="h1" variant="h5" sx={{margin:"1rem auto",padding:"0.5rem"}}>
                 You comment was well recieved, shown below:
-            </Typography>
-            </Paper>
-             
-
-            <List>
+                <List sx={{zIndex:"1000"}}>
                 <ListItem>email:{returnedItem.data.email}</ListItem>
                 <ListItem>name: {returnedItem.data.name}</ListItem>
                 <ListItem>rating: {returnedItem.data.rating}</ListItem>
@@ -203,6 +199,8 @@ const PageFeedback = () => {
                 </Box>
                 <Typography component="h1" variant="h5" sx={{margin:"1rem auto"}}>Thank you once again for contributing to our growth!</Typography>
             </List>
+            </Typography>
+            </Paper>
             
            
         </CustomStack>
