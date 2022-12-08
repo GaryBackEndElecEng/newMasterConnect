@@ -58,3 +58,56 @@ def sendEmailToFAQ(instance,created,*args,**kwargs):
             answer=instance.answer
             )
         newFAQ.save()
+
+
+@receiver(post_save,dispatch_uid='sendEmailToRequester', sender=Request)
+def sendEmailToRequester(instance,created,*args,**kwargs):
+    if instance.sendEmail==True and instance.emailSent==False:
+        sendRequesterEmail(instance)
+    if instance.sendToFAQS==True and instance.FAQS_sent==False:
+        sendRequestToFAQ(instance)
+
+
+
+def sendRequesterEmail(instance):
+    getRequest=Request.objects.get(id=instance.id)
+    from_email=settings.EMAIL_HOST_USER
+    to_email=[instance.email,]
+    subject="MASTER-CONNECT REQUEST RESPONSE"
+    context={
+        "first_name":instance.fullName.split(" ")[0],
+        "last_name":instance.fullName.split(" ")[1],
+        "email":instance.email,
+        "name":instance.fullName,
+        "question":instance.content,
+        "answer":instance.ans
+
+    }
+
+    try:
+        getRequest.sendEmail=False
+        getRequest.emailSent=True
+        getRequest.save()
+        html_content= render_to_string('toRequester.html',context)
+        msg= EmailMultiAlternatives(subject,html_content, from_email,to_email,cc=['masterconnect919@gmail.com',])
+        msg.attach_alternative(html_content,"text/html")
+        msg.content_subtype='html'
+        msg.send()
+    except BadHeaderError as e:
+        return e
+    return "done"
+
+
+def sendRequestToFAQ(instance):
+    firstFAQ=FAQS.objects.first()
+    request=Request.objects.get(id=instance.id)
+    category=firstFAQ.category
+    newFAQ=FAQS(
+        question=instance.content,
+        category=category,
+        answer=instance.ans
+        )
+    newFAQ.save()
+    request.FAQS_sent=True
+    request.sendToFAQS=False
+    request.save()

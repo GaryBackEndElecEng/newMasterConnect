@@ -91,10 +91,15 @@ class Request(models.Model):
     fullName=models.CharField(max_length=200,blank=True)
     email=models.EmailField(blank=True)
     content=models.TextField(blank=True)
+    ans=models.TextField(blank=True)
+    sendToFAQS=models.BooleanField(default=False)
+    FAQS_sent=models.BooleanField(default=False)
+    sendEmail=models.BooleanField(default=False)
+    emailSent=models.BooleanField(default=False)
     promotion=models.BooleanField(default=False)
 
     def __str__(self):
-        return self.fullName
+        return f'{self.fullName}-{self.sendToFAQS}-{self.sendEmail}'
 
 class FAQS(models.Model):
     question=models.CharField(max_length=200,blank=True)
