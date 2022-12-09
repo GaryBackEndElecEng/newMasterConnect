@@ -46,7 +46,7 @@ const [country, setCountry] = useState("");
 const [postal, setPostal] = useState("");
 const [formComplete,setFormComplete]=useState(false);
 const [address,setAddress]=useState("");
-const [viewAccount,setViewAccount]=useState(false);
+const [viewAccount,setViewAccount]=useState(true);
 const initializeServProd={data:[],loaded:false};
 const [gmailUser,setGmailUser]=useState({loaded:false,data:{}});
 Object.freeze(initializeServProd);

@@ -160,7 +160,8 @@ useMemo(()=>{
                                 id="name"
                                 name="name"
                                 aria-describedby="Your name please"
-                                value={name}
+                                placeholder="first last"
+                                value={name ? name :""}
                                 onChange={(e) => setName(e.target.value)}
                                 aria-invalid={validName ? "false" : "true"}
                             />
@@ -175,7 +176,8 @@ useMemo(()=>{
                                 id="cell"
                                 name="cell"
                                 aria-describedby="Your Cell number"
-                                value={cell}
+                                placeholder="1234567899 or 123-456-7899"
+                                value={cell ? cell :""}
                                 onChange={(e) => setCell(e.target.value)}
                                 aria-invalid={validCell ? "false" : "true"}
                             />
@@ -191,7 +193,8 @@ useMemo(()=>{
                                 id="address"
                                 name="address"
                                 aria-describedby="valid address"
-                                value={address}
+                                placeholder="12 street,city"
+                                value={address ? address :""}
                                 onChange={(e) => setAddress(e.target.value)}
                                 aria-invalid={validName ? "false" : "true"}
                             />
@@ -213,11 +216,10 @@ useMemo(()=>{
                                         label="Country"
                                         defaultValue="CA"
                                         aria-describedby="valid Country"
-                                        value={country }
                                         onChange={(e) => setCountry(e.target.value)}
                                         aria-invalid={validCountry ? "false" : "true"}
                                     >
-                                        <MenuItem defaultValue="CA">CA</MenuItem>
+                                        <MenuItem disabled value="CA">country</MenuItem>
                                         {region.loaded && region.data.map(obj => (
                                             <MenuItem key={obj.id} value={obj.country}>{obj.country}</MenuItem>
                                         ))}
@@ -239,13 +241,12 @@ useMemo(()=>{
                                     <Select
                                         label_id="Your State/Province"
                                         label="provState"
-                                        defaultValue=""
+                                        defaultValue={"ON"}
                                         aria-describedby="valid State/ or Province"
-                                        value={provState}
                                         onChange={(e) => setProvState(e.target.value)}
                                         aria-invalid={validProvState ? "false" : "true"}
                                     >
-                                         <MenuItem disabled={true} defaultValue="" value={""}>{"NO_OPTIONS_LABEL"}</MenuItem>
+                                         <MenuItem disabled value="ON">province/State</MenuItem>
                                         {
                                         region.loaded && region.data.map(obj => (
                                             <MenuItem key={obj.id} value={obj.provState}>{obj.provState}</MenuItem>
@@ -266,8 +267,9 @@ useMemo(()=>{
                                     <Input
                                         label_id="Your Postal"
                                         name="postal"
+                                        placeholder="XXX-XXX or XXXXXX"
                                         aria-describedby="Postal Code"
-                                        value={postal}
+                                        value={postal ? postal :""}
                                         onChange={(e) => setPostal(e.target.value)}
                                         aria-invalid={validPostal ? "false" : "true"}
                                     />
@@ -286,8 +288,9 @@ useMemo(()=>{
                                     <Input
                                         label_id="website"
                                         name="website"
+                                        placeholder="www.site.com"
                                         aria-describedby="Postal Code"
-                                        value={website}
+                                        value={website ? website :""}
                                         onChange={(e) => setWebsite(e.target.value)}
                                         aria-invalid={validPostal ? "false" : "true"}
                                     />
@@ -307,7 +310,8 @@ useMemo(()=>{
                                         label_id="DNS"
                                         name="DNS"
                                         aria-describedby="DNS"
-                                        value={CDN}
+                                        placeholder="amazon,AWS,etc or none"
+                                        value={CDN ? CDN :""}
                                         onChange={(e) => setCDN(e.target.value)}
                                         aria-invalid={validPostal ? "false" : "true"}
                                     />
@@ -327,7 +331,8 @@ useMemo(()=>{
                                         label_id="industry"
                                         name="industry"
                                         aria-describedby="industry"
-                                        value={industry}
+                                        placeholder="paint or hightech or,,"
+                                        value={industry ? industry :""}
                                         onChange={(e) => setIndustry(e.target.value)}
                                         aria-invalid={validPostal ? "false" : "true"}
                                     />
@@ -346,8 +351,9 @@ useMemo(()=>{
                                     <Input
                                         label_id="co"
                                         name="co"
+                                        placeholder="company_name ltd or company_name"
                                         aria-describedby="co"
-                                        value={co}
+                                        value={co ? co :""}
                                         onChange={(e) => setCo(e.target.value)}
                                         aria-invalid={validPostal ? "false" : "true"}
                                     />

@@ -3,7 +3,30 @@ import {createTheme} from '@mui/material/styles';
 import {orange,red,blue,lightBlue,blueGrey,teal,purple,grey,indigo,pink,cyan,green,yellow,brown} from '@mui/material/colors';
 import { alpha } from '@mui/material/styles';
 
-
+export const windowTheme=createTheme({
+  palette:{
+    primary:{
+      light:"#42a5f5",
+      main:"#1976d2",
+      dark:"#1565c"
+    },
+    secondary:{
+      light:"#ba68c8",
+      main:"#9c27b0",
+      dark:"#7b1fa2"
+    },
+    error:{
+      light:"#ef5350",
+      main:"#d32f2f",
+      dark:"#c62828"
+    },
+    warning:{
+      light:"#ff9800",
+      main:"#ed6c02",
+      dark:"#e65100"
+    },
+  }
+});
 
 export const theme = createTheme({
   status:{
@@ -15,6 +38,7 @@ export const theme = createTheme({
 
   },
   palette:{
+    
     primary2:blue[500],
     fade:alpha(blue[400],.5),
     secondary2:{

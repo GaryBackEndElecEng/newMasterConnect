@@ -3,9 +3,10 @@ ctrl + G => goto line
 
 TODO
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
+-ADD FB,LINKEDLN AND INSTAGRAM LINKS
+-FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
 
-
--Fix Google register and signin
+-Fix Google register and signin:([GSI_LOGGER]: The given origin is not allowed for the given client ID.)
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc

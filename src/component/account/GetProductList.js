@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import {GeneralContext} from '../../context/GeneralContextProvider';
+import {PriceContext} from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import { Box, Stack, Container, Paper, Typography, Grid, Fab, Card, CardContent, CardActions } from '@mui/material';
 import styles from './account.module.css';
@@ -16,45 +17,55 @@ const GetProductList = () => {
     const navigate=useNavigate();
     const theme = useTheme();
     const { setChangePage,loadProduct } = useContext(GeneralContext);
+    const {getProductList}=useContext(PriceContext);
     //SetUsersProduct=> FROM MyAccount ( it recieves all user's products and service)
-    const { usersProduct, setUsersProduct, setReducedProduct } = useContext(TokenAccessContext); 
-    const loadedProduct= loadProduct.loaded ? loadProduct.data:null;
-    const getProductList2 = (localStorage.getItem("loadedProduct")) ? JSON.parse(localStorage.getItem("loadedProduct")) :loadedProduct.data;
+    const { usersProduct, setUsersProduct, setReducedProduct,user_id,setUserAccount } = useContext(TokenAccessContext); 
+    const designProductsOnly= localStorage.getItem("productDesigns")? JSON.parse(localStorage.getItem("productDesigns")):null;
+   
     // const [isPostSuccess, setIsPostSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [postError, setPostError] = useState(null);
+    const [ reduceProduct,setReduceProduct]=useState({loaded:false,data:[]});
+    const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
 
-    const reducedProduct1 = (localStorage.getItem("reducedProduct") ) ? JSON.parse(localStorage.getItem("reducedProduct")) : loadedProduct;
+    const reducedProduct1 = (localStorage.getItem("reducedProduct")) ? JSON.parse(localStorage.getItem("reducedProduct")) : designProductsOnly;
 
 //   console.log(reducedProduct1)
 
 
   useEffect(()=>{
-    if(reducedProduct1 ===[] || reducedProduct1===[0]){
-        localStorage.removeItem("reducedProduct");
+    let arr=getProductList.loaded? getProductList.data.filter(obj=>(obj.name !== "Custom Page")).filter(obj=>(obj.extra_kwargs !=="not assigned")):null;
+    if (arr){
+        arr.forEach((obj,index)=>{
+            let tempUser=usersProduct.data.filter(ob=>(parseInt(ob.id)===parseInt(obj.id)))[0];
+                if(tempUser){
+                    // console.log("usersObj",usersObj,"arr",obj)
+                    arr.splice(index,1);
+                }
+            
+        });
+        localStorage.setItem("reducedProduct",JSON.stringify(arr));
+        setReduceProduct({loaded:true,data:arr})
+
     }
-    const getUsersProduct=localStorage.getItem("usersProduct") ? JSON.parse(localStorage.getItem("usersProduct")):null;
-    if(getUsersProduct){
-        setUsersProduct({loaded:true,data:getUsersProduct})
-    }
-  },[])
+    
+  },[getProductList.loaded,getProductList.data,setReduceProduct,usersProduct.data]);
 
 
     const handleAddItem = (e, objID) => {
         e.preventDefault();
         const addProductToUser = async () => {
-            const user_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
-            const params = { "user_id": user_id, "prod_id": objID }
+           
+            const params = { "user_id": getUser_id, "prod_id": objID }
             if (user_id && objID) {
                 try {
                     const res = await apiProtect.post("/account/userProductPost/", params);
-                    const body = res.data;
-                    let getReducedArray = localStorage.getItem("reducedProduct") ? JSON.parse(localStorage.getItem("reducedProduct")) : loadedProduct;
-                    const reduceArray = getReducedArray.filter(obj => (obj.id !== objID))
-                    let addToUserProductProduct = getReducedArray.filter(obj => (obj.id === objID))[0];
-                    setReducedProduct({ data: reduceArray, loaded: true })
-                    setUsersProduct({ data: [...usersProduct.data, addToUserProductProduct], loaded: true })
-                    
+                    //USERSPRODUCTS
+                    const user_account = res.data;
+                    setUserAccount({loaded:true,data:user_account})
+                    const reduceArray = reducedProduct1.filter(obj => (obj.id !== objID))
+                    setReduceProduct({ data: reduceArray, loaded: true })
+                    setUsersProduct({ data: user_account.product, loaded: true })
                     setError(false);
                     localStorage.setItem("reducedProduct", JSON.stringify(reduceArray));
                 } catch (error) {
@@ -74,21 +85,28 @@ const GetProductList = () => {
     const handleDelete = (e, objID) => {
         e.preventDefault();
         const removeProductToUser = async () => {
-            const user_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
-            const params = { "user_id": user_id, "prod_id": objID }
-            console.log("objID",objID)
+            const params = { "user_id": getUser_id, "prod_id": objID }
             if (user_id && objID) {
                 try {
                     const res = await apiProtect.post("/account/userProductPostDelete/", params);
+                    //ALL users PRODUCTS
+                    const user_account=res.data;
                     const body = res.data.product;
-                    console.log("body",body)
+                    // console.log("body",body)
+                    setUserAccount({loaded:true,data:user_account});
                     if(body.length===0){
                         setUsersProduct({data:[],loaded:false})
-                        setReducedProduct({ data: loadedProduct, loaded: true })
-                        localStorage.setItem("reducedProduct",JSON.stringify(loadedProduct))
+                        setReducedProduct({ data: designProductsOnly, loaded: true })
+                        localStorage.setItem("reducedProduct",JSON.stringify(designProductsOnly))
                     }else{
-                        let returnedUserProdsArr=returnUsersProdDelAddSubArray(body,"sub")
-                        setUsersProduct({data:returnedUserProdsArr,loaded:true})
+                        let returnObj_reducedProduct={}
+                        let extraKwargsNot=usersProduct.data.filter(obj=>(obj.extra_kwargs !=="not assigned"))
+                        
+                        returnObj_reducedProduct= usersProduct.data.filter(obj=>(parseInt(obj.id)===parseInt(objID)))[0];
+                        setUsersProduct({data:user_account.product,loaded:true})
+                        let reduceProduct1=[...reduceProduct.data,returnObj_reducedProduct]
+                        localStorage.setItem("reducedProduct",JSON.stringify(reduceProduct1))
+                        setReducedProduct({loaded:true,data:reduceProduct1})
                     }
                     
                     // setIsPostSuccess(true);
@@ -128,7 +146,7 @@ const handleGoToDesign =(e,link)=>{
                     sx={{ width: "100%", margin: "1rem auto", alignItems: "center" }}
                 >
                     <Typography component="h1" variant="h3" sx={{ width: "100%", margin: " 2rem auto", textAlign: "center", padding:"1rem" }}>
-                        Products to Select
+                        Front Page Products to Select
                     </Typography>
                     <Grid container spacing={2} 
                     sx={{padding:"0.5rem",maxHeight:{xs:"56vh"},overflowY:"scroll"}}
@@ -239,49 +257,6 @@ const handleGoToDesign =(e,link)=>{
         </>
     )
 
-
-// This only deals with delting items in product
-function returnUsersProdDelAddSubArray(bodyProdIdArr,type){
-    const products=loadedProduct ? loadedProduct:null;
-    let userProdServsArr=[];
-    let newReducedProdServArr=[];
-        if((products && bodyProdIdArr.length >0) && (newReducedProdServArr.length < products.length)){
-            
-                products.forEach((obj)=>{
-                    let IntObjId=parseInt(obj.id)
-                    bodyProdIdArr.forEach((prodId)=>{
-                        if(IntObjId === prodId){
-                            userProdServsArr.push(obj);
-                        }else{
-                            newReducedProdServArr.push(obj)
-                        }
-                    });
-                    
-                });
-                if(userProdServsArr.length>=1){
-                localStorage.setItem("reducedProduct",JSON.stringify(newReducedProdServArr));
-                setUsersProduct({data:userProdServsArr,loaded:true});
-                localStorage.setItem("usersProduct",JSON.stringify(userProdServsArr))
-                return userProdServsArr
-                }else{
-                    localStorage.removeItem("usersProduct");
-                    setUsersProduct({data:[],loaded:false});
-                    localStorage.setItem("reducedProduct",JSON.stringify(products));
-                    return []
-                }
-
-        }else if ((products && type ==="sub" && bodyProdIdArr.length===0) || bodyProdIdArr===[0]){
-            localStorage.setItem("reducedProduct",JSON.stringify(products));
-                setUsersProduct({loaded:false,data:[]});
-                return
-
-        }else {
-
-        }
-            
-    
-        return userProdServsArr
-}
 }
 export default GetProductList
 

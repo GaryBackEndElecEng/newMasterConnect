@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {useTheme} from '@mui/material/styles';
 import {Container, Stack,Typography} from '@mui/material';
@@ -27,7 +27,7 @@ margin-top:0px;
 margin-top:0px;
 }
 `;
-const CustCoverPage = ({staticImage}) => {
+const CustCoverPage = ({staticImage,title}) => {
   const theme=useTheme();
   const bgImage =`${staticImage}/customPage.png`;
   return (
@@ -45,7 +45,7 @@ const CustCoverPage = ({staticImage}) => {
       <Typography component="h1" variant="h3"
       sx={{fontSize:{xs:"200%",sm:"300%",md:"300%"}}}
       > 
-      Custom templates
+      {title} Custom templates
       </Typography>
      </Stack>
      <Stack direction="column" spacing={{xs:0,sm:1}}

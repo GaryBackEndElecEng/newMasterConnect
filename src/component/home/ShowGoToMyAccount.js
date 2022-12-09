@@ -10,13 +10,13 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const ShowMain=styled(Stack)`
 margin:1rem auto;
-display:flex;
+display:${({activate})=>activate};
 justify-content:center;
 align-items:center;
 flex-direction:center;
 position:absolute;
-z-index:1000;
-top:-40%;
+z-index:100000;
+top:-20%;
 left:40%;
 padding:1rem;
 box-shadow:1px 1px 10px 8px ${({bs})=>bs};
@@ -36,11 +36,12 @@ animation: growIn 1.5s ease-in-out;
   left:15%;
 }
 `;
-const ShowGoToMyAccount = () => {
+const ShowGoToMyAccount = ({viewAccount,loggedIn}) => {
     const theme=useTheme();
     const navigate=useNavigate();
     const {setChangePage} =useContext(GeneralContext);
     const {setViewAccount}=useContext(TokenAccessContext);
+    const activate= (viewAccount && loggedIn) ? "flex":"none"
 
     const handleGoToMyAccount=(e)=>{
       e.preventDefault();
@@ -48,11 +49,14 @@ const ShowGoToMyAccount = () => {
       navigate("/MyAccount",setChangePage(true));
       
     }
+   
   return (
     <ShowMain
+    activate={activate}
     direction={{xs:"column"}}
     bg={theme.palette.common.blueFade}
     bs={theme.palette.common.blueGreyFade}
+    sx={{display:activate}}
     >
         <Typography component="h1" variant="h6" sx={{marginBottom:"0.5rem"}}> your account</Typography>
         <Fab variant="extended" color="danger" size="medium" sx={{marginBottom:"2rem"}} onClick={(e)=>handleGoToMyAccount(e)}>

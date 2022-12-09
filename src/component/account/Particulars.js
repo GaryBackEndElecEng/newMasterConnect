@@ -17,11 +17,13 @@ import ParticularsUsersProdsServs from './ParticularsUsersProdsServs';
 import ParticularsPaidTotals from './ParticularsPaidTotals';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 
 
 const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True
     const theme = useTheme();
+    const windowTheme=useTheme("windowTheme");
     const navigate = useNavigate();
     const { userAccount, address, cell, name, email, provState, country, postal, formComplete,setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct,loggedIn,usersExtraInvoice,getUUID } = useContext(TokenAccessContext);
     const { setChangePage } = useContext(GeneralContext);
@@ -156,7 +158,15 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
     }
     const handleDeductionPage=(e)=>{
         e.preventDefault();
-        navigate("/MyAccount/deductionPage",setChangePage(true))
+        navigate("/MyAccount/deductionPage",setChangePage(true));
+    }
+    const handleGoToCustom=(e)=>{
+        e.preventDefault();
+        navigate("/customPage",setChangePage(true));
+    }
+    const handleAbout=(e)=>{
+        e.preventDefault();
+        navigate("/aboutPage",setChangePage(true));
     }
 
     return (
@@ -253,7 +263,19 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                         {(getFormComplete ) && <div className={styles.showInfo}><ShowInfo /></div>}
                         <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",margin:"2rem auto"}}>
                             <Fab variant="extended" color="warning" onClick={(e)=>handleDeductionPage(e)}>
-                                Deduction <IndeterminateCheckBoxIcon sx={{ml:1,color:"red"}}/>
+                                Deduction <IndeterminateCheckBoxIcon sx={{ml:1,color:"white"}}/>
+                            </Fab>
+                        </Stack>
+                        <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",margin:"2rem auto"}}>
+                            <Typography component="h1" variant="h5" sx={{margin:"1rem auto",color:windowTheme.palette.primary.dark}}>To add a custom Page Template to your basket</Typography>
+                            <Fab variant="extended" color={"success"} onClick={(e)=>handleGoToCustom(e)}>
+                                GoTo Custom Page <DashboardCustomizeIcon sx={{ml:1,color:"white"}}/>
+                            </Fab>
+                        </Stack>
+                        <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",margin:"2rem auto"}}>
+                            <Typography component="h1" variant="h5" sx={{margin:"1rem auto",color:windowTheme.palette.primary.dark}}>To add a custom about Template Page to your basket</Typography>
+                            <Fab variant="extended"  onClick={(e)=>handleAbout(e)}>
+                                GoTo about template Page <DashboardCustomizeIcon sx={{ml:1,color:"white"}}/>
                             </Fab>
                         </Stack>
                     </Grid>

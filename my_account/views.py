@@ -349,7 +349,7 @@ class UserPostproduct(APIView):
         user_id=data["user_id"]
         prod_id=data["prod_id"]
         if user_id:
-            print("user_id",user_id,"prod_id",prod_id)
+            # print("user_id",user_id,"prod_id",prod_id)
             user=User.objects.get(id=user_id)
             userAccount=UserAccount.objects.filter(user=user).first()
             product=Product.objects.filter(id=prod_id).first()
@@ -358,7 +358,7 @@ class UserPostproduct(APIView):
                 userAccount.save()
                 if not userAccount.invoice:
                     Calculate(user_id).execute()
-                serializer= UserAccountSerializer(userAccount)
+                serializer= UserAccountAllCombined(userAccount)
                 return Response(serializer.data)
         else:
             return Response({data:"no user or prod"},status=status.HTTP_400_BAD_REQUEST)
@@ -418,7 +418,7 @@ class UserProductDelete(APIView):
         userAccount.save()
         # print("userAccount",userAccount)
         if userAccount:
-            serializer= UserAccountSerializer(userAccount)
+            serializer= UserAccountAllCombined(userAccount)
             # print("serializer",serializer)
             return Response(serializer.data)
         else:

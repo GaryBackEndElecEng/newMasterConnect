@@ -2,7 +2,7 @@ import React, {  useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Styles from './home.module.css';
 import { Avatar, Fab } from '@mui/material';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import { GeneralContext } from '../../../context/GeneralContextProvider';
 import styled from 'styled-components';
 
 const PopUpElement=styled.div.attrs({className:"home_popUp"})`

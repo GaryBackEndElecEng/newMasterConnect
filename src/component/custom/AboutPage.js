@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useContext, } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
+import {useNavigate,useLocation} from 'react-router-dom';
+import {GeneralContext} from '../../context/GeneralContextProvider';
+import {PriceContext} from '../../context/PriceContextProvider';
+import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import styled from 'styled-components';
 import styles from './custom.module.css';
-import { useTheme } from '@mui/material/styles';
-import { GeneralContext } from '../../context/GeneralContextProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
-import {TokenAccessContext} from '../../context/TokenAccessProvider';
-import { Fab, Stack, Grid, Container, Box, Typography, CardMedia, Card, Avatar } from '@mui/material';
+import {Fab, Stack, Grid, Container, Box, Typography, CardMedia, Card, Avatar} from '@mui/material';
+import CustCoverPage from './CustCoverPage';
+import {useTheme} from '@mui/material/styles';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import CustCoverPage from './CustCoverPage';
 import apiProtect from '../axios/apiProtect';
 
 const MainCustom = styled.div`
@@ -44,12 +44,12 @@ width:100%;
 border:1px solid blue;
 
 `;
-const CustomPage = () => {
-    const theme = useTheme();
+const AboutPage = () => {
     const location=useLocation();
-    const navigate = useNavigate();
-    const { customTemplates } = useContext(PriceContext);
-    const { staticImage, setTitle, setStyleName, setChangePage } = useContext(GeneralContext);
+    const navigate=useNavigate();
+    const theme=useTheme();
+    const {getAboutList}=useContext(PriceContext);
+    const {staticImage, setTitle, setStyleName, setChangePage}=useContext(GeneralContext);
     const {loggedIn,user_id,setUsersProduct,setUserAccount}=useContext(TokenAccessContext);
     const [popUp, setPopUp] = useState({ loaded: false, data: {} });
     const getLoggedIn= localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
@@ -59,9 +59,9 @@ const CustomPage = () => {
 
 
     useEffect(() => {
-        setTitle("Custom Page");
-        setStyleName("layout design");
-        setLabelTitle("Main")
+        setTitle("About Page");
+        setStyleName("About design");
+        setLabelTitle("About")
         if (window.scrollY) {
             window.scroll(0, 0);
         }
@@ -96,8 +96,9 @@ const CustomPage = () => {
             console.error(error.message)
         }
     }
-    return (
-        <MainCustom
+
+  return (
+    <MainCustom
             id="mainContainer"
 
         >
@@ -105,7 +106,7 @@ const CustomPage = () => {
             <Container maxWidth="xl" spacing={{ xs: 0, sm: 1 }} sx={{ marginTop: "2px" }}>
                 <Stack direction="column" spacing={{ xs: 0, sm: 1 }} sx={{ alignItems: "center", justifyContent: "center", margin: "1rem auto" }}>
                     <Typography component="h1" variant="h4" sx={{ margin: "auto" }}>
-                        Pick and choose your template that closest matches your requirement
+                        Pick and choose your About template that closest matches your requirement
                     </Typography>
                     <Typography component="h1" variant="h5" sx={{ margin: "auto" }}>
                         Don't worry, we will customize its appearnace with slight adjustments.
@@ -115,7 +116,7 @@ const CustomPage = () => {
                     </Typography>
                 </Stack>
                 <MainCustomGrid container spacing={{ xs: 0, sm: 1 }}>
-                    {customTemplates.loaded && customTemplates.data.map((obj, index) => (
+                    {getAboutList.loaded && getAboutList.data.map((obj, index) => (
                         <Grid item xs={12} sm={12} md={4} key={`${obj.id}-template-${index}`}
 
                         >
@@ -184,12 +185,7 @@ const CustomPage = () => {
                 </MainCustomGrid>
             </Container>
         </MainCustom>
-    )
-
-
+  )
 }
 
-
-
-
-export default CustomPage
+export default AboutPage

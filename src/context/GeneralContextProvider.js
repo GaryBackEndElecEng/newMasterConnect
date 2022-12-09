@@ -176,27 +176,28 @@ export const GeneralContextProvider = (props) => {
           console.error(error.message)
         }
       }
-      getConical();
+      // getConical();
     },[]);
-//*****THIS LOADS ALL PAGE DESIGNS AND SHOULLD REPLACE workArr******//
+//*****THIS LOADS ALL PRODUCTS!!!!!!!******//
     useEffect(() => {
-      const getProductList= async ()=>{
+      const getAllProductList= async ()=>{
         try {
           const res=await api.get('/account/product/');
           const data=res.data;
           if(data && data?.length>0){
           setLoadProduct({
             loaded:true,
-            data:data.filter(obj=>(obj.extra_kwargs !== "not assigned"))
+            data:data
           });
           localStorage.setItem("loadedProduct",JSON.stringify(data))
+          
         }
           
         } catch (error) {
           console.error(error.message)
         }
       }
-      getProductList();
+      getAllProductList();
     },[]);
 //*****THIS DOWNLOADS, RESUME,FAQS,WORDSNIPPETS,SERVICES DESCRIPTIONS,ETC*******//
     useEffect(()=>{

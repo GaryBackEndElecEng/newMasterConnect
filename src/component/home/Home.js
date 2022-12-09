@@ -46,7 +46,7 @@ animation: clearIn 1s ease-in-out;
 }
 `;
 
-const MainContainer = styled.div.attrs({ className: "mainContainerStyle" })`
+const MainContainer = styled.div`
 background-color:${({ bg }) => bg};
 background-image: url(${({ bgUrl1 }) => bgUrl1});
 background-size:100% 100%;
@@ -179,7 +179,8 @@ const Home = () => {
     const testMyRef = useCallback(e => {
         if (e === null) return
         observers.observe(e)
-    }, [])
+    }, []);
+    // console.log(signin)
 
     return (
         <>
@@ -194,7 +195,6 @@ const Home = () => {
             <ContainerHomeFluid style={{ marginTop: { xs: "3rem", md: "0px" } }}>
 
                 <MainContainer
-                    className={`container-fluid ${Styles.mainContainerStyle}`}
                     bg={"white"}
                     // bgUrl1={homeBg2}
                     style={{ marginTop: { md: "2rem", xs: "4.5rem" }, }}
@@ -203,15 +203,27 @@ const Home = () => {
                 >
 
                     <CoverPage makeEasy={makeEasy} />
+                    
                     <Typography component="h1" variant="h5"
-                                sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem", position: "relative" }}
+                                sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem", position: "relative", }}
                             >
                                 Designs
+                                <SigninMsg
+                                signin={signin}
+                                registerConfirmed={registerConfirmed}
+                                signout={signout}
+                            />
+                             <ShowGoToMyAccount 
+                             viewAccount={viewAccount}
+                             loggedIn={loggedIn}
+                             />
                             </Typography>
+
                            <TopDesigns makeEasy={makeEasy}/>
+                          
                     {!seeExample ?
                         <>
-                            {viewAccount && <ShowGoToMyAccount />}
+                            
                             <Stack direction={"column"} sx={{ mt: 1, mb: 2, maxWidth: "350px" }} >
                                 <Fab variant="extended" size={"small"} ref={(e) => handleRef(e)}
                                     onClick={(e) => handleExample(e)}
@@ -229,17 +241,7 @@ const Home = () => {
                         }
 
                     <Container maxWidth="xl" className={Styles.msgContainer} spacing={0} sx={{ textAlign: "left", position: "relative" }}>
-
-                        <hr style={{ borderBottom: `5px solid white`, width: "100%", background: "white" }} />
-                        <Stack direction="column">
-                            <SigninMsg
-                                signin={signin}
-                                registerConfirmed={registerConfirmed}
-                                signout={signout}
-                            />
-                        </Stack>
-
-
+                        
                         {!callBackConfirmed && <ShowGetQuoteForm />}
                         {callBackConfirmed && <Paper elevation={3} component="div" sx={{ width: "100%", margin: { xs: "1rem auto", sm: "0.5rem auto" }, transform: { sm: "translateY(-10%)" } }}>
                             <CallBackRequest />

@@ -46,6 +46,7 @@ import GetUUID from './component/uuid/GetUUID';
 import DeductionPage from './component/deduction/DeductionPage';
 import Contract from "./component/contract/Contract";
 import CustomPage from './component/custom/CustomPage';
+import AboutPage from './component/custom/AboutPage';
 import StoreProduct from './component/storeProduct/StoreProduct';
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
             <Route path="/design12" element={<StoreProduct />} />
             <Route path="/design3" element={<Page1 />} />
             <Route path="/customPage" element={<CustomPage />} />
+            <Route path="/aboutPage" element={<AboutPage />} />
             <Route path="/prices" element={<Prices />} />
             <Route path="/calculate" element={<Calculate />} />
             <Route path="/MyAccount" element={<LayoutSecure />}>

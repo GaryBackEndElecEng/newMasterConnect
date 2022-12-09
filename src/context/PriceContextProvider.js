@@ -12,6 +12,8 @@ export const PriceContextProvider = (props) => {
     const [getServerPrice,setGetServerPrice]=useState(initializePricecatelog);
     const [getProductList,setGetProductList]=useState(initializePricecatelog);
     const [getServiceList,setGetServiceList]=useState(initializePricecatelog);
+    const [getContactList,setGetContactList]=useState(initializePricecatelog);
+    const [getAboutList,setGetAboutList]=useState(initializePricecatelog);
     const [getBaseFeatureList,setGetBaseFeatureList]=useState(initializePricecatelog);
     const [getBaseGeneralPrice,setGetBaseGeneralPrice]=useState(initializePricecatelog);
     const[postService,setPostService]=useState(initializePricecatelog);
@@ -44,8 +46,10 @@ export const PriceContextProvider = (props) => {
                   setGetBaseFeatureList({loaded:true,data:body.filter(obj=>(obj.id===2))[0].price});
                   }
                   if(body.filter(obj=>(obj.name==="Products"))[0]?.product){
-                  setGetProductList({loaded:true,data:body.filter(obj=>(obj.name==="Products"))[0].product});
-                  localStorage.setItem("getProductList2",JSON.stringify(body.filter(obj=>(obj.name==="Products"))[0].product));
+                  setGetProductList({loaded:true,data:body.filter(obj=>(obj.name==="frontPage"))[0].product});
+                  let prodDesigns=body.filter(obj=>(obj.name==="frontPage"))[0].product
+                  let filterOutCustom=prodDesigns.filter(obj=>(obj.name !== "Custom Page"))
+                  localStorage.setItem("productDesigns",JSON.stringify(filterOutCustom));
                   }
                   if(body.filter(obj=>(obj.name==="Service"))[0]?.service){
                   setGetServiceList({loaded:true,data:body.filter(obj=>(obj.name==="Service"))[0].service});
@@ -85,6 +89,14 @@ export const PriceContextProvider = (props) => {
                   let custTemplates=body.filter(obj=>(obj.name==="customTemplates"))[0].product
                   if(custTemplates){
                     setCustomTemplates({loaded:true,data:custTemplates})
+                  }
+                  let contactPages=body.filter(obj=>(obj.name==="contact"))[0].product
+                  if(contactPages.length>0){
+                    setGetContactList({loaded:true,data:contactPages})
+                  }
+                  let aboutPages=body.filter(obj=>(obj.name==="about"))[0].product
+                  if(aboutPages.length>0){
+                    setGetAboutList({loaded:true,data:aboutPages})
                   }
                 }
             } catch (error) {
@@ -157,7 +169,7 @@ export const PriceContextProvider = (props) => {
       },[])
     
     return (
-        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,getProducts,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray,customTemplates}}>
+        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,getProducts,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray,customTemplates,getContactList,getAboutList}}>
             {props.children}
         </PriceContext.Provider>
       )

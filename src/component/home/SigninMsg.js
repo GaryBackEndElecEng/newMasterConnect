@@ -5,6 +5,22 @@ import {GeneralContext} from '../../context/GeneralContextProvider';
 import {  Paper } from '@mui/material';
 import Styles from './home.module.css';
 import { useTheme } from '@mui/material/styles';
+import styled from 'styled-components';
+import {Stack} from '@mui/material';
+
+const CustSignin=styled(Stack)`
+justify-content:center;
+align-items:center;
+position:absolute;
+top:50%;
+left:auto;
+z-index:99999;
+animation: slideIn 1s ease-in-out;
+@keyframes slideIn {
+    from {opacity:0;transform:translateX(-100%);}
+    to {opacity:1;transform:translateX(0%);}
+}
+`;
 
 const SigninMsg = ({signin,registerConfirmed,signout}) => {
     const {setSignin,setSignout}=useContext(TokenAccessContext);
@@ -44,9 +60,32 @@ const SigninMsg = ({signin,registerConfirmed,signout}) => {
             },10000)
         }
     },[signout,setSignout]);
+    
     return (
-        <>
-        {(!close && signin) && <Paper elevation={20}
+        <CustSignin direction="column" spacing={0}>
+        {
+        
+        (!close && signin) &&
+        
+        <Paper elevation={20}
+            className={Styles.register_confirmed}
+            sx={{
+                fontFamily: "Roboto", position: "absolute", left: { sm: "90%", xs: "70%" }, top: { sm: "40%", xs: "36%" },
+                background: theme.palette.common.blueGrey, color: "white", padding: "1rem", boxShadow: "2px 2px 10px white, -2px -3px 10px white"
+
+            }}
+        >
+            <p>{msg}</p>
+            
+
+        </Paper>
+        }
+
+        {
+        
+        (!closeReg && registerConfirmed) && 
+        
+        <Paper elevation={20}
             className={Styles.register_confirmed}
             sx={{
                 fontFamily: "Roboto", position: "absolute", left: { sm: "10%", xs: "20%" }, top: { sm: "40%", xs: "36%" },
@@ -58,8 +97,11 @@ const SigninMsg = ({signin,registerConfirmed,signout}) => {
             
 
         </Paper>}
-
-        {(!closeReg && registerConfirmed) && <Paper elevation={20}
+        {
+        
+        (!closeSignout && signout) && 
+        
+        <Paper elevation={20}
             className={Styles.register_confirmed}
             sx={{
                 fontFamily: "Roboto", position: "absolute", left: { sm: "10%", xs: "20%" }, top: { sm: "40%", xs: "36%" },
@@ -70,20 +112,10 @@ const SigninMsg = ({signin,registerConfirmed,signout}) => {
             <p>{msg}</p>
             
 
-        </Paper>}
-        {(!closeSignout && signout) && <Paper elevation={20}
-            className={Styles.register_confirmed}
-            sx={{
-                fontFamily: "Roboto", position: "absolute", left: { sm: "10%", xs: "20%" }, top: { sm: "40%", xs: "36%" },
-                background: theme.palette.common.blueGrey, color: "white", padding: "1rem", boxShadow: "2px 2px 10px white, -2px -3px 10px white"
-
-            }}
-        >
-            <p>{msg}</p>
-            
-
-        </Paper>}
-        </>
+        </Paper>
+        
+        }
+        </CustSignin>
     )
 }
 
