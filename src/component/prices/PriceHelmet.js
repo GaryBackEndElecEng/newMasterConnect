@@ -2,10 +2,10 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage,conical,getPathLocation}) => {
+const PriceHelmet = ({keywords,summary,desc,image,price,products,staticImage,getPathLocation}) => {
   const convertJSON={
     "@context": "https://schema.org/",
-    "@id":`${conical}/prices`,
+    "@id":`${getPathLocation}/prices`,
     "@type": "Product",
     "name": "Amazing design",
     "image": image,

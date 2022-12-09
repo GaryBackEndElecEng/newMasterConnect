@@ -11,6 +11,7 @@ import {useTheme} from '@mui/material/styles';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import apiProtect from '../axios/apiProtect';
+import AboutHelmet from './AboutHelmet';
 
 const MainCustom = styled.div`
 width:100vw;
@@ -48,13 +49,30 @@ const AboutPage = () => {
     const location=useLocation();
     const navigate=useNavigate();
     const theme=useTheme();
-    const {getAboutList}=useContext(PriceContext);
-    const {staticImage, setTitle, setStyleName, setChangePage}=useContext(GeneralContext);
+    // const {getAboutList}=useContext(PriceContext);
+    const {staticImage, setTitle, setStyleName, setChangePage,getPathLocation,average,getAboutList}=useContext(GeneralContext);
     const {loggedIn,user_id,setUsersProduct,setUserAccount}=useContext(TokenAccessContext);
     const [popUp, setPopUp] = useState({ loaded: false, data: {} });
     const getLoggedIn= localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
     const getUser_id= localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
     const [labelTitle,setLabelTitle] = useState("");
+    const bgImage =`${staticImage}/customPage.png`;
+    const [desc,setDesc] = useState("");
+    const [keywords,setKeywords] = useState("");
+    const products=getAboutList.loaded ? getAboutList.data :null;
+
+    useEffect(()=>{
+        let arr=[];
+        let descrip="";
+        if(products){
+            products.forEach((obj,index)=>{
+                arr.push(obj.name);
+                descrip= descrip + ",,," + obj.desc.slice(0,20);
+            });
+            setDesc(descrip);
+            setKeywords(arr);
+        }
+    },[products]);
 
 
 
@@ -102,7 +120,16 @@ const AboutPage = () => {
             id="mainContainer"
 
         >
-            <CustCoverPage staticImage={staticImage} title={labelTitle} />
+            <AboutHelmet 
+            keywords={keywords}
+            desc={desc}
+            image={bgImage}
+            products={products}
+            average={average}
+            getPathLocation={getPathLocation}
+            staticImage={staticImage}
+            />
+            <CustCoverPage bgImage={bgImage} title={labelTitle} />
             <Container maxWidth="xl" spacing={{ xs: 0, sm: 1 }} sx={{ marginTop: "2px" }}>
                 <Stack direction="column" spacing={{ xs: 0, sm: 1 }} sx={{ alignItems: "center", justifyContent: "center", margin: "1rem auto" }}>
                     <Typography component="h1" variant="h4" sx={{ margin: "auto" }}>

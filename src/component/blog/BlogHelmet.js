@@ -3,7 +3,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const BlogHelmet = ({blogBodys,keywords,conical,getPathLocation,blogPhrase,SEOBlog}) => {
+const BlogHelmet = ({blogBodys,keywords,getPathLocation,blogPhrase,SEOBlog}) => {
  let articleJSON="";
  let blogTitle =blogBodys.loaded ? blogBodys.data.title : "Our Blogs"
 

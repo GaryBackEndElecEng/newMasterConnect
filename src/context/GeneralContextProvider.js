@@ -73,7 +73,7 @@ export const GeneralContextProvider = (props) => {
   const [getPathLocation,setGetPathLocation]=useState({loaded:false,data:""});
   const [allCategory,setAllCategory]=useState(initializeAllCategory);
   const [title,setTitle]=useState("");
-  const [conical,setConical]=useState({loaded:false,data:""});
+  // const [conical,setConical]=useState({loaded:false,data:""});
   const [hits,setHits]=useState({loaded:false,data:0});
   const [loaded,setLoaded]=useState(false);
   const[openGetQuote,setOpenGetQuote]=useState(false);
@@ -137,6 +137,9 @@ export const GeneralContextProvider = (props) => {
   const [success,setSuccess]=useState({loaded:false,data:[]});
   const [pageRatings,setPageRatings]=useState({loaded:false,data:[]});
   const [userSelection,setUserSelection]=useState(initializeUserSelection);
+  const [customTemplates,setCustomTemplates]=useState({loaded:false,data:[]});
+  const [getAboutList,setGetAboutList]=useState({loaded:false,data:[]});
+  const [getContactList,setGetContactList]=useState({loaded:false,data:[]});
   const [userSelectionArray,setUserSelectionArray]=useState([]);
   const [opacity,setOpacity]=useState(0);
   const [answeredFilled, setAnsweredFilled]=useState(false);
@@ -160,37 +163,31 @@ export const GeneralContextProvider = (props) => {
     const footerLinks = [{id:0, title: "home", link: "/" }, { id:1,title: "Contact", link: "/contact" }, {id:2, title: "bio", link: "/bio" }, {id:3, title: "Privacy", link: "/privacy" },{id:4, title: "terms of Svc", link: "/termsOfSvc" },{ id:5,title: "Login", link: "/signin" }, {id:6, title: "register", link: "/register" }, {id:7, title: "about", link: "/about" },{id:8, title: "Designs", link: "/works" },{id:9, title: "prices", link: "/prices" },{id:10,title:"Blog",link:"/blog"},{id:11,title:"Articles",link:"/articles"}, ]
 
     
-//*****getting present active url base for Helmet conical addresses******//
-    useEffect(() => {
-      const getConical= async ()=>{
-        try {
-          const res=await api.get('/conical/');
-          const data=res.data;
-          setConical({
-            loaded:true,
-            data:data
-          });
-        
-          
-        } catch (error) {
-          console.error(error.message)
-        }
-      }
-      // getConical();
-    },[]);
-//*****THIS LOADS ALL PRODUCTS!!!!!!!******//
+
+//*****THIS LOADS ALL FULL PRODUCTS TYPES!!!!!!!******//
     useEffect(() => {
       const getAllProductList= async ()=>{
         try {
           const res=await api.get('/account/product/');
-          const data=res.data;
-          if(data && data?.length>0){
+          const products=res.data;
+          if(products && products?.length>0){
           setLoadProduct({
             loaded:true,
-            data:data
+            data:products
           });
-          localStorage.setItem("loadedProduct",JSON.stringify(data))
-          
+          localStorage.setItem("loadedProduct",JSON.stringify(products));
+          let aboutPage=products.filter(obj=>(obj.category==="aboutPage"))
+          if(aboutPage.length>0){
+            setGetAboutList({loaded:true,data:aboutPage})
+          }
+          let contactPage=products.filter(obj=>(obj.category === "contactPage"))
+          if(contactPage.length > 0){
+            setGetContactList({loaded:true,data:contactPage});
+          }
+           let pageTemplate=products.filter(obj=>(obj.type==="pageTemplate")).filter(obj=>(obj.category==="frontPage"))
+           if(pageTemplate.length > 0){
+            setCustomTemplates({loaded:true,data:pageTemplate});
+           }
         }
           
         } catch (error) {
@@ -272,7 +269,7 @@ export const GeneralContextProvider = (props) => {
 
 
   return (
-    <GeneralContext.Provider value={{conical,allCategory,getServiceArray,setGetServiceArray,ourServices,setOurServices,whyWorkWithUs,setWhyWorkWithUs,mainService,setMainService,allServiceArray,setAllServiceArray,mainLinks,footerLinks,resume,setResume,title,setTitle,styleName,setStyleName,loaded,setLoaded,activate,setActivate,load3,setLoad3,url,changePage,setChangePage,stopP5,setStopP5,navItems,linkArr,dropDown,page,setPage,workArr,turnOn,setTurnOn,zIndex,setZIndex,removeText,setRemoveText,requestInfo,setRequestInfo,isRequestInfo,setIsRequestInfo,requestQuote,setRequestQuote,callbackQuoteRequest,setCallBackQuoteRequest,callBackConfirmed,setCallBackConfirmed,loadProduct,register,setRegister,registerConfirmed,setRegisterConfirmed,email,setEmail,name,setName,content,setContent,removeApp,setRemoveApp,checkHeight, setCheckHeight,stopP5Contact,setStopP5Contact,fadeLogo,setFadeLogo,removeBlock, setRemoveBlock,open, setOpen,infoOkay,setInfoOkay,issue,setIssue,loadingData, setLoadingData,serverUrl,loggedIn,setLoggedIn,error,setError,loginError,setLoginError,isCheckoutSuccess,setIsCheckoutSuccess,session_id,setSession_id,registerPage,setRegisterPage,showRegistration, setShowRegistration,openSignin,setOpenSignin,generalInfo,setGeneralInfo,sponsor,setSponsor,flowerImg,setFlowerImg,special,setSpecial,extraImages,MyRef,postSession_id,setPostSession_id,privacy,termsOfSvc,staticImage,links,setLinks,hits,setHits,extraServices,setExtraServices,extraSession_id,setExtraSession_id,productInfo,success,opacity,setOpacity,pageRatings,userSelection,setUserSelection,userSelectionArray,setUserSelectionArray,answeredFilled, setAnsweredFilled,questionResults, setQuestionResults,UUID,setUUID,blogMain, setBlogMain,average,setAverage,openGetQuote,setOpenGetQuote,getPathLocation,setGetPathLocation,myAccount,templates,whyChooseUs}}>
+    <GeneralContext.Provider value={{allCategory,getServiceArray,setGetServiceArray,ourServices,setOurServices,whyWorkWithUs,setWhyWorkWithUs,mainService,setMainService,allServiceArray,setAllServiceArray,mainLinks,footerLinks,resume,setResume,title,setTitle,styleName,setStyleName,loaded,setLoaded,activate,setActivate,load3,setLoad3,url,changePage,setChangePage,stopP5,setStopP5,navItems,linkArr,dropDown,page,setPage,workArr,turnOn,setTurnOn,zIndex,setZIndex,removeText,setRemoveText,requestInfo,setRequestInfo,isRequestInfo,setIsRequestInfo,requestQuote,setRequestQuote,callbackQuoteRequest,setCallBackQuoteRequest,callBackConfirmed,setCallBackConfirmed,loadProduct,register,setRegister,registerConfirmed,setRegisterConfirmed,email,setEmail,name,setName,content,setContent,removeApp,setRemoveApp,checkHeight, setCheckHeight,stopP5Contact,setStopP5Contact,fadeLogo,setFadeLogo,removeBlock, setRemoveBlock,open, setOpen,infoOkay,setInfoOkay,issue,setIssue,loadingData, setLoadingData,serverUrl,loggedIn,setLoggedIn,error,setError,loginError,setLoginError,isCheckoutSuccess,setIsCheckoutSuccess,session_id,setSession_id,registerPage,setRegisterPage,showRegistration, setShowRegistration,openSignin,setOpenSignin,generalInfo,setGeneralInfo,sponsor,setSponsor,flowerImg,setFlowerImg,special,setSpecial,extraImages,MyRef,postSession_id,setPostSession_id,privacy,termsOfSvc,staticImage,links,setLinks,hits,setHits,extraServices,setExtraServices,extraSession_id,setExtraSession_id,productInfo,success,opacity,setOpacity,pageRatings,userSelection,setUserSelection,userSelectionArray,setUserSelectionArray,answeredFilled, setAnsweredFilled,questionResults, setQuestionResults,UUID,setUUID,blogMain, setBlogMain,average,setAverage,openGetQuote,setOpenGetQuote,getPathLocation,setGetPathLocation,myAccount,templates,whyChooseUs,getAboutList,getContactList,customTemplates}}>
     {props.children}
     </GeneralContext.Provider>
   )

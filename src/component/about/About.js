@@ -112,7 +112,7 @@ useEffect(()=>{
  
   return (
     <ContainerAboutFluid>
-      <AboutHelmet categories={allcatHelmet} getGeneralInfo={getGeneralInfo} conical={conical.loaded ? conical.data:""} getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}/>
+      <AboutHelmet categories={allcatHelmet} getGeneralInfo={getGeneralInfo}  getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}/>
       <RegisterPage/>
       <GetRegisterPages/>
       <ContainerAboutFront

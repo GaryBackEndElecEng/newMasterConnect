@@ -3,7 +3,7 @@ import {Helmet} from 'react-helmet';
 
 
 
-const AboutHelmet = ({categories,getGeneralInfo,conical,getPathLocation}) => {
+const AboutHelmet = ({categories,getGeneralInfo,getPathLocation}) => {
   let articleJSON={}
   if(getGeneralInfo){
            articleJSON={

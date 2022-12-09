@@ -10,6 +10,8 @@ from api.models import Region
 from django.utils import timezone
 from datetime import datetime,date
 
+TYPE=(("pageDesign","pageDesign"),("subDesign","subDesign"),("pageTemplate","pageTemplate"),("subTemplate","subTemplate"),)
+CATEGORY=(("aboutPage","aboutPage"),("contactPage","contactPage"),("footer","footer"),("navBar","navBar"),("detailPage","detailPage"),("blogPage","blogPage"),("frontPage","frontPage"),("articlePage","articlePage"),("sidebar","sidebar"),)
 
 class PriceCatelog(models.Model):
     name=models.CharField(max_length=100,blank=True,null=True)
@@ -39,6 +41,7 @@ class Service(models.Model):
     monthly=models.IntegerField(blank=True,default=1)
     summary=models.TextField(blank=True,null=True)
     desc=models.TextField(blank=True)
+    image=models.CharField(max_length=100,null=True,blank=True)
     class Meta:
         ordering=["name"]
     def __str__(self):
@@ -52,6 +55,7 @@ class PostService(models.Model):
     monthly=models.IntegerField(blank=True,default=1)
     summary=models.TextField(blank=True,null=True)
     desc=models.TextField(blank=True)
+    image=models.CharField(max_length=100,null=True,blank=True)
     class Meta:
         ordering=["name"]
     def __str__(self):
@@ -64,6 +68,7 @@ class ExtraService(models.Model):
     monthly=models.IntegerField(blank=True,default=1)
     summary=models.TextField(blank=True,null=True)
     desc=models.TextField(blank=True)
+    image=models.CharField(max_length=100,null=True,blank=True)
     class Meta:
         ordering=["name"]
     def __str__(self):
@@ -71,6 +76,8 @@ class ExtraService(models.Model):
 
 class Product(models.Model):
     name=models.CharField(max_length=150,blank=True)
+    type=models.CharField(max_length=50,choices=TYPE,default="pageDesign")
+    category=models.CharField(max_length=50,choices=CATEGORY,default="frontPage")
     price=models.IntegerField(blank=True)
     summary=models.TextField(blank=True,null=True)
     desc=models.TextField(blank=True)
@@ -78,9 +85,12 @@ class Product(models.Model):
     extra_kwargs=models.CharField(max_length=300,default="not assigned",blank=True)
     priceCatelog=models.ManyToManyField(PriceCatelog,related_name="product",blank=True)
     imageName=models.CharField(max_length=150,blank=True)
+    postServices=models.ManyToManyField(PostService,blank=True)
+    services=models.ManyToManyField(Service,blank=True)
+    extraServices=models.ManyToManyField(ExtraService,blank=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.name}-{self.category}'
 
 class Package(models.Model):
     name=models.CharField(max_length=150,blank=True)

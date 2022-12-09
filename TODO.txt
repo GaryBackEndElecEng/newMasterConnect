@@ -5,7 +5,7 @@ TODO
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
 -FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
-
+-fix the Bio sidebar(height)
 -Fix Google register and signin:([GSI_LOGGER]: The given origin is not allowed for the given client ID.)
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.

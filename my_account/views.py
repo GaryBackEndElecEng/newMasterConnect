@@ -26,7 +26,7 @@ from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from rest_framework.decorators import api_view
-from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer,CreditInvoiceSerializer)
+from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer,CreditInvoiceSerializer,FullProductSerializer)
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -288,7 +288,7 @@ class ProductList(APIView):
     def get(self,request,format=None):
         products=Product.objects.all().order_by("id")
         if products:
-            serializer = ProductSerializer(products,many=True)
+            serializer = FullProductSerializer(products,many=True)
             # print("categoryList-serializer",serializer)
             return Response(serializer.data)
         else:

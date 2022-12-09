@@ -99,7 +99,6 @@ useEffect(()=>{
        image={image}
        products={products} 
       staticImage={staticImage}
-       conical={conical.loaded ? conical.data:""}
        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
       />
       <GetRegisterPages/>

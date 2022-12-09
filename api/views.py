@@ -235,6 +235,7 @@ class GetServices(APIView):
         except Exception as e:
             print("api.GetTax=>",e)
 
+#NOT USING
 class GetProducts(APIView):
     permission_classes=[AllowAny]
     def get(self,request,format="none"):

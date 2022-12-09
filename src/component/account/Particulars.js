@@ -20,93 +20,93 @@ import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 
 
-const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
+const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True
     const theme = useTheme();
-    const windowTheme=useTheme("windowTheme");
+    const windowTheme = useTheme("windowTheme");
     const navigate = useNavigate();
-    const { userAccount, address, cell, name, email, provState, country, postal, formComplete,setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct,loggedIn,usersExtraInvoice,getUUID } = useContext(TokenAccessContext);
+    const { userAccount, address, cell, name, email, provState, country, postal, formComplete, setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct, loggedIn, usersExtraInvoice, getUUID } = useContext(TokenAccessContext);
     const { setChangePage } = useContext(GeneralContext);
-    const [message,setMessage]=useState(null);
-    const [message2,setMessage2]=useState(null);
-    const [paid,setPaid]=useState(false);
-    const [noProdsServs,setNoProdsServs]=useState({loaded:false,data:""});
-    const [getMessage,setGetMessage]=useState({loaded:false,data:""});
-    const [postPaid,setPostPaid]=useState(false);
-    const [isUUID,setIsUUID]=useState(false);
-    const isExtraInvoice=usersExtraInvoice.loaded ? 4 : 6;
-    const largeFormat=isExtraInvoice;
-    const getFormComplete= localStorage.getItem("formComplete") ? JSON.parse(localStorage.getItem("formComplete")):formComplete;
+    const [message, setMessage] = useState(null);
+    const [message2, setMessage2] = useState(null);
+    const [paid, setPaid] = useState(false);
+    const [noProdsServs, setNoProdsServs] = useState({ loaded: false, data: "" });
+    const [getMessage, setGetMessage] = useState({ loaded: false, data: "" });
+    const [postPaid, setPostPaid] = useState(false);
+    const [isUUID, setIsUUID] = useState(false);
+    const isExtraInvoice = usersExtraInvoice.loaded ? 4 : 6;
+    const largeFormat = isExtraInvoice;
+    const getFormComplete = localStorage.getItem("formComplete") ? JSON.parse(localStorage.getItem("formComplete")) : formComplete;
 
-    useEffect(()=>{
-        if(getFormComplete){
+    useEffect(() => {
+        if (getFormComplete) {
             setFormComplete(true);
-        }else{
+        } else {
             setFormComplete(false);
         }
-    },[setFormComplete,getFormComplete]);
+    }, [setFormComplete, getFormComplete]);
 
-    useEffect(()=>{
-        if(invoicePaid){
-        setPaid(invoicePaid.paid)
-        }else{setPaid(false)}
+    useEffect(() => {
+        if (invoicePaid) {
+            setPaid(invoicePaid.paid)
+        } else { setPaid(false) }
         setPostPaid(postInvoicePaid.paid)
-    },[invoicePaid,postInvoicePaid,formComplete]);
+    }, [invoicePaid, postInvoicePaid, formComplete]);
 
-    useEffect(()=>{
-        if(getUUID.loaded){
+    useEffect(() => {
+        if (getUUID.loaded) {
             setIsUUID(true)
         }
-    },[getUUID]);
+    }, [getUUID]);
 
-    useEffect(()=>{
-        
-        if(usersProduct.loaded || usersService.loaded){
+    useEffect(() => {
+
+        if (usersProduct.loaded || usersService.loaded) {
             // console.log(usersProduct.data.length)
-            if(usersProduct.data.length === 0 || usersService.data.length===0){
-                setNoProdsServs({loaded:true,data:"you must select al least one product(similar to what you want) and one service (essential for site building) before checking out so we can complete your site within the minimal time possible. If you need to consult us, then please click on the consult button, beside the checkout button. We will call you ASAP and discuss your concerns. "})
+            if (usersProduct.data.length === 0 || usersService.data.length === 0) {
+                setNoProdsServs({ loaded: true, data: "you must select al least one product(similar to what you want) and one service (essential for site building) before checking out so we can complete your site within the minimal time possible. If you need to consult us, then please click on the consult button, beside the checkout button. We will call you ASAP and discuss your concerns. " })
             }
         }
-    },[usersProduct.loaded, usersService.loaded,usersProduct.data.length,usersService.data.length]);
+    }, [usersProduct.loaded, usersService.loaded, usersProduct.data.length, usersService.data.length]);
 
 
     const handleCheckout = (e) => {
-        if(getFormComplete && loggedIn && !noProdsServs.loaded){
+        if (getFormComplete && loggedIn && !noProdsServs.loaded) {
             e.preventDefault();
             setMessage(null);
-            const calculateCostGetInvoice= async ()=>{
+            const calculateCostGetInvoice = async () => {
                 try {
-                    const res= await apiProtect.post('/account/post_invoice/', {"user_id":user_id});
-                    const body=res.data;
-                    setUsersInvoice({loaded:true,data:body});
+                    const res = await apiProtect.post('/account/post_invoice/', { "user_id": user_id });
+                    const body = res.data;
+                    setUsersInvoice({ loaded: true, data: body });
                     localStorage.removeItem("formComplete");
                     navigate("/MyAccount/checkout/", setChangePage(true));
-                    if(window.scrollY){
-                        window.scroll(0,0);
+                    if (window.scrollY) {
+                        window.scroll(0, 0);
                     }
                 } catch (error) {
                     console.error(error.message)
                 }
             }
-                calculateCostGetInvoice();
-        // console.log("calculateCostGetInvoice=>YES")
+            calculateCostGetInvoice();
+            // console.log("calculateCostGetInvoice=>YES")
         }
-        if(!getFormComplete){
-                setMessage("Please complete the form, so we can better understand what you want.");
-                setTimeout(()=>{
-                    setMessage(null);
-                },10000);
+        if (!getFormComplete) {
+            setMessage("Please complete the form, so we can better understand what you want.");
+            setTimeout(() => {
+                setMessage(null);
+            }, 10000);
 
-        }if(!loggedIn){navigate("/signin",setChangePage(true))}
-        if(noProdsServs.loaded){
+        } if (!loggedIn) { navigate("/signin", setChangePage(true)) }
+        if (noProdsServs.loaded) {
             setMessage2(noProdsServs.data);
-            setTimeout(()=>{
+            setTimeout(() => {
                 setMessage2(null);
-            },24000);
+            }, 24000);
         }
-       
+
     };
-    
+
     const handleConsult = (e) => {
         e.preventDefault();
         if (usersService.loaded) {
@@ -125,14 +125,14 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                 setUserAccount({ loaded: true, data: body });
                 setUsersService({ loaded: true, data: body.service });
                 setUsersProduct({ loaded: true, data: body.product });
-                if(body.invoice !== null){
-                setUsersInvoice({ loaded: true, data: body.invoice });
-                navigate("/MyAccount/consult", setChangePage(true));
-                }else {
-                        setUsersInvoice({loaded:false,data:[]});
-                        setGetMessage({loaded:true,data:"To consult, please select one product and  one service, so we know how to help you"})
+                if (body.invoice !== null) {
+                    setUsersInvoice({ loaded: true, data: body.invoice });
+                    navigate("/MyAccount/consult", setChangePage(true));
+                } else {
+                    setUsersInvoice({ loaded: false, data: [] });
+                    setGetMessage({ loaded: true, data: "To consult, please select one product and  one service, so we know how to help you" })
                 }
-                
+
 
             } catch (error) {
                 console.error(error.message)
@@ -140,33 +140,37 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
         };
         if (loggedIn && getFormComplete) {
             sendConsultCheck();
-        }if(!loggedIn){ navigate("/signin", setChangePage(true)) };
-        if(!getFormComplete){
+        } if (!loggedIn) { navigate("/signin", setChangePage(true)) };
+        if (!getFormComplete) {
             setMessage("Please complete the form, so we can better understand what you want.");
-            setTimeout(()=>{
+            setTimeout(() => {
                 setMessage(null);
-            },10000)
+            }, 10000)
         }
     };
-    const HandlePostAccount = (e)=>{
+    const HandlePostAccount = (e) => {
         e.preventDefault();
-        navigate("/MyAccount/postAccount/",setChangePage(true));
+        navigate("/MyAccount/postAccount/", setChangePage(true));
     }
-    const handleGoToUUID=(e)=>{
+    const handleGoToUUID = (e) => {
         e.preventDefault();
-        navigate("/MyAccount/uuid",setChangePage(true));
+        navigate("/MyAccount/uuid", setChangePage(true));
     }
-    const handleDeductionPage=(e)=>{
+    const handleDeductionPage = (e) => {
         e.preventDefault();
-        navigate("/MyAccount/deductionPage",setChangePage(true));
+        navigate("/MyAccount/deductionPage", setChangePage(true));
     }
-    const handleGoToCustom=(e)=>{
+    const handleGoToCustom = (e) => {
         e.preventDefault();
-        navigate("/customPage",setChangePage(true));
+        navigate("/customPage", setChangePage(true));
     }
-    const handleAbout=(e)=>{
+    const handleAbout = (e) => {
         e.preventDefault();
-        navigate("/aboutPage",setChangePage(true));
+        navigate("/aboutPage", setChangePage(true));
+    }
+    const handleContact = (e) => {
+        e.preventDefault();
+        navigate("/contactPage", setChangePage(true));
     }
 
     return (
@@ -176,7 +180,7 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                 display: 'flex', justifyContent: "flex-start", alignItems: "center", flexDirection: "column", fontFamily: "Roboto"
             }}>
             <Paper elevation={10} component="div"
-                sx={{ width: "100%", margin: "1rem auto", display: 'flex', justifyContent: "flex-start", alignItems: "center", flexDirection: "column", padding: "0.5rem",position:"relative" }}>
+                sx={{ width: "100%", margin: "1rem auto", display: 'flex', justifyContent: "flex-start", alignItems: "center", flexDirection: "column", padding: "0.5rem", position: "relative" }}>
                 <Typography component="h1" variant="h3" sx={{ width: "100%", textAlign: "center" }}>
                     Summary
                 </Typography>
@@ -190,16 +194,16 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
                                     <Typography component="h1" variant="body2">
                                         <Grid container spacing={0}>
                                             <Grid item xs={12} sm={6}>
-                                                <ListItem component="li"><span style={{color:"blue"}}>n:</span>{name}</ListItem>
-                                                <ListItem component="li"><span style={{color:"blue"}}>c:</span>{cell}</ListItem>
-                                                <ListItem component="li"><span style={{color:"blue"}}>e:</span>{email}</ListItem>
+                                                <ListItem component="li"><span style={{ color: "blue" }}>n:</span>{name}</ListItem>
+                                                <ListItem component="li"><span style={{ color: "blue" }}>c:</span>{cell}</ListItem>
+                                                <ListItem component="li"><span style={{ color: "blue" }}>e:</span>{email}</ListItem>
                                             </Grid>
                                             <Grid item xs={12} sm={6}>
-                                                <ListItem component="li"><span style={{color:"blue"}}>add:</span>{address}</ListItem>
+                                                <ListItem component="li"><span style={{ color: "blue" }}>add:</span>{address}</ListItem>
                                                 <Stack direction="row" spacing={1}>
-                                                    <span><span style={{color:"blue"}}>Co:</span>{country}</span>
-                                                    <span><span style={{color:"blue"}}>Prov/St:</span>{provState}</span>
-                                                    <span><span style={{color:"blue"}}>PO:</span>{postal}</span>
+                                                    <span><span style={{ color: "blue" }}>Co:</span>{country}</span>
+                                                    <span><span style={{ color: "blue" }}>Prov/St:</span>{provState}</span>
+                                                    <span><span style={{ color: "blue" }}>PO:</span>{postal}</span>
                                                 </Stack>
                                             </Grid>
                                         </Grid>
@@ -208,86 +212,109 @@ const Particulars = ({invoicePaid,postInvoicePaid,extraInvoicePaid}) => {
 
                                 </Paper>
                             </Grid>
-                            {isUUID && <Grid item xs={12} sm={12}>
-                                <Paper elevation={10} sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",margin:"1rem auto"}}>
-                                    <Typography component="h1" variant="h4" sx={{textAlign:"center"}}>review your questionaire</Typography>
-                                    <Fab variant="extended" color="info" size="large" onClick={(e)=>handleGoToUUID(e)} sx={{margin:"1rem auto"}}>
-                                        Questionaire <QuestionAnswerIcon sx={{color:"red",ml:1}}/>
-                                    </Fab>
-                                </Paper>
-                            </Grid>}
-                            <Grid item xs={12} md={12} sx={{position:"relative"}}>
-                                <Paper elevation={10} sx={{ margin: "1rem auto", padding: "1rem",position:"relative" }}>
+                            {isUUID &&
+                                <Grid item xs={12} sm={12}>
+                                    <Paper elevation={10} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "1rem auto" }}>
+                                        <Typography component="h1" variant="h4" sx={{ textAlign: "center" }}>review your questionaire from the calculator</Typography>
+                                        <Fab variant="extended" color="info" size="large" onClick={(e) => handleGoToUUID(e)} sx={{ margin: "1rem auto" }}>
+                                            Questionaire <QuestionAnswerIcon sx={{ color: "red", ml: 1 }} />
+                                        </Fab>
+                                    </Paper>
+                                </Grid>
+                            }
+                            <Grid item xs={12} md={12} sx={{ position: "relative" }}>
+                                <Paper elevation={10} sx={{ margin: "1rem auto", padding: "1rem", position: "relative" }}>
 
-                                    <Typography component="h1" variant="h4" sx={{ textAlign: "center",margin:"1rem auto" }}>
-                                        <span style={{  fontWeight: "bold", textAlign: "center" }}>product(s) / Services(s)</span>
-                                        </Typography>
-                                       {!paid ?
-                                       <ParticularsUsersProdsServs usersProduct={usersProduct} usersService={usersService}/>
+                                    <Typography component="h1" variant="h4" sx={{ textAlign: "center", margin: "1rem auto" }}>
+                                        <span style={{ fontWeight: "bold", textAlign: "center" }}>product(s) / Services(s)</span>
+                                    </Typography>
+                                    {!paid ?
+                                        <ParticularsUsersProdsServs usersProduct={usersProduct} usersService={usersService} />
 
-                                           :
-                                           
-                                           <ParticularsPaidTotals
+                                        :
+
+                                        <ParticularsPaidTotals
                                             invoicePaid={invoicePaid}
-                                             postInvoicePaid={postInvoicePaid}
-                                             largeFormat={largeFormat}
-                                             extraInvoicePaid={extraInvoicePaid}
-                                             />
+                                            postInvoicePaid={postInvoicePaid}
+                                            largeFormat={largeFormat}
+                                            extraInvoicePaid={extraInvoicePaid}
+                                        />
 
-                                        }
-                                    { message2 && <Stack direction="row" className={styles.completeFormMessage2}>
-                                    <Typography  component="h1" variant="h5"><span>You forgot something:</span> {message2}</Typography>
-                                </Stack>}
+                                    }
+                                    {message2 &&
+                                        <Stack direction="row" className={styles.completeFormMessage2}>
+                                            <Typography component="h1" variant="h5"><span>You forgot something:</span> {message2}</Typography>
+                                        </Stack>
+                                    }
                                 </Paper>
-                                <Stack direction="row" spacing={2} sx={{ width: "100%" ,margin:"2rem auto"}} >
-                                   {!paid && <Fab variant="extended" color="success" sx={{ fontSize: { xs: "14px", lg: "20px" }, }} onClick={(e) => handleCheckout(e)}>
+                                <Stack direction="row" spacing={2} sx={{ width: "100%", margin: "2rem auto" }} >
+                                    {!paid && <Fab variant="extended" color="success" sx={{ fontSize: { xs: "14px", lg: "20px" }, }} onClick={(e) => handleCheckout(e)}>
                                         checkout <ShoppingCartCheckoutIcon sx={{ ml: 2, color: "white" }} />
                                     </Fab>}
                                     <Fab variant="extended" color="info" sx={{ fontSize: { xs: "14px", lg: "20px" }, }} onClick={(e) => handleConsult(e)} >
                                         consult <PhoneForwardedIcon sx={{ ml: 2 }} />
                                     </Fab>
-                                    {(userAccount.data.postAccountActivate && !postPaid) && <Fab variant="extended" color={"warning"} onClick={(e)=>HandlePostAccount(e)}>
-                                    Post account view <SignpostIcon sx={{ml:2,color:"green"}}/>
-                                    </Fab>}
+                                    {(userAccount.data.postAccountActivate && !postPaid) && 
+                                        <Fab variant="extended" color={"warning"} onClick={(e) => HandlePostAccount(e)}>
+                                            Post account view <SignpostIcon sx={{ ml: 2, color: "green" }} />
+                                        </Fab>
+                                    }
                                 </Stack>
-                                { message && <Stack direction="row" className={styles.completeFormMessage}>
-                                    <Typography  component="h1" variant="h5"><span>You forgot something:</span> {message}</Typography>
-                                </Stack>}
+                                {message && 
+                                    <Stack direction="row" className={styles.completeFormMessage}>
+                                        <Typography component="h1" variant="h5"><span>You forgot something:</span> {message}</Typography>
+                                    </Stack>
+                                }
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} md={6}
                         sx={{ margin: "1rem auto", justifySelf: "center", AlignSelf: "center", background: theme.palette.common.light, color: theme.palette.secondary.background, position: "relative" }}
                     >
-                        {(!getFormComplete) && <InfoCompleteForm />}
-                        {(getFormComplete ) && <div className={styles.showInfo}><ShowInfo /></div>}
-                        <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",margin:"2rem auto"}}>
-                            <Fab variant="extended" color="warning" onClick={(e)=>handleDeductionPage(e)}>
-                                Deduction <IndeterminateCheckBoxIcon sx={{ml:1,color:"white"}}/>
+                        {(!getFormComplete) &&
+                         <InfoCompleteForm />
+                        }
+                        {(getFormComplete) && 
+                        <div className={styles.showInfo}><ShowInfo /></div>
+                        }
+                        <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: windowTheme.palette.warning.dark }}>Remove purchased services as credit</Typography>
+
+                            <Fab variant="extended" color="warning" onClick={(e) => handleDeductionPage(e)}>
+                                Deduction <IndeterminateCheckBoxIcon sx={{ ml: 1, color: "white" }} />
                             </Fab>
                         </Stack>
-                        <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",margin:"2rem auto"}}>
-                            <Typography component="h1" variant="h5" sx={{margin:"1rem auto",color:windowTheme.palette.primary.dark}}>To add a custom Page Template to your basket</Typography>
-                            <Fab variant="extended" color={"success"} onClick={(e)=>handleGoToCustom(e)}>
-                                GoTo Custom Page <DashboardCustomizeIcon sx={{ml:1,color:"white"}}/>
+                        <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: windowTheme.palette.primary.dark }}>To add a custom Page Template to your basket</Typography>
+                            <Fab variant="extended" color={"success"} onClick={(e) => handleGoToCustom(e)}>
+                                GoTo Custom Page <DashboardCustomizeIcon sx={{ ml: 1, color: "white" }} />
                             </Fab>
                         </Stack>
-                        <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",margin:"2rem auto"}}>
-                            <Typography component="h1" variant="h5" sx={{margin:"1rem auto",color:windowTheme.palette.primary.dark}}>To add a custom about Template Page to your basket</Typography>
-                            <Fab variant="extended"  onClick={(e)=>handleAbout(e)}>
-                                GoTo about template Page <DashboardCustomizeIcon sx={{ml:1,color:"white"}}/>
+                        <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: windowTheme.palette.primary.dark }}>To add a custom about Template Page to your basket</Typography>
+                            <Fab variant="extended" onClick={(e) => handleAbout(e)}
+                                sx={{ fontWeight: "bold" }}>
+                                GoTo about template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
+                            </Fab>
+                        </Stack>
+                        <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: windowTheme.palette.secondary.dark }}>To add a custom Contact Template Page to your basket</Typography>
+                            <Fab variant="extended" onClick={(e) => handleContact(e)}
+                                sx={{ background: windowTheme.palette.secondary.dark, color: "white" ,"&:hover":{color:"black"}}}
+                            >
+                                GoTo Contact template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
                             </Fab>
                         </Stack>
                     </Grid>
-                    
-                </Grid>
-                {getMessage.loaded && 
-                <Typography component="h1" variant="h4" className={styles.getMessage}
-                sx={{position:"absolute",top:"20%",margin:"auto"}}
-                >
 
-                    {getMessage.data}
-                </Typography>
+                </Grid>
+                {getMessage.loaded &&
+                    <Typography component="h1" variant="h4" className={styles.getMessage}
+                        sx={{ position: "absolute", top: "20%", margin: "auto" }}
+                    >
+
+                        {getMessage.data}
+                    </Typography>
                 }
             </Paper>
         </Container>

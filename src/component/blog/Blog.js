@@ -175,7 +175,6 @@ setKeywords(arr2)
       <BlogHelmet 
       blogBodys={blogMain}
        keywords={keywords}
-       conical={conical.loaded ? conical.data:""}
        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
        blogPhrase={blogPhrase.loaded ? blogPhrase.data:""}
        SEOBlog={SEOBlog.loaded ? SEOBlog.data :[]}

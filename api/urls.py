@@ -22,7 +22,7 @@ urlpatterns=[
     path('pageCountGet/',views.PageCountGet.as_view(),name="pageCount-get"),
 
     path('GetServices/',views.GetServices.as_view(),name="GetServices-post"),
-    path('GetProducts/',views.GetProducts.as_view(),name="GetProducts-post"),
+    # path('GetProducts/',views.GetProducts.as_view(),name="GetProducts-post"),
 
     path('postPageFeedback/',views.PostPageFeedback.as_view(),name="postPageFeedback-post"),
     path('getSitemap/',views.GetSiteMap.as_view(),name="getSitemap-view"),

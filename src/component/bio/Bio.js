@@ -127,7 +127,6 @@ const Bio = () => {
             <BioHelmet 
             obj={getGeneralInfo} 
             intro ={intro} 
-            conical={conical.loaded ? conical.data:""}
             getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}
             />
             <RegisterPage />

@@ -47,6 +47,7 @@ import DeductionPage from './component/deduction/DeductionPage';
 import Contract from "./component/contract/Contract";
 import CustomPage from './component/custom/CustomPage';
 import AboutPage from './component/custom/AboutPage';
+import ContactPage from './component/custom/ContactPage';
 import StoreProduct from './component/storeProduct/StoreProduct';
 
 function App() {
@@ -83,6 +84,7 @@ function App() {
             <Route path="/design3" element={<Page1 />} />
             <Route path="/customPage" element={<CustomPage />} />
             <Route path="/aboutPage" element={<AboutPage />} />
+            <Route path="/contactPage" element={<ContactPage />} />
             <Route path="/prices" element={<Prices />} />
             <Route path="/calculate" element={<Calculate />} />
             <Route path="/MyAccount" element={<LayoutSecure />}>

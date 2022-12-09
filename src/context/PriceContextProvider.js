@@ -165,7 +165,7 @@ export const PriceContextProvider = (props) => {
             console.error(error.message)
           }
         }
-        getProducts();
+        // getProducts();
       },[])
     
     return (

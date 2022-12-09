@@ -4,7 +4,7 @@ import {Helmet} from 'react-helmet';
 // import api from '../axios/api';
 
 
-const BioHelmet = ({obj,intro,conical,getPathLocation}) => {
+const BioHelmet = ({obj,intro,getPathLocation}) => {
  
   let BioJSON={}
   if(obj){

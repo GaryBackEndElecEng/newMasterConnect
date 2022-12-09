@@ -27,9 +27,9 @@ margin-top:0px;
 margin-top:0px;
 }
 `;
-const CustCoverPage = ({staticImage,title}) => {
+const CustCoverPage = ({bgImage,title}) => {
   const theme=useTheme();
-  const bgImage =`${staticImage}/customPage.png`;
+  
   return (
     <MainCover
     bgImage={bgImage}
