@@ -2,6 +2,8 @@
 ctrl + G => goto line
 
 TODO
+-Add the list of services to each template product
+-correct teh packages.
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
 -FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin

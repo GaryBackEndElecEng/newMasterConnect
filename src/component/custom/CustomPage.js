@@ -125,7 +125,7 @@ const CustomPage = () => {
             image={bgImage}
             products={products}
             average={average}
-            getPathLocation={getPathLocation}
+            getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
             staticImage={staticImage}
             />
             <CustCoverPage bgImage={bgImage} title={labelTitle} />

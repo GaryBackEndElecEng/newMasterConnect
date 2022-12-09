@@ -39,7 +39,7 @@ animation: clearIn 1.5s ease-in-out;
 
 const Prices = () => {
  
-  const { staticImage, setTitle, setStyleName,conical,getPathLocation} = useContext(GeneralContext);
+  const { staticImage, setTitle, setStyleName,getPathLocation,getProductDesigns} = useContext(GeneralContext);
   const {baseServices,startingPrices,getProductList}=useContext(PriceContext);
   const [keywords,setKeywords]=useState(null);
   const [summary,setSummary]=useState(null);
@@ -104,7 +104,7 @@ useEffect(()=>{
       <GetRegisterPages/>
       <RegisterPage/>
       <CoverPage/>
-      <DesignPricing productList={getProductList}/>
+      <DesignPricing productList={getProductDesigns}/>
     </PriceContainer>
   )
 }

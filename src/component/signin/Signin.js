@@ -221,7 +221,6 @@ const Signin = () => {
     return (
         <SignInContainer maxWidth="xl" sx={{ margin: "3rem auto" }} >
             <SigninHelmet
-                conical={conical.loaded ? conical.data : ""}
                 getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
             />
             <GetRegisterPages />

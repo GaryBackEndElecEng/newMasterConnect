@@ -127,7 +127,6 @@ const Register = () => {
             <GetRegisterPages/>
             <RegisterPage/>
             <RegisterHelmet
-             conical={conical.loaded ? conical.data:""}
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
             />
             <Container maxWidth={"sm"}

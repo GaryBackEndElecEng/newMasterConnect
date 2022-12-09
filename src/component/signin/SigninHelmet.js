@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const SigninHelmet = ({conical,getPathLocation}) => {
+const SigninHelmet = ({getPathLocation}) => {
   return (
     <Helmet>
         <title>Signin Page </title>
