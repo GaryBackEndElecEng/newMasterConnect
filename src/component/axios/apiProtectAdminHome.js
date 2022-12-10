@@ -1,7 +1,7 @@
 import axios from 'axios';
 const defaultURL = (process.env.NODE_ENV==="production") ? "https://newmasterconnect.herokuapp.com/adminHome" :  "http://localhost:8000/adminHome";
 axios.defaults.baseURL =defaultURL;
-axios.defaults.baseURL = "http://localhost:8000/adminHome";
+// axios.defaults.baseURL = "http://localhost:8000/adminHome";
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.xsrfHeaderName = 'accept';

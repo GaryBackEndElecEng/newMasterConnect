@@ -1,17 +1,20 @@
 import React, { useEffect, useState, useContext, } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import styles from './custom.module.css';
 import { useTheme } from '@mui/material/styles';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
-import {TokenAccessContext} from '../../context/TokenAccessProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { Fab, Stack, Grid, Container, Box, Typography, CardMedia, Card, Avatar } from '@mui/material';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CustCoverPage from './CustCoverPage';
 import apiProtect from '../axios/apiProtect';
 import CustomHelmet from './CustomHelmet';
+import ServiceList from './ServiceList';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 const MainCustom = styled.div`
 width:100vw;
@@ -47,32 +50,33 @@ border:1px solid blue;
 `;
 const CustomPage = () => {
     const theme = useTheme();
-    const location=useLocation();
+    const location = useLocation();
     const navigate = useNavigate();
     // const { customTemplates } = useContext(PriceContext);
-    const { staticImage, setTitle, setStyleName, setChangePage,getPathLocation,average,customTemplates } = useContext(GeneralContext);
-    const {loggedIn,user_id,setUsersProduct,setUserAccount}=useContext(TokenAccessContext);
+    const { staticImage, setTitle, setStyleName, setChangePage, getPathLocation, average, customTemplates } = useContext(GeneralContext);
+    const { loggedIn, user_id, setUsersProduct, setUserAccount } = useContext(TokenAccessContext);
     const [popUp, setPopUp] = useState({ loaded: false, data: {} });
-    const getLoggedIn= localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
-    const getUser_id= localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
-    const [labelTitle,setLabelTitle] = useState("");
-    const bgImage =`${staticImage}/customPage.png`;
-    const [desc,setDesc] = useState("");
-    const [keywords,setKeywords] = useState("");
-    const products=customTemplates.loaded ? customTemplates.data :null;
+    const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
+    const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
+    const [labelTitle, setLabelTitle] = useState("");
+    const bgImage = `${staticImage}/customPage.png`;
+    const [desc, setDesc] = useState("");
+    const [keywords, setKeywords] = useState("");
+    const [activate, setActivate] = useState({ loaded: false, id: null });
+    const products = customTemplates.loaded ? customTemplates.data : null;
 
-    useEffect(()=>{
-        let arr=[];
-        let descrip="";
-        if(products){
-            products.forEach((obj,index)=>{
+    useEffect(() => {
+        let arr = [];
+        let descrip = "";
+        if (products) {
+            products.forEach((obj, index) => {
                 arr.push(obj.name);
-                descrip= descrip + ",,," + obj.desc.slice(0,20);
+                descrip = descrip + ",,," + obj.desc.slice(0, 20);
             });
             setDesc(descrip);
             setKeywords(arr);
         }
-    },[products]);
+    }, [products]);
 
 
 
@@ -83,35 +87,44 @@ const CustomPage = () => {
         if (window.scrollY) {
             window.scroll(0, 0);
         }
-    }, [setTitle, setStyleName,setLabelTitle]);
+    }, [setTitle, setStyleName, setLabelTitle]);
 
     const handleSelect = (e, obj) => {
         e.preventDefault();
         setPopUp({ loaded: true, data: obj });
-        localStorage.setItem("custTemplate",JSON.stringify({id:obj.id,path:location.pathname}))
+        localStorage.setItem("custTemplate", JSON.stringify({ id: obj.id, path: location.pathname }))
 
     }
-    const handleNext=(e,product_id)=>{
+    const handleNext = (e, product_id) => {
         e.preventDefault();
-        if(!getLoggedIn){
-        navigate("/register",setChangePage(true));
-        }else{
-            addTemplateToUserAccount(e,product_id);
-            navigate("/MyAccount",setChangePage(true));
+        if (!getLoggedIn) {
+            navigate("/register", setChangePage(true));
+        } else {
+            addTemplateToUserAccount(e, product_id);
+            navigate("/MyAccount", setChangePage(true));
         }
 
     }
-    const addTemplateToUserAccount = async (e,product_id)=>{
+    const addTemplateToUserAccount = async (e, product_id) => {
         const params = { "user_id": getUser_id, "prod_id": product_id }
         try {
             const res = await apiProtect.post("/account/userProductPost/", params);
-                    const user_account = res.data;
-                    if(user_account){
-                        setUserAccount({loaded:true,data:user_account})
-                    setUsersProduct({loaded:true,data:user_account.product})
-                    }
+            const user_account = res.data;
+            if (user_account) {
+                setUserAccount({ loaded: true, data: user_account })
+                setUsersProduct({ loaded: true, data: user_account.product })
+            }
         } catch (error) {
             console.error(error.message)
+        }
+    }
+    const handleActivate = (e, id) => {
+        e.preventDefault();
+        // console.log("id", id)
+        if (!activate.loaded) {
+            setActivate({ loaded: true, id: id });
+        } else {
+            setActivate({ loaded: false, id: 0 });
         }
     }
     return (
@@ -119,14 +132,14 @@ const CustomPage = () => {
             id="mainContainer"
 
         >
-            <CustomHelmet 
-            keywords={keywords}
-            desc={desc}
-            image={bgImage}
-            products={products}
-            average={average}
-            getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
-            staticImage={staticImage}
+            <CustomHelmet
+                keywords={keywords}
+                desc={desc}
+                image={bgImage}
+                products={products}
+                average={average}
+                getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
+                staticImage={staticImage}
             />
             <CustCoverPage bgImage={bgImage} title={labelTitle} />
             <Container maxWidth="xl" spacing={{ xs: 0, sm: 1 }} sx={{ marginTop: "2px" }}>
@@ -177,35 +190,59 @@ const CustomPage = () => {
                                         select <DoneOutlineIcon sx={{ ml: 1, color: "blue" }} />
                                     </Fab>
                                 </Stack>
-                                {(popUp.loaded && popUp.data.id===obj.id) &&
-                                <Stack direction="column" spacing={2}
-                                sx={{position:"absolute",top:"20%",left:"auto",width:"100%",textAlign:"center"}}
-                                className={styles.popUp}
-                                >
-                                    <Card elevation={3} sx={{margin:"auto",padding:"1rem"}}>
-                                        <Avatar 
-                                         src={`${staticImage}/${popUp.data.imageName}`}
-                                         alt="www.master-connect.ca"
-                                         sx={{height:"100px",width:"100px"}}
-                                        />
-                                        <Typography component="h1" variant="h4">
-                                            You have selected {popUp.data.name}
-                                        </Typography>
-                                        <Typography component="h1" variant="h5"
-                                        sx={{color:theme.palette.common.blueGrey}}
-                                        >
-                                            if you are 70-80% good with your pick, click next
-                                        </Typography>
-                                        <Stack direction="column" sx={{alignItems:"center"}}>
-                                            <Fab variant="extended" color="success" size="medium" onClick={(e)=>handleNext(e,obj.id)}>
-                                                next <DoneOutlineIcon sx={{color:"blue",ml:1}}/>
-                                            </Fab>
-                                        </Stack>
-                                    </Card>
-                                </Stack>
+                                {(popUp.loaded && popUp.data.id === obj.id) &&
+                                    <Stack direction="column" spacing={2}
+                                        sx={{ position: "absolute", top: "20%", left: "auto", width: "100%", textAlign: "center" }}
+                                        className={styles.popUp}
+                                    >
+                                        <Card elevation={3} sx={{ margin: "auto", padding: "1rem", position: "relative" }}>
+                                            <Avatar
+                                                src={`${staticImage}/${popUp.data.imageName}`}
+                                                alt="www.master-connect.ca"
+                                                sx={{ height: "100px", width: "100px" }}
+                                            />
+                                            <Typography component="h1" variant="h4">
+                                                You have selected {popUp.data.name}
+                                            </Typography>
+                                            <Typography component="h1" variant="h5"
+                                                sx={{ color: theme.palette.common.blueGrey }}
+                                            >
+                                                if you are 70-80% good with your pick, click next
+                                            </Typography>
+                                            <Stack direction="column" sx={{ alignItems: "center" }}>
+                                                <Fab variant="extended" color="success" size="medium" onClick={(e) => handleNext(e, obj.id)}>
+                                                    next <DoneOutlineIcon sx={{ color: "blue", ml: 1 }} />
+                                                </Fab>
+                                            </Stack>
+                                        </Card>
+                                    </Stack>
                                 }
+                                <ServiceList services={obj.services} postServices={obj.postServices} activate={(activate.loaded && activate.id === obj.id) ?
+                                    true : false} />
                             </Card>
+                            {(activate.loaded && activate.id === obj.id) ?
+                                <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
+                                    <Fab variant="extended" color="info" size="medium"
+                                        onClick={(e) => handleActivate(e, obj.id)}
+                                        sx={{ color: "red", margin: "2rem auto" }}
+                                    >
+                                        close <ExpandLessIcon sx={{ ml: 1, color: "red" }} />
+                                    </Fab>
+                                </Stack>
+                                :
+                                <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
+                                    <Typography component="h1" variant="h6" sx={{ margin: "1rem auto" }}>recommended services</Typography>
+                                    <Fab variant="extended" color="info" size="medium"
+                                        onClick={(e) => handleActivate(e, obj.id)}
+                                        sx={{ margin: " auto" }}
+                                    >
+                                        expand <ExpandMoreIcon sx={{ ml: 1, color: "warning" }} />
+                                    </Fab>
+                                </Stack>
+                            }
+
                         </Grid>
+
                     ))}
 
                 </MainCustomGrid>

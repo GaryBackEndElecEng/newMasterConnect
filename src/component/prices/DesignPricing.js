@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import styles from './price.module.css';
 // import styled from 'styled-components';
-import { Card, CardActions, CardContent, CardMedia, Container, Fab, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardMedia, Container, Fab, Grid, Paper, Stack, Typography } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
@@ -52,10 +52,7 @@ const DesignPricing = ({ productList }) => {
             setActivate({loaded:false,id:0});
         }
     }
-    const handleActiveClose=(e)=>{
-        e.preventDefault();
-        setActivate({loaded:false,id:0})
-    }
+ 
 
     return (
         <Container maxWidth="lg" sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column", margin: "2rem auto" }}>
@@ -93,6 +90,7 @@ const DesignPricing = ({ productList }) => {
                             </Card>
                             {(targetObj.loaded && targetObj.object.id === obj.id) && <SummaryDesc url={staticImage} obj={obj} />}
                         </Paper>
+                        { obj.name !=="Custom Page" && <>
                         {(activate.loaded && activate.id === obj.id) ?
                             <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
                                 <Fab variant="extended" color="info" size="medium"
@@ -104,7 +102,7 @@ const DesignPricing = ({ productList }) => {
                             </Stack>
                             :
                             <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
-                                <Typography component="h1" variant="h6" sx={{margin:"1rem auto"}}>recommendations</Typography>
+                                <Typography component="h1" variant="h6" sx={{margin:"1rem auto"}}>services that are included</Typography>
                                 <Fab variant="extended" color="info" size="medium"
                                 onClick={(e)=>handleActivate(e,obj.id)}
                                 sx={{margin:" auto"}}
@@ -113,7 +111,7 @@ const DesignPricing = ({ productList }) => {
                                 </Fab>
                             </Stack>
                         }
-                        
+                        </>}
                         <ServiceList services={obj.services} postServices={obj.postServices} activate={(activate.loaded && activate.id===obj.id) ? 
                         true:false} />
                         
