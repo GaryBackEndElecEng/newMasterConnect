@@ -1,7 +1,7 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 
-const Design9Helmet = ({keywords,summary,desc,image,OBJ,average,conical,getPathLocation,pageRatings}) => {
+const Design9Helmet = ({keywords,summary,desc,image,OBJ,average,getPathLocation,pageRatings}) => {
   const review=pageRatings.map((obj,index)=>(
     {
     "@type": "Review",

@@ -184,7 +184,6 @@ const InteriorDecorator = () => {
              keyWords={keyWords}
              loadArr={loadArr.loaded ? loadArr.data : null}
              average={average !==0 ? average:"4"}
-             conical={conical.loaded ? conical.data:""}
              getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
              pageRatings={pageRatingHelmet}
              />

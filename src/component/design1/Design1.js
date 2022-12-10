@@ -73,7 +73,7 @@ const Design1 = () => {
   const location=useLocation();
     const pathname=location.pathname
   const fade2 = 0.8
-  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
+  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,getPathLocation,pageRatings } = useContext(GeneralContext);
   const {getProductList}=useContext(PriceContext);
   const {paid}=useContext(TokenAccessContext);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
@@ -148,7 +148,6 @@ const Design1 = () => {
        keywords={keywords}
        OBJ={OBJ}
       average={average} 
-      conical={conical.loaded ? conical.data:""}
       getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
       pageRatings={pageRatingHelmet}
       />

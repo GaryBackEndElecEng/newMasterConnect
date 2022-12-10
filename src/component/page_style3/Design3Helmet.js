@@ -2,7 +2,7 @@ import React from 'react';
 import {Helmet} from 'react-helmet';
 
 
-const Design3Helmet = ({keywords,summary,desc,image,OBJ,average,conical,getPathLocation,pageRatings}) => {
+const Design3Helmet = ({keywords,summary,desc,image,OBJ,average,getPathLocation,pageRatings}) => {
 
   const review=pageRatings.map((obj,index)=>(
     {

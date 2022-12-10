@@ -110,7 +110,6 @@ const Design8 = () => {
        keywords={keywords}
        OBJ={OBJ}
        average={average !==0 ? average:"4"}
-       conical={conical.loaded ? conical.data:""}
        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
        pageRatings={pageRatingHelmet}
        />

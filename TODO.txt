@@ -1,7 +1,14 @@
  
 ctrl + G => goto line
+BLOG: 
+one subject: what is communication
+
 
 TODO
+- first registered and in MyAccount put a MUST FLAG FOR FULL NAME REGISTER( FOR INVOICE)
+- CORRECT INVOICE REGISTERD NAME AND RENAME INVOICE ( BEFORE CHECKOUT BECAUSE CAN NOT CHECKOUT UNLESS FORM IS COMPLETE)
+-product: sigin page, registration page ( depndent on useraccounts,JWT,SSL)
+- add detail page product to products
 -Add the list of services to each template product
 -correct teh packages.
 -VERIFY-add a field for external links with products

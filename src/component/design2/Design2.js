@@ -107,7 +107,6 @@ const Design2 = () => {
              desc={desc}
              OBJ={OBJ}
              average={average !==0 ? average:"4"} 
-            conical={conical.loaded ? conical.data:""}
             getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
             pageRatings={pageRatingHelmet}
             />

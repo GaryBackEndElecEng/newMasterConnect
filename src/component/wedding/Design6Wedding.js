@@ -246,7 +246,6 @@ const Design6Wedding = () => {
        image={image}
        keywords={keywords}
        OBJ={OBJ}
-       conical={conical.loaded ? conical.data:""}
        getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
        pageRatings={pageRatingHelmet}
        average={average !==0 ? average:"4"}

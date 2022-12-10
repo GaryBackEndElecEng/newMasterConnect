@@ -1,7 +1,7 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 
-const Design11Helmet = ({desc,keyWords,loadArr,average,conical,getPathLocation,pageRatings}) => {
+const Design11Helmet = ({desc,keyWords,loadArr,average,getPathLocation,pageRatings}) => {
   let JSONProduct=["Interior Design",];
 
   const review=pageRatings.map((obj,index)=>(
