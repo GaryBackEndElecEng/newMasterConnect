@@ -68,7 +68,7 @@ const DesignPricing = ({ productList }) => {
 
                         <Paper elevation={10} sx={{ textAlign: "center", width: "100%", margin: "auto", position: "relative", background: theme.palette.common.background2 }}>
                             <Card sx={{ width: "100%" }}
-                            onMouseOut={(e)=>handleActiveClose(e)}
+                            
                             >
                                 <CardMedia component="img" alt="www.master-connect.ca" image={obj.Img} height="250px" />
                                 <CardContent>
@@ -113,7 +113,10 @@ const DesignPricing = ({ productList }) => {
                                 </Fab>
                             </Stack>
                         }
-                        <ServiceList services={obj.services} postServices={obj.postServices} activate={(activate.loaded && activate.id===obj.id) ? true:false} />
+                        
+                        <ServiceList services={obj.services} postServices={obj.postServices} activate={(activate.loaded && activate.id===obj.id) ? 
+                        true:false} />
+                        
                     </Grid>
                 ))}
             </Grid>
