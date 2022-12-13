@@ -56,7 +56,7 @@ const DesignPricing = ({ productList }) => {
 
     return (
         <Container maxWidth="lg" sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column", margin: "2rem auto" }}>
-            <Typography component="h1" variant="h2" sx={{ margin: "2rem auto", fontFamilt: "Roboto" }}>Design Templates</Typography>
+            <Typography component="h1" variant="h2" sx={{ margin: "2rem auto", }}>Front Page Template Designs</Typography>
             <Grid container spacing={2} >
                 {designPrice.loaded && designPrice.data.map(obj => (
                     <Grid item xs={12} md={4} key={obj.id} onMouseOver={(e) => handleMouseOver(e, obj)} onMouseOut={(e) => handleMouseOut(e, obj)}
@@ -64,10 +64,10 @@ const DesignPricing = ({ productList }) => {
                     >
 
                         <Paper elevation={10} sx={{ textAlign: "center", width: "100%", margin: "auto", position: "relative", background: theme.palette.common.background2 }}>
-                            <Card sx={{ width: "100%" }}
+                            <Card sx={{ width: "100%" ,position:"relative"}}
                             
                             >
-                                <CardMedia component="img" alt="www.master-connect.ca" image={obj.Img} height="250px" />
+                                <CardMedia component="img" alt="www.master-connect.ca" image={obj.Img}  />
                                 <CardContent>
                                     <Paper elevation={10} sx={{ textAlign: "center", width: "100%", margin: "1rem auto", fontFamily: "Roboto", padding: "0.5rem", background: theme.palette.common.background2 }}>
                                         <Stack direction="column">
@@ -90,7 +90,8 @@ const DesignPricing = ({ productList }) => {
                             </Card>
                             {(targetObj.loaded && targetObj.object.id === obj.id) && <SummaryDesc url={staticImage} obj={obj} />}
                         </Paper>
-                        { obj.name !=="Custom Page" && <>
+                        { obj.name !=="Custom Front Page" && obj.name !=="About Page" && obj.name !=="Contact Page" &&
+                         <>
                         {(activate.loaded && activate.id === obj.id) ?
                             <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
                                 <Fab variant="extended" color="info" size="medium"

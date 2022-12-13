@@ -96,7 +96,7 @@ const WorkFeatures = () => {
 
     useEffect(() => {
         setTitle("Designs");
-        setStyleName("Some Designs")
+        setStyleName("Design ideas")
         if (window.scrollY) {
             window.scroll(0, 0);
         }

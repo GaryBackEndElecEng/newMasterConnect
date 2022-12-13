@@ -8,6 +8,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@flayyer/use-googlefonts": "^0.3.0",
+    "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
     "@stripe/react-stripe-js": "^1.10.0",

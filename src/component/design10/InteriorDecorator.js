@@ -1,10 +1,11 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
 import {useLocation} from 'react-router-dom';
 import { Stack,Typography, Container } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import CoverPage from './CoverPage';
+import ProductServices from '../ProductServices';
 import styled from 'styled-components';
 import Design10Helmet from './Design10Helmet';
 import jsonArray from './JsonArray.json';
@@ -79,7 +80,7 @@ top:5.5%;
 const InteriorDecorator = () => {
     const location=useLocation();
     const pathname=location.pathname;
-    const { setTitle, setStyleName,average,conical,getPathLocation,pageRatings,
+    const { setTitle, setStyleName,average,getProductDesigns,getPathLocation,pageRatings,staticImage
      } = useContext(GeneralContext);
     const {user_id,paid}=useContext(TokenAccessContext);
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/interiorDesign`;
@@ -104,7 +105,25 @@ const InteriorDecorator = () => {
     let ticking = false;
     let lastPos = 0;
     const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
-    
+    const [productServices,setProductServices]=useState([]);
+    useMemo(()=>{
+        let arr=[];
+        if(getProductDesigns.loaded){
+            let obj=getProductDesigns.data.filter(obj=>(obj.name==="Interior Designer"))[0];
+            if(obj.services.length >0){
+                arr=obj.services;
+            }
+            if(obj.postServices.length > 0) {
+                arr=obj.services.concat(obj.postServices);
+                setProductServices(arr);
+            }
+            if(obj.extraServices.length >0){
+            arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
+            setProductServices(arr[0]);
+            }else{setProductServices(arr)}
+        }
+    },[getProductDesigns.loaded,getProductDesigns.data]);
+
     useEffect(()=>{
         if(pageRatings.loaded && pageRatings.data){
             setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
@@ -206,10 +225,15 @@ const InteriorDecorator = () => {
 
             <BannerFeedBackStack spacing={{ xs: 0, md: 1 }} direction={{ xs: "column" }} sx={{ background: "white", marginBottom: "1rem", zIndex: "100" }} >
                 <MidBanner arr={arr} signature={contact} loadArr={loadArr} />
+                
                 <Container maxWidth="md" sx={{ margin: "2rem auto", }} >
                     <BannerGetQuote contact={contact} />
+                    
                     <Typography component="h1" variant="h3" sx={{ textAlign: "center" }}>Feedback</Typography>
-                    <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>Give your thought</Typography>
+                 </Container>
+                 <ProductServices productServices={productServices} staticImage={staticImage}/>
+                 <Container maxWidth="md" sx={{ margin: "2rem auto", }} >   
+                 <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>Give your thought</Typography>
                     <hr />
                     <PageFeedback />
                     {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
@@ -218,7 +242,9 @@ const InteriorDecorator = () => {
                             <ModalContainer />}
                     </Stack>}
                 </Container>
+                
             </BannerFeedBackStack>
+            
         </MainContainerDv>
 
     )

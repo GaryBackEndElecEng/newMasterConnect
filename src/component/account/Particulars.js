@@ -63,11 +63,11 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
 
         if (usersProduct.loaded || usersService.loaded) {
             // console.log(usersProduct.data.length)
-            if (usersProduct.data.length === 0 || usersService.data.length === 0) {
+            if (((usersProduct.loaded && usersProduct.data) && (usersProduct.data.length === 0)) || ((usersService.loaded && usersService.data) &&  usersService.data.length === 0)) {
                 setNoProdsServs({ loaded: true, data: "you must select al least one product(similar to what you want) and one service (essential for site building) before checking out so we can complete your site within the minimal time possible. If you need to consult us, then please click on the consult button, beside the checkout button. We will call you ASAP and discuss your concerns. " })
             }
         }
-    }, [usersProduct.loaded, usersService.loaded, usersProduct.data.length, usersService.data.length]);
+    }, [usersProduct.loaded, usersService.loaded, usersProduct.data, usersService.data]);
 
 
     const handleCheckout = (e) => {

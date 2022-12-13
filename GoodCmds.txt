@@ -1,3 +1,6 @@
+##VS:
+ctrl + G => goto line
+BLOG: 
 #NEW REPOSITORY
 echo "# newMasterConnect" >> README.md
 git init

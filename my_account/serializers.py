@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework import status,mixins,generics,viewsets,permissions
-from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator,Jobs,SitePreference,TempSavedCalculator,CreditInvoice)
+from .models import (Price,PriceCatelog,Product,UserAccount,Service,Tax,Invoice,Option,Package,PostInvoice,PostService,ExtraInvoice,ExtraService,Calculator,Jobs,SitePreference,TempSavedCalculator,CreditInvoice,ServiceDependancy)
 from django.contrib.auth.models import User
 
 class PostCalculatorSerializer(serializers.ModelSerializer):
@@ -225,7 +225,7 @@ class ExtraInvoiceSerializer(serializers.ModelSerializer):
 class UserAccountAllCombined(serializers.ModelSerializer):
     jobs=JobsSerializer(many=True,read_only=True)
     invoice=InvoiceTaxSerializer(many=False,read_only=True)
-    product=ProductSerializer(many=True,read_only=True)
+    product=FullProductSerializer(many=True,read_only=True)
     service=ServiceSerializer(many=True,read_only=True)
     options=OptionSerializer(many=False,read_only=True)
     postInvoice=PostInvoiceSerializer(many=False, read_only=True)
@@ -254,3 +254,12 @@ class TempSavedCalculatorSerializer(serializers.ModelSerializer):
     class Meta:
         model=TempSavedCalculator
         fields="__all__"
+
+class ServiceDependancySerializer(serializers.ModelSerializer):
+    products=FullProductSerializer(many=True,read_only=True)
+    services=ServiceSerializer(many=True,read_only=True)
+    extraServices=ExtraServiceSerializer(many=True,read_only=True)
+    postServices=PostServiceSerializer(many=True,read_only=True)
+    class Meta:
+        model=ServiceDependancy
+        fields='__all__'

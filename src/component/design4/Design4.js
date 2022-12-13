@@ -1,10 +1,11 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState,useMemo } from 'react';
 import {useLocation} from 'react-router-dom';
 import {  Box, Stack, Container, Grid, Typography, Paper, Button,  } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import ImgSlider from './ImgSlider';
+import ProductServices from '../ProductServices';
 import Stars from './Stars'
 import { useTheme } from '@mui/material/styles';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
@@ -80,8 +81,8 @@ const Design4 = () => {
     const location=useLocation();
     const pathname=location.pathname
     const theme = useTheme();
-    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
-    const {getProductList}=useContext(PriceContext);
+    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average,getPathLocation,pageRatings,getProductDesigns } = useContext(GeneralContext);
+    // const {getProductList}=useContext(PriceContext);
     const {paid}=useContext(TokenAccessContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const getFlowers = flowerImg.loaded ? flowerImg.data : null;
@@ -92,16 +93,19 @@ const Design4 = () => {
     const [OBJ, setOBJ] = useState(false);
     const [show, setShow] = useState({loaded:false,id:null});
     const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    const [productServices,setProductServices]=useState([]);
     
     useEffect(()=>{
         if(pageRatings.loaded && pageRatings.data){
             setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
         }
     },[pathname,pageRatings]);
+    
 
-    useEffect(()=>{
-        if(getProductList.loaded){
-            let obj=getProductList.data.filter(obj=>(parseInt(obj.id)===6))[0]
+    useMemo(()=>{
+        let arr=[];
+        if(getProductDesigns.loaded){
+            let obj=getProductDesigns.data.filter(obj=>(obj.name==="Flower Store"))[0]
             let kewds=obj.desc.split(" ")
             .filter(wd=>(wd !=="the"))
             .filter(wd=>(wd !=="This"))
@@ -116,12 +120,24 @@ const Design4 = () => {
             setKeywords(kewds);
             setimage(`${staticImage}/${obj.imageName}`);
             setOBJ(obj)
+            if(obj.services.length >0){
+                arr=obj.services;
+            }
+            if(obj.postServices.length > 0) {
+                arr=obj.services.concat(obj.postServices);
+                setProductServices(arr);
+            }
+            if(obj.extraServices.length >0){
+            arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
+            setProductServices(arr[0]);
+            }else{setProductServices(arr)}
+            
         }
         if(window.scrollY){
             window.scroll(0,0);
             
         }
-    },[getProductList.loaded,getProductList.data,staticImage,]);
+    },[getProductDesigns.loaded,getProductDesigns.data,staticImage,]);
 
     const fourArrL = [{ 'id': 0, 'name': 'Sweet Blossom Collection',"comment":"This changes a page: Thanks for pressing Me" }, { 'id': 1, 'name': 'Bunches Collection | 50% Off',"comment":"This changes a page: Pretty cool!" }, { 'id': 2, 'name': 'Sympathy & Funeral Flowers',"comment":"This changes a page: Hope you don't buy this often" }, { 'id': 3, 'name': 'Designer Collection - Half Price',"comment":"This changes a page: BUY ME!" }]
     const fourArrR = [
@@ -332,6 +348,7 @@ const Design4 = () => {
                 </Container>
 
             </ContainerFlowersBgImage>
+            <ProductServices productServices={productServices} staticImage={staticImage}/>
             <Container maxWidth="md">
                 {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurchaseBtn ? <UserSignedInPurchaseBtn />

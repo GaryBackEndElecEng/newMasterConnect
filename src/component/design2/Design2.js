@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {useLocation} from 'react-router-dom';
 import { Stack, Container, Grid, Typography, } from '@mui/material';
-// import { ContainerFluid } from '../../styled/Container.styled';
+import ProductServices from '../ProductServices';
 
 import { useTheme } from '@mui/material/styles';
 import TitleArt from './TitleArt';
@@ -9,7 +9,7 @@ import WordArtLeft from './WordArtLeft';
 import RightDesign from './RightDesign';
 import FilterHdrIcon from '@mui/icons-material/FilterHdr';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import ModalContainer from '../utils/ModalContainer';
 import PageFeedback from '../utils/PageFeedback';
@@ -49,8 +49,8 @@ animation:arrear 1.5s ease-in-out;
 const Design2 = () => {
     const location=useLocation();
     const pathname=location.pathname;
-    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
-    const {getProductList}=useContext(PriceContext);
+    const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,getProductDesigns,getPathLocation,pageRatings } = useContext(GeneralContext);
+    // const {getProductList}=useContext(PriceContext);
     const {paid}=useContext(TokenAccessContext);
     const theme = useTheme();
     const [showPurchaseBtn,setShowPurchaseBtn]=useState(false);
@@ -60,6 +60,7 @@ const Design2 = () => {
     const [image, setimage] = useState(false);
     const [OBJ, setOBJ] = useState({});
     const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    const [productServices,setProductServices]=useState([]);
     
     useEffect(()=>{
         if(pageRatings.loaded && pageRatings.data){
@@ -68,19 +69,33 @@ const Design2 = () => {
     },[pathname,pageRatings]);
 
     useEffect(()=>{
-        if(getProductList.loaded){
-            let obj=getProductList.data.filter(obj=>(parseInt(obj.id)===2))[0]
+        let arr=[];
+        if(getProductDesigns.loaded){
+            let obj=getProductDesigns.data.filter(obj=>(obj.name==="Retrospect"))[0]
             setSummary(obj.summary);
             setDesc(obj.desc);
             setKeywords("art-page,Art,Design,Web,Design,web-page,page product,purchase-a-site");
             setimage(`${staticImage}/${obj.imageName}`);
             setOBJ(obj);
+            if(obj.services.length >0){
+                arr=obj.services;
+            }
+            if(obj.postServices.length > 0) {
+                arr=obj.services.concat(obj.postServices);
+                setProductServices(arr);
+            }
+            if(obj.extraServices.length >0){
+            arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
+            setProductServices(arr[0]);
+            }else{setProductServices(arr)}
+            
+            
         }
         if(window.scrollY){
             window.scroll(0,0);
             
         }
-    },[getProductList.loaded,getProductList.data,setSummary,setKeywords,setimage,staticImage]);
+    },[getProductDesigns.loaded,getProductDesigns.data,setSummary,setKeywords,setimage,staticImage]);
 
     useEffect(()=>{
         const getUser_id=localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):null;
@@ -156,7 +171,7 @@ const Design2 = () => {
                 <RightDesign />
             </GlobalColFlex>
 
-            
+            <ProductServices productServices={productServices} staticImage={staticImage}/>
 
         </ContainerFluid>
         <Container maxWidth="xs">

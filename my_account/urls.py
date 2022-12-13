@@ -53,6 +53,8 @@ urlpatterns=[
     path('postCalculatorResults/',views.CalculatorResults.as_view(),name="postCalculatorResults-post"),
     path('sitePreference/',views.SitePreferenceView.as_view(),name="SitePreferenceView-post"),
     path('getUuid/',views.GetUUIDPost.as_view(),name="GetUUIDPost-post"),
+    path('serviceDependency/',views.ServiceDependancyGet.as_view(),name="serviceDependency-post"),
+    path('saveServicedependencies/',views.SaveServiceDependancy.as_view(),name="serviceDependency-post"),
     
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

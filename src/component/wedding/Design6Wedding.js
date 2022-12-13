@@ -15,6 +15,7 @@ import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import Contribute from './Contribute';
 import WeddingHelmet from './WeddingHelmet';
+import ProductServices from '../ProductServices';
 
 const MainContainer = styled.div.attrs({ className: "weddingContainer" })`
 position:relative;
@@ -128,7 +129,7 @@ const Design6Wedding = () => {
   const theme = useTheme();
   const flowerRef = useRef();
   const weddingTableRef = useRef();
-  const { staticImage, workArr, setTitle, setStyleName,loadProduct,conical,getPathLocation,pageRatings,average } = useContext(GeneralContext);
+  const { staticImage, workArr, setTitle, setStyleName,getProductDesigns,getPathLocation,pageRatings,average } = useContext(GeneralContext);
   const weddingSky = `${staticImage}/weddingSky.png`;
   const weddingTrees = `${staticImage}/weddingTrees.png`;
   const weddingTable = `${staticImage}/weddingTable.png`;
@@ -145,6 +146,7 @@ const Design6Wedding = () => {
   const [OBJ,setOBJ]=useState({});
   const activateWeddingTable = weddingTableSeen ? "block" : "none";
   const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+  const [productServices,setProductServices]=useState([]);
     
     useEffect(()=>{
         if(pageRatings.loaded && pageRatings.data){
@@ -153,22 +155,34 @@ const Design6Wedding = () => {
     },[pathname,pageRatings]);
 
     useEffect(()=>{
-      if(loadProduct.loaded){
-        let weddingPage=loadProduct.data.filter(obj=>(parseInt(obj.id)===8))[0]
+      let arr=[];
+      if(getProductDesigns.loaded){
+        let weddingPage=getProductDesigns.data.filter(obj=>(parseInt(obj.id)===8))[0]
       setKeywords(
         [weddingPage.name,"Design","Page Design","design page","master-connect"]
         );
       setSummary(weddingPage.summary);
-      setDesc(weddingPage.desc)
-      setImage(`${staticImage}/${weddingPage.imageName}`)
-      setOBJ(weddingPage)
+      setDesc(weddingPage.desc);
+      setImage(`${staticImage}/${weddingPage.imageName}`);
+      setOBJ(weddingPage);
+      if(weddingPage.services.length >0){
+        arr=weddingPage.services;
+    }
+    if(weddingPage.postServices.length > 0) {
+        arr=weddingPage.services.concat(weddingPage.postServices);
+        setProductServices(arr);
+    }
+    if(weddingPage.extraServices.length >0){
+    arr=weddingPage.services.concat(weddingPage.postServices).concat(weddingPage.extraServices);
+    setProductServices(arr[0]);
+    }else{setProductServices(arr)}
       }
       if(window.scrollY){
         window.scroll(0,0);
         
     }
       
-    },[loadProduct.loaded,loadProduct.data,staticImage])
+    },[getProductDesigns.loaded,getProductDesigns.data,staticImage])
 
   useEffect(() => {
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
@@ -340,6 +354,7 @@ const Design6Wedding = () => {
           </Grid>
           <Contribute/>
         </MainContainer2>
+        <ProductServices productServices={productServices} staticImage={staticImage}/>
       </>
       <Container maxWidth="md">
         <Stack direction="column" sx={{ margin: "1rem auto" }}>

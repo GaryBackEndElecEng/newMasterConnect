@@ -60,7 +60,7 @@ const ProductsAndServices = () => {
                                         <Typography component="h1" variant="h5" className={show ? styles.show : styles.showHide}  ref={(e)=>getTarget(e)} sx={{position:"relative"}}>
                                             {obj && obj.name}
                                         </Typography>
-                                        <CardMedia component="img" image={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca" height="150px" sx={{ margin: "2rem auto" }} />
+                                        <CardMedia component="img" image={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca"  sx={{ margin: "2rem auto",height:"100%",width:"100%" }} />
                                         <CardContent sx={{ margin: "auto", padding: "0.5rem" }}>
                                             <Typography component="h1" variant="subtitle1">
                                                 {obj.desc}

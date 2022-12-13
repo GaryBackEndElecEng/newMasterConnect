@@ -18,6 +18,7 @@ display:flex;
 jstustify-content:flex-start;
 align-items:center;
 flex-direction:column;
+cursor:pointer;
 `;
 
 const ThemeExampleSlideIn = () => {

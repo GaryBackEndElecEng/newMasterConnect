@@ -16,6 +16,8 @@ import BannerTwo from './BannerTwo';
 import BannerThree from './BannerThree';
 import styled from 'styled-components';
 import Design8Helmet from './Design8Helmet';
+import ProductServices from '../ProductServices';
+
 
 
 
@@ -46,7 +48,7 @@ margin-top:-50px;
 const Design8 = () => {
   const location=useLocation();
     const pathname=location.pathname;
-  const { setTitle, setStyleName, setChangePage, staticImage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setChangePage, staticImage,average,getProductDesigns,getPathLocation,pageRatings } = useContext(GeneralContext);
   const { getProductList } = useContext(PriceContext);
   const {paid}=useContext(TokenAccessContext);
   const [summary, setSummary] = useState(false);
@@ -56,6 +58,7 @@ const Design8 = () => {
   const [OBJ, setOBJ] = useState(false);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
   const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+  const [productServices,setProductServices]=useState([]);
     
     useEffect(()=>{
         if(pageRatings.loaded && pageRatings.data){
@@ -77,8 +80,9 @@ const Design8 = () => {
   },[setShowPurchaseBtn,showPurchaseBtn]);
   
   useEffect(() => {
-    if (getProductList.loaded && getProductList.data) {
-      let obj = getProductList.data.filter(obj => (obj.name === "Success"))[0];
+    let arr=[];
+    if (getProductDesigns.loaded && getProductDesigns.data) {
+      let obj = getProductDesigns.data.filter(obj => (obj.name === "Success"))[0];
       let kewds = obj.desc.split(" ")
         .filter(wd => (wd !== "the"))
         .filter(wd => (wd !== "This"))
@@ -93,13 +97,24 @@ const Design8 = () => {
       setDesc(obj.desc);
       setKeywords(kewds);
       setimage(`${staticImage}/${obj.imageName}`);
-      setOBJ(obj)
+      setOBJ(obj);
+      if(obj.services.length >0){
+        arr=obj.services;
+    }
+    if(obj.postServices.length > 0) {
+        arr=obj.services.concat(obj.postServices);
+        setProductServices(arr);
+    }
+    if(obj.extraServices.length >0){
+    arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
+    setProductServices(arr[0]);
+    }else{setProductServices(arr)}
     }
     if (window.scrollY) {
       window.scroll(0, 0);
 
     }
-  }, [getProductList.loaded, getProductList.data, staticImage]);
+  }, [getProductDesigns.loaded, getProductDesigns.data, staticImage]);
 
   return (
     <Main>
@@ -120,6 +135,7 @@ const Design8 = () => {
       <Banner />
       <BannerTwo />
       <BannerThree />
+      <ProductServices productServices={productServices} staticImage={staticImage}/>
       <Container maxWidth="md">
         {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
           {showPurchaseBtn ? <UserSignedInPurchaseBtn />
@@ -129,6 +145,7 @@ const Design8 = () => {
         <Typography component="h1" variant="h5" sx={{ textAlign: "center", margin: "1rem auto" }}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback />
       </Container>
+
     </Main>
   )
 }

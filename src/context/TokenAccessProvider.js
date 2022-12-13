@@ -25,7 +25,6 @@ const initializeUserAccount={
   }
   Object.freeze(initializeUserProducts);
 const [getVerifyToken,setGetVerifyToken]=useState({status:null,detail:null})
-const [usersProducts,setUsersProducts]=useState(initializeUserProducts)
 const [signin,setSignin]=useState(false);
 const [goToSignin, setGoToSignin]=useState(false);
 const [signout,setSignout]=useState(false);
@@ -86,6 +85,7 @@ useEffect(()=>{
       localStorage.setItem("access_token",access_token);
       localStorage.setItem("tokenIsValid",true);
       setTokenIsValid(true);
+      setLoggedIn(true);
       setGoToSignin(false);
       localStorage.setItem("goToSignin",false);
       // console.log("refreshed access_token",access_token);
@@ -94,10 +94,12 @@ useEffect(()=>{
        setTokenIsValid(false);
        localStorage.setItem("tokenIsValid",false);
        setGoToSignin(true);
+       setLoggedIn(false);
        localStorage.setItem("goToSignin",true);
       }else{
         localStorage.setItem("tokenIsValid",false);
         setGoToSignin(true)
+        setLoggedIn(false);
         localStorage.setItem("goToSignin",true);
         console.error(error.message)
         //GOTO SIGNIN
@@ -120,6 +122,7 @@ const verifyToken= async ()=>{
             setGetVerifyToken({status:code,detail:detail});
             if(code ===200){
               setTokenIsValid(true);
+              setLoggedIn(true);
               localStorage.setItem("tokenIsValid",true);
               return ;
             };
@@ -222,11 +225,11 @@ useEffect(() => {
   setLoggedIn(loggedIn);
   if(loggedIn && user_id){getUserproduct();}
   
-},[user_id,setUserAccount,loggedIn]);
+},[tokenIsValid,loggedIn]);
 
 
   return (
-    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,usersProducts,setUsersProducts,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,paid,setPaid,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,usersExtraService,setUsersExtraService,jobsService,jobsPostService,jobsExtraService,website,setWebsite,CDN,setCDN,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount,getUUID,credited, setCredited}}>
+    <TokenAccessContext.Provider value={{url,serverUrl,tokenIsValid,setTokenIsValid,getVerifyToken,loggedIn,setLoggedIn,gmailUser,setGmailUser,setUser_id,user_id,userAccount,setUserAccount,signin,setSignin,signout,setSignout,loginError,setLoginError,goToSignin,deletedItem,setDeletedItem,setGoToSignin,usersService,usersProduct,setUsersService,setUsersProduct,email,setEmail,name,setName,address,setAddress,cell,setCell,provState, setProvState,country, setCountry,postal, setPostal,formComplete,setFormComplete,reducedProduct, setReducedProduct,usersInvoice,setUsersInvoice,paid,setPaid,userOptions,setUserOptions,selectMonthlyValue,setSelectMonthlyValue,publicKey,setPublicKey,sentToServer,setSentToServer,showCheckout,setShowCheckout,selectedPayment,setSelectedPayment,usersPostService,setUsersPostService,usersPostInvoice,setUsersPostInvoice,usersExtraInvoice,setUsersExtraInvoice,usersExtraService,setUsersExtraService,jobsService,jobsPostService,jobsExtraService,website,setWebsite,CDN,setCDN,industry,setIndustry,co,setCo,sitePreference,setSitePreference,viewAccount,setViewAccount,getUUID,credited, setCredited}}>
         {props.children}
     </TokenAccessContext.Provider>
   )

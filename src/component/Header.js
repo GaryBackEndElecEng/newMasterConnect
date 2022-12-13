@@ -6,6 +6,11 @@ import { useTheme } from '@mui/material/styles'
 import StripePaymentRedirect from './StripePaymentRedirect';
 import styled from 'styled-components';
 import FunctionsIcon from '@mui/icons-material/Functions';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 const HeaderEffect = styled.div.attrs({ className: "HeaderEffect" })`
 display:${({ show }) => show};

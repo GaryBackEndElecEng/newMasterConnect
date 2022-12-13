@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState,  } from 'react';
+import React, { useContext, useEffect, useState,useMemo  } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
+import {GeneralContext} from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab, Card, CardContent, CardActions, Button } from '@mui/material';
 import styles from './account.module.css';
@@ -13,12 +14,13 @@ import SouthIcon from '@mui/icons-material/South';
 import ServicePopUp from './ServicePopUp';
 import ShowSummary from './ShowSummary';
 import MarkUnreadChatAltIcon from '@mui/icons-material/MarkUnreadChatAlt';
-// import ClearIcon from '@mui/icons-material/Clear';
-import ServiceDependancy from './ServiceDependancy';
+import ServiceDepend from './ServiceDepend';
+
 
 
 const GetServiceList = () => {
     const theme = useTheme();
+    const {open,setOpen}=useContext(GeneralContext);
     const { getServiceList,  } = useContext(PriceContext);
     const { usersService, setUsersService } = useContext(TokenAccessContext); //SetUsersService=> FROM MyAccount ( it recieves all user's products and service)
     const getServiceList2 = getServiceList.loaded ? getServiceList.data : JSON.parse(localStorage.getItem("getServiceList2"));
@@ -26,17 +28,21 @@ const GetServiceList = () => {
     const [error, setError] = useState(false);
     const [reducedService, setReducedService] = useState({ loaded: false, data: [] });
     const [postError, setPostError] = useState(null);
-    // const [showDNS, setShowDNS] = useState({ loaded: false, data: [] });
-    // const [showImage, setShowImage] = useState({ loaded: false, data: [] });
-    // const getUserAllAccounts = localStorage.getItem("userAccount") ? JSON.parse(localStorage.getItem("userAccount")) : null;
-    // const userServices = usersService.loaded ? usersService.data : [];
+    const [selectedService,setSelectedService]=useState({loaded:false,obj:{},id:null});
+    const [usersServ,setUsersServ]=useState(null);
     const [showSummary, setShowSummary] = useState({loaded:false,id:null});
     // const getServs = getServiceList.loaded ? getServiceList.data : [];
     const reducedService1 = (localStorage.getItem("reducedService")) ? JSON.parse(localStorage.getItem("reducedService")) : getServiceList2;
     const usersServices2 = (usersService.loaded) ? usersService.data : null;
-
+    
     useEffect(()=>{
-        if(usersService.loaded && getServiceList.loaded){
+        if(!reducedService.loaded){
+            setReducedService({loaded:true,data:reducedService1})
+        }
+    },[]);
+
+    useMemo(()=>{
+        if(usersService.loaded && getServiceList.loaded && usersService.data.length !==0){
             let arr=getServiceList.data
             arr.forEach((service,index)=>{
                 let Exists = usersService.data.filter(obj=>(parseInt(obj.id)===parseInt(service.id)))[0];
@@ -45,14 +51,12 @@ const GetServiceList = () => {
                         
                     }
             });
-            setReducedService({loaded:true,data:arr})
+            setReducedService({loaded:true,data:arr});
             localStorage.setItem("reducedService",JSON.stringify(arr));
             // console.log("inside useEffect")
-        }else{
-            setReducedService({loaded:true,data:getServiceList.data});
-            localStorage.setItem("reducedService",JSON.stringify(getServiceList.data));
-    }
-    },[usersService.loaded,getServiceList.loaded,usersService.data,getServiceList.data]);
+            setUsersServ(usersService.data);
+        }
+    },[]);
 
 
 
@@ -65,16 +69,17 @@ const GetServiceList = () => {
                 try {
                     let getReducedArray = localStorage.getItem("reducedService") ? JSON.parse(localStorage.getItem("reducedService")) : getServiceList2;
                     const res = await apiProtect.post("/account/userServicePost/", params);
-                    const body = res.data.service;
+                    const service = res.data;
                     const reduceArray = getReducedArray.filter(obj => (parseInt(obj.id) !== parseInt(objID)))
-                    let addToUserService = getReducedArray.filter(obj => (parseInt(obj.id) === parseInt(objID)))[0];
-                    // console.log("BODY",body)
+                    // THIS TESTS THE SERVICE DEPENDANCIES
+                    setSelectedService({loaded:true,obj:service,id:objID})
+                    setOpen(open => true);
                     setReducedService({ data: reduceArray, loaded: true })
                     localStorage.setItem("reducedService",JSON.stringify(reduceArray))
                     // setUsersService({data:[...usersService.data,addToUserService],loaded:true})
                     // const userRemainingSerivices = returnUsersServDelAddSubArray(body, "add");
 
-                    setUsersService({ data: [...usersService.data,addToUserService], loaded: true })
+                    setUsersService({ data: [...usersService.data,service], loaded: true })
                     setError(false);
 
                     // console.log("GET=>",getReducedArray,"userRemainingSerivices",userRemainingSerivices)
@@ -82,6 +87,7 @@ const GetServiceList = () => {
 
                     localStorage.setItem("reducedService", JSON.stringify(reduceArray));
                 } catch (error) {
+                    setOpen(open => false)
                     if (error.response) {
                         setError(true);
                         setPostError(error.response.status)
@@ -90,7 +96,7 @@ const GetServiceList = () => {
                         setError(true)
                     }
                 }
-            }
+            }else{ setOpen(open =>false)}
         }
         addServiceToUser();
     }
@@ -126,9 +132,8 @@ const GetServiceList = () => {
             if (user_id && objID) {
                 try {
                     const res = await apiProtect.post("/account/userServicePostDelete/", params);
-                    const body = res.data.service;
-                    let object = usersService.data.filter(obj => (parseInt(obj.id) === parseInt(objID)))[0];
-                    let reducedServiceNew=[...reducedService.data, object]
+                    const deletedService = res.data;
+                    let reducedServiceNew=[...reducedService.data, deletedService]
                     setReducedService({ loaded: true, data: reducedServiceNew });
                     let userRemainder = usersService.data.filter(obj => (parseInt(obj.id) !== parseInt(objID)));
                     setUsersService({ data: userRemainder, loaded: true })
@@ -161,19 +166,19 @@ const GetServiceList = () => {
 
 
     return (
-        <Container maxWidth="lg"
+        <Container maxWidth="xl"
             sx={{
                 margin: "2rem auto", marginTop: { xs: "0px", sm: "1rem" }, minHeight: { xs: "30vh", sm: "" },
                 display: 'flex', justifyContent: "flex-start", alignItems: "center", flexDirection: "column", fontFamily: "Roboto"
             }}>
             <Typography component="h1" variant="h3" sx={{ margin: "2rem auto" }}>
-                Add Services
+                Additional Services
             </Typography>
             <Grid container spacing={2} onMouseOut={() => handleClosePopUp()}
             sx={{maxHeight:{md:"50vh",xs:"65vh"},overflowY:"scroll"}}
             >
-                {(reducedService.loaded && reducedService.data !==null) && reducedService.data.map(obj => (
-                    <Grid item xs={12} md={4} key={`${obj.id}-${Math.floor(Math.random() * 10000)}`}
+                {reducedService.loaded  && reducedService.data.map(obj => (
+                    <Grid item xs={12} sm={6} md={3} key={`${obj.id}-${Math.floor(Math.random() * 10000)}`}
                         sx={{ padding: "0.5rem" }}
                     >
                         <Paper elevation={3} >
@@ -240,18 +245,18 @@ const GetServiceList = () => {
 
 
             </Grid>
-            <Container maxWidth="md" sx={{ margin: "2rem auto" }} >
+            <Container maxWidth="lg" sx={{ margin: "2rem auto" }} >
                 <Paper elevation={3} sx={{ padding: "0.5rem",position:"relative" }}>
                     <Typography component="h1" variant="h3" sx={{ margin: "1rem auto" }}>
                         basket Items <SouthIcon sx={{ ml: 2, color: theme.palette.common.orangeFade }} />
                         <br /><div style={{ color: theme.palette.common.blue, fontSize: "70%" }}>Service</div>
                     </Typography>
-                    <Grid container spacing={2} sx={{ padding: "0.5rem" }}>
-                        {usersServices2 !== null && usersServices2 !== [] && usersServices2.map(obj => (
+                    <Grid container spacing={2} sx={{ padding: "0.5rem" ,position:"relative"}}>
+                        {(usersService.data && usersService.loaded ===true) && usersService.data.length>0 && usersService.data.map(obj => (
                             <Grid item xs={12} sm={6} md={4} key={`${obj.id}-${Math.ceil(Math.random() * 1000)}`} >
 
                                 <Card
-                                    sx={{ maxWidth: "100%", fontFamily: "Roboto", padding: "0.5rem" }}
+                                    sx={{ maxWidth: "100%", fontFamily: "Roboto", padding: "0.5rem", }}
                                     elevation={3}
                                 >
                                     <Typography component="h1" variant="h5">
@@ -285,11 +290,14 @@ const GetServiceList = () => {
                                             </Paper>
                                         </Box>
                                     </Paper>
+                               
                                 </Card>
+                                {open && <ServiceDepend selectedService={(selectedService.loaded && selectedService.id===obj.id) ? selectedService.obj :null}/>}
                             </Grid>
+                            
                         ))}
                     </Grid>
-                    <ServiceDependancy usersArray={usersServices2} />
+                   
                 </Paper>
             </Container>
 

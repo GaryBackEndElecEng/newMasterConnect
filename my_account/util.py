@@ -974,20 +974,28 @@ def storeCustomId(customId,username):
 
 def saveUsersPackage(user_id,packageId):
     if user_id:
-            # print("user_id",user_id,"packageId",packageId)
-            user=User.objects.get(id=user_id)
-            userAccount=UserAccount.objects.filter(user=user).first()
-            package=Package.objects.filter(id=packageId).first()
-            if userAccount and package:
-                products = package.products.all()
-                services=package.services.all()
-                postServices=package.postServices.all()
-                if products:
-                    userAccount.product.add(*products)
-                if services:
-                    userAccount.service.add(*services)
-                if postServices:
-                    userAccount.postService.add(*postServices)
-                userAccount.save()
+        # print("user_id",user_id,"packageId",packageId)
+        user=User.objects.get(id=user_id)
+        userAccount=UserAccount.objects.filter(user=user).first()
+        package=Package.objects.filter(id=packageId).first()
+        if userAccount and package:
+            products = package.products.all()
+            services=package.services.all()
+            postServices=package.postServices.all()
+            if products:
+                userAccount.product.add(*products)
+            if services:
+                userAccount.service.add(*services)
+            if postServices:
+                userAccount.postService.add(*postServices)
+            userAccount.save()
+
+def addServicesProducts(userAccnt_id,*arrProdsServs):
+    arr=[]
+    if userAccnt_id and arrProdsServs:
+        userAccount=UserAccount.objects.filter(id=userAccnt_id).first()
+        for obj in arrProdsServs:
+            product=Product.objects.filter(id=obj.id).first()
+        
 
 

@@ -27,8 +27,6 @@ const SigninMsg = ({signin,registerConfirmed,signout}) => {
     const{ setRegisterConfirmed } = useContext(GeneralContext);
     const theme=useTheme();
     const [close,setClose]=useState(false);
-    const [closeSignout,setCloseSignout]=useState(false);
-    const [closeReg,setCloseReg]=useState(false);
     const [msg,setMsg]=useState("");
 
     useEffect(()=>{
@@ -45,7 +43,7 @@ const SigninMsg = ({signin,registerConfirmed,signout}) => {
         if(registerConfirmed){
             setMsg("Thank you for registering. You can now signin")
             setTimeout(()=>{
-                setCloseReg(true)
+                setClose(true)
                 setRegisterConfirmed(false);
             },20000)
         }
@@ -55,7 +53,7 @@ const SigninMsg = ({signin,registerConfirmed,signout}) => {
         if(signout){
             setMsg("Thank you for comming.Hope you come back soon!")
             setTimeout(()=>{
-                setCloseSignout(true);
+                setClose(true);
                 setSignout(false);
             },10000)
         }
@@ -83,7 +81,7 @@ const SigninMsg = ({signin,registerConfirmed,signout}) => {
 
         {
         
-        (!closeReg && registerConfirmed) && 
+        (!close && registerConfirmed) && 
         
         <Paper elevation={20}
             className={Styles.register_confirmed}
@@ -99,7 +97,7 @@ const SigninMsg = ({signin,registerConfirmed,signout}) => {
         </Paper>}
         {
         
-        (!closeSignout && signout) && 
+        (!close && signout) && 
         
         <Paper elevation={20}
             className={Styles.register_confirmed}

@@ -20,6 +20,7 @@ background-size:100% 100%;
 height:30vh;
 position:relative;
 padding:1rem;
+cursor:pointer;
 animation: growIn 1s ease-in-out;
 @keyframes growIn {
     from {transform:translateX(-50%) scale(0);}

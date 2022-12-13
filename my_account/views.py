@@ -16,7 +16,7 @@ from rest_framework import status,mixins,generics,viewsets,permissions
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import authentication
 # from users.permissions import IsOwnerOrReadOnly
-from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs,SitePreference,TempSavedCalculator,CreditInvoice)
+from .models import (Price,PriceCatelog,UserAccount,Product,Service,Option,Invoice,Package,PostInvoice,Tax,PostService,ExtraService,ExtraInvoice,Calculator,Jobs,SitePreference,TempSavedCalculator,CreditInvoice,ServiceDependancy)
 from api.models import Region
 from django.contrib.auth.models import User
 from django.contrib import auth
@@ -26,7 +26,7 @@ from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from rest_framework.decorators import api_view
-from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer,CreditInvoiceSerializer,FullProductSerializer)
+from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer,CreditInvoiceSerializer,FullProductSerializer,ServiceDependancySerializer)
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -245,7 +245,8 @@ class UserAccountComplete(APIView):
         try:
             user=User.objects.filter(id=user_id).first()
             userAccount=UserAccount.objects.filter(user=user).first()
-            # print("userModel",user)
+            invoice=Invoice.objects.filter(id=userAccount.invoice.id).first()
+            # print("userAccount",userAccount,"invoice",invoice)
             if user and userAccount:
                 userAccount.name=name
                 userAccount.cell=cell
@@ -257,6 +258,9 @@ class UserAccountComplete(APIView):
                 userAccount.CDN=CDN
                 userAccount.industry=industry
                 userAccount.co=co
+                if invoice:
+                    invoice.name=name
+                    invoice.save()
                 userAccount.save()
                 if name.split(" "):
                     user.first_name=name.split(" ")[0]
@@ -267,7 +271,8 @@ class UserAccountComplete(APIView):
             else:
                 return Response({"error":"No user assigned","status":status.HTTP_503_SERVICE_UNAVAILABLE})
         except Exception as e:
-            return Response({"error":e,"status":status.HTTP_503_SERVICE_UNAVAILABLE})
+            print("error",e)
+            return Response({"error":"error occured","status":status.HTTP_503_SERVICE_UNAVAILABLE})
 
 # this endpoint gives Axios a CSRF cookie from the server
 @method_decorator(ensure_csrf_cookie, name='dispatch')
@@ -322,7 +327,7 @@ class UserAccountServices(APIView):
             if not userAccount.invoice:
                 Calculate(user_id).execute()
             userAccount.save()
-            serializer= UserAccountSerializer(userAccount,many=False)
+            serializer= ServiceSerializer(service,many=False)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -397,7 +402,7 @@ class UserServiceDelete(APIView):
             userAccount.service.remove(service)
             userAccount.save()
             # print("userAccount",userAccount)
-            serializer= UserAccountSerializer(userAccount)
+            serializer= ServiceSerializer(service,many=False)
             # print("serializer",serializer)
             return Response(serializer.data)
         else:
@@ -1133,7 +1138,8 @@ class GetUUIDPost(APIView):
                     serializer=TempSavedCalculatorSerializer(getUuid,many=False)
                     return Response(serializer.data,status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({"error":f'{e}',"status":status.HTTP_404_NOT_FOUND})
+            print("GetUUID error",e)
+            return Response({"error":"GetUUID error","status":status.HTTP_404_NOT_FOUND})
 
 class PostDeductService(APIView):
     authentication_classes = [authentication.TokenAuthentication]
@@ -1200,3 +1206,73 @@ class PostDeductService(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response({"error":"No user account","status":status.HTTP_303_SEE_OTHER})
+
+#SENDING THE ServiceDependancy TO GENERALCONTEXTPROVIDER: THIS IDENTIFIES THE SERVICE DEPENDANCIES
+class ServiceDependancyGet(APIView):
+    permission_classes=[AllowAny]
+    def get(self,request,format=None,**kwargs):
+        dependencies=ServiceDependancy.objects.all()
+        try:
+            serializer=ServiceDependancySerializer(dependencies,many=True)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        except Exception as e:
+            print("ServiceDependency error",e)
+            return Response(status=status.HTTP_400_BAD_REQUEST) 
+
+class SaveServiceDependancy(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    def post(self,request,format=None,**kwargs):
+        data=request.data
+        serviceName=data["serviceName"]
+        user_id=data["user_id"]
+        user=User.objects.filter(id=user_id).first()
+        userAccount=UserAccount.objects.filter(user=user).first()
+        invoice=Invoice.objects.get(id=userAccount.invoice.id)
+        if not invoice:
+            tax, created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
+            if created:
+                tax.save()
+            invoice,created=Invoice.objects.get_or_create(name=userAccount.name,tax=tax)
+            if created:
+                invoice.subTotal=0
+                invoice.subTotalMonthly=0
+                invoice.save()
+        postInvoice,created=PostInvoice.objects.get_or_create(name=userAccount.name,tax=invoice.tax)
+        if created:
+            postInvoice.subTotal=0
+            postInvoice.subTotalMonthly=0
+            postInvoice.save()
+        serviceDepend=ServiceDependancy.objects.filter(category=serviceName).first()
+        if serviceDepend and userAccount:
+            try:
+                for product in serviceDepend.products.all():
+                    if product not in userAccount.product.all():
+                        userAccount.product.add(product.id)
+                        invoice.subTotal +=product.price
+                        invoice.subTotalMonthly +=product.monthly
+                for service in serviceDepend.services.all():
+                    if service not in userAccount.service.all():
+                        userAccount.service.add(service.id)
+                        invoice.subTotal +=service.price
+                        invoice.subTotalMonthly +=service.monthly
+                for postService in serviceDepend.postServices.all():
+                    if postService not in userAccount.postService.all():
+                        userAccount.postService.add(service.id)
+                        postInvoice.subTotal +=postService.price
+                        postInvoice.subTotalMonthly +=postService.monthly
+                invoice.total=invoice.subTotal * (1+ (invoice.tax.fed/100 + invoice.tax.provState/100))
+                postInvoice.total=postInvoice.subTotal * (1+ (postInvoice.tax.fed/100 + postInvoice.tax.provState/100))
+                userAccount.save()
+                invoice.save()
+                postInvoice.save()
+                serialize=UserAccountAllCombined(userAccount,many=False)
+                return Response(serialize.data,status=status.HTTP_200_OK)
+            except Exception as e:
+                print("error",e)
+                return Response({"error":"something went wrong","status":status.HTTP_505_HTTP_VERSION_NOT_SUPPORTED})
+        else:
+            return Response({"error":"no user account or service name","status":status.HTTP_404_NOT_FOUND})
+
+        
+        
+

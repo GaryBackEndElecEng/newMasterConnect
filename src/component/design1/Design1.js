@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState,useMemo } from 'react';
 import {useLocation} from 'react-router-dom';
 import { Box, Container, Stack, Grid, Typography,Switch} from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider.js';
-import { PriceContext } from '../../context/PriceContextProvider';
+// import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
 import CardSample from './CardSample';
@@ -22,6 +22,7 @@ import arrayLodges from './imageArr';
 import arrayLodgesFR from './imageArrayFr';
 import array from './ratingArray.json';
 import arrayFr from './ratingArrayFr.json';
+import ProductServices from '../ProductServices';
 
 
 
@@ -73,8 +74,8 @@ const Design1 = () => {
   const location=useLocation();
     const pathname=location.pathname
   const fade2 = 0.8
-  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,getPathLocation,pageRatings } = useContext(GeneralContext);
-  const {getProductList}=useContext(PriceContext);
+  const { setTitle, setStyleName, workArr,setChangePage,staticImage,average,getPathLocation,pageRatings,getProductDesigns } = useContext(GeneralContext);
+  
   const {paid}=useContext(TokenAccessContext);
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
   const image1 = "https://master-connect.s3.ca-central-1.amazonaws.com/static/pics/shortTermRental2.png";
@@ -84,10 +85,13 @@ const Design1 = () => {
     const [keywords, setKeywords] = useState(false);
     const [image, setimage] = useState(false);
     const [OBJ, setOBJ] = useState(false);
+    const [productServices,setProductServices]=useState([]);
     const [lang, setLang] = useState(false);
     const [langArr, setLangArr] = useState([]);
     const [langPlaceArr, setLangPlaceArr] = useState([]);
     const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+
+    
 
     useEffect(()=>{
       if(pageRatings.loaded && pageRatings.data){
@@ -95,19 +99,33 @@ const Design1 = () => {
       }
   },[pathname,pageRatings]);
 
-    useEffect(()=>{
-        if(getProductList.loaded){
-            let obj=getProductList.data.filter(obj=>(parseInt(obj.id)===1))[0]
+    useMemo(()=>{
+      let arr=[],arr2=[];
+        if(getProductDesigns.loaded){
+            let obj=getProductDesigns.data.filter(obj=>(obj.name==="HomeStyle"))[0]
             setSummary(obj.summary);
             setDesc(obj.desc);
             setKeywords("Flower-store,Web,Design,web-page,page product,purchase-a-site");
             setimage(`${staticImage}/${obj.imageName}`);
             setOBJ(obj)
+            arr=obj.services
+            // console.log(obj.services)
+            if(obj.postServices.length > 0){
+            arr=obj.services.concat(obj.postServices);
+            // console.log(arr)
+            }
+            if(obj.extraServices.length >0){
+            arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
+            // console.log(obj.extraServices)
+            }
+            
+            // arr.arr.concat(obj.extraServices);
+            setProductServices(arr)
         }
         if(window.scrollY){
           window.scroll(0,0);
       }
-    },[getProductList.loaded,getProductList.data,staticImage]);
+    },[getProductDesigns.loaded,getProductDesigns.data,staticImage]);
 
     useEffect(()=>{
       if(lang===true){
@@ -215,6 +233,7 @@ const Design1 = () => {
         <GridLayer />
       </Container>
       <MyWork lang={lang}/>
+      <ProductServices productServices={productServices} staticImage={staticImage}/>
 
 
       <Container maxWidth={"md"}>

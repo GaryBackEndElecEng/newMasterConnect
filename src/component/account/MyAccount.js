@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, } from 'react'
+import React, { useContext, useEffect, useState,memo } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
@@ -11,6 +11,7 @@ import { Container,Fab,Stack } from '@mui/material';
 import apiProtect from '../axios/apiProtect';
 import GetProductList from './GetProductList';
 // import DeleteIcon from '@mui/icons-material/Delete';
+import styled from 'styled-components';
 import CoverPage from './CoverPage';
 import Particulars from './Particulars';
 import GetServiceList from './GetServiceList';
@@ -24,13 +25,16 @@ import ProductInfo from './ProductInfo';
 import OrderFormBanner from './OrderFormBanner';
 import GavelIcon from '@mui/icons-material/Gavel';
 
-
+const MyAccountMain=styled.div`
+width:100%;
+margin:0px;
+`;
 
 const MyAccount = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { setSignin, goToSignin, setSignout, setGoToSignin,usersInvoice,usersPostInvoice,usersExtraInvoice,signin,paid } = useContext(TokenAccessContext);
-  const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,conical,getPathLocation } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,getPathLocation } = useContext(GeneralContext);
   const [activate, setActivate] = useState(false);
   const [invoice, setInvoice] = useState(false);
   const [postInvoice, setPostInvoice] = useState(false);
@@ -60,12 +64,13 @@ const MyAccount = () => {
       setSignin(false);
       setActivate(true);
       setLoggedIn(true);
+      
     }
     if(window.scrollY){
       window.scroll(0,0);
       
   }
-  }, [tokenIsValid]);
+  }, [tokenIsValid,setSignin,setActivate,setLoggedIn]);
 
   useEffect(()=>{
     const getExtraServices = async()=>{
@@ -116,7 +121,8 @@ const handleContract=(e)=>{
 }
 
   return (
-    <>
+    <MyAccountMain>
+  
       {activate ?
         <>
         <MyAccountHelmet
@@ -131,12 +137,12 @@ const handleContract=(e)=>{
            postInvoicePaid={postInvoice}
            extraInvoicePaid={extraInvoice}
            />
-          {(usersInvoice.loaded && usersInvoice.data.paid) && <OrderFormBanner />}
+          {((usersInvoice.loaded && usersInvoice.data) && usersInvoice.data.paid) && <OrderFormBanner />}
 
-         {!invoice.paid && <GetProductList/>}
+         {(usersInvoice.loaded && usersInvoice.data) && !invoice.paid && <GetProductList/>}
           
             
-          { !invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
+          {(usersInvoice.loaded && usersInvoice.data) && !invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
 
          {(postInvoice.paid && !usersExtraInvoice.data.paid) && <AdditionalAfterPostService extraServices={extraServices}/> }
             
@@ -158,7 +164,7 @@ const handleContract=(e)=>{
           </Fab>
         </Container>
       }
-    </>
+    </MyAccountMain>
   )
 }
 

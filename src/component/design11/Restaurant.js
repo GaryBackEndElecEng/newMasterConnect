@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect, } from 'react';
-import {useLocation} from 'react-router-dom';
-import { Stack, Typography, Container, Grid, Button,Divider } from '@mui/material';
+import React, { useState, useContext, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Stack, Typography, Container, Grid, Button, Divider } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
@@ -20,6 +20,7 @@ import { useTheme } from '@mui/material/styles';
 import ModalContainer from '../utils/ModalContainer';
 import StarIcon from '@mui/icons-material/Star';
 import ItemList from './ItemList';
+import ProductServices from '../ProductServices';
 
 const MainRestaurant = styled.div`
 width:100vw;
@@ -47,14 +48,14 @@ position:relative;
 `;
 
 const Restaurant = () => {
-    const location=useLocation();
-    const pathname=location.pathname;
+    const location = useLocation();
+    const pathname = location.pathname;
     const theme = useTheme();
-    const { setTitle, setStyleName,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
-    const {paid}=useContext(TokenAccessContext);
+    const { setTitle, setStyleName, average, getProductDesigns, getPathLocation, pageRatings,staticImage } = useContext(GeneralContext);
+    const { paid } = useContext(TokenAccessContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
-    const [keyWords,setKeyWords]=useState([]);
-    const [desc,setDesc]=useState("");
+    const [keyWords, setKeyWords] = useState([]);
+    const [desc, setDesc] = useState("");
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/static/images/Restaurant`;
     const dinning = `${url}/dinning.png`;
     const menu = `${url}/menu.png`;
@@ -71,33 +72,51 @@ const Restaurant = () => {
     const arr = [design1, design2, design3, design4, design5, design6]
     const [restArr, setRestArr] = useState({ loaded: false, data: [] });
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
-    const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    const [pageRatingHelmet, setPageRatingHelmet] = useState([]);
+    const [productServices, setProductServices] = useState([]);
 
-    useEffect(()=>{
-        if(pageRatings.loaded && pageRatings.data){
-            setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
+    useEffect(() => {
+        if (pageRatings.loaded && pageRatings.data) {
+            setPageRatingHelmet(pageRatings.data.filter(obj => (obj.page === pathname)))
         }
-    },[pathname,pageRatings]);
+    }, [pathname, pageRatings]);
 
     useEffect(() => {
         let tempArr = [];
         const arr2 = [design1, design2, design3, design4, design5, design6, design7, design8, design9, design10];
-        let arr=[];
-        let tempDesc="";
-        
-            jsonArray.forEach((obj, index) => {
-                tempArr.push({ ...obj, "image": arr2[index] });
-                tempDesc= tempDesc + ",,," + obj.desc.slice(0,30);
-                arr.push(obj.title)
-                
-            });
-            setRestArr({ loaded: true, data: tempArr });
-            setDesc(tempDesc);
-            setKeyWords(arr);
-        
+        let arr = [];
+        let tempDesc = "";
+
+        jsonArray.forEach((obj, index) => {
+            tempArr.push({ ...obj, "image": arr2[index] });
+            tempDesc = tempDesc + ",,," + obj.desc.slice(0, 30);
+            arr.push(obj.title)
+
+        });
+        setRestArr({ loaded: true, data: tempArr });
+        setDesc(tempDesc);
+        setKeyWords(arr);
+
 
     }, [design1, design2, design3, design4, design5, design6, design7, design8, design9, design10]);
 
+    useMemo(() => {
+        let arr=[];
+        if (getProductDesigns.loaded) {
+            let obj = getProductDesigns.data.filter(obj => (obj.name === "Restaurant"))[0]
+            if(obj.services.length >0){
+                arr=obj.services;
+            }
+            if(obj.postServices.length > 0) {
+                arr=obj.services.concat(obj.postServices);
+                setProductServices(arr);
+            }
+            if(obj.extraServices.length >0){
+            arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
+            setProductServices(arr[0]);
+            }else{setProductServices(arr)}
+        }
+    }, [getProductDesigns.loaded, getProductDesigns.data])
 
 
     useEffect(() => {
@@ -110,7 +129,7 @@ const Restaurant = () => {
         if (getUser_id) {
             setShowPurchaseBtn(true);
         }
-    }, [setTitle,setStyleName]);
+    }, [setTitle, setStyleName]);
 
 
 
@@ -119,38 +138,38 @@ const Restaurant = () => {
         >
             <RegisterPage />
             <GetRegisterPages />
-            <PageRating/>
+            <PageRating />
             <Design11Helmet
-             desc={desc} 
-            keyWords={keyWords}
-             loadArr={restArr.loaded ? restArr.data:null}
-             average={average !==0 ? average:"4"}
-             getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
-             pageRatings={pageRatingHelmet}
-             />
-            <Container maxWidth="xl" sx={{ margin: "2rem auto",backgroundImage:{xs:`url(${menu})`,md:"none"},backgroundSize:"100% 100%",marginBottom:{md:"4rem",xs:"0px"} }}>
-                <Divider  sx={{marginBottom:"1rem",color:{xs:"white",md:"black"},border:{md:`2px solid black`,xs:"2px solid white"}}}/>
+                desc={desc}
+                keyWords={keyWords}
+                loadArr={restArr.loaded ? restArr.data : null}
+                average={average !== 0 ? average : "4"}
+                getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
+                pageRatings={pageRatingHelmet}
+            />
+            <Container maxWidth="xl" sx={{ margin: "2rem auto", backgroundImage: { xs: `url(${menu})`, md: "none" }, backgroundSize: "100% 100%", marginBottom: { md: "4rem", xs: "0px" } }}>
+                <Divider sx={{ marginBottom: "1rem", color: { xs: "white", md: "black" }, border: { md: `2px solid black`, xs: "2px solid white" } }} />
                 <Grid container spacing={{ xs: 1, sm: 2 }}
                 >
                     <Grid item xs={12} sm={8}>
-                        <Stack direction="row" spacing={1} sx={{ flex: "6",color:{xs:"white",md:"black"} }}>
-                            <Button sx={{color:{xs:"white",md:"black"}}}> Menu</Button>
-                            <Button sx={{color:{xs:"white",md:"black"}}}> Register</Button>
-                            <Button sx={{color:{xs:"white",md:"black"}}}> Extras</Button>
+                        <Stack direction="row" spacing={1} sx={{ flex: "6", color: { xs: "white", md: "black" } }}>
+                            <Button sx={{ color: { xs: "white", md: "black" } }}> Menu</Button>
+                            <Button sx={{ color: { xs: "white", md: "black" } }}> Register</Button>
+                            <Button sx={{ color: { xs: "white", md: "black" } }}> Extras</Button>
                         </Stack>
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <Stack direction="row" spacing={1} sx={{ flex: "6" }}>
-                            <Button sx={{color:{xs:"white",md:"black"}}}> log-in</Button>
+                            <Button sx={{ color: { xs: "white", md: "black" } }}> log-in</Button>
                         </Stack>
                     </Grid>
                 </Grid>
-                <Divider sx={{ marginBottom: "2rem",color:{xs:"white",md:"black"},border:{md:`2px solid black`,xs:"2px solid white"} }} />
+                <Divider sx={{ marginBottom: "2rem", color: { xs: "white", md: "black" }, border: { md: `2px solid black`, xs: "2px solid white" } }} />
             </Container>
             <Grid container spacing={{ xs: 0, md: 0 }}
                 sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "0px", sm: "0px" }, margin: "1rem auto", }}
             >
-                <Grid item xs={12} md={2} sx={{ padding: "1rem", backgroundImage: `url(${dinning})`, backgroundSize:{xs: "100% 100%",md:"100% 50%" }}} >
+                <Grid item xs={12} md={2} sx={{ padding: "1rem", backgroundImage: `url(${dinning})`, backgroundSize: { xs: "100% 100%", md: "100% 50%" } }} >
                     <Grid container spacing={0} sx={{ color: "white" }} >
                         <Grid item xs={12}  >
                             <Typography component="h1" variant="h1" sx={{ fontFamily: "great vibes" }}>La Cuisine</Typography>
@@ -163,9 +182,9 @@ const Restaurant = () => {
                             </Stack>
                         </Grid>
                         <Grid item xs={12} >
-                            <Typography component="h1" variant="h4" sx={{marginLeft:"10px",margin:"1rem auto"}}>Fine Cuisine</Typography>
-                            <Typography component="h1" variant="h6" sx={{marginLeft:"10px"}}>123 my address,</Typography>
-                            <Typography component="h1" variant="h6" sx={{marginLeft:"10px"}}>city, Country</Typography>
+                            <Typography component="h1" variant="h4" sx={{ marginLeft: "10px", margin: "1rem auto" }}>Fine Cuisine</Typography>
+                            <Typography component="h1" variant="h6" sx={{ marginLeft: "10px" }}>123 my address,</Typography>
+                            <Typography component="h1" variant="h6" sx={{ marginLeft: "10px" }}>city, Country</Typography>
 
 
                         </Grid>
@@ -176,15 +195,16 @@ const Restaurant = () => {
 
                 >
                     <Container maxWidth="xl" sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "60px", sm: "0px" }, maxHeight: "100vh", position: "relative", margin: "2rem auto" }}>
-                        <CoverPage  arr={arr} />
+                        <CoverPage arr={arr} />
                     </Container>
                 </Grid>
             </Grid>
             <Typography component="h1" variant="h3">Top Menu</Typography>
             <hr style={{ borderBottom: "2px solid red" }} />
             <ItemList resArr={restArr} title={"Title"} />
+            <ProductServices productServices={productServices} staticImage={staticImage}/>
             <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
-            <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment - we aim to improve</Typography>
+                <Typography component="h1" variant="h4" sx={{ textAlign: "center", margin: "1rem auto" }}>Please comment - we aim to improve</Typography>
                 <PageFeedback />
                 {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurchaseBtn ? <UserSignedInPurchaseBtn />

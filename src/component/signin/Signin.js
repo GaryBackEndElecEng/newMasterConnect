@@ -26,8 +26,8 @@ min-height:70vh;
 const Signin = () => {
     const theme = useTheme();
     const MyRef = useRef();
-    const { staticImage, email, setEmail, setChangePage, setTitle, setStyleName, setActivate, register, setRegister, conical, getPathLocation } = useContext(GeneralContext);
-    const { setLoggedIn, setSignin, setTokenIsValid, loginError, setLoginError, setSignout, setGoToSignin, setViewAccount } = useContext(TokenAccessContext)
+    const { staticImage, email, setEmail, setChangePage, setTitle, setStyleName, setActivate, register, setRegister, getPathLocation } = useContext(GeneralContext);
+    const { setLoggedIn, setSignin, setTokenIsValid, loginError, setLoginError, setSignout, setGoToSignin, setViewAccount,loggedIn } = useContext(TokenAccessContext)
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
     const [infoOkay, setInfoOkay] = useState(false);
@@ -52,7 +52,7 @@ const Signin = () => {
 
     useEffect(() => {
         setChangePage(false);
-        if (!tokenIsValid) {
+        if (!tokenIsValid || !loggedIn) {
             localStorage.removeItem('username');
             localStorage.removeItem('email');
             localStorage.removeItem('user_id');
@@ -67,7 +67,7 @@ const Signin = () => {
             localStorage.removeItem("reducedProduct");
             localStorage.removeItem("usersProduct");
             localStorage.removeItem("extraSession_id");
-            setSignout(true);
+            setSignout(false);
             setActivate(false);
             setLoggedIn(false);
             setGoToSignin(true);

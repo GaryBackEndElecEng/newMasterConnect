@@ -94,7 +94,7 @@ useMemo(()=>{
         const fullName_REGEX = /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/;
         const cell_REGEX = /^[0-9]{10}|[0-9]{3}-[0-9]{3}-[0-9]{4}/;
         const address_REGEX = /(^[0-9]{0,10})([ ]{0,1})([A-Za-z]{1,36})/;
-        setValidName(fullName_REGEX.test(name))
+        if(fullName_REGEX.test(name) && name !== "newuser") setValidName(true)
         setValidCell(cell_REGEX.test(cell));
         setValidAddress(address_REGEX.test(address));
         setValidCountry(COUNTRY_REGEX.test(country));

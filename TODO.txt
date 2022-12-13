@@ -5,12 +5,15 @@ one subject: what is communication
 
 
 TODO
-- first registered and in MyAccount put a MUST FLAG FOR FULL NAME REGISTER( FOR INVOICE)
-- CORRECT INVOICE REGISTERD NAME AND RENAME INVOICE ( BEFORE CHECKOUT BECAUSE CAN NOT CHECKOUT UNLESS FORM IS COMPLETE)
+
+- USE THE DEPENDANCY TABLE ( BACK END) TO DISPLAY THE SERVICE REQUIREMENTS, TO WHEN PICKING ADDITIONAL SERVICES. STRONGLY ENCOURAGE THEM TO INCLUDE ALL( OR ELSE THE SERVICE CAN NOT BE PUBLISHED).
+-Create a dependency page to bring to it encase, they want more info.
+
+-add information about database ownage ( and residual monthly cost after final payment)
 -product: sigin page, registration page ( depndent on useraccounts,JWT,SSL)
 - add detail page product to products
 -Add the list of services to each template product
--correct teh packages.
+-correct the packages.
 -VERIFY-add a field for external links with products
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
@@ -22,6 +25,10 @@ TODO
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+-SHOW services that The product provides in MyAccount.
+-complete services that the products provide
+- CORRECT INVOICE REGISTERD NAME AND RENAME INVOICE ( BEFORE CHECKOUT BECAUSE CAN NOT CHECKOUT UNLESS FORM IS COMPLETE)
+- first registered and in MyAccount put a MUST FLAG FOR FULL NAME REGISTER( FOR INVOICE)
 -add calculator to about banner an contact banner
 -email automate requests responses && to FAQs
 -Create a product sale page ( choose top line product sales => feed it to helmet)

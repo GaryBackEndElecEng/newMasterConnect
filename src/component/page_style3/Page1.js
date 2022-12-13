@@ -13,12 +13,13 @@ import RegisterPage from '../RegisterPage';
 import PageFeedback from '../utils/PageFeedback';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import Design3Helmet from './Design3Helmet';
+import ProductServices from '../ProductServices';
 
 
 const Page1 = () => {
   const location=useLocation();
   const pathname=location.pathname;
-  const { setTitle, setStyleName,workArr ,setChangePage,average,staticImage,getPathLocation,pageRatings} = useContext(GeneralContext);
+  const { setTitle, setStyleName,workArr ,setChangePage,average,staticImage,getPathLocation,pageRatings,getProductDesigns} = useContext(GeneralContext);
   const {getProductList}=useContext(PriceContext);
   
   const [showPurchaseBtn,setShowPurchaseBtn]=useState(false);
@@ -28,6 +29,7 @@ const Page1 = () => {
     const [image, setimage] = useState(false);
     const [OBJ, setOBJ] = useState(false);
     const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    const [productServices,setProductServices]=useState([]);
     
     useEffect(()=>{
         if(pageRatings.loaded && pageRatings.data){
@@ -47,8 +49,9 @@ const Page1 = () => {
   }, [setTitle, setStyleName,setChangePage,workArr]);
 
   useEffect(()=>{
-    if(getProductList.loaded){
-        let obj=getProductList.data.filter(obj=>(parseInt(obj.id)===6))[0]
+    let arr=[];
+    if(getProductDesigns.loaded){
+        let obj=getProductDesigns.data.filter(obj=>(obj.name==="ImageWall"))[0]
         let kewds=obj.desc.split(" ")
         .filter(wd=>(wd !=="the"))
         .filter(wd=>(wd !=="This"))
@@ -62,13 +65,24 @@ const Page1 = () => {
         setDesc(obj.desc);
         setKeywords(kewds);
         setimage(`${staticImage}/${obj.imageName}`);
-        setOBJ(obj)
+        setOBJ(obj);
+        if(obj.services.length >0){
+          arr=obj.services;
+      }
+      if(obj.postServices.length > 0) {
+          arr=obj.services.concat(obj.postServices);
+          setProductServices(arr);
+      }
+      if(obj.extraServices.length >0){
+      arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
+      setProductServices(arr[0]);
+      }else{setProductServices(arr)}
     }
     if(window.scrollY){
         window.scroll(0,0);
         
     }
-},[getProductList.loaded,getProductList.data,staticImage]);
+},[getProductDesigns.loaded,getProductDesigns.data,staticImage]);
 
   
   useEffect(()=>{
@@ -95,6 +109,7 @@ const Page1 = () => {
       <RegisterPage/>
       <ImagesContainer />
     </div>
+    <ProductServices productServices={productServices} staticImage={staticImage}/>
     <Container maxWidth="xs">
     <Stack direction="column" sx={{ margin: "1rem auto" }}>
       { showPurchaseBtn ? <UserSignedInPurchaseBtn />

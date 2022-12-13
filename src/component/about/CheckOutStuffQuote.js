@@ -48,10 +48,12 @@ const CheckOutStuffQuote = () => {
   const navigate = useNavigate();
   const { callBackConfirmed, setChangePage, allCategory,setOpenGetQuote,openGetQuote,staticImage } = useContext(GeneralContext);
   const [getAQuote, setGetAQuote] = useState(false);
+  const [message,setMessage]=useState(null);
   const [myBool, setMyBool] = useState('false');
   const [getCheckoutPrices, setGetCheckoutPrices] = useState({loaded:false,data:[]});
   const display = (getAQuote && openGetQuote ) && !callBackConfirmed ? "block" : "none";
   const coffee = `${staticImage}/images/coffee1.JPG`;
+  const getLoggedIn=localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):false;
  
 
   useEffect(()=>{
@@ -98,7 +100,11 @@ const CheckOutStuffQuote = () => {
   }
 const handleCalculator=(e)=>{
   e.preventDefault();
-    navigate("/calculate",setChangePage(true))
+  if(!getLoggedIn){
+    navigate("/calculate",setChangePage(true));
+  }else{
+    navigate("/MyAccount",setChangePage(true));
+  }
 }
   return (
     <Container component="div" maxWidth={"xl"}
@@ -144,16 +150,26 @@ const handleCalculator=(e)=>{
             sx={{ fontFamily: "Roboto", fontWeight: "bold", position: "relative", cursor: "pointer", borberRight: "1px solid black",margin:"2rem auto",background:"rgba(255,255,255,0.6)",padding:"0.5rem" }}
           >
             <Checked bool={myBool} />
-             Calculate your cost with Coffee Calculator
+             {!getLoggedIn ? "Calculate your cost with Coffee Calculator"
+              :
+              "see your account with a coffee ?" 
+            }
              
           </Typography>
           
           
           <GlobalBox>
+              {!getLoggedIn ?
               <Fab variant="extended" color='warning' onClick={(e) => handleCalculator(e)} sx={{ marginLeft: "3rem", marginTop: "1rem",margin:{xs:"1rem auto"} }}>
                 Calculate 
                  <CallMissedOutgoingIcon sx={{ ml: 2,mr:3 }} />
               </Fab>
+            :
+            <Fab variant="extended" color='warning' onClick={(e) => handleCalculator(e)} sx={{ marginLeft: "3rem", marginTop: "1rem",margin:{xs:"1rem auto"} }}>
+                see your account? 
+                 <CallMissedOutgoingIcon sx={{ ml: 2,mr:3 }} />
+              </Fab>  
+            }
               
           </GlobalBox>
         </Grid>

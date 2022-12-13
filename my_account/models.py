@@ -10,8 +10,8 @@ from api.models import Region
 from django.utils import timezone
 from datetime import datetime,date
 
-TYPE=(("pageDesign","pageDesign"),("subDesign","subDesign"),("pageTemplate","pageTemplate"),("subTemplate","subTemplate"),)
-CATEGORY=(("aboutPage","aboutPage"),("contactPage","contactPage"),("footer","footer"),("navBar","navBar"),("detailPage","detailPage"),("blogPage","blogPage"),("frontPage","frontPage"),("articlePage","articlePage"),("sidebar","sidebar"),)
+TYPE=(("pageDesign","pageDesign"),("subDesign","subDesign"),("pageTemplate","pageTemplate"),("subTemplate","subTemplate"),("nonDesign","nonDesign"),("subNonDesign","subNonDesign"),)
+CATEGORY=(("aboutPage","aboutPage"),("contactPage","contactPage"),("footer","footer"),("navBar","navBar"),("detailPage","detailPage"),("blogPage","blogPage"),("frontPage","frontPage"),("articlePage","articlePage"),("sidebar","sidebar"),("signin","signin"),("registration","registration"),("checkout","checkout"),("userAccount","userAccount"),("customFrontPage","customFrontPage"),("changeEmailPage","changeEmailPage"),("changePasswordPage","changePasswordPage"))
 
 class PriceCatelog(models.Model):
     name=models.CharField(max_length=100,blank=True,null=True)
@@ -91,6 +91,19 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name}-{self.category}'
+
+class ServiceDependancy(models.Model):
+    category=models.CharField(max_length=70,blank=True,null=True)
+    desc=models.TextField(blank=True)
+    products=models.ManyToManyField(Product,blank=True)
+    services=models.ManyToManyField(Service,blank=True)
+    postServices=models.ManyToManyField(PostService,blank=True)
+    extraServices=models.ManyToManyField(ExtraService,blank=True)
+    compare=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.category
+
 
 class Package(models.Model):
     name=models.CharField(max_length=150,blank=True)

@@ -17,6 +17,7 @@ import Statement from './Statement';
 import ImageDisplay from './ImageDisplay';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import Design3Helmet from './Design3Helmet';
+import ProductServices from '../ProductServices';
 
 const BoxAutomate = styled.h4.attrs({className:"BoxAutomate"})`
 
@@ -224,8 +225,8 @@ margin-top:-2px;
 const Design3 = () => {
     const location=useLocation();
     const pathname=location.pathname
-    const {getProductList}=useContext(PriceContext);
-    const { setTitle, setStyleName,staticImage, workArr,setChangePage,average,conical,getPathLocation,pageRatings } = useContext(GeneralContext);
+    // const {getProductList}=useContext(PriceContext);
+    const { setTitle, setStyleName,staticImage, workArr,setChangePage,average,conical,getPathLocation,pageRatings,getProductDesigns } = useContext(GeneralContext);
     const {paid}=useContext(TokenAccessContext);
     const [showPara, setShowPara] = useState('none'); 
     const [showPurcahseBtn,setShowPurchaseBtn]=useState(false);
@@ -241,6 +242,7 @@ const Design3 = () => {
     const [OBJ, setOBJ] = useState({});
     const theme = useTheme();
     const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
+    const [productServices,setProductServices]=useState([]);
     
     useEffect(()=>{
         if(pageRatings.loaded && pageRatings.data){
@@ -249,19 +251,31 @@ const Design3 = () => {
     },[pathname,pageRatings]);
 
     useEffect(()=>{
-        if(getProductList.loaded){
-            let obj=getProductList.data.filter(obj=>(parseInt(obj.id)===5))[0]
+        let arr=[];
+        if(getProductDesigns.loaded){
+            let obj=getProductDesigns.data.filter(obj=>(obj.name==="SpaceFrontier"))[0]
             setSummary(obj.summary);
             setDesc(obj.desc);
             setKeywords("Moon-struck,Web,Design,web-page,page product,purchase-a-site");
             setimage(`${staticImage}/${obj.imageName}`);
-            setOBJ(obj)
+            setOBJ(obj);
+            if(obj.services.length >0){
+                arr=obj.services;
+            }
+            if(obj.postServices.length > 0) {
+                arr=obj.services.concat(obj.postServices);
+                setProductServices(arr);
+            }
+            if(obj.extraServices.length >0){
+            arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
+            setProductServices(arr[0]);
+            }else{setProductServices(arr)}
         }
         if(window.scrollY){
             window.scroll(0,0);
             
         }
-    },[getProductList.loaded,getProductList.data,staticImage]);
+    },[getProductDesigns.loaded,getProductDesigns.data,staticImage]);
 
     useEffect(() => {
         const title1 = workArr.filter(obj => (obj.id === 3))[0].title
@@ -368,7 +382,7 @@ const Design3 = () => {
                 
             </ContainerFluidBgImage>
             <ImageDisplay/>
-            
+            <ProductServices productServices={productServices} staticImage={staticImage}/>
             <Container maxWidth="md">
                 {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurcahseBtn ? <UserSignedInPurchaseBtn />
