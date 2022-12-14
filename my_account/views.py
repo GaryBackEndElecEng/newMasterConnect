@@ -222,10 +222,12 @@ class UserAccountComplete(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     
     def post(self,request,format=None):
+        invoice=None
         website='none'
-        co='none'
-        industry='none'
-        CDN='none'
+        co="None"
+        industry="None"
+        CDN='None'
+        country="CA"
         data=self.request.data
         user_id=data['user_id']
         name=data['name']
@@ -242,11 +244,19 @@ class UserAccountComplete(APIView):
             co=data['comp']
         if data['industry']:
             industry=data['industry']
+        # print("DATA",data)
         try:
             user=User.objects.filter(id=user_id).first()
             userAccount=UserAccount.objects.filter(user=user).first()
-            invoice=Invoice.objects.filter(id=userAccount.invoice.id).first()
-            # print("userAccount",userAccount,"invoice",invoice)
+            if not userAccount.invoice:
+                tax,created=Tax.objects.get_or_create(country=country,subRegion=provState)
+                if created:
+                    tax.save()
+                invoice,create=Invoice.objects.get_or_create(name=userAccount.name,tax=tax)
+                if create:
+                    invoice.save()
+                    userAccount.invoice=invoice
+            # print("userAccount",userAccount,"invoice",invoice,data)
             if user and userAccount:
                 userAccount.name=name
                 userAccount.cell=cell
@@ -258,9 +268,6 @@ class UserAccountComplete(APIView):
                 userAccount.CDN=CDN
                 userAccount.industry=industry
                 userAccount.co=co
-                if invoice:
-                    invoice.name=name
-                    invoice.save()
                 userAccount.save()
                 if name.split(" "):
                     user.first_name=name.split(" ")[0]

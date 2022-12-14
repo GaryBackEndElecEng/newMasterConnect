@@ -177,15 +177,15 @@ useEffect(() => {
         setCredited({loaded:true,data:data.credit})
       }
       if (data.jobs.length>0){
-        let userServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].serviceArr;
+        let userServiceArr=data.jobs[0].serviceArr;
         if(userServiceArr.length>0){
         setJobsService({loaded:true,data:userServiceArr});
         }
-        let userPostServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].postServiceArr;
+        let userPostServiceArr=data.jobs[0].postServiceArr;
         if(userPostServiceArr.length>0){
         setJobsPostService({loaded:true,data:userPostServiceArr});
         }
-        let userExtraServiceArr=data.jobs.filter(obj=>(parseInt(obj.userId)===user_id))[0].extraServiceArr;
+        let userExtraServiceArr=data.jobs[0].extraServiceArr;
         if(userExtraServiceArr.length>0){
         setJobsExtraService({loaded:true,data:userExtraServiceArr});
         
@@ -223,9 +223,9 @@ useEffect(() => {
   }
   const loggedIn =JSON.parse(localStorage.getItem("loggedIn"));
   setLoggedIn(loggedIn);
-  if(loggedIn && user_id){getUserproduct();}
+  if(loggedIn || user_id){getUserproduct();}
   
-},[tokenIsValid,loggedIn]);
+},[tokenIsValid,loggedIn,user_id]);
 
 
   return (

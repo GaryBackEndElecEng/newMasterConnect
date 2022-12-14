@@ -48,16 +48,16 @@ const ServiceDepend = ({ selectedService }) => {
     const getLoggedIn=localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
     const windowInnerWidth=window.innerWidth;
     
-console.log(closePopUp,sent,open)
+
 // console.log("allservicesDependArray.loaded && !closePopUp",(allservicesDependArray.loaded || closePopUp))
     useEffect(() => {
         let arr = []
         if (serviceDependancy.loaded && selectedService) {
-
+            setOpen(open => false)
             let getObject = serviceDependancy.data.filter(obj => (obj.category === selectedService.name))[0];
             if (getObject) {
                 setDesc(getObject.desc)
-                // setOpen(open => true)
+                setOpen(open => true)
                 getObject.services?.forEach((obj, index) => {
                     arr.push({ id: obj.id, name: obj.name, image: obj.image });
                 });
@@ -138,6 +138,7 @@ console.log(closePopUp,sent,open)
         >
             {message.loaded && <Typography component="h1" variant="h4" >{message.data}</Typography>}
             <Typography component="h1" variant="h4" sx={{ margin: "1rem auto", fontWeight: "bold" }}>{selectedService && selectedService.name}-DEPENDANCIES</Typography>
+            <Typography component="h1" variant="h5" sx={{ margin: "0.5rem auto" }}>Selected {selectedService && selectedService.name}</Typography>
             <Typography component="h1" variant="body1" sx={{ margin: "0.5rem auto" }}>{desc}</Typography>
 
             <Grid container spacing={0}>

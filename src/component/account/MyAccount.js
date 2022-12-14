@@ -137,12 +137,12 @@ const handleContract=(e)=>{
            postInvoicePaid={postInvoice}
            extraInvoicePaid={extraInvoice}
            />
-          {((usersInvoice.loaded && usersInvoice.data) && usersInvoice.data.paid) && <OrderFormBanner />}
+          {( usersInvoice.data.paid) && <OrderFormBanner />}
 
-         {(usersInvoice.loaded && usersInvoice.data) && !invoice.paid && <GetProductList/>}
+         { !invoice.paid && <GetProductList/>}
           
             
-          {(usersInvoice.loaded && usersInvoice.data) && !invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
+          {!invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
 
          {(postInvoice.paid && !usersExtraInvoice.data.paid) && <AdditionalAfterPostService extraServices={extraServices}/> }
             

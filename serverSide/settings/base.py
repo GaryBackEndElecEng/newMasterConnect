@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","www.masterconnect.ca","www.master-connect.ca","www.garymaster-connect.com","garymaster-connect.com"]

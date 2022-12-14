@@ -112,6 +112,7 @@ const GetProductList = () => {
             }
         }
         if (obj.category === "frontPage") {
+            console.log(obj.category)
             addProductToUser();
         } else {
             setShowMessage({ loaded: true, id: obj.id });
@@ -189,7 +190,7 @@ const GetProductList = () => {
             setServiceArr({ loaded: false, data: [], id: null });
         }
     }
-
+    
     return (
         <>
             <Container maxWidth="lg"

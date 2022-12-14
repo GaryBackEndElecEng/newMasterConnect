@@ -23,7 +23,7 @@ import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True
     const theme = useTheme();
-    const windowTheme = useTheme("windowTheme");
+    // const windowTheme = useTheme("windowTheme");
     const navigate = useNavigate();
     const { userAccount, address, cell, name, email, provState, country, postal, formComplete, setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct, loggedIn, usersExtraInvoice, getUUID } = useContext(TokenAccessContext);
     const { setChangePage } = useContext(GeneralContext);
@@ -278,29 +278,29 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
                         <div className={styles.showInfo}><ShowInfo /></div>
                         }
                         <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: windowTheme.palette.warning.dark }}>Remove purchased services as credit</Typography>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>Remove purchased services as credit</Typography>
 
                             <Fab variant="extended" color="warning" onClick={(e) => handleDeductionPage(e)}>
                                 Deduction <IndeterminateCheckBoxIcon sx={{ ml: 1, color: "white" }} />
                             </Fab>
                         </Stack>
                         <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: windowTheme.palette.primary.dark }}>To add a custom Page Template to your basket</Typography>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom Page Template to your basket</Typography>
                             <Fab variant="extended" color={"success"} onClick={(e) => handleGoToCustom(e)}>
                                 GoTo Custom Page <DashboardCustomizeIcon sx={{ ml: 1, color: "white" }} />
                             </Fab>
                         </Stack>
                         <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: windowTheme.palette.primary.dark }}>To add a custom about Template Page to your basket</Typography>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom about Template Page to your basket</Typography>
                             <Fab variant="extended" onClick={(e) => handleAbout(e)}
                                 sx={{ fontWeight: "bold" }}>
                                 GoTo about template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
                             </Fab>
                         </Stack>
                         <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: windowTheme.palette.secondary.dark }}>To add a custom Contact Template Page to your basket</Typography>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.commonrblueGreyrk }}>To add a custom Contact Template Page to your basket</Typography>
                             <Fab variant="extended" onClick={(e) => handleContact(e)}
-                                sx={{ background: windowTheme.palette.secondary.dark, color: "white" ,"&:hover":{color:"black"}}}
+                                sx={{ background: theme.palette.commonrblueGreyrk, color: "white" ,"&:hover":{color:"black"}}}
                             >
                                 GoTo Contact template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
                             </Fab>

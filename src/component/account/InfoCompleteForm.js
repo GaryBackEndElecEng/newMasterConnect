@@ -85,8 +85,6 @@ useMemo(()=>{
 
     }, [isInfoOk,name,cell,address,country,provState,postal,website,CDN,industry,co]);
 
-    
-
     useEffect(() => {
         // VALIDATION EMAIL
         const GENERIC_REGEX = /(^[a-zA-Z0-9]{1,8})/;

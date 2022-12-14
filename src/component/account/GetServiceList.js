@@ -29,7 +29,7 @@ const GetServiceList = () => {
     const [reducedService, setReducedService] = useState({ loaded: false, data: [] });
     const [postError, setPostError] = useState(null);
     const [selectedService,setSelectedService]=useState({loaded:false,obj:{},id:null});
-    const [usersServ,setUsersServ]=useState(null);
+    const [showUserServ,setShowUserServ]=useState({loaded:false,id:null});
     const [showSummary, setShowSummary] = useState({loaded:false,id:null});
     // const getServs = getServiceList.loaded ? getServiceList.data : [];
     const reducedService1 = (localStorage.getItem("reducedService")) ? JSON.parse(localStorage.getItem("reducedService")) : getServiceList2;
@@ -54,7 +54,7 @@ const GetServiceList = () => {
             setReducedService({loaded:true,data:arr});
             localStorage.setItem("reducedService",JSON.stringify(arr));
             // console.log("inside useEffect")
-            setUsersServ(usersService.data);
+            
         }
     },[]);
 
@@ -163,7 +163,13 @@ const GetServiceList = () => {
         setShowSummary({loaded:false,id:null});
         setShowPopUp({ loaded: false, obj: {} });
     }
-
+    const handleShowUserServ=(e,id)=>{
+        if(!showUserServ.loaded){
+            setShowUserServ({loaded:true,id:id});
+        }else{
+            setShowUserServ({loaded:false,id:null});
+        }
+    }
 
     return (
         <Container maxWidth="xl"
@@ -256,16 +262,32 @@ const GetServiceList = () => {
                             <Grid item xs={12} sm={6} md={4} key={`${obj.id}-${Math.ceil(Math.random() * 1000)}`} >
 
                                 <Card
-                                    sx={{ maxWidth: "100%", fontFamily: "Roboto", padding: "0.5rem", }}
+                                    sx={{ maxWidth: "100%", fontFamily: "Roboto", padding: "0.5rem",cursor:"pointer" }}
                                     elevation={3}
+                                    onClick={(e)=>handleShowUserServ(e,obj.id)}
                                 >
                                     <Typography component="h1" variant="h5">
                                         {obj && obj.name}
                                     </Typography>
-                                    <CardContent>
-                                        <Typography component="h1" variant="body2" sx={{ margin: "1rem auto" }}>
+                                    <CardContent sx={{position:"relative"}}>
+                                        {
+                                        showUserServ.loaded && showUserServ.id===obj.id && 
+                                        <Typography component="h1" variant="body1" 
+                                        sx={{ margin: "1rem auto",position:"absolute",top:"-0%",left:"0%",width:"100%", 
+                                        background:theme.palette.common.fadeCharcoal3,color:"white",padding:"1rem",maxHeight:"15vh",overflowY:"scroll",zIndex:"999999"
+                                         }}
+                                        >
+                                            {obj && obj.desc}
+                                        </Typography>
+                                        }
+                                       
+                                        <Typography component="h1" variant="body2"
+                                         sx={{ margin: "1rem auto",cursor:"pointer"
+                                         }}
+                                        >
                                             {obj && obj.desc.slice(0, 70)}...
                                         </Typography>
+                                       
                                         <Stack direction="row" sx={{ background: theme.palette.common.blueGrey, color: theme.palette.secondary.light }}>
                                             <Typography component="h1" variant="body2" sx={{ margin: "auto 1rem" }}>
                                                 Base: ${obj && obj.price}.<sup>00</sup>
