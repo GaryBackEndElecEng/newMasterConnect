@@ -35,6 +35,7 @@ urlpatterns=[
     path('PostDeductService/',views.PostDeductService.as_view(),name="PostDeductService-get"),
 
     path('getInfoSession/',views.GetSessionInfo.as_view(),name="getting_Payment-get"),
+    path('MissedProdServs/',views.MissedProdServs.as_view(),name="MissedProdServs-post"),
     path('getPostBareServices/',views.GetPostServices.as_view(),name="getPostBareServices-get"),
     path('getPostInfoSession/',views.GetPostSessionInfo.as_view(),name="getting_post_Payment-get"),
     path('getExtraInfoSession/',views.GetExtraSessionInfo.as_view(),name="getting_extra_Payment-post"),

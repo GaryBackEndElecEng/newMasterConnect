@@ -6,6 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import {Container, Typography,  Stack} from '@mui/material';
 // import styles from './checkout.module.css';
 import styled from 'styled-components';
+import VerifyMissingServices from './VerifyMissingServices';
 
 const CoverMainContainer=styled.div.attrs({className:"container-fluid"})`
 width:100vw;
@@ -21,7 +22,7 @@ background-size:100% 100%;
 }
 @media screen and (max-width:600px){
     height:30vh;
-    margin-top:4rem;
+    margin-top:-53px;
 }
 `;
 const ImageEffect=styled.img.attrs({className:"couple"})`
@@ -88,6 +89,7 @@ const CoverPage = () => {
             </Stack>
             }
         </Container>
+        <VerifyMissingServices />
     </CoverMainContainer>
     
   )

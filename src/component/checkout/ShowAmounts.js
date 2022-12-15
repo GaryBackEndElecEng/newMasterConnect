@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useTheme } from '@mui/material/styles';
-import {  Stack, Container, Paper, Typography, Grid, Card, CardContent, CardMedia, Fab } from '@mui/material';
+import {  Stack, Container, Paper, Typography, Grid,} from '@mui/material';
 import styles from './checkout.module.css';
 // import styled from 'styled-components';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';

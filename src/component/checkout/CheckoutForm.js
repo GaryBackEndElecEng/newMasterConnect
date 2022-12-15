@@ -1,7 +1,7 @@
-import React, { useContext, useState,useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import {GeneralContext} from '../../context/GeneralContextProvider';
-import { Stack, Container, Paper, Typography, Card, CardContent, CardMedia, Fab, ListItem, Grid } from '@mui/material';
+import { GeneralContext } from '../../context/GeneralContextProvider';
+import { Stack, Container, Paper, Typography, Card, CardContent, CardMedia, Fab, ListItem, Grid, Avatar } from '@mui/material';
 import styled from 'styled-components';
 import apiProtect from '../axios/apiProtect';
 import PaymentsIcon from '@mui/icons-material/Payments';
@@ -15,106 +15,128 @@ padding:0.5rem;
     from {transform:scale(0);}
     to {transform:scale(1);}
 }
+@media screen and (max-width:900px){
+transform:translateX(-0%);
+}
+@media screen and (max-width:800px){
+transform:translateX(-5%);
+}
+@media screen and (max-width:600px){
+
+}
+@media screen and (max-width:400px){
+    transform:translateX(1%);
+}
 
 `;
 const CheckoutForm = () => {
     // const theme = useTheme();
     // const navigate=useNavigate();
-    const { userAccount,user_id, setSentToServer,loggedIn,usersService,usersProduct } = useContext(TokenAccessContext);
-    const {setChangePage,serverUrl,staticImage}=useContext(GeneralContext);
-    const initializegetInvoice={loaded:false,data:{}};
+    const { userAccount, user_id, setSentToServer, loggedIn, usersService, usersProduct } = useContext(TokenAccessContext);
+    const { setChangePage, serverUrl, staticImage } = useContext(GeneralContext);
+    const initializegetInvoice = { loaded: false, data: {} };
     Object.freeze(initializegetInvoice);
-    const [getInvoice,setGetInvoice]=useState(initializegetInvoice);
-    const clientProdImgs= userAccount.loaded ? userAccount.data.product.map(obj=>(`${staticImage}/${obj.imageName}`)):null; 
-    const clientServices= userAccount.loaded ? userAccount.data.service.map(obj=>(obj.name)):null; 
-    const clientProducts= userAccount.loaded ? userAccount.data.product.map(obj=>(obj.name)):null; 
-    const getSelectedPayment= getInvoice.loaded ? getInvoice.data:null;
-    const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) :loggedIn;
-    const serverUrl1="http://localhost:8000/api"
+    const [getInvoice, setGetInvoice] = useState(initializegetInvoice);
+    const clientProdImgs = userAccount.loaded ? userAccount.data.product.map(obj => (`${staticImage}/${obj.imageName}`)) : null;
+    const clientServices = userAccount.loaded ? userAccount.data.service.map(obj => (obj.name)) : null;
+    const clientProducts = userAccount.loaded ? userAccount.data.product.map(obj => (obj.name)) : null;
+    const getSelectedPayment = getInvoice.loaded ? getInvoice.data : null;
+    const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
+    const serverUrl1 = "http://localhost:8000/api"
 
-     useEffect(()=>{
+    useEffect(() => {
 
-        const pullInvoice = async ()=>{
+        const pullInvoice = async () => {
             try {
-                const res = await apiProtect.post('/account/invoice/',{"user_id":user_id});
+                const res = await apiProtect.post('/account/invoice/', { "user_id": user_id });
                 const body = res.data;
-                setGetInvoice({loaded:true,data:body})
+                setGetInvoice({ loaded: true, data: body })
             } catch (error) {
                 console.error(error.message)
             }
         }
-            if(getLoggedIn){
+        if (getLoggedIn) {
             pullInvoice();
-            }
-        
-    },[getLoggedIn]);
-    
-    const handleActions= ()=>{
+        }
+
+    }, [getLoggedIn]);
+
+    const handleActions = () => {
         setSentToServer(true);
         setChangePage(true);
     }
 
-    
+
     return (
         <SpecialContainer maxWidth="md"
-            sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column",width:"100%" }}
+            sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%" }}
         >
-            <Card elevation={10} sx={{ width: "100%",position:"relative" ,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",padding:"1rem",border:"1px solid black",}}>
-               {clientProdImgs && clientProdImgs.map(obj=>(
-                
-                <CardMedia key={obj} component="img" image={obj} alt="www.master-connect.ca" sx={{width:"50%", height:"50%",margin:"auto"}}/>))}
-               <form method="POST" action={`${serverUrl}/account/stripe/payment/${user_id}` } >
-                <CardContent sx={{display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
-                <Typography component="h1" varaint="h4" sx={{textAlign:"center",fontWeight:"bold",margin:"1rem auto"}}>Your Products</Typography>
-                <Stack direction={{xs:"column",sm:"row"}} spacing={1} sx={{padding:"1rem",justifyContent:"center",alignItems:"center",textAlign:"center"}}>
-                <Paper elevation={20} sx={{padding:"1rem",margin:"auto 2rem",width:"100%",textAlign:"center"}}>
-                    
-                        
-                   {(usersProduct.loaded && usersProduct.data !== null) && usersProduct.data.map(obj=>(
-                    <ListItem key={obj.id}
-                    sx={{margin:"auto",padding:"1rem",color:"black"}}>
-                        {obj.name}
-                    </ListItem>
-                   ))}
-                   
-                   </Paper>
-                   </Stack>
-                <Typography component="h1" varaint="h4" sx={{textAlign:"center",fontWeight:"bold",margin:"1rem auto"}}>Your Services</Typography>
-                <Paper elevation={20} sx={{padding:"1rem"}}>
-                    <Stack direction={{xs:"column",sm:"column"}} spacing={1}
-                    sx={{alignItems: "center", justifyContent: "center",padding:"1rem",margin:"auto 2rem"}}
-                    >
-                        <Grid container spacing={{xs:0,sm:1}} sx={{margin:"1rem auto"}}>
-                   {(usersService.loaded && usersService.data !==null) && usersService.data.map(obj=>(
-                    <Grid item xs={12} sm={6} md={4} key={obj.id}
-                    sx={{margin:"auto"}}>
-                        {obj.name}
-                    </Grid>
+            <Card elevation={10} sx={{ width: "100%", position: "relative", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", padding: "1rem", border: "1px solid black", }}>
 
-                   ))}
-                   </Grid>
-                   
-                   </Stack>
-                   </Paper>
-                <Stack direction="column">
-                    <Stack direction={{xs:"column",sm:"row"}} spacing={1} sx={{display:"flex",justifyContent:"center",marginTop:"1rem",marginBottom:"1rem"}}>
-                        {getSelectedPayment && getSelectedPayment.numPayment===1 ? 
-                        
-                        <div> total:<AttachMoneyIcon/>{getSelectedPayment && getSelectedPayment.total}.<sup>00</sup></div>
-                        :
-                        <Stack direction="column" spacing={1}>
-                        <div>subTotal:<AttachMoneyIcon/>{getSelectedPayment && getSelectedPayment.subTotalMonthly}.<sup>00</sup></div>
-                        <div>total:<AttachMoneyIcon/>{getSelectedPayment && getSelectedPayment.totalMonthly}.<sup>00</sup> for {getSelectedPayment && getSelectedPayment.numPayment} months</div>
+                <form method="POST" action={`${serverUrl}/account/stripe/payment/${user_id}`} >
+                    <CardContent sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+                        <Typography component="h1" varaint="h4"
+                            sx={{
+                                textAlign: "center", fontWeight: "bold", margin: "1rem auto",
+                            }}>
+                            Your Products
+                        </Typography>
+
+                        <Paper elevation={20} sx={{ padding: "1rem", margin: "auto 2rem", width: "100%", textAlign: "center" }}>
+
+                            <Grid container spacing={{ xs: 0, sm: 1 }}>
+                                {(usersProduct.loaded && usersProduct.data !== null) && usersProduct.data.map(obj => (
+                                    <Grid item xs={12} sm={6} md={4} key={obj.id}
+                                        sx={{ margin: "auto" }}>
+                                        <Card sx={{ padding: "0.5rem",border:"1px solid grey" }}>
+                                            <Avatar src={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca" />
+                                            <Typography component="h1" variant="h6">{obj.name}</Typography>
+                                        </Card>
+                                    </Grid>
+                                ))}
+                            </Grid>
+
+                        </Paper>
+
+                        <Typography component="h1" varaint="h4" sx={{ textAlign: "center", fontWeight: "bold", margin: "1rem auto" }}>Your Services</Typography>
+                        <Paper elevation={20} sx={{ padding: "1rem" }}>
+                            <Stack direction={{ xs: "column", sm: "column" }} spacing={1}
+                                sx={{ alignItems: "center", justifyContent: "center", padding: "1rem", margin: "auto 2rem" }}
+                            >
+                                <Grid container spacing={{ xs: 0, sm: 1 }} sx={{ margin: "1rem auto" }}>
+                                    {(usersService.loaded && usersService.data !== null) && usersService.data.map(obj => (
+                                        <Grid item xs={12} sm={6} md={4} key={obj.id}
+                                            sx={{ margin: "auto" }}>
+                                            <Card sx={{ padding: "0.5rem",border:"1px solid grey" }}>
+                                                <Avatar src={`${staticImage}/${obj.image}`} alt="www.master-connect.ca" />
+                                                <Typography component="h1" variant="h6">{obj.name}</Typography>
+                                            </Card>
+                                        </Grid>
+
+                                    ))}
+                                </Grid>
+
+                            </Stack>
+                        </Paper>
+                        <Stack direction="column">
+                            <Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ display: "flex", justifyContent: "center", marginTop: "1rem", marginBottom: "1rem" }}>
+                                {getSelectedPayment && getSelectedPayment.numPayment === 1 ?
+
+                                    <div> total:<AttachMoneyIcon />{getSelectedPayment && getSelectedPayment.total}.<sup>00</sup></div>
+                                    :
+                                    <Stack direction="column" spacing={1}>
+                                        <div>subTotal:<AttachMoneyIcon />{getSelectedPayment && getSelectedPayment.subTotalMonthly}.<sup>00</sup></div>
+                                        <div>total:<AttachMoneyIcon />{getSelectedPayment && getSelectedPayment.totalMonthly}.<sup>00</sup> for {getSelectedPayment && getSelectedPayment.numPayment} months</div>
+                                    </Stack>
+
+                                }
+                            </Stack>
+                            <Fab variant="extended" color="primary" type="submit" onClick={() => handleActions()} >
+                                Purchase <PaymentsIcon sx={{ color: "red", ml: 1 }} />
+                            </Fab>
                         </Stack>
 
-                    }
-                    </Stack>
-                    <Fab variant="extended" color="primary" type="submit" onClick={()=>handleActions()} >
-                        Purchase <PaymentsIcon sx={{color:"red",ml:1}}/>
-                    </Fab>
-                </Stack>
-                
-                </CardContent>
+                    </CardContent>
                 </form>
             </Card>
 

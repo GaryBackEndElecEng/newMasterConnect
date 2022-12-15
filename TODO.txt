@@ -5,14 +5,10 @@ one subject: what is communication
 
 
 TODO
-
--CREATE ANOTHER PAGE THAT EXPLAINS THE RELATIONSHIP OF SERVICES 
 - WHEN PURCHASED SEND DEPENDANCIES AND EXPLAIN( IN EMAIL THAT ITEM S ARE MISSING TO COMPLETE THE PROJECT.)
 
 -add information about database ownage ( and residual monthly cost after final payment)
--product: sigin page, registration page ( depndent on useraccounts,JWT,SSL)
 - add detail page product to products
--Add the list of services to each template product
 -correct the packages.
 -VERIFY-add a field for external links with products
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
@@ -25,7 +21,7 @@ TODO
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
-
+-CREATE ANOTHER PAGE THAT EXPLAINS THE RELATIONSHIP OF SERVICES 
 - USE THE DEPENDANCY TABLE ( BACK END) TO DISPLAY THE SERVICE REQUIREMENTS, TO WHEN PICKING ADDITIONAL SERVICES. STRONGLY ENCOURAGE THEM TO INCLUDE ALL( OR ELSE THE SERVICE CAN NOT BE PUBLISHED).
 determine db issue and test add things
 -ADD CITY TO ACCOUNT/INFOCOMPLETE FORM

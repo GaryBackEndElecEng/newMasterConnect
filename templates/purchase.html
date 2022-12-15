@@ -19,6 +19,12 @@
     <li>sessionID:{{sessionID|safe}}</li>
     <li>endDate:{{endDate|safe}}</li>
 </ul>
+{% if missedProdsServs|safe == "missed service" %}
+<p> The system picked up the following missing selected services:</p>
+<p>Missed services: {{checkMissedServProds|safe}}</p>
+<p> Inorder for a product and or service to function properly,all service dependencies should be included.</p>
+<p> We will correct this. No Worries.</p>
+{% endif %}
 
 <ul style="background:lightgrey;padding:15px; width:50%;">Particulars:
     <li>address:{{address|safe}},{{country|safe}},{{provState|safe}}</li>

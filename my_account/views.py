@@ -36,7 +36,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
 from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs)
-from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail
+from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail,ServiceEvaluator
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
 stripe_public_key=settings.STRIPE_PUBLIC_KEY
@@ -786,6 +786,20 @@ class GetPostSessionInfo(APIView):
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class MissedProdServs(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    def post(self,request,format=None):
+        data=request.data
+        user_id=data["user_id"]
+        try:
+            missing=ServiceEvaluator(user_id).returnMissedProdsServs()
+            return Response({"data":missing,"status":status.HTTP_200_OK})
+        except Exception as e:
+            print("error",e)
+            return Response({"error":"server error"})
+            
+          
 
 ###//--------------- POST ACCOUNT ---------------///################################
 
