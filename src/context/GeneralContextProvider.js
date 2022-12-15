@@ -143,6 +143,7 @@ export const GeneralContextProvider = (props) => {
   const [getContactList,setGetContactList]=useState({loaded:false,data:[]});
   const [userSelectionArray,setUserSelectionArray]=useState([]);
   const [opacity,setOpacity]=useState(0);
+  const [servDependantSummary,setServDependantSummary]=useState({loaded:false,data:[]})
   const [answeredFilled, setAnsweredFilled]=useState(false);
   const [questionResults, setQuestionResults]=useState({loaded:false,data:[]});
   const [serviceDependancy, setServiceDependancy]=useState({loaded:false,data:[]});
@@ -156,13 +157,16 @@ export const GeneralContextProvider = (props) => {
   
   const navItems = [{ id: 1, title: 'home', link: "/" }, { id: 2, title: 'about', link: "/about" }, { id: 3, title: 'Designs', link: "/works" },{id:4,title:"contact",link:"/contact"},{id:5,title:"Blog",link:"/blog"}]
 
-  const dropDown=[{name:"register",link:"/register"},{name:"Sign in",link:"/signin"},{name:"Sign out",link:"/signout"},{name:"Design",link:"/works"},{name:"Pricing",link:"/prices"},{name:"Contact",link:"/contact"},{name:"Blog",link:"/blog"},{name:"My Account",link:"/MyAccount"},{name:"Articles",link:"/articles"},{name:"bio",link:"/bio"},]
+  const dropDown=[{name:"register",link:"/register"},{name:"Sign in",link:"/signin"},{name:"Sign out",link:"/signout"},{name:"Design",link:"/works"},{name:"Pricing",link:"/prices"},{name:"Contact",link:"/contact"},{name:"Blog",link:"/blog"},{name:"My Account",link:"/MyAccount"},{name:"Articles",link:"/articles"},{name:"bio",link:"/bio"},
+ {name:"Serv Dependency",link:"/dependency"}
+]
 
   const linkArr=[{name:"design1",link:"/design1"},{name:"design2",link:"/design2"},{name:"design3",link:"/design3"},{name:"design4",link:"/design4"},{name:"design5",link:"/design5"},{name:"design8",link:"/design8"},{name:"My Account",link:"/MyAccount"}]
 
   const mainLinks = [{id:0, title: "home", link: "/" }, { id:1,title: "Contact", link: "/contact" }, {id:2, title: "bio", link: "/bio" }, {id:3, title: "Privacy", link: "/privacy" },{id:4, title: "terms of Svc", link: "/termsOfSvc" },]
 
-    const footerLinks = [{id:0, title: "home", link: "/" }, { id:1,title: "Contact", link: "/contact" }, {id:2, title: "bio", link: "/bio" }, {id:3, title: "Privacy", link: "/privacy" },{id:4, title: "terms of Svc", link: "/termsOfSvc" },{ id:5,title: "Login", link: "/signin" }, {id:6, title: "register", link: "/register" }, {id:7, title: "about", link: "/about" },{id:8, title: "Designs", link: "/works" },{id:9, title: "prices", link: "/prices" },{id:10,title:"Blog",link:"/blog"},{id:11,title:"Articles",link:"/articles"}, ]
+    const footerLinks = [{id:0, title: "home", link: "/" }, { id:1,title: "Contact", link: "/contact" }, {id:2, title: "bio", link: "/bio" }, {id:3, title: "Privacy", link: "/privacy" },{id:4, title: "terms of Svc", link: "/termsOfSvc" },{ id:5,title: "Login", link: "/signin" }, {id:6, title: "register", link: "/register" }, {id:7, title: "about", link: "/about" },{id:8, title: "Designs", link: "/works" },{id:9, title: "prices", link: "/prices" },{id:10,title:"Blog",link:"/blog"},{id:11,title:"Articles",link:"/articles"},
+    {id:12,title:"Serv Dependency",link:"/dependency"} ]
 
     
 
@@ -247,7 +251,10 @@ export const GeneralContextProvider = (props) => {
             if(custTemplate.length>0){
               setTemplates({loaded:true,data:custTemplate[0].imageCategory})
             }
-           
+            let servDepSummary=body.filter(obj=>(obj.section==="serviceDependency"))[0].catWordSnippet[0]
+           if(servDepSummary){
+            setServDependantSummary({loaded:true,data:servDepSummary})
+           }
             
           }
         } catch (error) {
@@ -293,7 +300,7 @@ export const GeneralContextProvider = (props) => {
 
 
   return (
-    <GeneralContext.Provider value={{allCategory,getServiceArray,setGetServiceArray,ourServices,setOurServices,whyWorkWithUs,setWhyWorkWithUs,mainService,setMainService,allServiceArray,setAllServiceArray,mainLinks,footerLinks,resume,setResume,title,setTitle,styleName,setStyleName,loaded,setLoaded,activate,setActivate,load3,setLoad3,url,changePage,setChangePage,stopP5,setStopP5,navItems,linkArr,dropDown,page,setPage,workArr,turnOn,setTurnOn,zIndex,setZIndex,removeText,setRemoveText,requestInfo,setRequestInfo,isRequestInfo,setIsRequestInfo,requestQuote,setRequestQuote,callbackQuoteRequest,setCallBackQuoteRequest,callBackConfirmed,setCallBackConfirmed,loadProduct,register,setRegister,registerConfirmed,setRegisterConfirmed,email,setEmail,name,setName,content,setContent,removeApp,setRemoveApp,checkHeight, setCheckHeight,stopP5Contact,setStopP5Contact,fadeLogo,setFadeLogo,removeBlock, setRemoveBlock,open, setOpen,infoOkay,setInfoOkay,issue,setIssue,loadingData, setLoadingData,serverUrl,loggedIn,setLoggedIn,error,setError,loginError,setLoginError,isCheckoutSuccess,setIsCheckoutSuccess,session_id,setSession_id,registerPage,setRegisterPage,showRegistration, setShowRegistration,openSignin,setOpenSignin,generalInfo,setGeneralInfo,sponsor,setSponsor,flowerImg,setFlowerImg,special,setSpecial,extraImages,MyRef,postSession_id,setPostSession_id,privacy,termsOfSvc,staticImage,links,setLinks,hits,setHits,extraServices,setExtraServices,extraSession_id,setExtraSession_id,productInfo,success,opacity,setOpacity,pageRatings,userSelection,setUserSelection,userSelectionArray,setUserSelectionArray,answeredFilled, setAnsweredFilled,questionResults, setQuestionResults,UUID,setUUID,blogMain, setBlogMain,average,setAverage,openGetQuote,setOpenGetQuote,getPathLocation,setGetPathLocation,myAccount,templates,whyChooseUs,getAboutList,getContactList,customTemplates,getProductDesigns,serviceDependancy,}}>
+    <GeneralContext.Provider value={{allCategory,getServiceArray,setGetServiceArray,ourServices,setOurServices,whyWorkWithUs,setWhyWorkWithUs,mainService,setMainService,allServiceArray,setAllServiceArray,mainLinks,footerLinks,resume,setResume,title,setTitle,styleName,setStyleName,loaded,setLoaded,activate,setActivate,load3,setLoad3,url,changePage,setChangePage,stopP5,setStopP5,navItems,linkArr,dropDown,page,setPage,workArr,turnOn,setTurnOn,zIndex,setZIndex,removeText,setRemoveText,requestInfo,setRequestInfo,isRequestInfo,setIsRequestInfo,requestQuote,setRequestQuote,callbackQuoteRequest,setCallBackQuoteRequest,callBackConfirmed,setCallBackConfirmed,loadProduct,register,setRegister,registerConfirmed,setRegisterConfirmed,email,setEmail,name,setName,content,setContent,removeApp,setRemoveApp,checkHeight, setCheckHeight,stopP5Contact,setStopP5Contact,fadeLogo,setFadeLogo,removeBlock, setRemoveBlock,open, setOpen,infoOkay,setInfoOkay,issue,setIssue,loadingData, setLoadingData,serverUrl,loggedIn,setLoggedIn,error,setError,loginError,setLoginError,isCheckoutSuccess,setIsCheckoutSuccess,session_id,setSession_id,registerPage,setRegisterPage,showRegistration, setShowRegistration,openSignin,setOpenSignin,generalInfo,setGeneralInfo,sponsor,setSponsor,flowerImg,setFlowerImg,special,setSpecial,extraImages,MyRef,postSession_id,setPostSession_id,privacy,termsOfSvc,staticImage,links,setLinks,hits,setHits,extraServices,setExtraServices,extraSession_id,setExtraSession_id,productInfo,success,opacity,setOpacity,pageRatings,userSelection,setUserSelection,userSelectionArray,setUserSelectionArray,answeredFilled, setAnsweredFilled,questionResults, setQuestionResults,UUID,setUUID,blogMain, setBlogMain,average,setAverage,openGetQuote,setOpenGetQuote,getPathLocation,setGetPathLocation,myAccount,templates,whyChooseUs,getAboutList,getContactList,customTemplates,getProductDesigns,serviceDependancy,servDependantSummary,}}>
     {props.children}
     </GeneralContext.Provider>
   )

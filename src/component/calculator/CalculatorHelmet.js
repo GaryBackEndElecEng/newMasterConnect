@@ -3,7 +3,7 @@ import {Helmet} from 'react-helmet';
 
 
 
-const CalculatorHelmet = ({generalInfo,conical,getPathLocation}) => {
+const CalculatorHelmet = ({generalInfo,getPathLocation}) => {
     let url=`${getPathLocation}/calculate`;
   let articleJSON={}
   if(generalInfo){

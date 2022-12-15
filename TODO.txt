@@ -5,10 +5,7 @@ one subject: what is communication
 
 
 TODO
--ADD CITY TO ACCOUNT/INFOCOMPLETE FORM
-determine db issue and test add things
-- USE THE DEPENDANCY TABLE ( BACK END) TO DISPLAY THE SERVICE REQUIREMENTS, TO WHEN PICKING ADDITIONAL SERVICES. STRONGLY ENCOURAGE THEM TO INCLUDE ALL( OR ELSE THE SERVICE CAN NOT BE PUBLISHED).
--Create a dependency page to bring to it encase, they want more info.
+
 -CREATE ANOTHER PAGE THAT EXPLAINS THE RELATIONSHIP OF SERVICES 
 - WHEN PURCHASED SEND DEPENDANCIES AND EXPLAIN( IN EMAIL THAT ITEM S ARE MISSING TO COMPLETE THE PROJECT.)
 
@@ -28,6 +25,10 @@ determine db issue and test add things
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+
+- USE THE DEPENDANCY TABLE ( BACK END) TO DISPLAY THE SERVICE REQUIREMENTS, TO WHEN PICKING ADDITIONAL SERVICES. STRONGLY ENCOURAGE THEM TO INCLUDE ALL( OR ELSE THE SERVICE CAN NOT BE PUBLISHED).
+determine db issue and test add things
+-ADD CITY TO ACCOUNT/INFOCOMPLETE FORM
 -SHOW services that The product provides in MyAccount.
 -complete services that the products provide
 - CORRECT INVOICE REGISTERD NAME AND RENAME INVOICE ( BEFORE CHECKOUT BECAUSE CAN NOT CHECKOUT UNLESS FORM IS COMPLETE)

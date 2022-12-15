@@ -174,6 +174,10 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
         e.preventDefault();
         navigate("/contactPage", setChangePage(true));
     }
+    const handleDependency = (e) => {
+        e.preventDefault();
+        navigate("/dependency", setChangePage(true));
+    }
 
     return (
         <Container maxWidth="lg"
@@ -300,11 +304,19 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
                             </Fab>
                         </Stack>
                         <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.commonrblueGreyrk }}>To add a custom Contact Template Page to your basket</Typography>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom Contact Template Page to your basket</Typography>
                             <Fab variant="extended" onClick={(e) => handleContact(e)}
-                                sx={{ background: theme.palette.commonrblueGreyrk, color: "white" ,"&:hover":{color:"black"}}}
+                                sx={{ background:"black", color: "white" ,"&:hover":{color:"black"}}}
                             >
                                 GoTo Contact template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
+                            </Fab>
+                        </Stack>
+                        <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
+                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>understanding products and services and dependancies</Typography>
+                            <Fab variant="extended" onClick={(e) => handleDependency(e)}
+                                sx={{ background: theme.palette.common.blueGrey, color:"white","&:hover":{color:theme.palette.common.orangeFade3}}}
+                            >
+                                GoTo Service dependancy page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
                             </Fab>
                         </Stack>
                     </Grid>

@@ -22,9 +22,11 @@ const InfoCompleteForm = () => {
     const [isInfoOk, setIsInfoOk] = useState(false);
     const [validName, setValidName] = useState(false);
     const [validCell, setValidCell] = useState(false);
+    const [city, setCity] = useState("");
 
     const [validAddress, setValidAddress] = useState(false);
     const [validCountry, setValidCountry] = useState(false);
+    const [validCity, setValidCity] = useState(false);
     const [validPostal, setValidPostal] = useState(false);
     const [validProvState, setValidProvState] = useState(false);
     const [validCDN,setValidCDN] = useState(false);
@@ -79,11 +81,11 @@ useMemo(()=>{
     useEffect(() => {
         if (isInfoOk) {
             setRequestInfo({ data:
-                 { name: name, cell: cell, address:address,country:country,provState:provState,postal:postal,website:website,CDN:CDN,industry:industry,co:co },
+                 { name: name, cell: cell, address:address,country:country,provState:provState,postal:postal,website:website,CDN:CDN,industry:industry,co:co,city:city },
                   loaded: true });
         }
 
-    }, [isInfoOk,name,cell,address,country,provState,postal,website,CDN,industry,co]);
+    }, [isInfoOk,name,cell,address,country,provState,postal,website,CDN,industry,co,city]);
 
     useEffect(() => {
         // VALIDATION EMAIL
@@ -102,21 +104,22 @@ useMemo(()=>{
         setValidCo(GENERIC_REGEX.test(co));
         setValidWebsite(GENERIC_REGEX.test(website));
         setValidIndustry(GENERIC_REGEX.test(industry));
+        setValidCity(COUNTRY_REGEX.test(city))
 
 
-    }, [ address, cell,name,country,postal,provState,]);
+    }, [ address, cell,name,country,provState,city,postal,CDN,website,industry,co]);
 
     useEffect(()=>{
-        if (validName && validCell && validAddress && validPostal && validProvState && validCountry && validCDN && validCo && validWebsite & validIndustry) {
+        if (validName && validCell && validAddress && validPostal && validProvState && validCountry && validCDN && validCo && validWebsite & validIndustry && validCity) {
             setIsInfoOk(true)
         } 
-    },[validName,validCell,validAddress,validPostal,validProvState,validCountry,validWebsite,validCDN,validCo,validIndustry]);
+    },[validName,validCell,validAddress,validPostal,validProvState,validCountry,validWebsite,validCDN,validCo,validIndustry,validCity]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const params = { "user_id": user_id, "name": requestInfo.data.name, "cell": requestInfo.data.cell, 
                         "address": requestInfo.data.address,"country":requestInfo.data.country,
-                        "provState":requestInfo.data.provState,"postal":requestInfo.data.postal,"website":requestInfo.data.website,"CDN":requestInfo.data.CDN,"industry":requestInfo.data.industry,"comp":requestInfo.data.co}
+                        "provState":requestInfo.data.provState,"postal":requestInfo.data.postal,"website":requestInfo.data.website,"CDN":requestInfo.data.CDN,"industry":requestInfo.data.industry,"comp":requestInfo.data.co,"city":requestInfo.data.city}
         const sendServer = async () => {
             try {
                 const res = apiProtect.post("/account/userAccountComplete/", params);
@@ -202,6 +205,26 @@ useMemo(()=>{
                                 <span className={ styles.not }><CloseIcon /> </span>
                             }
                             <FormHelperText id={styles.extraInfo}>"111 street, city"</FormHelperText>
+                        </FormControl>
+                        <FormLabel className={styles.formLabel} component="div" color="primary" filled={true}>Your Country & State/Prov & PO/ZIP </FormLabel>
+                        <FormLabel className={styles.formLabel} component="div" color="primary" filled={true}>Your City </FormLabel>
+                        <FormControl className={styles.formControl} size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                            <InputLabel id="Your City" htmlFor="city">city</InputLabel>
+                            <Input
+                                id="city"
+                                name="city"
+                                aria-describedby="valid city"
+                                placeholder="City"
+                                value={city ? city :""}
+                                onChange={(e) => setCity(e.target.value)}
+                                aria-invalid={validName ? "false" : "true"}
+                            />
+                            {
+                                validCity ? <span className={styles.validAddress }><CheckCircleOutlineIcon /></span>
+                                : 
+                                <span className={ styles.not }><CloseIcon /> </span>
+                            }
+                            <FormHelperText id={styles.extraInfo}>"NY,TO,Mont,Reg,Miami,"</FormHelperText>
                         </FormControl>
                         <FormLabel className={styles.formLabel} component="div" color="primary" filled={true}>Your Country & State/Prov & PO/ZIP </FormLabel>
                         <Grid container spacing={0} sx={{marginBottom:"1rem"}} >

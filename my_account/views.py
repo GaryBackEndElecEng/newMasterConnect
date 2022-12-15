@@ -226,6 +226,7 @@ class UserAccountComplete(APIView):
         website='none'
         co="None"
         industry="None"
+        city="none"
         CDN='None'
         country="CA"
         data=self.request.data
@@ -236,6 +237,7 @@ class UserAccountComplete(APIView):
         country=data['country']
         provState=data['provState']
         postal=data['postal']
+        city=data['city']
         if data['website']:
             website=data['website']
         if data['CDN']:
@@ -261,7 +263,7 @@ class UserAccountComplete(APIView):
             if user and userAccount:
                 userAccount.name=name
                 userAccount.cell=cell
-                userAccount.address=address
+                userAccount.address=address +"," + city
                 userAccount.country=country
                 userAccount.provState=provState
                 userAccount.postal=postal.upper()

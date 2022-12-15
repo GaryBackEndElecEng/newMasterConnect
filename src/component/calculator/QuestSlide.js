@@ -199,7 +199,7 @@ const QuestSlide = () => {
                                 next={next-(yesnoLength-1)/2}
                                 sx={{color:"white"}}
                             >
-                                <Typography component="h1" variant="h5" sx={{margin:"1rem auto",fontSize:{sm:"200%"}}}>{index}.)Yes No Question</Typography>
+                                <Typography component="h1" variant="h5" sx={{margin:"1rem auto",fontSize:{sm:"200%"}}}>{index+1}.)Yes No Question</Typography>
                                 <Typography component="h1" variant="h6" sx={{ width: "100%",margin:"1rem auto" }}>{obj.Q}</Typography>
                                 <CustFormLabel sx={{color:"white",margin:"1rem auto"}}>
 

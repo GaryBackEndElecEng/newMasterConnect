@@ -49,6 +49,7 @@ import CustomPage from './component/custom/CustomPage';
 import AboutPage from './component/custom/AboutPage';
 import ContactPage from './component/custom/ContactPage';
 import StoreProduct from './component/storeProduct/StoreProduct';
+import DependancyPage from './component/dependency/DependancyPage';
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/bio" element={<Bio />} />
             <Route path="/works" element={<WorkFeatures />} />
+            <Route path="/dependency" element={<DependancyPage />} />
             <Route path="/design6" element={<Design6Wedding />} />
             <Route path="/design5" element={<Design4 />} />
             <Route path="/design4" element={<Design3 />} />
