@@ -15,10 +15,10 @@ const ParticularsPaidTotals = ({ invoicePaid, postInvoicePaid,extraInvoicePaid,l
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True. invoicePaid.loaded and postInvoicePaid.loaded DOES NOT EXIST
     //invoicePaid,postInvoicePaid => false if not created
     const theme = useTheme();
-    const getInvoice = invoicePaid.paid ? invoicePaid : false;
-    const getPostInvoice = postInvoicePaid.paid ? postInvoicePaid : false;
+    const getInvoice =(invoicePaid && invoicePaid.paid) ? invoicePaid : false;
+    const getPostInvoice =(postInvoicePaid && postInvoicePaid.paid) ? postInvoicePaid : false;
     const activate = postInvoicePaid.paid ? true : false;
-    const isExtraInvoice = extraInvoicePaid.paid ? 3 : 6;
+    const isExtraInvoice =(extraInvoicePaid && extraInvoicePaid.paid) ? 3 : 6;
     const adjustGrid = activate ? isExtraInvoice : 12;
 
     const dateFormat=(date)=>{

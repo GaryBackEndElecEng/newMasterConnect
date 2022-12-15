@@ -5,9 +5,12 @@ one subject: what is communication
 
 
 TODO
-
+-ADD CITY TO ACCOUNT/INFOCOMPLETE FORM
+determine db issue and test add things
 - USE THE DEPENDANCY TABLE ( BACK END) TO DISPLAY THE SERVICE REQUIREMENTS, TO WHEN PICKING ADDITIONAL SERVICES. STRONGLY ENCOURAGE THEM TO INCLUDE ALL( OR ELSE THE SERVICE CAN NOT BE PUBLISHED).
 -Create a dependency page to bring to it encase, they want more info.
+-CREATE ANOTHER PAGE THAT EXPLAINS THE RELATIONSHIP OF SERVICES 
+- WHEN PURCHASED SEND DEPENDANCIES AND EXPLAIN( IN EMAIL THAT ITEM S ARE MISSING TO COMPLETE THE PROJECT.)
 
 -add information about database ownage ( and residual monthly cost after final payment)
 -product: sigin page, registration page ( depndent on useraccounts,JWT,SSL)

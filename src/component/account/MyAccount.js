@@ -33,12 +33,12 @@ margin:0px;
 const MyAccount = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { setSignin, goToSignin, setSignout, setGoToSignin,usersInvoice,usersPostInvoice,usersExtraInvoice,signin,paid } = useContext(TokenAccessContext);
+  const { setSignin, setSignout, setGoToSignin,usersInvoice,usersPostInvoice,usersExtraInvoice,paid } = useContext(TokenAccessContext);
   const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,getPathLocation } = useContext(GeneralContext);
   const [activate, setActivate] = useState(false);
   const [invoice, setInvoice] = useState(false);
   const [postInvoice, setPostInvoice] = useState(false);
-  const [extraInvoice, setExtraInvoice] = useState(false);
+  const [extraInvoice, setExtraInvoice] = useState(null);
  
   const tokenIsValid = localStorage.getItem("tokenIsValid") ? JSON.parse(localStorage.getItem("tokenIsValid")) : false;
   
@@ -47,17 +47,25 @@ const MyAccount = () => {
   useEffect(() => {
 //THIS IS ONLY USED WHEN THE CLIENT LOGS IN, MAINLY FOR invoice.paid,postInvoice.paid triggers(CALL INFO FROM SERVER) 
     if (usersInvoice.loaded && usersInvoice.data) {
+      if(!usersInvoice.data.paid){
+        //THIS SHOWS PRODUCT AND SERVICE LISTS BEFOR POST SERVICES
       setInvoice(usersInvoice.data)
+      }
     }
-    if (usersPostInvoice.loaded && usersPostInvoice.data.paid) {
+    if (usersPostInvoice.loaded && usersPostInvoice.data) {
+      if(usersPostInvoice.data.paid){
+        //THIS SHOWS PAID POST SERVICES AND NOT PAID EXTRA SERVICES
       setPostInvoice(usersPostInvoice.data)
+      }
     }
-    if (usersExtraInvoice.loaded && usersExtraInvoice.data.paid) {
+    if (usersExtraInvoice.loaded && usersExtraInvoice.data) {
+      // if(usersExtraInvoice.data.paid){
       setExtraInvoice(usersExtraInvoice.data)
+      // }
     }
-  }, [usersInvoice.loaded,usersPostInvoice.loaded,usersInvoice.data,usersPostInvoice.data,usersExtraInvoice.data,usersExtraInvoice.loaded]);
+  }, [usersInvoice,usersPostInvoice,usersExtraInvoice]);
 
-  
+ 
   useEffect(() => {
 
     if (tokenIsValid) {
@@ -84,7 +92,9 @@ const MyAccount = () => {
         console.error(error.message)
       }
     }
+    if(postInvoice !==false){
     getExtraServices();
+    }
   },[])
 
 
@@ -95,7 +105,7 @@ const MyAccount = () => {
     if(window.scrollY){
       window.scroll(0,0);
     }
-  }, [setTitle, setStyleName]);
+  }, [setTitle, setStyleName,setChangePage]);
 
  
   const handleSignin = () => {
@@ -134,17 +144,17 @@ const handleContract=(e)=>{
           <CoverPage />
           <Particulars 
           invoicePaid={invoice}
-           postInvoicePaid={postInvoice}
-           extraInvoicePaid={extraInvoice}
+           postInvoicePaid={postInvoice !== false ? postInvoice : null}
+           extraInvoicePaid={extraInvoice && extraInvoice}
            />
           {( usersInvoice.data.paid) && <OrderFormBanner />}
 
-         { !invoice.paid && <GetProductList/>}
+         {invoice !==false && !invoice.paid && <GetProductList/>}
           
             
-          {!invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
+          {invoice !==false && !invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
 
-         {(postInvoice.paid && !usersExtraInvoice.data.paid) && <AdditionalAfterPostService extraServices={extraServices}/> }
+         {(postInvoice !== false && usersPostInvoice.data.paid) && <AdditionalAfterPostService extraServices={extraServices}/> }
             
             {productInfo.loaded && <ProductInfo productInfo={productInfo} />}
             

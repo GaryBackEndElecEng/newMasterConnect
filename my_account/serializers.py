@@ -13,15 +13,14 @@ class ExtraServiceSerializer(serializers.ModelSerializer):
         model=ExtraService
         fields="__all__"
 
-class PriceCategory2Serializer(serializers.ModelSerializer):
-     permission_classes=[permissions.AllowAny,]
-     class Meta:
-        model= PriceCatelog
-        fields="__all__"
+# class PriceCategory2Serializer(serializers.ModelSerializer):
+#      permission_classes=[permissions.AllowAny,]
+#      class Meta:
+#         model= PriceCatelog
+#         fields="__all__"
 
 class ProductSerializer(serializers.ModelSerializer):
     permission_classes=[permissions.AllowAny,]
-    priceCatelog = PriceCategory2Serializer(many=False,read_only=True)
     class Meta:
         model = Product
         fields='__all__'
@@ -29,7 +28,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class ServiceSerializer(serializers.ModelSerializer):
     permission_classes=[permissions.AllowAny,]
-    priceCatelog = PriceCategory2Serializer(many=False,read_only=True)
     class Meta:
         model = Service
         fields='__all__'
@@ -92,7 +90,7 @@ class ServiceCatelogServiceField(serializers.RelatedField):
     def get_query_set(self):
         return self.name , self.price , self.desc,self.monthly
     def to_representation(self,value):
-        return {"id":value.id,"name":value.name,"price": value.price, "summary":value.summary, "desc":value.desc,"monthly": value.monthly}
+        return {"id":value.id,"name":value.name,"price": value.price, "summary":value.summary, "desc":value.desc,"monthly": value.monthly,"image": value.image}
 
 class PostServiceCatelogServiceField(serializers.RelatedField):
     def get_query_set(self):

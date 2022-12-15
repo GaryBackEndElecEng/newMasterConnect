@@ -154,26 +154,28 @@ useEffect(() => {
       if(data.product.length===0){
         setUsersProduct({loaded:false,data:[]});
       }else{setUsersProduct({loaded:true,data:data.product});}
-      if(data?.postInvoice){
-        // console.log(data.postInvoice)
+      if(data.postInvoice){
         setUsersPostInvoice({loaded:true,data:data.postInvoice})
       }
-      if(data?.invoice !==null){
-        
+      if(data.invoice){
         setUsersInvoice({loaded:true,data:data.invoice});
         if(data.invoice.paid ===true){setPaid(true)}
       }else{setUsersInvoice({loaded:false,data:[]})}
 
-      if(data?.postService !==null){
-        setUsersPostService({loaded:true,data:data.postService})
+      if(data.postService){
+        if(data.postService.length>0){
+        setUsersPostService({loaded:true,data:data.postService});
+        }
       }
-      if(data?.extraInvoice !==null){
+      if(data.extraInvoice){
         setUsersExtraInvoice({loaded:true,data:data.extraInvoice})
       }
-      if(data?.extraService){
+      if(data.extraService){
+        if(data.extraService.length>0){
         setUsersExtraService({loaded:true,data:data.extraService})
+        }
       }
-      if(data?.credit){
+      if(data.credit){
         setCredited({loaded:true,data:data.credit})
       }
       if (data.jobs.length>0){
@@ -223,9 +225,10 @@ useEffect(() => {
   }
   const loggedIn =JSON.parse(localStorage.getItem("loggedIn"));
   setLoggedIn(loggedIn);
-  if(loggedIn || user_id){getUserproduct();}
+  if(loggedIn===true ){getUserproduct();}
   
-},[tokenIsValid,loggedIn,user_id]);
+},[tokenIsValid,loggedIn]);
+
 
 
   return (

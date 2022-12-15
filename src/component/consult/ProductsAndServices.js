@@ -4,7 +4,7 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
-import {  Stack, Container, Paper, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
+import {  Stack, Container, Paper, Typography, Grid, Card, CardContent, CardMedia, Avatar } from '@mui/material';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import styles from './consult.module.css'
 
@@ -57,7 +57,7 @@ const ProductsAndServices = () => {
                             <Paper elevation={10} sx={{ margin: "0.5rem auto" }}>
                                 {getUsersProducts && getUsersProducts.map(obj => (
                                     <Card key={obj.id} sx={{ padding: "1rem", margin: "0.5rem auto" }}>
-                                        <Typography component="h1" variant="h5" className={show ? styles.show : styles.showHide}  ref={(e)=>getTarget(e)} sx={{position:"relative"}}>
+                                        <Typography component="h1" variant="h4" className={show ? styles.show : styles.showHide}  ref={(e)=>getTarget(e)} sx={{position:"relative"}}>
                                             {obj && obj.name}
                                         </Typography>
                                         <CardMedia component="img" image={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca"  sx={{ margin: "2rem auto",height:"100%",width:"100%" }} />
@@ -90,6 +90,7 @@ const ProductsAndServices = () => {
                             <Paper elevation={10} sx={{ margin: "0.5rem auto" }}>
                                 {getUsersServices && getUsersServices.map(obj => (
                                     <Card key={obj.id} sx={{ padding: "1rem", margin: "0.5rem auto" }}>
+                                        <Avatar src={`${staticImage}/${obj.image}`} alt="www.master-connect.ca"/>
                                         <Typography component="h1" variant="h5" className={show ? styles.show : styles.showHide}  ref={(e)=>getTarget(e)} sx={{position:"relative"}}>
                                             {obj && obj.name}
                                         </Typography>

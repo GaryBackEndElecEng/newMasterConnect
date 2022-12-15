@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState,useMemo  } from 'react';
+import React, { useContext, useEffect, useState,useCallback  } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab, Card, CardContent, CardActions, Button } from '@mui/material';
+import { Box, Stack, Container, Paper, Typography, Grid, ListItem, Fab, Card, CardContent, CardActions, Avatar } from '@mui/material';
 import styles from './account.module.css';
 // import styled from 'styled-components';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -20,7 +20,7 @@ import ServiceDepend from './ServiceDepend';
 
 const GetServiceList = () => {
     const theme = useTheme();
-    const {open,setOpen}=useContext(GeneralContext);
+    const {open,setOpen,staticImage}=useContext(GeneralContext);
     const { getServiceList,  } = useContext(PriceContext);
     const { usersService, setUsersService } = useContext(TokenAccessContext); //SetUsersService=> FROM MyAccount ( it recieves all user's products and service)
     const getServiceList2 = getServiceList.loaded ? getServiceList.data : JSON.parse(localStorage.getItem("getServiceList2"));
@@ -39,9 +39,9 @@ const GetServiceList = () => {
         if(!reducedService.loaded){
             setReducedService({loaded:true,data:reducedService1})
         }
-    },[]);
+    },[reducedService1,reducedService]);
 
-    useMemo(()=>{
+    useEffect(()=>{
         if(usersService.loaded && getServiceList.loaded && usersService.data.length !==0){
             let arr=getServiceList.data
             arr.forEach((service,index)=>{
@@ -58,6 +58,12 @@ const GetServiceList = () => {
         }
     },[]);
 
+    const balanceReduceUsersServices =useCallback((addService)=>{
+        let reduceArray=reducedService1.filter(obj=>(parseInt(obj.id) !==parseInt(addService.id)));
+        setUsersService({loaded:true,data:[...usersService.data,addService]});
+        setReducedService({loaded:true,data:reduceArray});
+        localStorage.setItem("reducedService",JSON.stringify(reduceArray))
+    },[])
 
 
     const handleAddItem = (e, objID) => {
@@ -67,25 +73,14 @@ const GetServiceList = () => {
             const params = { "user_id": user_id, "serv_id": objID }
             if (user_id && objID) {
                 try {
-                    let getReducedArray = localStorage.getItem("reducedService") ? JSON.parse(localStorage.getItem("reducedService")) : getServiceList2;
                     const res = await apiProtect.post("/account/userServicePost/", params);
                     const service = res.data;
-                    const reduceArray = getReducedArray.filter(obj => (parseInt(obj.id) !== parseInt(objID)))
                     // THIS TESTS THE SERVICE DEPENDANCIES
                     setSelectedService({loaded:true,obj:service,id:objID})
                     setOpen(open => true);
-                    setReducedService({ data: reduceArray, loaded: true })
-                    localStorage.setItem("reducedService",JSON.stringify(reduceArray))
-                    // setUsersService({data:[...usersService.data,addToUserService],loaded:true})
-                    // const userRemainingSerivices = returnUsersServDelAddSubArray(body, "add");
-
+                    balanceReduceUsersServices(service)
                     setUsersService({ data: [...usersService.data,service], loaded: true })
                     setError(false);
-
-                    // console.log("GET=>",getReducedArray,"userRemainingSerivices",userRemainingSerivices)
-                    // console.log("reduceIt=>",reduceArray)
-
-                    localStorage.setItem("reducedService", JSON.stringify(reduceArray));
                 } catch (error) {
                     setOpen(open => false)
                     if (error.response) {
@@ -136,7 +131,8 @@ const GetServiceList = () => {
                     let reducedServiceNew=[...reducedService.data, deletedService]
                     setReducedService({ loaded: true, data: reducedServiceNew });
                     let userRemainder = usersService.data.filter(obj => (parseInt(obj.id) !== parseInt(objID)));
-                    setUsersService({ data: userRemainder, loaded: true })
+                    setUsersService({ data: userRemainder, loaded: true });
+                    setShowUserServ({loaded:false,id:null});
                     localStorage.setItem("reducedService",JSON.stringify(reducedServiceNew))
                 } catch (error) {
                     if (error.response) {
@@ -193,6 +189,7 @@ const GetServiceList = () => {
                             
                             onMouseOut={(e)=>handleMouseOutSummary(e)}
                             >
+                                <Avatar src={`${staticImage}/${obj.image}`} alt="www.master-connect.ca"/>
                                 <Typography component="h1" variant="h5">
                                     {obj.name}
                                 </Typography>
@@ -326,61 +323,7 @@ const GetServiceList = () => {
         </Container>
     )
 
-    //This only deletes Services from the array
-    function returnUsersServDelAddSubArray(bodyProdIdArr, type) {
-        // console.log("BODYPRODIDARR",bodyProdIdArr,"TYPE",type,"BODYPRODIDARR-LENGTH",bodyProdIdArr.length)
-        const services = getServiceList.loaded ? getServiceList.data : null;
-        let userProdServsArr = [];
-        let newReducedProdServArr = [];
-        // type=type.trim();
-        if (services && type === "add") {
-
-            services.forEach((obj) => {
-                let IntObjId = parseInt(obj.id)
-                bodyProdIdArr.forEach((prodId) => {
-                    if (IntObjId === prodId) {
-                        userProdServsArr.push(obj);
-                    } else {
-                        newReducedProdServArr.push(obj)
-                    }
-                });
-
-            });
-
-            if (newReducedProdServArr.length > 0 && newReducedProdServArr.length <= services.length) {
-                localStorage.setItem("reducedService", JSON.stringify(newReducedProdServArr));
-                // console.log("lengthReduce",newReducedProdServArr,"services",services.length)
-                setUsersService({ data: userProdServsArr, loaded: true })
-            } else {
-                localStorage.setItem("reducedService", JSON.stringify(services));
-                setUsersService({ loaded: false, data: [] });
-            }
-            // console.log("newReducedProdServArr",newReducedProdServArr.length,"userProdServsArr",userProdServsArr.length)
-
-        } else if (services && type === "sub" && bodyProdIdArr.length === 0) {
-            localStorage.setItem("reducedService", JSON.stringify(services));
-            setUsersService({ loaded: false, data: [] });
-            return []
-
-        } else {
-            services.forEach((obj) => {
-                let IntObjId = parseInt(obj.id)
-                bodyProdIdArr.forEach((prodId) => {
-                    if (IntObjId === prodId) {
-                        userProdServsArr.push(obj);
-                    } else {
-                        newReducedProdServArr.push(obj)
-                    }
-                });
-
-            });
-            setUsersService({ data: userProdServsArr, loaded: true });
-            localStorage.setItem("reducedService", JSON.stringify(newReducedProdServArr));
-        }
-
-
-        return userProdServsArr
-    }
+   
 }
 
 export default GetServiceList

@@ -252,10 +252,11 @@ class UserAccountComplete(APIView):
                 tax,created=Tax.objects.get_or_create(country=country,subRegion=provState)
                 if created:
                     tax.save()
-                invoice,create=Invoice.objects.get_or_create(name=userAccount.name,tax=tax)
+                invoice,create=Invoice.objects.get_or_create(name=name,tax=tax,paid=False)
                 if create:
                     invoice.save()
                     userAccount.invoice=invoice
+                    
             # print("userAccount",userAccount,"invoice",invoice,data)
             if user and userAccount:
                 userAccount.name=name
@@ -1264,7 +1265,7 @@ class SaveServiceDependancy(APIView):
                         invoice.subTotalMonthly +=service.monthly
                 for postService in serviceDepend.postServices.all():
                     if postService not in userAccount.postService.all():
-                        userAccount.postService.add(service.id)
+                        userAccount.postService.add(postService.id)
                         postInvoice.subTotal +=postService.price
                         postInvoice.subTotalMonthly +=postService.monthly
                 invoice.total=invoice.subTotal * (1+ (invoice.tax.fed/100 + invoice.tax.provState/100))

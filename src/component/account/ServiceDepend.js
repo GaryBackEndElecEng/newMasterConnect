@@ -1,6 +1,7 @@
-import React, { useContext, useState, useEffect ,useCallback} from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import {TokenAccessContext} from '../../context/TokenAccessProvider';
+import { PriceContext } from '../../context/PriceContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { Stack, Container, Grid, Card, Typography, Avatar, Paper, Fab } from '@mui/material';
 import styled from 'styled-components';
 import { useTheme } from '@mui/material/styles';
@@ -33,27 +34,27 @@ background:${({ bg }) => bg};
 
 `;
 const ServiceDepend = ({ selectedService }) => {
-    var count=0;
+    
     const theme = useTheme();
-    const { serviceDependancy, staticImage,setOpen,open } = useContext(GeneralContext);
-    const {user_id,loggedIn,setUserAccount,setUsersService,setUsersProduct,setUsersPostService,setUsersInvoice,usersProduct} =useContext(TokenAccessContext);
+    const { serviceDependancy, staticImage, setOpen, open,getProductDesigns } = useContext(GeneralContext);
+    const { user_id, loggedIn, setUserAccount, setUsersService, setUsersProduct, setUsersPostService, setUsersInvoice,setUsersExtraService,setUsersExtraInvoice } = useContext(TokenAccessContext);
+    const { getServiceList,} = useContext(PriceContext);
     const [allservicesDependArray, setAllServicesDependArray] = useState({ loaded: false, data: [] });
     const [desc, setDesc] = useState("");
-    const [closePopUp, setClosePopUp] = useState(false);
     const [sent, setSent] = useState(false);
     const [savedItem, setSavedItem] = useState(false);
-    const [message, setMessage] = useState({loaded:false,data:""});
-    const display = (allservicesDependArray.loaded && selectedService ) || (!closePopUp || open)  ? "flex" : "none";
-    const getUser_id=localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
-    const getLoggedIn=localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
-    const windowInnerWidth=window.innerWidth;
-    
+    const [message, setMessage] = useState({ loaded: false, data: "" });
+    const display = (allservicesDependArray.loaded && selectedService) && (open) ? "flex" : "none";
+    const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
+    const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
+    const windowInnerWidth = window.innerWidth;
 
-// console.log("allservicesDependArray.loaded && !closePopUp",(allservicesDependArray.loaded || closePopUp))
+console.log("open",open,"sent",sent)
+    // console.log("allservicesDependArray.loaded && !closePopUp",(allservicesDependArray.loaded || closePopUp))
     useEffect(() => {
         let arr = []
         if (serviceDependancy.loaded && selectedService) {
-            setOpen(open => false)
+
             let getObject = serviceDependancy.data.filter(obj => (obj.category === selectedService.name))[0];
             if (getObject) {
                 setDesc(getObject.desc)
@@ -72,27 +73,63 @@ const ServiceDepend = ({ selectedService }) => {
                 });
                 // console.log("INSIDE",arr,"closePopUp",closePopUp,"display:",display,);
                 setAllServicesDependArray({ loaded: true, data: arr });
-                if(windowInnerWidth <900 && windowInnerWidth >440){
-                    window.scrollBy(0,500);
-                }else if(windowInnerWidth < 440){
-                    window.scrollBy(0,1000);
+                if (windowInnerWidth < 900 && windowInnerWidth > 440) {
+                    window.scrollBy(0, 500);
+                } else if (windowInnerWidth < 440) {
+                    window.scrollBy(0, 1000);
                 }
-            }
-           
+            } else { setOpen(open => false) }
+
         }
 
     }, []);
 
-    const loadUsersProductServsInv= useCallback((userAccount_data)=>{
-        if(userAccount_data){
-            setUsersProduct({loaded:true,data:userAccount_data.product})
-            setUsersService({loaded:true,data:userAccount_data.service});
-            setUsersPostService({loaded:true,data:userAccount_data.service});
-            setUsersInvoice({loaded:true,data:userAccount_data.invoice})
-        }
-    },[]);
+    const balanceUsersServiceReduceServices= useCallback((userAccount_data)=>{
 
-    const sendItemsToServer = async (e,params) => {
+        let arr=getServiceList.loaded ? getServiceList.data:[];
+            arr.forEach((service,index)=>{
+                let Exists = userAccount_data.service.filter(obj=>(parseInt(obj.id)===parseInt(service.id)))[0];
+                    if(Exists){
+                        arr.splice(index,1);
+                    }
+            });
+            localStorage.setItem("reducedService",JSON.stringify(arr));
+    },[getServiceList.loaded,getServiceList.data]);
+
+    const balanceUsersProductReduceServices= useCallback((userAccount_data)=>{
+
+        let arr=getProductDesigns.loaded ? getProductDesigns.data.filter(obj => (obj.type === "pageDesign")):[];
+            arr.forEach((product,index)=>{
+                let Exists = userAccount_data.product.filter(obj=>(parseInt(obj.id)===parseInt(product.id)))[0];
+                    if(Exists){
+                        arr.splice(index,1);
+                    }
+            });
+            localStorage.setItem("reducedProduct",JSON.stringify(arr));
+    },[getProductDesigns.loaded,getProductDesigns.data]);
+
+    const loadUsersProductServsInv = useCallback((userAccount_data) => {
+        if (userAccount_data) {
+            setUsersProduct({ loaded: true, data: userAccount_data.product })
+            setUsersService({ loaded: true, data: userAccount_data.service });
+            setUsersInvoice({ loaded: true, data: userAccount_data.invoice });
+            if(userAccount_data.postService && userAccount_data.postService.length>0){
+            setUsersPostService({ loaded: true, data: userAccount_data.postService });
+            }else{setUsersPostService({ loaded: false, data:[] });}
+            if(userAccount_data.extraService && userAccount_data.extraService.length>0){
+                setUsersExtraService({ loaded: true, data: userAccount_data.extraService });
+            }else{
+                setUsersExtraService({ loaded: false, data:[] });
+            }
+            if(userAccount_data.extraInvoice){
+                setUsersExtraInvoice({loaded:true,data:userAccount_data.extraInvoice});
+            }else{setUsersExtraInvoice({loaded:false,data:{}})}
+            balanceUsersServiceReduceServices(userAccount_data);
+            balanceUsersProductReduceServices(userAccount_data);
+        }
+    }, [setUsersProduct,setUsersService,setUsersInvoice,setUsersPostService,setUsersExtraService,balanceUsersServiceReduceServices,setUsersExtraInvoice,balanceUsersProductReduceServices]);
+
+    const sendItemsToServer = async (e, params) => {
         e.preventDefault();
         try {
             const res = await apiProtect.post("/account/saveServicedependencies/", params);
@@ -100,12 +137,14 @@ const ServiceDepend = ({ selectedService }) => {
             //THIS IS THE PROBLEM!! ITS NOT FAST ENOUGHT ( HAVE CREATE A DELAY UPLOAD THROUGH A Callback(()=>{}))
             setUserAccount({ loaded: true, data: userAccount_data });
             loadUsersProductServsInv(userAccount_data);
-            setClosePopUp(closePopUp => true);
             setSent(sent => true);
-            setOpen(open => false);
             setSavedItem(true)
-            setMessage({loaded:true,data:"The following items were added to your basket"});
-            
+            setMessage({ loaded: true, data: "items were added to your basket" });
+            setTimeout(()=>{
+                setSent(sent=>false);
+                setOpen(open => false);
+            },2000);
+
         } catch (error) {
             console.log(error.message)
         }
@@ -114,29 +153,29 @@ const ServiceDepend = ({ selectedService }) => {
     const handleAddToBasket = (e) => {
         e.preventDefault();
         if (allservicesDependArray.loaded && getUser_id && getLoggedIn && !savedItem) {
-            const params ={serviceName:selectedService.name,user_id:getUser_id}; 
-            sendItemsToServer(e,params);
-        }else{
-            setTimeout(()=>{setSavedItem(false);setOpen(open => false);setClosePopUp(closePopUp=> true)},1000)
-            setMessage({loaded:true,data:" there are no items loaded"})
+            const params = { serviceName: selectedService.name, user_id: getUser_id };
+            sendItemsToServer(e, params);
+        } else {
+            setSent(sent=>false);
+                setOpen(open => false);
+            
         }
     }
     const handleNoAdding = (e) => {
         e.preventDefault();
-        setClosePopUp(closePopUp => true);
         setSent(sent => false);
         setOpen(open => false);
 
     }
     return (
-        
-         <PopUpStack direction="column"
+
+        <PopUpStack direction="column"
             bg={theme.palette.common.blueGreyLight}
             elevation={20}
             display={display}
             sx={{ display: display }}
         >
-            {message.loaded && <Typography component="h1" variant="h4" >{message.data}</Typography>}
+            {open && !sent && <Typography component="h1" variant="h4" >{message.data}</Typography>}
             <Typography component="h1" variant="h4" sx={{ margin: "1rem auto", fontWeight: "bold" }}>{selectedService && selectedService.name}-DEPENDANCIES</Typography>
             <Typography component="h1" variant="h5" sx={{ margin: "0.5rem auto" }}>Selected {selectedService && selectedService.name}</Typography>
             <Typography component="h1" variant="body1" sx={{ margin: "0.5rem auto" }}>{desc}</Typography>
@@ -167,9 +206,15 @@ const ServiceDepend = ({ selectedService }) => {
                     not yet
                 </Fab>
             </Stack>
+            {open && sent && <Stack direction="column" spacing={2}
+                sx={{ justifyContent: "center", alignItems: "center",color:theme.palette.common.red }}
+            >
+                <Typography component="h1" variant="h3">{message.data}</Typography>
+
+            </Stack>}
 
         </PopUpStack>
-        
+
     )
 }
 

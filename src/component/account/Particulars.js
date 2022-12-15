@@ -49,8 +49,10 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
     useEffect(() => {
         if (invoicePaid) {
             setPaid(invoicePaid.paid)
-        } else { setPaid(false) }
+        } 
+        if(postInvoicePaid){
         setPostPaid(postInvoicePaid.paid)
+        }
     }, [invoicePaid, postInvoicePaid, formComplete]);
 
     useEffect(() => {

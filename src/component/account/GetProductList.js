@@ -188,7 +188,7 @@ const GetProductList = () => {
         e.preventDefault();
         if (id) {
             setServiceArr({ loaded: false, data: [], id: null });
-        }
+        }else{setServiceArr({ loaded: false, data: [], id: null });}
     }
     
     return (
@@ -285,7 +285,9 @@ const GetProductList = () => {
                             <Grid container spacing={0}>
                                 {usersProd && usersProd.map(obj => (
                                     <Grid item xs={12} sm={6} md={4} key={`${obj.id}-${Math.ceil(Math.random() * 1000)}`}>
-                                        <Paper elevation={3}>
+                                        <Paper elevation={3}
+                                        
+                                        >
                                             <Card sx={{ maxWidth: "100%", fontFamily: "Roboto", padding: "1rem" }}>
                                                 <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
                                                     {obj && obj.name}
