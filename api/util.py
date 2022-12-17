@@ -202,5 +202,5 @@ class ServiceEvaluator:
             missedArr += self.missedService()
         return missedArr
                            
-
+# print(ServiceEvaluator(40).returnMissedProdsServs())
 

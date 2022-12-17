@@ -167,26 +167,24 @@ class LoginView(APIView):
         data=self.request.data
         username=data['username']
         password=data['password']
-        # print(data['UUID'],"type",type(data['UUID']))
-        if data['UUID']:
-            uuid=data['UUID']
-            CalcAddToUserAccountAtLogin(uuid,username).execute()
-        if data["customId"]:
-            customId=data["customId"]
-            #STORES CUSTOM PRODUCT TO USERACCOUT
-            storeCustomId(customId,username)
-        if data["packageId"]:
-            # STORE USERS SELECTED PACKAGE TO THE USERS ACCOUNT
-            packageId=data["packageId"]
 
         try:
             user=auth.authenticate(username=username,password=password)
             # print("userModel",user)
             if user is not None:
                 auth.login(request,user)
+                if data['UUID']:
+                   uuid=data['UUID']
+                   CalcAddToUserAccountAtLogin(uuid,username).execute()
                 if packageId:
                     saveUsersPackage(user.id,packageId)
-                    # print("inside",packageId)
+                if data["customId"]:
+                   customId=data["customId"]
+                   #STORES CUSTOM PRODUCT TO USERACCOUT
+                   storeCustomId(customId,username)
+                if data["packageId"]:
+                   # STORE USERS SELECTED PACKAGE TO THE USERS ACCOUNT
+                   packageId=data["packageId"]
                 generateUserJobs(user.id)
                 token=self.get_tokens_for_user(user)
                 return Response({"access_token":token["access_token"],"refresh_token":token["refresh_token"],"username":user.username,"email":user.email,"user_id":user.id},status=status.HTTP_200_OK)
@@ -233,6 +231,7 @@ class UserAccountComplete(APIView):
         user_id=data['user_id']
         name=data['name']
         cell=data['cell']
+        email=data["email"]
         address=data['address']
         country=data['country']
         provState=data['provState']
@@ -271,12 +270,14 @@ class UserAccountComplete(APIView):
                 userAccount.CDN=CDN
                 userAccount.industry=industry
                 userAccount.co=co
+                userAccount.email=email
                 userAccount.save()
                 if name.split(" "):
+                    user.email=email
                     user.first_name=name.split(" ")[0]
                     user.last_name=name.split(" ")[1]
                     user.save()
-                serializer= UserAccountAllCombined(userAccount)
+                serializer= UserAccountAllCombined(userAccount,many=False)
                 return Response(serializer.data)
             else:
                 return Response({"error":"No user assigned","status":status.HTTP_503_SERVICE_UNAVAILABLE})
@@ -433,7 +434,7 @@ class UserProductDelete(APIView):
         userAccount.save()
         # print("userAccount",userAccount)
         if userAccount:
-            serializer= UserAccountAllCombined(userAccount)
+            serializer= FullProductSerializer(userAccount.product.all(),many=True)
             # print("serializer",serializer)
             return Response(serializer.data)
         else:
@@ -1113,9 +1114,9 @@ class CalculatorResults(APIView):
             if data and calculators:
                 for question in calculators:
                     question.priceCatelog=category
-                    for dict in data:
-                        if question.id == dict.get("id"):
-                            question.ans.append(dict.get("ans"))
+                    for dict1 in data:
+                        if question.id == dict1.get("id"):
+                            question.ans.append(dict1.get("ans"))
                             question.save()
                 senResults=CalculateCost().calcCombine()
                 return Response({"data":senResults,"status":status.HTTP_201_CREATED})

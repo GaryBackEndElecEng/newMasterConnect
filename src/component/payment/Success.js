@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState,useMemo } from 'react';
+import React, { useEffect, useContext, useState, useMemo } from 'react';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { Container, Typography } from '@mui/material';
@@ -7,11 +7,12 @@ import apiProtect from '../axios/apiProtect';
 import styled from 'styled-components';
 import styles from './payment.module.css';
 import Particulars from '../checkout/Particulars';
-
+import VerifyMissingServices from '../checkout/VerifyMissingServices';
 import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import ShowPayment from './ShowPayment';
 import SuccessHelmet from './SuccessHelmet';
+
 
 const CoverPage = styled(Container)`
 position:relative;
@@ -34,21 +35,21 @@ animation: showCover 2s ease-in-out;
 `;
 
 const Success = () => {
-  
-  const { session_id, staticImage, setTitle, setStyleName,setChangePage } = useContext(GeneralContext);
-  const { user_id, loggedIn,usersInvoice, setUsersInvoice , userAccount, setUser_id } = useContext(TokenAccessContext);
+
+  const { session_id, staticImage, setTitle, setStyleName, setChangePage } = useContext(GeneralContext);
+  const { user_id, loggedIn, usersInvoice, setUsersInvoice, userAccount, setUser_id } = useContext(TokenAccessContext);
   const getSession_id = session_id ? session_id : localStorage.getItem("session_id");
   const [message, setMessage] = useState(false);
   const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
   const mainPic = `${staticImage}/mainDesign.png`
   const [growIn, setGrowIn] = useState(false);
   const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
-  const getUsersInvoice = usersInvoice.loaded ? usersInvoice.data :null;
-  
+  const getUsersInvoice = usersInvoice.loaded ? usersInvoice.data : null;
 
 
-  
-  
+
+
+
   useMemo(() => {
     const getInfoFromSession_id = async () => {
       try {
@@ -65,16 +66,16 @@ const Success = () => {
     }
     if (getLoggedIn && getSession_id) {
       // console.log("INSIDE)")
-      setTimeout(()=>{
+      setTimeout(() => {
         getInfoFromSession_id();
-      },500);
-      
-    } if(!getLoggedIn) { 
+      }, 500);
+
+    } if (!getLoggedIn) {
       setMessage("you need to signin again to check your account. You are not presently logged in.");
-     } if(!getSession_id){
+    } if (!getSession_id) {
       setMessage("We did not recieved the confirmation payment from our financial services. An email will be sent to you to confirm your payment.If persists, we will contact you to sort this out. ");
-     }
-  }, [getSession_id, getLoggedIn,getUser_id,setUser_id,setUsersInvoice]);
+    }
+  }, [getSession_id, getLoggedIn, getUser_id, setUser_id, setUsersInvoice]);
 
   useEffect(() => {
     setChangePage(false);
@@ -83,10 +84,10 @@ const Success = () => {
     setTimeout(() => {
       setGrowIn(true);
     }, 2000);
-   
-  },[setTitle,setStyleName,setChangePage]);
 
-  
+  }, [setTitle, setStyleName, setChangePage]);
+
+
 
 
 
@@ -94,15 +95,18 @@ const Success = () => {
     <Container maxwidth="xl"
       sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", marginTop: "3rem" }}
     >
-      <SuccessHelmet/>
-      <RegisterPage/>
-      <GetRegisterPages/>
+      <SuccessHelmet />
+      <RegisterPage />
+      <GetRegisterPages />
       <Particulars userAccount={userAccount} />
       <CoverPage image={mainPic} maxWidth="xl" sx={{ position: "relative" }}>
 
         {loggedIn ?
-          <ShowPayment message={message} getUsersInvoice={getUsersInvoice}/>
-
+          <>
+            <ShowPayment message={message} getUsersInvoice={getUsersInvoice} />
+            <Typography component="h1" variant="h6"> We noticed that you did not include teh floowing services. No Worries, we will sort this out with you during out call.</Typography>
+            <VerifyMissingServices />
+          </>
 
           :
 

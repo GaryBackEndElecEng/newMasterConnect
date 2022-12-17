@@ -7,7 +7,7 @@ const ProductsServiceDependancies = ({ serviceArr,staticImage }) => {
         <Grid container spacing={{ xs: 0, sm: 1 }}>
             {
                 services.map((obj, index) => (
-                    <Grid item xs={12} sm={6} key={`${obj.id}-/-${index}`}>
+                    <Grid item xs={12} sm={6} key={`${obj.id}-/-${index}-${Math.ceil(Math.random()*1000)}`}>
                         <Card elevation={3} sx={{ padding: "0.25rem" }}>
                             <Avatar src={`${staticImage}/${obj.image}`} sx={{ width: "70px", height: "70px" }} />
                             <Typography component="h1" variant="h5" sx={{ margin: "1rem auto" }}>{obj.name}</Typography>

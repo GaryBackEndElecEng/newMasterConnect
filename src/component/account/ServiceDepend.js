@@ -49,7 +49,7 @@ const ServiceDepend = ({ selectedService }) => {
     const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
     const windowInnerWidth = window.innerWidth;
 
-console.log("open",open,"sent",sent)
+// console.log("open",open,"sent",sent)
     // console.log("allservicesDependArray.loaded && !closePopUp",(allservicesDependArray.loaded || closePopUp))
     useEffect(() => {
         let arr = []

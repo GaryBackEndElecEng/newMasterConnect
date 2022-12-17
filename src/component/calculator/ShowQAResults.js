@@ -4,7 +4,7 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Container, Stack, Grid, Typography, Paper, Fab } from '@mui/material';
+import { Container, Stack, Grid, Typography, Paper, Fab, Avatar } from '@mui/material';
 import api from '../axios/api';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import LoginIcon from '@mui/icons-material/Login';
@@ -56,11 +56,12 @@ animation: appearIn 1s ease-in-out;
 `;
 const ShowQAResults = () => {
     const theme = useTheme();
-    const navigate=useNavigate();
-    const { userSelectionArray, questionResults, setQuestionResults,setChangePage,UUID,setUUID } = useContext(GeneralContext);
+    const navigate = useNavigate();
+    const { userSelectionArray, questionResults, setQuestionResults, setChangePage, UUID, setUUID, staticImage } = useContext(GeneralContext);
     const [sent, setSent] = useState(false)
     const [seeResults, setSeeResults] = useState(false);
     const [truncDigit, setTruncDigit] = useState(0);
+    const logo="logo.png"
     useEffect(() => {
         const sendInfo = async () => {
             try {
@@ -68,9 +69,9 @@ const ShowQAResults = () => {
                 const body = res.data.data;
                 // console.log("BODY RESULTS", body)
                 setQuestionResults({ loaded: true, data: body })
-                setTruncDigit(Math.trunc(body.total/10));
-                setUUID({loaded:true,uuid:body.uuid});
-                localStorage.setItem("UUID",JSON.stringify(body.uuid))
+                setTruncDigit(Math.trunc(body.total / 10));
+                setUUID({ loaded: true, uuid: body.uuid });
+                localStorage.setItem("UUID", JSON.stringify(body.uuid))
                 setSent(true);
             } catch (error) {
                 console.error(error.message)
@@ -88,9 +89,9 @@ const ShowQAResults = () => {
         }
 
     }
-    const handleLogin=(e)=>{
+    const handleLogin = (e) => {
         e.preventDefault();
-        navigate("/register",setChangePage(true));
+        navigate("/register", setChangePage(true));
     }
     return (
         <ShowResultsMain
@@ -101,7 +102,9 @@ const ShowQAResults = () => {
                 overflowY: "scroll",
             }}
         >
-            <Typography component="h1" variant="h3" sx={{ margin: "2rem auto", textAlign: "center", }}>Results</Typography>
+            <Typography component="h1" variant="h3" sx={{ margin: "2rem auto", textAlign: "center", }}>
+                Results
+            </Typography>
             {!seeResults ?
                 <Box>
                     <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -117,12 +120,24 @@ const ShowQAResults = () => {
                                 }}
                             >
                                 <Stack direction="column" spacing={{ xs: 0, sm: 1, md: 2 }} sx={{ margin: "auto" }}>
-                                    <Paper elevation={3} sx={{ textAlign: "center" }}><Typography component="h1" variant="h5" sx={{ padding: "0.5rem" }}>Question</Typography></Paper>
-                                    <Typography component="h1" variant="h6" sx={{ padding: "0.5rem" }}>{obj.Q}</Typography>
+                                    <Paper elevation={3} sx={{ textAlign: "center" }}>
+                                        <Typography component="h1" variant="h5" sx={{ padding: "0.5rem" }}>
+                                            Question
+                                        </Typography>
+                                    </Paper>
+                                    <Typography component="h1" variant="h6" sx={{ padding: "0.5rem" }}>
+                                        {obj.Q}
+                                    </Typography>
                                 </Stack>
                                 <Stack direction="column" spacing={{ xs: 0, sm: 1, md: 2 }} sx={{ margin: "auto" }}>
-                                    <Paper elevation={3} sx={{ textAlign: "center" }}><Typography component="h1" variant="h5" sx={{ padding: "0.5rem" }}>answer</Typography></Paper>
-                                    <Typography component="h1" variant="h6" sx={{ padding: "0.5rem" }}>{obj.ans}</Typography>
+                                    <Paper elevation={3} sx={{ textAlign: "center" }}>
+                                        <Typography component="h1" variant="h5" sx={{ padding: "0.5rem" }}>
+                                            answer
+                                        </Typography>
+                                    </Paper>
+                                    <Typography component="h1" variant="h6" sx={{ padding: "0.5rem" }}>
+                                        {obj.ans}
+                                    </Typography>
                                 </Stack>
                             </CustomGrid>
 
@@ -134,34 +149,47 @@ const ShowQAResults = () => {
                         </Fab>
                     </Stack>
                 </Box>
-            :
-            <ShowResults>
-                <Typography component="h1" variant="h4" sx={{ margin: "2rem auto", textAlign: "center", }}>Based on your answers</Typography>
-                <Typography component="h1" variant="h5" sx={{ margin: "2rem auto", textAlign: "center", }}>The services will provide you with a good foundation. Adding additional services is very dynamic based on your selection</Typography>
-                <Grid container spacing={{xs:0,sm:1,md:2}} sx={{margin:"auto"}}>
-                    {(questionResults.loaded && questionResults.data) && questionResults.data.data.map((obj,index)=>(
-                        <Grid item xs={12} sm={6} md={4} key={index}
-                        sx={{background:"white",boxShadow:"1px 2px 6px 8px blue",padding:"1rem"}}
-                        >
-                            <Typography component="h1" variant="h5" sx={{margin:"1rem auto",color:"black"}}>{obj.name}</Typography>
-                            <Typography component="h1" variant="h6" sx={{color:"black"}}>{obj.summary}</Typography>
-                        </Grid>
+                :
+                <ShowResults>
+                    <Typography component="h1" variant="h4" sx={{ margin: "2rem auto", textAlign: "center", }}>
+                        Based on your answers
+                    </Typography>
+                    <Typography component="h1" variant="h5" sx={{ margin: "2rem auto", textAlign: "center", }}>
+                        The services will provide you with a good foundation. Adding additional services is very dynamic based on your selection
+                    </Typography>
+                    <Grid container spacing={{ xs: 0, sm: 1, md: 2 }} sx={{ margin: "auto" }}>
+                        {(questionResults.loaded && questionResults.data) && questionResults.data.data.map((obj, index) => (
+                            <Grid item xs={12} sm={6} md={4} key={index}
+                                sx={{ background: "white", boxShadow: "1px 2px 6px 8px blue", padding: "1rem" }}
+                            >
+                                <Avatar src={`${staticImage}/logo.png`} alt="www.master-connect.ca" />
+                                <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: "black" }}>
+                                    {obj.name}
+                                </Typography>
+                                <Typography component="h1" variant="h6" sx={{ color: "black" }}>
+                                    {obj.summary}
+                                </Typography>
+                            </Grid>
 
-                    ))}
-                </Grid>
-                <Typography component="h1" variant="h3" sx={{margin:"2rem auto",color:"black"}}>
-                    Your total is,
-                        ${setTruncDigit}...
-                </Typography>
-                <Typography component="h1" variant="h4" sx={{margin:"2rem auto",color:"black"}}>your info is stored in an id :{UUID.loaded && UUID.uuid}</Typography>
-                <Typography component="h1" variant="h6" sx={{ margin: "2rem auto", textAlign: "center",color:"black" }}>For us to save your long awaited data, we need to know who you are so, you don't have to do this again. Its critical information that we need to serve you well and to give you the right site, the first time around - We get things done!</Typography>
-                <Stack direction="column" sx={{margin:"2rem auto"}} onClick={(e)=>handleLogin(e)}>
-                    <Fab variant="extended" color="primary">
-                        Register to view results <LoginIcon sx={{color:"green",ml:1}}/>
-                    </Fab>
-                </Stack>
-            </ShowResults>    
-        }
+                        ))}
+                    </Grid>
+                    <Typography component="h1" variant="h3" sx={{ margin: "2rem auto", color: "black" }}>
+                        Your total is,
+                        ${truncDigit}...
+                    </Typography>
+                    <Typography component="h1" variant="h4" sx={{ margin: "2rem auto", color: "black" }}>
+                        your info is stored in an id :{UUID.loaded && UUID.uuid}
+                    </Typography>
+                    <Typography component="h1" variant="h6" sx={{ margin: "2rem auto", textAlign: "center", color: "black" }}>
+                        Your long awaited data is temporarily saved within our server.We need to assign your data to your account. Your information is important to us and personal to you.You need to register so we know where to place it.
+                    </Typography>
+                    <Stack direction="column" sx={{ margin: "2rem auto" }} onClick={(e) => handleLogin(e)}>
+                        <Fab variant="extended" color="primary">
+                            Register to view results <LoginIcon sx={{ color: "green", ml: 1 }} />
+                        </Fab>
+                    </Stack>
+                </ShowResults>
+            }
 
         </ShowResultsMain>
     )

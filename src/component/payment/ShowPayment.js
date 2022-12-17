@@ -7,6 +7,7 @@ import styles from './payment.module.css';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 
+
 const ShowPayment = ({message,getUsersInvoice}) => {
     const { session_id,postSession_id } = useContext(GeneralContext);
   const [showPayment,setShowPayment]=useState(false);
@@ -72,6 +73,7 @@ const getSession_id= localStorage.getItem("session_id") ? localStorage.getItem("
                     { showPostPayment ? 
                     <Grid item xs={12} sm={6} className={styles.summaryPaymentGrid}>
                         <Typography component="h1" variant="h5"> Confirmed payment</Typography>
+                        
                     </Grid>
                     :
                     <Grid item xs={12} sm={6}  className={styles.summaryPaymentGridNotConfirmed}>

@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.conf import settings
-from .models import UserAccount
+from .models import UserAccount,Product
 import math
 from django.http import Http404
 from django.core.mail import EmailMultiAlternatives,BadHeaderError
@@ -104,3 +104,30 @@ def sendPublishCompleteEmail(user_id,userAccountId):
         except BadHeaderError as e:
             return e
         return "done"
+
+
+# /////// THIS UPDATES THE SAVINGS TO PRODUCTS  //////
+@receiver(post_save,dispatch_uid='updateProductSavings', sender=Product)
+def updateProductSavings(instance,*args,**kwargs):
+    if instance.update == True and instance.updated == False:
+        total=0
+        servicePrice=0
+        postServicePrice=0
+        extraServicePrice=0
+        services=instance.services.all()
+        postServices=instance.postServices.all()
+        extraServices=instance.extraServices.all()
+        instance.update=False
+        instance.updated=True
+        if len(services)>0:
+         for service in services:
+          servicePrice +=service.price
+        if len(postServices)>0:
+         for postService in postServices:
+          postServicePrice += postService.price
+        if len(extraServices)>0:
+         for extraService in extraServices:
+          extraServicePrice += extraService.price
+        total=servicePrice + postServicePrice + extraServicePrice
+        instance.savings=total - instance.price
+        instance.save()

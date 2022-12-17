@@ -15,15 +15,14 @@ import MsgFillOutForm from './MsgFillOutForm';
 
 const InfoCompleteForm = () => {
     const { setUserAccount, user_id, setAddress, address, setCell, cell, setName, name,setWebsite,website,setCDN,CDN, setFormComplete, formComplete,
-        provState, setProvState,country, setCountry,postal, setPostal,industry,setIndustry,setCo,co } = useContext(TokenAccessContext);
+        provState, setProvState,country, setCountry,postal, setPostal,industry,setIndustry,setCo,co,email,setEmail,setUsersInvoice,city, setCity } = useContext(TokenAccessContext);
     const theme = useTheme();
     const [error, setError] = useState('');
     const [issue, setIssue] = useState(false);
     const [isInfoOk, setIsInfoOk] = useState(false);
     const [validName, setValidName] = useState(false);
     const [validCell, setValidCell] = useState(false);
-    const [city, setCity] = useState("");
-
+    const [validEmail, setValidEmail] = useState(false);
     const [validAddress, setValidAddress] = useState(false);
     const [validCountry, setValidCountry] = useState(false);
     const [validCity, setValidCity] = useState(false);
@@ -81,7 +80,7 @@ useMemo(()=>{
     useEffect(() => {
         if (isInfoOk) {
             setRequestInfo({ data:
-                 { name: name, cell: cell, address:address,country:country,provState:provState,postal:postal,website:website,CDN:CDN,industry:industry,co:co,city:city },
+                 { name: name, cell: cell, address:address,country:country,provState:provState,postal:postal,website:website,CDN:CDN,industry:industry,co:co,city:city,email:email },
                   loaded: true });
         }
 
@@ -92,6 +91,7 @@ useMemo(()=>{
         const GENERIC_REGEX = /(^[a-zA-Z0-9]{1,8})/;
         const COUNTRY_REGEX = /(^[a-zA-Z0-9]{0,2})/;
         const fullName_REGEX = /(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/;
+        const email_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         const cell_REGEX = /^[0-9]{10}|[0-9]{3}-[0-9]{3}-[0-9]{4}/;
         const address_REGEX = /(^[0-9]{0,10})([ ]{0,1})([A-Za-z]{1,36})/;
         if(fullName_REGEX.test(name) && name !== "newuser") setValidName(true)
@@ -104,31 +104,32 @@ useMemo(()=>{
         setValidCo(GENERIC_REGEX.test(co));
         setValidWebsite(GENERIC_REGEX.test(website));
         setValidIndustry(GENERIC_REGEX.test(industry));
-        setValidCity(COUNTRY_REGEX.test(city))
+        setValidCity(COUNTRY_REGEX.test(city));
+        setValidEmail(email_REGEX.test(email));
 
 
-    }, [ address, cell,name,country,provState,city,postal,CDN,website,industry,co]);
+    }, [ address, cell,name,country,provState,city,postal,CDN,website,industry,co,email]);
 
     useEffect(()=>{
-        if (validName && validCell && validAddress && validPostal && validProvState && validCountry && validCDN && validCo && validWebsite & validIndustry && validCity) {
+        if (validName && validCell && validAddress && validPostal && validProvState && validCountry && validCDN && validCo && validWebsite & validIndustry && validCity && validEmail) {
             setIsInfoOk(true)
         } 
-    },[validName,validCell,validAddress,validPostal,validProvState,validCountry,validWebsite,validCDN,validCo,validIndustry,validCity]);
+    },[validName,validCell,validAddress,validPostal,validProvState,validCountry,validWebsite,validCDN,validCo,validIndustry,validCity,validEmail]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const params = { "user_id": user_id, "name": requestInfo.data.name, "cell": requestInfo.data.cell, 
                         "address": requestInfo.data.address,"country":requestInfo.data.country,
-                        "provState":requestInfo.data.provState,"postal":requestInfo.data.postal,"website":requestInfo.data.website,"CDN":requestInfo.data.CDN,"industry":requestInfo.data.industry,"comp":requestInfo.data.co,"city":requestInfo.data.city}
+                        "provState":requestInfo.data.provState,"postal":requestInfo.data.postal,"website":requestInfo.data.website,"CDN":requestInfo.data.CDN,"industry":requestInfo.data.industry,"comp":requestInfo.data.co,"city":requestInfo.data.city,"email":requestInfo.data.email}
         const sendServer = async () => {
             try {
-                const res = apiProtect.post("/account/userAccountComplete/", params);
-                const body = await res.data;
-                if (body) {
-                    setUserAccount({ loaded: true, data: body });
-                    localStorage.setItems("userAccount",JSON.stringify(body))
-                }
+                const res = await apiProtect.post("/account/userAccountComplete/", params);
+                const users_Account_ = res.data;
+                    setUserAccount({ loaded: true, data: users_Account_ });
+                    localStorage.setItem("userAccount",JSON.stringify(users_Account_));
+                    setUsersInvoice({loaded:true,data:users_Account_.invoice})
                 setFormComplete(true);
+                setCity(users_Account_.address.split(",")[1])
                 localStorage.setItem("formComplete",true)
             } catch (error) {
                 if (error.response) {
@@ -185,6 +186,24 @@ useMemo(()=>{
                             {validCell ? <span className={styles.validCell}><CheckCircleOutlineIcon /></span>
                                 : <span className={styles.not}><CloseIcon /></span>}
                             <FormHelperText id={styles.extraInfo}>starting format:"xxx-xxx-xxxx"</FormHelperText>
+
+                        </FormControl>
+                        
+                        <FormLabel className={styles.formLabel} component="div" color="primary" filled={true}>email</FormLabel>
+                        <FormControl className={styles.formControl} size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                            <InputLabel htmlFor="email">email</InputLabel>
+                            <Input
+                                id="email"
+                                name="email"
+                                aria-describedby="Your email number"
+                                placeholder="1234567899 or 123-456-7899"
+                                value={email ? email :""}
+                                onChange={(e) => setEmail(e.target.value)}
+                                aria-invalid={validEmail ? "false" : "true"}
+                            />
+                            {validCell ? <span className={styles.validEmail}><CheckCircleOutlineIcon /></span>
+                                : <span className={styles.not}><CloseIcon /></span>}
+                            <FormHelperText id={styles.extraInfo}>if you need to change your email</FormHelperText>
 
                         </FormControl>
                         <FormLabel className={styles.formLabel} component="div" color="primary" filled={true}>Your Address </FormLabel>

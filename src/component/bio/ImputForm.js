@@ -101,10 +101,10 @@ const ImputForm = () => {
         >
             <Paper elevation={8}
                 sx={{
-                    
+                    boxShadow:"1px 1px 10px 5px black"
                 }}
             >
-                <Card sx={{position:"relative"}}>
+                <Card sx={{position:"relative",}}>
                      
                     <CardMedia component={"img"} image={cardImg} height="300" alt="www.master-connect.ca"/>
                     { open &&
@@ -118,11 +118,11 @@ const ImputForm = () => {
                     </CustTypography>
                     }
                     <CardContent>
-                        <form style={{ margin: "auto", width: "100%", flexGrow: 1, background: theme.palette.common.light }}>
+                        <form style={{ margin: "auto", width: "100%", flexGrow: 1, background: theme.palette.home.lightBlue }}>
                             <FormLabel component="div" color="primary"
                                 sx={{ display: "flex", justifyContent: "flex-start", alignItems: "flex-start", flexDirection: "column", padding: "1rem", width: "100%" }}
                             >
-                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
                                     <InputLabel htmlFor="email">Email Address</InputLabel>
                                     <Input
                                         id="email"
@@ -135,7 +135,7 @@ const ImputForm = () => {
                                         : <span className={validEmail ? styles.not : styles.notValidEmail}><CloseIcon /> </span>}
                                     {/* <FormHelperText id="valid-email">We'll never share your email.</FormHelperText> */}
                                 </FormControl>
-                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
                                     <InputLabel htmlFor="name">Full Name</InputLabel>
                                     <Input
                                         id="name"
@@ -149,7 +149,7 @@ const ImputForm = () => {
                                     {/* <FormHelperText id="your-full-name">full name</FormHelperText> */}
 
                                 </FormControl>
-                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative" }}>
+                                <FormControl size="medium" variant="filled" sx={{ border: "1px solid black", flexGrow: 1, width: "100%", position: "relative",background:"white" }}>
 
                                     <TextareaAutosize
                                         sx={{ width: "100%" }}

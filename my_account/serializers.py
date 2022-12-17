@@ -18,12 +18,6 @@ class ExtraServiceSerializer(serializers.ModelSerializer):
 #      class Meta:
 #         model= PriceCatelog
 #         fields="__all__"
-
-class ProductSerializer(serializers.ModelSerializer):
-    permission_classes=[permissions.AllowAny,]
-    class Meta:
-        model = Product
-        fields='__all__'
         
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -38,7 +32,12 @@ class PostServiceSerializer(serializers.ModelSerializer):
         model = PostService
         fields='__all__'
        
-
+class ProductSerializer(serializers.ModelSerializer):
+    permission_classes=[permissions.AllowAny,]
+    class Meta:
+        model = Product
+        fields='__all__'
+        
 class PackageSerializer(serializers.ModelSerializer):
     products=ProductSerializer(many=True,read_only=True)
     services=ServiceSerializer(many=True,read_only=True)

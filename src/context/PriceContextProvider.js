@@ -153,20 +153,6 @@ export const PriceContextProvider = (props) => {
         getServices();
       },[]);
 
-    useEffect(()=>{
-        const getProducts = async ()=>{
-          try {
-            const res= await api.get('/GetProducts/');
-            const body=res.data
-            if(body?.length>0){
-            setGetProducts({loaded:true,data:body})
-            }
-          } catch (error) {
-            console.error(error.message)
-          }
-        }
-        // getProducts();
-      },[])
     
     return (
         <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,getProducts,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray,customTemplates,getContactList,getAboutList}}>

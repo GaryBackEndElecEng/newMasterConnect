@@ -5,7 +5,9 @@ one subject: what is communication
 
 
 TODO
-- WHEN PURCHASED SEND DEPENDANCIES AND EXPLAIN( IN EMAIL THAT ITEM S ARE MISSING TO COMPLETE THE PROJECT.)
+
+-correct the saving of the UUID to Calc and re-access the process of saving NOW USING THE DEPEPENDANCY TABLE.
+-correct the savingof data in useraccount for Calculator (its not saving the written data)
 
 -add information about database ownage ( and residual monthly cost after final payment)
 - add detail page product to products
@@ -21,6 +23,9 @@ TODO
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+-ADDED SAVINGS TO PRODUCT AND INSTALLED IT WITHIN MY_ACCOUNT/SIGNALS
+- WHEN PURCHASED SEND DEPENDANCIES AND EXPLAIN( IN EMAIL THAT ITEM S ARE MISSING TO COMPLETE THE PROJECT.)
+-add email change to MyAccount infoFormFill.js
 -CREATE ANOTHER PAGE THAT EXPLAINS THE RELATIONSHIP OF SERVICES 
 - USE THE DEPENDANCY TABLE ( BACK END) TO DISPLAY THE SERVICE REQUIREMENTS, TO WHEN PICKING ADDITIONAL SERVICES. STRONGLY ENCOURAGE THEM TO INCLUDE ALL( OR ELSE THE SERVICE CAN NOT BE PUBLISHED).
 determine db issue and test add things

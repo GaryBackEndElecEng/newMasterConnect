@@ -205,7 +205,7 @@ const Home = () => {
                     <CoverPage makeEasy={makeEasy} />
                     
                     <Typography component="h1" variant="h5"
-                                sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem", position: "relative", }}
+                                sx={{ color: "black", fontFamily: "Roboto", fontSize: { xs: "35px", sm: "50px" }, marginTop: "2rem", marginBottom: "1rem", position: "relative",textAlign:"center" }}
                             >
                                 Designs
                                 <SigninMsg

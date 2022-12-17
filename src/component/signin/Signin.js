@@ -134,7 +134,7 @@ const Signin = () => {
             }
         }
         if (register.loaded && register.data) {
-            postSignin();
+            setTimeout(()=>{postSignin();},500);
         }
     }, [register.loaded, navigate, register.data, setChangePage, setLoginError, setRegister, setLoggedIn, setSignin, setTokenIsValid, setViewAccount,getCustom.loaded,getCustom.data.id]);
 

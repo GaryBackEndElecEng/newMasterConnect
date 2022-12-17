@@ -57,10 +57,11 @@ const ProductsAndServices = () => {
                             <Paper elevation={10} sx={{ margin: "0.5rem auto" }}>
                                 {getUsersProducts && getUsersProducts.map(obj => (
                                     <Card key={obj.id} sx={{ padding: "1rem", margin: "0.5rem auto" }}>
+                                         <CardMedia component="img" src={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca"  sx={{ margin: "2rem auto",alignSelf:"flex-start" ,}} height="170" />
                                         <Typography component="h1" variant="h4" className={show ? styles.show : styles.showHide}  ref={(e)=>getTarget(e)} sx={{position:"relative"}}>
                                             {obj && obj.name}
                                         </Typography>
-                                        <CardMedia component="img" image={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca"  sx={{ margin: "2rem auto",height:"100%",width:"100%" }} />
+                                       
                                         <CardContent sx={{ margin: "auto", padding: "0.5rem" }}>
                                             <Typography component="h1" variant="subtitle1">
                                                 {obj.desc}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState,useCallBack } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
@@ -16,6 +16,7 @@ import SouthIcon from '@mui/icons-material/South';
 import CloseIcon from '@mui/icons-material/Close';
 import { useMemo } from 'react';
 import ProductsServiceDependancies from './ProductsServiceDependancies';
+import api from '../axios/api';
 
 
 const UsersSection = styled.div`
@@ -27,46 +28,33 @@ justify-content:flex-start;
 `;
 
 
-const GetProductList = () => {
+const GetProductList = ({getProductDesigns}) => {
     const navigate = useNavigate();
     const theme = useTheme();
-    const { setChangePage, getProductDesigns, staticImage } = useContext(GeneralContext);
+    const { setChangePage, staticImage } = useContext(GeneralContext);
     // const { getProductList } = useContext(PriceContext);
     //SetUsersProduct=> FROM MyAccount ( it recieves all user's products and service)
-    const { usersProduct, setUsersProduct, setReducedProduct, user_id, setUserAccount,userAccount } = useContext(TokenAccessContext);
-    const designProductsOnly = localStorage.getItem("productDesigns") ? JSON.parse(localStorage.getItem("productDesigns")) : null;
+    const { usersProduct, setUsersProduct, user_id, setUserAccount, } = useContext(TokenAccessContext);
 
     // const [isPostSuccess, setIsPostSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [postError, setPostError] = useState(null);
     const [reduceProduct, setReduceProduct] = useState({ loaded: false, data: [] });
-    const [usersProd,setUsersProd]=useState(null);
-    const [pageDesign, setPageDesign] = useState([]);
     const [message, setMessage] = useState("");
     const [showMessage, setShowMessage] = useState({ loaded: false, id: null });
     const [serviceArr, setServiceArr] = useState({ loaded: false, data: [], id: null });
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
-    const reducedProduct1 = (localStorage.getItem("reducedProduct")) ? JSON.parse(localStorage.getItem("reducedProduct")) : designProductsOnly;
+    const reducedProduct1 = (localStorage.getItem("reducedProduct")) ? JSON.parse(localStorage.getItem("reducedProduct")) : getProductDesigns.data;
+
     
-//THIS REFRESHES THE  USERSPRODUCT FROM THE USER'S ACCOUNT TO REMOVE THE BUG ON REFRESH
-
-
-        useEffect(()=>{
-            if(userAccount.loaded && userAccount.data){
-                setUsersProd(userAccount.data.product)
-            }
-        },[userAccount])
-
-    //   console.log(reducedProduct1)
     useEffect(() => {
-        if (getProductDesigns.loaded) {
-            setPageDesign(getProductDesigns.data.filter(obj => (obj.type === "pageDesign")));
-        }
-    }, [getProductDesigns.loaded, getProductDesigns.data]);
+            setReduceProduct({loaded:true,data:getProductDesigns.data.filter(obj => (obj.type === "pageDesign"))});
+            localStorage.setItem("reducedProduct", JSON.stringify(getProductDesigns.data.filter(obj => (obj.type === "pageDesign"))));
+    }, []);
 
-    useMemo(() => {
-        let arr = pageDesign ? pageDesign : null;
-        if (arr && usersProduct.loaded && usersProduct.data) {
+    useEffect(() => {
+        let arr = getProductDesigns.loaded ? getProductDesigns.data.filter(obj => (obj.type === "pageDesign")) : null;
+        if (arr) {
             arr.forEach((obj, index) => {
                 let tempUser = usersProduct.data.filter(ob => (parseInt(ob.id) === parseInt(obj.id)))[0];
                 if (tempUser) {
@@ -76,11 +64,11 @@ const GetProductList = () => {
 
             });
             localStorage.setItem("reducedProduct", JSON.stringify(arr));
-            setReduceProduct({ loaded: true, data: arr })
+            setReduceProduct({ loaded: true, data: arr });
 
         }
 
-    }, [pageDesign, setReduceProduct, usersProduct]);
+    }, [getProductDesigns]);
 
 
     const handleAddItem = (e, obj) => {
@@ -121,6 +109,7 @@ const GetProductList = () => {
         }
     }
 
+
     const handleDelete = (e, obj) => {
         let objID = obj.id
         e.preventDefault();
@@ -130,22 +119,16 @@ const GetProductList = () => {
                 try {
                     const res = await apiProtect.post("/account/userProductPostDelete/", params);
                     //ALL users PRODUCTS
-                    const user_account = res.data;
-                    const body = res.data.product;
-                    // console.log("body",body)
-                    setUserAccount({ loaded: true, data: user_account });
-                    if (body.length === 0) {
+                    const Usersproducts = res.data;
+                    if (Usersproducts.length === 0) {
                         setUsersProduct({ data: [], loaded: false })
-                        setReducedProduct({ data: designProductsOnly, loaded: true })
-                        localStorage.setItem("reducedProduct", JSON.stringify(designProductsOnly))
+                        setReduceProduct({ data: getProductDesigns.data, loaded: true })
+                        localStorage.setItem("reducedProduct", JSON.stringify(getProductDesigns.data))
                     } else {
-                        let returnObj_reducedProduct = {}
-
-                        returnObj_reducedProduct = usersProduct.data.filter(obj => (parseInt(obj.id) === parseInt(objID)))[0];
-                        setUsersProduct({ data: user_account.product, loaded: true })
-                        let reduceProduct1 = [...reduceProduct.data, returnObj_reducedProduct]
-                        localStorage.setItem("reducedProduct", JSON.stringify(reduceProduct1))
-                        setReducedProduct({ loaded: true, data: reduceProduct1 })
+                        let addToList=getProductDesigns.data.filter(obj=>(parseInt(obj.id)===parseInt(objID)))[0]
+                        setUsersProduct({ data: Usersproducts, loaded: true });
+                        setReduceProduct({loaded:true,data:[...reduceProduct.data,addToList]});
+                        localStorage.setItem("reducedProduct", JSON.stringify(getProductDesigns.data.filter(obj=>(parseInt(obj.id)!==parseInt(objID)))))
                     }
 
                     // setIsPostSuccess(true);
@@ -162,9 +145,9 @@ const GetProductList = () => {
                 }
             }
         }
-        
-            removeProductToUser();
-       
+
+        removeProductToUser();
+
 
     }
     const handleGoToDesign = (e, link) => {
@@ -174,7 +157,7 @@ const GetProductList = () => {
         } else {
             navigate(link, setChangePage(true))
         }
-        console.log(usersProduct)
+        
     }
     const handleShowIncludeServices = (e, services, id) => {
         e.preventDefault();
@@ -188,9 +171,9 @@ const GetProductList = () => {
         e.preventDefault();
         if (id) {
             setServiceArr({ loaded: false, data: [], id: null });
-        }else{setServiceArr({ loaded: false, data: [], id: null });}
+        } else { setServiceArr({ loaded: false, data: [], id: null }); }
     }
-    
+
     return (
         <>
             <Container maxWidth="lg"
@@ -207,7 +190,7 @@ const GetProductList = () => {
                     <Grid container spacing={2}
                         sx={{ padding: "0.5rem", maxHeight: { xs: "56vh" }, overflowY: "scroll" }}
                     >
-                        {reducedProduct1 && reducedProduct1.map(obj => (
+                        {reduceProduct.loaded && reduceProduct.data.map(obj => (
                             <Grid item xs={12} md={4} key={obj.id}>
                                 <Paper elevation={3}>
                                     <Card sx={{ maxWidth: "100%", fontFamily: "Roboto", padding: "0.5rem" }}>
@@ -246,17 +229,17 @@ const GetProductList = () => {
                                                     </Typography>
                                                 </Paper>
                                             </Box>
-                                            {(showMessage.loaded && showMessage.id===obj.id) &&
-                                             <Paper elevation={20}
-                                             
-                                                sx={{
-                                                    position: "absolute", top:{md: "-140%",sm:"-100%",xs:"-160%"}, left: "0%", width: "100%", zIndex: "999999",
-                                                    background:theme.palette.common.fadeCharcoal3,color:"white",padding:"0.25rem",
+                                            {(showMessage.loaded && showMessage.id === obj.id) &&
+                                                <Paper elevation={20}
 
-                                                }}
-                                            >
-                                                <Typography component="h1" variant="h6" sx={{ width: "100%", }}>{message}</Typography>
-                                            </Paper>
+                                                    sx={{
+                                                        position: "absolute", top: { md: "-140%", sm: "-100%", xs: "-160%" }, left: "0%", width: "100%", zIndex: "999999",
+                                                        background: theme.palette.common.fadeCharcoal3, color: "white", padding: "0.25rem",
+
+                                                    }}
+                                                >
+                                                    <Typography component="h1" variant="h6" sx={{ width: "100%", }}>{message}</Typography>
+                                                </Paper>
                                             }
                                         </Paper>
                                     </Card>
@@ -283,10 +266,10 @@ const GetProductList = () => {
 
                         <Grid item xs={12} sm={8} md={8} sx={{ padding: "0.25rem" }}>
                             <Grid container spacing={0}>
-                                {usersProd && usersProd.map(obj => (
+                                {usersProduct.loaded && usersProduct.data.map(obj => (
                                     <Grid item xs={12} sm={6} md={4} key={`${obj.id}-${Math.ceil(Math.random() * 1000)}`}>
                                         <Paper elevation={3}
-                                        
+
                                         >
                                             <Card sx={{ maxWidth: "100%", fontFamily: "Roboto", padding: "1rem" }}>
                                                 <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
@@ -351,7 +334,7 @@ const GetProductList = () => {
                             {(serviceArr.loaded && serviceArr.id !== null) &&
                                 <Typography component="h1" variant="h3" sx={{ textAlign: "center", marginBottom: "0.5rem" }}> included Services</Typography>
                             }
-                            <ProductsServiceDependancies serviceArr={serviceArr} staticImage={staticImage}/>
+                            <ProductsServiceDependancies serviceArr={serviceArr} staticImage={staticImage} />
                         </Grid>
                     </Grid>
                 </Paper>

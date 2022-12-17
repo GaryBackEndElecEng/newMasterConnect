@@ -740,26 +740,54 @@ def insertLowest_price_in():
 # BEfore logging in
 class CalculateCost:
     def __init__(self):
-        self.service=Service.objects.all().order_by("id")
-        self.postService=PostService.objects.all().order_by("id")
-        self.calculate=Calculator.objects.all().order_by("id")
+        self.calculates=Calculator.objects.all().order_by("id")
         self.tempSaveCalc=TempSavedCalculator()
 
-    def wordToIdAnsFinder(self,text): #<==GOOD STUFF BUT NOT USING
+    def cleanTemSavedCalc(self):
+        for userAccount in UserAccount.objects.all():
+            for tempCalc in TempSavedCalculator.objects.all():
+              if userAccount.calcUUID and tempCalc.uuid != userAccount.calcUUID:
+                 tempCalc.delete()
+
+    def wordToIdAnsFinder(self,text,*calculate): #<==GOOD STUFF BUT NOT USING
         self.text=text
-        array2=[]
-        if self.calculate:
+        self.calculate=calculate
+        if self.calculate and self.text:
             for i,calc in enumerate(self.calculate):
                 ans=calc.ans[len(calc.ans)-1]
                 if self.text in calc.Q:
                     return {"id":calc.id,"ans":ans}
         
+    def calcProducts(self):
+        arrayIds=[]
+        array1=[]
+        ids=[]
+        productNameArray=[]
+        summaryArray=[]
+        total=0
+        ans="no"
+        for calc in self.calculates:
+            if calc.yesno == True:
+                ans=calc.ans[len(calc.ans)-1]
+                if ans != 'no':
+                    monthly=[obj.monthly for obj in calc.products.all()]
+                    ids=[obj.id for obj in calc.products.all()]
+                    self.tempSaveCalc.productIdArr +=ids
+                    total+=sum(monthly)
+                    summaryArray =[obj.summary for obj in calc.products.all()]
+                    productNameArray=[obj.name for obj in calc.products.all()]
+                    for id,name,summary in zip(ids,productNameArray,summaryArray):
+                        array1.append({"id":id,"name":name,"summary":summary})
+        return total , array1
+
     def calcServices(self):
         array1=[]
         ids=[]
+        serviceNameArray=[]
+        summaryArray=[]
         total=0
         ans="no"
-        for calc in self.calculate:
+        for calc in self.calculates:
             if calc.yesno == True:
                 ans=calc.ans[len(calc.ans)-1]
                 if ans != 'no':
@@ -769,16 +797,18 @@ class CalculateCost:
                     total+=sum(monthly)
                     summaryArray =[obj.summary for obj in calc.services.all()]
                     serviceNameArray=[obj.name for obj in calc.services.all()]
-                    for name,summary in zip(serviceNameArray,summaryArray):
-                        array1.append({"name":name,"summary":summary})
+                    for id,name,summary in zip(ids,serviceNameArray,summaryArray):
+                        array1.append({"id":id,"name":name,"summary":summary})
         return total , array1
 
     def calcPostServices(self):
         array1=[]
+        summaryArray=[]
+        serviceNameArray=[]
         ids=[]
         total=0
         ans="no"
-        for calc in self.calculate:
+        for calc in self.calculates:
             if calc.yesno == True:
                 ans=calc.ans[len(calc.ans)-1]
                 if ans != 'no':
@@ -788,84 +818,126 @@ class CalculateCost:
                     self.tempSaveCalc.postServiceIdArr+=ids
                     summaryArray =[obj.summary for obj in calc.post_services.all()]
                     serviceNameArray=[obj.name for obj in calc.post_services.all()]
-                    for name,summary in zip(serviceNameArray,summaryArray):
-                        array1.append({"name":name,"summary":summary})
+                    for id,name,summary in zip(ids,serviceNameArray,summaryArray):
+                        array1.append({"id":id,"name":name,"summary":summary})
         return total , array1
 
 
     def genYesnoFalseArray(self):
-        array2=[{"id":0,"name":"CDN","ans":""},{"id":1,"name":"existing site","ans":""},{"id":2,"name":"industry","ans":""},{"id":3,"name":"database size","ans":""},{"id":4,"name":"hits"},{"id":5,"name":"type of database","ans":""},{"id":6,"name":"company","ans":""},]
-        ids=[]
-        total=0
-        monthly=0
+        array2=[{"id":0,"name":"CDN","ans":"","calcID":0},{"id":1,"name":"existing site","ans":"","calcID":0},{"id":2,"name":"industry","ans":"","calcID":0},{"id":3,"name":"database size","ans":"","calcID":0},{"id":4,"name":"hits","calcID":0},{"id":5,"name":"type of database","ans":"","calcID":0},{"id":6,"name":"company","ans":"","calcID":0},{"id":7,"name":"website","ans":"","calcID":0}]
         ans="no"
-        for calc in self.calculate:
+        for calc in self.calculates:
             ans=calc.ans[len(calc.ans)-1]
             if calc.yesno==False:
-                for dict in array2:
-                    if dict["name"] in calc.Q:
-                        dict["ans"]=ans
+                for dict1 in array2:
+                    if dict1["name"] in calc.Q:
+                        dict1["ans"]=ans
+                        dict1["calcID"]=calc.id
+                        break
         return array2
 
     def calcWrittenService(self):
         array1=[]
         total=0
+        serviceNameArray=[]
+        productNameArray=[]
         array2=self.genYesnoFalseArray()
-        for calc in self.calculate:
-            for dict in array2:
-                if dict["name"] == "hits":
-                    try:
-                        if int(dict["ans"]) and int(dict["ans"]) and int(dict["ans"]) >100:
-                            if calc.post_services.all().exists():
-                                monthly=[obj.monthly for obj in calc.post_services.all()]
-                                total+=sum(monthly)
-                                ids=[obj.id for obj in calc.post_services.all()]
-                                self.tempSaveCalc.postServiceIdArr+=ids
-                                summaryArray =[obj.summary for obj in calc.post_services.all()]
-                                serviceNameArray=[obj.name for obj in calc.post_services.all()]
-                                for name,summary in zip(serviceNameArray,summaryArray):
-                                    array1.append({"name":name,"summary":summary})
-                            if calc.services.all().exists():
-                                monthly=[obj.monthly for obj in calc.services.all()]
-                                total+=sum(monthly)
-                                ids=[obj.id for obj in calc.services.all()]
-                                self.tempSaveCalc.serviceIdArr+=ids
-                                summaryArray =[obj.summary for obj in calc.services.all()]
-                                serviceNameArray=[obj.name for obj in calc.services.all()]
-                                for name,summary in zip(serviceNameArray,summaryArray):
-                                    array1.append({"name":name,"summary":summary})
-                    except Exception as e:
-                        print("error",e)
-                if dict["name"] == "database size":
-                    try:
-                        if int(dict["ans"]) and int(dict["ans"]) and int(dict["ans"]) >64:
-                            if calc.post_services.all().exists():
-                                monthly=[obj.monthly for obj in calc.post_services.all()]
-                                total+=sum(monthly)
-                                ids=[obj.id for obj in calc.post_services.all()]
-                                self.tempSaveCalc.postServiceIdArr+=ids
-                                summaryArray =[obj.summary for obj in calc.post_services.all()]
-                                serviceNameArray=[obj.name for obj in calc.post_services.all()]
-                                for name,summary in zip(serviceNameArray,summaryArray):
-                                    array1.append({"name":name,"summary":summary})
-                    except Exception as e:
-                        print("error",e)
+        for dict1 in array2:
+            num=dict1["ans"]
+            # print("num",num)
+            if dict1["name"] == "hits" and num !="" and num:
+                try:
+                    getCalc=Calculator.objects.filter(id=dict1["calcID"]).first()
+                    if getCalc:
+                       ans=getCalc.ans[len(getCalc.ans)-1]
+                       if  num !="" and num:
+                           # print("num",num)
+                           if int(float(num)) and int(float(num)) >100:
+                               if getCalc.services.all().exists():
+                                   monthly=[obj.monthly for obj in getCalc.services.all()]
+                                   total+=sum(monthly)
+                                   ids=[obj.id for obj in getCalc.services.all()]
+                                   self.tempSaveCalc.serviceIdArr+=ids
+                                   summaryArray =[obj.summary for obj in getCalc.services.all()]
+                                   serviceNameArray=[obj.name for obj in getCalc.services.all()]
+                                   for id,name,summary in zip(ids,serviceNameArray,summaryArray):
+                                       array1.append({"id":id,"name":name,"summary":summary})
+                               if getCalc.products.all().exists():
+                                   monthly=[obj.monthly for obj in getCalc.products.all()]
+                                   total+=sum(monthly)
+                                   ids =[obj.id for obj in getCalc.products.all()]
+                                   self.tempSaveCalc.productIdArr+=ids
+                                   summaryArray =[obj.summary for obj in getCalc.products.all()]
+                                   productNameArray =[obj.name for obj in getCalc.products.all()]
+                                   for id,name,summary in zip(ids,productNameArray,summaryArray):
+                                       array1.append({"id":id,"name":name,"summary":summary})
+                    
+                except Exception as e:
+                    print("error",e)
+
+            if dict1["name"] == "database size":
+                try:
+                    getCalc=Calculator.objects.filter(id=dict1["calcID"]).first()
+                    if getCalc:
+                       ans=getCalc.ans[len(getCalc.ans)-1]
+                       if int(dict1["ans"]) and int(dict1["ans"]) and int(dict1["ans"]) >64:
+                           if getCalc.post_services.all().exists():
+                               monthly=[obj.monthly for obj in getCalc.post_services.all()]
+                               total+=sum(monthly)
+                               ids=[obj.id for obj in getCalc.post_services.all()]
+                               self.tempSaveCalc.postServiceIdArr+=ids
+                               summaryArray =[obj.summary for obj in getCalc.post_services.all()]
+                               serviceNameArray=[obj.name for obj in getCalc.post_services.all()]
+                               for id,name,summary in zip(ids,serviceNameArray,summaryArray):
+                                      array1.append({"id":id,"name":name,"summary":summary})
+                           if getCalc.products.all().exists():
+                                  monthly=[obj.monthly for obj in getCalc.products.all()]
+                                  total+=sum(monthly)
+                                  ids=[obj.id for obj in getCalc.products.all()]
+                                  self.tempSaveCalc.productIdArr+=ids
+                                  summaryArray =[obj.summary for obj in getCalc.products.all()]
+                                  serviceNameArray=[obj.name for obj in getCalc.products.all()]
+                                  for id,name,summary in zip(ids,serviceNameArray,summaryArray):
+                                      array1.append({"id":id,"name":name,"summary":summary})
+                except Exception as e:
+                    print("error",e)
         return total,array1
                         
     def calcgetAdditional(self):
         array2=self.genYesnoFalseArray()
-        for calc in self.calculate:
-            for dict in array2:
-                ans=calc.ans[len(calc.ans)-1]
-                if dict["name"] in calc.Q and calc.yesno==False:
-                    self.tempSaveCalc.additionalCharArr.append(json.dumps({dict["name"]:ans}))
-                    dict["ans"]=ans
+        for dict1 in array2:
+            getCalc=Calculator.objects.filter(id=dict1["calcID"]).first()
+            if getCalc:
+               ans=dict1["ans"]
+               if dict1["name"] == "industry":
+                   self.tempSaveCalc.industry=ans
+                   dict1["ans"]=ans
+               if dict1["name"] == "CDN":
+                   self.tempSaveCalc.CDN=ans
+                   dict1["ans"]=ans
+               if dict1["name"] == "company":
+                   self.tempSaveCalc.co=ans
+                   dict1["ans"]=ans
+               if dict1["name"] == "website":
+                   self.tempSaveCalc.website=ans
+                   dict1["ans"]=ans
         
+    def removeDuplicates(self):
+        array3=[]
+        total= self.calcPostServices()[0] + self.calcServices()[0] + self.calcWrittenService()[0] + self.calcProducts()[0]
+        array2=self.calcPostServices()[1] + self.calcServices()[1] + self.calcWrittenService()[1] + self.calcProducts()[1]
+        for dict1 in array2:
+           if dict1 not in array3:
+              array3.append(dict1)
+           else:
+              total -= 50
+        return total,array3
 
 
     def calcCombine(self):
-        total= self.calcPostServices()[0] + self.calcServices()[0] + self.calcWrittenService()[0]
-        array2=self.calcPostServices()[1] + self.calcServices()[1] + self.calcWrittenService()[1]
+        self.cleanTemSavedCalc()
+        total=self.removeDuplicates()[0]
+        array2=self.removeDuplicates()[1]
         self.calcgetAdditional()
         self.tempSaveCalc.total=total
         self.tempSaveCalc.save()
@@ -880,30 +952,19 @@ class CalcAddToUserAccountAtLogin:
         self.username=username
         self.calcResults=TempSavedCalculator.objects.filter(uuid=self.uuid).first()
         self.user=User.objects.filter(username=self.username).first()
-        if self.user:
-            self.userAccount=UserAccount.objects.filter(user=self.user).first()
-            
-    def addwebDNSIndustryToUserAcc(self):
-        if self.userAccount and self.calcResults:
-            for item in self.calcResults.additionalCharArr:
-                for dict in self.array2:
-                    if "industry" == dict['name']:
-                        self.userAccount.industry=item.split(':"')[1].split('"}')[0]
-                        break
-                    if "existing site" in dict['name']:
-                        self.userAccount.website=item.split(':"')[1].split('"}')[0]
-                    if "company" in dict['name']:
-                        self.userAccount.co=item.split(':"')[1].split('"}')[0]
-                    if "CDN" in dict['name']:
-                        self.userAccount.CDN=item.split(':"')[1].split('"}')[0]
-            self.userAccount.save()
-
+        self.userAccount=UserAccount.objects.filter(user=self.user).first()
 
     def addServicesToUser(self):
         if self.calcResults and self.userAccount:
             for id in self.calcResults.serviceIdArr:
                 getService=Service.objects.get(id=id)
                 self.userAccount.service.add(getService)
+
+    def addProductsToUser(self):
+        if self.calcResults and self.userAccount:
+            for id in self.calcResults.productIdArr:
+                getProduct=Product.objects.get(id=id)
+                self.userAccount.product.add(getProduct)
 
     def addPostServicesToUser(self):
         if self.calcResults and self.userAccount:
@@ -912,12 +973,17 @@ class CalcAddToUserAccountAtLogin:
                 self.userAccount.postService.add(getPostService)
 
     def execute(self):
-        self.addServicesToUser()
-        self.addPostServicesToUser()
-        self.addwebDNSIndustryToUserAcc()
-        if self.uuid and self.userAccount:
+        if self.userAccount:
+            self.addServicesToUser()
+            self.addProductsToUser()
+            self.addPostServicesToUser()
             self.userAccount.calcUUID=self.uuid
+            self.userAccount.co=self.calcResults.co
+            self.userAccount.CDN=self.calcResults.CDN
+            self.userAccount.industry=self.calcResults.industry
+            self.userAccount.website=self.calcResults.website
             self.userAccount.save()
+
 
 
 def generateUserJobs(user_id):
@@ -997,5 +1063,27 @@ def addServicesProducts(userAccnt_id,*arrProdsServs):
         for obj in arrProdsServs:
             product=Product.objects.filter(id=obj.id).first()
         
+
+#-----////// PROVIDES SAVINGS ON PRICES TO PRODUCTS THIS WAS TRANSFERRED TO MYACCOUNT/SIGNALS ///////------#
+def calculateSavings(product):
+    if product.update == True and product.updated==False:
+       total=0
+       servicePrice=0
+       postServicePrice=0
+       extraServicePrice=0
+       services=product.services.all()
+       postServices=product.postServices.all()
+       extraServices=product.extraServices.all()
+       product.update=False
+       product.updated=True
+       for service in services:
+        servicePrice +=service.price
+       for postService in postServices:
+        postServicePrice += postService.price
+       for extraService in extraServices:
+        extraServicePrice += extraService.price
+       total=servicePrice + postServicePrice + extraServicePrice
+       product.savings=total - product.price
+       product.save()
 
 

@@ -33,7 +33,6 @@ const GetServiceList = () => {
     const [showSummary, setShowSummary] = useState({loaded:false,id:null});
     // const getServs = getServiceList.loaded ? getServiceList.data : [];
     const reducedService1 = (localStorage.getItem("reducedService")) ? JSON.parse(localStorage.getItem("reducedService")) : getServiceList2;
-    const usersServices2 = (usersService.loaded) ? usersService.data : null;
     
     useEffect(()=>{
         if(!reducedService.loaded){
@@ -59,11 +58,11 @@ const GetServiceList = () => {
     },[]);
 
     const balanceReduceUsersServices =useCallback((addService)=>{
-        let reduceArray=reducedService1.filter(obj=>(parseInt(obj.id) !==parseInt(addService.id)));
+        let reduceArray=reducedService.data.filter(obj=>(parseInt(obj.id) !==parseInt(addService.id)));
         setUsersService({loaded:true,data:[...usersService.data,addService]});
         setReducedService({loaded:true,data:reduceArray});
         localStorage.setItem("reducedService",JSON.stringify(reduceArray))
-    },[])
+    },[setUsersService,setReducedService,usersService,reducedService])
 
 
     const handleAddItem = (e, objID) => {
@@ -79,7 +78,6 @@ const GetServiceList = () => {
                     setSelectedService({loaded:true,obj:service,id:objID})
                     setOpen(open => true);
                     balanceReduceUsersServices(service)
-                    setUsersService({ data: [...usersService.data,service], loaded: true })
                     setError(false);
                 } catch (error) {
                     setOpen(open => false)
@@ -117,6 +115,14 @@ const GetServiceList = () => {
         setShowSummary({loaded:false,id:null});
     }
 
+    const deleteItemCallback=useCallback((deletedService)=>{
+    let reducedServiceNew=[...reducedService.data, deletedService];
+    setReducedService({loaded:true,data:reducedServiceNew});
+    localStorage.setItem("reducedService",JSON.stringify(reducedServiceNew));
+    let userRemainder = usersService.data.filter(obj => (parseInt(obj.id) !== parseInt(deletedService.id)));
+    setUsersService({ data: userRemainder, loaded: true });
+    },[setUsersService,reducedService,usersService]);
+
 
     const handleDelete = (e, objID) => {
         e.preventDefault();
@@ -128,12 +134,9 @@ const GetServiceList = () => {
                 try {
                     const res = await apiProtect.post("/account/userServicePostDelete/", params);
                     const deletedService = res.data;
-                    let reducedServiceNew=[...reducedService.data, deletedService]
-                    setReducedService({ loaded: true, data: reducedServiceNew });
-                    let userRemainder = usersService.data.filter(obj => (parseInt(obj.id) !== parseInt(objID)));
-                    setUsersService({ data: userRemainder, loaded: true });
+                    deleteItemCallback(deletedService)
                     setShowUserServ({loaded:false,id:null});
-                    localStorage.setItem("reducedService",JSON.stringify(reducedServiceNew))
+                    
                 } catch (error) {
                     if (error.response) {
                         setError(true);

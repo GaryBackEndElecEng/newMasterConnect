@@ -11,7 +11,7 @@ from django.utils import timezone
 from datetime import datetime,date
 
 TYPE=(("pageDesign","pageDesign"),("subDesign","subDesign"),("pageTemplate","pageTemplate"),("subTemplate","subTemplate"),("nonDesign","nonDesign"),("subNonDesign","subNonDesign"),)
-CATEGORY=(("aboutPage","aboutPage"),("contactPage","contactPage"),("footer","footer"),("navBar","navBar"),("detailPage","detailPage"),("blogPage","blogPage"),("frontPage","frontPage"),("articlePage","articlePage"),("sidebar","sidebar"),("signin","signin"),("registration","registration"),("checkout","checkout"),("userAccount","userAccount"),("customFrontPage","customFrontPage"),("changeEmailPage","changeEmailPage"),("changePasswordPage","changePasswordPage"))
+CATEGORY=(("aboutPage","aboutPage"),("contactPage","contactPage"),("footer","footer"),("navBar","navBar"),("detailPage","detailPage"),("blogPage","blogPage"),("frontPage","frontPage"),("articlePage","articlePage"),("sidebar","sidebar"),("signin","signin"),("registration","registration"),("checkout","checkout"),("userAccount","userAccount"),("customFrontPage","customFrontPage"),("changeEmailPage","changeEmailPage"),("changePasswordPage","changePasswordPage"),("internetSales","internetSales"),("SEO","SEO"),("fileSystem","fileSystem"))
 
 class PriceCatelog(models.Model):
     name=models.CharField(max_length=100,blank=True,null=True)
@@ -82,15 +82,18 @@ class Product(models.Model):
     summary=models.TextField(blank=True,null=True)
     desc=models.TextField(blank=True)
     monthly=models.IntegerField(blank=True,default=1)
+    savings=models.IntegerField(blank=True,default=1)
     extra_kwargs=models.CharField(max_length=300,default="not assigned",blank=True)
     priceCatelog=models.ManyToManyField(PriceCatelog,related_name="product",blank=True)
     imageName=models.CharField(max_length=150,blank=True)
     postServices=models.ManyToManyField(PostService,blank=True)
     services=models.ManyToManyField(Service,blank=True)
     extraServices=models.ManyToManyField(ExtraService,blank=True)
+    update=models.BooleanField(default=False)
+    updated=models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.name}-{self.category}'
+        return f'{self.name}-{self.category}-updated:{self.updated}'
 
 class ServiceDependancy(models.Model):
     category=models.CharField(max_length=70,blank=True,null=True)
@@ -332,6 +335,7 @@ class Calculator(models.Model):
     priceCatelog=models.ForeignKey(PriceCatelog,related_name="calculator",on_delete=models.CASCADE,blank=True,null=True)
     Q=models.CharField(max_length=300,blank=True,null=True)
     services =models.ManyToManyField(Service,blank=True,related_name="calc_services")
+    products =models.ManyToManyField(Product,blank=True,related_name="calc_products")
     post_services =models.ManyToManyField(PostService,blank=True,related_name="calc_post_services")
     extra_services =models.ManyToManyField(Service,blank=True,related_name="calc_extra_services")
     yesno=models.BooleanField(default=True)
@@ -345,6 +349,12 @@ class Calculator(models.Model):
 
 class TempSavedCalculator(models.Model):
     uuid=models.UUIDField(primary_key=False,default=uuid.uuid4,editable=False)
+    co=models.CharField(max_length=50,blank=True,null=True)
+    industry=models.CharField(max_length=50,blank=True,null=True)
+    website=models.CharField(max_length=50,blank=True,null=True)
+    highTech=models.BooleanField(default=False)
+    CDN=models.CharField(max_length=50,blank=True,null=True)
+    productIdArr=ArrayField(models.IntegerField(default=0),default=list)
     postServiceIdArr=ArrayField(models.IntegerField(default=0),default=list)
     total=models.IntegerField(default=0)
     serviceIdArr=ArrayField(models.IntegerField(default=0),default=list)

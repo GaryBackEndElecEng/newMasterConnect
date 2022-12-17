@@ -24,6 +24,7 @@ import MyAccountHelmet from './MyAccountHelmet';
 import ProductInfo from './ProductInfo';
 import OrderFormBanner from './OrderFormBanner';
 import GavelIcon from '@mui/icons-material/Gavel';
+import api from '../axios/api';
 
 const MyAccountMain=styled.div`
 width:100%;
@@ -34,14 +35,30 @@ const MyAccount = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { setSignin, setSignout, setGoToSignin,usersInvoice,usersPostInvoice,usersExtraInvoice,paid } = useContext(TokenAccessContext);
-  const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,getPathLocation } = useContext(GeneralContext);
+  const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,getPathLocation,setGetProductDesigns,getProductDesigns } = useContext(GeneralContext);
   const [activate, setActivate] = useState(false);
   const [invoice, setInvoice] = useState(false);
   const [postInvoice, setPostInvoice] = useState(false);
   const [extraInvoice, setExtraInvoice] = useState(null);
  
   const tokenIsValid = localStorage.getItem("tokenIsValid") ? JSON.parse(localStorage.getItem("tokenIsValid")) : false;
-  
+  //THIS REFRESHES THE  USERSPRODUCT FROM THE USER'S ACCOUNT TO REMOVE THE BUG ON REFRESH
+  useEffect(() => {
+    const getAllProductList= async ()=>{
+      try {
+        const res=await api.get('/account/product/');
+        const products=res.data;
+         let pageDesign=products.filter(obj=>(obj.type==="pageDesign"))
+         if(pageDesign.length>0){
+            setGetProductDesigns({loaded:true,data:pageDesign})
+          localStorage.setItem("reducedProduct",JSON.stringify(pageDesign))
+         }
+      } catch (error) {
+        console.error(error.message)
+      }
+    }
+    getAllProductList();
+},[]);
   
 
   useEffect(() => {
@@ -149,7 +166,7 @@ const handleContract=(e)=>{
            />
           {( usersInvoice.data.paid) && <OrderFormBanner />}
 
-         {invoice !==false && !invoice.paid && <GetProductList/>}
+         {invoice !==false && !invoice.paid && <GetProductList getProductDesigns={getProductDesigns}/>}
           
             
           {invoice !==false && !invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
