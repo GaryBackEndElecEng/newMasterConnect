@@ -33,44 +33,25 @@ def calculateMonthTZ(mon):
 class Calculate:
     def __init__(self,user_id):
         self.user_id=int(user_id)
+        self.invoice=None
         self.user=User.objects.filter(id=self.user_id).first()
         self.userAccount=UserAccount.objects.filter(user=self.user).first()
         if self.userAccount.invoice:
             self.invoice=Invoice.objects.filter(id=self.userAccount.invoice.id).first()
-        if  self.userAccount and not self.userAccount.invoice:
-            self.tax,created=Tax.objects.get_or_create(country=self.userAccount.country,subRegion=self.userAccount.provState)
-            if created:
-                self.tax.fed=13
-                self.tax.provState=8
-                self.tax.save()
-            self.invoice,created=Invoice.objects.get_or_create(name=self.userAccount.name,region=self.userAccount.country,tax=self.tax)
-            if created:
-                self.invoice.subTotal=0
-                self.invoice.total=0
-                self.invoice.subTotalMonthly=0
-                self.invoice.totalMonthly=0
-                self.invoice.save()
-            self.userAccount.invoice=self.invoice
-            self.userAccount.save()
             
             
     def productServiceSubTotal(self):
-        if self.user and self.userAccount:
+        if self.invoice and self.userAccount:
             self.userProducts=self.userAccount.product.all()
             self.userServices=self.userAccount.service.all()
             subTotalProduct=sum([obj.price for obj in self.userProducts])
             subTotalService=sum([obj.price for obj in self.userServices])
-            if (subTotalProduct or subTotalService) is not None:
-                self.invoice.subTotal=subTotalProduct + subTotalService
-                self.invoice.type="price"
-                if self.invoice.subTotal >0:
-                    self.invoice.name=self.userAccount.name
-                    self.invoice.save()
-                    return self.invoice.subTotal
-        return 0
+            self.invoice.subTotal=subTotalProduct + subTotalService
+            self.invoice.save()
+            return self.invoice.subTotal
 
     def productServiceTotal(self):
-        if self.user and self.userAccount:
+        if self.invoice and self.userAccount:
             subTotal= self.productServiceSubTotal()
             fedTax=(self.invoice.tax.fed/100)*subTotal
             provStateTax=fedTax*(self.invoice.tax.provState/100)
@@ -78,41 +59,33 @@ class Calculate:
             self.invoice.total=total
             self.invoice.save()
             return total
-        return 0
 
     def monthlyArrayCalculator(self):
-        subTotal= self.productServiceSubTotal()
-        fedTax=(self.invoice.tax.fed/100)
-        provStateTax=fedTax*(self.invoice.tax.provState/100)
-        total=subTotal*(1 + fedTax + provStateTax)
-        array=[]
-        if total !=0:
-            for i in range(1,25):
-                total2=int(total*(1.03**2)//i)
-                array.append(math.ceil(total2))
-            if self.invoice:
+        if self.invoice and self.userAccount:
+            total=self.productServiceTotal()
+            array=[]
+            if total !=0:
+                for i in range(1,25):
+                    total2=int(total*(1.03**2)//i)
+                    array.append(math.ceil(total2))
                 self.invoice.monthlyArray=array
                 self.invoice.save()
                 return 
-        return
-
 
     def productServiceSubMonthly(self):
-        if self.user and self.userAccount:
-            self.invoice.type="monthly"
+        subTotalMonthly=0
+        if self.invoice and self.userAccount:
             self.userProducts=self.userAccount.product.all()
             self.userServices=self.userAccount.service.all()
             subTotalProduct=sum([obj.monthly for obj in self.userProducts])
             subTotalService=sum([obj.monthly for obj in self.userServices])
             self.invoice.subTotalMonthly=subTotalProduct + subTotalService
-            if self.invoice.subTotalMonthly >0:
-                self.invoice.name=self.userAccount.name
-                self.invoice.save()
-                return self.invoice.subTotalMonthly
-        return 0
+            subTotalMonthly=subTotalProduct + subTotalService
+            self.invoice.save()
+            return subTotalMonthly
 
     def productServiceMonthly(self):
-        if self.user and self.userAccount:
+        if self.invoice and self.userAccount:
             subTotal= self.productServiceSubMonthly()
             fedTax=(self.invoice.tax.fed/100)
             provStateTax=fedTax*(self.invoice.tax.provState/100)
@@ -122,20 +95,28 @@ class Calculate:
             return total
         return 0
 
+    def calculateSavings(self):
+        if self.invoice and self.userAccount:
+            savings=0
+            for product in self.userAccount.product.all():
+                savings += product.savings
+            self.invoice.savings=savings
+            self.invoice.save()
     
 
     def execute(self):
         self.productServiceMonthly()
         self.productServiceTotal()
         self.monthlyArrayCalculator()
-        self.userAccount.save()
-        return self.invoice
+        self.calculateSavings()
+        return 
 
 
                 
-# user_id=5                
+# user_id=47                
 # test=Calculate(user_id)
-# print(test.monthlyArrayCalculator())
+# print(test.productServiceMonthly())
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 class StripeCreation:
     def __init__(self, user_id ):
@@ -203,7 +184,7 @@ class StripeCreation:
                 print(f'product error=>{e}')
 
     def stripePrice(self):
-        if (self.products or self.services) and (self.stripeProduct() and not self.invoice.priceID):
+        if (self.products or self.services) and (self.stripeProduct()):
             price = 0
             if self.invoice and self.invoice.numPayment >= 1:
                 self.numPayment=self.invoice.numPayment
@@ -263,8 +244,7 @@ class StripeCreation:
                         return stripePrice.id
                     except Exception as e:
                         print(f'Price issue=>{e}')
-        else:
-            return self.invoice.priceID
+        
 
     def execute(self):
         custumer_id=self.stripeCustomer()
@@ -1086,4 +1066,17 @@ def calculateSavings(product):
        product.savings=total - product.price
        product.save()
 
+def addInvoiceToUserAccount(username):
+    user=User.objects.get(username=username)
+    userAccount=UserAccount.objects.get(user=user)
+    if not userAccount.invoice:
+        tax,created = Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
+        if created:
+            tax.save()
+        invoice,created=Invoice.objects.get_or_create(name=userAccount.name,tax=tax)
+        if created:
+            invoice.save()
+            userAccount.invoice=invoice
+            userAccount.save()
 
+    

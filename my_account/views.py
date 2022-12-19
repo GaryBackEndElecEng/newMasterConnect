@@ -35,7 +35,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
-from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs)
+from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs,addInvoiceToUserAccount)
 from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail,ServiceEvaluator
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -185,6 +185,7 @@ class LoginView(APIView):
                 if data["packageId"]:
                    # STORE USERS SELECTED PACKAGE TO THE USERS ACCOUNT
                    packageId=data["packageId"]
+                addInvoiceToUserAccount(username)
                 generateUserJobs(user.id)
                 token=self.get_tokens_for_user(user)
                 return Response({"access_token":token["access_token"],"refresh_token":token["refresh_token"],"username":user.username,"email":user.email,"user_id":user.id},status=status.HTTP_200_OK)
@@ -248,39 +249,49 @@ class UserAccountComplete(APIView):
         # print("DATA",data)
         try:
             user=User.objects.filter(id=user_id).first()
-            userAccount=UserAccount.objects.filter(user=user).first()
-            if not userAccount.invoice:
-                tax,created=Tax.objects.get_or_create(country=country,subRegion=provState)
-                if created:
-                    tax.save()
-                invoice,create=Invoice.objects.get_or_create(name=name,tax=tax,paid=False)
-                if create:
-                    invoice.save()
-                    userAccount.invoice=invoice
-                    
-            # print("userAccount",userAccount,"invoice",invoice,data)
-            if user and userAccount:
-                userAccount.name=name
-                userAccount.cell=cell
-                userAccount.address=address +"," + city
-                userAccount.country=country
-                userAccount.provState=provState
-                userAccount.postal=postal.upper()
-                userAccount.website=website
-                userAccount.CDN=CDN
-                userAccount.industry=industry
-                userAccount.co=co
-                userAccount.email=email
-                userAccount.save()
-                if name.split(" "):
-                    user.email=email
-                    user.first_name=name.split(" ")[0]
-                    user.last_name=name.split(" ")[1]
-                    user.save()
-                serializer= UserAccountAllCombined(userAccount,many=False)
-                return Response(serializer.data)
+            print(user.email)
+            if email == user.email:
+                userAccount=UserAccount.objects.filter(user=user).first()
+                if not userAccount.invoice:
+                    tax,created=Tax.objects.get_or_create(country=country,subRegion=provState)
+                    if created:
+                        tax.save()
+                    invoice,create=Invoice.objects.get_or_create(name=name,tax=tax,paid=False)
+                    if create:
+                        invoice.save()
+                        userAccount.invoice=invoice
+                        userAccount.save()
+                        
+                # print("userAccount",userAccount,"invoice",invoice,data)
+                if user and userAccount:
+                    userAccount.name=name
+                    userAccount.cell=cell
+                    userAccount.address=address
+                    userAccount.city=city
+                    userAccount.country=country
+                    userAccount.provState=provState
+                    userAccount.postal=postal.upper()
+                    userAccount.website=website
+                    userAccount.CDN=CDN
+                    userAccount.industry=industry
+                    userAccount.co=co
+                    userAccount.email=user.email
+                    userAccount.save()
+                    if name.split(" "):
+                        user.email=email
+                        user.first_name=name.split(" ")[0]
+                        user.last_name=name.split(" ")[1]
+                        user.save()
+                    serializer= UserAccountAllCombined(userAccount,many=False)
+                    return Response(serializer.data)
+                else:
+                    return Response({"error":"No user assigned","status":status.HTTP_503_SERVICE_UNAVAILABLE})
             else:
-                return Response({"error":"No user assigned","status":status.HTTP_503_SERVICE_UNAVAILABLE})
+                if not User.objects.filter(email=email).exists():
+                    user.email=email
+                    user.save()
+                else:
+                    return Response({'error':"email already exists"},status=status.HTTP_302_FOUND)
         except Exception as e:
             print("error",e)
             return Response({"error":"error occured","status":status.HTTP_503_SERVICE_UNAVAILABLE})
@@ -335,10 +346,9 @@ class UserAccountServices(APIView):
         # print("userAccount",userAccount)
         if userAccount and service:
             userAccount.service.add(service)
-            if not userAccount.invoice:
-                Calculate(user_id).execute()
             userAccount.save()
-            serializer= ServiceSerializer(service,many=False)
+            Calculate(user_id).execute()
+            serializer= UserAccountAllCombined(userAccount,many=False)
             return Response(serializer.data)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -369,11 +379,11 @@ class UserPostproduct(APIView):
             user=User.objects.get(id=user_id)
             userAccount=UserAccount.objects.filter(user=user).first()
             product=Product.objects.filter(id=prod_id).first()
+            # print("product_myAccount views371",product)
             if userAccount and product:
                 userAccount.product.add(product)
                 userAccount.save()
-                if not userAccount.invoice:
-                    Calculate(user_id).execute()
+                Calculate(user_id).execute()
                 serializer= UserAccountAllCombined(userAccount)
                 return Response(serializer.data)
         else:
@@ -405,15 +415,15 @@ class UserServiceDelete(APIView):
         user_id=data["user_id"]
         serv_id=data["serv_id"]
         # id=self.kwargs["user_id"] # does this given http://addres/id
-        print("user_id",user_id,"serv_id",serv_id)
+        # print("user_id",user_id,"serv_id",serv_id)
         user=User.objects.get(id=user_id)
         userAccount=UserAccount.objects.filter(user=user).first()
         service=Service.objects.filter(id=serv_id).first()
         if userAccount and service:
             userAccount.service.remove(service)
             userAccount.save()
-            # print("userAccount",userAccount)
-            serializer= ServiceSerializer(service,many=False)
+            Calculate(user_id).execute()
+            serializer= UserAccountAllCombined(userAccount,many=False)
             # print("serializer",serializer)
             return Response(serializer.data)
         else:
@@ -432,9 +442,10 @@ class UserProductDelete(APIView):
         product=Product.objects.filter(id=prod_id).first()
         userAccount.product.remove(product)
         userAccount.save()
+        Calculate(user_id).execute()
         # print("userAccount",userAccount)
         if userAccount:
-            serializer= FullProductSerializer(userAccount.product.all(),many=True)
+            serializer= UserAccountAllCombined(userAccount,many=False)
             # print("serializer",serializer)
             return Response(serializer.data)
         else:
@@ -457,7 +468,7 @@ class UserCombinedProductServices(APIView):
             test=Calculate(user_id)
             test.execute()
             
-            serializer= UserAccountsSerializer(userAccount)
+            serializer= UserAccountAllCombined(userAccount)
             # print("serializer",serializer)
             return Response(serializer.data)
         else:
@@ -473,6 +484,10 @@ class UserPostPackage(APIView):
             # print("user_id",user_id,"packageId",packageId)
             user=User.objects.get(id=user_id)
             userAccount=UserAccount.objects.filter(user=user).first()
+            if userAccount.invoice:
+                invoice=Invoice.objects.filter(id=userAccount.invoice.id).first()
+            else:
+                Calculate(user_id).execute()
             package=Package.objects.filter(id=packageId).first()
             if userAccount and package:
                 products = package.products.all()
@@ -480,14 +495,16 @@ class UserPostPackage(APIView):
                 postServices=package.postServices.all()
                 if products:
                     userAccount.product.add(*products)
+                    for product in products:
+                        invoice.savings+=product.savings
+                    invoice.save()
                 if services:
                     userAccount.service.add(*services)
                 if postServices:
                     userAccount.postService.add(*postServices)
                 userAccount.save()
-                if not userAccount.invoice:
-                    Calculate(user_id).execute()
-                serializer= UserAccountSerializer(userAccount)
+                
+                serializer= UserAccountAllCombined(userAccount,many=False)
                 return Response(serializer.data)
         else:
             return Response({data:"no user or prod"},status=status.HTTP_400_BAD_REQUEST)
@@ -511,7 +528,7 @@ class UserCombinedProductServicesConsultCheck(APIView):
             userAccount.consult=consult
             userAccount.save()
             # print("userAccount=>consult",userAccount.consult)
-            serializer= UserAccountsSerializer(userAccount)
+            serializer= UserAccountAllCombined(userAccount,many=False)
             # print("serializer",serializer)
             return Response(serializer.data)
         else:
@@ -545,7 +562,7 @@ class GetClientsOptions(APIView):
             userAccount.options=getOption
             userAccount.save()
             # print("getOption",getOption)
-            serializer= UserAccountsSerializer(userAccount)
+            serializer= UserAccountAllCombined(userAccount,many=False)
             sendConsultEmail(user_id)
             return Response(serializer.data)
         else:
@@ -561,9 +578,8 @@ class ClickCheckout(APIView):
         user=User.objects.get(id=user_id)
         userAccount=UserAccount.objects.filter(user=user).first()
         if userAccount:
-            invoice=Calculate(user_id).execute()
-            userAccount.invoice=invoice
-            userAccount.save()
+            Calculate(user_id).execute()
+            invoice=Invoice.objects.filter(id=userAccount.invoice.id).first()
             serializer= InvoiceTaxSerializer(invoice,many=False)
             return Response(serializer.data)
         else:
@@ -580,7 +596,7 @@ class Payment(APIView):
         # print("totalMonthly",totalMonthly)
         total=data["total"]
         numPayment=data["numPayment"]
-        # print("numPayment",numPayment)
+        print("numPayment",numPayment)
         # id=self.kwargs["user_id"] # does this given http://addres/id
         # print("user_id",user_id,totalMonthly,total,"numPayment",numPayment)
         # print("HTTPREQUEST.GET_HOST",request.get_host())
@@ -608,7 +624,7 @@ class Payment(APIView):
                 # print("user_id",user_id,totalMonthly,total,"numPayment",numPayment)
                 calculate5YrMonthly(userAccount)
            
-            serializer= UserAccountsSerializer(userAccount)
+            serializer= UserAccountAllCombined(userAccount,many=False)
             # print("serializer",serializer)
             return Response(serializer.data)
         else:
@@ -704,6 +720,7 @@ class getFullUserAccount(APIView):
         user=User.objects.filter(id=user_id).first()
         userAccount=UserAccount.objects.filter(user=user).first()
         if userAccount:
+            Calculate(user_id).execute()
             serializer= UserAccountAllCombined(userAccount)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
@@ -718,7 +735,7 @@ class getUserInvoiceAccount(APIView):
         userAccount=UserAccount.objects.filter(user=user).first()
         invoice=Invoice.objects.filter(id=userAccount.invoice.id).first()
         if userAccount and invoice:
-            serializer= InvoiceTaxSerializer(invoice)
+            serializer= InvoiceTaxSerializer(invoice,many=False)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -842,7 +859,7 @@ class AddPostServices(APIView):
             postInvoice.paid=True
             postInvoice.save()
 
-            serializer= UserAccountAllCombined(userAccount)
+            serializer= UserAccountAllCombined(userAccount,many=False)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -874,7 +891,7 @@ class RemovePostServices(APIView):
             postInvoice.total=total
             postInvoice.save()
 
-            serializer= UserAccountAllCombined(userAccount)
+            serializer= UserAccountAllCombined(userAccount,many=False)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response({"error":"PostInvoice is created at add service","status":status.HTTP_406_NOT_ACCEPTABLE})
@@ -1094,7 +1111,7 @@ class GetExtraSessionInfo(APIView):
             # test= GetSession(extraSession_id,user_id)
             # test.getSession()
             sendExtraEmail(user_id)
-            serializer= UserAccountAllCombined(userAccount)
+            serializer= UserAccountAllCombined(userAccount,many=False)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -1244,6 +1261,8 @@ class ServiceDependancyGet(APIView):
             print("ServiceDependency error",e)
             return Response(status=status.HTTP_400_BAD_REQUEST) 
 
+#-invoice is first created once THE CLIENT COMPLETES THE FORM (THEN THEY CAN SELECT)
+#BELOW THE INVOICE SHOULD HAVE BEEN CREATED
 class SaveServiceDependancy(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     def post(self,request,format=None,**kwargs):
@@ -1252,17 +1271,8 @@ class SaveServiceDependancy(APIView):
         user_id=data["user_id"]
         user=User.objects.filter(id=user_id).first()
         userAccount=UserAccount.objects.filter(user=user).first()
-        invoice=Invoice.objects.get(id=userAccount.invoice.id)
-        if not invoice:
-            tax, created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
-            if created:
-                tax.save()
-            invoice,created=Invoice.objects.get_or_create(name=userAccount.name,tax=tax)
-            if created:
-                invoice.subTotal=0
-                invoice.subTotalMonthly=0
-                invoice.save()
-        postInvoice,created=PostInvoice.objects.get_or_create(name=userAccount.name,tax=invoice.tax)
+        tax=userAccount.invoice.tax
+        postInvoice,created=PostInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
         if created:
             postInvoice.subTotal=0
             postInvoice.subTotalMonthly=0
@@ -1273,23 +1283,17 @@ class SaveServiceDependancy(APIView):
                 for product in serviceDepend.products.all():
                     if product not in userAccount.product.all():
                         userAccount.product.add(product.id)
-                        invoice.subTotal +=product.price
-                        invoice.subTotalMonthly +=product.monthly
                 for service in serviceDepend.services.all():
                     if service not in userAccount.service.all():
                         userAccount.service.add(service.id)
-                        invoice.subTotal +=service.price
-                        invoice.subTotalMonthly +=service.monthly
                 for postService in serviceDepend.postServices.all():
                     if postService not in userAccount.postService.all():
                         userAccount.postService.add(postService.id)
                         postInvoice.subTotal +=postService.price
                         postInvoice.subTotalMonthly +=postService.monthly
-                invoice.total=invoice.subTotal * (1+ (invoice.tax.fed/100 + invoice.tax.provState/100))
-                postInvoice.total=postInvoice.subTotal * (1+ (postInvoice.tax.fed/100 + postInvoice.tax.provState/100))
                 userAccount.save()
-                invoice.save()
                 postInvoice.save()
+                Calculate(user_id).execute()
                 serialize=UserAccountAllCombined(userAccount,many=False)
                 return Response(serialize.data,status=status.HTTP_200_OK)
             except Exception as e:

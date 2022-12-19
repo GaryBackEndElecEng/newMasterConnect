@@ -215,6 +215,7 @@ class Invoice(models.Model):
     sendingForPayment = models.BooleanField(default=False)
     priceID=models.CharField(max_length=150,blank=True,null=True)
     paid=models.BooleanField(default=False)
+    savings=models.IntegerField(blank=True,default=1)
     dateStart=models.DateTimeField(default=datetime.now)
     dateEnd=models.DateTimeField(default=datetime.now,blank=True)
     
@@ -284,6 +285,7 @@ class UserAccount(models.Model):
     extraSessionID=models.CharField(max_length=150,blank=True,null=True)
     cell=models.CharField(max_length=100,blank=True)
     email=models.CharField(max_length=100,blank=True)
+    city=models.CharField(max_length=50,blank=True)
     address=models.CharField(max_length=300,blank=True)
     country=models.CharField(max_length=50,blank=True)
     provState=models.CharField(max_length=50,blank=True)

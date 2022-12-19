@@ -5,12 +5,8 @@ one subject: what is communication
 
 
 TODO
-
--correct the saving of the UUID to Calc and re-access the process of saving NOW USING THE DEPEPENDANCY TABLE.
--correct the savingof data in useraccount for Calculator (its not saving the written data)
-
--add information about database ownage ( and residual monthly cost after final payment)
-- add detail page product to products
+-add savings to products
+- add detail page product to products ( create a separate folder)
 -correct the packages.
 -VERIFY-add a field for external links with products
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
@@ -23,6 +19,8 @@ TODO
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+-correct the saving of the UUID to Calc and re-access the process of saving NOW USING THE DEPEPENDANCY TABLE.
+-correct the savingof data in useraccount for Calculator (its not saving the written data)
 -ADDED SAVINGS TO PRODUCT AND INSTALLED IT WITHIN MY_ACCOUNT/SIGNALS
 - WHEN PURCHASED SEND DEPENDANCIES AND EXPLAIN( IN EMAIL THAT ITEM S ARE MISSING TO COMPLETE THE PROJECT.)
 -add email change to MyAccount infoFormFill.js

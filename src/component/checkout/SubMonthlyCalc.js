@@ -1,12 +1,12 @@
 import React, { useContext, useEffect,useState } from 'react'
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 
-const SubMonthlyCalc = ({usersInvoice}) => {
+const SubMonthlyCalc = ({loadInv}) => {
 
     const {selectedPayment } = useContext(TokenAccessContext);
     const [getSubTotal,setGetSubTotal]=useState(0);
     const getTotal= selectedPayment? selectedPayment.value:null;
-    const getTax=usersInvoice.loaded ? usersInvoice.data.tax:null;
+    const getTax=loadInv ? loadInv.tax:null;
     
     useEffect(()=>{
         let subTotal=0;

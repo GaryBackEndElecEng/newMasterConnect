@@ -45,6 +45,7 @@ const ParticularsPaidTotals = ({ invoicePaid, postInvoicePaid,extraInvoicePaid,l
                         <ListItem>Total:  <AttachMoneyIcon sx={{ ml: 1, color: "green" }} /> {getInvoice.total}</ListItem>
                         <ListItem>SubTotal Monthly:  <AttachMoneyIcon sx={{ ml: 1, color: "green" }} /> {getInvoice.subTotalMonthly}</ListItem>
                         <ListItem>Total Monthly:  <AttachMoneyIcon sx={{ ml: 1, color: "green" }} /> {getInvoice.totalMonthly}</ListItem>
+                        <ListItem>savings:  <AttachMoneyIcon sx={{ ml: 1, color: "green" }} /> {getInvoice.savings}</ListItem>
                         <ListItem>Number of Payments:{getInvoice.numPayment} </ListItem>
                         <ListItem>Start Date: {dateFormat(getInvoice.dateStart)}</ListItem>
                         <ListItem>End Date: {dateFormat(getInvoice.dateEnd)}</ListItem>

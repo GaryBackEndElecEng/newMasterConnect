@@ -22,10 +22,11 @@ import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 
 const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True
+    
     const theme = useTheme();
     // const windowTheme = useTheme("windowTheme");
     const navigate = useNavigate();
-    const { userAccount, address, cell, name, email, provState, country, postal, formComplete, setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct, loggedIn, usersExtraInvoice, getUUID } = useContext(TokenAccessContext);
+    const { userAccount, address, cell, name, email, provState,city, country, postal, formComplete, setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct, loggedIn, usersExtraInvoice, getUUID } = useContext(TokenAccessContext);
     const { setChangePage } = useContext(GeneralContext);
     const [message, setMessage] = useState(null);
     const [message2, setMessage2] = useState(null);
@@ -79,9 +80,8 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
             const calculateCostGetInvoice = async () => {
                 try {
                     const res = await apiProtect.post('/account/post_invoice/', { "user_id": user_id });
-                    const body = res.data;
-                    setUsersInvoice({ loaded: true, data: body });
-                    localStorage.removeItem("formComplete");
+                    const user_invoice = res.data;
+                    setUsersInvoice({ loaded: true, data: user_invoice });
                     navigate("/MyAccount/checkout/", setChangePage(true));
                     if (window.scrollY) {
                         window.scroll(0, 0);
@@ -205,7 +205,10 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
                                                 <ListItem component="li"><span style={{ color: "blue" }}>e:</span>{email}</ListItem>
                                             </Grid>
                                             <Grid item xs={12} sm={6}>
-                                                <ListItem component="li"><span style={{ color: "blue" }}>add:</span>{address}</ListItem>
+                                                <ListItem component="li"><span style={{ color: "blue" }}>add:</span>{address}
+                                                </ListItem>
+                                                <ListItem component="li"><span style={{ color: "blue" }}>city:</span>{city}
+                                                </ListItem>
                                                 <Stack direction="row" spacing={1}>
                                                     <span><span style={{ color: "blue" }}>Co:</span>{country}</span>
                                                     <span><span style={{ color: "blue" }}>Prov/St:</span>{provState}</span>
@@ -235,7 +238,7 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
                                         <span style={{ fontWeight: "bold", textAlign: "center" }}>product(s) / Services(s)</span>
                                     </Typography>
                                     {!paid ?
-                                        <ParticularsUsersProdsServs usersProduct={usersProduct} usersService={usersService} />
+                                        <ParticularsUsersProdsServs usersProduct={usersProduct} usersService={usersService} invoicePaid={invoicePaid}/>
 
                                         :
 

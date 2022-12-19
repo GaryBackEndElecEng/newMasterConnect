@@ -10,7 +10,7 @@ import MonthlyArray from './MonthlyArray';
 import SubMonthlyCalc from './SubMonthlyCalc';
 
 
-const ShowAmounts = ({usersInvoice,isSelectedOneTime,selectedPayment,isSelectedMonthly,clientMustSelectMonthlyPayment}) => {
+const ShowAmounts = ({loadInv,isSelectedOneTime,selectedPayment,isSelectedMonthly,clientMustSelectMonthlyPayment}) => {
     const theme=useTheme();
 
 
@@ -26,12 +26,12 @@ const ShowAmounts = ({usersInvoice,isSelectedOneTime,selectedPayment,isSelectedM
                                 <Grid container spacing={0} sx={{margin:"1rem auto",padding:"0.5rem"}}>
                                     <Grid item xs={12} sm={6} sx={{width:"100%",textAlign:"center"}}>
                                         <Typography component="div" variant="h6">
-                                            <span style={{ fontSize: "50%", color: "blue" }}>subTot:</span><AttachMoneyIcon sx={{ ml: 0, color: "green",fontSize:"90%" }} />{usersInvoice.loaded && usersInvoice.data.subTotal}.<sup>00</sup>
+                                            <span style={{ fontSize: "50%", color: "blue" }}>subTot:</span><AttachMoneyIcon sx={{ ml: 0, color: "green",fontSize:"90%" }} />{loadInv && loadInv.subTotal}.<sup>00</sup>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={6} sx={{width:"100%",textAlign:"center"}}>
                                         <Typography component="div" variant="h6">
-                                            <span style={{ fontSize: "50%", color: "blue", }}>total:</span><AttachMoneyIcon sx={{ ml: 0, color: "green",fontSize:"90%" }} />{usersInvoice.loaded && usersInvoice.data.total}.<sup>00</sup>
+                                            <span style={{ fontSize: "50%", color: "blue", }}>total:</span><AttachMoneyIcon sx={{ ml: 0, color: "green",fontSize:"90%" }} />{loadInv && loadInv.total}.<sup>00</sup>
                                         </Typography>
                                         <Typography component="h1" variant="subtitle1"> tax included</Typography>
                                     </Grid>
@@ -45,7 +45,7 @@ const ShowAmounts = ({usersInvoice,isSelectedOneTime,selectedPayment,isSelectedM
                                 <Grid container spacing={0} sx={{margin:"1rem auto",padding:"0.5rem",color:theme.palette.common.teal}}>
                                     <Grid item xs={12} sm={6} sx={{width:"100%",textAlign:"center"}}>
                                         <Typography component="div" variant="h6">
-                                            <span style={{ fontSize: "50%", color: "blue" }}>subTot:</span><AttachMoneyIcon sx={{ ml: 0, color: "red",fontSize:"90%" }} /><SubMonthlyCalc usersInvoice={usersInvoice}/>.<sup>00</sup>
+                                            <span style={{ fontSize: "50%", color: "blue" }}>subTot:</span><AttachMoneyIcon sx={{ ml: 0, color: "red",fontSize:"90%" }} /><SubMonthlyCalc loadInv={loadInv}/>.<sup>00</sup>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={6} sx={{width:"100%",textAlign:"center"}}>
@@ -56,7 +56,7 @@ const ShowAmounts = ({usersInvoice,isSelectedOneTime,selectedPayment,isSelectedM
                                     </Grid>
                                 </Grid>
                                 <Stack direction="column">
-                                    <MonthlyArray isSelectedOneTime={isSelectedOneTime} isSelectedMonthly={isSelectedMonthly}/>
+                                    <MonthlyArray isSelectedOneTime={isSelectedOneTime} isSelectedMonthly={isSelectedMonthly} loadInv={loadInv}/>
                                 </Stack>
                                 <Stack direction="column" sx={{position:"relative"}}>
                                     {clientMustSelectMonthlyPayment && 

@@ -6,22 +6,21 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 // import styles from './checkout.module.css';
 // import styled from 'styled-components';
 
-const MonthlyArray = ({isSelectedOneTime,isSelectedMonthly}) => {
+const MonthlyArray = ({isSelectedOneTime,isSelectedMonthly,loadInv}) => {
     
     const { usersInvoice,selectedPayment,setSelectedPayment } = useContext(TokenAccessContext);
     const [convertArray,setConvertArray]=useState([]);
-    const getMonthlyArray = usersInvoice.loaded ? usersInvoice.data.monthlyArray : null;
 // console.log(" usersInvoice.data",usersInvoice.data)
 
 useMemo(()=>{
     let array=[];
-    if(getMonthlyArray){
-        getMonthlyArray.forEach((value,index)=>{
+    if(loadInv.monthlyArray){
+        loadInv.monthlyArray.forEach((value,index)=>{
             array.push({"month":index,"value":value})
         });
         setConvertArray(array);
     }
-},[setConvertArray,getMonthlyArray]);
+},[setConvertArray,loadInv]);
 
 const handleSelectedValue =(e)=>{
         e.preventDefault();

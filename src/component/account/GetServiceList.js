@@ -22,7 +22,7 @@ const GetServiceList = () => {
     const theme = useTheme();
     const {open,setOpen,staticImage}=useContext(GeneralContext);
     const { getServiceList,  } = useContext(PriceContext);
-    const { usersService, setUsersService } = useContext(TokenAccessContext); //SetUsersService=> FROM MyAccount ( it recieves all user's products and service)
+    const { usersService, setUsersService,setUserAccount,setUsersProduct,setUsersInvoice } = useContext(TokenAccessContext); //SetUsersService=> FROM MyAccount ( it recieves all user's products and service)
     const getServiceList2 = getServiceList.loaded ? getServiceList.data : JSON.parse(localStorage.getItem("getServiceList2"));
     const [showPopUp, setShowPopUp] = useState({ loaded: false, obj: {} });
     const [error, setError] = useState(false);
@@ -41,8 +41,8 @@ const GetServiceList = () => {
     },[reducedService1,reducedService]);
 
     useEffect(()=>{
-        if(usersService.loaded && getServiceList.loaded && usersService.data.length !==0){
-            let arr=getServiceList.data
+        if(getServiceList2){
+            let arr=getServiceList2
             arr.forEach((service,index)=>{
                 let Exists = usersService.data.filter(obj=>(parseInt(obj.id)===parseInt(service.id)))[0];
                     if(Exists){
@@ -55,14 +55,14 @@ const GetServiceList = () => {
             // console.log("inside useEffect")
             
         }
-    },[]);
+    },[getServiceList2,usersService.data]);
 
     const balanceReduceUsersServices =useCallback((addService)=>{
         let reduceArray=reducedService.data.filter(obj=>(parseInt(obj.id) !==parseInt(addService.id)));
-        setUsersService({loaded:true,data:[...usersService.data,addService]});
+        // setUsersService({loaded:true,data:[...usersService.data,addService]});
         setReducedService({loaded:true,data:reduceArray});
         localStorage.setItem("reducedService",JSON.stringify(reduceArray))
-    },[setUsersService,setReducedService,usersService,reducedService])
+    },[setReducedService,reducedService])
 
 
     const handleAddItem = (e, objID) => {
@@ -73,8 +73,14 @@ const GetServiceList = () => {
             if (user_id && objID) {
                 try {
                     const res = await apiProtect.post("/account/userServicePost/", params);
-                    const service = res.data;
+                    const user_account = res.data;
                     // THIS TESTS THE SERVICE DEPENDANCIES
+                    setUserAccount({loaded:true,data:user_account});
+                    setUsersService({loaded:true,data:user_account.service});
+                    setUsersProduct({loaded:true,data:user_account.product});
+                    setUsersInvoice({loaded:true,data:user_account.invoice});
+                    let service=user_account.service.filter(obj=>(parseInt(obj.id)===parseInt(objID)))[0]
+                    // console.log("service",service)
                     setSelectedService({loaded:true,obj:service,id:objID})
                     setOpen(open => true);
                     balanceReduceUsersServices(service)
@@ -115,15 +121,17 @@ const GetServiceList = () => {
         setShowSummary({loaded:false,id:null});
     }
 
-    const deleteItemCallback=useCallback((deletedService)=>{
-    let reducedServiceNew=[...reducedService.data, deletedService];
+    const deleteItemCallback=useCallback((objID)=>{
+    let itemExist=getServiceList2.filter(obj=>(parseInt(obj.id)===parseInt(objID)))[0];
+    if(!itemExist)return
+    let reducedServiceNew=[...reducedService.data, itemExist];
+    let check=reducedService.data.filter(obj=>(parseInt(obj.id)===parseInt(objID)))[0];
+    if(check)return
     setReducedService({loaded:true,data:reducedServiceNew});
     localStorage.setItem("reducedService",JSON.stringify(reducedServiceNew));
-    let userRemainder = usersService.data.filter(obj => (parseInt(obj.id) !== parseInt(deletedService.id)));
-    setUsersService({ data: userRemainder, loaded: true });
-    },[setUsersService,reducedService,usersService]);
+    },[getServiceList2,reducedService,setReducedService]);
 
-
+// console.log("getServiceList.data",getServiceList.data)
     const handleDelete = (e, objID) => {
         e.preventDefault();
         const removeServiceToUser = async () => {
@@ -133,8 +141,18 @@ const GetServiceList = () => {
             if (user_id && objID) {
                 try {
                     const res = await apiProtect.post("/account/userServicePostDelete/", params);
-                    const deletedService = res.data;
-                    deleteItemCallback(deletedService)
+                    const user_account = res.data;
+                    setUserAccount({loaded:true,data:user_account});
+                    if(user_account.service.length >0){
+                    setUsersService({loaded:true,data:user_account.service});
+                    deleteItemCallback(objID)
+                    }else{
+                        setUsersService({loaded:false,data:[]});
+                        setReducedService({loaded:true,data:getServiceList2});
+                        localStorage.setItem("reducedService",JSON.stringify(getServiceList2));
+                }
+                    // setUsersProduct({loaded:true,data:user_account.product});
+                    setUsersInvoice({loaded:true,data:user_account.invoice})
                     setShowUserServ({loaded:false,id:null});
                     
                 } catch (error) {
@@ -182,7 +200,7 @@ const GetServiceList = () => {
             <Grid container spacing={2} onMouseOut={() => handleClosePopUp()}
             sx={{maxHeight:{md:"50vh",xs:"65vh"},overflowY:"scroll"}}
             >
-                {reducedService.loaded  && reducedService.data.map(obj => (
+                {reducedService.loaded  && reducedService?.data.map(obj => (
                     <Grid item xs={12} sm={6} md={3} key={`${obj.id}-${Math.floor(Math.random() * 10000)}`}
                         sx={{ padding: "0.5rem" }}
                     >

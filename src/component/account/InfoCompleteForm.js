@@ -17,7 +17,7 @@ const InfoCompleteForm = () => {
     const { setUserAccount, user_id, setAddress, address, setCell, cell, setName, name,setWebsite,website,setCDN,CDN, setFormComplete, formComplete,
         provState, setProvState,country, setCountry,postal, setPostal,industry,setIndustry,setCo,co,email,setEmail,setUsersInvoice,city, setCity } = useContext(TokenAccessContext);
     const theme = useTheme();
-    const [error, setError] = useState('');
+    const [error, setError] = useState(null);
     const [issue, setIssue] = useState(false);
     const [isInfoOk, setIsInfoOk] = useState(false);
     const [validName, setValidName] = useState(false);
@@ -133,8 +133,11 @@ useMemo(()=>{
                 localStorage.setItem("formComplete",true)
             } catch (error) {
                 if (error.response) {
+                   if(error.response.status){
+                    setError("Some one has theis email already");
                     setIssue(true);
-                    setError(error.response.message)
+                   }else{setError(error.response.message)}
+                    setIssue(true);
                     localStorage.setItem("formComplete",false)
                 } else { 
                     console.error(error.message); 
@@ -415,7 +418,7 @@ useMemo(()=>{
                             </Fab> : <div>"submit pending"</div>}
                             <>
                                 {issue &&
-                                    <Stack container spacing={1} sx={{ justifyContent: "center" }}
+                                    <Stack container spacing={1} sx={{ justifyContent: "center",zIndex:"99990" }}
                                         className={styles.formError}
                                     >
                                         <Typography component="h1" variant="body1">

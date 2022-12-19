@@ -161,7 +161,7 @@ useEffect(() => {
       if(data.invoice){
         setUsersInvoice({loaded:true,data:data.invoice});
         if(data.invoice.paid ===true){setPaid(true)}
-      }else{setUsersInvoice({loaded:false,data:[]})}
+      }
 
       if(data.postService){
         if(data.postService.length>0){
@@ -206,7 +206,7 @@ useEffect(() => {
       setCDN(data?.CDN);
       setIndustry(data?.industry);
       setCo(data?.co);
-      setCity(data?.address.split(",")[1]);
+      setCity(data?.city);
       if(data.sitePreference){
       setSitePreference({loaded:true,data:data.sitePreference});
       }
@@ -229,7 +229,7 @@ useEffect(() => {
   setLoggedIn(loggedIn);
   if(loggedIn===true ){getUserproduct();}
   
-},[tokenIsValid,loggedIn]);
+},[loggedIn]);
 
 
 

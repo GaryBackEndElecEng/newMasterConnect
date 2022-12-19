@@ -19,7 +19,6 @@ export const PriceContextProvider = (props) => {
     const[postService,setPostService]=useState(initializePricecatelog);
     const [getPackages,setGetPackages]=useState({loaded:false,data:[]});
     const [getServices,setGetServices]=useState({loaded:false,data:[]});
-    const [getProducts,setGetProducts]=useState({loaded:false,data:[]});
     const [getExtraServices,setGetExtraServices]=useState({loaded:false,data:[]});
     const [DNS,setDNS]=useState({loaded:false,data:[]});
     const [basePrice,setBasePrice]=useState({loaded:false,data:[]});
@@ -155,7 +154,7 @@ export const PriceContextProvider = (props) => {
 
     
     return (
-        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,getProducts,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray,customTemplates,getContactList,getAboutList}}>
+        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray,customTemplates,getContactList,getAboutList}}>
             {props.children}
         </PriceContext.Provider>
       )

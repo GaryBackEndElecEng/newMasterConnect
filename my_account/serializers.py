@@ -37,7 +37,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields='__all__'
-        
+
 class PackageSerializer(serializers.ModelSerializer):
     products=ProductSerializer(many=True,read_only=True)
     services=ServiceSerializer(many=True,read_only=True)
@@ -205,7 +205,7 @@ class InvoiceTaxSerializer(serializers.ModelSerializer):
     class Meta:
         model=Invoice
         fields='__all__'
-        # fields=("id","uuid","name","region","tax","subTotal","total","subTotalMonthly","totalMonthly","monthlyArray","numPayment","sendingForPayment","priceID","paid",)
+        
 
 class PostInvoiceSerializer(serializers.ModelSerializer):
      tax=TaxSerializer(many=False,read_only=True)

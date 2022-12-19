@@ -160,7 +160,7 @@ const handleContract=(e)=>{
         <GetRegisterPages/>
           <CoverPage />
           <Particulars 
-          invoicePaid={invoice}
+          invoicePaid={invoice ? invoice :null}
            postInvoicePaid={postInvoice !== false ? postInvoice : null}
            extraInvoicePaid={extraInvoice && extraInvoice}
            />

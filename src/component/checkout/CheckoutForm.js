@@ -32,15 +32,10 @@ transform:translateX(-5%);
 const CheckoutForm = () => {
     // const theme = useTheme();
     // const navigate=useNavigate();
-    const { userAccount, user_id, setSentToServer, loggedIn, usersService, usersProduct } = useContext(TokenAccessContext);
+    const { user_id, setSentToServer, loggedIn, usersService, usersProduct } = useContext(TokenAccessContext);
     const { setChangePage, serverUrl, staticImage } = useContext(GeneralContext);
-    const initializegetInvoice = { loaded: false, data: {} };
-    Object.freeze(initializegetInvoice);
-    const [getInvoice, setGetInvoice] = useState(initializegetInvoice);
-    const clientProdImgs = userAccount.loaded ? userAccount.data.product.map(obj => (`${staticImage}/${obj.imageName}`)) : null;
-    const clientServices = userAccount.loaded ? userAccount.data.service.map(obj => (obj.name)) : null;
-    const clientProducts = userAccount.loaded ? userAccount.data.product.map(obj => (obj.name)) : null;
-    const getSelectedPayment = getInvoice.loaded ? getInvoice.data : null;
+    const [getInvoice, setGetInvoice] = useState([]);
+    const getSelectedPayment = getInvoice ? getInvoice : null;
     const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
     const serverUrl1 = "http://localhost:8000/api"
 
@@ -49,8 +44,9 @@ const CheckoutForm = () => {
         const pullInvoice = async () => {
             try {
                 const res = await apiProtect.post('/account/invoice/', { "user_id": user_id });
-                const body = res.data;
-                setGetInvoice({ loaded: true, data: body })
+                const user_invoice = res.data;
+                setGetInvoice(user_invoice);
+                
             } catch (error) {
                 console.error(error.message)
             }
@@ -59,13 +55,12 @@ const CheckoutForm = () => {
             pullInvoice();
         }
 
-    }, [getLoggedIn]);
+    }, []);
 
     const handleActions = () => {
         setSentToServer(true);
         setChangePage(true);
     }
-
 
     return (
         <SpecialContainer maxWidth="md"

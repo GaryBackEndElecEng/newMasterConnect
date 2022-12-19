@@ -7,8 +7,9 @@ import { Stack, Grid, ListItem, } from '@mui/material';
 // import styled from 'styled-components';
 import InvoiceTotal from './InvoiceTotal';
 
-const ParticularsUsersProdsServs = ({ usersProduct, usersService }) => {
+const ParticularsUsersProdsServs = ({ usersProduct, usersService,invoicePaid }) => {
     const theme = useTheme();
+   
     return (
         <>
             <Grid container spacing={0}>
@@ -21,6 +22,9 @@ const ParticularsUsersProdsServs = ({ usersProduct, usersService }) => {
                             </ListItem>
                             <ListItem>
                                 <span style={{ fontSize: "80%", color: "blue" }}>Month:</span>${obj.monthly}.<sup>00</sup>
+                            </ListItem>
+                            <ListItem>
+                                <span style={{ fontSize: "80%", color: "blue" }}>savings:</span>${obj.savings}.<sup>00</sup>
                             </ListItem>
                         </Stack>
 
@@ -39,6 +43,7 @@ const ParticularsUsersProdsServs = ({ usersProduct, usersService }) => {
                             <ListItem>
                                 <span style={{ fontSize: "80%", color: "blue" }}>Month:</span>${obj.monthly}.<sup>00</sup>
                             </ListItem>
+                            
                         </Stack>
 
                     </Grid>
@@ -46,7 +51,7 @@ const ParticularsUsersProdsServs = ({ usersProduct, usersService }) => {
                 ))}
 
             </Grid>
-            <InvoiceTotal usersProduct={usersProduct} usersService={usersService} />
+            <InvoiceTotal usersProduct={usersProduct} invoicePaid={invoicePaid} />
         </>
     )
 }
