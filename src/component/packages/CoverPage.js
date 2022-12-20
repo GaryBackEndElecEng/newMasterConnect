@@ -45,7 +45,7 @@ const CoverPage = () => {
            
         </Stack>
         <Deduction direction="column" sx={{width:"100%",color:"white",background:theme.palette.common.fadeCharcoal,padding:"1rem"}}>
-            <Typography component="h1" variant="h5" sx={{margin:"1rem auto"}}>Right Packages For You</Typography>
+            <Typography component="h1" variant="h5" sx={{margin:"1rem auto"}}>Choose the Right Package For You</Typography>
             
         </Deduction>
         </Container>

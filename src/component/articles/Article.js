@@ -25,6 +25,7 @@ import Rotate90DegreesCwIcon from '@mui/icons-material/Rotate90DegreesCw';
 import ArticleHelmet from './ArticleHelmet';
 
 
+
 const MainBlog = styled.div.attrs({ className: "container-fluid" })`
 width:100vw;
 postion:relative;
@@ -84,11 +85,19 @@ const Article = () => {
   const changeColor = innerW ? theme.palette.fade : theme.palette.common.light;
   const boxShadow= innerW ? "white" : theme.palette.common.blueGrey;
   const getTitle= article ? article.title : " Article page";
+  const windowWidth= (window.innerWidth < 600)? true : false;
 
   const [summary, setSummary] = useState(null);
   const [keywords, setKeywords] = useState(null);
   const [desc, setDesc] = useState(null);
-
+useEffect(()=>{
+  if(windowWidth){
+    window.onload=()=>{
+      import('./commonStyle.css');
+    }
+    
+  }
+},[]);
   useEffect(()=>{
     const removeTags = /(?:<style.+?>.+?<\/style>|<script.+?>.+?<\/script>|<(?:!|\/?[a-zA-Z]+).*?\/?>)/g;
     if(SEOAll.loaded){

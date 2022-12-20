@@ -121,6 +121,7 @@ class Package(models.Model):
     priceCatelog=models.ForeignKey(PriceCatelog,related_name="packages",on_delete=models.CASCADE,default=1)
     specialOffer=models.BooleanField(default=False)
     updateValue=models.BooleanField(default=False)
+    image=models.CharField(max_length=50,blank=True,null=True)
 
     def __str__(self):
         return f'{self.name}-{self.monthly}-{self.specialOffer}'

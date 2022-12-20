@@ -1,0 +1,6 @@
+*{margin:0;padding:0;box-sizing:border-box}
+/* THIS LOADS WHEN WIDTH <600 */
+.internetTable{
+    width:100%;
+    font-size:50%;
+}
