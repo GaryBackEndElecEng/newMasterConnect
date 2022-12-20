@@ -123,7 +123,7 @@ class Package(models.Model):
     updateValue=models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.name}-{self.monthly}'
+        return f'{self.name}-{self.monthly}-{self.specialOffer}'
 
 # def createPriceMonthlyDesc(instance,created,*args,**kwargs):
 #     getPackage=Package.objects.filter(id=instance.id).first()
@@ -253,7 +253,7 @@ class ExtraInvoice(models.Model):
     priceID=models.CharField(max_length=150,blank=True,null=True)
     paid=models.BooleanField(default=False)
     dateStart=models.DateTimeField(default=datetime.now)
-    dateEnd=models.DateTimeField(default=datetime.now,blank=True)
+    dateEnd=models.DateTimeField(default=datetime.now)
     
     def __str__(self):
         return self.name

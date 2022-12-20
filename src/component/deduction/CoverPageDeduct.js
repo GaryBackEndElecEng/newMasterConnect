@@ -58,7 +58,7 @@ const CoverPageDeduct = ({credited}) => {
         <Deduction direction="column" sx={{width:"100%",color:"white",background:theme.palette.common.fadeCharcoal,padding:"1rem"}}>
             <Typography component="h1" variant="h3" sx={{margin:"1rem auto"}}>Deduction Page</Typography>
             <Typography component="h1" variant="body1">select the service and or Product you would like to remove and add a reduction of cost on your publish cost.</Typography>
-            <Typography component="h1" variant="body2" sx={{background:"white",color:"red",padding:"0.5rem",margin:"1rem auto"}}>Please Note: once payment has been completed, your items will show.</Typography>
+            <Typography component="h1" variant="body2" sx={{background:"white",color:"red",padding:"0.5rem",margin:"1rem auto"}}>Please Note: once payment has been completed and the developer has initiated your project, your items will show.</Typography>
         </Deduction>
         </Container>
 

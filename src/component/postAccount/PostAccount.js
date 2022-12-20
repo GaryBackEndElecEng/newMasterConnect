@@ -27,8 +27,8 @@ box-shadow:1px 2px 13px 8px ${({ color }) => color};
 
 const PostAccount = () => {
     const theme = useTheme();
-    const {usersPostService}=useContext(TokenAccessContext);
-    const { staticImage, setStyleName, setTitle, } = useContext(GeneralContext);
+    const {usersPostService,usersService}=useContext(TokenAccessContext);
+    const { staticImage, setStyleName, setTitle,serviceDependancy } = useContext(GeneralContext);
     const coverpage = `${staticImage}/homeBg3.png`;
 
 
@@ -39,7 +39,7 @@ const PostAccount = () => {
             window.scroll(0,0);
             
         }
-    }, []);
+    }, [setTitle,setStyleName]);
 
     return (
         <>
@@ -60,7 +60,7 @@ const PostAccount = () => {
                 sx={{alignItems:"center",justifyContent:"center"}}
                 >
                     <Services />
-                    <UserSelected />
+                    <UserSelected serviceDependences={serviceDependancy} />
                 </Stack>
             </Container>
             <SumaryCost/>

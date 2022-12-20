@@ -6,6 +6,8 @@ import { Stack, Typography, Grid, Card, CardContent, Avatar,Fab } from '@mui/mat
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import styled from 'styled-components';
+import apiProtect from '../axios/apiProtect';
+import { useEffect } from 'react';
 
 const CustCard=styled(Card)`
 position:absolute;
@@ -29,13 +31,31 @@ animation: growIn 1.5s ease-in-out;
 
 `;
 
-const CheckOutExtra = ({ usersExtraService, usersExtraInvoice }) => {
+const CheckOutExtra = ({ usersExtraService,staticImage }) => {
     const theme = useTheme();
-    const { user_id, } = useContext(TokenAccessContext);
+    const { user_id,setUsersExtraInvoice,loggedIn,usersExtraInvoice } = useContext(TokenAccessContext);
     const { serverUrl,} = useContext(GeneralContext);
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
     const getUsersExtraServices = usersExtraService.loaded ? usersExtraService.data : null;
     const getUsersExtraInvoice = usersExtraInvoice.loaded ? usersExtraInvoice.data : null;
+    const getUser_id=localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
+    const getLoggedIn=localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
+
+    useEffect(()=>{
+        const getFinaleExtraInvoice= async()=>{
+            try {
+                const res= await apiProtect.post("account/getExtraInvoiceForCheckOut/",{"user_id":getUser_id});
+                 const user_extraInvoice= res.data;
+                 setUsersExtraInvoice({loaded:true,data: user_extraInvoice});
+
+            } catch (error) {
+                console.error(error.message)
+            }
+        }
+        if(getLoggedIn){
+            getFinaleExtraInvoice();
+        }
+    },[]);
 
     return (
         <CustCard bg={theme.palette.primary.dark} elevation={20} sx={{boxShadow:"1px 1px 18px 8px grey"}}>
@@ -54,7 +74,11 @@ const CheckOutExtra = ({ usersExtraService, usersExtraInvoice }) => {
 
                             <Grid item xs={12} sm={6} key={`${obj.key}-${Math.ceil(Math.random() * 1000)}`}
                                 sx={{ margin: " 1rem auto" }}>
-                                <Typography component='h1' variant="h5"> Extra: {obj.name}</Typography>
+                                    <Stack direction="row" spacing={{xs:0,sm:1,md:2}} sx={{alignItems:"flex-start"}}>
+                                    <Avatar src={`${staticImage}/${obj.image}`} alt="www.master-connect.ca" sx={{ width: "20%",height:"20%" ,margin: "auto" }} />
+                                    <Typography component='h1' variant="h5"> Extra: {obj.name}</Typography>
+                                    </Stack>
+                                
                             </Grid>
                         ))}
                         {getUsersExtraInvoice &&

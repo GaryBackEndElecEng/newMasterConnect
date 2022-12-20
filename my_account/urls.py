@@ -50,6 +50,7 @@ urlpatterns=[
     path('extraServices/',views.GetExtraServices.as_view(),name="GetExtraServices-get"),
     path('extraService/<int:id>/',views.PostExtraService.as_view(),name="PostExtraService-post"),
     path('extraService/delete/<int:id>/',views.PostDeleteExtraService.as_view(),name="PostDeleteExtraService-post"),
+    path('getExtraInvoiceForCheckOut/',views.GetExtraInvoiceForCheckOut.as_view(),name="getExtraInvoiceForCheckOut-post"),
     path('extraService/checkout/<int:user_id>/',views.AdditionalServiceCheckout.as_view(),name="PostDeleteExtraService-post"),
     path('postCalculatorResults/',views.CalculatorResults.as_view(),name="postCalculatorResults-post"),
     path('sitePreference/',views.SitePreferenceView.as_view(),name="SitePreferenceView-post"),

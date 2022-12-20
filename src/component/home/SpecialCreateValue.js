@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState, } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
-import {  Grid, Container, Typography} from '@mui/material';
+import {  Grid, Container, Typography, Stack, Fab} from '@mui/material';
 import SpecialCreatValueCard from './SpecialCreatValueCard';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
+import { Navigate } from 'react-router-dom';
 // import styles from "./home.module.css";
 
 
@@ -62,9 +64,10 @@ top:5%;
 `;
 
 const SpecialCreateValue = () => {
+  const navigate=useNavigate();
   const theme = useTheme();
   const [pointer, setPointer] = useState(false);
-  const { staticImage, special } = useContext(GeneralContext);
+  const {  special,setChangePage } = useContext(GeneralContext);
   const { getPackages } = useContext(PriceContext);
   // const [getSpecials,setGetSpecials]=useState({loaded:false,data:[]});
   const [removeSpecial,setRemoveSpecial]=useState(false);
@@ -113,6 +116,10 @@ const SpecialCreateValue = () => {
       observer2.observe(e)
     }
   }
+  const handleGoToPackages =(e)=>{
+    e.preventDefault();
+    navigate("/packages",setChangePage(true))
+  }
  
   return (
     <>
@@ -130,6 +137,13 @@ const SpecialCreateValue = () => {
         }}>
         {getSpecial && getSpecial.title}
       </Typography>
+      <Stack direction="column" spacing={1} sx={{margin:"1rem auto",alignItems:"center"}}
+      onClick={(e)=>handleGoToPackages(e)}
+      >
+        <Fab variant="extended" color="info" size="small" sx={{padding:"0.5rem 1rem"}}>
+          see packages
+        </Fab>
+      </Stack>
     <Grid container spacing={{ md: 2, xs: 0 }}
         sx={{ minHeight: "22vh", display: "flex", justifyContent: "center", alignItems: "flex-start", margin: "1rem auto", padding: "5px", maxHeight: "45vh", overflowY: "scroll" }}
       >

@@ -8,7 +8,7 @@ import { useTheme } from '@mui/material/styles';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 
-const AdditionalAfterPostServiceCard = ({ obj,target }) => {
+const AdditionalAfterPostServiceCard = ({ obj,target,staticImage }) => {
     const theme = useTheme();
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
    
@@ -20,8 +20,8 @@ const AdditionalAfterPostServiceCard = ({ obj,target }) => {
 
     return (
         <Box >
-            <Stack direction="row" sx={{justifyContent:"center",alignItems:"center",margin:"1rem auto"}}>
-                <Avatar src={logo} alt="www.master-connect.ca" sx={{ mr: 2 }} />
+            <Stack direction="row" sx={{justifyContent:"space-between",alignItems:"center",margin:"1rem auto",padding:"0.5rem 1rem"}}>
+                <Avatar src={`${staticImage}/${obj.image}`} alt="www.master-connect.ca" sx={{width:"75px",height:"75px"}}  />
                 <Typography component="h1" variant="h5">{obj.name}</Typography>
             </Stack>
             <CardContent

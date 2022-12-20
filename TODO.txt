@@ -12,13 +12,13 @@ TODO
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
 -FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
--fix the Bio sidebar(height)
 -Fix Google register and signin:([GSI_LOGGER]: The given origin is not allowed for the given client ID.)
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+-fix the Bio sidebar(height)
 -correct the saving of the UUID to Calc and re-access the process of saving NOW USING THE DEPEPENDANCY TABLE.
 -correct the savingof data in useraccount for Calculator (its not saving the written data)
 -ADDED SAVINGS TO PRODUCT AND INSTALLED IT WITHIN MY_ACCOUNT/SIGNALS

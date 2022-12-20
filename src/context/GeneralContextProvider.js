@@ -158,7 +158,7 @@ export const GeneralContextProvider = (props) => {
   const navItems = [{ id: 1, title: 'home', link: "/" }, { id: 2, title: 'about', link: "/about" }, { id: 3, title: 'Designs', link: "/works" },{id:4,title:"contact",link:"/contact"},{id:5,title:"Blog",link:"/blog"}]
 
   const dropDown=[{name:"register",link:"/register"},{name:"Sign in",link:"/signin"},{name:"Sign out",link:"/signout"},{name:"Design",link:"/works"},{name:"Pricing",link:"/prices"},{name:"Contact",link:"/contact"},{name:"Blog",link:"/blog"},{name:"My Account",link:"/MyAccount"},{name:"Articles",link:"/articles"},{name:"bio",link:"/bio"},
- {name:"Serv Dependency",link:"/dependency"}
+ {name:"Serv Dependency",link:"/dependency"},{name:"packages",link:"/packages"},
 ]
 
   const linkArr=[{name:"design1",link:"/design1"},{name:"design2",link:"/design2"},{name:"design3",link:"/design3"},{name:"design4",link:"/design4"},{name:"design5",link:"/design5"},{name:"design8",link:"/design8"},{name:"My Account",link:"/MyAccount"}]
@@ -166,7 +166,7 @@ export const GeneralContextProvider = (props) => {
   const mainLinks = [{id:0, title: "home", link: "/" }, { id:1,title: "Contact", link: "/contact" }, {id:2, title: "bio", link: "/bio" }, {id:3, title: "Privacy", link: "/privacy" },{id:4, title: "terms of Svc", link: "/termsOfSvc" },]
 
     const footerLinks = [{id:0, title: "home", link: "/" }, { id:1,title: "Contact", link: "/contact" }, {id:2, title: "bio", link: "/bio" }, {id:3, title: "Privacy", link: "/privacy" },{id:4, title: "terms of Svc", link: "/termsOfSvc" },{ id:5,title: "Login", link: "/signin" }, {id:6, title: "register", link: "/register" }, {id:7, title: "about", link: "/about" },{id:8, title: "Designs", link: "/works" },{id:9, title: "prices", link: "/prices" },{id:10,title:"Blog",link:"/blog"},{id:11,title:"Articles",link:"/articles"},
-    {id:12,title:"Serv Dependency",link:"/dependency"} ]
+    {id:12,title:"Serv Dependency",link:"/dependency"},{id:13,title:"packages",link:"/packages"} ]
 
     
 

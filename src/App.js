@@ -50,6 +50,7 @@ import AboutPage from './component/custom/AboutPage';
 import ContactPage from './component/custom/ContactPage';
 import StoreProduct from './component/storeProduct/StoreProduct';
 import DependancyPage from './component/dependency/DependancyPage';
+import Package from './component/packages/Package';
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
             <Route path="/signout" element={<Signout />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/packages" element={<Package />} />
             <Route path="/" element={<Home />} />
             <Route path="/bio" element={<Bio />} />
             <Route path="/works" element={<WorkFeatures />} />

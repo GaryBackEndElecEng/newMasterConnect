@@ -4,7 +4,7 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
-import { Stack, Container, Paper, Typography, Grid, ListItem, Fab, } from '@mui/material';
+import { Stack, Container, Paper, Typography, Grid, ListItem, Fab, Box, } from '@mui/material';
 import InfoCompleteForm from './InfoCompleteForm';
 import ShowInfo from './ShowInfo';
 // import InvoiceTotal from './InvoiceTotal';
@@ -22,11 +22,11 @@ import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 
 const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
     //NOTE: invoicePaid and postInvoicePaid is trigger on usersInvoice.loaded=True and usersPostInvoice.loaded=True
-    
+
     const theme = useTheme();
     // const windowTheme = useTheme("windowTheme");
     const navigate = useNavigate();
-    const { userAccount, address, cell, name, email, provState,city, country, postal, formComplete, setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct, loggedIn, usersExtraInvoice, getUUID } = useContext(TokenAccessContext);
+    const { userAccount, address, cell, name, email, provState, city, country, postal, formComplete, setFormComplete, usersProduct, usersService, usersInvoice, setUsersInvoice, user_id, setUserAccount, setUsersService, setUsersProduct, loggedIn, usersExtraInvoice, getUUID } = useContext(TokenAccessContext);
     const { setChangePage } = useContext(GeneralContext);
     const [message, setMessage] = useState(null);
     const [message2, setMessage2] = useState(null);
@@ -50,9 +50,9 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
     useEffect(() => {
         if (invoicePaid) {
             setPaid(invoicePaid.paid)
-        } 
-        if(postInvoicePaid){
-        setPostPaid(postInvoicePaid.paid)
+        }
+        if (postInvoicePaid) {
+            setPostPaid(postInvoicePaid.paid)
         }
     }, [invoicePaid, postInvoicePaid, formComplete]);
 
@@ -66,7 +66,7 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
 
         if (usersProduct.loaded || usersService.loaded) {
             // console.log(usersProduct.data.length)
-            if (((usersProduct.loaded && usersProduct.data) && (usersProduct.data.length === 0)) || ((usersService.loaded && usersService.data) &&  usersService.data.length === 0)) {
+            if (((usersProduct.loaded && usersProduct.data) && (usersProduct.data.length === 0)) || ((usersService.loaded && usersService.data) && usersService.data.length === 0)) {
                 setNoProdsServs({ loaded: true, data: "you must select al least one product(similar to what you want) and one service (essential for site building) before checking out so we can complete your site within the minimal time possible. If you need to consult us, then please click on the consult button, beside the checkout button. We will call you ASAP and discuss your concerns. " })
             }
         }
@@ -238,7 +238,7 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
                                         <span style={{ fontWeight: "bold", textAlign: "center" }}>product(s) / Services(s)</span>
                                     </Typography>
                                     {!paid ?
-                                        <ParticularsUsersProdsServs usersProduct={usersProduct} usersService={usersService} invoicePaid={invoicePaid}/>
+                                        <ParticularsUsersProdsServs usersProduct={usersProduct} usersService={usersService} invoicePaid={invoicePaid} />
 
                                         :
 
@@ -263,13 +263,13 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
                                     <Fab variant="extended" color="info" sx={{ fontSize: { xs: "14px", lg: "20px" }, }} onClick={(e) => handleConsult(e)} >
                                         consult <PhoneForwardedIcon sx={{ ml: 2 }} />
                                     </Fab>
-                                    {(userAccount.data.postAccountActivate && !postPaid) && 
+                                    {(userAccount.data.postAccountActivate && !postPaid) &&
                                         <Fab variant="extended" color={"warning"} onClick={(e) => HandlePostAccount(e)}>
                                             Post account view <SignpostIcon sx={{ ml: 2, color: "green" }} />
                                         </Fab>
                                     }
                                 </Stack>
-                                {message && 
+                                {message &&
                                     <Stack direction="row" className={styles.completeFormMessage}>
                                         <Typography component="h1" variant="h5"><span>You forgot something:</span> {message}</Typography>
                                     </Stack>
@@ -281,10 +281,10 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
                         sx={{ margin: "1rem auto", justifySelf: "center", AlignSelf: "center", background: theme.palette.common.light, color: theme.palette.secondary.background, position: "relative" }}
                     >
                         {(!getFormComplete) &&
-                         <InfoCompleteForm />
+                            <InfoCompleteForm />
                         }
-                        {(getFormComplete) && 
-                        <div className={styles.showInfo}><ShowInfo /></div>
+                        {(getFormComplete) &&
+                            <div className={styles.showInfo}><ShowInfo /></div>
                         }
                         <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
                             <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>Remove purchased services as credit</Typography>
@@ -293,31 +293,34 @@ const Particulars = ({ invoicePaid, postInvoicePaid, extraInvoicePaid }) => {
                                 Deduction <IndeterminateCheckBoxIcon sx={{ ml: 1, color: "white" }} />
                             </Fab>
                         </Stack>
-                        <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom Page Template to your basket</Typography>
-                            <Fab variant="extended" color={"success"} onClick={(e) => handleGoToCustom(e)}>
-                                GoTo Custom Page <DashboardCustomizeIcon sx={{ ml: 1, color: "white" }} />
-                            </Fab>
-                        </Stack>
-                        <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom about Template Page to your basket</Typography>
-                            <Fab variant="extended" onClick={(e) => handleAbout(e)}
-                                sx={{ fontWeight: "bold" }}>
-                                GoTo about template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
-                            </Fab>
-                        </Stack>
-                        <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                            <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom Contact Template Page to your basket</Typography>
-                            <Fab variant="extended" onClick={(e) => handleContact(e)}
-                                sx={{ background:"black", color: "white" ,"&:hover":{color:"black"}}}
-                            >
-                                GoTo Contact template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
-                            </Fab>
-                        </Stack>
+
+                        {!paid && <Box>
+                            <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
+                                <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom Page Template to your basket</Typography>
+                                <Fab variant="extended" color={"success"} onClick={(e) => handleGoToCustom(e)}>
+                                    GoTo Custom Page <DashboardCustomizeIcon sx={{ ml: 1, color: "white" }} />
+                                </Fab>
+                            </Stack>
+                            <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
+                                <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom about Template Page to your basket</Typography>
+                                <Fab variant="extended" onClick={(e) => handleAbout(e)}
+                                    sx={{ fontWeight: "bold" }}>
+                                    GoTo about template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
+                                </Fab>
+                            </Stack>
+                            <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
+                                <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>To add a custom Contact Template Page to your basket</Typography>
+                                <Fab variant="extended" onClick={(e) => handleContact(e)}
+                                    sx={{ background: "black", color: "white", "&:hover": { color: "black" } }}
+                                >
+                                    GoTo Contact template Page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
+                                </Fab>
+                            </Stack>
+                        </Box>}
                         <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
                             <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: theme.palette.common.blueGrey }}>understanding products and services and dependancies</Typography>
                             <Fab variant="extended" onClick={(e) => handleDependency(e)}
-                                sx={{ background: theme.palette.common.blueGrey, color:"white","&:hover":{color:theme.palette.common.orangeFade3}}}
+                                sx={{ background: theme.palette.common.blueGrey, color: "white", "&:hover": { color: theme.palette.common.orangeFade3 } }}
                             >
                                 GoTo Service dependancy page <DashboardCustomizeIcon sx={{ ml: 1, color: "black" }} />
                             </Fab>

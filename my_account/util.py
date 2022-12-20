@@ -5,7 +5,7 @@ import stripe
 from django.conf import settings
 from datetime import datetime,timedelta,date
 import json
-import math
+import math,pytz
 from django.core.mail import EmailMultiAlternatives,BadHeaderError
 from django.template.loader import render_to_string
 
@@ -25,10 +25,11 @@ def calculateMonth(mon):
     return setdate.strftime("%Y%m%d"),setdate
 
 def calculateMonthTZ(mon):
-    today=date.today()
+    today=datetime.now()
     days=mon*30.5
     setdate=timedelta(days=days) + today
     return setdate
+
 
 class Calculate:
     def __init__(self,user_id):
@@ -1079,4 +1080,37 @@ def addInvoiceToUserAccount(username):
             userAccount.invoice=invoice
             userAccount.save()
 
-    
+#----/////// THIS IS USED FOR EXTRA SERVICES CALCULATIONS/////////
+def extraInvoiceCalc(userAccount):
+    total=0
+    subTotal=0
+    subMonthlyTotal=0
+    monthlyTotal=0
+    userAccount=UserAccount.objects.filter(id=userAccount.id).first()
+    if not userAccount.extraInvoice:
+        if not userAccount.country:
+            userAccount.country="CA"
+        tax,created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
+        if created:
+            tax.save()
+        extraInvoice, created = ExtraInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
+        if created:
+            extraInvoice.save()
+            userAccount.extraInvoice=extraInvoice
+            userAccount.save()
+    else:
+        extraInvoice=ExtraInvoice.objects.filter(id=userAccount.extraInvoice.id).first()
+        tax=extraInvoice.tax
+        if extraInvoice:
+           for extraService in userAccount.extraService.all():
+               subTotal += extraService.price
+               subMonthlyTotal += extraService.monthly
+           extraInvoice.subTotal=subTotal
+           extraInvoice.subTotalMonthly=subMonthlyTotal
+           total=math.ceil(subTotal*(1+ tax.fed/100 + tax.provState/100))
+           monthlyTotal=math.ceil(subMonthlyTotal*(1+ tax.fed/100 + tax.provState/100))
+           extraInvoice.total=total
+           extraInvoice.totalMonthly=monthlyTotal
+           extraInvoice.dateEnd=calculateMonthTZ(60)
+           extraInvoice.save()
+    return 

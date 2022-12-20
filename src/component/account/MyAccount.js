@@ -37,6 +37,7 @@ const MyAccount = () => {
   const { setSignin, setSignout, setGoToSignin,usersInvoice,usersPostInvoice,usersExtraInvoice,paid } = useContext(TokenAccessContext);
   const { setTitle, setStyleName, setLoggedIn,  setChangePage,setExtraServices,extraServices,productInfo,getPathLocation,setGetProductDesigns,getProductDesigns } = useContext(GeneralContext);
   const [activate, setActivate] = useState(false);
+  const [postPaid, setPostPaid] = useState(false);
   const [invoice, setInvoice] = useState(false);
   const [postInvoice, setPostInvoice] = useState(false);
   const [extraInvoice, setExtraInvoice] = useState(null);
@@ -64,7 +65,7 @@ const MyAccount = () => {
   useEffect(() => {
 //THIS IS ONLY USED WHEN THE CLIENT LOGS IN, MAINLY FOR invoice.paid,postInvoice.paid triggers(CALL INFO FROM SERVER) 
     if (usersInvoice.loaded && usersInvoice.data) {
-      if(!usersInvoice.data.paid){
+      if(usersInvoice.data.paid){
         //THIS SHOWS PRODUCT AND SERVICE LISTS BEFOR POST SERVICES
       setInvoice(usersInvoice.data)
       }
@@ -72,6 +73,7 @@ const MyAccount = () => {
     if (usersPostInvoice.loaded && usersPostInvoice.data) {
       if(usersPostInvoice.data.paid){
         //THIS SHOWS PAID POST SERVICES AND NOT PAID EXTRA SERVICES
+        setPostPaid(true)
       setPostInvoice(usersPostInvoice.data)
       }
     }
@@ -82,7 +84,7 @@ const MyAccount = () => {
     }
   }, [usersInvoice,usersPostInvoice,usersExtraInvoice]);
 
- 
+
   useEffect(() => {
 
     if (tokenIsValid) {
@@ -109,10 +111,10 @@ const MyAccount = () => {
         console.error(error.message)
       }
     }
-    if(postInvoice !==false){
+    if(postInvoice.paid){
     getExtraServices();
     }
-  },[])
+  },[postInvoice,setExtraServices])
 
 
   useEffect(() => {
@@ -171,7 +173,7 @@ const handleContract=(e)=>{
             
           {invoice !==false && !invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
 
-         {(postInvoice !== false && usersPostInvoice.data.paid) && <AdditionalAfterPostService extraServices={extraServices}/> }
+         {postPaid && <AdditionalAfterPostService extraServices={extraServices}/> }
             
             {productInfo.loaded && <ProductInfo productInfo={productInfo} />}
             

@@ -30,7 +30,7 @@ border:1px solid red;
 
 `;
 
-const UserSelected = () => {
+const UserSelected = ({serviceDependences}) => {
     // const serviceRef = useRef();
     const {postService} = useContext(PriceContext);
     const { extraImages, } = useContext(GeneralContext);
@@ -119,7 +119,7 @@ const UserSelected = () => {
         </Grid>
         ))}
     </Grid>
-    <ServiceDependancy usersArray={getUsersService} />
+    <ServiceDependancy serviceDependences={serviceDependences} />
     </PostInfo>
   )
 }

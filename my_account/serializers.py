@@ -38,13 +38,7 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields='__all__'
 
-class PackageSerializer(serializers.ModelSerializer):
-    products=ProductSerializer(many=True,read_only=True)
-    services=ServiceSerializer(many=True,read_only=True)
-    postServices=PostServiceSerializer(many=True,read_only=True)
-    class Meta:
-        model=Package
-        fields="__all__"
+
 
 class FullProductSerializer(serializers.ModelSerializer):
     extraServices=ExtraServiceSerializer(many=True,read_only=True)
@@ -52,6 +46,14 @@ class FullProductSerializer(serializers.ModelSerializer):
     postServices=PostServiceSerializer(many=True,read_only=True)
     class Meta:
         model=Product
+        fields="__all__"
+
+class PackageSerializer(serializers.ModelSerializer):
+    products=FullProductSerializer(many=True,read_only=True)
+    services=ServiceSerializer(many=True,read_only=True)
+    postServices=PostServiceSerializer(many=True,read_only=True)
+    class Meta:
+        model=Package
         fields="__all__"
 
 class PriceSerializer(serializers.ModelSerializer):

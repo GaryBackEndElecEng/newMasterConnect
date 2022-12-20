@@ -26,7 +26,7 @@ from corsheaders.defaults import default_methods,default_headers
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from rest_framework.decorators import api_view
-from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer,CreditInvoiceSerializer,FullProductSerializer,ServiceDependancySerializer)
+from .serializers import (PriceSerializer,PriceCatelogSerializer,RegisterSerializer,ProductSerializer,UserAccountSerializer,UserProductSerializer,InvoiceTaxSerializer,UserAccountsSerializer,UserAccountProductRelated,ServiceSerializer,UserAccountAllCombined,UserCancelledCount,PackageSerializer,ExtraServiceSerializer,PostCalculatorSerializer,SitePreferenceSerializer,PostServiceCoreSerializer,TempSavedCalculatorSerializer,CreditInvoiceSerializer,FullProductSerializer,ServiceDependancySerializer,ExtraInvoiceSerializer)
 # from users.permissions import IsStaffEditorPermission,IsPostPermission
 from rest_framework.permissions import AllowAny,IsAuthenticated,SAFE_METHODS,IsAuthenticatedOrReadOnly
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -35,7 +35,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
-from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs,addInvoiceToUserAccount)
+from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs,addInvoiceToUserAccount,extraInvoiceCalc)
 from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail,ServiceEvaluator
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -655,6 +655,7 @@ class StripePaymentFromClient(APIView):
                 customerID=Calcdata[3]
                 price_id=Calcdata[2]
                 getInvoice.priceID=price_id
+                getInvoice.sendingForPayment=True
                 getInvoice.save()
         
                 if getInvoice.numPayment > 1:
@@ -831,17 +832,19 @@ class AddPostServices(APIView):
         user=User.objects.filter(id=user_id).first()
         userAccount=UserAccount.objects.filter(user=user).first()
         if userAccount and postService:
+            if not userAccount.country:
+                userAccount.country="CA"
             tax, created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
             if created:
                 tax.provState=8
                 tax.fed=13
                 tax.save()
-            postInvoice, created=PostInvoice.objects.get_or_create(name=userAccount.name)
-            postInvoice.tax=tax
+            postInvoice, created=PostInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
             if created:
+                postInvoice.save()
                 userAccount.postInvoice=postInvoice
                 userAccount.save()
-                postInvoice.save()
+                
             userAccount.postService.add(postService)
             userAccount.save()
             # CALCULATING COST
@@ -856,7 +859,7 @@ class AddPostServices(APIView):
             postInvoice.totalMonthly=totalMonthly
             postInvoice.total=total
             postInvoice.dateEnd=calculateMonthTZ(60)
-            postInvoice.paid=True
+            postInvoice.paid=False
             postInvoice.save()
 
             serializer= UserAccountAllCombined(userAccount,many=False)
@@ -948,7 +951,6 @@ class StripePaymentPostBuild(APIView):
 
 class GetExtraServices(APIView):
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes=[AllowAny]
     def get(self,request,format=None):
         extraServices=ExtraService.objects.all()
         if extraServices:
@@ -979,28 +981,10 @@ class PostExtraService(APIView):
         user=User.objects.filter(id=user_id).first()
         userAccount=UserAccount.objects.filter(user=user).first()
         extraService=ExtraService.objects.filter(id=id).first()
-        extraInvoice=userAccount.extraInvoice
-        tax=Tax.objects.filter(country=userAccount.country,subRegion=userAccount.provState).first()
-        if userAccount and extraService:
-            if not userAccount.extraInvoice:
-                if not tax:
-                    tax,created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
-                    if created:
-                        tax.save()
-                extraInvoice, created = ExtraInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
-                if created:
-                    extraInvoice.save()
-                    userAccount.extraInvoice=extraInvoice
-                    userAccount.save()
+        if userAccount and extraService not in userAccount.extraService.all():
             userAccount.extraService.add(extraService)
-            extraInvoice.subTotal+=extraService.price
-            taxApply=tax.provState/100 + tax.fed/100 + 1
-            extraInvoice.total=math.ceil(extraInvoice.subTotal*taxApply)
-            extraInvoice.subTotalMonthly+=extraService.monthly
-            extraInvoice.totalMonthly=math.ceil(extraInvoice.subTotalMonthly*taxApply)
-            extraInvoice.dateEnd=calculateMonthTZ(60)
-            extraInvoice.save()
             userAccount.save()
+            extraInvoiceCalc(userAccount)
             serializer= UserAccountAllCombined(userAccount,many=False)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
@@ -1016,33 +1000,30 @@ class PostDeleteExtraService(APIView):
         user=User.objects.filter(id=user_id).first()
         userAccount=UserAccount.objects.filter(user=user).first()
         extraService=ExtraService.objects.filter(id=id).first()
-        extraInvoice=userAccount.extraInvoice
-        tax=Tax.objects.filter(country=userAccount.country,subRegion=userAccount.provState).first()
-        if not extraInvoice:
-            extraInvoice=ExtraInvoice.objects.create(name=userAccount.name,tax=tax,subTotal=0,total=0,subTotalMonthly=0,totalMonthly=0,numPayment=0)
-            extraInvoice.save()
-            userAccount.extraInvoice=extraInvoice
-            userAccount.save()
-        if userAccount and extraService and tax:
+        if userAccount and extraService in userAccount.extraService.all():
             userAccount.extraService.remove(extraService)
-            if len(userAccount.extraService.all())>0:
-                extraInvoice.subTotal-=extraService.price
-                taxApply=tax.provState/100 + tax.fed/100 + 1
-                extraInvoice.total=math.ceil(extraInvoice.subTotal*taxApply)
-                extraInvoice.subTotalMonthly-=extraService.monthly
-                extraInvoice.totalMonthly=math.ceil((extraInvoice.subTotalMonthly*taxApply))
-            else:
-                extraInvoice.subTotal=0
-                extraInvoice.total=0
-                extraInvoice.subTotalMonthly=0
-                extraInvoice.totalMonthly=0
-            extraInvoice.save()
             userAccount.save()
+            extraInvoiceCalc(userAccount)
             serializer= UserAccountAllCombined(userAccount,many=False)
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response({"error":"No user account","status":status.HTTP_303_SEE_OTHER})
 
+class GetExtraInvoiceForCheckOut(APIView):
+    authentication_classes=[authentication.TokenAuthentication]
+    def post(self,request,**kwargs):
+        data=request.data
+        user_id=data["user_id"]
+        user=User.objects.filter(id=user_id).first()
+        userAccount=UserAccount.objects.filter(user=user).first()
+        extraInvoice=ExtraInvoice.objects.filter(id=userAccount.extraInvoice.id).first()
+        if userAccount and extraInvoice:
+            serializer=ExtraInvoiceSerializer(extraInvoice,many=False)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response({"error":"no invoice found","status":status.HTTP_404_NOT_FOUND})
+
+            
 class AdditionalServiceCheckout(APIView):
         authentication_classes = [authentication.TokenAuthentication]
         permission_classes=[permissions.AllowAny]

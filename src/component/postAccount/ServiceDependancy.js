@@ -6,12 +6,12 @@ import ClearIcon from '@mui/icons-material/Clear';
 import apiProtect from '../axios/apiProtect';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
-
-const ServiceDependancy = ({ usersArray }) => {
-    const { DNS, SEO, userAccountPostGroup } = useContext(PriceContext);
+//THE serviceDependences=>SERVICE DEPENDENCIES COME FROM DEPENDANCY ARRAY. IT FINDS WHAT usersService THE CLIENT HAS AND PULLS THE postServices RELATED THE THE dependancy.category SERVICE.
+const ServiceDependancy = ({ serviceDependences }) => {
     const { usersService, setUsersPostService, usersPostService, setUserAccount, user_id, setUsersPostInvoice, loggedIn } = useContext(TokenAccessContext);
     const [RemainderSvc, setRemainderSvc] = useState({ loaded: false, data: [] });
     const [show, setShow] = useState(false);
+    const [serviceToPostServDependant,setServiceToPostServDependant]=useState({loaded:false,data:[]});
     const [postServices, setPostServices] = useState({ loaded: false, data: [] });
     const [neededPostServices, setNeededPostServices] = useState({ loaded: false, data: [] });
 
@@ -20,32 +20,58 @@ const ServiceDependancy = ({ usersArray }) => {
     useEffect(() => {
         const getPostBareServices = async () => {
             const res = await apiProtect.get('/account/getPostBareServices/');
-            const body = res.data;
-            setPostServices({ loaded: true, data: body })
+            const postService = res.data;
+            setPostServices({ loaded: true, data: postService })
         }
         getPostBareServices()
     }, []);
+    useMemo(()=>{
+        //THIS PULLS THE POSTSERVICE FROM THE DEPENDANCIES
+        if(serviceDependences.loaded && usersService.loaded){
+            let addPostDepend=[]
+            let arr=serviceDependences.data
+            arr.forEach((dependant,index)=>{
+                let serviceObj=usersService.data.filter(obj=>(obj.category ===dependant.name))[0];
+                if(serviceObj){
+                    dependant.postServices.forEach((postServ)=>{
+                        let filterOutDups=addPostDepend.filter(obj=>(obj.id ===postServ.id))[0];
+                        if(!filterOutDups){
+                        addPostDepend.push(postServ)
+                        }
+                    });
+                    
+                }
+            });
+            if (addPostDepend.length > 0) {
+                setShow(true);
+                localStorage.setItem("neededPostServices",JSON.stringify(addPostDepend));
+            }else{setShow(false);}
+            return setServiceToPostServDependant({loaded:true,data:addPostDepend})
+
+        }
+    },[serviceDependences,usersService,setServiceToPostServDependant]);
 
     useMemo(() => {
-        if (postServices.loaded && usersService.loaded) {
-            let needPostServArr = [];
-            let getNeededPostServices= localStorage.getItem("neededPostServices")? JSON.parse(localStorage.getItem("neededPostServices")):postServices.data;
-            getNeededPostServices.forEach((postservice) => {
-                postservice.services.forEach((serv, index) => {
-                    let foundServ = usersService.data.filter(obj => (parseInt(obj.id) === parseInt(serv.id)))[0]
-                    let checkPostServArr = needPostServArr.filter(obj => (parseInt(obj.id) === parseInt(postservice.id)))[0]
-                    // console.log(foundServ, !checkPostServArr)
-                    if (foundServ && !checkPostServArr) {
-                        needPostServArr.push(postservice)
+        if (serviceToPostServDependant.loaded && serviceToPostServDependant.data) {
+            let getNeededPostServices= localStorage.getItem("neededPostServices")? JSON.parse(localStorage.getItem("neededPostServices")):serviceToPostServDependant.data;
+            let arr=getNeededPostServices;
+
+            arr.forEach((postservice,index) => {
+                usersPostService.data.forEach((serv) => {
+                    if(serv.id===postservice){
+                        arr.splice(index,1);
                     }
+                    
                 });
             });
-            if (needPostServArr.length > 1) {
-                setNeededPostServices({ loaded: true, data: needPostServArr });
+            localStorage.setItem("neededPostServices",JSON.stringify(arr));
+            setRemainderSvc({loaded:true,data:arr});
+            setNeededPostServices({ loaded: true, data: arr });
+            if (arr.length > 1) {
                 setShow(true);
             }else{setShow(false);}
         }
-    }, [postServices.loaded, usersService.loaded, setShow]);
+    }, [serviceToPostServDependant, usersPostService, setShow,setRemainderSvc,setNeededPostServices]);
 
 
     const handleAddPostServices = (e, id) => {
@@ -57,18 +83,17 @@ const ServiceDependancy = ({ usersArray }) => {
                 const params = { user_id: user_id, serv_id: id }
                 const getRemainder = localStorage.getItem("remainderSvc") ? JSON.parse(localStorage.getItem("remainderSvc")) : postServices.data;
                 const res = await apiProtect.post('/account/addPostService/', params);
-                const body = res.data;
-                setUserAccount({ loaded: true, data: body });
-                setUsersPostInvoice({ loaded: true, data: body.postInvoice });
+                const user_account = res.data;
+                setUserAccount({ loaded: true, data: user_account });
+                setUsersPostInvoice({ loaded: true, data: user_account.postInvoice });
+                setUsersPostService({loaded:true,data:user_account.postService});
                 // if(getRemainder){
-                let selectedService = getRemainder.filter(obj => (parseInt(obj.id) === id))[0];
                 let remainder = getRemainder.filter(obj => (parseInt(obj.id) !== id));
-                let usersAddService = [...usersPostService.data, selectedService];
                 // console.log("remainderSvc",remainder,"added to usersService",usersAddService)
                 setRemainderSvc({ loaded: true, data: remainder });
                 localStorage.setItem("remainderSvc", JSON.stringify(remainder));
-                localStorage.setItem("usersPostService", JSON.stringify(usersAddService));
-                setUsersPostService({ loaded: true, data: usersAddService });
+                localStorage.setItem("usersPostService", JSON.stringify(user_account.postService));
+                setUsersPostService({ loaded: true, data: user_account.postService });
                 // REDUCING  setNeededPostServices({loaded:true, data:[]})
                 if(neededPostServices.loaded){
                     let reduceNeededPostServs = neededPostServices.data.filter(obj=>(parseInt(obj.id)!==parseInt(id)));
@@ -84,7 +109,7 @@ const ServiceDependancy = ({ usersArray }) => {
             sendToServer();
         }
     }
-console.log(user_id)
+
     return (
         <div>
             {
