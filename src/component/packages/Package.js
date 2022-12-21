@@ -5,11 +5,11 @@ import { PriceContext } from '../../context/PriceContextProvider';
 import { Grid, Container, Typography, Stack, Fab, Card, Box, CardMedia } from '@mui/material';
 import CoverPage from './CoverPage';
 import styled from 'styled-components';
-import DiscountIcon from '@mui/icons-material/Discount';
 import Description from './Description';
 import Summary from './Summary';
 import Products from './Products';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import TotalPrice from './TotalPrice';
 
 const MainPackage = styled.div`
 width:100vw;
@@ -86,7 +86,7 @@ const Package = () => {
                     {getPackages.loaded && getPackages.data.map((obj, index) => (
                         <Grid item xs={12} sm={6} md={4} key={`${obj.id}--packages-${index}`}>
                             <Card elevation={3} sx={{ display: "flex", alignItems: "center", flexDirection: "column", justifyContent: "flex-start", padding: "0.5rem", position: "relative" }}>
-                                <CardMedia component="img" src={`${staticImage}/${obj.image}`} height="100px" alt="www.master-connect.ca" />
+                                <CardMedia component="img" src={`${staticImage}/${obj.image}`} height="300px" alt="www.master-connect.ca" />
                                 <Typography component="h1" variant="h3" sx={{ margin: "1rem auto" }}>{obj.name}</Typography>
                                 <Summary obj={obj} title={"summary"} />
                                 <Description obj={obj} title={"description"} />
@@ -94,23 +94,7 @@ const Package = () => {
 
                                 <Products mainProduct={obj.products[0]} package1={obj} title={obj.name} staticImage={staticImage} />
                                 {/* PRICE SECTION */}
-                                <Stack direction={{ sm: "row", xs: "column" }} spacing={2} sx={{ alignItems: "center", justifyContent: "center", margin: "auto", padding: " 0.25rem", boxShadow: "1px 1px 15px 5px grey", width: "100%", }}>
-                                    <Typography component="h1" variant="body1" sx={{ margin: "1rem auto" }}>reg: $
-                                        <span style={{ textDecoration: "line-through" }}>{reducePerc(obj.monthly, obj.reducePerc).price2}</span>
-                                        <sup>00</sup>
-                                    </Typography>
-                                    <Box>
-                                        <Typography component="h1" variant="body1" sx={{ margin: "1rem auto" }}>
-                                            <span style={{ color: "blue" }}>reduced: </span><DiscountIcon sx={{ ml: 1, mr: 1, color: "red" }} /><span style={{ color: "green" }}>$</span>
-                                            <span style={{ fontWeight: "bold" }}>
-                                                {obj.monthly}<sup>{reducePerc(obj.monthly, obj.reducePerc).num2}</sup>
-                                            </span>
-                                            <span style={{ fontWeight: "bold", margin: "0 0.5rem" }}>
-                                                {obj.reducePerc} % - off
-                                            </span>
-                                        </Typography>
-                                    </Box>
-                                </Stack>
+                                <TotalPrice obj={obj}/>
                                 <Stack direction="column" spacing={0} sx={{ alignItems: "center", margin: "1rem auto", width: "100%" }}>
                                     <Fab variant="extended" color="secondary" size="medium"
                                         onClick={(e) => handleSelectPackage(e,obj)}
@@ -148,10 +132,3 @@ const Package = () => {
 
 export default Package
 
-function reducePerc(price, reducePerc) {
-    let num = price
-    let price2 = Math.floor(num * (1 + reducePerc / 100))
-    let num2 = Math.floor((num * (1 + reducePerc / 100) - price2) * 100)
-    let main = { price2: price2, num2: num2 }
-    return main
-}

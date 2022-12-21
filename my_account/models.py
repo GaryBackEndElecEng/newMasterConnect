@@ -115,6 +115,7 @@ class Package(models.Model):
     desc=models.TextField(blank=True)
     monthly=models.IntegerField(blank=True,default=1)
     reducePerc=models.IntegerField(blank=True,null=True)
+    savings=models.IntegerField(blank=True,null=True)
     products=models.ManyToManyField(Product,blank=True)
     postServices=models.ManyToManyField(PostService,blank=True)
     services=models.ManyToManyField(Service,blank=True)

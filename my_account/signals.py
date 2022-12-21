@@ -142,6 +142,7 @@ def updatepackages(instance,*args,**kwargs):
         for package in packages:
             price=package.price
             total=0
+            savings=sum([obj.savings for obj in package.products.all()])
             total +=sum([obj.price for obj in package.products.all()])
             total +=sum([obj.price for obj in package.services.all()])
             total +=sum([obj.price for obj in package.postServices.all()])
@@ -153,6 +154,7 @@ def updatepackages(instance,*args,**kwargs):
                 package.reducePerc=((total-price)/total)*100
                 package.price=total
                 package.monthly=math.floor((total*(1 + rate.interest/100)**(rate.years))/60)
+            package.savings=savings
             package.save()
         instance.packagesUpdated=True
         instance.save()

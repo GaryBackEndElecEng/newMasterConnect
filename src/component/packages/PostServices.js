@@ -15,7 +15,7 @@ const PostServices = ({postServices,staticImage}) => {
   return (
     <CustGrid container spacing={{xs:0,sm:1}}>
     {postServices && postServices.map((service, index) => (
-        <Grid item xs={12} sm={6} key={`${service.id}-/prods/-${index}`}>
+        <Grid item xs={12}  key={`${service.id}-/prods/-${index}`}>
             <Card elevation={3}
                 sx={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start",flexDirection:"column" }}
             >
