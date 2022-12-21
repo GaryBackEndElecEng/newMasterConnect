@@ -7,7 +7,7 @@ import CoverPage from './CoverPage';
 import styled from 'styled-components';
 import Description from './Description';
 import Summary from './Summary';
-import Products from './Products';
+import ProductPackageControl from './ProductPackageControl';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import TotalPrice from './TotalPrice';
 
@@ -67,15 +67,15 @@ const Package = () => {
             setIsSelected({ loaded: true, id: obj.id });
         }
     }
-    const handleRegistration=(e,obj)=>{
+    const handleRegistration = (e, obj) => {
         e.preventDefault();
-        localStorage.setItem("buypackage",obj.id);
-        navigate("/register",setChangePage(true))
+        localStorage.setItem("buypackage", obj.id);
+        navigate("/register", setChangePage(true))
     }
-    const handleSignin=(e,obj)=>{
+    const handleSignin = (e, obj) => {
         e.preventDefault();
-        localStorage.setItem("buypackage",obj.id);
-        navigate("/signin",setChangePage(true))
+        localStorage.setItem("buypackage", obj.id);
+        navigate("/signin", setChangePage(true))
     }
     return (
 
@@ -90,30 +90,35 @@ const Package = () => {
                                 <Typography component="h1" variant="h3" sx={{ margin: "1rem auto" }}>{obj.name}</Typography>
                                 <Summary obj={obj} title={"summary"} />
                                 <Description obj={obj} title={"description"} />
-                                {/* PRODUCT SECTION */}
-
-                                <Products mainProduct={obj.products[0]} package1={obj} title={obj.name} staticImage={staticImage} />
+                                {/* PACKAGE CONTROL SECTION- ALL PRODUCTS/SERVS/POSTSERVS FLOW THROUGH */}
+                                <ProductPackageControl
+                                    products={obj.products ? obj.products :[]}
+                                    services={obj.services ? obj.services :[]}
+                                    postServices={obj.postServices ? obj.postServices : []}
+                                    mainPackage={obj}
+                                    staticImage={staticImage}
+                                />
                                 {/* PRICE SECTION */}
-                                <TotalPrice obj={obj}/>
+                                <TotalPrice obj={obj} />
                                 <Stack direction="column" spacing={0} sx={{ alignItems: "center", margin: "1rem auto", width: "100%" }}>
                                     <Fab variant="extended" color="secondary" size="medium"
-                                        onClick={(e) => handleSelectPackage(e,obj)}
+                                        onClick={(e) => handleSelectPackage(e, obj)}
                                     >
                                         I want this <ThumbUpIcon sx={{ ml: 1, color: "red" }} />
                                     </Fab>
                                 </Stack>
                                 {(isSelected.loaded && isSelected.id === obj.id) &&
                                     <CustomBoxPopup>
-                                        <Stack direction="column" spacing={1} sx={{ alignItems: "center",padding:"1rem" }}>
+                                        <Stack direction="column" spacing={1} sx={{ alignItems: "center", padding: "1rem" }}>
                                             <Typography component="h1" variant="h6">Are you registered with us?</Typography>
-                                            <Stack direction="row" spacing={2} sx={{ justifyContent: "center",padding:"1rem" }}>
+                                            <Stack direction="row" spacing={2} sx={{ justifyContent: "center", padding: "1rem" }}>
                                                 <Fab variant="extended" size="small" color="primary"
-                                                onClick={(e)=>handleSignin(e,obj)}
+                                                    onClick={(e) => handleSignin(e, obj)}
                                                 >
                                                     Yes I am
                                                 </Fab>
                                                 <Fab variant="extended" size="small" color="primary"
-                                                onClick={(e)=>handleRegistration(e,obj)}
+                                                    onClick={(e) => handleRegistration(e, obj)}
                                                 >
                                                     no I'm not
                                                 </Fab>
