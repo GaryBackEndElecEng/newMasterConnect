@@ -2,7 +2,8 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.conf import settings
-from .models import UserAccount,Product
+from .models import UserAccount,Product,Package
+from adminHome.models import UpDateItems,Rates
 import math
 from django.http import Http404
 from django.core.mail import EmailMultiAlternatives,BadHeaderError
@@ -130,4 +131,28 @@ def updateProductSavings(instance,*args,**kwargs):
           extraServicePrice += extraService.price
         total=servicePrice + postServicePrice + extraServicePrice
         instance.savings=total - instance.price
+        instance.save()
+
+# /////// THIS UPDATES THE SAVINGS TO PRODUCTS  //////
+@receiver(post_save,dispatch_uid='updatepackages', sender=UpDateItems)
+def updatepackages(instance,*args,**kwargs):
+    if instance.updatePackages==True and instance.packagesUpdated==False:
+        packages=Package.objects.all()
+        rate=Rates.objects.filter(name="interest").first()
+        for package in packages:
+            price=package.price
+            total=0
+            total +=sum([obj.price for obj in package.products.all()])
+            total +=sum([obj.price for obj in package.services.all()])
+            total +=sum([obj.price for obj in package.postServices.all()])
+            if price > total:
+                package.reducePerc=((price-total)/price)*100
+                package.price=total
+                package.monthly=math.floor((total*(1 + rate.interest/100)**(rate.years))/60)
+            else:
+                package.reducePerc=((total-price)/total)*100
+                package.price=total
+                package.monthly=math.floor((total*(1 + rate.interest/100)**(rate.years))/60)
+            package.save()
+        instance.packagesUpdated=True
         instance.save()

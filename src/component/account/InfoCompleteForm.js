@@ -124,12 +124,16 @@ useMemo(()=>{
         const sendServer = async () => {
             try {
                 const res = await apiProtect.post("/account/userAccountComplete/", params);
-                const users_Account_ = res.data;
-                    setUserAccount({ loaded: true, data: users_Account_ });
-                    localStorage.setItem("userAccount",JSON.stringify(users_Account_));
-                    setUsersInvoice({loaded:true,data:users_Account_.invoice})
+                const users_Account = res.data;
+                    setUserAccount({ loaded: true, data: users_Account });
+                    localStorage.setItem("userAccount",JSON.stringify(users_Account));
+                    setUsersInvoice({loaded:true,data:users_Account.invoice});
                 setFormComplete(true);
-                setCity(users_Account_.address.split(",")[1])
+                setCity(users_Account.city);
+                setAddress(users_Account.address);
+                setProvState(users_Account.provState);
+                setCell(users_Account.cell);
+                setEmail(users_Account.email);
                 localStorage.setItem("formComplete",true)
             } catch (error) {
                 if (error.response) {
@@ -257,16 +261,16 @@ useMemo(()=>{
                                         label_id="your_country"
                                         name="country"
                                         label="Country"
-                                        defaultValue="CA"
+                                        // defaultValue=""
                                         aria-describedby="valid Country"
                                         onChange={(e) => setCountry(e.target.value)}
                                         aria-invalid={validCountry ? "false" : "true"}
                                     >
-                                        <MenuItem disabled value="CA">country</MenuItem>
+                                        <MenuItem disabled value="">--Your Country--</MenuItem>
                                         {region.loaded && region.data.map(obj => (
-                                            <MenuItem key={obj.id} value={obj.country}>{obj.country}</MenuItem>
+                                            <MenuItem key={obj.id} value={obj.country }>{obj.country}</MenuItem>
                                         ))}
-                                        <MenuItem disabled={true} defaultValue="" value={""}>{"NO_OPTIONS_LABEL"}</MenuItem>
+                                        
                                     </Select>
                                     {
                                         validCountry ? <span className={styles.validCountry}><ThumbUpIcon sx={{fontSize:"20px"}} /></span>
@@ -284,15 +288,15 @@ useMemo(()=>{
                                     <Select
                                         label_id="Your State/Province"
                                         label="provState"
-                                        defaultValue={"ON"}
+                                        // defaultValue={""}
                                         aria-describedby="valid State/ or Province"
                                         onChange={(e) => setProvState(e.target.value)}
                                         aria-invalid={validProvState ? "false" : "true"}
                                     >
-                                         <MenuItem disabled value="ON">province/State</MenuItem>
+                                         <MenuItem disabled value="">--province/State--</MenuItem>
                                         {
                                         region.loaded && region.data.map(obj => (
-                                            <MenuItem key={obj.id} value={obj.provState}>{obj.provState}</MenuItem>
+                                            <MenuItem key={obj.id} value={obj.provState }>{obj.provState}</MenuItem>
                                         ))
                                         }
                                     </Select>

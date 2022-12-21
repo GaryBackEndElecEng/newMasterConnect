@@ -54,16 +54,16 @@ const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
         const sendPackageToCart = async (params) => {
             try {
                 const res = await apiProtect.post('/account/savePackage/', params);
-                const body = res.data;
-                setUserAccount({ loaded: true, data: body });
-                if (body.service.length > 0) {
-                    setUsersService({ loaded: true, data: body.service });
+                const user_account = res.data;
+                setUserAccount({ loaded: true, data: user_account });
+                if (user_account.service.length > 0) {
+                    setUsersService({ loaded: true, data: user_account.service });
                 }
-                if (body.product.length > 0) {
-                    setUsersService({ loaded: true, data: body.product });
+                if (user_account.product.length > 0) {
+                    setUsersService({ loaded: true, data: user_account.product });
                 }
-                if (body.postService.length > 0) {
-                    setUsersPostService({ loaded: true, data: body.postService });
+                if (user_account.postService.length > 0) {
+                    setUsersPostService({ loaded: true, data: user_account.postService });
                 }
                 localStorage.removeItem("buypackage");
             } catch (error) {

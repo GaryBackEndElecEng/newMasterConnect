@@ -122,6 +122,7 @@ const CheckoutForm = () => {
                                     <Stack direction="column" spacing={1}>
                                         <div>subTotal:<AttachMoneyIcon />{getSelectedPayment && getSelectedPayment.subTotalMonthly}.<sup>00</sup></div>
                                         <div>total:<AttachMoneyIcon />{getSelectedPayment && getSelectedPayment.totalMonthly}.<sup>00</sup> for {getSelectedPayment && getSelectedPayment.numPayment} months</div>
+                                        
                                     </Stack>
 
                                 }
@@ -130,7 +131,8 @@ const CheckoutForm = () => {
                                 Purchase <PaymentsIcon sx={{ color: "red", ml: 1 }} />
                             </Fab>
                         </Stack>
-
+                        <small style={{marginTop:"1rem",fontSize:"75%"}}> 3% interest per year is added as industry standard</small>
+                        <small style={{marginTop:"1rem",fontSize:"75%"}}> administration duties is not added - our service to you.</small>
                     </CardContent>
                 </form>
             </Card>

@@ -5,19 +5,19 @@ one subject: what is communication
 
 
 TODO
--add savings to products
-- add detail page product to products ( create a separate folder)
--correct the packages.
+-FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
 -VERIFY-add a field for external links with products
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
--FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
 -Fix Google register and signin:([GSI_LOGGER]: The given origin is not allowed for the given client ID.)
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 
 COMPLETE:
+-add savings to products
+- add detail page product to products ( create a separate folder)
+-correct the packages.
 -fix the Bio sidebar(height)
 -correct the saving of the UUID to Calc and re-access the process of saving NOW USING THE DEPEPENDANCY TABLE.
 -correct the savingof data in useraccount for Calculator (its not saving the written data)

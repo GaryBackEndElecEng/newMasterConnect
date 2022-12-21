@@ -51,7 +51,7 @@ const AboutPage = () => {
     const theme=useTheme();
     // const {getAboutList}=useContext(PriceContext);
     const {staticImage, setTitle, setStyleName, setChangePage,getPathLocation,average,getAboutList}=useContext(GeneralContext);
-    const {loggedIn,user_id,setUsersProduct,setUserAccount}=useContext(TokenAccessContext);
+    const {loggedIn,user_id,setUsersProduct,setUserAccount,setUsersInvoice}=useContext(TokenAccessContext);
     const [popUp, setPopUp] = useState({ loaded: false, data: {} });
     const getLoggedIn= localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
     const getUser_id= localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
@@ -109,6 +109,7 @@ const AboutPage = () => {
                     if(user_account){
                         setUserAccount({loaded:true,data:user_account})
                     setUsersProduct({loaded:true,data:user_account.product})
+                    setUsersInvoice({loaded:true,data:user_account.invoice})
                     }
         } catch (error) {
             console.error(error.message)

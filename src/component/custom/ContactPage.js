@@ -51,7 +51,7 @@ const ContactPage = () => {
     const theme=useTheme();
     // const {getContactList}=useContext(PriceContext);
     const {staticImage, setTitle, setStyleName, setChangePage,getPathLocation,average,getContactList}=useContext(GeneralContext);
-    const {loggedIn,user_id,setUsersProduct,setUserAccount}=useContext(TokenAccessContext);
+    const {loggedIn,user_id,setUsersProduct,setUserAccount,setUsersInvoice}=useContext(TokenAccessContext);
     const [popUp, setPopUp] = useState({ loaded: false, data: {} });
     const getLoggedIn= localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
     const getUser_id= localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
@@ -106,8 +106,9 @@ const ContactPage = () => {
             const res = await apiProtect.post("/account/userProductPost/", params);
                     const user_account = res.data;
                     if(user_account){
-                        setUserAccount({loaded:true,data:user_account})
-                    setUsersProduct({loaded:true,data:user_account.product})
+                        setUserAccount({loaded:true,data:user_account});
+                    setUsersProduct({loaded:true,data:user_account.product});
+                    setUsersInvoice({ loaded: true, data: user_account.invoice });
                     }
         } catch (error) {
             console.error(error.message)

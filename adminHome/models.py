@@ -7,8 +7,16 @@ from django.contrib.auth.models import User
 class Rates(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
     interest=models.IntegerField(default=0,blank=True)
+    years=models.IntegerField(default=5)
     def __str__(self):
         return f'{self.name}-{self.interest}'
+
+class UpDateItems(models.Model):
+    updatePackages=models.BooleanField(default=False)
+    packagesUpdated=models.BooleanField(default=False)
+    def __str__(self):
+        return f'updatePackages:{self.updatePackages}-packagesUpdated:{self.packagesUpdated}'
+
 
 class SumInvoice(models.Model):
     name=models.CharField(max_length=150,blank=True,null=True)

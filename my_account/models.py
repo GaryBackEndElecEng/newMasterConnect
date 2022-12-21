@@ -163,8 +163,6 @@ REGION=(("QC","QC"),("ON","ON"))
 class Tax(models.Model):
     country=models.CharField(max_length=100,choices=COUNTRY,blank=True,null=True)
     subRegion=models.CharField(max_length=100,choices=REGION,blank=True,null=True)
-    # country=models.CharField(max_length=100,choices=country())
-    # subRegion=models.CharField(max_length=100,choices=region())
     fed=models.IntegerField(default=13)
     provState = models.IntegerField(default=15)
     class Meta:

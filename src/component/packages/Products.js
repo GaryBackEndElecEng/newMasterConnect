@@ -40,7 +40,7 @@ const Products = ({mainProduct,package1, title, staticImage}) => {
         <Box>
             <Typography component="h1" variant="h4" sx={{ margin: "0.5rem auto", color: changeColor, textDecoration: underline }}>{title} {activate.icon}</Typography>
             {
-            services &&
+            (services && services.length) >0 &&
 
              <Paper elevation={3} sx={{ margin: "0.5rem auto", cursor: "pointer" ,padding:"1rem"}}
                 onClick={(e) => handleExtend1(e, package1)}
@@ -65,7 +65,7 @@ const Products = ({mainProduct,package1, title, staticImage}) => {
 
             }
             {
-            postServices  &&
+            (postServices && postServices.length>0)  &&
 
              <Paper elevation={3} sx={{ margin: "0.5rem auto", cursor: "pointer" ,padding:"1rem"}}
                 onClick={(e) => handleExtend2(e, package1)}

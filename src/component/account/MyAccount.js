@@ -149,6 +149,7 @@ const handleContract=(e)=>{
   navigate("/MyAccount/contract", setChangePage(true));
 }
 
+
   return (
     <MyAccountMain>
   
@@ -162,16 +163,16 @@ const handleContract=(e)=>{
         <GetRegisterPages/>
           <CoverPage />
           <Particulars 
-          invoicePaid={invoice ? invoice :null}
+          invoicePaid={invoice ? invoice :usersInvoice.data}
            postInvoicePaid={postInvoice !== false ? postInvoice : null}
            extraInvoicePaid={extraInvoice && extraInvoice}
            />
           {( usersInvoice.data.paid) && <OrderFormBanner />}
 
-         {invoice !==false && !invoice.paid && <GetProductList getProductDesigns={getProductDesigns}/>}
+         {!invoice  && !invoice.paid && <GetProductList getProductDesigns={getProductDesigns}/>}
           
             
-          {invoice !==false && !invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
+          {!invoice && !invoice.paid &&<GetServiceList paid={invoice.paid} postPaid={postInvoice.paid} />}
 
          {postPaid && <AdditionalAfterPostService extraServices={extraServices}/> }
             

@@ -310,30 +310,26 @@ class monthlyProductServiceMonthlyPrice:
         self.rate=Rates.objects.filter(name="interest").first()
         if self.rate:
             self.interest=self.rate.interest/100
-        self.years=5
+        self.years=self.rate.years
         self.accumInterest=(1 + self.interest)**(self.years)
         self.months= self.years * 12
 
     def productCalc(self):
-        print("PRODUCT EXECUTED")
         for product in self.products:
             product.monthly=product.price * self.accumInterest//self.months
             product.save()
 
     def serviceCalc(self):
-        print("SERVICE EXECUTED")
         for service in self.services:
             service.monthly=service.price * self.accumInterest//self.months
             service.save()
 
     def postServiceCalc(self):
-        print("POST SERVICE EXECUTED")
         for service in self.postServices:
             service.monthly=service.price * self.accumInterest//self.months
             service.save()
 
     def postExtraServiceCalc(self):
-        print("POST SERVICE EXECUTED")
         for service in self.extraServices:
             service.monthly=service.price * self.accumInterest//self.months
             service.save()
@@ -539,9 +535,9 @@ class StripeCreationPost:
 def calculate5YrMonthly(userAccount):
     invoice=Invoice.objects.filter(id= userAccount.invoice.id).first()
     if invoice:
-        tax=(1 + invoice.tax.fed/100)*(1+invoice.tax.provState/100)
+        tax=(1 + invoice.tax.fed/100 + invoice.tax.provState/100)
         totalMonthly=math.ceil(invoice.subTotalMonthly * tax)
-        totalMonthly=totalMonthly*(1.03)**(5)
+        totalMonthly=totalMonthly
         invoice.totalMonthly=totalMonthly
         invoice.numPayment=60
         invoice.paid=False
@@ -1066,11 +1062,15 @@ def calculateSavings(product):
        total=servicePrice + postServicePrice + extraServicePrice
        product.savings=total - product.price
        product.save()
-
+# THIS IS USED FOR INITIAL REGISTRATION AT USER LOGIN
 def addInvoiceToUserAccount(username):
     user=User.objects.get(username=username)
     userAccount=UserAccount.objects.get(user=user)
     if not userAccount.invoice:
+        if not userAccount.country:
+            userAccount.country="CA"
+        if not userAccount.provState:
+            userAccount.provState="ON"
         tax,created = Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
         if created:
             tax.save()
@@ -1079,6 +1079,19 @@ def addInvoiceToUserAccount(username):
             invoice.save()
             userAccount.invoice=invoice
             userAccount.save()
+
+# THIS IS USED FOR UPDATING THE TAX FORIEGN KEY TO INVOICE
+def adjustTaxInvoiceForiegn(userAccount_id):
+    userAccount=UserAccount.objects.get(id=userAccount_id)
+    invoice=Invoice.objects.filter(id=userAccount.invoice.id).first()
+    if invoice:
+        country=userAccount.country.upper()
+        subRegion=userAccount.provState.upper()
+        tax,created=Tax.objects.get_or_create(country=country,subRegion=subRegion)
+        if created:
+            tax.save()
+        invoice.tax=tax
+        invoice.save()
 
 #----/////// THIS IS USED FOR EXTRA SERVICES CALCULATIONS/////////
 def extraInvoiceCalc(userAccount):
@@ -1114,3 +1127,20 @@ def extraInvoiceCalc(userAccount):
            extraInvoice.dateEnd=calculateMonthTZ(60)
            extraInvoice.save()
     return 
+
+
+def addSelectedPackageToUser(user_id,package_id):
+    user=User.objects.filter(id=user_id).first()
+    userAccount=UserAccount.objects.filter(user=user).first()
+    if user and userAccount:
+        package=Package.objects.get(id=package_id)
+        products=package.products.all()
+        services=package.services.all()
+        postServices=package.postServices.all()
+        userAccount.product.add(*products)
+        userAccount.service.add(*services)
+        userAccount.postService.add(*postServices)
+        userAccount.save()
+        
+
+

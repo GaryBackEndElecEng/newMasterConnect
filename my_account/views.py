@@ -35,7 +35,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
-from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs,addInvoiceToUserAccount,extraInvoiceCalc)
+from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs,addInvoiceToUserAccount,extraInvoiceCalc,addSelectedPackageToUser,adjustTaxInvoiceForiegn)
 from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail,ServiceEvaluator
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -173,6 +173,7 @@ class LoginView(APIView):
             # print("userModel",user)
             if user is not None:
                 auth.login(request,user)
+                addInvoiceToUserAccount(username)
                 if data['UUID']:
                    uuid=data['UUID']
                    CalcAddToUserAccountAtLogin(uuid,username).execute()
@@ -185,7 +186,9 @@ class LoginView(APIView):
                 if data["packageId"]:
                    # STORE USERS SELECTED PACKAGE TO THE USERS ACCOUNT
                    packageId=data["packageId"]
-                addInvoiceToUserAccount(username)
+                   addSelectedPackageToUser(user.id,packageId)
+                   #CALCULATES THE TOTAL COST AND SAVE IN INVOICE
+                   Calculate(user.id).execute()
                 generateUserJobs(user.id)
                 token=self.get_tokens_for_user(user)
                 return Response({"access_token":token["access_token"],"refresh_token":token["refresh_token"],"username":user.username,"email":user.email,"user_id":user.id},status=status.HTTP_200_OK)
@@ -249,18 +252,12 @@ class UserAccountComplete(APIView):
         # print("DATA",data)
         try:
             user=User.objects.filter(id=user_id).first()
-            print(user.email)
             if email == user.email:
                 userAccount=UserAccount.objects.filter(user=user).first()
-                if not userAccount.invoice:
-                    tax,created=Tax.objects.get_or_create(country=country,subRegion=provState)
-                    if created:
-                        tax.save()
-                    invoice,create=Invoice.objects.get_or_create(name=name,tax=tax,paid=False)
-                    if create:
-                        invoice.save()
-                        userAccount.invoice=invoice
-                        userAccount.save()
+                if userAccount.invoice:
+                    invoice=Invoice.objects.get(id=userAccount.invoice.id)
+                    invoice.name=name
+                    invoice.save()
                         
                 # print("userAccount",userAccount,"invoice",invoice,data)
                 if user and userAccount:
@@ -277,6 +274,7 @@ class UserAccountComplete(APIView):
                     userAccount.co=co
                     userAccount.email=user.email
                     userAccount.save()
+                    adjustTaxInvoiceForiegn(userAccount.id)
                     if name.split(" "):
                         user.email=email
                         user.first_name=name.split(" ")[0]
@@ -487,7 +485,8 @@ class UserPostPackage(APIView):
             if userAccount.invoice:
                 invoice=Invoice.objects.filter(id=userAccount.invoice.id).first()
             else:
-                Calculate(user_id).execute()
+                #addInvoiceToUserAccount creates invoice if not exists
+                addInvoiceToUserAccount(user.username)
             package=Package.objects.filter(id=packageId).first()
             if userAccount and package:
                 products = package.products.all()
@@ -503,6 +502,8 @@ class UserPostPackage(APIView):
                 if postServices:
                     userAccount.postService.add(*postServices)
                 userAccount.save()
+                # THIS CALCULATES AND SAVES IN INVOICE
+                Calculate(user_id).execute()
                 
                 serializer= UserAccountAllCombined(userAccount,many=False)
                 return Response(serializer.data)
