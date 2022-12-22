@@ -15,6 +15,7 @@ import GetRegisterPages from '../utils/GetRegisterPages';
 import PageRating from '../utils/PageRating';
 import PageFeedback from '../utils/PageFeedback';
 import ModalContainer from '../utils/ModalContainer';
+import Included from '../utils/Included';
 
 const MainProductDiv = styled.div`
 width:100vw;
@@ -38,7 +39,7 @@ const StoreProduct = () => {
     const location=useLocation();
     const pathname=location.pathname;
     const theme = useTheme();
-    const { setTitle, setStyleName, staticImage,getPathLocation,pageRatings,average } = useContext(GeneralContext);
+    const { setTitle, setStyleName, staticImage,getPathLocation,pageRatings,average ,getProductDesigns} = useContext(GeneralContext);
     const {paid}=useContext(TokenAccessContext);
     const {getProductList}=useContext(PriceContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
@@ -48,7 +49,8 @@ const StoreProduct = () => {
     const [keyWords,setKeyWords]=useState([]);
     const [desc,setDesc]=useState("");
     const [helmetArr,setHelmetArr]=useState({loaded:false,data:[]});
-    const [storeProd,setStoreProd]=useState({})
+    const [storeProd,setStoreProd]=useState({});
+    const [OBJ,setOBJ]=useState({});
 
     const video = `${staticImage}/storePage/mangrave.mp4`;
     const mangrave1 = `${staticImage}/storePage/mangrave1.png`;
@@ -62,7 +64,12 @@ const StoreProduct = () => {
         if(pageRatings.loaded && pageRatings.data){
             setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
         }
-    },[pathname,pageRatings]);
+        if(getProductDesigns.loaded){
+            let obj=getProductDesigns.data.filter(obj=>(obj.name==="Product Front page"))[0];
+            setOBJ(obj)
+            
+        }
+    },[pathname,pageRatings,getProductDesigns.loaded,getProductDesigns.data]);
 
     useEffect(() => {
         let tempArr = [];
@@ -162,7 +169,7 @@ const StoreProduct = () => {
                     <Player src={video} bgChanged={bgChanged}/>
                 </Grid>
             </Grid>
-            
+            <Included product={OBJ ? OBJ:null} staticImage={staticImage}/>
             <PageFeedback />
                 {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurchaseBtn ? <UserSignedInPurchaseBtn />

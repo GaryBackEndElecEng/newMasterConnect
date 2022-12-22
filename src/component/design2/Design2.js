@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, } from 'react';
 import {useLocation} from 'react-router-dom';
 import { Stack, Container, Grid, Typography, } from '@mui/material';
 import ProductServices from '../ProductServices';
@@ -20,6 +20,10 @@ import styled from 'styled-components';
 import styles from './design2.module.css'
 import GetRegisterPages from '../utils/GetRegisterPages';
 import Design2Helmet from "./Design2Helmet";
+import Included from '../utils/Included';
+import { useCallback } from 'react';
+
+
 const GlobalColFlex = styled.div.attrs({className:"GlobalColFlex"})`
 display:flex;
 position:relative;
@@ -69,6 +73,14 @@ const Design2 = () => {
     },[pathname,pageRatings]);
 
     useEffect(()=>{
+        if(getProductDesigns.loaded){
+        let obj=getProductDesigns.data.filter(obj=>(obj.name==="Retrospect"))[0]
+        console.log(obj)
+       setOBJ(obj)
+        }
+    },[getProductDesigns.data,getProductDesigns.loaded])
+
+    useEffect(()=>{
         let arr=[];
         if(getProductDesigns.loaded){
             let obj=getProductDesigns.data.filter(obj=>(obj.name==="Retrospect"))[0]
@@ -76,7 +88,8 @@ const Design2 = () => {
             setDesc(obj.desc);
             setKeywords("art-page,Art,Design,Web,Design,web-page,page product,purchase-a-site");
             setimage(`${staticImage}/${obj.imageName}`);
-            setOBJ(obj);
+           
+            // console.log(obj)
             if(obj.services.length >0){
                 arr=obj.services;
             }
@@ -88,14 +101,14 @@ const Design2 = () => {
             arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
             setProductServices(arr[0]);
             }else{setProductServices(arr)}
-            
+           
             
         }
         if(window.scrollY){
             window.scroll(0,0);
             
         }
-    },[getProductDesigns.loaded,getProductDesigns.data,setSummary,setKeywords,setimage,staticImage]);
+    },[getProductDesigns.loaded,getProductDesigns.data,setSummary,setKeywords,setimage,staticImage,setOBJ,OBJ,setProductServices]);
 
     useEffect(()=>{
         const getUser_id=localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):null;
@@ -171,7 +184,7 @@ const Design2 = () => {
                 <RightDesign />
             </GlobalColFlex>
 
-            <ProductServices productServices={productServices} staticImage={staticImage}/>
+           <Included product={OBJ ? OBJ:null} staticImage={staticImage}/>
 
         </ContainerFluid>
         <Container maxWidth="xs">

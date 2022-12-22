@@ -6,6 +6,7 @@ one subject: what is communication
 
 TODO
 -FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
+-add UTILS/expand/contract list
 -VERIFY-add a field for external links with products
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS

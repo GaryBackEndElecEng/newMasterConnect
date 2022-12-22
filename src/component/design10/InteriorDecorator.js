@@ -17,6 +17,8 @@ import { useTheme } from '@mui/material/styles';
 import MidBanner from './MidBanner';
 import BannerGetQuote from './BannerGetQuote';
 import ModalContainer from '../utils/ModalContainer';
+import Included from '../utils/Included';
+import { set } from 'date-fns/esm';
 
 const MainContainerDv = styled.div`
 width:100vw;
@@ -99,6 +101,7 @@ const InteriorDecorator = () => {
     const [getScroll, setGetScroll] = useState(0);
     const [loadArr, setLoadArr] = useState({ loaded: true, data: [] });
     const [keyWords, setKeyWords] = useState([]);
+    const[obj,setObj]=useState({});
     const [desc, setDesc] = useState("");
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const z_index = opacity === 0 ? "-1111" : "1";
@@ -112,6 +115,7 @@ const InteriorDecorator = () => {
             let obj=getProductDesigns.data.filter(obj=>(obj.name==="Interior Designer"))[0];
             if(obj.services.length >0){
                 arr=obj.services;
+                setObj(obj)
             }
             if(obj.postServices.length > 0) {
                 arr=obj.services.concat(obj.postServices);
@@ -231,7 +235,7 @@ const InteriorDecorator = () => {
                     
                     <Typography component="h1" variant="h3" sx={{ textAlign: "center" }}>Feedback</Typography>
                  </Container>
-                 <ProductServices productServices={productServices} staticImage={staticImage}/>
+                 <Included product={obj} staticImage={staticImage}/>
                  <Container maxWidth="md" sx={{ margin: "2rem auto", }} >   
                  <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>Give your thought</Typography>
                     <hr />

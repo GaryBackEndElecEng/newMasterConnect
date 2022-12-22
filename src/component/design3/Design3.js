@@ -18,6 +18,7 @@ import ImageDisplay from './ImageDisplay';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import Design3Helmet from './Design3Helmet';
 import ProductServices from '../ProductServices';
+import Included from '../utils/Included';
 
 const BoxAutomate = styled.h4.attrs({className:"BoxAutomate"})`
 
@@ -275,7 +276,7 @@ const Design3 = () => {
             window.scroll(0,0);
             
         }
-    },[getProductDesigns.loaded,getProductDesigns.data,staticImage]);
+    },[getProductDesigns.loaded,getProductDesigns.data,staticImage,setOBJ,OBJ,setProductServices]);
 
     useEffect(() => {
         const title1 = workArr.filter(obj => (obj.id === 3))[0].title
@@ -382,7 +383,7 @@ const Design3 = () => {
                 
             </ContainerFluidBgImage>
             <ImageDisplay/>
-            <ProductServices productServices={productServices} staticImage={staticImage}/>
+            <Included product={OBJ ? OBJ:null} staticImage={staticImage}/>
             <Container maxWidth="md">
                 {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurcahseBtn ? <UserSignedInPurchaseBtn />

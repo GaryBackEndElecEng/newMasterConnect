@@ -23,6 +23,7 @@ import arrayLodgesFR from './imageArrayFr';
 import array from './ratingArray.json';
 import arrayFr from './ratingArrayFr.json';
 import ProductServices from '../ProductServices';
+import Included from '../utils/Included';
 
 
 
@@ -233,7 +234,7 @@ const Design1 = () => {
         <GridLayer />
       </Container>
       <MyWork lang={lang}/>
-      <ProductServices productServices={productServices} staticImage={staticImage}/>
+      <Included product={OBJ} staticImage={staticImage}/>
 
 
       <Container maxWidth={"md"}>

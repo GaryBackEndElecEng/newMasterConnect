@@ -16,7 +16,7 @@ position:relative;
 `;
 const ProductPackageControl = ({ products, services, postServices, mainPackage, staticImage }) => {
     const prodLength = products.length > 0 ? true : false;
-    const servLength = services.lenght > 0 ? true : false;
+    const servLength = services.length > 0 ? true : false;
     const postServLength = postServices.length > 0 ? true : false;
     const [activateProd, setActivateProd] = useState({ loaded: false, id: null, products: null, length: prodLength, icon: <ArrowUpwardIcon sx={{ ml: 1, mr: 1, color: "red" }} /> });
     const [activateServ, setActivateServ] = useState({ loaded: false, id: null, services: null, length: servLength, icon: <ArrowUpwardIcon sx={{ ml: 1, mr: 1, color: "red" }} /> });

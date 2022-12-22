@@ -21,6 +21,7 @@ import ModalContainer from '../utils/ModalContainer';
 import StarIcon from '@mui/icons-material/Star';
 import ItemList from './ItemList';
 import ProductServices from '../ProductServices';
+import Included from '../utils/Included';
 
 const MainRestaurant = styled.div`
 width:100vw;
@@ -74,6 +75,7 @@ const Restaurant = () => {
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
     const [pageRatingHelmet, setPageRatingHelmet] = useState([]);
     const [productServices, setProductServices] = useState([]);
+    const [obj,setObj]=useState({});
 
     useEffect(() => {
         if (pageRatings.loaded && pageRatings.data) {
@@ -106,6 +108,7 @@ const Restaurant = () => {
             let obj = getProductDesigns.data.filter(obj => (obj.name === "Restaurant"))[0]
             if(obj.services.length >0){
                 arr=obj.services;
+                setObj(obj)
             }
             if(obj.postServices.length > 0) {
                 arr=obj.services.concat(obj.postServices);
@@ -202,7 +205,7 @@ const Restaurant = () => {
             <Typography component="h1" variant="h3">Top Menu</Typography>
             <hr style={{ borderBottom: "2px solid red" }} />
             <ItemList resArr={restArr} title={"Title"} />
-            <ProductServices productServices={productServices} staticImage={staticImage}/>
+            <Included product={obj} staticImage={staticImage}/>
             <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
                 <Typography component="h1" variant="h4" sx={{ textAlign: "center", margin: "1rem auto" }}>Please comment - we aim to improve</Typography>
                 <PageFeedback />

@@ -17,6 +17,7 @@ import BannerThree from './BannerThree';
 import styled from 'styled-components';
 import Design8Helmet from './Design8Helmet';
 import ProductServices from '../ProductServices';
+import Included from '../utils/Included';
 
 
 
@@ -135,7 +136,7 @@ const Design8 = () => {
       <Banner />
       <BannerTwo />
       <BannerThree />
-      <ProductServices productServices={productServices} staticImage={staticImage}/>
+      <Included product={OBJ} staticImage={staticImage}/>
       <Container maxWidth="md">
         {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
           {showPurchaseBtn ? <UserSignedInPurchaseBtn />

@@ -18,6 +18,7 @@ import { useTheme } from '@mui/material/styles';
 import Projects from './Projects';
 import thisArray from './realstateArr.json';
 import frenchArray from './realstateArrFr.json';
+import Included from '../utils/Included';
 
 
 
@@ -122,6 +123,7 @@ const Design9 = () => {
       setShowPurchaseBtn(true);
     }
   }, []);
+  // console.log("OBJ",OBJ)
   return (
     <>
     <GetRegisterPages/>
@@ -150,7 +152,7 @@ const Design9 = () => {
       </Stack>
       <CoverPage lang={lang} />
       <Projects language={frenchEnglish.language} turnOn={turnOn} />
-      <ProductServices productServices={productServices} staticImage={staticImage}/>
+      <Included product={OBJ} staticImage={staticImage}/>
     </CustomBox>
     <Container maxWidth={"md"}>
         {!paid && <Stack direction={"column"} sx={{ margin: "1rem auto" }}>

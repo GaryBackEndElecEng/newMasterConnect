@@ -16,6 +16,7 @@ import GetRegisterPages from '../utils/GetRegisterPages';
 import Contribute from './Contribute';
 import WeddingHelmet from './WeddingHelmet';
 import ProductServices from '../ProductServices';
+import Included from '../utils/Included';
 
 const MainContainer = styled.div.attrs({ className: "weddingContainer" })`
 position:relative;
@@ -158,13 +159,15 @@ const Design6Wedding = () => {
       let arr=[];
       if(getProductDesigns.loaded){
         let weddingPage=getProductDesigns.data.filter(obj=>(parseInt(obj.id)===8))[0]
+        setOBJ(weddingPage);
+        
       setKeywords(
         [weddingPage.name,"Design","Page Design","design page","master-connect"]
         );
       setSummary(weddingPage.summary);
       setDesc(weddingPage.desc);
       setImage(`${staticImage}/${weddingPage.imageName}`);
-      setOBJ(weddingPage);
+      
       if(weddingPage.services.length >0){
         arr=weddingPage.services;
     }
@@ -181,8 +184,8 @@ const Design6Wedding = () => {
         window.scroll(0,0);
         
     }
-      
-    },[getProductDesigns.loaded,getProductDesigns.data,staticImage])
+    
+    },[getProductDesigns.loaded,getProductDesigns.data,staticImage,setOBJ,setProductServices,setSummary,setDesc])
 
   useEffect(() => {
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
@@ -354,7 +357,7 @@ const Design6Wedding = () => {
           </Grid>
           <Contribute/>
         </MainContainer2>
-        <ProductServices productServices={productServices} staticImage={staticImage}/>
+        <Included product={OBJ ? OBJ :null} staticImage={staticImage}/>
       </>
       <Container maxWidth="md">
         <Stack direction="column" sx={{ margin: "1rem auto" }}>

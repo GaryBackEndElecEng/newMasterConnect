@@ -18,6 +18,7 @@ import RegisterPage from '../RegisterPage';
 import styled from 'styled-components';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import Design4Helmet from './Design4Helmet';
+import Included from '../utils/Included';
 
 let prevCount = 1;
 const bgflowers = "https://www.coolgreenandshady.com/wp-content/uploads/2020/04/124-GHM_PS-2016-2-1024x375.jpg"
@@ -348,7 +349,7 @@ const Design4 = () => {
                 </Container>
 
             </ContainerFlowersBgImage>
-            <ProductServices productServices={productServices} staticImage={staticImage}/>
+            <Included product={OBJ} staticImage={staticImage}/>
             <Container maxWidth="md">
                 {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
                     {showPurchaseBtn ? <UserSignedInPurchaseBtn />

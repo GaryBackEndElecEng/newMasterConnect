@@ -14,6 +14,7 @@ import PageFeedback from '../utils/PageFeedback';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import Design3Helmet from './Design3Helmet';
 import ProductServices from '../ProductServices';
+import Included from '../utils/Included';
 
 
 const Page1 = () => {
@@ -109,7 +110,7 @@ const Page1 = () => {
       <RegisterPage/>
       <ImagesContainer />
     </div>
-    <ProductServices productServices={productServices} staticImage={staticImage}/>
+    <Included product={OBJ} staticImage={staticImage}/>
     <Container maxWidth="xs">
     <Stack direction="column" sx={{ margin: "1rem auto" }}>
       { showPurchaseBtn ? <UserSignedInPurchaseBtn />
