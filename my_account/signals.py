@@ -2,7 +2,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.conf import settings
-from .models import UserAccount,Product,Package
+from .models import UserAccount,Product,Package,Service,PostService,ExtraService
 from adminHome.models import UpDateItems,Rates
 import math
 from django.http import Http404
@@ -161,7 +161,7 @@ def updatepackages(instance,*args,**kwargs):
 
 # /////// THIS UPDATES THE SAVINGS TO PRODUCTS  //////
 @receiver(post_save,dispatch_uid='updateProducts', sender=UpDateItems)
-def updatepackages(instance,*args,**kwargs):
+def updateProducts(instance,*args,**kwargs):
     if instance.update==True and instance.Updated==False and instance.name=="product":
         products=Product.objects.all()
         rate=Rates.objects.filter(name="product").first()
@@ -178,5 +178,20 @@ def updatepackages(instance,*args,**kwargs):
                 product.updated=True
             product.price=price
             product.save()
+        instance.Updated=True
+        instance.save()
+
+# /////// THIS UPDATES THE SERVICE PRICING  //////
+@receiver(post_save,dispatch_uid='updateServices', sender=UpDateItems)
+def updateService(instance,*args,**kwargs):
+    if instance.update==True and instance.Updated==False and instance.name=="service":
+        services=Service.objects.all()
+        servRate=Rates.objects.filter(name="service").first()
+        interest=Rates.objects.filter(name="interest").first()
+        for service in services:
+            price=math.ceil(service.price *(1+servRate.interest/100))
+            service.price=price
+            service.monthly = math.floor((price * ((1 + interest.interest/100)**interest.years))/(interest.years*12))
+            service.save()
         instance.Updated=True
         instance.save()
