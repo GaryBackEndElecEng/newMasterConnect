@@ -10,6 +10,10 @@ import Summary from './Summary';
 import ProductPackageControl from './ProductPackageControl';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import TotalPrice from './TotalPrice';
+import RegisterPage from '../RegisterPage';
+import GetRegisterPages from '../utils/GetRegisterPages';
+import PageRating from '../utils/PageRating';
+import HelmetPrep from './HelmetPrep';
 
 const MainPackage = styled.div`
 width:100vw;
@@ -50,9 +54,10 @@ box-shadow:1px 1px 10px 5px grey;
 `;
 const Package = () => {
     const navigate = useNavigate();
-    const { special, setChangePage, setTitle, setStyleName, staticImage } = useContext(GeneralContext);
+    const { setChangePage, setTitle, setStyleName, staticImage, getPathLocation, pageRatings,average } = useContext(GeneralContext);
     const { getPackages } = useContext(PriceContext);
     const [isSelected, setIsSelected] = useState(false);
+    const specialImg=`${staticImage}/specialImg.png`;
     useEffect(() => {
         setTitle("Packages");
         setStyleName("packages for you");
@@ -77,9 +82,21 @@ const Package = () => {
         localStorage.setItem("buypackage", obj.id);
         navigate("/signin", setChangePage(true))
     }
+    
     return (
 
         <MainPackage>
+            <RegisterPage />
+            <GetRegisterPages />
+            <PageRating />
+            <HelmetPrep
+            getPackages={getPackages}
+            staticImage={staticImage}
+            image={specialImg}
+            average={average}
+            getPathLocation={getPathLocation}
+            pageRatings={pageRatings.loaded ? pageRatings.data:null}
+            />
             <CoverPage />
             <Container maxWidth="xl" sx={{ margin: "1rem auto" }}>
                 <Grid container spacing={{ xs: 0, sm: 1 }}>
@@ -117,7 +134,7 @@ const Package = () => {
                                                 >
                                                     Yes I am
                                                 </Fab>
-                                                <Fab variant="extended" size="small" color="primary"
+                                                <Fab variant="extended" size="small" color="warning"
                                                     onClick={(e) => handleRegistration(e, obj)}
                                                 >
                                                     no I'm not

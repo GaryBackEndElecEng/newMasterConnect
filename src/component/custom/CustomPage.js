@@ -10,9 +10,9 @@ import { Fab, Stack, Grid, Container, Box, Typography, CardMedia, Card, Avatar }
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CustCoverPage from './CustCoverPage';
+import Included from '../utils/Included';
 import apiProtect from '../axios/apiProtect';
 import CustomHelmet from './CustomHelmet';
-import ServiceList from './ServiceList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
@@ -48,23 +48,59 @@ width:100%;
 border:1px solid blue;
 
 `;
+const CustomBox = styled(Box)`
+position:absolute;
+top:0%;
+left:0%;
+background:white;
+width:100%;
+max-height:50vh;
+z-index:100000;
+overflow-Y:scroll;
+animation: GrowBox 1s ease-in-out;
+@keyframes GrowBox {
+    from {transform:scale(0.5);opacity:0;}
+    to {transform:scale(1);opacity:1;}
+}
+@media screen and (max-width:900px){
+    top:0%;
+}
+@media screen and (max-width:800px){
+top:20%;
+}
+@media screen and (max-width:600px){
+top:10%;
+max-height:70vh;
+}
+
+`;
 const CustomPage = () => {
     const theme = useTheme();
     const location = useLocation();
     const navigate = useNavigate();
     // const { customTemplates } = useContext(PriceContext);
-    const { staticImage, setTitle, setStyleName, setChangePage, getPathLocation, average, customTemplates } = useContext(GeneralContext);
-    const { loggedIn, user_id, setUsersProduct, setUserAccount,setUsersInvoice } = useContext(TokenAccessContext);
+    const { staticImage, setTitle, setStyleName, setChangePage, getPathLocation, average, customTemplates, setCustomTemplates } = useContext(GeneralContext);
+    const { loggedIn, user_id, setUsersProduct, setUserAccount, setUsersInvoice } = useContext(TokenAccessContext);
     const [popUp, setPopUp] = useState({ loaded: false, data: {} });
     const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
     const [labelTitle, setLabelTitle] = useState("");
     const bgImage = `${staticImage}/customPage.png`;
+    // const bgImage = `https://new-master.s3.ca-central-1.amazonaws.com/static/customPage.png`;
+
     const [desc, setDesc] = useState("");
     const [keywords, setKeywords] = useState("");
-    const [activate, setActivate] = useState({ loaded: false, id: null });
+    const [activate, setActivate] = useState({ loaded: false, id: null, product: null });
     const products = customTemplates.loaded ? customTemplates.data : null;
 
+    useEffect(() => {
+        if (!customTemplates.loaded) {
+            const getProducts = localStorage.getItem("loadedProduct") ? JSON.parse(localStorage.getItem("loadedProduct")) : null;
+            let custPages = getProducts.filter(obj => (obj.category === "customFrontPage"));
+            setCustomTemplates({ loaded: true, data: custPages });
+        }
+
+    }, [customTemplates.loaded, setCustomTemplates])
     useEffect(() => {
         let arr = [];
         let descrip = "";
@@ -119,15 +155,16 @@ const CustomPage = () => {
             console.error(error.message)
         }
     }
-    const handleActivate = (e, id) => {
+    const handleActivate = (e, obj) => {
         e.preventDefault();
         // console.log("id", id)
         if (!activate.loaded) {
-            setActivate({ loaded: true, id: id });
+            setActivate({ loaded: true, id: obj.id, product: obj });
         } else {
-            setActivate({ loaded: false, id: 0 });
+            setActivate({ loaded: false, id: 0, product: null });
         }
     }
+    
     return (
         <MainCustom
             id="mainContainer"
@@ -218,29 +255,33 @@ const CustomPage = () => {
                                         </Card>
                                     </Stack>
                                 }
-                                <ServiceList services={obj.services} postServices={obj.postServices} activate={(activate.loaded && activate.id === obj.id) ?
-                                    true : false} />
+
+                                {(activate.loaded && activate.id === obj.id) ?
+                                    <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
+                                        <Fab variant="extended" color="info" size="medium"
+                                            onClick={(e) => handleActivate(e, obj)}
+                                            sx={{ color: "red", margin: "2rem auto" }}
+                                        >
+                                            close <ExpandLessIcon sx={{ ml: 1, color: "red" }} />
+                                        </Fab>
+                                    </Stack>
+                                    :
+                                    <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center",margin:"1rem auto" }}>
+                                        <Typography component="h1" variant="h6" sx={{ margin: "1rem auto" }}>recommended services</Typography>
+                                        <Fab variant="extended" color="info" size="medium"
+                                            onClick={(e) => handleActivate(e, obj)}
+                                            sx={{ margin: " auto" }}
+                                        >
+                                            expand <ExpandMoreIcon sx={{ ml: 1, color: "warning" }} />
+                                        </Fab>
+                                    </Stack>
+                                }
+                                {activate.loaded && activate.id === obj.id &&
+                                    <CustomBox sx={{ position: "absolute" }}>
+                                        <Included product={activate.product} staticImage={staticImage} />
+                                    </CustomBox>
+                                }
                             </Card>
-                            {(activate.loaded && activate.id === obj.id) ?
-                                <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
-                                    <Fab variant="extended" color="info" size="medium"
-                                        onClick={(e) => handleActivate(e, obj.id)}
-                                        sx={{ color: "red", margin: "2rem auto" }}
-                                    >
-                                        close <ExpandLessIcon sx={{ ml: 1, color: "red" }} />
-                                    </Fab>
-                                </Stack>
-                                :
-                                <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
-                                    <Typography component="h1" variant="h6" sx={{ margin: "1rem auto" }}>recommended services</Typography>
-                                    <Fab variant="extended" color="info" size="medium"
-                                        onClick={(e) => handleActivate(e, obj.id)}
-                                        sx={{ margin: " auto" }}
-                                    >
-                                        expand <ExpandMoreIcon sx={{ ml: 1, color: "warning" }} />
-                                    </Fab>
-                                </Stack>
-                            }
 
                         </Grid>
 

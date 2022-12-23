@@ -73,7 +73,7 @@ const ProductPackageControl = ({ products, services, postServices, mainPackage, 
                         {activateServ.length &&
                             <>
                                 <Typography component="h1" variant="h5">Service packages</Typography>
-                                <Fab variant="extended" size="small" color="primary"
+                                <Fab variant="extended" size="small" color="secondary"
                                     onClick={(e) => handleService(e, mainPackage)}
                                 >
                                     {(activateServ.loaded && activateServ.id === mainPackage.id && activateServ.length) ?
@@ -94,7 +94,7 @@ const ProductPackageControl = ({ products, services, postServices, mainPackage, 
                         {activatePostServ.length &&
                             <>
                                 <Typography component="h1" variant="h5">Post Service Packages</Typography>
-                                <Fab variant="extended" size="small" color="primary"
+                                <Fab variant="extended" size="small" color="info"
                                     onClick={(e) => handlePostService(e, mainPackage)}
                                 >
                                     {(activatePostServ.loaded && activatePostServ.id === mainPackage.id && activatePostServ.length) ?

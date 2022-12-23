@@ -12,10 +12,11 @@ class Rates(models.Model):
         return f'{self.name}-{self.interest}'
 
 class UpDateItems(models.Model):
-    updatePackages=models.BooleanField(default=False)
-    packagesUpdated=models.BooleanField(default=False)
+    name=models.CharField(max_length=50,blank=True,null=True)
+    update=models.BooleanField(default=False)
+    Updated=models.BooleanField(default=False)
     def __str__(self):
-        return f'updatePackages:{self.updatePackages}-packagesUpdated:{self.packagesUpdated}'
+        return f'name:{self.name}-update:{self.update}-Updated:{self.Updated}'
 
 
 class SumInvoice(models.Model):
@@ -64,6 +65,7 @@ class ProductTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
     user_id=models.IntegerField(blank=True,null=True)
     username=models.CharField(max_length=100,blank=True,null=True)
+    subTasks=models.CharField(max_length=200,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
     def __str__(self):

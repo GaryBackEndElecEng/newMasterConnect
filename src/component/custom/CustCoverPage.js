@@ -19,6 +19,7 @@ animation: appearIn 1s ease-in-out;
 }
 @media screen and (max-width:900px){
 margin-top:0px;
+
 }
 @media screen and (max-width:780px){
 margin-top:0px;

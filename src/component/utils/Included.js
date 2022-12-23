@@ -51,7 +51,7 @@ const Included = ({ product,staticImage }) => {
                         {servLength &&
                             <>
                                 <Typography component="h1" variant="h5">Service packages</Typography>
-                                <Fab variant="extended" size="small" color="primary"
+                                <Fab variant="extended" size="small" color="info"
                                     onClick={(e) => handleService(e, product)}
                                 >
                                     {(activateServ.loaded && activateServ.id === product.id && activateServ.length) ?
@@ -72,7 +72,7 @@ const Included = ({ product,staticImage }) => {
                         {postServLength &&
                             <>
                                 <Typography component="h1" variant="h5">Post Service Packages</Typography>
-                                <Fab variant="extended" size="small" color="primary"
+                                <Fab variant="extended" size="small" color="secondary"
                                     onClick={(e) => handlePostService(e, product)}
                                 >
                                     {(activatePostServ.loaded && activatePostServ.id === product.id && activatePostServ.length) ?

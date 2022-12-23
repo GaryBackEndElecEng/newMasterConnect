@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useContext, } from 'react';
-import {useNavigate,useLocation} from 'react-router-dom';
-import {GeneralContext} from '../../context/GeneralContextProvider';
-import {PriceContext} from '../../context/PriceContextProvider';
-import {TokenAccessContext} from '../../context/TokenAccessProvider';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { GeneralContext } from '../../context/GeneralContextProvider';
+import { PriceContext } from '../../context/PriceContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import styled from 'styled-components';
 import styles from './custom.module.css';
-import {Fab, Stack, Grid, Container, Box, Typography, CardMedia, Card, Avatar} from '@mui/material';
+import { Fab, Stack, Grid, Container, Box, Typography, CardMedia, Card, Avatar } from '@mui/material';
 import CustCoverPage from './CustCoverPage';
-import {useTheme} from '@mui/material/styles';
+import Included from '../utils/Included';
+import { useTheme } from '@mui/material/styles';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import apiProtect from '../axios/apiProtect';
 import AboutHelmet from './AboutHelmet';
 
@@ -45,34 +48,69 @@ width:100%;
 border:1px solid blue;
 
 `;
-const AboutPage = () => {
-    const location=useLocation();
-    const navigate=useNavigate();
-    const theme=useTheme();
-    // const {getAboutList}=useContext(PriceContext);
-    const {staticImage, setTitle, setStyleName, setChangePage,getPathLocation,average,getAboutList}=useContext(GeneralContext);
-    const {loggedIn,user_id,setUsersProduct,setUserAccount,setUsersInvoice}=useContext(TokenAccessContext);
-    const [popUp, setPopUp] = useState({ loaded: false, data: {} });
-    const getLoggedIn= localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
-    const getUser_id= localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
-    const [labelTitle,setLabelTitle] = useState("");
-    const bgImage =`${staticImage}/customPage.png`;
-    const [desc,setDesc] = useState("");
-    const [keywords,setKeywords] = useState("");
-    const products=getAboutList.loaded ? getAboutList.data :null;
+const CustomBox = styled(Box)`
+position:absolute;
+top:0%;
+left:0%;
+background:white;
+width:100%;
+max-height:50vh;
+z-index:100000;
+overflow-Y:scroll;
+animation: GrowBox 1s ease-in-out;
+@keyframes GrowBox {
+    from {transform:scale(0.5);opacity:0;}
+    to {transform:scale(1);opacity:1;}
+}
+@media screen and (max-width:900px){
+    top:0%;
+}
+@media screen and (max-width:800px){
+top:20%;
+}
+@media screen and (max-width:600px){
+top:10%;
+max-height:70vh;
+}
 
-    useEffect(()=>{
-        let arr=[];
-        let descrip="";
-        if(products){
-            products.forEach((obj,index)=>{
+`;
+const AboutPage = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const theme = useTheme();
+    // const {getAboutList}=useContext(PriceContext);
+    const { staticImage, setTitle, setStyleName, setChangePage, getPathLocation, average, getAboutList, setGetAboutList } = useContext(GeneralContext);
+    const { loggedIn, user_id, setUsersProduct, setUserAccount, setUsersInvoice } = useContext(TokenAccessContext);
+    const [popUp, setPopUp] = useState({ loaded: false, data: {} });
+    const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
+    const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
+    const [labelTitle, setLabelTitle] = useState("");
+    const bgImage = `${staticImage}/customPage.png`;
+    const [desc, setDesc] = useState("");
+    const [keywords, setKeywords] = useState("");
+    const [activate, setActivate] = useState({ loaded: false, id: null, product: null });
+    const products = getAboutList.loaded ? getAboutList.data : null;
+    useEffect(() => {
+        if (!getAboutList.loaded) {
+            const getProducts = localStorage.getItem("loadedProduct") ? JSON.parse(localStorage.getItem("loadedProduct")) : null;
+            let aboutPages = getProducts.filter(obj => (obj.category === "aboutPage"));
+            setGetAboutList({ loaded: true, data: aboutPages });
+        }
+
+    }, [getAboutList.loaded, setGetAboutList])
+
+    useEffect(() => {
+        let arr = [];
+        let descrip = "";
+        if (products) {
+            products.forEach((obj, index) => {
                 arr.push(obj.name);
-                descrip= descrip + ",,," + obj.desc.slice(0,20);
+                descrip = descrip + ",,," + obj.desc.slice(0, 20);
             });
             setDesc(descrip);
             setKeywords(arr);
         }
-    },[products]);
+    }, [products]);
 
 
 
@@ -83,52 +121,61 @@ const AboutPage = () => {
         if (window.scrollY) {
             window.scroll(0, 0);
         }
-    }, [setTitle, setStyleName,setLabelTitle]);
+    }, [setTitle, setStyleName, setLabelTitle]);
 
     const handleSelect = (e, obj) => {
         e.preventDefault();
         setPopUp({ loaded: true, data: obj });
-        localStorage.setItem("custTemplate",JSON.stringify({id:obj.id,path:location.pathname}))
+        localStorage.setItem("custTemplate", JSON.stringify({ id: obj.id, path: location.pathname }))
 
     }
-    const handleNext=(e,product_id)=>{
+    const handleNext = (e, product_id) => {
         e.preventDefault();
-        if(!getLoggedIn){
-        navigate("/register",setChangePage(true));
-        }else{
-            addTemplateToUserAccount(e,product_id);
-            navigate("/MyAccount",setChangePage(true));
+        if (!getLoggedIn) {
+            navigate("/register", setChangePage(true));
+        } else {
+            addTemplateToUserAccount(e, product_id);
+            navigate("/MyAccount", setChangePage(true));
         }
 
     }
-    const addTemplateToUserAccount = async (e,product_id)=>{
+    const addTemplateToUserAccount = async (e, product_id) => {
         const params = { "user_id": getUser_id, "prod_id": product_id }
         try {
             const res = await apiProtect.post("/account/userProductPost/", params);
-                    const user_account = res.data;
-                    if(user_account){
-                        setUserAccount({loaded:true,data:user_account})
-                    setUsersProduct({loaded:true,data:user_account.product})
-                    setUsersInvoice({loaded:true,data:user_account.invoice})
-                    }
+            const user_account = res.data;
+            if (user_account) {
+                setUserAccount({ loaded: true, data: user_account })
+                setUsersProduct({ loaded: true, data: user_account.product })
+                setUsersInvoice({ loaded: true, data: user_account.invoice })
+            }
         } catch (error) {
             console.error(error.message)
         }
     }
+    const handleActivate = (e, obj) => {
+        e.preventDefault();
+        // console.log("id", id)
+        if (!activate.loaded) {
+            setActivate({ loaded: true, id: obj.id, product: obj });
+        } else {
+            setActivate({ loaded: false, id: 0, product: null });
+        }
+    }
 
-  return (
-    <MainCustom
+    return (
+        <MainCustom
             id="mainContainer"
 
         >
-            <AboutHelmet 
-            keywords={keywords}
-            desc={desc}
-            image={bgImage}
-            products={products}
-            average={average}
-            getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
-            staticImage={staticImage}
+            <AboutHelmet
+                keywords={keywords}
+                desc={desc}
+                image={bgImage}
+                products={products}
+                average={average}
+                getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
+                staticImage={staticImage}
             />
             <CustCoverPage bgImage={bgImage} title={labelTitle} />
             <Container maxWidth="xl" spacing={{ xs: 0, sm: 1 }} sx={{ marginTop: "2px" }}>
@@ -179,33 +226,60 @@ const AboutPage = () => {
                                         select <DoneOutlineIcon sx={{ ml: 1, color: "blue" }} />
                                     </Fab>
                                 </Stack>
-                                {(popUp.loaded && popUp.data.id===obj.id) &&
-                                <Stack direction="column" spacing={2}
-                                sx={{position:"absolute",top:"20%",left:"auto",width:"100%",textAlign:"center"}}
-                                className={styles.popUp}
-                                >
-                                    <Card elevation={3} sx={{margin:"auto",padding:"1rem"}}>
-                                        <Avatar 
-                                         src={`${staticImage}/${popUp.data.imageName}`}
-                                         alt="www.master-connect.ca"
-                                         sx={{height:"100px",width:"100px"}}
-                                        />
-                                        <Typography component="h1" variant="h4">
-                                            You have selected {popUp.data.name}
-                                        </Typography>
-                                        <Typography component="h1" variant="h5"
-                                        sx={{color:theme.palette.common.blueGrey}}
-                                        >
-                                            if you are 70-80% good with your pick, click next
-                                        </Typography>
-                                        <Stack direction="column" sx={{alignItems:"center"}}>
-                                            <Fab variant="extended" color="success" size="medium" onClick={(e)=>handleNext(e,obj.id)}>
-                                                next <DoneOutlineIcon sx={{color:"blue",ml:1}}/>
-                                            </Fab>
-                                        </Stack>
-                                    </Card>
-                                </Stack>
+                                {(popUp.loaded && popUp.data.id === obj.id) &&
+                                    <Stack direction="column" spacing={2}
+                                        sx={{ position: "absolute", top: "20%", left: "auto", width: "100%", textAlign: "center" }}
+                                        className={styles.popUp}
+                                    >
+                                        <Card elevation={3} sx={{ margin: "auto", padding: "1rem" }}>
+                                            <Avatar
+                                                src={`${staticImage}/${popUp.data.imageName}`}
+                                                alt="www.master-connect.ca"
+                                                sx={{ height: "100px", width: "100px" }}
+                                            />
+                                            <Typography component="h1" variant="h4">
+                                                You have selected {popUp.data.name}
+                                            </Typography>
+                                            <Typography component="h1" variant="h5"
+                                                sx={{ color: theme.palette.common.blueGrey }}
+                                            >
+                                                if you are 70-80% good with your pick, click next
+                                            </Typography>
+                                            <Stack direction="column" sx={{ alignItems: "center" }}>
+                                                <Fab variant="extended" color="success" size="medium" onClick={(e) => handleNext(e, obj.id)}>
+                                                    next <DoneOutlineIcon sx={{ color: "blue", ml: 1 }} />
+                                                </Fab>
+                                            </Stack>
+                                        </Card>
+                                    </Stack>
                                 }
+
+                                {(activate.loaded && activate.id === obj.id) ?
+                                    <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center" }}>
+                                        <Fab variant="extended" color="info" size="medium"
+                                            onClick={(e) => handleActivate(e, obj)}
+                                            sx={{ color: "red", margin: "2rem auto" }}
+                                        >
+                                            close <ExpandLessIcon sx={{ ml: 1, color: "red" }} />
+                                        </Fab>
+                                    </Stack>
+                                    :
+                                    <Stack direction="column" spacing={0} sx={{ justifyContent: "center", alignItems: "center", margin: "1rem auto" }}>
+                                        <Typography component="h1" variant="h6" sx={{ margin: "1rem auto" }}>recommended services</Typography>
+                                        <Fab variant="extended" color="info" size="medium"
+                                            onClick={(e) => handleActivate(e, obj)}
+                                            sx={{ margin: " auto" }}
+                                        >
+                                            expand <ExpandMoreIcon sx={{ ml: 1, color: "warning" }} />
+                                        </Fab>
+                                    </Stack>
+                                }
+                                {activate.loaded && activate.id === obj.id &&
+                                    <CustomBox sx={{ position: "absolute" }}>
+                                        <Included product={activate.product} staticImage={staticImage} />
+                                    </CustomBox>
+                                }
+
                             </Card>
                         </Grid>
                     ))}
@@ -213,7 +287,7 @@ const AboutPage = () => {
                 </MainCustomGrid>
             </Container>
         </MainCustom>
-  )
+    )
 }
 
 export default AboutPage
