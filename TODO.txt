@@ -5,9 +5,8 @@ one subject: what is communication
 
 
 TODO
+- Fix the button " expand " in specials
 
--FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
--add UTILS/expand/contract list?????????????/
 -VERIFY-add a field for external links with products
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
@@ -15,8 +14,10 @@ TODO
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
+-RECREATE MASTER-SALE DATABASE USING A NEW GIT REPOSITORY
 
 COMPLETE:
+-TESTED: NO ISSUE:FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
 -correct the custom pages
 -create a generator that updates the product.price based on admin/rates
 -add savings to products

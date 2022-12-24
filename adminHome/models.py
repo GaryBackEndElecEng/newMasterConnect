@@ -29,7 +29,6 @@ class SumInvoice(models.Model):
     provtax=models.IntegerField(default=0,null=True,blank=True)
     allPriceID=ArrayField(models.CharField(max_length=250,blank=True,null=True),default=list,blank=True)
     allDateEnd=ArrayField(models.DateField(default=datetime.now),default=list,blank=True)
-    # allPaidInvoice=ArrayField(models.CharField(max_length=70),default=list,blank=True)
 
     def __str__(self):
         return self.name
@@ -40,6 +39,8 @@ class ServiceTaskTracker(models.Model):
     username=models.CharField(max_length=100,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
+    class Meta:
+        ordering=["-user_id","username"]
     def __str__(self):
         return f'{self.name}-{self.username}-{self.task}'
 
@@ -49,6 +50,8 @@ class PostServiceTaskTracker(models.Model):
     username=models.CharField(max_length=100,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
+    class Meta:
+        ordering=["-user_id","username"]
     def __str__(self):
         return f'{self.name}-{self.username}-{self.task}'
 
@@ -58,8 +61,11 @@ class ExtraServiceTaskTracker(models.Model):
     username=models.CharField(max_length=100,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
+    class Meta:
+        ordering=["-user_id","username"]
     def __str__(self):
         return f'{self.name}-{self.username}-{self.task}'
+
 
 class ProductTaskTracker(models.Model):
     name=models.CharField(max_length=75,blank=True,null=True)
@@ -68,6 +74,8 @@ class ProductTaskTracker(models.Model):
     subTasks=models.CharField(max_length=200,blank=True,null=True)
     Id=models.IntegerField(default=0)
     task=models.BooleanField(default=False)
+    class Meta:
+        ordering=["-user_id","username"]
     def __str__(self):
         return f'{self.name}-{self.username}-{self.task}'
 

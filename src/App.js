@@ -51,6 +51,7 @@ import ContactPage from './component/custom/ContactPage';
 import StoreProduct from './component/storeProduct/StoreProduct';
 import DependancyPage from './component/dependency/DependancyPage';
 import Package from './component/packages/Package';
+import SolarPanel from './component/design13/SolarPanel.js';
 
 function App() {
   return (
@@ -85,6 +86,7 @@ function App() {
             <Route path="/design10" element={<InteriorDecorator />} />
             <Route path="/design11" element={<Restaurant />} />
             <Route path="/design12" element={<StoreProduct />} />
+            <Route path="/design13" element={<SolarPanel />} />
             <Route path="/design3" element={<Page1 />} />
             <Route path="/customPage" element={<CustomPage />} />
             <Route path="/aboutPage" element={<AboutPage />} />

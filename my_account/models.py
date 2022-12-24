@@ -270,6 +270,8 @@ class CreditInvoice(models.Model):
     prodsServs=ArrayField(models.CharField(max_length=100,blank=True),default=list)
     prodsServs_id=ArrayField(models.IntegerField(blank=True),default=list)
     hasCredit=models.BooleanField(default=False)
+    update=models.BooleanField(default=False)
+    yesUpdated=models.BooleanField(default=False)
     dateStart=models.DateTimeField(default=datetime.now)
     
     def __str__(self):

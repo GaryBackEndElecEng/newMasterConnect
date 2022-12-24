@@ -5,7 +5,7 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import styled from 'styled-components';
 // import styles from './footer.module.css';
 
-const CustomContainer = styled(Container)`
+const CustomContainer = styled.div`
 margin:0px;
 width:100vw;
 display:flex;
@@ -18,16 +18,14 @@ flex-direction:column;
 
 `;
 
-const Sponsors = () => {
+const Sponsors = ({sponsor}) => {
     const theme = useTheme();
-    const { sponsor } = useContext(GeneralContext);
-    const [getSponsor, setGetSponsor] = useState(null);
+    
+    const hasLength=sponsor.length >0 ? sponsor:false;
+    const boxShadow= hasLength ? "1px 1px 8px 10px lightgrey":"none";
+    const display = hasLength ? "block":"none";
+    const displayFlex = hasLength ? "flex":"none";
 
-    useMemo(() => {
-        if (sponsor.loaded && sponsor.data) {
-            setGetSponsor(sponsor.data);
-        }
-    }, [sponsor.loaded]);
 
     const handleLink = (e,link)=>{
         e.preventDefault();
@@ -38,18 +36,18 @@ const Sponsors = () => {
 
     return (
         <CustomContainer bg={"white"}>
-            {getSponsor && <Typography component="h1" variant="h3"
+            <Typography component="h1" variant="h4"
             sx={{width:"100%", textAlign:"center",margin:"1rem auto",
-            background:theme.palette.splash,boxShadow:"1px 1px 8px 10px white"
+            background:theme.palette.splash,boxShadow:boxShadow,display:display
             }}
-            >Contributors</Typography>}
+            >Contributors</Typography>
             <Grid container spacing={0} rowSpacing={2}
                 sx={{
                     padding: { xs: "5px", sm: "10px", md: "12px" },
-                    overflowY: "scroll", maxHeight: "20vh"
+                    overflowY: "scroll", maxHeight: "20vh",display:displayFlex
 
                 }}>
-                {getSponsor && getSponsor.map(obj => (
+                {sponsor && sponsor.map(obj => (
                     <Grid item xs={12} sm={6} md={4} key={obj.id}
                         sx={{ textAlign:"center",margin:"auto",padding:"2px 3px",zIndex:"1000"
                     }}

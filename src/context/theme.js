@@ -175,7 +175,8 @@ export const theme = createTheme({
           main:yellow[600]
         }
     },
-    splash: `linear-gradient(to left, lightgrey,darkgrey, grey 50%, lightgrey 75%, lightgrey 75%);`
+    splash: `linear-gradient(to left, lightgrey,darkgrey, grey 50%, lightgrey 75%, lightgrey 75%);`,
+    splash2: `linear-gradient(to left top,black,white);`,
   }
 })
 

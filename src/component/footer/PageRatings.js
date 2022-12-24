@@ -8,12 +8,17 @@ import styled from 'styled-components';
 
 const MainPageRating=styled.div`
 margin: 1rem auto;
-display:flex;
+display:${({display})=>display ? "flex":"none"};
 justify-content:flex-start;
 align-items:center;
 flex-direction:column;
 background:${({bg})=>bg};
 width:100vw;
+animation:climbDown 1s ease-in-out;
+@keyframes climbDown {
+    from {opacity:0;transform:translateY(-100%);}
+    to {opacity:1;transform:translateY(0%);}
+}
 @media screen and (max-width:900px){
     
 }
@@ -28,6 +33,7 @@ const PageRatings = () => {
     const [filterRating,setFilterRating]=useState([]);
     const [desc,setDesc]=useState({loaded:false,data:{}})
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
+    const isLoaded=pageRatings.loaded ? true:false;
 
     useEffect(()=>{
         let arr=[]
@@ -61,9 +67,10 @@ const PageRatings = () => {
 
     return (
         <MainPageRating 
-        bg={theme.palette.common.lighter}
+        bg={theme.palette.splash2}
+        display={isLoaded}
         >
-            <Typography component="h1" variant="h4" sx={{textAlign:"center",margin:"1rem auto",color:"black",}}>Client comments</Typography>
+            <Typography component="h1" variant="h2" sx={{textAlign:"center",margin:"1rem auto",color:"white",}}>Reviews</Typography>
             <Grid container spacing={{ xs: 0, sm: 1, md: 1 }}
             sx={{maxHeight:{md:"40vh",xs:"50vh"},overflowY:"scroll",borderTop:"1px solid blue",
             justifyContent:"center",alignItems:"center",textAlign:'center'

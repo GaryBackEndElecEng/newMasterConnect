@@ -5,3 +5,5 @@ TO UPDATE PRODUCT SAVINGS:
 1.) with all products: update=True, updated=false will update the savings.. It summs up all services and then compares to the original price which gives a svings value. NOTE: THE REFERENCE IS THE PRODUCT PRCE ( FOR SAVING ADJUSTMENTS)
 UPDATE SERVICE PRICING:
 1.) WITHIN Model:UpdateItems, => service name, uncheck Updated and save
+CREDIT PROCESS:
+After the Invoice is paid, there is a admin/Home signal that removes the Task from Extra/Product/Service/PostTaskTracker and saves the results UPON CreditInvoice post_save.

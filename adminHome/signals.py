@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from my_account.models import PostService,Service,Price,Product,Price,PriceCatelog,UserAccount,Invoice,PostInvoice,ExtraInvoice
+from my_account.models import PostService,Service,Price,Product,Price,PriceCatelog,UserAccount,Invoice,PostInvoice,ExtraInvoice,CreditInvoice
 from .models import *
 import math
 
@@ -89,4 +89,34 @@ def onExtraInvoicePaidCreateTask(sender,created, instance, **kwargs):
                     arrExtraServ.append(extraServTaskTracker)
             taskTracker.extraService.add(*arrExtraServ)
             taskTracker.save()
+
+@receiver(post_save,dispatch_uid='onCreatedCreateDeleteTask', sender=CreditInvoice)
+def onCreatedCreateDeleteTask(sender,created, instance, **kwargs):
+    arrExtraServ=[]
+    userAccount=UserAccount.objects.filter(credit=instance).first()
+    if userAccount and instance.hasCredit == True and instance.update ==True:
+        user=User.objects.filter(id=userAccount.user.id).first()
+        taskTracker=TaskTracker.objects.filter(user=user).first()
+        if user and taskTracker:
+            for prodServsId in instance.prodsServs_id:
+                prodTaskTracker=ProductTaskTracker.objects.filter(Id=prodServsId,user_id=user.id).first()
+                postTaskTracker=PostServiceTaskTracker.objects.filter(Id=prodServsId,user_id=user.id).first()
+                servTaskTracker=ServiceTaskTracker.objects.filter(Id=prodServsId,user_id=user.id).first()
+                extraTaskTracker=ExtraServiceTaskTracker.objects.filter(Id=prodServsId,user_id=user.id).first()
+                if prodTaskTracker:
+                    taskTracker.product.remove(prodTaskTracker)
+                    prodTaskTracker.delete()
+                if postTaskTracker:
+                    taskTracker.postService.remove(postTaskTracker)
+                    postTaskTracker.delete()
+                if servTaskTracker:
+                    taskTracker.service.remove(servTaskTracker)
+                    servTaskTracker.delete()
+                if extraTaskTracker:
+                    taskTracker.extraService.remove(extraTaskTracker)
+                    extraTaskTracker.delete()
+            taskTracker.save()
+            instance.yesUpdated=True
+            instance.update=False
+            instance.save()
             

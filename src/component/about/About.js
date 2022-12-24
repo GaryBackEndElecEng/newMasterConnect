@@ -57,7 +57,7 @@ height:"auto";
 
 const About = () => {
   const theme = useTheme();
-  const { setTitle, setStyleName,allCategory,setChangePage,generalInfo,conical,getPathLocation } = useContext(GeneralContext);
+  const { setTitle, setStyleName,allCategory,setChangePage,generalInfo,getPathLocation } = useContext(GeneralContext);
   const [about,setAbout]=useState([]);
   const [counter, setCounter] = useState(0);
   const [allcatHelmet,setAllcatHelmet]=useState([]);

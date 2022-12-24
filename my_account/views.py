@@ -1187,8 +1187,8 @@ class PostDeductService(APIView):
                     tax,created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
                     if created:
                         tax.save()
-                creditInvoice, created = CreditInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
-                if created:
+                creditInvoice, created1 = CreditInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
+                if created1:
                     creditInvoice.save()
                     userAccount.credit=creditInvoice
                     userAccount.save()
@@ -1225,6 +1225,8 @@ class PostDeductService(APIView):
                 creditInvoice.total=math.floor(creditInvoice.subTotal*taxApply)
                 creditInvoice.totalMonthly=math.floor(creditInvoice.subTotalMonthly*taxApply)
             creditInvoice.hasCredit=True
+            creditInvoice.update=True
+            creditInvoice.yesUpdated=False
             creditInvoice.save()
             serializer= CreditInvoiceSerializer(creditInvoice,many=False)
             return Response(serializer.data,status=status.HTTP_200_OK)

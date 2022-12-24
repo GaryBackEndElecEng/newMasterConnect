@@ -14,3 +14,23 @@ padding:0.5rem;
 z-index:100000;
 }
 
+.showReviewBtn{
+    transform:translateX(-40%);
+    transition: transform 1s ease-in-out;
+}
+.hideReviewBtn{
+    transform:translateX(0%);
+    transition: transform 1s ease-in-out;
+}
+@media screen and (max-width:900px){
+    .showReviewBtn{
+        transform:translateX(-35%);
+        transition: transform 1s ease-in-out;
+    }
+}
+@media screen and (max-width:600px){
+    .showReviewBtn{
+        transform:translateX(-30%);
+        transition: transform 1s ease-in-out;
+    }
+}
