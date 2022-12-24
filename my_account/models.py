@@ -91,6 +91,8 @@ class Product(models.Model):
     extraServices=models.ManyToManyField(ExtraService,blank=True)
     update=models.BooleanField(default=False)
     updated=models.BooleanField(default=False)
+    class Meta:
+        ordering=['name']
 
     def __str__(self):
         return f'{self.name}-{self.category}-updated:{self.updated}'
@@ -123,6 +125,8 @@ class Package(models.Model):
     specialOffer=models.BooleanField(default=False)
     updateValue=models.BooleanField(default=False)
     image=models.CharField(max_length=50,blank=True,null=True)
+    class Meta:
+        ordering=['name']
 
     def __str__(self):
         return f'{self.name}-{self.monthly}-{self.specialOffer}'

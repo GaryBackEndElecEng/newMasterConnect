@@ -3,6 +3,8 @@ TO UPDATE PRICING ADJUSTMENTS:
 2.) within UpdateItems=> will adjust the price on packages based on Product and Service pricing. updet=True, Updated=False is the trigger.
 TO UPDATE PRODUCT SAVINGS:
 1.) with all products: update=True, updated=false will update the savings.. It summs up all services and then compares to the original price which gives a svings value. NOTE: THE REFERENCE IS THE PRODUCT PRCE ( FOR SAVING ADJUSTMENTS)
+2.) UPDATE SERVICES: :
+in adminHome: updateItems=> services=> update=True && updated=False to update monthlt pricing on price changes
 UPDATE SERVICE PRICING:
 1.) WITHIN Model:UpdateItems, => service name, uncheck Updated and save
 CREDIT PROCESS:

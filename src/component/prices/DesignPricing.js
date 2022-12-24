@@ -58,7 +58,7 @@ const DesignPricing = ({ productList }) => {
         <Container maxWidth="lg" sx={{ display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column", margin: "2rem auto" }}>
             <Typography component="h1" variant="h2" sx={{ margin: "2rem auto", }}>Front Page Template Designs</Typography>
             <Grid container spacing={2} >
-                {designPrice.loaded && designPrice.data.map(obj => (
+                {designPrice.loaded && designPrice.data.sort((a,b)=>(a.price-b.price)).map(obj => (
                     <Grid item xs={12} md={4} key={obj.id} onMouseOver={(e) => handleMouseOver(e, obj)} onMouseOut={(e) => handleMouseOut(e, obj)}
                     sx={{position:"relative"}}
                     >

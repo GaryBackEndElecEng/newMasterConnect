@@ -10,11 +10,11 @@ min-height:46vh;
 
 `;
 const SliderStack = styled(Stack)`
-width:1000px;
+width:${({width1})=>width1}px;
 flex-direction:row;
 flex-wrap:nowrap;
 // align-items:center;
-overflow-x:hidden;
+overflow-x:${({scroll})=>scroll};
 position:relative;
 justify-content:flex-start;
 background:white;
@@ -40,16 +40,17 @@ padding:1rem;
 transform:translateX(${({ transx }) => (-transx * 100)}%);
 transform-box:inherit;
 transition:transform 2s ease-in-out;
--webkit-overflow-scrolling: touch;
+-webkit-overflow-scrolling:${({touch})=>touch};
 align-items:center;
 @media screen and (max-width:900px){
-    width:870px;
+    width:860px;
+    padding:1rem;
 }
 @media screen and (max-width:800px){
-    width:770px;
+    width:760px;
 }
 @media screen and (max-width:600px){
-    width:570px;
+    width:560px;
 }
 @media screen and (max-width:400px){
     width:390px;
@@ -57,11 +58,14 @@ align-items:center;
 
 `;
 const CustomImg=styled.img`
+width:${({width})=>width}px;
 @media screen and (max-width:900px){
-    width:870px;
+    width:890px;
+    padding:1rem;
 }
 @media screen and (max-width:800px){
-    width:770px;
+    width:790px;
+    padding:1rem;
 }
 @media screen and (max-width:600px){
     width:570px;
@@ -75,7 +79,9 @@ let count = 0;
 const CoverPage = ({ staticImage, getArray }) => {
     const [getWidth, setGetWidth] = useState(null);
     const [count1, setCount1] = useState(null);
+    const [scroll,setScroll]=useState({scroll:"hidden",touch:"none"});
     const frameStackWidth = getArray.length * getWidth;
+
     useEffect(() => {
         if (window.innerWidth < 400) {
             setGetWidth(400);
@@ -93,39 +99,44 @@ const CoverPage = ({ staticImage, getArray }) => {
             if (count < 9) {
                 setTimeout(() => {
                     count++;
-                    setCount1(count);
+                    // console.log(count)
+                    setCount1(count1=>count);
                     countAdder();
                 }, 4000);
-            }else{
+            }else if(count===9){
                 count=0;
-                countAdder();
+                    setCount1(count1=>count);
+                    setScroll({scroll:"scroll",touch:"touch"})
+                // countAdder();
             }
         }
         countAdder();
-    }, [setCount1]);
+    }, []);
     
 
     return (
         <MainCover maxWidth="lg" sx={{display:"flex",flexDirection:"column",alignItems:"center",margin:"0px"}}>
             <SliderStack
                 direction="row" spacing={0}
-                width1={`${getWidth - 100}px`}
+                width1={getWidth}
+                scroll={scroll.scroll}
             >
                 {getArray && getArray.map((obj, index) => (
                     <SlidesStack
                         direction="column"
                         transx={count}
-                        width={frameStackWidth}
+                        width={getWidth}
+                        touch={scroll.touch}
                         spacing={{ xs: 0, sm: 1 }}
                         key={`${obj.id}--solar--${index}`}
                         sx={{
                             justifyContent: "center", alignItems: "center", position: "relative",
-                            width: `${getWidth}px`
+                            
                         }}
                     >
 
                         <CustomImg src={`${staticImage}/solar/${obj.image}`} alt="www.masterconnect.ca"
-                            
+                            width= {getWidth}
                         />
                         <Typography component="h1" variant="h3"
                             sx={{ margin: "1rem auto" }}

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
-import { Grid, Typography, Stack, Card, CardContent, Avatar, Fab, Box } from '@mui/material';
+import { Grid, Typography, Stack, Card, CardContent, Avatar, Fab, CardMedia } from '@mui/material';
 import apiProtect from '../axios/apiProtect';
-import SpecialCreatValueCardProduct from './SpecialCreatValueCardProduct';
-import SpecialCreatValueCardService from './SpecialCreatValueCardService';
+import ProductPackageControl from '../packages/ProductPackageControl';
+import Summary from '../packages/Summary';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import styles from "./home.module.css";
@@ -15,8 +15,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import ShopIcon from '@mui/icons-material/Shop';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import InfoIcon from '@mui/icons-material/Info';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const HaveAccountStack = styled(Stack)`
 display:${({ display }) => display};
@@ -26,25 +25,16 @@ animation: growIn 1s ease-in-out;
     to {transform:scale(1);}
 }
 `;
-const CustStack=styled(Stack)`
-margin:1rem auto;
-animation: slideDown 1s ease-in-out;
-@keyframes slideDown {
-    from { opacity:0; transform:translateY(-100%);}
-    to { opacity:1; transform:translateY(0%);}
-}
-`;
+
 const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
     const navigate = useNavigate();
     const theme = useTheme();
     const { staticImage, setChangePage } = useContext(GeneralContext);
     const { user_id, loggedIn, setUserAccount, setUsersService, setUsersPostService } = useContext(TokenAccessContext);
     const [activatePopUp, setActivatePopUp] = useState({ loaded: false, id: 0 });
-    const [showSummary, setShowSummary] = useState({ loaded: false, id: 0, summary: "" });
-    const [showServices, setShowServices] = useState({ loaded: false, id: 0, service: "" });
     const get_user_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
     const get_loggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
-   
+
     // const get_packages = getPackages.loaded ? getPackages.data : null;
 
 
@@ -111,17 +101,6 @@ const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
 
     }
 
-    const handleShowServices = (e,obj) => {
-        e.preventDefault();
-            if (!showServices.loaded) {
-                setShowServices({ loaded: true,id:obj.id });
-                
-            } else {
-                
-                setShowServices({ loaded: false,id:null })
-            }
-
-    }
     return (
         <>
             {getSpecials.loaded && getSpecials.data.map((obj, index) => (
@@ -135,7 +114,7 @@ const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
                     <Card elevation={3} className={pointer ? styles.growBig : ""}
                         sx={{ padding: "0rem 1rem", position: "relative" }}
                     >
-                        <Stack direction="column" spacing={0} sx={{ alignItems: "flex-start", marginBottom: "1rem",margin:"0.5rem" }}>
+                        <Stack direction="column" spacing={0} sx={{ alignItems: "flex-start", marginBottom: "1rem", margin: "0.5rem" }}>
                             <Avatar src={"https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png"} alt="www.master-connect.ca" variant="circular" sx={{ width: "70px", height: "70px" }} />
                         </Stack>
                         <Typography component="h1" variant="h3"
@@ -184,49 +163,36 @@ const SpecialCreatValueCard = ({ pointer, getSpecials }) => {
                         }
 
                         <CardContent>
+                            <Summary
+                            obj={obj}
+                            title={obj.name}
+                            />
                             <Typography component="h1" variant="h5"
-                                sx={{ color: theme.palette.common.background2, textDecoration: "underline", margin: "0px auto", textAlign: "center", width: "100%", }}
+                                sx={{ color: theme.palette.common.background, margin: "0px auto", textAlign: "center", width: "100%", }}
+                            >
+                                Pricing
+                            </Typography>
+                            <Typography component="h1" variant="h4"
+                             sx={{display:"flex",flexDirection:"column",alignItems:"center",}}
                             >
 
-                                <AttachMoneyIcon sx={{ ml: 1, color: "green" }} />
-                                <span style={{ color: "red" }}>{obj.monthly}.<sup>00</sup></span>,
-                                <span style={{ textDecoration: "line-through", color: "black" }}>
-                                    <AttachMoneyIcon sx={{ ml: 1, color: "green" }} />{Math.ceil(obj.monthly * (1 + obj.reducePerc / 100))} </span>
+                                <Stack direction="row" sx={{ margin: "0.5rem auto" }} spacing={2}>
+
+                                    <span style={{ color: "red" }}><AttachMoneyIcon sx={{ ml: 1, color: "green" }} />{obj.monthly}.<sup>00</sup></span> -
+                                    <span style={{ textDecoration: "line-through", color: "black" }}>
+                                        <AttachMoneyIcon sx={{ ml: 1, color: "green" }} />{Math.ceil(obj.monthly * (1 + obj.reducePerc / 100))} </span> -
+                                    <span style={{ color: "blue" }}><ArrowDropDownIcon sx={{ mr: 1, color: "red" }} /> {obj.reducePerc}%</span>
+                                </Stack>
 
                             </Typography>
-                            <Typography component="h1" variant="h6">{obj.summary.slice(0,75)}...</Typography>
-
-
-
-                            <Typography component="h1" variant="h5" sx={{ textDecoration: "underline", textAlign: "center", color: theme.palette.common.teal }}>Product</Typography>
-                            <SpecialCreatValueCardProduct products={obj.products} staticImage={staticImage}/>
-                            <Typography component="h1" variant="h5" sx={{
-                                textDecoration: "underline", textAlign: "center",
-                                color: theme.palette.common.teal
-                            }}>
-                                added services
-                            </Typography>
-                            <Stack direction="column" spacing={0} sx={{alignItems:"center",margin:"1rem auto"}}>
-                            <Fab variant="extended" size="small" color="success"
-                                onClick={(e) => handleShowServices(e,obj)}
-                            >
-                                see services {showServices.loaded && showServices.id === obj.id ?
-                                    <ExpandMoreIcon sx={{ ml: 1, color: "red" }} />
-                                    :
-                                    <ExpandLessIcon sx={{ ml: 1, color: "black" }} />
-                                }
-                            </Fab>
-                            </Stack>
-                            {showServices.loaded && showServices.id === obj.id &&
-                                <CustStack direction="column" sx={{ alignItems: "center" }}
-                                >
-                                    <SpecialCreatValueCardService services={obj.services} staticImage={staticImage}/>
-                                </CustStack>
-                            }
-
-
-
-
+                            <CardMedia component="img" src={`${staticImage}/${obj.image}`} alt="www.masterconnect.ca" />
+                            <ProductPackageControl
+                                products={obj.products}
+                                services={obj.services}
+                                postServices={obj.postServices}
+                                staticImage={staticImage}
+                                mainPackage={obj}
+                            />
                         </CardContent>
                     </Card>
 

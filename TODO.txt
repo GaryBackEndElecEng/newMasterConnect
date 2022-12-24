@@ -5,8 +5,8 @@ one subject: what is communication
 
 
 TODO
-- Fix the button " expand " in specials
 
+- finish the Solar and then put a link to Store Front pointing to to contact info for more 
 -VERIFY-add a field for external links with products
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
@@ -17,6 +17,7 @@ TODO
 -RECREATE MASTER-SALE DATABASE USING A NEW GIT REPOSITORY
 
 COMPLETE:
+- Fix the button " expand " in specials
 -TESTED: NO ISSUE:FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin
 -correct the custom pages
 -create a generator that updates the product.price based on admin/rates

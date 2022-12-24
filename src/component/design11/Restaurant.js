@@ -20,7 +20,7 @@ import { useTheme } from '@mui/material/styles';
 import ModalContainer from '../utils/ModalContainer';
 import StarIcon from '@mui/icons-material/Star';
 import ItemList from './ItemList';
-import ProductServices from '../ProductServices';
+// import ProductServices from '../ProductServices';
 import Included from '../utils/Included';
 
 const MainRestaurant = styled.div`

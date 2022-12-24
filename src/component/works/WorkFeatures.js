@@ -197,7 +197,7 @@ const WorkFeatures = () => {
                         </Fab>}
                 </Stack>
                 <Grid container spacing={3}>
-                    {getProductDesigns.loaded && getProductDesigns.data.map(obj => (
+                    {getProductDesigns.loaded && getProductDesigns.data.sort((a,b)=>(b.id-a.id)).map(obj => (
 
                         <Grid item xs={12} md={4} key={obj.id} >
                             <Card sx={{ width: "100%", "&:hover": { cursor: "pointer" }, position: "relative" }} >

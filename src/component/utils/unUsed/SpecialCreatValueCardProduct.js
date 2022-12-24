@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GeneralContext } from '../../context/GeneralContextProvider';
+import { GeneralContext } from '../../../context/GeneralContextProvider';
 import { Stack, Fab, Grid, Typography, Card, Avatar, CardMedia, Box } from '@mui/material';
 import styled from 'styled-components';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
