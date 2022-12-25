@@ -31,7 +31,7 @@ const ServiceDependancy = ({ serviceDependences }) => {
             let addPostDepend=[]
             let arr=serviceDependences.data
             arr.forEach((dependant,index)=>{
-                let serviceObj=usersService.data.filter(obj=>(obj.category ===dependant.name))[0];
+                let serviceObj=usersService.data.filter(obj=>(obj.name ===dependant.category))[0];
                 if(serviceObj){
                     dependant.postServices.forEach((postServ)=>{
                         let filterOutDups=addPostDepend.filter(obj=>(obj.id ===postServ.id))[0];

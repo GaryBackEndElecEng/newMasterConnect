@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from my_account.models import PostService,Service,Price,Product,Price,PriceCatelog,UserAccount,Invoice,PostInvoice,ExtraInvoice,CreditInvoice
+from my_account.models import PostService,Service,Price,Product,Price,PriceCatelog,UserAccount,Invoice,PostInvoice,ExtraInvoice,CreditInvoice,TempSavedCalculator
 from .models import *
 import math
 
@@ -9,7 +9,7 @@ def onInvoicePaidCreateTask(sender,created, instance, **kwargs):
     arrService=[]
     arrProd=[]
     userAccount=UserAccount.objects.filter(invoice=instance).first()
-    if userAccount and instance.paid:
+    if userAccount and instance.paid and userAccount.postAccountActivate==False:
         user=User.objects.filter(id=userAccount.user.id).first()
         if user:
             taskTracker,created=TaskTracker.objects.get_or_create(user=user)
@@ -27,11 +27,12 @@ def onInvoicePaidCreateTask(sender,created, instance, **kwargs):
                     servTaskTracker.save()
                     arrService.append(servTaskTracker)
             for product in userAccount.product.all():
+                testLenght=','.join([obj.name for obj in product.services.all()])
                 prodTaskTracker,created2=ProductTaskTracker.objects.get_or_create(
                     name=product.name,
                     user_id=user.id,
                     username=user.username,
-                    subTasks=','.join([obj.name for obj in product.services.all()]), 
+                    subTasks=testLenght[0:180], 
                     Id=product.id,
                     task=False
                 )
@@ -45,8 +46,8 @@ def onInvoicePaidCreateTask(sender,created, instance, **kwargs):
 @receiver(post_save,dispatch_uid='onPostInvoicePaidCreateTask', sender=PostInvoice)
 def onPostInvoicePaidCreateTask(sender,created, instance, **kwargs):
     arrPostServ=[]
-    userAccount=UserAccount.objects.filter(invoice=instance).first()
-    if userAccount and instance.paid:
+    userAccount=UserAccount.objects.filter(postInvoice=instance).first()
+    if userAccount and instance.paid and userAccount.postAccountActivate==True:
         user=User.objects.filter(id=userAccount.user.id).first()
         if user:
             taskTracker,created=TaskTracker.objects.get_or_create(user=user)
@@ -69,7 +70,7 @@ def onPostInvoicePaidCreateTask(sender,created, instance, **kwargs):
 @receiver(post_save,dispatch_uid='onExtraInvoicePaidCreateTask', sender=ExtraInvoice)
 def onExtraInvoicePaidCreateTask(sender,created, instance, **kwargs):
     arrExtraServ=[]
-    userAccount=UserAccount.objects.filter(invoice=instance).first()
+    userAccount=UserAccount.objects.filter(extraInvoice=instance).first()
     if userAccount and instance.paid:
         user=User.objects.filter(id=userAccount.user.id).first()
         if user:
@@ -119,4 +120,98 @@ def onCreatedCreateDeleteTask(sender,created, instance, **kwargs):
             instance.yesUpdated=True
             instance.update=False
             instance.save()
+
+
+@receiver(post_save,dispatch_uid='adminCleanCompletedTasks', sender=UpDateItems)
+def adminCleanCompletedTasks(sender,created,instance,**kwargs):
+    if instance.name=="tasks" and instance.update==True and instance.Updated==False:
+        for prodTask in ProductTaskTracker.objects.all():
+            if prodTask.task==True:
+                prodTask.delete()
+        for servtask in ServiceTaskTracker.objects.all():
+            if servtask.task==True:
+                servtask.delete()
+        for postServTask in PostServiceTaskTracker.objects.all():
+            if postServTask.task==True:
+                postServTask.delete()
+        for extraServTask in ExtraServiceTaskTracker.objects.all():
+            if extraServTask.task==True:
+                extraServTask.delete()
+        instance.Updated=True
+        instance.update=False
+        instance.save()
+
+@receiver(post_save,dispatch_uid="updateAllPaidInvoices",sender=UpDateItems)
+def updateAllPaidInvoices(sender,created,instance,**kwargs):
+    if instance.name=="updateSumInvoice" and instance.update==True and instance.Updated==False:
+        for invoice in Invoice.objects.all():
+            if invoice.paid ==True:
+                sumInvoice,created=SumInvoice.objects.get_or_create(
+                name=invoice.name,
+                fedTax=invoice.tax.fed,
+                provtax=invoice.tax.provState
+                )
+                if created:
+                    sumInvoice.allSubTotal+=invoice.subTotal
+                    sumInvoice.allSubMonthly+=invoice.subTotalMonthly
+                    sumInvoice.allTotal=invoice.total
+                    sumInvoice.allMonthly=invoice.totalMonthly
+                    sumInvoice.allDateEnd.append(invoice.dateEnd)
+                    sumInvoice.allPriceID.append(invoice.priceID)
+                    sumInvoice.save()
+        for postInvoice in PostInvoice.objects.all():
+            if postInvoice.paid ==True:
+                sumInvoice,created1=SumInvoice.objects.get_or_create(
+                name=postInvoice.name,
+                fedTax=postInvoice.tax.fed,
+                provtax=postInvoice.tax.provState
+                )
+                if created1:
+                    sumInvoice.save()
+                if len(sumInvoice.allDateEnd)<2:
+                    sumInvoice.allSubTotal+=postInvoice.subTotal
+                    sumInvoice.allSubMonthly+=postInvoice.subTotalMonthly
+                    sumInvoice.allTotal+=postInvoice.total
+                    sumInvoice.allMonthly+=postInvoice.totalMonthly
+                    sumInvoice.allDateEnd.append(postInvoice.dateEnd)
+                    sumInvoice.allPriceID.append(postInvoice.priceID)
+                    sumInvoice.save()
+        for extraInvoice in ExtraInvoice.objects.all():
+            if extraInvoice.paid ==True:
+                sumInvoice,created2=SumInvoice.objects.get_or_create(
+                name=extraInvoice.name,
+                fedTax=extraInvoice.tax.fed,
+                provtax=extraInvoice.tax.provState
+                )
+                if created2:
+                    sumInvoice.save()
+                if len(sumInvoice.allDateEnd)<3:
+                    sumInvoice.allSubTotal+=extraInvoice.subTotal
+                    sumInvoice.allSubMonthly+=extraInvoice.subTotalMonthly
+                    sumInvoice.allTotal+=extraInvoice.total
+                    sumInvoice.allMonthly+=extraInvoice.totalMonthly
+                    sumInvoice.allDateEnd.append(extraInvoice.dateEnd)
+                    sumInvoice.allPriceID.append(extraInvoice.priceID)
+                    sumInvoice.save()
+        instance.update=False
+        instance.Updated=True
+        instance.save()
+
+@receiver(post_save,dispatch_uid="cleanTempSavedCalculator",sender=UpDateItems)
+def cleanTempSavedCalculator(sender,created,instance,**kwargs):
+    if instance.name=="cleanTempCalculator" and instance.update==True and instance.Updated==False:
+        occupiedUUID=[obj.calcUUID for obj in UserAccount.objects.all()]
+        # print(occupiedUUID)
+        for checkTempCalc in TempSavedCalculator.objects.all():
+            # print(type(checkTempCalc.uuid))
+            if str(checkTempCalc.uuid) not in occupiedUUID:
+                checkTempCalc.delete()
+        instance.Updated=True
+        instance.update=False
+        instance.save()
+
+
+
+
+
             

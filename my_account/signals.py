@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.conf import settings
 from .models import UserAccount,Product,Package,Service,PostService,ExtraService
-from adminHome.models import UpDateItems,Rates
+from adminHome.models import UpDateItems,Rates,ProductTaskTracker,ServiceTaskTracker,TaskTracker,PostServiceTaskTracker
 import math
 from django.http import Http404
 from django.core.mail import EmailMultiAlternatives,BadHeaderError
@@ -12,10 +12,22 @@ from django.template.loader import render_to_string
 #CREATING TWO PRICE RECS BASED ON LOWEST PRICE/MONTHLY IN SERVICE AND PRODUCT
 @receiver(post_save,dispatch_uid='createOnpostAccountActivate', sender=UserAccount)
 def createOnpostAccountActivate(instance,created,*args,**kwargs):
-    if instance.postAccountActivate and instance.postActivateEmailSent==False:
-            generateReadyToPublish(instance.user,instance.id)
-    if instance.publishComplete and instance.publishEmailSent==False:
-            sendPublishCompleteEmail(instance.user.id,instance.id)
+    user=User.objects.get(id=instance.user.id)
+    if instance.postAccountActivate ==True and instance.postActivateEmailSent==False:
+        
+        for servTask in ServiceTaskTracker.objects.filter(user_id=user.id,username=user.username):
+            servTask.delete()
+        for prodTask in ProductTaskTracker.objects.filter(user_id=user.id,username=user.username):
+            prodTask.delete()
+        generateReadyToPublish(instance.user,instance.id)
+    if instance.publishComplete ==True and instance.publishEmailSent==False:
+        userTracker=TaskTracker.objects.filter(user=user).first()
+        #FINISHED PROJECT
+        if userTracker:
+            for postServTask in PostServiceTaskTracker.objects.filter(user_id=user.id):
+                userTracker.postService.remove(postServTask)
+                postServTask.delete()
+        sendPublishCompleteEmail(instance.user.id,instance.id)
             
         
 
@@ -133,7 +145,7 @@ def updateProductSavings(instance,*args,**kwargs):
         instance.savings=total - instance.price
         instance.save()
 
-# /////// THIS UPDATES THE SAVINGS TO PRODUCTS  //////
+# /////// THIS UPDATES THE SAVINGS TO PACKAGES  //////
 @receiver(post_save,dispatch_uid='updatepackages', sender=UpDateItems)
 def updatepackages(instance,*args,**kwargs):
     if instance.update==True and instance.Updated==False and instance.name=="package":
@@ -181,17 +193,26 @@ def updateProducts(instance,*args,**kwargs):
         instance.Updated=True
         instance.save()
 
-# /////// THIS UPDATES THE SERVICE PRICING  //////
+# /////// THIS UPDATES THE SERVICE/POST AND EXTRA PRICING  //////
 @receiver(post_save,dispatch_uid='updateServices', sender=UpDateItems)
 def updateService(instance,*args,**kwargs):
     if instance.update==True and instance.Updated==False and instance.name=="service":
-        services=Service.objects.all()
         servRate=Rates.objects.filter(name="service").first()
         interest=Rates.objects.filter(name="interest").first()
-        for service in services:
+        for service in Service.objects.all():
             price=math.ceil(service.price *(1+servRate.interest/100))
             service.price=price
             service.monthly = math.floor((price * ((1 + interest.interest/100)**interest.years))/(interest.years*12))
             service.save()
+        for postService in PostService.objects.all():
+            price=math.ceil(postService.price *(1+servRate.interest/100))
+            postService.price=price
+            postService.monthly = math.floor((price * ((1 + interest.interest/100)**interest.years))/(interest.years*12))
+            postService.save()
+        for extraService in ExtraService.objects.all():
+            price=math.ceil(extraService.price *(1+servRate.interest/100))
+            extraService.price=price
+            extraService.monthly = math.floor((price * ((1 + interest.interest/100)**interest.years))/(interest.years*12))
+            extraService.save()
         instance.Updated=True
         instance.save()

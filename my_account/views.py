@@ -832,27 +832,34 @@ class AddPostServices(APIView):
         postService = PostService.objects.filter(id=serv_id).first()
         user=User.objects.filter(id=user_id).first()
         userAccount=UserAccount.objects.filter(user=user).first()
-        if userAccount and postService:
-            if not userAccount.country:
-                userAccount.country="CA"
-            tax, created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
+        if userAccount.invoice:
+            invoice=Invoice.objects.get(id=userAccount.invoice.id)
+            tax=invoice.tax
+        else:
+            tax,created=Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
             if created:
-                tax.provState=8
-                tax.fed=13
                 tax.save()
-            postInvoice, created=PostInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
-            if created:
+            invoice,created2=Invoice.objects.get_or_create(name=userAccount.name,tax=tax)
+            if created2:
+                invoice.save()
+                userAccount.invoice=invoice
+                userAccount.save()
+        if userAccount.postInvoice:
+            postInvoice=PostInvoice.objects.get(id=userAccount.postInvoice.id)
+        else:
+            postInvoice, created3=PostInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
+            if created3:
                 postInvoice.save()
                 userAccount.postInvoice=postInvoice
                 userAccount.save()
-                
+        if userAccount and postService:
             userAccount.postService.add(postService)
             userAccount.save()
             # CALCULATING COST
             subTotalMonthly=sum([obj.monthly for obj in userAccount.postService.all()])
-            subTotalMonthly=subTotalMonthly*(1+0.03)**5
+            subTotalMonthly=subTotalMonthly
             subTotal=sum([obj.price for obj in userAccount.postService.all()])
-            tax=(1+postInvoice.tax.fed/100)*(1+postInvoice.tax.provState/100)
+            tax=(1+postInvoice.tax.fed/100 + postInvoice.tax.provState/100)
             totalMonthly=subTotalMonthly*tax
             total=subTotal*tax
             postInvoice.subTotalMonthly=math.ceil(subTotalMonthly)
@@ -886,7 +893,7 @@ class RemovePostServices(APIView):
             subTotalMonthly=sum([obj.monthly for obj in userAccount.postService.all()])
             subTotalMonthly=subTotalMonthly*(1+0.03)**5
             subTotal=sum([obj.price for obj in userAccount.postService.all()])
-            tax=(1+postInvoice.tax.fed/100)*(1+postInvoice.tax.provState/100)
+            tax=(1+postInvoice.tax.fed/100 + postInvoice.tax.provState/100)
             totalMonthly=subTotalMonthly*tax
             total=subTotal*tax
             postInvoice.subTotalMonthly=math.ceil(subTotalMonthly)
@@ -1257,7 +1264,9 @@ class SaveServiceDependancy(APIView):
         userAccount=UserAccount.objects.filter(user=user).first()
         tax=userAccount.invoice.tax
         postInvoice,created=PostInvoice.objects.get_or_create(name=userAccount.name,tax=tax)
+        # print("postInvoice-outside",postInvoice)
         if created:
+            # print("postInvoice-Inside",postInvoice)
             postInvoice.subTotal=0
             postInvoice.subTotalMonthly=0
             postInvoice.save()
@@ -1276,6 +1285,9 @@ class SaveServiceDependancy(APIView):
                         postInvoice.subTotal +=postService.price
                         postInvoice.subTotalMonthly +=postService.monthly
                 userAccount.save()
+                tax=(1 + postInvoice.tax.fed/100 + postInvoice.tax.provState/100)
+                postInvoice.total=postInvoice.subTotal*tax
+                postInvoice.totalMonthly=postInvoice.totalMonthly*tax
                 postInvoice.save()
                 Calculate(user_id).execute()
                 serialize=UserAccountAllCombined(userAccount,many=False)

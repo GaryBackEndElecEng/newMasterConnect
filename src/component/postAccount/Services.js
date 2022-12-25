@@ -45,14 +45,13 @@ const Services = () => {
 
   useEffect(()=>{
     let arr=[];
-    let count=0;
     if( postService.loaded && usersPostService.loaded){
         arr=postService.data;
         arr.forEach((service,index)=>{
             usersPostService.data.forEach((usersServ,index2)=>{
                 if(parseInt(usersServ.id)===parseInt(service.id)){
                     arr.splice(index,1);
-                    count++;
+                    
                    
                 }
             });
@@ -61,7 +60,7 @@ const Services = () => {
         localStorage.setItem("usersPostService",JSON.stringify(usersPostService.data))
         setRemainderSvc({loaded:true,data:arr});
     }
-  },[postService.loaded,usersPostService.loaded]);
+  },[postService,usersPostService]);
 
 
     const handleAddToBasket= (e,id)=>{

@@ -34,11 +34,9 @@ def calculateMonthTZ(mon):
 class Calculate:
     def __init__(self,user_id):
         self.user_id=int(user_id)
-        self.invoice=None
         self.user=User.objects.filter(id=self.user_id).first()
         self.userAccount=UserAccount.objects.filter(user=self.user).first()
-        if self.userAccount.invoice:
-            self.invoice=Invoice.objects.filter(id=self.userAccount.invoice.id).first()
+        self.invoice=Invoice.objects.filter(id=self.userAccount.invoice.id).first()
             
             
     def productServiceSubTotal(self):

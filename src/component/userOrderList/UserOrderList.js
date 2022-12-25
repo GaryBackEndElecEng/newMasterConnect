@@ -10,6 +10,7 @@ import { Container, Grid, Typography, Checkbox, Paper,Stack,Fab } from '@mui/mat
 import CoverPage from './CoverPage';
 // import {useTheme} from '@mui/material/styles';
 import api from '../axios/api';
+import apiProtectAdminHome from '../axios/apiProtectAdminHome';
 import { Navigate } from 'react-router-dom';
 
 const MainOrderForm = styled.div`
@@ -46,7 +47,9 @@ const UserOrderList = () => {
         const getCompleteTasks = async (user_id) => {
             try {
                 const res = await api.get(url);
+                // const res = await apiProtectAdminHome.get('/tracker/');
                 const body = res.data;
+                console.log(body)
                 let matchUserId = body.filter(obj => (parseInt(obj.user) === parseInt(user_id)))[0]
                 let getUsersServices = matchUserId.service.filter(obj => parseInt(obj.user_id) === parseInt(user_id))
                 let getUsersPostServices = matchUserId.postService.filter(obj => parseInt(obj.user_id) === parseInt(user_id))

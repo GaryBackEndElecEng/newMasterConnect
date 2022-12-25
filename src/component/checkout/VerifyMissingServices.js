@@ -4,7 +4,7 @@ import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { Stack, Grid, Typography } from '@mui/material';
 
 const VerifyMissingServices = () => {
-    const { user_id, loggedIn } = useContext(TokenAccessContext);
+    const { user_id, loggedIn ,setMissingItems} = useContext(TokenAccessContext);
     const [missing, setMissing] = useState({ loaded: false, data: [] });
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;
     const [showMsg,setShowMsg]=useState(false);
@@ -18,6 +18,7 @@ const VerifyMissingServices = () => {
                 setMissing({ loaded: true, data: missingArray })
                 if(missingArray.length > 0){
                     setShowMsg(true);
+                    setMissingItems(true)
                 }
             } catch (error) {
                 console.error(error.message)

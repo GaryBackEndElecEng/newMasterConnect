@@ -37,7 +37,7 @@ animation: showCover 2s ease-in-out;
 const Success = () => {
 
   const { session_id, staticImage, setTitle, setStyleName, setChangePage } = useContext(GeneralContext);
-  const { user_id, loggedIn, usersInvoice, setUsersInvoice, userAccount, setUser_id } = useContext(TokenAccessContext);
+  const { user_id, loggedIn, usersInvoice, setUsersInvoice, userAccount, setUser_id,missingItems } = useContext(TokenAccessContext);
   const getSession_id = session_id ? session_id : localStorage.getItem("session_id");
   const [message, setMessage] = useState(false);
   const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
@@ -104,8 +104,11 @@ const Success = () => {
         {loggedIn ?
           <>
             <ShowPayment message={message} getUsersInvoice={getUsersInvoice} />
-            <Typography component="h1" variant="h6"> We noticed that you did not include teh floowing services. No Worries, we will sort this out with you during out call.</Typography>
+            {missingItems && <Container maxWidth="lg" sx={{minHeight:"20vh",background:"rgba(255,255,255,.6)"}}>
+            <Typography component="h1" variant="h6"> We noticed that you did not include the following services. No Worries, we will sort this out with you during out call.</Typography>
+            
             <VerifyMissingServices />
+            </Container>}
           </>
 
           :
