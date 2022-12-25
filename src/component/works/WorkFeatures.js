@@ -65,6 +65,7 @@ const WorkFeatures = () => {
     const [sendRated, setSendRated] = useState([]);
     const [showReview, setShowReview] = useState(false);
     const [startingPrice,setStartingPrice]=useState(false);
+    const [httpsMessage,setHttpsMessage]=useState({loaded:false,id:null,msg:""});
     useEffect(() => {
         if (!getProductDesigns.loaded) {
             const getProducts = localStorage.getItem("loadedProduct") ? JSON.parse(localStorage.getItem("loadedProduct")) : null;
@@ -112,10 +113,17 @@ const WorkFeatures = () => {
 
 
 
-    const handleNavigate = (e, link) => {
+    const handleNavigate = (e, link,obj) => {
         if (!link.startsWith("https")) {
             navigate(link, setChangePage(true));
-        } else { window.open(link); }
+        } else {
+            if(link==="https://www.master-sale.ca"){
+            handleHttpsMessage(e,obj);
+            } else{
+                window.open(link);
+            }
+            
+         }
 
     }
     const handleShowReview = (e) => {
@@ -132,6 +140,10 @@ const WorkFeatures = () => {
             setStartingPrice(false);
         }
 
+    }
+    const handleHttpsMessage=(e,obj)=>{
+        e.preventDefault();
+        setHttpsMessage({loaded:true,id:obj.id,msg:"The site was brought offline. If you are interested on viewing the full site, please contact us. Sorry for the inconvenience."})
     }
     return (
         <WorksContainer bg={theme.palette.common.lightTeal} >
@@ -199,12 +211,12 @@ const WorkFeatures = () => {
                 <Grid container spacing={3}>
                     {getProductDesigns.loaded && getProductDesigns.data.sort((a,b)=>(b.id-a.id)).map(obj => (
 
-                        <Grid item xs={12} md={4} key={obj.id} >
+                        <Grid item xs={12} md={4} key={obj.id} sx={{position:"relative"}}>
                             <Card sx={{ width: "100%", "&:hover": { cursor: "pointer" }, position: "relative" }} >
                                 <Paper elevation={10} sx={{ width: "100%", margin: "1rem auto", textAlign: "center" }}>
                                     <Typography component="h1" variant="h4" sx={{ textAlign: "center", fontFamily: "Roboto", width: "100%" }}>{obj.name}</Typography>
                                 </Paper>
-                                <CardMedia component="img" image={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca" onClick={(e) => handleNavigate(e, obj.extra_kwargs)} />
+                                <CardMedia component="img" image={`${staticImage}/${obj.imageName}`} alt="www.master-connect.ca" onClick={(e) => handleNavigate(e, obj.extra_kwargs,obj)} />
                                 <CardContent>
                                     <Typography component="h1" variant="h6" sx={{ textAlign: "center", fontFamily: "Roboto" }}>{obj.desc}</Typography>
                                 </CardContent>
@@ -212,6 +224,14 @@ const WorkFeatures = () => {
                                     <Summary summary={obj.summary} />
                                 </Stack>
                             </Card>
+                            {httpsMessage.loaded && httpsMessage.id===obj.id &&
+                            <Stack direction="column" sx={{alignItems:"center",justifyContent:"center",background:"white",position:"absolute",top:"30%",left:"2%",width:"100%"}} >
+                                <Typography component="h1" variant="h5" sx={{margin:"1rem auto",padding:"1rem"}}>{httpsMessage.msg}</Typography>
+                                <Fab variant="extended" size="small" color="info" onClick={()=>setHttpsMessage({loaded:false,id:null,msg:""})}>
+                                    close 
+                                </Fab>
+                                </Stack>
+                            }
                         </Grid>
 
                     ))}

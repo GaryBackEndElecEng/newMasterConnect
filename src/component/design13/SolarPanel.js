@@ -34,7 +34,7 @@ position:relative;
   margin-top:-5px;
 }
 @media screen and (max-width:600px){
-  margin-top:-55px;
+  margin-top:-85px;
 }
 `;
 const SolarPanel = () => {
@@ -115,7 +115,7 @@ const SolarPanel = () => {
       let checkSolarDesc = solarDesc.data.filter(obj1 => (parseInt(obj1.id) === parseInt(obj.id)))[0];
       if (checkSolarDesc) {
         arr.push({ ...obj, desc: checkSolarDesc.desc,monthly:getProductPrice })
-      }
+      }else{arr.push({ ...obj, desc:"",monthly:getProductPrice })}
     });
     setGetArray(arr);
   }, [setGetArray, solarDesc,getProductDesigns,pathname]);

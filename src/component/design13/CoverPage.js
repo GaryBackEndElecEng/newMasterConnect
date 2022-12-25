@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-import { Container, Stack, Grid, Typography, CardMedia, Card } from '@mui/material';
+import { Container, Stack, Typography, } from '@mui/material';
 import { useEffect } from 'react';
 
 const MainCover = styled(Container)`
 min-height:46vh;
+margin-top:0px;
 
 
 `;
@@ -15,9 +16,11 @@ flex-direction:row;
 flex-wrap:nowrap;
 // align-items:center;
 overflow-x:${({scroll})=>scroll};
+
 position:relative;
 justify-content:flex-start;
 background:white;
+gap:12%;
 @media screen and (max-width:900px){
     width:800px;
 }
@@ -31,13 +34,13 @@ background:white;
 
 `;
 const SlidesStack = styled(Stack)`
-justify-content:center;
+justify-content:flex-start;
 flex-direction:column;
 width:${({ width }) => width}%;
 position:relative;
 text-align:center;
-padding:1rem;
-transform:translateX(${({ transx }) => (-transx * 100)}%);
+// gap:1rem;
+transform:translateX(${({ transx }) => (-transx * 112)}%);
 transform-box:inherit;
 transition:transform 2s ease-in-out;
 -webkit-overflow-scrolling:${({touch})=>touch};
@@ -59,6 +62,7 @@ align-items:center;
 `;
 const CustomImg=styled.img`
 width:${({width})=>width}px;
+padding:0 0.5rem;
 @media screen and (max-width:900px){
     width:890px;
     padding:1rem;
@@ -137,8 +141,9 @@ const CoverPage = ({ staticImage, getArray }) => {
 
                         <CustomImg src={`${staticImage}/solar/${obj.image}`} alt="www.masterconnect.ca"
                             width= {getWidth}
+                            
                         />
-                        <Typography component="h1" variant="h3"
+                        <Typography component="h1" variant="h4"
                             sx={{ margin: "1rem auto" }}
                         >
                             {obj.title}
@@ -146,7 +151,7 @@ const CoverPage = ({ staticImage, getArray }) => {
                         <Typography component="h1" variant="h6"
                             sx={{ margin: "auto" }}
                         >
-                            {obj.summary}
+                            {obj.summary.slice(0,70)}...
                         </Typography>
 
 
