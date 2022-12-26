@@ -11,6 +11,7 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 
 const ModalContainer = () => {
   const location=useLocation();
+  const pathname=location.pathname;
   const { setShowRegistration,setOpenSignin}=useContext(GeneralContext);
   const [openModal, setOpenModal] = useState();
   const [removeSignINBtn, setRemoveSignINBtn] = useState();
@@ -36,11 +37,17 @@ useEffect(()=>{
     setRemoveSignINBtn(false);
     localStorage.removeItem("page")
   }
+  const handleOpenModel=(e)=>{
+    e.preventDefault();
+    setOpenModal(true);
+    localStorage.setItem("extra_kwargs",pathname);
+    
+  }
 
   return (
     <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", position: "relative", margin: " 2rem -10px", }}>
       {!openModal &&
-        <Fab variant="extended" color="primary" onClick={(e) => setOpenModal(true)}
+        <Fab variant="extended" color="primary" onClick={(e) => handleOpenModel(e)}
           className={styles.openModalOpen}
           sx={{ position: "relative", top: toOpen, animation: `${styles.moveCloseBtn} 2s ease-in` }}
         >

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useRef, } from 'react';
 import {useNavigate,useLocation} from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { useTheme } from '@mui/material/styles';
     import {  Typography, Grid, Container, Paper, FormControl, InputLabel, FormHelperText, Input, FormControlLabel, Checkbox, FormLabel, Card, CardContent, Fab, CardMedia, ButtonBase } from '@mui/material';
 // import styled from 'styled-components';
@@ -17,6 +18,7 @@ const TargetRegister = () => {
     const theme = useTheme();
     const MyRef = useRef();
     const { register, setRegister, staticImage,setRegisterConfirmed,email,setError,error, setEmail,setChangePage,setTitle,setStyleName } = useContext(GeneralContext);
+    const {setFormComplete}=useContext(TokenAccessContext);
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
     const [validPassword, setValidPassword] = useState(false);
@@ -49,10 +51,12 @@ const TargetRegister = () => {
                     checked: checked
                 },
                 loaded:false
-            })
+            });
+            localStorage.setItem("formComplete",false);
+            setFormComplete(false)
 
         }
-    }, [validEmail, validUsername, validPassword, setInfoOkay, checked,email,password,setRegister,username]);
+    }, [validEmail, validUsername, validPassword, setInfoOkay, checked,email,password,setRegister,username,setFormComplete]);
 
     useEffect(()=>{
         setTitle("Register");
@@ -80,7 +84,7 @@ const TargetRegister = () => {
                 const res = await apiProtect.post(`/account/register/`,register.data)
                 const data=res.data
                 if(data && data.status !==302){
-                    setRegister({loaded:true});
+                    setRegister({loaded:true,data:register.data});
                     setRegisterConfirmed(true);
                     localStorage.setItem('username',data.username);
                     localStorage.setItem('email',data.email);

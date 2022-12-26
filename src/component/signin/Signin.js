@@ -27,7 +27,7 @@ const Signin = () => {
     const theme = useTheme();
     const MyRef = useRef();
     const { staticImage, email, setEmail, setChangePage, setTitle, setStyleName, setActivate, register, setRegister, getPathLocation } = useContext(GeneralContext);
-    const { setLoggedIn, setSignin, setTokenIsValid, loginError, setLoginError, setSignout, setGoToSignin, setViewAccount,loggedIn } = useContext(TokenAccessContext)
+    const { setLoggedIn, setSignin, setTokenIsValid, loginError, setLoginError, setSignout, setGoToSignin, setViewAccount,loggedIn,setPaid } = useContext(TokenAccessContext)
     const [validEmail, setValidEmail] = useState(false);
     const [validUsername, setValidUsername] = useState(false);
     const [infoOkay, setInfoOkay] = useState(false);
@@ -40,6 +40,7 @@ const Signin = () => {
     const clientEmail = localStorage.getItem("email") ? localStorage.getItem("email") : "";
     const tokenIsValid = localStorage.getItem("tokenIsValid") ? JSON.parse(localStorage.getItem("tokenIsValid")) : false;
     const [getCustom, setGetCustom] = useState({ loaded: false, data: {} });
+    const extra_kwargs = localStorage.getItem("extra_kwargs")? localStorage.getItem("extra_kwargs"):null;
 
     useEffect(() => {
         //SELECTED CUSTOM TEMPLATE
@@ -71,17 +72,19 @@ const Signin = () => {
             setActivate(false);
             setLoggedIn(false);
             setGoToSignin(true);
+            setPaid(false);
         }
         if (window.scrollY) {
             window.scroll(0, 0);
 
         }
-    }, [tokenIsValid, setLoggedIn, setGoToSignin, setActivate, setSignout, setChangePage]);
+    }, [tokenIsValid, setLoggedIn, setGoToSignin, setActivate, setSignout, setChangePage,setPaid,loggedIn]);
 
     useEffect(() => {
         const postSignin = async () => {
             const getUUID = localStorage.getItem("UUID") ? JSON.parse(localStorage.getItem("UUID")) : null;
             const getpackageId = localStorage.getItem("buypackage") ? JSON.parse(localStorage.getItem("buypackage")) : null;
+
             let params={};
             try {
                 if (getCustom.loaded) {
@@ -91,7 +94,8 @@ const Signin = () => {
                         password: register.data.password,
                         UUID: getUUID,
                         customId: getCustom.data.id,
-                        packageId:getpackageId
+                        packageId:getpackageId,
+                        extra_kwargs:extra_kwargs
                     }
                 } else {
                     params = {
@@ -100,7 +104,8 @@ const Signin = () => {
                         password: register.data.password,
                         UUID: getUUID,
                         customId:null,
-                        packageId:getpackageId
+                        packageId:getpackageId,
+                        extra_kwargs:extra_kwargs
                     }
                 }
                 const res = await apiProtect.post(`/account/login/`, params)
@@ -122,6 +127,7 @@ const Signin = () => {
                     navigate("/", setChangePage(true));
                     setRegister({ loaded: false, data: { 'username': data.username, "email": data.email, "password": "" } });
                     localStorage.removeItem("buypackage");
+                    localStorage.removeItem("extra_kwargs");
                 } else {
                     setError(true);
                     new Error(data.error)
@@ -136,7 +142,7 @@ const Signin = () => {
         if (register.loaded && register.data) {
             setTimeout(()=>{postSignin();},500);
         }
-    }, [register.loaded, navigate, register.data, setChangePage, setLoginError, setRegister, setLoggedIn, setSignin, setTokenIsValid, setViewAccount,getCustom.loaded,getCustom.data.id]);
+    }, [register.loaded, navigate, register.data, setChangePage, setLoginError, setRegister, setLoggedIn, setSignin, setTokenIsValid, setViewAccount,getCustom.loaded,getCustom.data.id,extra_kwargs]);
 
     useEffect(() => {
         const email_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -174,7 +180,8 @@ const Signin = () => {
                     password: password,
                     UUID: "",
                     customId:getCustom.data.id,
-                    packageId:getpackageId
+                    packageId:getpackageId,
+                    extra_kwargs:extra_kwargs
                     }
                 }else{
                     params = {
@@ -183,7 +190,8 @@ const Signin = () => {
                         password: password,
                         UUID: "",
                         customId:null,
-                        packageId:getpackageId
+                        packageId:getpackageId,
+                        extra_kwargs:extra_kwargs
                         }
                 }
                 const res = await apiProtect.post(`/account/login/`, params)

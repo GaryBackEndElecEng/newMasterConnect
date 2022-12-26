@@ -95,8 +95,8 @@ const CalculateBanner = () => {
                         <CalculateIcon sx={{ mr: 2, color: "black", fontSize: { xs: "40px", sm: "40px", md: "60px" } }} />
                         <Typography component="h1" variant="h4"> Calculator</Typography>
                     </Stack>
-                    <Typography component="h1" variant="h5" sx={{ color: { md: "blue", xs: "black", sm: "white" } }}> ( estimate your cost ),</Typography>
-                    <Typography component="h1" variant="h5" sx={{ margin: "2rem auto", marginLeft: "2rem" }}>  with a coffee </Typography>
+                    <Typography component="h1" variant="h5" sx={{ color: { md: "blue", xs: "white", sm: "white" } }}> ( estimate your cost ),</Typography>
+                    <Typography component="h1" variant="h5" sx={{ margin: "2rem auto", marginLeft: "2rem",color:{xs:"white"} }}>  with a coffee </Typography>
                 </Stack>
                 <Stack direction="column" spacing={{ xs: 0, sm: 1 }} sx={{
                     padding: "1rem", marginTop: { md: "2rem", sm: "4rem" },
@@ -106,7 +106,7 @@ const CalculateBanner = () => {
                         onClick={(e) => handleTransfer(e)}
                         sx={{ padding: "1rem" }}
                     >
-                        <FunctionsIcon sx={{ mr: 2, color: "red", }} /> I want to Calculate my cost
+                        <FunctionsIcon sx={{ mr: 2, color: "red", }} /> let's calculate
                     </Fab>
                 </Stack>
             </Container>

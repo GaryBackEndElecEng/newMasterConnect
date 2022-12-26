@@ -33,7 +33,7 @@ const Faqs = () => {
     const theme = useTheme();
     const [show, setShow] = useState(false);
     const [newArr,setNewArr]=useState([]);
-    const {staticImage,allCategory} =useContext(GeneralContext);
+    const {staticImage,allCategory,SetFAQS} =useContext(GeneralContext);
     const bg2=`${staticImage}/middlebannerWallPaper.png`
     const moveLeft=!show ? "35%":"2%";
     const BtnColor= show ? "primary":"info";
@@ -42,6 +42,7 @@ const Faqs = () => {
             const getFAQS2= await allCategory.data.filter(obj=>(obj.name==="footer"))[0].catFooter;
             // console.log("getFAQS2",getFAQS2)
             setNewArr(getFAQS2)
+            SetFAQS({loaded:true,data:getFAQS2})
         }
         if(allCategory.loaded && allCategory?.data){
             getFaq();

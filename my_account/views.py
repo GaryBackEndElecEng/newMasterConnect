@@ -35,7 +35,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.exceptions import AuthenticationFailed
-from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs,addInvoiceToUserAccount,extraInvoiceCalc,addSelectedPackageToUser,adjustTaxInvoiceForiegn)
+from .util import( Calculate,StripeCreation,findSubTotalMonthly,GetSession,updatePackages,monthlyProductServiceMonthlyPrice,StripeCreationPost,calculate5YrMonthly,calculateMonthTZ,StripeCreationExtra,CalculateCost,CalcAddToUserAccountAtLogin,storeCustomId,saveUsersPackage,generateUserJobs,addInvoiceToUserAccount,extraInvoiceCalc,addSelectedPackageToUser,adjustTaxInvoiceForiegn,addProductToNewUser)
 from api.util import sendAlertEmail,sendConsultEmail,sendExtraEmail,ServiceEvaluator
 import stripe,math
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -167,7 +167,7 @@ class LoginView(APIView):
         data=self.request.data
         username=data['username']
         password=data['password']
-
+        print(data)
         try:
             user=auth.authenticate(username=username,password=password)
             # print("userModel",user)
@@ -189,6 +189,9 @@ class LoginView(APIView):
                    addSelectedPackageToUser(user.id,packageId)
                    #CALCULATES THE TOTAL COST AND SAVE IN INVOICE
                    Calculate(user.id).execute()
+                if data["extra_kwargs"]:
+                    extra_kwargs=data["extra_kwargs"]
+                    addProductToNewUser(user.id,extra_kwargs)
                 generateUserJobs(user.id)
                 token=self.get_tokens_for_user(user)
                 return Response({"access_token":token["access_token"],"refresh_token":token["refresh_token"],"username":user.username,"email":user.email,"user_id":user.id},status=status.HTTP_200_OK)

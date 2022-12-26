@@ -5,8 +5,7 @@ one subject: what is communication
 
 
 TODO
--DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
--ADD FB,LINKEDLN AND INSTAGRAM LINKS
+- fix time dates- create hook on purchase
 -Fix Google register and signin:([GSI_LOGGER]: The given origin is not allowed for the given client ID.)
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -create a financial hook on balance owing.
@@ -14,6 +13,8 @@ TODO
 -RECREATE MASTER-SALE DATABASE USING A NEW GIT REPOSITORY
 
 COMPLETE:
+-ADD FB,LINKEDLN AND INSTAGRAM LINKS
+-DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 - finish the Solar and then put a link to Store Front pointing to to contact info for more 
 - Fix the button " expand " in specials
 -TESTED: NO ISSUE:FIX RESTAURANT/PURCHASE BUTTON- add e.preventDefault(); to /Signin

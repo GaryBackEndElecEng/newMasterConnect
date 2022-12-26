@@ -45,7 +45,7 @@ class BlogPost(APIView):
     """ Main Blog Posts"""
     def get(self,request,format=None):
         blogs=TitleBlog.objects.all()
-        print("blog",blogs)
+        # print("blog",blogs)
         if blogs:
             serializer = BlogCategorySerializer(blogs,many=True)
             # print("PostList-serializer",serializer)

@@ -240,8 +240,8 @@ const Design1 = () => {
       <Container maxWidth={"md"}>
         {!paid && <Stack direction={"column"} sx={{ margin: "1rem auto" }}>
           {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-            :
-            <ModalContainer />}
+          :
+            <><ModalContainer /></>}
         </Stack>}
         <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>{lang ? "Veuillez commenter la conception ci-dessous. Nous nous efforçons de nous améliorer.":"Please comment on the design,below. We strive to improve."}</Typography>
         <PageFeedback/>

@@ -11,7 +11,7 @@ import GetRegisterPages from '../utils/GetRegisterPages';
 const Signout = () => {
   const navigate = useNavigate();
   const { setChangePage,staticImage,setTitle,setStyleName} = useContext(GeneralContext);
-  const {setLoggedIn,setSignin,setSignout,setGoToSignin }=useContext(TokenAccessContext);
+  const {setLoggedIn,setSignin,setSignout,setGoToSignin,setPaid }=useContext(TokenAccessContext);
   const cardImg = `${staticImage}/jupiter.png`;
 
 
@@ -41,6 +41,7 @@ const Signout = () => {
           setLoggedIn(false);
           localStorage.clear(); 
           setGoToSignin(true);
+          setPaid(false);
           navigate("/", setChangePage(true));
         } else { new Error("nothing returned") }
 

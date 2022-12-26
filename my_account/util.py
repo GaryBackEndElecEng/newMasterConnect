@@ -1141,4 +1141,13 @@ def addSelectedPackageToUser(user_id,package_id):
         userAccount.save()
         
 
+def addProductToNewUser(user_id,extra_kwargs):
+    product=Product.objects.filter(extra_kwargs=extra_kwargs).first()
+    user=User.objects.get(id=user_id)
+    userAccount=UserAccount.objects.filter(user=user).first()
+    if userAccount:
+        userAccount.product.add(product.id)
+        userAccount.save()
+        
+
 

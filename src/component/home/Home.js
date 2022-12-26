@@ -65,18 +65,21 @@ margin-top:2.5rem;
 }
 
 `;
+function todayDate(){
+    return Date.now()
+}
 
 
 const Home = () => {
     const theme = useTheme();
-    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed, setChangePage, allCategory, conical, getPathLocation } = useContext(GeneralContext);
+    const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed, setChangePage, allCategory, getPathLocation,FAQS } = useContext(GeneralContext);
     const { signout, signin, viewAccount, loggedIn } = useContext(TokenAccessContext);
 
     const [window600, setWindow600] = useState(false);
     const [seeExample, setSeeExample] = useState(false);
     const [makeEasy, setMakeEasy] = useState(false);
     const [profileHelmet, setProfileHelmet] = useState({});
-    const [generalInfoHelmet, setGeneralInfoHelmet] = useState({});
+    const [generalInfoHelmet, setGeneralInfoHelmet] = useState({loaded:false,data:[]});
     const [turnOnWeDo, setTurnONWeDo] = useState(false);
     const [activate, setActivate] = useState(false);
     const [activateBio, setActivateBio] = useState(false);
@@ -85,7 +88,7 @@ const Home = () => {
     // const homeHeight = removeBlock ? 375 : null;
 
     const homeBg2 = `${staticImage}/homeBg3.png`;
-    const getGeneralInfoHelmet = generalInfoHelmet ? generalInfoHelmet : null;
+    const getGeneralInfoHelmet = generalInfoHelmet.loaded ? generalInfoHelmet.data : null;
 
     const observers = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
@@ -123,15 +126,17 @@ const Home = () => {
     useEffect(() => {
         const getAllCats = async () => {
             let bio = await allCategory.data.filter(obj => (obj.section === "bio"))[0].catWordSnippet[0]
+            let general = await allCategory.data.filter(obj => (obj.section === "GeneralInfo"))[0].categoryGeneralInfo[0]
             let bio1 = bio;
             setProfileHelmet(bio1)
-            setGeneralInfoHelmet(bio1)
+            setGeneralInfoHelmet({loaded:true,data:general})
         }
         if (allCategory.loaded && allCategory?.data) {
             getAllCats();
         }
     }, [allCategory.loaded, allCategory.data])
 
+    
 
     useEffect(() => {
         setTitle("Web Service");
@@ -187,6 +192,8 @@ const Home = () => {
             <RegisterPage />
             <GetRegisterPages />
             <HomeHelmet
+            newDate={todayDate()}
+            FAQS={FAQS.loaded ? FAQS.data:null}
                 profileHelmet={profileHelmet}
                 generalInfoHelmet={getGeneralInfoHelmet}
                 getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
@@ -260,7 +267,7 @@ const Home = () => {
 
                             <Stack id="test" ref={(e) => testMyRef(e)}
                                 sx={{
-                                    margin: "1rem auto", padding: "0.5rem", background: theme.palette.common.fadeCharcoal,
+                                    margin: "1rem auto", padding: "0.5rem", background: theme.palette.splash2,
                                     justifyContent: "center", alignItems: "center", width: { xs: "100%", md: "80%", sm: "85%" }, position: "relative", boxShadow: "1px 1px 10px 5px lightgrey"
                                 }}
                                 direction="column"
