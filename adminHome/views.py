@@ -29,7 +29,7 @@ from my_account.models import *
 from rest_framework.permissions import AllowAny
 from my_account.util import monthlyProductServiceMonthlyPrice,updatePackages,insertLowest_price_in
 from .forms import *
-from .serializers import TaskTrackerSerializer
+from .serializers import TaskTrackerSerializer,RateSerializer
 from .util import generateSumInvoice,CleanTaskTracker
 from .models import *
 from api.models import *
@@ -161,6 +161,16 @@ class GetTaskTracker(APIView):
         try:
             taskTracker=TaskTracker.objects.all().order_by("id")
             serializer=TaskTrackerSerializer(taskTracker,many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class GetRates(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    def get(self,request,format=None):
+        try:
+            rates=Rates.objects.all().order_by("id")
+            serializer=RateSerializer(rates,many=True)
             return Response(serializer.data)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)

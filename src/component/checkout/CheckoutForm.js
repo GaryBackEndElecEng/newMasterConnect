@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { GeneralContext } from '../../context/GeneralContextProvider';
+import { PriceContext } from '../../context/PriceContextProvider';
 import { Stack, Container, Paper, Typography, Card, CardContent, CardMedia, Fab, ListItem, Grid, Avatar } from '@mui/material';
 import styled from 'styled-components';
 import apiProtect from '../axios/apiProtect';
@@ -34,10 +35,11 @@ const CheckoutForm = () => {
     // const navigate=useNavigate();
     const { user_id, setSentToServer, loggedIn, usersService, usersProduct } = useContext(TokenAccessContext);
     const { setChangePage, serverUrl, staticImage } = useContext(GeneralContext);
+    const {rates}=useContext(PriceContext);
     const [getInvoice, setGetInvoice] = useState([]);
     const getSelectedPayment = getInvoice ? getInvoice : null;
     const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
-    const serverUrl1 = "http://localhost:8000/api"
+    const stripeCharge= rates.loaded? rates.data.filter(obj=>(obj.name==="stripeCharge"))[0].interest:0;
 
     useEffect(() => {
 
@@ -132,6 +134,7 @@ const CheckoutForm = () => {
                             </Fab>
                         </Stack>
                         <small style={{marginTop:"1rem",fontSize:"75%"}}> 3% interest per year is added as industry standard</small>
+                        <small style={{marginTop:"1rem",fontSize:"75%"}}>1/2 of {stripeCharge}% transaction fee is applied</small>
                         <small style={{marginTop:"1rem",fontSize:"75%"}}> administration duties is not added - our service to you.</small>
                     </CardContent>
                 </form>

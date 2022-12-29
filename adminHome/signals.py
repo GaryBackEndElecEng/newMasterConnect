@@ -223,6 +223,26 @@ def cleanTempSavedCalculator(sender,created,instance,**kwargs):
         instance.update=False
         instance.save()
 
+@receiver(post_save,dispatch_uid="cleanOutTaskTracker",sender=UpDateItems)
+def cleanOutTaskTracker(sender,created,instance,**kwargs):
+    if instance.name=="removeUnwantedTaskTrackers" and instance.update==True and instance.Updated==False:
+        user_ids=[obj.id for obj in User.objects.all()]
+        for prodTask in ProductTaskTracker.objects.all():
+            if prodTask.user_id not in user_ids:
+                prodTask.delete()
+        for servTask in ServiceTaskTracker.objects.all():
+            if servTask.user_id not in user_ids:
+                servTask.delete()
+        for postServTask in PostServiceTaskTracker.objects.all():
+            if postServTask.user_id not in user_ids:
+                postServTask.delete()
+        for extraServTask in ExtraServiceTaskTracker.objects.all():
+            if extraServTask.user_id not in user_ids:
+                extraServTask.delete()
+        instance.Updated=True
+        instance.update=False
+        instance.save()
+
 
 
 

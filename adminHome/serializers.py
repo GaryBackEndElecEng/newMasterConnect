@@ -29,3 +29,8 @@ class TaskTrackerSerializer(serializers.ModelSerializer):
     class Meta:
         model=TaskTracker
         fields="__all__"
+
+class RateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Rates
+        fields="__all__"

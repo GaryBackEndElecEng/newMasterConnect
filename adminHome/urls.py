@@ -12,6 +12,7 @@ urlpatterns=[
     path('',views.AdminHome,name="adminHome-view"),
     path('tasks/',views.tasksUserAccounts,name="tasks-view"),
     path('tracker/',views.GetTaskTracker.as_view(),name="tracker-view"),
+    path('rates/',views.GetRates.as_view(),name="GetRates-view"),
     path('trackerAccount/',views.GetTaskTrackerAccount.as_view(),name="trackerAccount-view"),
 ]
 

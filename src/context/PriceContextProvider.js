@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import api from '../component/axios/api';
+import apiAdmin from '../component/axios/apiAdmin';
 
 export const PriceContext=React.createContext();
 export const PriceContextProvider = (props) => {
@@ -21,6 +22,7 @@ export const PriceContextProvider = (props) => {
     const [getServices,setGetServices]=useState({loaded:false,data:[]});
     const [getExtraServices,setGetExtraServices]=useState({loaded:false,data:[]});
     const [DNS,setDNS]=useState({loaded:false,data:[]});
+    const [rates,setRates]=useState({loaded:false,data:[]});
     const [basePrice,setBasePrice]=useState({loaded:false,data:[]});
     const [startingPrices,setStartingPrices]=useState({loaded:false,data:[]});
     const [baseServices,setBaseServices]=useState({loaded:false,data:[]});
@@ -152,9 +154,24 @@ export const PriceContextProvider = (props) => {
         getServices();
       },[]);
 
+    useEffect(()=>{
+        const getRates = async ()=>{
+          try {
+            const res= await apiAdmin.get('/rates/');
+            const rates=res.data
+            setRates({loaded:true,data:rates})
+            
+          } catch (error) {
+            console.error(error.message)
+          }
+        }
+        getRates();
+        
+      },[]);
+
     
     return (
-        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray,customTemplates,getContactList,getAboutList}}>
+        <PriceContext.Provider value={{priceCatelog,getServerPrice,setGetServerPrice,getProductList,getServiceList,getBaseFeatureList,getBaseGeneralPrice,getPackages,setGetPackages,getServices,postService,basePrice,baseServices,startingPrices,getExtraServices,setGetExtraServices,setBasePrice,DNS,serviceImage,userAccountGroup,SEO,userAccountPostGroup,userQuestionArray,customTemplates,getContactList,getAboutList,rates}}>
             {props.children}
         </PriceContext.Provider>
       )

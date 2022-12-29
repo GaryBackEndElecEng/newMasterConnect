@@ -58,6 +58,7 @@ class Calculate:
         self.user_id=int(user_id)
         self.user=User.objects.filter(id=self.user_id).first()
         self.userAccount=UserAccount.objects.filter(user=self.user).first()
+        self.stripeCharge=Rates.objects.filter(name="stripeCharge").first()
         if not self.userAccount.invoice:
             invoice_id=addInvoiceToUserAccount(self.user.username)
             self.invoice=Invoice.objects.filter(id=invoice_id).first()
@@ -132,12 +133,19 @@ class Calculate:
             self.invoice.savings=savings
             self.invoice.save()
     
+    def calculateStripeFee(self):
+        fee=1 + self.stripeCharge.interest/200
+        self.invoice.total=math.floor(self.invoice.total*fee)
+        self.invoice.totalMonthly=math.floor(self.invoice.totalMonthly * fee)
+        self.invoice.save()
+        return 
 
     def execute(self):
         self.productServiceMonthly()
         self.productServiceTotal()
         self.monthlyArrayCalculator()
         self.calculateSavings()
+        self.calculateStripeFee()
         return 
 
 

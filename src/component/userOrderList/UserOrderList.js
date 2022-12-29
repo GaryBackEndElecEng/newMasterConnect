@@ -10,7 +10,7 @@ import { Container, Grid, Typography, Checkbox, Paper,Stack,Fab } from '@mui/mat
 import CoverPage from './CoverPage';
 // import {useTheme} from '@mui/material/styles';
 import api from '../axios/api';
-import apiProtectAdminHome from '../axios/apiProtectAdminHome';
+import apiAdmin from '../axios/apiAdmin';
 import { Navigate } from 'react-router-dom';
 
 const MainOrderForm = styled.div`
@@ -43,10 +43,11 @@ const UserOrderList = () => {
     }, [setTitle, setStyleName]);
 
     useEffect(() => {
-        const url = (process.env.NODE_ENV === "production") ? "https://newmasterconnect.herokuapp.com/adminHome/tracker/" : "http://localhost:8000/adminHome/tracker/";
+        // const url = (process.env.NODE_ENV === "production") ? "https://newmasterconnect.herokuapp.com/adminHome/tracker/" : "http://localhost:8000/adminHome/tracker/";
+        const url2="http://localhost:8000/adminHome/tracker/";
         const getCompleteTasks = async (user_id) => {
             try {
-                const res = await api.get(url);
+                const res = await apiAdmin.get('tracker/');
                 // const res = await apiProtectAdminHome.get('/tracker/');
                 const body = res.data;
                 console.log(body)

@@ -5,14 +5,15 @@ one subject: what is communication
 
 
 TODO
-- fix time dates- create hook on purchase
+
 -Fix Google register and signin:([GSI_LOGGER]: The given origin is not allowed for the given client ID.)
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
--create a financial hook on balance owing.
+-get LIve Stripe codes and go live
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
 -RECREATE MASTER-SALE DATABASE USING A NEW GIT REPOSITORY
 
 COMPLETE:
+- fix time dates- create hook on purchase
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)
 - finish the Solar and then put a link to Store Front pointing to to contact info for more 

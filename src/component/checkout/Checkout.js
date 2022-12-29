@@ -20,8 +20,10 @@ import CheckoutHelmet from './CheckoutHelmet';
 const CusCheckout = styled.div`
 position:absolute;
 top:0%;
+left:0%;
+width:100%;
 z-index:10000;
-margin-left:25%;
+
 
 @media screen and (max-width:900px){
   margin-left:0%;
