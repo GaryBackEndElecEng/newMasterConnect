@@ -207,7 +207,9 @@ const Signin = () => {
                     localStorage.setItem('refresh_token', data.refresh_token);
                     localStorage.setItem('tokenIsValid', true);
                     localStorage.setItem("loggedIn", true);
-                    localStorage.setItem("goToSignin", false)
+                    localStorage.setItem("goToSignin", false);
+                    localStorage.removeItem("buypackage");
+                    localStorage.removeItem("extra_kwargs");
                     setRegister({ loaded: false, data: { 'username': data.username, "email": data.email, "password": "" } });
                     setViewAccount(true);
                     setTimeout(() => { setSignin(false) }, 6000);

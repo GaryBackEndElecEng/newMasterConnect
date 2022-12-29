@@ -194,7 +194,7 @@ const Amount = () => {
                 </Grid>
             </Grid>
             <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "2rem auto" }}>
-                <Typography component="h1" variant="h5" sx={{ margin: "1rem auto" }}>${loadInv && loadInv.totalMonthly}.<sup>00</sup> monthly</Typography>
+                <Typography component="h1" variant="h5" sx={{ margin: "1rem auto" }}>${loadInv && loadInv.subTotalMonthly}.<sup>00</sup> monthly</Typography>
                 <Fab variant="extended" color="success" onClick={(e) => handle5Year(e)}>
                     5 year monthly <AddCardIcon sx={{ ml: 1, color: "white" }} />
                 </Fab>

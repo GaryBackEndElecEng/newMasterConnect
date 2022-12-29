@@ -37,7 +37,7 @@ animation: showCover 2s ease-in-out;
 const Success = () => {
 
   const { session_id, staticImage, setTitle, setStyleName, setChangePage } = useContext(GeneralContext);
-  const { user_id, loggedIn, usersInvoice, setUsersInvoice, userAccount, setUser_id,missingItems } = useContext(TokenAccessContext);
+  const { user_id, loggedIn, usersInvoice, setUsersInvoice, userAccount, setUser_id,missingItems,setPaid } = useContext(TokenAccessContext);
   const getSession_id = session_id ? session_id : localStorage.getItem("session_id");
   const [message, setMessage] = useState(false);
   const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
@@ -54,10 +54,11 @@ const Success = () => {
     const getInfoFromSession_id = async () => {
       try {
         const res = await apiProtect.post('/account/getInfoSession/', { "user_id": getUser_id, "session_id": getSession_id });
-        const body = res.data
-        // console.log(body)
-        // setUserAccount({ loaded: true, data: body })
-        setUsersInvoice({ loaded: true, data: body.invoice })
+        const userAccount = res.data
+        setUsersInvoice({ loaded: true, data: userAccount.invoice });
+        if(userAccount.invoice.paid===true){
+          setPaid(true)
+        }
         setUser_id(getUser_id)
         setMessage("Success!!- Thank you for purchasing the our services. An email was sent to you. We will be contacting you in the next 24hrs to begin the build. Looking forward to talking to you.")
       } catch (error) {

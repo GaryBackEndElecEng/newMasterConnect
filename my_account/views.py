@@ -45,6 +45,7 @@ strip_secret_key=settings.STRIPE_SECRET_KEY
 from django.views import View
 from django.http import HttpResponse, HttpResponseNotFound
 import os,json
+from django.utils import timezone
 
 class Assets(View):
 
@@ -167,18 +168,16 @@ class LoginView(APIView):
         data=self.request.data
         username=data['username']
         password=data['password']
-        print(data)
+        # print(data)
         try:
             user=auth.authenticate(username=username,password=password)
             # print("userModel",user)
             if user is not None:
                 auth.login(request,user)
-                addInvoiceToUserAccount(username)
+                invoice_id=addInvoiceToUserAccount(username)
                 if data['UUID']:
                    uuid=data['UUID']
                    CalcAddToUserAccountAtLogin(uuid,username).execute()
-                if packageId:
-                    saveUsersPackage(user.id,packageId)
                 if data["customId"]:
                    customId=data["customId"]
                    #STORES CUSTOM PRODUCT TO USERACCOUT
@@ -186,7 +185,8 @@ class LoginView(APIView):
                 if data["packageId"]:
                    # STORE USERS SELECTED PACKAGE TO THE USERS ACCOUNT
                    packageId=data["packageId"]
-                   addSelectedPackageToUser(user.id,packageId)
+                   print("Invoice within LoginView/packageId",invoice_id)
+                   addSelectedPackageToUser(user.id,packageId,invoice_id)
                    #CALCULATES THE TOTAL COST AND SAVE IN INVOICE
                    Calculate(user.id).execute()
                 if data["extra_kwargs"]:
@@ -778,6 +778,9 @@ class GetSessionInfo(APIView):
             userAccount.save()
             getInvoice=Invoice.objects.get(id=userAccount.invoice.id)
             getInvoice.paid=True
+            today=timezone.now()
+            getInvoice.dateStart=today
+            getInvoice.dateEnd=calculateMonthTZ(getInvoice.numPayment)
             getInvoice.save()
             test= GetSession(session_id,user_id)
             test.getSession()

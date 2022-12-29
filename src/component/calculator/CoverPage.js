@@ -67,10 +67,11 @@ const CoverPage = () => {
                 <Typography component="h1" variant="h4" sx={{margin:"0.5rem auto"}}>Welcome to the Calculator</Typography>
                 <Typography component="h1" variant="h5" sx={{margin:"0.5rem auto"}}>Choose from the drop-downs</Typography>
                 <Stack direction="column" sx={{ margin: "1rem auto" }} spacing={{ xs: 1, sm: 2 }}>
-                    <Typography component="h1" variant="h6">Services have dependancies and should remain together - reason to why we are asking questions on what you want or require.</Typography>
+                <Typography component="h1" variant="h5">NOTE:</Typography>
+                    <Typography component="h1" variant="h6">Services have dependancies and should remain together - reason to why we are asking questions to best serve your requirments.</Typography>
                     <Typography className={styles.relaxTypo} component="h1" variant="h3"
                     sx={{fontFamily:"Tangerine"}}
-                    > sit back with a coffee and let the system guide you.</Typography>
+                    >Please, sit back with a coffee and let the system guide you.</Typography>
                 </Stack>
             </SlideInContainer>
 

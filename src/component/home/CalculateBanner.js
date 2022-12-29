@@ -1,4 +1,4 @@
-import React, { useContext, } from 'react';
+import React, { useContext,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Box, Container, Fab, Stack, Typography } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FunctionsIcon from '@mui/icons-material/Functions';
+import CalculateBtn from './CalculateBtn';
 
 
 const BannerBox = styled(Box)`
@@ -69,19 +70,20 @@ opacity:1;
 const CalculateBanner = () => {
     const navigate = useNavigate();
     const theme = useTheme();
-    const { setChangePage } = useContext(GeneralContext);
-    const calcPic = "https://new-master.s3.ca-central-1.amazonaws.com/static/images/calculator1.png";
-    const coffee = "https://new-master.s3.ca-central-1.amazonaws.com/static/images/coffee1.JPG";
+    const { setChangePage,staticImage } = useContext(GeneralContext);
+    const calcPic = `${staticImage}/images/calculator1.png`;
+    const coffee = `${staticImage}/images/coffee1.JPG`;
+    const [activatePrep,setActivatePrep]=useState(false);
 
-    const handleTransfer = (e) => {
+    const handleActivateMsg = (e) => {
         e.preventDefault();
-        navigate("/calculate", setChangePage(true))
+        setActivatePrep(true);
     }
     return (
         <BannerBox bg_image={calcPic}>
             <CustomImage src={coffee} alt="www.master-connect.ca" />
             <Container maxWidth="md"
-                sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" ,height:"100%"}}
+                sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" ,height:"100%",position:"relative"}}
             >
                 <Stack direction={{ xs: "column", sm: "row", md: "column" }} spacing={{ xs: 0, sm: 1, md: 2 }}
                     sx={{
@@ -102,12 +104,17 @@ const CalculateBanner = () => {
                     padding: "1rem", marginTop: { md: "2rem", sm: "4rem" },
                     marginBottom: { xs: "2rem", sm: "1rem" }
                 }}>
+                    { !activatePrep ? 
                     <Fab variant="extended" size="large" color="success"
-                        onClick={(e) => handleTransfer(e)}
+                        onClick={(e) => handleActivateMsg(e)}
                         sx={{ padding: "1rem" }}
                     >
                         <FunctionsIcon sx={{ mr: 2, color: "red", }} /> let's calculate
                     </Fab>
+                    
+                    :
+                    <CalculateBtn/>
+                    }
                 </Stack>
             </Container>
             <CustomImage2 src={coffee} alt="www.master-connect.ca" />

@@ -220,8 +220,8 @@ class Invoice(models.Model):
     priceID=models.CharField(max_length=150,blank=True,null=True)
     paid=models.BooleanField(default=False)
     savings=models.IntegerField(blank=True,default=1)
-    dateStart=models.DateTimeField(default=datetime.now)
-    dateEnd=models.DateTimeField(default=datetime.now,blank=True)
+    dateStart=models.DateTimeField(default=timezone.now)
+    dateEnd=models.DateTimeField(default=timezone.now,blank=True)
     
     def __str__(self):
         return self.name
@@ -238,8 +238,8 @@ class PostInvoice(models.Model):
     sendingForPayment = models.BooleanField(default=False)
     priceID=models.CharField(max_length=150,blank=True,null=True)
     paid=models.BooleanField(default=False)
-    dateStart=models.DateTimeField(default=datetime.now)
-    dateEnd=models.DateTimeField(default=datetime.now,blank=True)
+    dateStart=models.DateTimeField(default=timezone.now)
+    dateEnd=models.DateTimeField(default=timezone.now,blank=True)
     
     def __str__(self):
         return self.name
@@ -256,8 +256,8 @@ class ExtraInvoice(models.Model):
     sendingForPayment = models.BooleanField(default=False)
     priceID=models.CharField(max_length=150,blank=True,null=True)
     paid=models.BooleanField(default=False)
-    dateStart=models.DateTimeField(default=datetime.now)
-    dateEnd=models.DateTimeField(default=datetime.now)
+    dateStart=models.DateTimeField(default=timezone.now)
+    dateEnd=models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return self.name
@@ -276,7 +276,7 @@ class CreditInvoice(models.Model):
     hasCredit=models.BooleanField(default=False)
     update=models.BooleanField(default=False)
     yesUpdated=models.BooleanField(default=False)
-    dateStart=models.DateTimeField(default=datetime.now)
+    dateStart=models.DateTimeField(default=timezone.now)
     
     def __str__(self):
         return self.name
@@ -320,7 +320,7 @@ class UserAccount(models.Model):
     consult = models.BooleanField(default=False)
     canceled= models.BooleanField(default=False)
     canceledCount=models.IntegerField(default=0)
-    date=models.DateTimeField(default=datetime.now)
+    date=models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'{self.name}-{self.user}'
@@ -348,7 +348,7 @@ class Calculator(models.Model):
     extra_services =models.ManyToManyField(Service,blank=True,related_name="calc_extra_services")
     yesno=models.BooleanField(default=True)
     ans=ArrayField(models.CharField(max_length=300,default="no"),default=list)
-    dateNow= models.DateTimeField(default=datetime.now)
+    dateNow= models.DateTimeField(default=timezone.now)
     date=models.DateField(auto_now_add=True)
     class Meta:
         ordering =['id']

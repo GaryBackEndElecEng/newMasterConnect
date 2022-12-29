@@ -11,34 +11,40 @@ def onInvoicePaidCreateTask(sender,created, instance, **kwargs):
     userAccount=UserAccount.objects.filter(invoice=instance).first()
     if userAccount and instance.paid and userAccount.postAccountActivate==False:
         user=User.objects.filter(id=userAccount.user.id).first()
+        taskTracker=TaskTracker.objects.filter(user=user).first()
         if user:
-            taskTracker,created=TaskTracker.objects.get_or_create(user=user)
-            if created:
-                taskTracker.save()
+            if not taskTracker:
+                taskTracker,created=TaskTracker.objects.get_or_create(user=user)
+                if created:
+                    taskTracker.save()
             for service in userAccount.service.all():
-                servTaskTracker,created1=ServiceTaskTracker.objects.get_or_create(
-                    name=service.name,
-                    user_id=user.id,
-                    username=user.username,
-                    Id=service.id,
-                    task=False
-                )
-                if created1:
-                    servTaskTracker.save()
-                    arrService.append(servTaskTracker)
+                servTaskTracker=ServiceTaskTracker.objects.filter(name=service.name,user_id=user.id,Id=service.id).first()
+                if not servTaskTracker:
+                    servTaskTracker,created1=ServiceTaskTracker.objects.get_or_create(
+                        name=service.name,
+                        user_id=user.id,
+                        username=user.username,
+                        Id=service.id,
+                        task=False
+                    )
+                    if created1:
+                        servTaskTracker.save()
+                        arrService.append(servTaskTracker)
             for product in userAccount.product.all():
-                testLenght=','.join([obj.name for obj in product.services.all()])
-                prodTaskTracker,created2=ProductTaskTracker.objects.get_or_create(
-                    name=product.name,
-                    user_id=user.id,
-                    username=user.username,
-                    subTasks=testLenght[0:180], 
-                    Id=product.id,
-                    task=False
-                )
-                if created2:
-                    prodTaskTracker.save()
-                    arrProd.append(prodTaskTracker)
+                prodTaskTracker=ProductTaskTracker.objects.filter(name=product.name,user_id=user.id,Id=product.id).first()
+                if not prodTaskTracker:
+                    testLenght=','.join([obj.name for obj in product.services.all()])
+                    prodTaskTracker,created2=ProductTaskTracker.objects.get_or_create(
+                        name=product.name,
+                        user_id=user.id,
+                        username=user.username,
+                        subTasks=testLenght[0:180], 
+                        Id=product.id,
+                        task=False
+                    )
+                    if created2:
+                        prodTaskTracker.save()
+                        arrProd.append(prodTaskTracker)
             taskTracker.service.add(*arrService)
             taskTracker.product.add(*arrProd)
             taskTracker.save()
@@ -49,11 +55,14 @@ def onPostInvoicePaidCreateTask(sender,created, instance, **kwargs):
     userAccount=UserAccount.objects.filter(postInvoice=instance).first()
     if userAccount and instance.paid and userAccount.postAccountActivate==True:
         user=User.objects.filter(id=userAccount.user.id).first()
+        taskTracker=TaskTracker.objects.filter(user=user).first()
         if user:
-            taskTracker,created=TaskTracker.objects.get_or_create(user=user)
-            if created:
-                taskTracker.save()
+            if not taskTracker:
+                taskTracker,created=TaskTracker.objects.get_or_create(user=user)
+                if created:
+                    taskTracker.save()
             for postService in userAccount.postService.all():
+                postServTaskTracker=PostServiceTaskTracker.objects.filter(name=postService.name,user_id=user.id,Id=postService.id).first()
                 postServTaskTracker,created1=PostServiceTaskTracker.objects.get_or_create(
                     name=postService.name,
                     user_id=user.id,
@@ -73,21 +82,25 @@ def onExtraInvoicePaidCreateTask(sender,created, instance, **kwargs):
     userAccount=UserAccount.objects.filter(extraInvoice=instance).first()
     if userAccount and instance.paid:
         user=User.objects.filter(id=userAccount.user.id).first()
+        taskTracker=TaskTracker.objects.filter(user=user).first()
         if user:
-            taskTracker,created=TaskTracker.objects.get_or_create(user=user)
-            if created:
-                taskTracker.save()
+            if not taskTracker:
+                taskTracker,created=TaskTracker.objects.get_or_create(user=user)
+                if created:
+                    taskTracker.save()
             for extraService in userAccount.extraService.all():
-                extraServTaskTracker,created3=ExtraServiceTaskTracker.objects.get_or_create(
-                    name=extraService.name,
-                    user_id=user.id,
-                    username=user.username,
-                    Id=extraService.id,
-                    task=False
-                )
-                if created3:
-                    extraServTaskTracker.save()
-                    arrExtraServ.append(extraServTaskTracker)
+                extraServTaskTracker=ExtraServiceTaskTracker.objects.filter(name=extraService.name,user_id=user.id,Id=extraService.id).first()
+                if not extraServTaskTracker:
+                    extraServTaskTracker,created3=ExtraServiceTaskTracker.objects.get_or_create(
+                        name=extraService.name,
+                        user_id=user.id,
+                        username=user.username,
+                        Id=extraService.id,
+                        task=False
+                    )
+                    if created3:
+                        extraServTaskTracker.save()
+                        arrExtraServ.append(extraServTaskTracker)
             taskTracker.extraService.add(*arrExtraServ)
             taskTracker.save()
 

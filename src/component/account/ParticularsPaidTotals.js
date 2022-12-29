@@ -25,7 +25,7 @@ const ParticularsPaidTotals = ({ invoicePaid, postInvoicePaid,extraInvoicePaid,l
         let newDate= new Date(date);
         let fullYear=newDate.getFullYear();
         let day=newDate.getDate();
-        let month=newDate.getMonth();
+        let month=newDate.getMonth()+1;
         return `${fullYear}/${month}/${day}`
     }
 

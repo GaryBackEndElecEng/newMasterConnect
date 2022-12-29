@@ -106,15 +106,15 @@ const ShowQAResults = () => {
                 Results
             </Typography>
             {!seeResults ?
-                <Box>
-                    <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Box sx={{margin:"auto"}}>
+                    <Grid container spacing={{ xs: 1, sm: 1, md: 2 }}>
 
                         {userSelectionArray && userSelectionArray.map((obj, index) => (
                             <CustomGrid item xs={12} sm={6} md={4}
                                 bs={theme.palette.common.mediumBlue2}
                                 key={`${index}-Results-${obj.id}`}
                                 sx={{
-                                    background: theme.palette.common.blueGrey,
+                                    background: theme.palette.common.fadeCharcoal3,
                                     boxShadow: `1px 1px 5px 2px ${theme.palette.common.blueFade}`,
                                     color: "white", paddingdisplay: "flex", flexDirection: "column"
                                 }}
@@ -125,7 +125,7 @@ const ShowQAResults = () => {
                                             Question
                                         </Typography>
                                     </Paper>
-                                    <Typography component="h1" variant="h6" sx={{ padding: "0.5rem" }}>
+                                    <Typography component="h1" variant="h6" sx={{ padding: "0.5rem 0.75rem" }}>
                                         {obj.Q}
                                     </Typography>
                                 </Stack>
@@ -160,7 +160,7 @@ const ShowQAResults = () => {
                     <Grid container spacing={{ xs: 0, sm: 1, md: 2 }} sx={{ margin: "auto" }}>
                         {(questionResults.loaded && questionResults.data) && questionResults.data.data.map((obj, index) => (
                             <Grid item xs={12} sm={6} md={4} key={index}
-                                sx={{ background: "white", boxShadow: "1px 2px 6px 8px blue", padding: "1rem" }}
+                                sx={{ background: "white", boxShadow: "1px 2px 6px 8px blue", padding: "0.75rem 1rem" }}
                             >
                                 <Avatar src={`${staticImage}/logo.png`} alt="www.master-connect.ca" />
                                 <Typography component="h1" variant="h5" sx={{ margin: "1rem auto", color: "black" }}>
@@ -173,15 +173,19 @@ const ShowQAResults = () => {
 
                         ))}
                     </Grid>
-                    <Typography component="h1" variant="h3" sx={{ margin: "2rem auto", color: "black" }}>
-                        Your total is,
-                        ${truncDigit}...
-                    </Typography>
+                    <Stack direction={{xs:"column",md:"row"}} spacing={{xs:0,md:2}}
+                    sx={{justifyContent:"flex-start",alignItems:"center",}}
+                    >
                     <Typography component="h1" variant="h4" sx={{ margin: "2rem auto", color: "black" }}>
-                        your info is stored in an id :{UUID.loaded && UUID.uuid}
+                        Please register to clearly see your exact cost
                     </Typography>
+                    <Typography component="h1" variant="h6" sx={{ margin: "2rem auto", color: "black" }}>
+                    -for your protection.
+                    </Typography>
+                    </Stack>
+                   
                     <Typography component="h1" variant="h6" sx={{ margin: "2rem auto", textAlign: "center", color: "black" }}>
-                        Your long awaited data is temporarily saved within our server.We need to assign your data to your account. Your information is important to us and personal to you.You need to register so we know where to place it.
+                        Your Results are temporarily saved within our server.We need to assign your data to your account. Your information is important to us and secret to you.Please register to see your <span style={{color:"red",textDecoration:"underline"}}>exact cost.</span>
                     </Typography>
                     <Stack direction="column" sx={{ margin: "2rem auto" }} onClick={(e) => handleLogin(e)}>
                         <Fab variant="extended" color="primary">

@@ -6,6 +6,7 @@ from django.conf import settings
 from datetime import datetime,timedelta,date
 import json
 import math,pytz
+from django.utils import timezone
 from django.core.mail import EmailMultiAlternatives,BadHeaderError
 from django.template.loader import render_to_string
 
@@ -25,19 +26,48 @@ def calculateMonth(mon):
     return setdate.strftime("%Y%m%d"),setdate
 
 def calculateMonthTZ(mon):
-    today=datetime.now()
+    today=timezone.now()
     days=mon*30.5
     setdate=timedelta(days=days) + today
     return setdate
 
+# THIS IS USED FOR INITIAL REGISTRATION AT USER LOGIN
+def addInvoiceToUserAccount(username):
+    user=User.objects.get(username=username)
+    userAccount=UserAccount.objects.filter(user=user).first()
+    if not userAccount.invoice:
+        if not userAccount.country:
+            userAccount.country="CA"
+        if not userAccount.provState:
+            userAccount.provState="ON"
+        tax,created = Tax.objects.get_or_create(country=userAccount.country,subRegion="ON")
+        if created:
+            tax.save()
+        invoice,created1=Invoice.objects.get_or_create(name=userAccount.name,tax=tax)
+        if created1:
+            invoice.save()
+            userAccount.invoice=invoice
+            userAccount.save()
+            return invoice.id
+    else:
+        invoice=Invoice.objects.filter(id=userAccount.invoice.id).first()
+    return invoice.id
 
 class Calculate:
     def __init__(self,user_id):
         self.user_id=int(user_id)
         self.user=User.objects.filter(id=self.user_id).first()
         self.userAccount=UserAccount.objects.filter(user=self.user).first()
-        self.invoice=Invoice.objects.filter(id=self.userAccount.invoice.id).first()
-            
+        if not self.userAccount.invoice:
+            invoice_id=addInvoiceToUserAccount(self.user.username)
+            self.invoice=Invoice.objects.filter(id=invoice_id).first()
+            self.invoice.tax.country=self.userAccount.country
+            self.invoice.tax.subRegion=self.userAccount.provState
+            self.invoice.save()
+            self.userAccount.invoice=self.invoice
+            self.userAccount.save()
+        else:
+            self.invoice=Invoice.objects.filter(id=self.userAccount.invoice.id).first()
             
     def productServiceSubTotal(self):
         if self.invoice and self.userAccount:
@@ -941,6 +971,11 @@ class CalcAddToUserAccountAtLogin:
                 getProduct=Product.objects.get(id=id)
                 self.userAccount.product.add(getProduct)
 
+    def AddCustomPage(self):
+        product=Product.objects.get(category="customFrontPage").first()
+        self.userAccount.product.add(product)
+
+
     def addPostServicesToUser(self):
         if self.calcResults and self.userAccount:
             for id in self.calcResults.postServiceIdArr:
@@ -952,6 +987,7 @@ class CalcAddToUserAccountAtLogin:
             self.addServicesToUser()
             self.addProductsToUser()
             self.addPostServicesToUser()
+            self.AddCustomPage()
             self.userAccount.calcUUID=self.uuid
             self.userAccount.co=self.calcResults.co
             self.userAccount.CDN=self.calcResults.CDN
@@ -1060,23 +1096,7 @@ def calculateSavings(product):
        total=servicePrice + postServicePrice + extraServicePrice
        product.savings=total - product.price
        product.save()
-# THIS IS USED FOR INITIAL REGISTRATION AT USER LOGIN
-def addInvoiceToUserAccount(username):
-    user=User.objects.get(username=username)
-    userAccount=UserAccount.objects.get(user=user)
-    if not userAccount.invoice:
-        if not userAccount.country:
-            userAccount.country="CA"
-        if not userAccount.provState:
-            userAccount.provState="ON"
-        tax,created = Tax.objects.get_or_create(country=userAccount.country,subRegion=userAccount.provState)
-        if created:
-            tax.save()
-        invoice,created=Invoice.objects.get_or_create(name=userAccount.name,tax=tax)
-        if created:
-            invoice.save()
-            userAccount.invoice=invoice
-            userAccount.save()
+
 
 # THIS IS USED FOR UPDATING THE TAX FORIEGN KEY TO INVOICE
 def adjustTaxInvoiceForiegn(userAccount_id):
@@ -1127,9 +1147,11 @@ def extraInvoiceCalc(userAccount):
     return 
 
 
-def addSelectedPackageToUser(user_id,package_id):
+def addSelectedPackageToUser(user_id,package_id,invoice_id):
     user=User.objects.filter(id=user_id).first()
     userAccount=UserAccount.objects.filter(user=user).first()
+    invoice=Invoice.objects.filter(id=invoice_id).first()
+    print("invoice in addSelectedPackageToUser ",invoice)
     if user and userAccount:
         package=Package.objects.get(id=package_id)
         products=package.products.all()
@@ -1138,6 +1160,7 @@ def addSelectedPackageToUser(user_id,package_id):
         userAccount.product.add(*products)
         userAccount.service.add(*services)
         userAccount.postService.add(*postServices)
+        userAccount.invoice=invoice
         userAccount.save()
         
 
