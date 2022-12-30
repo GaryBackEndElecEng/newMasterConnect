@@ -9,3 +9,8 @@ UPDATE SERVICE PRICING:
 1.) WITHIN Model:UpdateItems, => service name, uncheck Updated and save
 CREDIT PROCESS:
 After the Invoice is paid, there is a admin/Home signal that removes the Task from Extra/Product/Service/PostTaskTracker and saves the results UPON CreditInvoice post_save.
+
+COMPANY:
+STRIPE: masterconnect919, pswd: same as AWS 
+account transfer to B.bank is set-up:
+Secret/public stored in Hero=>env()

@@ -38,12 +38,12 @@ const UploadCV = () => {
             window.open(a,"_blank");
             navigate("/",setChangePage(true));
             // a.click();
-            console.log("below CLICK")
+            // console.log("below CLICK")
             setTimeout(()=>{
                 let aExist=document.getElementById("download");
                 if(aExist){
                 setLoadingData(true);
-                console.log("INSIDE SET TIMEOUT")
+                // console.log("INSIDE SET TIMEOUT")
                 }
             },0);
             

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Paper, Grid, Typography, Card, CardContent, CardMedia } from '@mui/material';
+import { Paper, Grid, Typography, Card, CardContent, CardMedia, Stack } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styles from './about.module.css';
@@ -15,6 +15,7 @@ const Stripe1 = ({ scrollRef }) => {
     const stripe1 = `${staticImage}/stripe1.png`;
     const stripe2 = `${staticImage}/stripe2.png`;
     const stripe3 = `${staticImage}/stripe3.png`;
+    const heroku =`${staticImage}/icons/databaseExample.png`;
     const easySelection = about.length > 0  ? about.filter(obj => (parseInt(obj.id) === 22))[0] : null;
     const easyPurchase = about.length > 0 ? about.filter(obj => (parseInt(obj.id) === 16))[0] : null;
     const easyFinance = about.length > 0 ? about.filter(obj => (parseInt(obj.id) === 17))[0] : null;
@@ -148,6 +149,21 @@ const Stripe1 = ({ scrollRef }) => {
                             <Typography component="h1" variant="h6" sx={{ fontFamily: "Roboto", padding: "5px" }}>
                                 {ownDatabase && ownDatabase.content}
                             </Typography>
+                            <Typography component="h1" variant="h4"
+                            sx={{ color: theme.palette.common.blueGrey, fontFamily: "playfair Display", fontStyle: "italic",margin:"1rem auto" }}
+                            >
+                                 unlimited size
+                            </Typography>
+                            <Stack direction={{xs:"column",sm:"row"}} spacing={0}>
+                                <CardMedia component="img" src={heroku} alt="www.masterconnect.ca"
+                                sx={{width:{xs:"100%",sm:"50%"},height:{xs:"100%",sm:"50%"}}}
+                                />
+                            <Typography component="h1" variant="h6"
+                            sx={{padding:"1rem"}}
+                            >
+                                 Web Service Companys give you a maximum size that limits the growth of your company. To increase your database container, expensive migrations are involved with initial database connectivity and data loss issues that further hinders a company's growth. We provide you with a 10 million row capacity equal to a moderate 10 year growth until database splitting and or migration is involved.<span style={{color:"red"}}> Why share your space when you can own it.</span>
+                            </Typography>
+                            </Stack>
                         </CardContent>
                     </Card>
                 </Grid>
