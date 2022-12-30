@@ -71,7 +71,7 @@ class Calculate:
             self.invoice=Invoice.objects.filter(id=self.userAccount.invoice.id).first()
             
     def productServiceSubTotal(self):
-        if self.invoice and self.userAccount:
+        if self.invoice and self.userAccount and self.invoice.paid==False:
             self.userProducts=self.userAccount.product.all()
             self.userServices=self.userAccount.service.all()
             subTotalProduct=sum([obj.price for obj in self.userProducts])
@@ -81,7 +81,7 @@ class Calculate:
             return self.invoice.subTotal
 
     def productServiceTotal(self):
-        if self.invoice and self.userAccount:
+        if self.invoice and self.userAccount and self.invoice.paid==False:
             subTotal= self.productServiceSubTotal()
             fedTax=(self.invoice.tax.fed/100)*subTotal
             provStateTax=fedTax*(self.invoice.tax.provState/100)
@@ -91,7 +91,7 @@ class Calculate:
             return total
 
     def monthlyArrayCalculator(self):
-        if self.invoice and self.userAccount:
+        if self.invoice and self.userAccount and self.invoice.paid==False:
             total=self.productServiceTotal()
             array=[]
             if total !=0:
@@ -104,7 +104,7 @@ class Calculate:
 
     def productServiceSubMonthly(self):
         subTotalMonthly=0
-        if self.invoice and self.userAccount:
+        if self.invoice and self.userAccount and self.invoice.paid==False:
             self.userProducts=self.userAccount.product.all()
             self.userServices=self.userAccount.service.all()
             subTotalProduct=sum([obj.monthly for obj in self.userProducts])
@@ -115,7 +115,7 @@ class Calculate:
             return subTotalMonthly
 
     def productServiceMonthly(self):
-        if self.invoice and self.userAccount:
+        if self.invoice and self.userAccount and self.invoice.paid==False:
             subTotal= self.productServiceSubMonthly()
             fedTax=(self.invoice.tax.fed/100)
             provStateTax=fedTax*(self.invoice.tax.provState/100)
@@ -126,7 +126,7 @@ class Calculate:
         return 0
 
     def calculateSavings(self):
-        if self.invoice and self.userAccount:
+        if self.invoice and self.userAccount and self.invoice.paid==False:
             savings=0
             for product in self.userAccount.product.all():
                 savings += product.savings
@@ -134,10 +134,11 @@ class Calculate:
             self.invoice.save()
     
     def calculateStripeFee(self):
-        fee=1 + self.stripeCharge.interest/200
-        self.invoice.total=math.floor(self.invoice.total*fee)
-        self.invoice.totalMonthly=math.floor(self.invoice.totalMonthly * fee)
-        self.invoice.save()
+        if self.invoice.paid==False:
+            fee=1 + self.stripeCharge.interest/200
+            self.invoice.total=math.floor(self.invoice.total*fee)
+            self.invoice.totalMonthly=math.floor(self.invoice.totalMonthly * fee)
+            self.invoice.save()
         return 
 
     def execute(self):

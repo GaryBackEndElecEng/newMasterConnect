@@ -11,7 +11,7 @@ import apiProtect from '../axios/apiProtect';
 
 const RegisterGoogle = () => {
     const navigate = useNavigate();
-    const {  setGmailUser, } = useContext(TokenAccessContext);
+    const {  setGmailUser,gmailUser } = useContext(TokenAccessContext);
     const { setRegister, setRegisterConfirmed, setEmail, setChangePage, } = useContext(GeneralContext);
     const [showSignout, setShowSignout] = useState(false);
     const theme = useTheme();
@@ -44,7 +44,6 @@ const RegisterGoogle = () => {
                 e.preventDefault();
             });
             signin.hidden = true;
-            setShowSignout(true);
             //REGISTER
             const registerUser = async () => {
                 try {
@@ -58,11 +57,12 @@ const RegisterGoogle = () => {
                     }
                     const res = apiProtect.post(`/account/register/`, params);
                     const body = res.data
-                    setRegister({ loaded: true });
+                    setRegister({ loaded: true ,data:gmailUser.data});
                     setRegisterConfirmed(true);
                     localStorage.setItem('username', body.username);
                     localStorage.setItem('email', body.email);
-                    navigate("/sigin",setChangePage(true))
+                    setShowSignout(true);
+                    navigate("/signin",setChangePage(true))
                 } catch (error) {
                     console.error(error.message)
                 }
@@ -84,7 +84,7 @@ const RegisterGoogle = () => {
         );
         google.accounts.id.prompt();
 
-    }, []);
+    }, [gmailUser.data,setEmail,setRegister,setGmailUser]);
 
     //    console.log(gmailUser.data,showSignout)
 

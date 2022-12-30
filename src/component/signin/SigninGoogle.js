@@ -11,8 +11,8 @@ import apiProtect from '../axios/apiProtect';
 
 const RegisterGoogle = () => {
     const navigate = useNavigate();
-    const {  setGmailUser, setSignin, setLoggedIn, setTokenIsValid, setLoginError } = useContext(TokenAccessContext);
-    const {  setChangePage, } = useContext(GeneralContext);
+    const {  setGmailUser,gmailUser, setSignin, setLoggedIn, setTokenIsValid, setLoginError } = useContext(TokenAccessContext);
+    const {  setChangePage,setRegister } = useContext(GeneralContext);
     const [showSignout, setShowSignout] = useState(false);
     const theme = useTheme();
     
@@ -24,7 +24,8 @@ const RegisterGoogle = () => {
     }
     useEffect(() => {
         const handleCallbackResponse = (response) => {
-            // actions once the loginin is success
+            const getUUID = localStorage.getItem("UUID") ? JSON.parse(localStorage.getItem("UUID")) : null;
+            const getpackageId = localStorage.getItem("buypackage") ? JSON.parse(localStorage.getItem("buypackage")) : null;
             var userObject = jwt_decode(response.credential);
             setGmailUser({
                 loaded: true, data: {
@@ -33,7 +34,9 @@ const RegisterGoogle = () => {
                     image: userObject.picture,
                     username: `${userObject.given_name}_${userObject.family_name}`,
                     password: userObject.sub,
-                    check: true
+                    check: true,
+                    packageId:getpackageId,
+                    UUID: getUUID
 
                 }
             });
@@ -64,8 +67,12 @@ const RegisterGoogle = () => {
                         localStorage.setItem('tokenIsValid',true);
                         localStorage.setItem("loggedIn",true);
                         localStorage.setItem("goToSignin",false)
-                        setTimeout(()=>{setSignin(false)},6000);
+                        setTimeout(()=>{setSignin(false)},1000);
                         navigate("/",setChangePage(true));
+                        setRegister({ loaded: false, data: { 'username': gmailUser.username, "email": gmailUser.email, "password": "" } });
+                    localStorage.removeItem("buypackage");
+                    localStorage.removeItem("extra_kwargs");
+                    localStorage.removeItem("UUID");
                     
                 } catch (error) {
                     setLoginError(true);
@@ -87,7 +94,7 @@ const RegisterGoogle = () => {
             { theme: "outline", size: "large" }
         )
 
-    }, [navigate,setChangePage,setGmailUser,setLoggedIn,setLoginError,setTokenIsValid,setSignin]);
+    }, [setRegister,setGmailUser,setLoggedIn,setTokenIsValid]);
 
     //    console.log(gmailUser.data,showSignout)
 

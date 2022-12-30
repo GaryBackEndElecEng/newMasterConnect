@@ -65,7 +65,7 @@ const Products = ({ mainProducts, title, staticImage }) => {
                                         <Typography component="h1" variant="h6"
                                             sx={{ color: "white", background: theme.palette.common.fadeCharcoal3, padding: "1rem", boxShadow: "1px 1px 8px 4px grey" }}
                                         >
-                                            {title}
+                                            {product.name}
                                         </Typography>
                                     </Stack>
 

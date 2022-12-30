@@ -84,6 +84,7 @@ const Signin = () => {
         const postSignin = async () => {
             const getUUID = localStorage.getItem("UUID") ? JSON.parse(localStorage.getItem("UUID")) : null;
             const getpackageId = localStorage.getItem("buypackage") ? JSON.parse(localStorage.getItem("buypackage")) : null;
+            const extra_kwargs = localStorage.getItem("extra_kwargs") ? localStorage.getItem("extra_kwargs") : null;
 
             let params={};
             try {
@@ -123,11 +124,12 @@ const Signin = () => {
                     localStorage.setItem("loggedIn", true);
                     localStorage.setItem("goToSignin", false)
                     setViewAccount(true);
-                    setTimeout(() => { setSignin(false) },0);
+                    setTimeout(() => { setSignin(false) },1000);
                     navigate("/", setChangePage(true));
                     setRegister({ loaded: false, data: { 'username': data.username, "email": data.email, "password": "" } });
                     localStorage.removeItem("buypackage");
                     localStorage.removeItem("extra_kwargs");
+                    localStorage.removeItem("UUID");
                 } else {
                     setError(true);
                     new Error(data.error)

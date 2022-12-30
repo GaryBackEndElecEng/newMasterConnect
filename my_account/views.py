@@ -228,20 +228,24 @@ class UserAccountComplete(APIView):
     
     def post(self,request,format=None):
         invoice=None
-        website='none'
+        website='None'
         co="None"
         industry="None"
-        city="none"
+        city="None"
         CDN='None'
+        postal='None'
         country="CA"
+        provState="ON"
         data=self.request.data
         user_id=data['user_id']
         name=data['name']
         cell=data['cell']
         email=data["email"]
         address=data['address']
-        country=data['country']
-        provState=data['provState']
+        if data['country']:
+            country=data['country']
+        if data['provState']:
+            provState=data['provState']
         postal=data['postal']
         city=data['city']
         if data['website']:
@@ -491,22 +495,23 @@ class UserPostPackage(APIView):
                 #addInvoiceToUserAccount creates invoice if not exists
                 addInvoiceToUserAccount(user.username)
             package=Package.objects.filter(id=packageId).first()
-            if userAccount and package:
+            if userAccount and package and invoice:
                 products = package.products.all()
                 services=package.services.all()
                 postServices=package.postServices.all()
-                if products:
+                if products and invoice.paid==False:
                     userAccount.product.add(*products)
                     for product in products:
                         invoice.savings+=product.savings
                     invoice.save()
-                if services:
+                if services and invoice.paid==False:
                     userAccount.service.add(*services)
-                if postServices:
+                if postServices and invoice.paid==False:
                     userAccount.postService.add(*postServices)
                 userAccount.save()
                 # THIS CALCULATES AND SAVES IN INVOICE
-                Calculate(user_id).execute()
+                if invoice.paid==False:
+                    Calculate(user_id).execute()
                 
                 serializer= UserAccountAllCombined(userAccount,many=False)
                 return Response(serializer.data)

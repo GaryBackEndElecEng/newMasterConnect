@@ -77,6 +77,7 @@ useMemo(()=>{
         }
     }, [setRegion,formComplete])
 
+
     useEffect(() => {
         if (isInfoOk) {
             setRequestInfo({ data:
@@ -84,7 +85,7 @@ useMemo(()=>{
                   loaded: true });
         }
 
-    }, [isInfoOk,name,cell,address,country,provState,postal,website,CDN,industry,co,city]);
+    }, [isInfoOk,name,cell,address,country,provState,postal,website,CDN,industry,co,city,email]);
 
     useEffect(() => {
         // VALIDATION EMAIL
@@ -132,6 +133,7 @@ useMemo(()=>{
                 setCity(users_Account.city);
                 setAddress(users_Account.address);
                 setProvState(users_Account.provState);
+                setCountry(users_Account.country)
                 setCell(users_Account.cell);
                 setEmail(users_Account.email);
                 localStorage.setItem("formComplete",true)
@@ -261,7 +263,7 @@ useMemo(()=>{
                                         label_id="your_country"
                                         name="country"
                                         label="Country"
-                                        // defaultValue=""
+                                        defaultValue=""
                                         aria-describedby="valid Country"
                                         onChange={(e) => setCountry(e.target.value)}
                                         aria-invalid={validCountry ? "false" : "true"}
@@ -288,7 +290,7 @@ useMemo(()=>{
                                     <Select
                                         label_id="Your State/Province"
                                         label="provState"
-                                        // defaultValue={""}
+                                        defaultValue={""}
                                         aria-describedby="valid State/ or Province"
                                         onChange={(e) => setProvState(e.target.value)}
                                         aria-invalid={validProvState ? "false" : "true"}

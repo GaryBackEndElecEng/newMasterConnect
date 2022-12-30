@@ -80,7 +80,7 @@ const AboutPage = () => {
     const theme = useTheme();
     // const {getAboutList}=useContext(PriceContext);
     const { staticImage, setTitle, setStyleName, setChangePage, getPathLocation, average, getAboutList, setGetAboutList } = useContext(GeneralContext);
-    const { loggedIn, user_id, setUsersProduct, setUserAccount, setUsersInvoice } = useContext(TokenAccessContext);
+    const { loggedIn, user_id, setUsersProduct, setUserAccount, setUsersInvoice,usersInvoice } = useContext(TokenAccessContext);
     const [popUp, setPopUp] = useState({ loaded: false, data: {} });
     const getLoggedIn = localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")) : loggedIn;
     const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : user_id;

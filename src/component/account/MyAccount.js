@@ -82,7 +82,7 @@ const MyAccount = () => {
       setExtraInvoice(usersExtraInvoice.data)
       // }
     }
-  }, [usersInvoice,usersPostInvoice,usersExtraInvoice]);
+  }, [usersInvoice.loaded,usersInvoice.data,usersPostInvoice,usersExtraInvoice]);
 
 
   useEffect(() => {

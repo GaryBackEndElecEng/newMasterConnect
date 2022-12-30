@@ -46,7 +46,7 @@ const ProductPackageControl = ({ products, services, postServices, mainPackage, 
     }
     return (
         <CustStack direction="column" spacing={{ xs: 0, sm: 1 }}>
-            <Paper elevation={10} sx={{ margin: ".5rem auto", width: "100%",padding:"1rem" }}>
+            <Paper elevation={10} sx={{ margin: ".5rem auto", width: "100%",padding:"1rem",borderRadius:"5%",paddingBottom:"2rem" }}>
                 <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", margin: "auto" }}>
                     <Box sx={{margin:"auto",textAlign:"center"}}>
                         {activateProd.length &&

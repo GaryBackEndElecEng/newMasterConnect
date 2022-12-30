@@ -138,7 +138,7 @@ const verifyToken= async ()=>{
 if((token !==null || token !=="undefined") && token){
 verifyToken();
 }
-},[setTokenIsValid,setGetVerifyToken,token,refresh_token,navigate]);
+},[setTokenIsValid,setGetVerifyToken,token,refresh_token,navigate,loggedIn]);
 
 
 //**** THIS DOWNLOADS USER'S PRODUCTS, ONCE LOGGED IN AT SIGIN BEFORE GOING TO MYACCOUNT****** */

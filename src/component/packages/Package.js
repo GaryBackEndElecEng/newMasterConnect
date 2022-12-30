@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState, } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 import { PriceContext } from '../../context/PriceContextProvider';
+import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import { Grid, Container, Typography, Stack, Fab, Card, Box, CardMedia } from '@mui/material';
 import CoverPage from './CoverPage';
 import styled from 'styled-components';
@@ -14,6 +15,7 @@ import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import PageRating from '../utils/PageRating';
 import HelmetPrep from './HelmetPrep';
+import apiProtect from '../axios/apiProtect';
 
 const MainPackage = styled.div`
 width:100vw;
@@ -38,26 +40,30 @@ margin:auto;
 background:white;
 z-index:9999;
 position:absolute;
-top:85%;
+top:70%;
 left:0%;
 width:100%;
 box-shadow:1px 1px 10px 5px grey;
 @media screen and (max-width:900px){
-    top:80%;
+    top:70%;
 }
 @media screen and (max-width:800px){
-    top:80%;
+    top:70%;
 }
 @media screen and (max-width:400px){
-    top:85%;
+    top:70%;
 }
 `;
 const Package = () => {
     const navigate = useNavigate();
     const { setChangePage, setTitle, setStyleName, staticImage, getPathLocation, pageRatings,average } = useContext(GeneralContext);
     const { getPackages } = useContext(PriceContext);
+    const { user_id,loggedIn,setUserAccount,setUsersProduct,setUsersService,setUsersInvoice } = useContext(TokenAccessContext);
     const [isSelected, setIsSelected] = useState(false);
     const specialImg=`${staticImage}/specialImg.png`;
+    const getUser_id=localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):user_id;
+    const getLoggedIn=localStorage.getItem("loggedIn") ? JSON.parse(localStorage.getItem("loggedIn")):loggedIn;
+
     useEffect(() => {
         setTitle("Packages");
         setStyleName("packages for you");
@@ -81,6 +87,34 @@ const Package = () => {
         e.preventDefault();
         localStorage.setItem("buypackage", obj.id);
         navigate("/signin", setChangePage(true))
+    }
+    const handleAllreadySignedIn=(e,obj)=>{
+        e.preventDefault();
+        const savePackage=async()=>{
+            const params={
+                user_id:getUser_id,
+                packageId:obj.id
+
+            };
+            try {
+                const res= await apiProtect.post('/account/savePackage/',params);
+                const user_account= res.data;
+                setUserAccount({loaded:true,data:user_account});
+                setUsersProduct({loaded:true,data:user_account.product});
+                setUsersService({loaded:true,data:user_account.service});
+                setUsersInvoice({loaded:true,data:user_account.invoice});
+                navigate("/MyAccount",setChangePage(true));
+            } catch (error) {
+                console.error(error.message)
+            }
+        }
+        if(getLoggedIn){
+            savePackage();
+        }else{
+            navigate("/signin",setChangePage(true));
+            localStorage.setItem("buypackage", obj.id);
+        }
+
     }
     
     return (
@@ -126,7 +160,7 @@ const Package = () => {
                                 </Stack>
                                 {(isSelected.loaded && isSelected.id === obj.id) &&
                                     <CustomBoxPopup>
-                                        <Stack direction="column" spacing={1} sx={{ alignItems: "center", padding: "1rem" }}>
+                                        <Stack direction="column" spacing={1} sx={{ alignItems: "center", padding: "1rem",margin:"auto" }}>
                                             <Typography component="h1" variant="h6">Are you registered with us?</Typography>
                                             <Stack direction="row" spacing={2} sx={{ justifyContent: "center", padding: "1rem" }}>
                                                 <Fab variant="extended" size="small" color="primary"
@@ -139,6 +173,15 @@ const Package = () => {
                                                 >
                                                     no I'm not
                                                 </Fab>
+                                            </Stack>
+                                            <Typography component="h1" variant="h6">All ready signed in</Typography>
+                                            <Stack direction="row" spacing={2} sx={{ justifyContent: "center", padding: "1rem" }}>
+                                                <Fab variant="extended" size="small" color="primary"
+                                                    onClick={(e) => handleAllreadySignedIn(e, obj)}
+                                                >
+                                                    select package
+                                                </Fab>
+                                               
                                             </Stack>
                                         </Stack>
                                     </CustomBoxPopup>

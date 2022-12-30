@@ -142,13 +142,36 @@ def updateProductSavings(instance,*args,**kwargs):
          for extraService in extraServices:
           extraServicePrice += extraService.price
         total=servicePrice + postServicePrice + extraServicePrice
-        instance.savings=total - instance.price
+        if instance.price < total:
+            instance.savings=total - instance.price
         instance.save()
 
 # /////// THIS UPDATES THE SAVINGS TO PACKAGES  //////
 @receiver(post_save,dispatch_uid='updatepackages', sender=UpDateItems)
 def updatepackages(instance,*args,**kwargs):
     if instance.update==True and instance.Updated==False and instance.name=="package":
+        packages=Package.objects.all()
+        for package in packages:
+            price=package.price
+            total=0
+            savings=sum([obj.savings for obj in package.products.all()])
+            total +=sum([obj.price for obj in package.products.all()])
+            total +=sum([obj.price for obj in package.services.all()])
+            total +=sum([obj.price for obj in package.postServices.all()])
+            if savings >0:
+                package.price=total
+                package.monthly=math.floor((total)/60)
+                package.reducePerc=int(savings/(total+savings)*100)
+            package.savings=savings
+            package.save()
+        instance.Updated=True
+        instance.update=False
+        instance.save()
+
+# /////// THIS UPDATES THE SAVINGS TO PACKAGES  //////
+@receiver(post_save,dispatch_uid='updatepackageRates', sender=UpDateItems)
+def updatepackageRates(instance,*args,**kwargs):
+    if instance.update==True and instance.Updated==False and instance.name=="updatepackageRates":
         packages=Package.objects.all()
         rate=Rates.objects.filter(name="interest").first()
         for package in packages:
@@ -158,23 +181,44 @@ def updatepackages(instance,*args,**kwargs):
             total +=sum([obj.price for obj in package.products.all()])
             total +=sum([obj.price for obj in package.services.all()])
             total +=sum([obj.price for obj in package.postServices.all()])
-            if price > total:
-                package.reducePerc=((price-total)/price)*100
+            if savings >0:
                 package.price=total
                 package.monthly=math.floor((total*(1 + rate.interest/100)**(rate.years))/60)
-            else:
-                package.reducePerc=((total-price)/total)*100
-                package.price=total
-                package.monthly=math.floor((total*(1 + rate.interest/100)**(rate.years))/60)
+                package.reducePerc=int(savings/(total+savings)*100)
             package.savings=savings
             package.save()
         instance.Updated=True
+        instance.update=False
         instance.save()
 
-# /////// THIS UPDATES THE SAVINGS TO PRODUCTS  //////
-@receiver(post_save,dispatch_uid='updateProducts', sender=UpDateItems)
-def updateProducts(instance,*args,**kwargs):
-    if instance.update==True and instance.Updated==False and instance.name=="product":
+# /////// THIS UPDATES THE SAVINGS TO PRODUCTS AND ADDS INTERESTS  //////
+@receiver(post_save,dispatch_uid='updateProductSavings', sender=UpDateItems)
+def updateProductSavings(instance,*args,**kwargs):
+    if instance.update==True and instance.Updated==False and instance.name=="productSavings":
+        products=Product.objects.all()
+        for product in products:
+            price=product.price
+            total=0
+            total +=sum([obj.price for obj in product.services.all()])
+            total +=sum([obj.price for obj in product.postServices.all()])
+            total +=sum([obj.price for obj in product.extraServices.all()])
+            if total > price:
+                product.savings=math.ceil(total-price)
+            else:
+                product.savings=math.ceil(price-total)
+            product.updated=True
+            product.update=False
+
+            product.price=price
+            product.save()
+        instance.Updated=True
+        instance.update=False
+        instance.save()
+
+# /////// THIS UPDATES THE SAVINGS TO PRODUCTS AND ADDS INTERESTS  //////
+@receiver(post_save,dispatch_uid='updateProductInterests', sender=UpDateItems)
+def updateProductInterests(instance,*args,**kwargs):
+    if instance.update==True and instance.Updated==False and instance.name=="productInterest":
         products=Product.objects.all()
         rate=Rates.objects.filter(name="product").first()
         for product in products:
@@ -191,6 +235,7 @@ def updateProducts(instance,*args,**kwargs):
             product.price=price
             product.save()
         instance.Updated=True
+        instance.update=False
         instance.save()
 
 # /////// THIS UPDATES THE SERVICE/POST AND EXTRA PRICING  //////
