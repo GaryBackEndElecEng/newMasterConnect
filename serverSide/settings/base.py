@@ -351,33 +351,7 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_MEDIA_LOCATION}/'
 # STATIC_URL = '/static/'
 
 
-#--- FACEBOOK- GOOGLE-----//////////////////////
 
-SOCIALACCOUNT_PROVIDERS={
-    'google':{
-        'SCOPE':[
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS':{
-            'access_type':'online',
-        }
-    },
-    'facebook': {
-        'LOCALE_FUNC': lambda request: 'en_US'
-    },
-    'instagram':{
-        'client_id':'306375078130326',
-        'redirect_uri':'https://www.master-connect.ca',
-        'code':'code',
-        'SCOPE':[
-            'user_profile','user_media'
-        ],
-            'AUTH_PARAMS':{'auth_type': 'reauthenticate'}
-    },
-    
-}
-#-----///////////-----ckeditor-------/////////
 # CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {

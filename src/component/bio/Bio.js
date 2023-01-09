@@ -1,6 +1,10 @@
 import React, { useContext, useState, useRef, useEffect, } from 'react';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { Box, Grid, Paper, Container, Typography, Stack, Avatar } from '@mui/material';
+import { Box, Grid, Paper, Container, Typography, Stack, Avatar, Button, IconButton } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import DeckIcon from '@mui/icons-material/Deck';
+import AddLinkIcon from '@mui/icons-material/AddLink';
 
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
@@ -43,19 +47,37 @@ const Bio = () => {
     const intro = resume.loaded ? resume.data.filter(obj => (obj.sectionTitle === "Intro"))[0] : "";
     const profileImg = resume.loaded ? resume.data.filter(obj => (obj.title === "Image"))[0] : "";
     const mainResume = resume.loaded ? resume.data.filter(obj => (obj.title === "Resume")) : "";
-    const sidebar = resume.loaded ? resume.data.filter(obj => (obj.sectionTitle === "sidebar")).filter(obj => (obj.title !== "Image")) : [];
+    const sidebar = resume.loaded ? resume.data.filter(obj => (obj.sectionTitle === "sidebar")).filter(obj => (obj.title !== "Image")).filter(obj=>(obj.subSectionTitle!=="Contact")) : [];
     const getGeneralInfo= generalInfo.loaded ? generalInfo.data :null;
+    const [newGenInfo,setNewGenInfo]=useState(null);
     const [resumeHeight, setResumeHeight] = useState(null);
-    let ResHeight = resumeHeight;
+    const ResHeight = resumeHeight ? resumeHeight :"auto";
+    const CV="https://new-master.s3.ca-central-1.amazonaws.com/static/files/Resume.pdf";
    
    
     useEffect(()=>{
-        if (MainResumeRef.current) {
+        if(!MainResumeRef.current)return
+        if (window.innerWidth && window.innerWidth >900) {
             setResumeHeight(window.getComputedStyle(MainResumeRef.current).getPropertyValue("height"));
-            
         }
+        if(!getGeneralInfo)return
+        let arr=[];
+        getGeneralInfo.siteArray.forEach((obj)=>{
+            if(obj.split("::")[0]==="fb"){
+            arr.push({link:obj.split("::")[1],icon:<FacebookIcon sx={{color:"white",background:"blue"}}/>});
+            }
+            else if(obj.split("::")[0]==="linkedin"){
+            arr.push({link:obj.split("::")[1],icon:<LinkedInIcon sx={{color:"white",background:"blue"}}/>});
+            }
+            else{
+                arr.push({link:obj.split("::")[1],icon:<DeckIcon sx={{color:"white",background:"blue"}}/>});
+            }
+        });
+
+        setNewGenInfo({cell:getGeneralInfo.cell,email:"mailto:masterconnect919@gmail.com",siteArray:arr});
+
    
-    },[setResumeHeight,MainResumeRef]);
+    },[setResumeHeight,MainResumeRef,setNewGenInfo,getGeneralInfo]);
    
 
     if (loadingData) {
@@ -73,7 +95,7 @@ const Bio = () => {
             
         }
 
-    }, [setTitle, setStyleName]);
+    }, [setTitle, setStyleName,setChangePage]);
 
     useEffect(() => {
 
@@ -108,7 +130,6 @@ const Bio = () => {
 
     }
 
-
     const handleList = (content2) => {
         const checkHyphen = content2.split("- ");
         if (checkHyphen) {
@@ -121,6 +142,10 @@ const Bio = () => {
         }
         else { return }
     }
+    const handleLink=(e,link)=>{
+        e.preventDefault();
+        window.open(link);
+    }
 
     return (
         <BioMmain display={showBlock}>
@@ -128,6 +153,7 @@ const Bio = () => {
             obj={getGeneralInfo} 
             intro ={intro} 
             getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}
+            CV={CV}
             />
             <RegisterPage />
             <GetRegisterPages/>
@@ -161,7 +187,7 @@ const Bio = () => {
                 <Paper elevation={3} sx={{ margin: {lg:"1rem auto",xs:"1rem auto"}, padding: "0.5rem ", }}>
                     <Grid container spacing={{xs:0,sm:0,md:0}} sx={{ textAlign: "flex-start",display:"flex", justifyContent: "center", alignItems: "flex-start",position:"relative" }}>
                         <Grid item xs={12} md={3} sx={{ boxShadow: "1px 3px 10px blue",
-                          padding: "0 0.5rem", height: { xs: "auto", lg:resumeHeight },flexGrow:1 }}
+                          padding: "0 0.5rem", height: { xs: "auto", lg:ResHeight },flexGrow:1 }}
                           className={styles.sidebar}
                           >
 
@@ -169,6 +195,33 @@ const Bio = () => {
                                 {resume.loaded && <Avatar src={profileImg.webImage} alt="www.master-connect.ca"
                                     sx={{ maxWidth: "350px", maxHeight: "350px", width: "100%", height: "100%", margin: "auto" }}
                                 />}
+                                <>
+                                {newGenInfo && 
+                                <Typography component="ul" variant="h5" sx={{color:"white"}}>Contact
+                                 
+                                 <Typography component="li" variant="h6">
+                                <Typography component="a" variant="h6" sx={{ color: theme.palette.common.light, margin: "auto 0" }}
+                                href="tel:+4169175768"
+                                >
+                                    {newGenInfo.cell} <ConnectWithoutContactIcon sx={{ m:1,color:theme.palette.common.red }} />
+                                </Typography>
+                                </Typography>
+                                 
+                                 <Typography component="a" variant="h6" sx={{ color: theme.palette.common.light, margin: "auto 0" }} href="mailto:masterconnect919@gmail.com">
+                                    email
+                                </Typography>
+                                <ConnectWithoutContactIcon sx={{ m: 1,color:theme.palette.common.red }} />
+                                 {newGenInfo.siteArray && newGenInfo.siteArray.map((obj,index)=>(
+                                    <Typography component="li" variant="h6" key={`${obj}-sites--{index}`}
+                                     sx={{ color: theme.palette.common.light, margin: "auto 0" }}
+                                    >
+                                    <IconButton onClick={(e)=>handleLink(e,obj.link)} sx={{textDecoration:"none",color:"white","&:hover":{transform:" scale(1.03) translateX(5%)",transition:"transform 0.5s ease-in-out"}}}>{obj.icon}</IconButton>
+                                </Typography>
+                                 ))}
+                                
+                                 
+                                </Typography>
+                                }
                                 {sidebar.map((obj,index) => (
                                     // ACHIEVEMENTS
                                     <Typography component="ul" variant="h4"
@@ -179,23 +232,28 @@ const Bio = () => {
                                     >
                                         {obj.title} <ConnectWithoutContactIcon sx={{ ml: 1,color:theme.palette.common.red }} />
                                         {obj.content && <Typography component="li" variant="h6" sx={{ color: theme.palette.common.light, margin: "auto 0" }}>
+                                           
                                             {obj.content}
+                                            
                                         </Typography>}
-                                        {obj.content1 && <Typography component="li" variant="h6" >
+                                        {obj.content1 && <Typography component="li" variant="body1" >
+                                        
                                             {obj.content1}
+                                           
                                         </Typography>}
                                         {obj.content2 && <Typography component="li" variant="h6" >
-                                            {obj.content2}
+                                        {obj.content2}
                                         </Typography>}
                                         {obj.content3 && <Typography component="li" variant="h6" >
-                                            {obj.content3}
+                                        {obj.content3}
                                         </Typography>}
                                         {obj.webImage && <Typography component="li" variant="h6" >
-                                            < a href={obj.webImage} style={{ margin: "auto 0" }}>{obj.title} link</a>
+                                            < IconButton onClick={(e)=>handleLink(e,obj.webImage)} style={{ margin: "auto 0" }}>{obj.title}< AddLinkIcon sx={{color:"white",background:"blue",m:1}} /></IconButton>
                                         </Typography>}
 
                                     </Typography>
                                 ))}
+                                </>
                             </Stack>
 
                         </Grid>
