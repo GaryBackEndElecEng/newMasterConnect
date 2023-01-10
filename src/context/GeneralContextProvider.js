@@ -198,7 +198,7 @@ export const GeneralContextProvider = (props) => {
            let pageDesign=products.filter(obj=>(obj.type==="pageDesign"))
            if(pageDesign.length>0){
             setGetProductDesigns({loaded:true,data:pageDesign})
-           
+           localStorage.setItem("productDesigns",JSON.stringify(pageDesign))
            }
         }
           

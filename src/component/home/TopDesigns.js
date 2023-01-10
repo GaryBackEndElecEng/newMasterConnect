@@ -64,8 +64,7 @@ animation: slideIn1 2s ease-in-out;
 const TopDesigns = ({makeEasy}) => {
     const theme=useTheme();
     const navigate=useNavigate();
-    const {getProductList}=useContext(PriceContext)
-    const {staticImage,setChangePage}=useContext(GeneralContext);
+    const {staticImage,setChangePage,getProductDesigns}=useContext(GeneralContext);
     const [turnOn,setTurnOn]=useState(false);
     const [turnOnDesc,setTurnOnDesc]=useState(false);
     const [getDesigns,setGetDesigns]=useState([]);
@@ -91,16 +90,17 @@ const TopDesigns = ({makeEasy}) => {
             { id: 1, name: "Realstate", link: "/design9", summary: "A sharp realtor Specialist page", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design9.png`, display: "none" },
             { id: 2, name: "Interior Designer", link: "/design10", summary: "Beautiful Design Page", icon: <LocalFloristIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design10.png`, display: "none" },
           ]
-        if(getProductList.loaded){
+        if(getProductDesigns.loaded){
             let arr=[];
             designs.forEach((obj,index)=>{
-                let monthly=getProductList.data.filter(ob=>(ob.name===obj.name))[0];
+                let monthly=getProductDesigns.data.filter(ob=>(ob.name===obj.name))[0];
                 arr.push({...obj,price:monthly.monthly});
             });
             setGetDesigns(arr);
             
         }
-      },[getProductList.loaded]);
+      },[getProductDesigns,setGetDesigns,staticImage]);
+     
   return (
     <Container maxWidth="lg"
     sx={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:{md:"row",xs:"column"},minHeight:{xs:"30vh",sm:"20vh",md:"30vh"},position:"relative",marginBottom:"1rem"}}

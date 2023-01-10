@@ -48,9 +48,7 @@ export const PriceContextProvider = (props) => {
                   }
                   if(body.filter(obj=>(obj.name==="Products"))[0]?.product){
                   setGetProductList({loaded:true,data:body.filter(obj=>(obj.name==="frontPage"))[0].product});
-                  let prodDesigns=body.filter(obj=>(obj.name==="frontPage"))[0].product
-                  let filterOutCustom=prodDesigns.filter(obj=>(obj.name !== "Custom Page"))
-                  localStorage.setItem("productDesigns",JSON.stringify(filterOutCustom));
+                  
                   }
                   if(body.filter(obj=>(obj.name==="Service"))[0]?.service){
                   setGetServiceList({loaded:true,data:body.filter(obj=>(obj.name==="Service"))[0].service});

@@ -112,7 +112,7 @@ const Bio = () => {
         getResume();
     }, [setResume]);
 
-    const options = { threshold: 1 }
+    const options = { threshold: 0.5 }
     const observer = new IntersectionObserver(entries => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
