@@ -52,6 +52,7 @@ import StoreProduct from './component/storeProduct/StoreProduct';
 import DependancyPage from './component/dependency/DependancyPage';
 import Package from './component/packages/Package';
 import SolarPanel from './component/design13/SolarPanel.js';
+import Video from './component/video/Video.js';
 
 function App() {
   return (
@@ -92,6 +93,7 @@ function App() {
             <Route path="/aboutPage" element={<AboutPage />} />
             <Route path="/contactPage" element={<ContactPage />} />
             <Route path="/prices" element={<Prices />} />
+            <Route path="/video" element={<Video />} />
             <Route path="/calculate" element={<Calculate />} />
             <Route path="/MyAccount" element={<LayoutSecure />}>
               <Route path="/MyAccount" element={<MyAccount />} />

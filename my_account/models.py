@@ -10,8 +10,8 @@ from api.models import Region
 from django.utils import timezone
 from datetime import datetime,date
 
-TYPE=(("pageDesign","pageDesign"),("subDesign","subDesign"),("pageTemplate","pageTemplate"),("subTemplate","subTemplate"),("nonDesign","nonDesign"),("subNonDesign","subNonDesign"),)
-CATEGORY=(("aboutPage","aboutPage"),("contactPage","contactPage"),("footer","footer"),("navBar","navBar"),("detailPage","detailPage"),("blogPage","blogPage"),("frontPage","frontPage"),("articlePage","articlePage"),("sidebar","sidebar"),("signin","signin"),("registration","registration"),("checkout","checkout"),("userAccount","userAccount"),("customFrontPage","customFrontPage"),("changeEmailPage","changeEmailPage"),("changePasswordPage","changePasswordPage"),("internetSales","internetSales"),("SEO","SEO"),("fileSystem","fileSystem"))
+TYPE=(("pageDesign","pageDesign"),("subDesign","subDesign"),("pageTemplate","pageTemplate"),("subTemplate","subTemplate"),("nonDesign","nonDesign"),("subNonDesign","subNonDesign"),("video","video"))
+CATEGORY=(("aboutPage","aboutPage"),("contactPage","contactPage"),("footer","footer"),("navBar","navBar"),("detailPage","detailPage"),("blogPage","blogPage"),("frontPage","frontPage"),("articlePage","articlePage"),("sidebar","sidebar"),("signin","signin"),("registration","registration"),("checkout","checkout"),("userAccount","userAccount"),("customFrontPage","customFrontPage"),("changeEmailPage","changeEmailPage"),("changePasswordPage","changePasswordPage"),("internetSales","internetSales"),("SEO","SEO"),("fileSystem","fileSystem"),("video","video"))
 
 class PriceCatelog(models.Model):
     name=models.CharField(max_length=100,blank=True,null=True)
