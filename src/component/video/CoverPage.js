@@ -32,6 +32,9 @@ animation:clearIn 3s ease-in-out;
 @media screen and (max-width:600px){
   margin-top:-52px;
 };
+@media screen and (max-width:400px){
+  margin-top:-51px;
+};
 
 `;
 
