@@ -66,3 +66,13 @@
         opacity:1;
     }
 }
+.showClickMe:after{
+    display:none;
+    position:absolute;
+    background:white;
+    content:"click me";
+}
+.showClickMe:hover:after{
+    display:block;
+    
+}
