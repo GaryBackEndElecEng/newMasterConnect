@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 
-const ProductHelmet = ({ keywords, summary, staticImage, desc, image, average, getPathLocation, pageRatings, getArray }) => {
+const ProductHelmet = ({ keywords, summary, image, average, getPathLocation, pageRatings, getArray }) => {
     let review = "N/A";
     if (pageRatings) {
          review = pageRatings.map((obj, index) => (
@@ -33,13 +33,13 @@ const ProductHelmet = ({ keywords, summary, staticImage, desc, image, average, g
             {
                 "@context": "https://schema.org/",
                 "@type": "Product",
-                "name": obj.title,
-                "image": `${staticImage}/solar/${obj.image}`,
-                "description": obj.desc,
+                "name": obj.name,
+                "image": obj.imageArr.map(obj=>(obj.image)),
+                "description": `${obj.name} is used as a sample`,
                 "mpn": "N/A",
                 "brand": {
                     "@type": "Brand",
-                    "name": "MACABRE DESIGN"
+                    "name": "sample web design"
                 },
                 review
                 ,
@@ -52,7 +52,7 @@ const ProductHelmet = ({ keywords, summary, staticImage, desc, image, average, g
                     "@type": "Offer",
                     "url": "https://www.master-connect.ca/design13",
                     "priceCurrency": "CAD",
-                    "price": obj.monthly,
+                    "price": "13",
                     "priceValidUntil": "N/A",
                     "itemCondition": "http://schema.org/UsedCondition",
                     "availability": "http://schema.org/InStock",
@@ -65,12 +65,12 @@ const ProductHelmet = ({ keywords, summary, staticImage, desc, image, average, g
     }
     return (
         <Helmet>
-            <title>PRODUCT </title>
+            <title>PRODUCT ARRAY </title>
             <meta name="site_name" content="Web Designs" />
             <link rel="canonical" href={`${getPathLocation}/design14`} />
             <meta name="keywords" content={keywords} />
             <meta name="summary" content={summary} />
-            <meta name="description" content={desc} />
+            <meta name="description" content={summary} />
             <meta name="site" content={getPathLocation} />
             <meta name="url" content={getPathLocation} />
             <meta name="image" content={image} />

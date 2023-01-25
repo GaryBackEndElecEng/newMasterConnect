@@ -79,6 +79,15 @@ to pull down any changes from origin/main:
 git pull --rebase
 GIT: TO PUSH THE CHANGES TO AREMOTE BRANCH:
 git push origin myBranch
+BEFORE UPDATING GIT:
+create another origin for a new project;
+git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
+UPDATE GIT:
+git status
+git add .
+git commit -m "flagging the updates"
+git push -u origin main ( main is the branch)
+
 ISSUE:
 "error: failed to push some refs to 'https://github.mydomain.info/Product/product.git'
 hint: Updates were rejected because the tip of your current branch is behind its remote counterpart."
