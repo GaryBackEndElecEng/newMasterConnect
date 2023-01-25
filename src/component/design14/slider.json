@@ -1,0 +1,8 @@
+[
+    {"id":0,"name":"Air Nike","image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/AirNike.png"},
+    {"id":1,"name":"DeWalt","image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/dewalt_bMklbCi.jpg"},
+    {"id":2,"name":"Ninja Blender","image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/ninja.png"},
+    {"id":3,"name":"Olay","image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/olay.png"},
+    {"id":4,"name":"Hover Pen","image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/pen.jpg"},
+    {"id":5,"name":"Quick Access Wallet","image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/wallet_9VFyOab.jpg"}
+]

@@ -1,0 +1,69 @@
+[
+    {"id":0,"name":"air Nike","imageArr":[
+        {"id":0,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/AirNike.png"},
+        {"id":1,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/AirNike2.png"},
+        {"id":2,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/AirNike3.png"},
+        {"id":3,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/AirNike4.png"}
+    ],
+    "desc":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quod sequi quaerat et atque, perspiciatis voluptate? Pariatur temporibus officia provident iusto incidunt animi minus, fugit deserunt facere neque. Ipsum accusantium eos assumenda repellat dignissimos corrupti necessitatibus, error fuga, nulla, minima illo a. Officiis quisquam commodi quam temporibus omnis alias sapiente.",
+    "summary":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas consectetur laboriosam delectus dolorum molestias eius quidem quos tempora. Quibusdam, suscipit!",
+    "logo":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/NikeLogo.png"
+    },
+    {"id":1,"name":"DeWalt","imageArr":[
+        {"id":0,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/dewalt_bMklbCi.jpg"},
+        {"id":1,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/dewalt_JGh6erS.jpg"},
+        {"id":2,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/dewalt_RCAqvSu.jpg"},
+        {"id":3,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/dewalt_vl0YIhj.jpg"},
+        {"id":4,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/dewalt_vmHm52F.jpg"}
+    ],
+    "desc":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quod sequi quaerat et atque, perspiciatis voluptate? Pariatur temporibus officia provident iusto incidunt animi minus, fugit deserunt facere neque. Ipsum accusantium eos assumenda repellat dignissimos corrupti necessitatibus, error fuga, nulla, minima illo a. Officiis quisquam commodi quam temporibus omnis alias sapiente.",
+    "summary":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas consectetur laboriosam delectus dolorum molestias eius quidem quos tempora. Quibusdam, suscipit!",
+    "logo":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/DeWaltLogo.png"
+    },
+    {"id":2,"name":"Ninja Blender","imageArr":[
+        {"id":0,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/ninja.png"},
+        {"id":1,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/ninja1.png"},
+        {"id":2,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/ninja2.png"},
+        {"id":3,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/ninja3.png"}
+        
+    ],
+    "desc":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quod sequi quaerat et atque, perspiciatis voluptate? Pariatur temporibus officia provident iusto incidunt animi minus, fugit deserunt facere neque. Ipsum accusantium eos assumenda repellat dignissimos corrupti necessitatibus, error fuga, nulla, minima illo a. Officiis quisquam commodi quam temporibus omnis alias sapiente.",
+    "summary":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas consectetur laboriosam delectus dolorum molestias eius quidem quos tempora. Quibusdam, suscipit!",
+    "logo":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/ninjaLogo.png"
+    },
+    {"id":3,"name":"Olay","imageArr":[
+        {"id":0,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/olay.png"},
+        {"id":1,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/olay1.png"},
+        {"id":2,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/olay2.png"},
+        {"id":3,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/olay3.png"}
+        
+    ],
+    "desc":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quod sequi quaerat et atque, perspiciatis voluptate? Pariatur temporibus officia provident iusto incidunt animi minus, fugit deserunt facere neque. Ipsum accusantium eos assumenda repellat dignissimos corrupti necessitatibus, error fuga, nulla, minima illo a. Officiis quisquam commodi quam temporibus omnis alias sapiente.",
+    "summary":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas consectetur laboriosam delectus dolorum molestias eius quidem quos tempora. Quibusdam, suscipit!",
+    "logo":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/olayLogo.png"
+    },
+    {"id":4,"name":"Magnetic Hoover Pen","imageArr":[
+        {"id":0,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/pen.jpg"},
+        {"id":1,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/pen1.jpg"},
+        {"id":2,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/pen2.jpg"},
+        {"id":3,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/pen3.jpg"},
+        {"id":3,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/pen1_2j4h77z.jpg"}
+        
+    ],
+    "desc":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quod sequi quaerat et atque, perspiciatis voluptate? Pariatur temporibus officia provident iusto incidunt animi minus, fugit deserunt facere neque. Ipsum accusantium eos assumenda repellat dignissimos corrupti necessitatibus, error fuga, nulla, minima illo a. Officiis quisquam commodi quam temporibus omnis alias sapiente.",
+    "summary":"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas consectetur laboriosam delectus dolorum molestias eius quidem quos tempora. Quibusdam, suscipit!",
+    "logo":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/hoverPenLogo.png"
+    },
+    {"id":5,"name":"Quick Access Wallet","imageArr":[
+        
+        {"id":0,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/wallet.jpg"},
+        {"id":1,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/wallet2.jpg"},
+        {"id":2,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/wallet3.png"},
+        {"id":3,"image":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/wallet4.jpg"}
+        
+    ],
+    "desc":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus quod sequi quaerat et atque, perspiciatis voluptate? Pariatur temporibus officia provident iusto incidunt animi minus, fugit deserunt facere neque. Ipsum accusantium eos assumenda repellat dignissimos corrupti necessitatibus, error fuga, nulla, minima illo a. Officiis quisquam commodi quam temporibus omnis alias sapiente.",
+    "summary":"This is the description of the Quick Access Wallet",
+    "logo":"https://new-master.s3.ca-central-1.amazonaws.com/media/saleProducts/wallet2Logo.png"
+    }
+]

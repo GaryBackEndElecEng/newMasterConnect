@@ -1,0 +1,68 @@
+.cardSlide {
+    opacity:1;
+    animation: slideOver2 16s linear infinite;
+    transition:opacity 1.5s ease-in;
+}
+
+.card {
+    animation: slideOver1 16s ease-in-out reverse;
+
+}
+
+@keyframes slideOver {
+    0% {
+        transform: translateX(0%);
+    }
+
+    50% {
+        transform: translateX(-250%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slideOver1 {
+    100% {
+        transform: translateX(-200%)
+    }
+}
+
+@keyframes slideOver2 {
+    0% {
+        transform: translateX(100%) scale(0.8);
+        opacity:1;
+    }
+    10% {
+        transform: translateX(0%) scale(1);
+        opacity:1;
+    }
+    100% {
+        transform: translateX(-590%);
+        opacity:1;
+    }
+   
+}
+
+.slideStack {
+    animation: scroll1 30s linear infinite;
+}
+.slideStackNone{
+    animation:none;
+}
+
+@keyframes scroll1 {
+    0% {
+        transform: translateX(80%) scale(0.8);
+        opacity:1;
+    }
+    10% {
+        transform: translateX(0%) scale(1);
+        opacity:1;
+    }
+    100% {
+        transform: translateX(-630%) scale(1);
+        opacity:1;
+    }
+}

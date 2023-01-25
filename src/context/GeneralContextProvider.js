@@ -155,7 +155,7 @@ export const GeneralContextProvider = (props) => {
   const [UUID, setUUID] = useState({ loaded: false, uuid: 0 });
   const [average, setAverage] = useState(0);
 
-  const workArr = [{ id: 0, "title": "HomeStyle", "link": "/design1" }, { id: 1, "title": "Retrospect", "link": "/design2" }, { id: 2, "title": "ImageWall", "link": "/design3" }, { id: 3, "title": "Space Frontier", "link": "/design4" }, { id: 4, "title": "Flower Store", "link": "/design5" }, { id: 5, "title": "Store Front", link: "https://www.master-connect.ca" }, { id: 6, title: "Wedding", link: "/design6" }, { id: 7, title: "videos", link: "/video" }]
+  const workArr = [{ id: 0, "title": "HomeStyle", "link": "/design1" }, { id: 1, "title": "Retrospect", "link": "/design2" }, { id: 2, "title": "ImageWall", "link": "/design3" }, { id: 3, "title": "Space Frontier", "link": "/design4" }, { id: 4, "title": "Flower Store", "link": "/design5" }, { id: 5, "title": "Store Front", link: "https://www.master-connect.ca" }, { id: 6, title: "Wedding", link: "/design6" }, { id: 7, title: "videos", link: "/video" }, { id: 8, title: "product display", link: "/design14" }]
 
   const navItems = [{ id: 1, title: 'home', link: "/" }, { id: 2, title: 'about', link: "/about" }, { id: 3, title: 'Designs', link: "/works" }, { id: 4, title: "contact", link: "/contact" }, { id: 5, title: "Blog", link: "/blog" }]
 

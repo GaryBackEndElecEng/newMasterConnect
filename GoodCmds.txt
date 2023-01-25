@@ -59,6 +59,8 @@ git push heroku (git repo/your branch):master
 git remote add origin https://github.com/GaryBackEndElecEng/newMasterConnect.git
 git branch -M main
 git push -u origin main
+If your local changes are bad then JUST REMOVE THEM or reset your local master to the state on remote:
+git reset --hard origin/main
 python manage.py dbshell
   select * from django_migrations
    delete from django_migrations where id=361;
@@ -70,3 +72,17 @@ TO REMOVE ADDED STATUS FILES FROM GIT :
 git rm -f  "adminHome/migrations/0007_delete_suminvoice.py" 
 /RUN COLLECTSTATIC
 heroku run 'bower install --config.interactive=false;grunt prep;python manage.py collectstatic --noinput' 
+GIT: CREATE A BRANCH OF  OF origin/main
+git checkout -b myBranch origin/main
+GIT: do a rebase:
+to pull down any changes from origin/main:
+git pull --rebase
+GIT: TO PUSH THE CHANGES TO AREMOTE BRANCH:
+git push origin myBranch
+ISSUE:
+"error: failed to push some refs to 'https://github.mydomain.info/Product/product.git'
+hint: Updates were rejected because the tip of your current branch is behind its remote counterpart."
+SOLUTION: git push -f origin myBranch or git push -f origin
+EXPLANATION:"You should pull down the changes from that remote branch and merge them into your local branch before pushing"
+git pull origin , then git push 
+fix: git push -f origin master , "With the -f tag ( force) you will override the remote branch code with your local repo code"

@@ -51,15 +51,12 @@ const Bio = () => {
     const getGeneralInfo= generalInfo.loaded ? generalInfo.data :null;
     const [newGenInfo,setNewGenInfo]=useState(null);
     const [resumeHeight, setResumeHeight] = useState(null);
-    const ResHeight = resumeHeight ? resumeHeight :"auto";
     const CV="https://new-master.s3.ca-central-1.amazonaws.com/static/files/Resume.pdf";
    
    
     useEffect(()=>{
-        if(!MainResumeRef.current)return
-        if (window.innerWidth && window.innerWidth >900) {
+        if(!MainResumeRef.current){return setResumeHeight("2247px")}
             setResumeHeight(window.getComputedStyle(MainResumeRef.current).getPropertyValue("height"));
-        }
         if(!getGeneralInfo)return
         let arr=[];
         getGeneralInfo.siteArray.forEach((obj)=>{
@@ -146,7 +143,7 @@ const Bio = () => {
         e.preventDefault();
         window.open(link);
     }
-
+console.log(resumeHeight)
     return (
         <BioMmain display={showBlock}>
             <BioHelmet 
@@ -187,7 +184,7 @@ const Bio = () => {
                 <Paper elevation={3} sx={{ margin: {lg:"1rem auto",xs:"1rem auto"}, padding: "0.5rem ", }}>
                     <Grid container spacing={{xs:0,sm:0,md:0}} sx={{ textAlign: "flex-start",display:"flex", justifyContent: "center", alignItems: "flex-start",position:"relative" }}>
                         <Grid item xs={12} md={3} sx={{ boxShadow: "1px 3px 10px blue",
-                          padding: "0 0.5rem", height: { xs: "auto", lg:ResHeight },flexGrow:1 }}
+                          padding: "0 0.5rem", height: { xs: "auto", lg:resumeHeight },flexGrow:1 }}
                           className={styles.sidebar}
                           >
 
