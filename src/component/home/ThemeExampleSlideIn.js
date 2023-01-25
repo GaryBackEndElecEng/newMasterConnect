@@ -38,7 +38,8 @@ const ThemeExampleSlideIn = () => {
     { id: 9, name: "Interior Design", link: "/design10", summary: "Beautifully Design Page", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design10.png`, display: "none" },
     { id: 10, name: "Restaurant Design", link: "/design11", summary: "5-Star restaurant", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design11.png`, display: "none" },
     { id: 11, name: "Product Detail Page", link: "/design12", summary: "Well Designed Product Detail display", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design12.png`, display: "none" },
-    { id: 12, name: "Custom templates", link: "/customPage", summary: "Choose your template", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/customPage.png`, display: "none" },
+    { id: 12, name: "Product Array Page", link: "/design14", summary: "Product display with effects", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/design14.png`, display: "none" },
+    { id: 13, name: "Custom templates", link: "/customPage", summary: "Choose your template", icon: <FavoriteIcon  sx={{mr:1,color:"red"}}/>, pic: `${staticImage}/customPage.png`, display: "none" },
   ]
 
   
