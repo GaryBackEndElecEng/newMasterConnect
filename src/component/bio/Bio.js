@@ -56,7 +56,10 @@ const Bio = () => {
    
     useEffect(()=>{
         if(!MainResumeRef.current){return setResumeHeight("2247px")}
-            setResumeHeight(window.getComputedStyle(MainResumeRef.current).getPropertyValue("height"));
+        let cvHeight=window.getComputedStyle(MainResumeRef.current).getPropertyValue("height");
+            if(parseInt(cvHeight.split("px")[0])> 2000){
+            setResumeHeight(cvHeight);
+            }else{setResumeHeight("2247px");}
         if(!getGeneralInfo)return
         let arr=[];
         getGeneralInfo.siteArray.forEach((obj)=>{
@@ -209,7 +212,7 @@ console.log(resumeHeight)
                                 </Typography>
                                 <ConnectWithoutContactIcon sx={{ m: 1,color:theme.palette.common.red }} />
                                  {newGenInfo.siteArray && newGenInfo.siteArray.map((obj,index)=>(
-                                    <Typography component="li" variant="h6" key={`${obj}-sites--{index}`}
+                                    <Typography component="li" variant="h6" key={`${obj}-sites--${index}`}
                                      sx={{ color: theme.palette.common.light, margin: "auto 0" }}
                                     >
                                     <IconButton onClick={(e)=>handleLink(e,obj.link)} sx={{textDecoration:"none",color:"white","&:hover":{transform:" scale(1.03) translateX(5%)",transition:"transform 0.5s ease-in-out"}}}>{obj.icon}</IconButton>

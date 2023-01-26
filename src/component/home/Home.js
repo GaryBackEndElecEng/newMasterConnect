@@ -16,7 +16,7 @@ import MiddleBanner from './MiddleBanner'
 import CallBackRequest from '../about/CallBackRequest';
 import RegisterPage from '../RegisterPage';
 import SigninMsg from './SigninMsg';
-import SpecialCreateValue from './SpecialCreateValue';
+// import SpecialCreateValue from './SpecialCreateValue';
 import ArticleBanner from './ArticleBanner';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import CalculateBanner from './CalculateBanner';
@@ -24,7 +24,8 @@ import HomeHelmet from './HomeHelmet';
 import ShowGoToMyAccount from './ShowGoToMyAccount';
 import BioBanner from './BioBanner';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
-
+import VideoIntro from './VideoIntro';
+import SupplementalBanner from './SupplementalBanner';
 
 
 
@@ -253,7 +254,9 @@ const Home = () => {
                         {callBackConfirmed && <Paper elevation={3} component="div" sx={{ width: "100%", margin: { xs: "1rem auto", sm: "0.5rem auto" }, transform: { sm: "translateY(-10%)" } }}>
                             <CallBackRequest />
                         </Paper>}
-                        <SpecialCreateValue />
+                        {/* <SpecialCreateValue /> */}
+                        <VideoIntro staticImage={staticImage}/>
+                        <SupplementalBanner staticImage={staticImage}/>
 
                         <Container maxWidth="lg" sx={{ position: "relative", margin: "2rem auto" }}>
                             {turnOnWeDo && <WeDo />}
