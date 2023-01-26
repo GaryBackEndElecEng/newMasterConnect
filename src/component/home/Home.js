@@ -72,6 +72,8 @@ function todayDate(){
 
 
 const Home = () => {
+    const videoRef=useRef();
+    const clickHereRef=useRef();
     const theme = useTheme();
     const { setLoaded, setTitle, changePage, setStyleName, staticImage, setOpen, callBackConfirmed, registerConfirmed, setChangePage, allCategory, getPathLocation,FAQS } = useContext(GeneralContext);
     const { signout, signin, viewAccount, loggedIn } = useContext(TokenAccessContext);
@@ -85,7 +87,8 @@ const Home = () => {
     const [activate, setActivate] = useState(false);
     const [activateBio, setActivateBio] = useState(false);
     const [hello, setHello] = useState(false);
-    const myRef = useRef();
+    const [clickPlay, setClickPlay] = useState(false);
+    
     // const homeHeight = removeBlock ? 375 : null;
 
     const homeBg2 = `${staticImage}/homeBg3.png`;
@@ -99,12 +102,14 @@ const Home = () => {
                 if (entry.target.id === "bio") {
                     setActivateBio(true);
                     return
-                } if (entry.target.id === "test") {
+                }else if (entry.target.id === "test") {
                     setHello(true);
-
+                } else if(entry.target===clickHereRef.current){
+                    setClickPlay(true);
                 }
             } else {
                 setActivate(false);
+                setClickPlay(false);
             }
         }, { threshold: 1 });
 
@@ -184,8 +189,15 @@ const Home = () => {
 
     const testMyRef = useCallback(e => {
         if (e === null) return
-        observers.observe(e)
+        observers.observe(e);
     }, []);
+    
+    useEffect(()=>{
+        if(!clickHereRef.current) return;
+        observers.observe(clickHereRef.current);
+    },[clickHereRef]);
+
+    
     
 
     return (
@@ -254,8 +266,13 @@ const Home = () => {
                         {callBackConfirmed && <Paper elevation={3} component="div" sx={{ width: "100%", margin: { xs: "1rem auto", sm: "0.5rem auto" }, transform: { sm: "translateY(-10%)" } }}>
                             <CallBackRequest />
                         </Paper>}
-                        {/* <SpecialCreateValue /> */}
-                        <VideoIntro staticImage={staticImage}/>
+                        <Typography component="p" variant="h4" ref={clickHereRef}
+                        sx={{position:"absolute",top:{md:"20%",xs:"15%"},left:{md:"20%",xs:"36%"},zIndex:"999",background:"rgba(0,0,0,.3)",padding:"1rem",color:"white"}}
+                        className={clickPlay ? Styles.handleToView: Styles.close}
+                        >
+                            Click to View
+                        </Typography>
+                        <VideoIntro staticImage={staticImage} videoRef={videoRef}/>
                         <SupplementalBanner staticImage={staticImage}/>
 
                         <Container maxWidth="lg" sx={{ position: "relative", margin: "2rem auto" }}>

@@ -1,9 +1,8 @@
-import React,{useState,useRef} from 'react';
+import React from 'react';
 import {Stack,CardMedia,Box,Typography,Fab,Container} from "@mui/material";
-import styled from 'styled-components';
 
-const VideoIntro = ({staticImage}) => {
-    const videoRef=useRef();
+
+const VideoIntro = ({staticImage,videoRef}) => {
     const video=`${staticImage}/video/masterMain.mp4`;
     const handlePlay=(e)=>{
         if(e.currentTarget){
