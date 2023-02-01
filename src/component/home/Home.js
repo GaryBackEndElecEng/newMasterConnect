@@ -193,9 +193,23 @@ const Home = () => {
     }, []);
     
     useEffect(()=>{
+        const observers = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTurnONWeDo(true)
+                    setActivate(true);
+                    if(entry.target===clickHereRef.current){
+                        setClickPlay(true);
+                    }
+                } else {
+                    setClickPlay(false);
+                }
+            }, { threshold: 0.5 });
+    
+        });
         if(!clickHereRef.current) return;
         observers.observe(clickHereRef.current);
-    },[clickHereRef]);
+    },[clickHereRef,observers,setClickPlay]);
 
     
     

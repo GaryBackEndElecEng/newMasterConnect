@@ -123,11 +123,14 @@ setKeywords(arr2)
         }
       }
       arr = arr.concat(intro)
-
+      
       arr = arr + "," + intro;
+      if(String(showBlog.sectionBlog[0].section) && String(showBlog.sectionBlog[0].subSection) && String(showBlog.sectionBlog[0].subSection2)){
       arr = arr + generateKeyWords(showBlog.sectionBlog[0].section);
       arr = arr + generateKeyWords(showBlog.sectionBlog[0].subSection);
       arr = arr + generateKeyWords(showBlog.sectionBlog[0].subSection2);
+      }
+      
       setKeywords(arr.slice(0, 150))
     }
   }, [blogMain.loaded, blogMain.data]);

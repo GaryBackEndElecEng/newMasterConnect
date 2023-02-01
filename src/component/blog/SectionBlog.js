@@ -57,7 +57,6 @@ const SectionBlog = ({ sectionBlog }) => {
                     
                     <div style={{padding:"0.5rem",textAlign:"left"}}  dangerouslySetInnerHTML={ createMarkup(obj.summary)}/>
                     
-                    {obj.sectionImage && <MainImage src={obj.sectionImage} alt="www.master-connect.ca" style={{ width: "100%" }} />}
                     <Typography component='h1' variant="h4" sx={{ margin: "2rem auto", textAlign: "center", fontWeight: "bold", }}>
                         {obj.subSection && obj.subSection}
                     </Typography>
