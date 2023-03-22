@@ -82,7 +82,7 @@ const Bio = () => {
 
     if (loadingData) {
         document.location.reload();
-        console.log(" reloading")
+        // console.log(" reloading")
     }
 
 // console.log(resumeHeight)
@@ -146,7 +146,7 @@ const Bio = () => {
         e.preventDefault();
         window.open(link);
     }
-console.log(resumeHeight)
+// console.log(resumeHeight)
     return (
         <BioMmain display={showBlock}>
             <BioHelmet 

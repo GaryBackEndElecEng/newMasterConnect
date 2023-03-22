@@ -86,6 +86,7 @@ class Product(models.Model):
     extra_kwargs=models.CharField(max_length=300,default="not assigned",blank=True)
     priceCatelog=models.ManyToManyField(PriceCatelog,related_name="product",blank=True)
     imageName=models.CharField(max_length=150,blank=True)
+    frontCover=models.CharField(max_length=150,blank=True)
     postServices=models.ManyToManyField(PostService,blank=True)
     services=models.ManyToManyField(Service,blank=True)
     extraServices=models.ManyToManyField(ExtraService,blank=True)
