@@ -63,7 +63,7 @@ const SalePerson = ({lang}) => {
                             sx={{ width:{xs:"85%",sm:"35%",md:"45%"}, height: {xs:"85%",sm:"35%",md:"45%"}, mr: 2 ,padding:{md:"0.25rem"},borderRadius:"15%"}}
                         />
                         <Stack direction="column" sx={{padding:"1rem"}}>
-                            <Typography component="h1" variant="h4"> Francois Brunet</Typography>
+                            <Typography component="h1" variant="h4"> Gary Wallace</Typography>
                             <Typography component="h1" variant="h6"> particulars:</Typography>
                             <Stack direction={{xs:"column",sm:"row"}} sx={{ alignItems: "flex-start" }} spacing={1}>
                                 <Typography component="h1" variant="h6"> 101 Bonaventure,Montreal</Typography>
@@ -72,7 +72,7 @@ const SalePerson = ({lang}) => {
                             <Typography component="h1" variant="h6"> Communications:</Typography>
                             <Stack direction={{xs:"column",sm:"row"}} sx={{ alignItems: "flex-start" }} spacing={1}>
                                 <Typography component="h1" variant="h6"> C:123.456.7891</Typography>
-                                <Typography component="h1" variant="h6"> e.francoisbrunet@realtors.ca</Typography>
+                                <Typography component="h1" variant="h6"> e.garywallace@realtors.ca</Typography>
                             </Stack>
 
                         </Stack>

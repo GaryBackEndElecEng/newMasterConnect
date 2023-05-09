@@ -1,68 +1,359 @@
 *{margin:0;padding:0;box-sizing:border-box}
 
+h1{font-family:var(--font-family);}
+/* -------------GENERAL USE-------------------------------- */
 
+/* -------------GENERAL USE-END------------------------------- */
 
+/* -------------COVER PAGE------------------------------- */
+.mainCoverGuid{
+    margin:auto;
+    position:static;
+    padding:5px;
+    background:transparent;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.mainCoverGuid  h1, .mainFlowerTag h1{
+    font-family:var(--font-family);
+}
+.coverCard{
+    opacity:1;
+    margin:auto;
+    position:relative;
+    padding:10px;
+    background:transparent;
+    display:flex;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    box-shadow:1px 1px 7px 1px black;
+    animation: showTitle 3.5s ease-in-out;
+}
+.coverCardHide{
+    opacity:0;
+    margin:auto;
+    position:relative;
+    padding:10px;
+    background:transparent;
+    display:flex;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    box-shadow:1px 1px 7px 1px black;
+    animation: hideTitle 5.5s ease-in-out;
+}
+@keyframes showTitle {
+    from {opacity:0;transform:translateY(-100%);}
+    to {opacity:1;}
+}
+@keyframes hideTitle {
+    from {opacity:1;}
+    to {opacity:0;}
+}
+.stackTitleLogo{
+    margin:auto;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+    box-shadow:1px 1px 7px 1px black;
+    padding:10px 30px;
+    margin:10px;
+    text-align:"center";
+    background:rgba(0,0,0,0.4);
+}
+.titleEffect{
+    background-size:200% 200%;
+    background-position:50% 50%;
+    background-clip:text;
+    background-image:var(--background-hopefulHarvest);
+    -webkit-background-clip: text;
+    filter:saturate(2);
+    color:transparent;
+}
 
-.ART{
-    position:absolute;
-    right:0%;
-    top:40%;
+.avatar{
     
+    width:225px;
+    height:225px;
+    border-radius:25%;
 }
-.DESIGN{
-    position:absolute;
-    right:-16%;
-    top:18%;
-    /* left:100%; */
-    transform:rotate(270deg);
-}
-
-.DECO{
-    position:absolute;
-    left:0%;
-    top:40%;
-    color:white;
-    z-index:1000;
-    
-}
-@media screen and (max-width:860px){
-    .ART{
-        
-        top:50%;
+@media screen and (max-width:900px){
+    .mainCoverGuid{
+        width:800px;
         
     }
-    .DESIGN{
-        position:absolute;
-        right:-15%;
-        top:39%;
+    .coverCard{
+        margin:auto;
+        width:100%;
         
     }
+    .avatar{
+        width:auto;
+        height:auto;
+    }
     
-    .DECO{
-        position:absolute;
-        top:50%;
-        
+}
+@media screen and (max-width:600px){
+    .mainCoverGuid{
+        width:350px;
+    }
+    .coverCardHide{
+        width:100%;
+    }
+   
+    .avatar{
+        width:auto;
+        height:auto;
+    }
+}
+/* -------------COVER PAGE-END------------------------------- */
+
+/* -------------FLOWER TAG SCROLL------------------------------- */
+.mainFlowerTag{
+    width:100%;
+    margin:auto;
+    height:auto;
+    display:flex;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:var(--background-hopefulHarvest-main);
+    
+}
+.mainFlowerTag  div{
+    margin:auto;
+}
+.mainGrid{
+    width:100%;
+    margin:1rem auto;
+    background:white;
+    
+}
+.mainGrid > div{
+    margin:0 auto;
+    
+}
+.sidebar{
+    background:var(--background-555);
+    margin:auto 20px;
+    display:flex;
+    flex-direction:column;
+
+}
+.sidebar > div{
+    margin:auto;
+}
+.sidebar >div h1{
+    
+    /* text-align:center; */
+    color:black;
+    
+    
+}
+.scrollparent{
+    margin:auto;
+    display:flex;
+    width:100%;
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    flex-wrap:nowrap;
+    overflow-x:scroll;
+    /* overflow-y:auto; */
+    /* border:1px solid red; */
+    scroll-snap-align: center;
+    scroll-margin-block: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.scrollChild{
+    margin:auto;
+    flex:0 0 100%;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    scroll-snap-align:center;
+}
+.tagItem{
+    margin:auto;
+    position:relative;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    scroll-snap-align: center;
+}
+
+/* -------------FLOWER TAG SCROLL -END------------------------------- */
+
+/* -------------FLOWER DISPLAY -START------------------------------- */
+
+.mainFlower{
+    width:100%;
+    margin:0 5vw;
+    min-height:50vh;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:var(--background-hopefulHarvest-flowDisp);
+}
+.scrollFlowerParent{
+        margin: 8vh auto;
+        display:flex;
+        width:90%;
+        height:auto;
+        flex-direction:row;
+        justify-content:flex-start;
+        align-items:center;
+        flex-wrap:nowrap;
+        overflow-x:hidden;
+        overflow-y:auto;
+        box-shadow:1px 1px 10px 1px white;
+        /* scroll-snap-align: center; */
+        scroll-margin-block: 10px;
+        /* scroll-snap-type: x mandatory; */
+}
+
+.scrollFlowerChild{
+    flex:0 0 33%;
+    height:auto;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    /* scroll-snap-align:end; */
+    animation:scrollBy 60s linear infinite;
+}
+
+.noScrollFlowerChild{
+    flex:0 0 33%;
+    height:auto;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    animation:scrollBy 60s linear infinite;
+    animation-play-state:paused;
+}
+@keyframes scrollBy{
+    from {transform:translateX(-1700%);}
+    to {transform:translateX(0%);}
+}
+@media screen and (max-width:900px){
+    .scrollFlowerParent{
+        width:100%;
+    }
+    .scrollFlowerParent>div{
+        flex:0 0 50%;
+        height:auto;
+        animation:scrollBy 70s linear infinite;
+    }
+    @keyframes scrollBy{
+        from {transform:translateX(-1800%);}
+        to {transform:translateX(0%);}
+    }
+}
+@media screen and (max-width:600px){
+    .scrollFlowerParent>div{
+        flex:0 0 100%;
+        height:auto;
+        animation:scrollBy 90s linear infinite ;
+    }
+    @keyframes scrollBy{
+        from {transform:translateX(-1800%);}
+        to {transform:translateX(0%);}
+    }
+}
+/* -------------FLOWER DISPLAY -END------------------------------- */
+/* -------------HAND CRAFTED------------------------------- */
+.craftedInnerMain{
+    margin:3rem auto;
+    display:flex;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.handCraftGridChild{
+    margin: 3rem auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:transparent;
+    box-shadow:1px 1px 10px 1px black;
+}
+.handCraftScrollParent{
+    margin:auto 10px;
+    scroll-snap-type: x mandatory;
+    scroll-snap-align:center ;
+    width:100%;
+    overflow-x:scroll;
+    overflow-y:hidden;
+    column-gap:5px;
+    
+}
+.handCraftScrollChild{
+    flex:0 0 33%;
+    margin: 1rem auto;
+    align-self:center;
+    scroll-snap-align: center;
+    scroll-margin-block: 5px;
+    background:transparent;
+    box-shadow:1px 1px 10px 1px black;
+}
+@media screen and (max-width:900px){
+    .handCraftScrollChild{
+        flex:0 0 50%;
+        margin: 1rem auto;
         
     }
 }
 @media screen and (max-width:600px){
-    .ART{
-        
-        top:47%;
-        
-    }
-    .DESIGN{
-        position:absolute;
-        right:-25%;
-        top:39%;
-        
-    }
-    
-    .DECO{
-        position:absolute;
-        top:47%;
+    .handCraftScrollChild{
+        flex:0 0 100%;
+        margin: 1rem auto;
         
         
     }
 }
 
+/* -------------HAND CRAFTED -END------------------------------- */
+
+/* -------------FAMILY OWNED -START------------------------------- */
+
+.familyFontStyle{
+    background:var(--background-hopefulHarvest-familyTypo);
+    -webkit-background-clip:text;
+    background-clip: text;
+    background-size:100% 100%;
+    background-position:50% 50%;
+    color:transparent;
+
+}
+.familyCard,.familyCard div,.familyCard > div{
+    background:var(--background-hopefulHarvest-familyTypo);
+}
+
+/* -------------FAMILY OWNED -END------------------------------- */
+
+/* -------------SEND MSG------------------------------- */
+
+.form{
+    margin:1rem auto;
+    padding:1rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    box-shadow:1px 1px 15px 1px black;
+}
+.formcontrol{
+    margin:0.5rem auto;
+}
+/* -------------SEND MSG -END------------------------------- */

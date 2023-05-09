@@ -1,11 +1,27 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import api from '../component/axios/api';
+import InfoIcon from "@mui/icons-material/Info";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
+import RssFeedIcon from "@mui/icons-material/RssFeed";
+import HomeIcon from "@mui/icons-material/Home";
+import CompassCalibrationIcon from '@mui/icons-material/CompassCalibration';
+import MemoryIcon from '@mui/icons-material/Memory';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+
+
 export const GeneralContext = React.createContext();
 export const GeneralContextProvider = (props) => {
   const url = "http://localHost:3000";
   const serverUrl = (process.env.NODE_ENV === "production") ? "/api" : "http://localhost:8000/api";
   // const serverUrl="/api";
-  const staticImage = "https://new-master.s3.ca-central-1.amazonaws.com/static"
+  const staticImage = "https://new-master.s3.ca-central-1.amazonaws.com/static";
+  const staticImage2="http://localhost:3000/image";
+
+  const contactInfo=[{id:1,name:"telephone number",value:"416-917-5768",type:"tel",content:"call us"},{id:2,name:"email",value:"masterconnect919@gmail.com",type:"mailto",content:"email us"},];
+  
+
   const initializeRequestInfo = {
     email: "",
     fullName: "",
@@ -87,10 +103,8 @@ export const GeneralContextProvider = (props) => {
   const [zIndex, setZIndex] = useState("1");
   const [removeText, setRemoveText] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [activate, setActivate] = useState(false);
   const [error, setError] = useState(false);
   const [loginError, setLoginError] = useState(false);
-  const [email, setEmail] = useState('');
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [requestInfo, setRequestInfo] = useState(initializeRequestInfo);
@@ -106,7 +120,6 @@ export const GeneralContextProvider = (props) => {
   const [checkHeight, setCheckHeight] = useState("9vh");
   const [fadeLogo, setFadeLogo] = useState(false);
   const [removeBlock, setRemoveBlock] = useState(false);
-  const [open, setOpen] = useState(false);
   const [infoOkay, setInfoOkay] = useState(false);
   const [issue, setIssue] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
@@ -155,6 +168,57 @@ export const GeneralContextProvider = (props) => {
   const [UUID, setUUID] = useState({ loaded: false, uuid: 0 });
   const [average, setAverage] = useState(0);
 
+  //NEW----------------------/
+  const initialStartProject = {
+    data: {
+      fullName: "",
+      email: "",
+      coName: "",
+      coSite:"",
+      content:"",
+      preferredComs:""
+    },
+    loaded: false
+  }
+  const initialFormData={
+    fullName:"",
+    email:"",
+    content:""
+  }
+  Object.freeze(initialStartProject);
+  Object.freeze(initialFormData);
+  const [startProject,setStartProject]=useState({loaded:false,data:initialStartProject});
+  const [formData,setFormData]=useState({loaded:false,data:initialFormData})
+  const [fullName,setFullName]=React.useState("");
+  const [coName,setCoName]=useState("");
+  const [email,setEmail]=useState("");
+  const [cell,setCell]=useState("");
+  const [coSite,setCoSite]=useState("");
+  const [productDesigns,setProductDesigns]=useState({loaded:false,data:[]});
+  const [scrollOne, setScrollOne] = React.useState(null);
+  const [activate, setActivate] = React.useState({ id:null, state: false });
+  const [open, setOpen] = useState(false);
+  const [openvideo, setOpenvideo] = React.useState({loaded:false,id:null});
+  const [isServiceClicked, setIsServiceClicked] = React.useState(false);
+  const [select,setSelect]=React.useState({loaded:false,index:null,type:"",element:null});
+  const [sectionBlog,setSectionBlog]=React.useState({loaded:false,data:[],id:null});
+  const [sectionArticle,setSectionArticle]=React.useState({loaded:false,data:[],id:null});
+  const [designStart,setDesignStart]=React.useState(false);
+  const navList=[
+    {id:1,name:"home",link:"/",icon:<HomeIcon className="navIcon" sx={{ color: "red" }} />,},
+    {id:1,name:"about us",link:"/about",icon:<InfoIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:1,name:"start a project",link:"/start-project",icon:<AccountTreeIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:1,name:"Contact Us",link:"/contact",icon:<ContactMailIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:1,name:"Our Designs",link:"/designs",icon:<HomeIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:1,name:"Our Blogs",link:"/blog",icon:<RssFeedIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:1,name:"Our Videos",link:"/video",icon:<NewspaperIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:1,name:"Services",link:"/services",icon:<CompassCalibrationIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:1,name:"Our Designs",link:"/designs",icon:<DesignServicesIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:1,name:"Our Process",link:"/process",icon:<MemoryIcon className="navIcon" sx={{ color: "white" }} />,},
+  ];
+
+  //OLD BELOW-----------------------------------/
+
   const workArr = [{ id: 0, "title": "HomeStyle", "link": "/design1" }, { id: 1, "title": "Retrospect", "link": "/design2" }, { id: 2, "title": "ImageWall", "link": "/design3" }, { id: 3, "title": "Space Frontier", "link": "/design4" }, { id: 4, "title": "Flower Store", "link": "/design5" }, { id: 5, "title": "Store Front", link: "https://www.master-connect.ca" }, { id: 6, title: "Wedding", link: "/design6" }, { id: 7, title: "videos", link: "/video" }, { id: 8, title: "product display", link: "/design14" }]
 
   const navItems = [{ id: 1, title: 'home', link: "/" }, { id: 2, title: 'about', link: "/about" }, { id: 3, title: 'Designs', link: "/works" }, { id: 4, title: "contact", link: "/contact" }, { id: 5, title: "Blog", link: "/blog" }]
@@ -197,9 +261,10 @@ export const GeneralContextProvider = (props) => {
             setCustomTemplates({ loaded: true, data: pageTemplate });
           }
           let pageDesign = products.filter(obj => (obj.type === "pageDesign"))
+          // console.log(pageDesign)
           if (pageDesign.length > 0) {
-            setGetProductDesigns({ loaded: true, data: pageDesign })
-            localStorage.setItem("productDesigns", JSON.stringify(pageDesign))
+            setProductDesigns({ loaded: true, data: pageDesign })
+            // localStorage.setItem("productDesigns", JSON.stringify(pageDesign))
           }
           let getVideo=products.filter(obj=>(obj.type==='video')).sort((a,b)=>(a.id<b.id));
           
@@ -228,24 +293,31 @@ export const GeneralContextProvider = (props) => {
           if (whyChooseUs.length > 0) {
             setWhyChooseUs({ loaded: true, data: whyChooseUs[0].categories });
           }
-          let getInfo = body.filter(obj => (parseInt(obj.id) === 9))
+          let getInfo = body.filter(obj => (obj.name === "GeneralInfo"))
           if (getInfo.length > 0) {
             setGeneralInfo({ loaded: true, data: getInfo[0].categoryGeneralInfo[0] })
           }
 
-          let spon = body.filter(obj => (parseInt(obj.id) === 10))
-          if (spon.length > 0) {
-            setSponsor({ loaded: true, data: spon[0].categorySponsor });
-          }
+          // let spon = body.filter(obj => (parseInt(obj.id) === 10))
+          // if (spon.length > 0) {
+          //   setSponsor({ loaded: true, data: spon[0].categorySponsor });
+          // }
+
           setFlowerImg({ loaded: true, data: body.filter(obj => (obj.name === "FlowerShop"))[0].imageCategory });
-          setSpecial({ loaded: true, data: body.filter(obj => (parseInt(obj.id) === 14))[0].catWordSnippet[0] });
+
+          // setSpecial({ loaded: true, data: body.filter(obj => (parseInt(obj.id) === 14))[0].catWordSnippet[0] });
+
           setExtraImages({ loaded: true, data: body.filter(obj => (parseInt(obj.id) === 13))[0].imageCategory });
           setWhyWorkWithUs({ loaded: true, data: body.filter(obj => (parseInt(obj.id) === 2))[0].categories });
           setOurServices({ loaded: true, data: body.filter(obj => (obj.name === "AllServices"))[0].categories });
           setPrivacy({ loaded: true, data: body.filter(obj => (parseInt(obj.id) === 16))[0].catWordSnippet });
           setTermsOfSvc({ loaded: true, data: body.filter(obj => (parseInt(obj.id) === 17))[0].catWordSnippet });
-          setProductInfo({ loaded: true, data: body.filter(obj => (obj.id === 19))[0].catWordSnippet });
+
+          // setProductInfo({ loaded: true, data: body.filter(obj => (obj.id === 19))[0].catWordSnippet });
+
+          //SUCCESS IS FOR DESIGN8-SUCCESS
           setSuccess({ loaded: true, data: body.filter(obj => (obj.name === "Success"))[0].catWordSnippet });
+
           let pageRates = body.filter(obj => (obj.name === "feedback"))[0].pageFeedback
           if (pageRates) {
             let rating = body.filter(obj => (obj.name === "feedback"))[0].pageFeedback
@@ -254,14 +326,15 @@ export const GeneralContextProvider = (props) => {
 
           }
           setMyAccount({ loaded: true, data: body.filter(obj => (obj.name === "myAccount"))[0].catWordSnippet })
-          let custTemplate = body.filter(obj => (obj.name === "templates"))
-          if (custTemplate.length > 0) {
-            setTemplates({ loaded: true, data: custTemplate[0].imageCategory })
-          }
-          let servDepSummary = body.filter(obj => (obj.section === "serviceDependency"))[0].catWordSnippet[0]
-          if (servDepSummary) {
-            setServDependantSummary({ loaded: true, data: servDepSummary })
-          }
+
+          // let custTemplate = body.filter(obj => (obj.name === "templates"))
+          // if (custTemplate.length > 0) {
+          //   setTemplates({ loaded: true, data: custTemplate[0].imageCategory })
+          // }
+          // let servDepSummary = body.filter(obj => (obj.section === "serviceDependency"))[0].catWordSnippet[0]
+          // if (servDepSummary) {
+          //   setServDependantSummary({ loaded: true, data: servDepSummary })
+          // }
 
         }
       } catch (error) {
@@ -301,13 +374,13 @@ export const GeneralContextProvider = (props) => {
       }
     }
 
-    getServiceDependency();
+    // getServiceDependency();
   }, []);
 
 
 
   return (
-    <GeneralContext.Provider value={{ allCategory, getServiceArray, setGetServiceArray, ourServices, setOurServices, whyWorkWithUs, setWhyWorkWithUs, mainService, setMainService, allServiceArray, setAllServiceArray, mainLinks, footerLinks, resume, setResume, title, setTitle, styleName, setStyleName, loaded, setLoaded, activate, setActivate, load3, setLoad3, url, changePage, setChangePage, stopP5, setStopP5, navItems, linkArr, dropDown, page, setPage, workArr, turnOn, setTurnOn, zIndex, setZIndex, removeText, setRemoveText, requestInfo, setRequestInfo, isRequestInfo, setIsRequestInfo, requestQuote, setRequestQuote, callbackQuoteRequest, setCallBackQuoteRequest, callBackConfirmed, setCallBackConfirmed, loadProduct, register, setRegister, registerConfirmed, setRegisterConfirmed, email, setEmail, name, setName, content, setContent, removeApp, setRemoveApp, checkHeight, setCheckHeight, stopP5Contact, setStopP5Contact, fadeLogo, setFadeLogo, removeBlock, setRemoveBlock, open, setOpen, infoOkay, setInfoOkay, issue, setIssue, loadingData, setLoadingData, serverUrl, loggedIn, setLoggedIn, error, setError, loginError, setLoginError, isCheckoutSuccess, setIsCheckoutSuccess, session_id, setSession_id, registerPage, setRegisterPage, showRegistration, setShowRegistration, openSignin, setOpenSignin, generalInfo, setGeneralInfo, sponsor, setSponsor, flowerImg, setFlowerImg, special, setSpecial, extraImages, MyRef, postSession_id, setPostSession_id, privacy, termsOfSvc, staticImage, links, setLinks, hits, setHits, extraServices, setExtraServices, extraSession_id, setExtraSession_id, productInfo, success, opacity, setOpacity, pageRatings, userSelection, setUserSelection, userSelectionArray, setUserSelectionArray, answeredFilled, setAnsweredFilled, questionResults, setQuestionResults, UUID, setUUID, blogMain, setBlogMain, average, setAverage, openGetQuote, setOpenGetQuote, getPathLocation, setGetPathLocation, myAccount, templates, whyChooseUs, getAboutList, setGetAboutList, getContactList, customTemplates, setCustomTemplates, getProductDesigns, setGetProductDesigns, serviceDependancy, servDependantSummary, FAQS, SetFAQS,video }}>
+    <GeneralContext.Provider value={{ allCategory, getServiceArray, setGetServiceArray, ourServices, setOurServices, whyWorkWithUs, setWhyWorkWithUs, mainService, setMainService, allServiceArray, setAllServiceArray, mainLinks, footerLinks, resume, setResume, title, setTitle, styleName, setStyleName, loaded, setLoaded, activate, setActivate, load3, setLoad3, url, changePage, setChangePage, stopP5, setStopP5, navItems, linkArr, dropDown, page, setPage, workArr, turnOn, setTurnOn, zIndex, setZIndex, removeText, setRemoveText, requestInfo, setRequestInfo, isRequestInfo, setIsRequestInfo, requestQuote, setRequestQuote, callbackQuoteRequest, setCallBackQuoteRequest, callBackConfirmed, setCallBackConfirmed, loadProduct, register, setRegister, registerConfirmed, setRegisterConfirmed, email, setEmail, name, setName, content, setContent, removeApp, setRemoveApp, checkHeight, setCheckHeight, stopP5Contact, setStopP5Contact, fadeLogo, setFadeLogo, removeBlock, setRemoveBlock, open, setOpen, infoOkay, setInfoOkay, issue, setIssue, loadingData, setLoadingData, serverUrl, loggedIn, setLoggedIn, error, setError, loginError, setLoginError, isCheckoutSuccess, setIsCheckoutSuccess, session_id, setSession_id, registerPage, setRegisterPage, showRegistration, setShowRegistration, openSignin, setOpenSignin, generalInfo, setGeneralInfo, sponsor, setSponsor, flowerImg, setFlowerImg, special, setSpecial, extraImages, MyRef, postSession_id, setPostSession_id, privacy, termsOfSvc, staticImage,staticImage2, links, setLinks, hits, setHits, extraServices, setExtraServices, extraSession_id, setExtraSession_id, productInfo, success, opacity, setOpacity, pageRatings, userSelection, setUserSelection, userSelectionArray, setUserSelectionArray, answeredFilled, setAnsweredFilled, questionResults, setQuestionResults, UUID, setUUID, blogMain, setBlogMain, average, setAverage, openGetQuote, setOpenGetQuote, getPathLocation, setGetPathLocation, myAccount, templates, whyChooseUs, getAboutList, setGetAboutList, getContactList, customTemplates, setCustomTemplates, getProductDesigns, setGetProductDesigns, serviceDependancy, servDependantSummary, FAQS, SetFAQS,video,startProject,setStartProject,formData,setFormData,fullName,setFullName, coName,setCoName,cell,setCell,coSite,setCoSite,productDesigns,setProductDesigns,scrollOne, setScrollOne ,openvideo, setOpenvideo,isServiceClicked, setIsServiceClicked,select,setSelect,sectionBlog,setSectionBlog, sectionArticle,setSectionArticle,designStart,setDesignStart,navList,contactInfo  }}>
       {props.children}
     </GeneralContext.Provider>
   )

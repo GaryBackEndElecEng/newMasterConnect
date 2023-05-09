@@ -1,16 +1,39 @@
 
 .flowerNotSeen{
 opacity:0;
+margin:auto;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+width:100%;
+height:auto;
+transition:opacity 1s ease-in-out;
+}
+.custCardTable h1,.custCardTable span, .custCardTable p{
+color:black;
 }
 .flowerSeen{
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     opacity:1;
-    transition:opacity 1s ease-in;
+    width:100%;
+    height:auto;
+    
+    transition:opacity 1s ease-in-out;
 }
-.scrollGridFrame{
- max-height:600px !important;
- width:100%;
- overflow:hidden;   
+.custCardTable h1,.custCardTable span, .custCardTable p{
+    color:rgb(1, 33, 48);
+    
 }
+.hide{
+    opacity:0;
+    transition:opacity 1.5s ease-in-out;
+}
+
 .notWeddingTable{
 opacity:0;
 transform:translate(-400px,-300px);
@@ -22,4 +45,89 @@ transition:opacity 1s ease-in;
 }
 .weddingSky{
     margin:0;
+}
+.mainDiv h1,.mainDiv p, .mainDiv span{
+    color:rgb(1, 21, 31);
+
+}
+.innerContainer{
+    overflow:auto;
+    padding:3rem;
+    /* border:1px solid red; */
+}
+.skewBox{
+    margin:auto ;
+    position:relative;
+    isolation:isolate;
+    width:80%;
+    /* border:1px solid red; */
+    padding-inline:10rem;
+    padding-block:5rem;
+
+}
+
+.skewBox::before{
+    display:block;
+    position:absolute;
+    content:"";
+    height:100%;
+    box-shadow:1px 1px 10px 1px grey,-1px -1px 10px -1px grey;
+    background:white;
+    border-radius:10%;
+    inset:0;
+    z-index:-1;
+    transform:skew(30deg);
+}
+.skewBox::after{
+    display:block;
+    position:absolute;
+    content:"";
+    height:10%;
+    width:10%;
+    background-image:url("https://new-master.s3.ca-central-1.amazonaws.com/static/extra/flowerIcon.png");
+    background-position:50% 50%;
+    background-size:100% 100%;
+    border-radius:50%;
+    top:0%;
+    right:0%;
+    z-index:-1;
+    
+}
+@media screen and (max-width:900px){
+    .skewBox::before{
+        transform:skew(10deg);
+    }
+    .skewBox{
+        width:100%;
+        padding-inline:9rem;
+        padding-block:5rem;
+    }
+    .skewBox::after{
+        right:10%;
+        width:30%;
+        height:10%;
+        top:-5%;
+        transform:scale(0.5);
+        background-size:100% 100%;
+    }
+}
+@media screen and (max-width:600px){
+    .skewBox::before{
+        transform:skew(3deg);
+        border-radius:5%;
+    }
+    .skewBox{
+        width:100%;
+        padding-inline:3rem;
+        padding-block:5rem;
+    
+    }
+    .skewBox::after{
+        right:10%;
+        width:30%;
+        height:10%;
+        top:-2%;
+        transform:scale(0.3);
+        background-size:100% 100%;
+    }
 }

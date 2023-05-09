@@ -1,241 +1,55 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { GeneralContext } from '../../context/GeneralContextProvider';
-import { useTheme } from '@mui/material/styles';
-import styled from 'styled-components';
-import { Stack, Typography, Grid, Container, Paper, Fab } from '@mui/material';
-import { ContainerHomeFluid } from '../../styled/Container.styled';
-import ImputForm from './ImputForm';
-import ServiceList from './ServiceList';
-import DrawSignature from './DrawSignature';
-import DynamicInfo from './DynamicInfo';
-import WhyWorkWithUs from './WhyWorkWithUs';
-import ContactInfo from './ContactInfo';
-import HowCanAssist from './HowCanAssist';
-import WhyChooseUs from './WhyChooseUs';
-import ClickToSeeSvc from './ClickToSeeSvc';
-import OurServices from './OurServices';
-import RegisterPage from '../RegisterPage';
-import GetRegisterPages from '../utils/GetRegisterPages';
-import Styles from './contact.module.css';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import ContactHelmet from './ContactHelmet'
+import React from 'react';
+import {GeneralContext} from '../../context/GeneralContextProvider';
+import styles from './contact.module.css';
+import {Grid, Container, Typography} from '@mui/material';
+import styled from "styled-components";
+import RequestForm from './RequestForm';
 
-const DivEffect = styled.div`
-margin:auto;
-height:13vh;
-position:relative;
-background:${({ bg }) => bg};
-z-index:${({ zIndex }) => zIndex};
-animation: moveAppear 4s ease-in;
-@keyframes moveAppear {
-  from { opacity:0;height:0vh;}
-  to { opacity:1;height:13vh;}
-}
-@media screen and (max-width:900px){
-  height:26vh;
-  @keyframes moveAppear {
-    from { opacity:0;height:0vh;}
-    to { opacity:1;height:26vh;}
-  }
-}
-@media screen and (max-width:800px){
-  height:27vh;
-  @keyframes moveAppear {
-    from { opacity:0;height:0vh;}
-    to { opacity:1;height:27vh;}
-  }
-}
-@media screen and (max-width:600px){
-height:24vh;
-@keyframes moveAppear {
-  from { opacity:0;height:0vh}
-  to { opacity:1;height:24vh;}
-}
-}
 
-@media screen and (max-width:440px){
-height:26vh;
-margin-top:-50px;
-@keyframes moveAppear {
-  from { opacity:0;height:0vh}
-  to { opacity:1;height:26vh;}
-}
-}
 
-@media screen and (max-width:400px){
-height:34vh;
-margin-top:-50px;
-@keyframes moveAppear {
-  from { opacity:0;height:0vh}
-  to { opacity:1;height:34vh;}
+const Main = styled.div`
+width:100vw;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+animation: slideIn 1s ease-out;
+background: linear-gradient(217deg,
+   rgba(25,0,0,.8), rgba(255,0,0,0) 70.71%),            
+   linear-gradient(127deg, rgba(0,25,0,.8), rgba(0,255,0,0) 70.71%),            
+    linear-gradient(336deg, rgba(0,100,255,.8), rgba(0,0,255,0) 70.71%);
+@keyframes slideIn {
+  from {transform:translateX(-100%);opacity:0.5;}
+  to {transform:translateX(0%);opacity:1;}
 }
-}
-`;
-const ContainerContact = styled(ContainerHomeFluid).attrs({ className: "containerContact" })`
-margin:2rem auto;
-margin-bottom:5rem;
-margin-top:0vh;
-position:relative;
-padding:2rem auto;
-padding-bottom: 2rem;
-animation: clearIn 1s ease-in-out;
-@keyframes clearIn {
-  from {opacity:0;}
-  to {opacity:1;}
-}
-@media screen and (max-width:600px){
- margin-top:0px;
-}
-
 `;
 
 const Contact = () => {
-  const theme = useTheme();
-  // const navigate = useNavigate();
-  const { setTitle, setStyleName, zIndex, removeText, removeApp, setRemoveApp, setCheckHeight, ourServices, generalInfo, getPathLocation, whyChooseUs } = useContext(GeneralContext);
-  const [showService, setShowService] = useState(false);
-  const [clickToAnim, setClickToAnim] = useState(false);
-  const [keywords, setKeywords] = useState(null);
-  const [content, setContent] = useState(null);
-  const getOurServices = ourServices.loaded ? ourServices.data : null;
-
-  // const bgImage = `${staticImage}/contactWallpaper2.png`;
-
-  useEffect(() => {
-    if (getOurServices) {
-      setKeywords(
-        getOurServices.map(obj => (obj.title))
-      )
-      setContent(
-        getOurServices.map(obj => (obj.content))
-      )
-    }
-
-  }, [setKeywords, getOurServices]);
-
-  useEffect(() => {
-    //Not used setTitle
-    setTitle("Contact")
-    setStyleName("Contact Us")
-    if (removeText) {
-      setCheckHeight("auto");
-      setRemoveApp(true);
-    }
-    if (window.scrollY) {
-      window.scroll(0, 0);
-    }
-
-  }, [setTitle, setStyleName, removeText, setCheckHeight, setRemoveApp]);
-
-  useEffect(() => {
-    setShowService(false);
-  }, [])
-
-  const handleShowService = (e) => {
-    e.preventDefault();
-    setShowService(true);
-  }
-  const handleCloseService = (e) => {
-    e.preventDefault();
-    setShowService(false);
-  }
-  const handleOnHoverToAnim = (e) => {
-    setClickToAnim(true)
-  }
-  const handleOnOutToAnim = (e) => {
-    setClickToAnim(false)
-  }
-
+  const { staticImage,open, setOpen } = React.useContext(GeneralContext);
+ 
+  const cheetah=`${staticImage}/extra/cheetah.png`;
+  
   return (
-    <>
-      <RegisterPage />
-      <GetRegisterPages />
-      <ContactHelmet
-        keywords={keywords}
-        content={content}
-        generalInfo={generalInfo}
-        getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
-      />
-      {/* AUTOMATED WELCOME //HEADER */}
-      {!removeApp ?
-        <DivEffect
-          bg={"white"}
-          zIndex={zIndex}
-        >
-          <Grid container spacing={1} sx={{ margin: { sm: "0.5rem", md: "auto" } }} >
-            <Grid item xs={12} md={3} sx={{ padding: "0.5rem" }}>
-              <DrawSignature />
-            </Grid>
-            <Grid item xs={12} md={8} sx={{ marginTop: { xs: "0", sm: "0rem", md: "0.25rem" }, padding: "0.5rem", margin: { md: "0.5rem 0.25rem", sm: "0.5rem 0.25rem" }, position: "relative", }}>
-              <DynamicInfo />
-            </Grid>
+    <Main  >
+      <Container maxWidth="lg">
+      <div className={styles.hr_line}/>
+        <Grid container spacing={3} className={styles.mainGrid}>
+          <Grid item xs={12} sm={6} md={6} className={styles.childGrid} style={{backgroundImage:`url(${cheetah})`,backgroundPosition:"50% 30%"}}>
+          <Typography component="h1" variant="h1">Hello.</Typography>
+          <Typography component="h2" variant="h3">How can we help with for today?</Typography>
           </Grid>
-
-        </DivEffect> :
-
-        <HowCanAssist />
-
-
-      }
-      {/*---- END AUTOMATED WELCOME //HEADER---- */}
-      {/* CONTENT */}
-      <ContainerContact className={Styles.containerContact} >
-        <Container maxWidth="lg"
-          sx={{ display: "flex", justifyContent: "center", alignItems: "flex-start", flexDirection: { xs: "column", sm: "column" }, marginTop: { xs: "1rem", sm: "1rem" } }}
-        >
-          {/* ---AUTOMATED SERVICE ICON  WITH SERVICE----*/}
-          <OurServices />
-          {/*------ END AUTOMATED SERVICE ICON  WITH SERVICE-----*/}
-        </Container>
-
-        {/* WHY WORK WITH US */}
-        <WhyWorkWithUs />
-        {/* END WHY WORK WITH US */}
-        <Grid container spacing={{ xs: 0, sm: 1 }}>
-          <Grid item xs={12} md={6}>
-            {/* WHY CHOOSE US */}
-            <WhyChooseUs whyChooseUs={whyChooseUs} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            {/* ---CONTACT INFO---- */}
-            <ContactInfo generalInfo={generalInfo} />
-            {/* --- END CONTACT INFO---- */}
-            {/* IMPUT FORM */}
-            <ImputForm />
+          <Grid item xs={12} sm={6} md={6} className={styles.childGridForm} sx={{display:"flex",flexDirection:"column"}}>
+            <RequestForm/>
           </Grid>
         </Grid>
+        <div className={styles.hr_line}/>
+        
+        
+      </Container>
 
-        <Stack direction={"column"} sx={{ fontSize: { xs: "40px", sm: "50px", margin: "1rem auto" }, ml: 3, position: "relative" }} onMouseOver={(e) => handleOnHoverToAnim(e)} onMouseOut={(e) => handleOnOutToAnim(e)}>
-          See services
-
-          {
-
-            !showService ?
-              <>
-                <KeyboardDoubleArrowUpIcon sx={{ fontSize: { xs: "40px", sm: "50px" } }} key={2000} onClick={(e) => handleShowService(e)} />
-                {clickToAnim && <ClickToSeeSvc />}
-              </>
-              :
-              <>
-                <KeyboardDoubleArrowDownIcon key={2221} sx={{ fontSize: { xs: "40px", sm: "50px" } }} onClick={(e) => handleCloseService(e)} />
-
-                <ServiceList ourServices={ourServices} />
-
-                <hr style={{ borderBottom: `2px solid ${theme.palette.common.background}` }} />
-              </>
-          }
-        </Stack>
-
-
-
-
-      </ContainerContact>
-
-    </>
+    </Main>
   )
 }
 
-
-export default Contact
+export default Contact;

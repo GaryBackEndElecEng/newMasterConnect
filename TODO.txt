@@ -2,16 +2,31 @@
 ctrl + G => goto line
 BLOG: 
 one subject: what is communication
+NOTE: 
+REMOVING SCROLLiNTOvIEW: 
+React.useEffect(()=>{
+  let ele=document.getElementById(`scroll-${count}`);
+    if(forward && ele ){
+
+      ele.scrollIntoView({block:"center",behavior:"smooth"});
+    }
+    if(reverse && ele){
+      
+      ele.scrollIntoView({block:"center",behavior:"smooth"});
+    }
+},[forward,reverse,count]);
 
 
 TODO
+
+-Fix process page 600px formating
 
 -Fix Google register and signin:([GSI_LOGGER]: The given origin is not allowed for the given client ID.)
 :gapi-script,react-google-login
 -correct the infoFormComplete:account/Particulars/infoCompleteForm (postal-code/Zipcode issue)
 -get LIve Stripe codes and go live
 -Change out the email for masterconnect919@gmail.com-fix admin / taskhandle page ( MUST INCLUDE user_id)-add user ID to adminHome/Task to PostServiceTaskTracker,ServiceTaskTracker,etc
--RECREATE MASTER-SALE DATABASE USING A NEW GIT REPOSITORY
+
 
 COMPLETE:
 - fix time dates- create hook on purchase

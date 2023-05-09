@@ -3,6 +3,71 @@
     padding: 0;
     box-sizing: border-box;
 }
+:root{
+    --font-family:"'Philosopher', sans-serif";
+    --font-family2: "'Philosopher', sans-serif";
+    --background-image-1-left:linear-gradient(to left, violet, rgb(152, 7, 255), rgb(18, 243, 18), rgb(248, 236, 236), yellow, orange, red);
+    --background-image-1-turn:linear-gradient(0.25turn, violet, indigo, green, blue, yellow, orange, red);
+    
+    --background-image-2-left:linear-gradient(to left, blue, rgb(188, 243, 116) 50%,rgb(255, 21, 5));
+    --background-1:linear-gradient(to right, rgb(255, 21, 5), rgba(245, 241, 6, 0.562) 30% );
+    --background-33:            
+    linear-gradient(136deg, rgba(240, 12, 12, 0.8), rgba(0,0, 0, 0.8) 20% );
+    --background-33-light:            
+    linear-gradient(136deg, rgba(240, 12, 12, 1), rgba(248, 241, 241, 0.8) 50% );
+    --background-44:linear-gradient(217deg, rgba(241, 14, 14, 0.8), rgba(4, 16, 51, 0.26) 10.71%,black 50%);
+    --background-555:            
+     linear-gradient(136deg, rgba(146, 3, 3, 0.5), rgba(250, 245, 247, 1) 40.71%);
+     --background-1111:linear-gradient(to right, rgba(102, 11, 4, 0.726), rgba(15, 10, 68, 0.986) 5% ,rgba(1, 0, 5, 0.993)30%,rgba(0, 0, 0, 1));
+    --background-8:linear-gradient(to right, rgba(214, 5, 5, 1), rgb(43, 4, 19) 40.71%,rgba(34, 245, 6,.6)60.71%);
+     --background-111:linear-gradient(to top, rgba(7, 71, 248, 0.726), rgba(3, 4, 59, 0.986) 0% ,rgba(1, 0, 5, 0.993)30%,rgba(0, 0, 0, 1));
+     --background-design:linear-gradient(217deg, rgba(250, 12, 12, 0.9), rgba(32, 6, 2, 0.926) 20.71%,rgba(17, 3, 1, 0.926),black 37%);
+     --background-design-CoverPage:linear-gradient(to right, rgb(78, 4, 4), rgb(199, 170, 170)50% ,rgb(78, 4, 4)30%);
+     --box-shadow-normal: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
+     --word-break:break-all;
+     --writing-mode-vertical:vertical-rl;
+     --writing-mode-horizontal:horizontal-rl;
+     /* writing-mode: var(--writing-mode-vertical); long word=> text-overflow: ellipsis;*/
+     --background-design1:linear-gradient(217deg, rgba(253, 195, 5, 0.8), rgba(18, 153, 231, 0.26) 10.71%,rgb(13, 182, 212) 70%);
+     --background-text-1:linear-gradient(to right, rgba(253, 8, 8, 1), rgba(194, 140, 23, 0.726)25%, rgba(240, 233, 232, 0.726)50%);
+     --background-hopefulHarvest:linear-gradient(to right, rgb(247, 6, 6), rgb(6, 150, 61)80% ,rgba(240, 244, 245, 0.9)90%);
+     --background-hopefulHarvest-main:linear-gradient(217deg, rgba(5, 71, 8, 0.486), rgb(245, 248, 246)52.5% ,rgba(9, 63, 2, 0.664)95%);
+     --background-hopefulHarvest-flowDisp:linear-gradient(217deg,rgb(41, 2, 2), rgb(117, 110, 5)50% ,rgb(8, 8, 8)60%);
+     --background-hopefulHarvest-handCrafted:linear-gradient(217deg,rgb(253, 6, 6), rgb(242, 248, 245)50% ,rgb(1, 32, 9)90%);
+     --background-hopefulHarvest-family:            
+    linear-gradient(136deg, rgba(240, 12, 12, 0.8), rgb(233, 240, 241) 20% );
+     --background-hopefulHarvest-msg:            
+    linear-gradient(217deg, rgb(248, 6, 6), rgb(231, 238, 237) 15% );
+     --background-hopefulHarvest-familyTypo:            
+    linear-gradient(136deg, rgba(240, 12, 12, 0.8), rgb(46, 1, 1) 50% );
+    --background-design3:linear-gradient(to right, rgba(185, 182, 9, 0.692),rgba(0, 0, 0, 0.9)30%);
+    --background-videoList:linear-gradient(217deg,rgb(80, 55, 2), rgb(60, 61, 60)10%);
+    --background-video-banner:linear-gradient(217deg,rgb(80, 55, 2), rgb(60, 61, 60)10%);
+    --background-color-video:whitesmoke;
+    --background-section-blog:linear-gradient(217deg, rgba(17, 1, 48, 0.8), rgb(247, 243, 243) 20% );
+    --background-section-blog-sm:linear-gradient(217deg, rgba(17, 1, 48, 0.8), rgb(247, 243, 243) 5% );
+    --background-FaqQuestion:            
+    linear-gradient(217deg, rgb(248, 6, 6), rgb(2, 46, 48) 15% );
+    --background-wedding:            
+    linear-gradient(136deg, rgba(6, 216, 253, 0.8), rgb(165, 235, 245) 50% );
+  }
+  .App {
+    margin:0;padding:0;
+    font-family:var(--font-family);
+  }
+  h1,h2,h3,h4,h5,h6{font-family:var( --font-family);color:"white"}
+  
+  .Appcenter{
+    margin:0;
+    margin-top:-5px;
+    position:relative;
+    justify-content:center;
+    align-items:stretch;
+    flex-direction:column;
+    display:flex;
+    width:100vw;
+    
+  }
 
 img.sixDegreeCalc {
     max-width:30%;
@@ -10,6 +75,16 @@ img.sixDegreeCalc {
 
 img.sixDegPic1{
     width:20%;
+}
+h1 .misc{
+    margin:auto;
+    -webkit-text-stroke: 1px black;
+    background-clip:text;
+    -webkit-background-clip:text;
+    background-image:var(--background-44);
+    background-size:200% 100%;
+    color:transparent;
+
 }
 @media screen and (max-width:900px){
     img.sixDegPic1{

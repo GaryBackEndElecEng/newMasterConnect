@@ -2,7 +2,7 @@
     {
         "id":0,
         "title":"TWO OR MORE STOREY FOR SALE",
-        "image":"https://media.remax-quebec.com/img/fiche/0054/m10425273-pri01-01.jpg",
+        "image":"design9/image1.png",
         "price":"499,000",
         "summary":"This is for a starting family, where safety and security is provided through a quiet and respected location ",
         "desc":"Nice bungalow, very well maintained, 3 bedrooms, spacious and sunny rooms, kitchen with lots of storage, ideal for young families, professionals, or young retirees. Landscaped and fenced lot and terrace with a gazebo. Near all services. Come and discover it, you will be charmed",
@@ -19,7 +19,7 @@
     {
         "id":1,
         "title":"A MUST SEE!!",
-        "image":"https://media.remax-quebec.com/img/fiche/0026/m28030946-pri01-01.jpg",
+        "image":"design9/image2.png",
         "price":"774,900",
         "summary":"This is for a starting family, where safety and security is provided through a quiet and respected location ",
         "desc":"Splendid property with 3 bedrooms, 1 bathroom, 1 powder room and a large double garage with a ceiling height of 11.5 feet. Inside, its functional kitchen with a granite counter and a central island, the abundant windows letting in a maximum of natural light and its large rooms will charm you. In addition, the house is equipped with a fireplace, an air exchanger and a central heat pump for even more comfort! Built on a lot of more than 57500ft2. Located in a wooded and quiet area with a large intimate backyard, equipped with balconies.",
@@ -35,7 +35,7 @@
     {
         "id":2,
         "title":"FOR STARTER FAMILY",
-        "image":"https://media.remax-quebec.com/img/fiche/0198/m12741524-pri01-01.jpg",
+        "image":"design9/image3.png",
         "price":"439,900",
         "summary":"This is for the outdoor sub-burbian where skiing and hiking is the passion on weeken outings.",
         "desc":"Nice bungalow, very well maintained, 3 bedrooms, spacious and sunny rooms, kitchen with lots of storage, ideal for young families, professionals, or young retirees. Landscaped and fenced lot and terrace with a gazebo. Near all services. Come and discover it, you will be charmed",
@@ -51,7 +51,7 @@
     {
         "id":3,
         "title":"Well structured second home",
-        "image":"https://media.remax-quebec.com/img/fiche/0125/m10398289-pri01-01.jpg",
+        "image":"design9/image4.png",
         "price":"895,000",
         "summary":"This is a great second home where nature, tranquility a space is of importantance.",
         "desc":"SUPERB CONTEMPORARY WITH TRIPLE GARAGE! Superior quality construction offering superior energy efficiency and well thought out windows. Entrance hall with walk-in closet, living room with fireplace, spacious and bright kitchen with quartz countertop, central island and huge walk-in pantry. 4 good sized bedrooms, 2 bathrooms, upstairs laundry room. The entrance is already paved, the earthwork is done with an irrigation system and a large shed at the back. Peaceful and homogeneous area near the highway and services. Quick takeover possible! COME TO SEE!",
@@ -68,7 +68,7 @@
     {
         "id":4,
         "title":"An affordable simple first starter",
-        "image":"https://media.remax-quebec.com/img/fiche/0125/m21931175-pri01-01.jpg",
+        "image":"design9/image5.png",
         "price":"439,900",
         "summary":"A small bungalow/basement home, perfect for first starters.",
         "desc":"Impeccable house inside and out offering you lots of extras. Upscale kitchen with lots of extras. Spacious bedrooms, large rooms and large windows in the basement for more light. Premium quality hardwood flooring. Very intimate outdoor courtyard offering a mature cedar hedge and a large shed for more space. Staircase with hardwood handrail, quality basement decorative brick wall. Full bathroom and powder room in the basement offering the possibility of making a 2nd bathroom.",
@@ -85,7 +85,7 @@
     {
         "id":5,
         "title":"A new modern contemporary home",
-        "image":"https://media.remax-quebec.com/img/fiche/0026/m19720420-pri01-01.jpg",
+        "image":"design9/image6.png",
         "price":"449,900",
         "summary":"A new home, designed with a contemporary flare and perfect for a small family longing to live close to the ski resorts and hiking activities. ",
         "desc":"Splendid property with 4 bedrooms, a shower room and 2 large bathrooms. Inside, the functional kitchen with its large island and its huge walk-in pantry, the beautiful windows let in a maximum of natural light and the open concept will certainly charm you. The basement is well finished and has a magnificent epoxy floor. Still under new home warranty. This rarity is built on a lot of over 5,000 sq.ft. Large backyard with a large balcony and suitable for all types of projects. This is a crush!",

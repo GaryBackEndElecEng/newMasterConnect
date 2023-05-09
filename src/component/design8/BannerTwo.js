@@ -40,9 +40,9 @@ const BannerTwo = () => {
     return (
         <MainContainer bg={mountainBg}>
             <hr style={{ width: "50%", color: theme.palette.common.blueGrey, height: "0.5rem" }} />
-            <Container maxWidth="md" >
-                <Grid container spacing={{ xs: 0, sm: 1, md: 2 }}
-                    sx={{ padding: "1rem" }}
+            <Container maxWidth="lg" >
+                <Grid container spacing={{ xs: 0, sm: 15, md: 15 }}
+                    sx={{ padding: "1rem"}}
                 >
                     <img src={white} alt="www.master-connect.ca" className={styles.white}/>
                     {array && array.map(obj => (

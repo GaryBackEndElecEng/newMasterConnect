@@ -59,7 +59,7 @@ const BlogBody = ({blogBodys}) => {
     }
 
     return (
-        <>
+        
         <MainBody opacity={setOpacity}>
             
             <Paper elevation={10}
@@ -95,7 +95,7 @@ const BlogBody = ({blogBodys}) => {
             </Paper>
 
         </MainBody>
-        </>
+        
     )
 }
 

@@ -1,14 +1,108 @@
-*{margin:0;padding:0;box-sizing:border-box}
+*{padding:0;margin:0;box-sizing:border-box;}
 
-.changeColor{
-    background:red !important;
+
+
+/*------------- BLOG COVER------------- */
+
+.custCover h1, section p{
+    font-family:var(--font-family);
+    color:white ;
+
 }
-.noChangeColor{
-    background:blue !important;
+.custTitle{
+    
 }
-.changeIconColor{
-    color:blue !important;
+.showList{
+    justify-self:start;
+    align-self:end;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
 }
-.noChangeIconColor{
-    color:red !important;
+@keyframes comeIn2 {
+    from {opacity:0;transform:translateY(-900%);}
+    to {opacity:1;transform:translateY(0%);}
 }
+@media screen and (max-width:900px){
+    .mainTitle{
+        font-size:500%;
+    }
+}
+@media screen and (max-width:600px){
+    .mainTitle{
+        font-size:400%;
+    }
+}
+/*------------- BLOG COVER-END------------ */
+/*------------- BLOG BANNER START------------ */
+.custBlogBanner h1, .custBlogBanner p{
+    font-family:var(--font-family);
+}
+.center{
+    justify-content:center;
+    align-items:center;
+}
+.stickysmallgrid{
+    position:static;
+    /* border:1px solid red; */
+}
+.stickysmallgridYes{
+    position:fixed;
+    top:100px;
+
+}
+/*------------- BLOG BANNER-END------------ */
+/*------------- GETBLOGS-START------------ */
+section.custBlogBlog h1{
+color:black;
+}
+.mainContainer{
+
+}
+/*------------- GETBLOGS-END------------ */
+/*------------- GETARTICLES-END------------ */
+
+.mainContainer h1,
+.mainContainer span,
+.mainContainer p,
+.mainContainer h2{
+font-family:var(--font-family);
+color:black;
+font-size:105%;
+}
+
+.custCard h1,.custCard span,.custCard p{
+    font-family:var(--font-family);
+    color:black;
+}
+.custGenImage h1,.custGenImage span,.custGenImage p{
+font-family:var(--font-family);
+color:black;
+}
+.custGenImage .imageContainer{
+width:100%;
+padding:0.5rem;
+/* background:black; */
+
+}
+.genMovie{
+    position:absolute;
+    top:0.30%;left:0%;
+    max-width:80%;
+    z-index:200;
+}
+@media screen and (max-width:900px){
+    .genMovie{
+        top:3.90%;left:10%;
+        
+    }
+}
+@media screen and (max-width:600px){
+    .genMovie{
+        top:2.90%;left:10%;
+        max-width:100%;
+        
+    }
+}
+/*------------- GETARTICLES-END------------ */

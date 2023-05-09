@@ -4,10 +4,10 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
-// import styles from './design8.module.css';
+import styles from './design8.module.css';
 import BackupIcon from '@mui/icons-material/Backup';
 
-const MainContainer = styled(Container)`
+const MainBanner3Container = styled(Container)`
 margin:1rem auto;
 overflow:hidden;
 display:flex;
@@ -31,8 +31,9 @@ const BannerThree = () => {
 
 
     return (
-        <MainContainer
+        <MainBanner3Container
             maxWidth="md"
+        className={styles.mainContainer}
         >
 
             <Grid container spacing={{ xs: 0, sm: 1, md: 3 }}
@@ -137,7 +138,7 @@ const BannerThree = () => {
             </Grid>
 
 
-        </MainContainer>
+        </MainBanner3Container>
     )
 }
 

@@ -1,29 +1,17 @@
-import React from 'react';
+import React from 'react'
 import {Outlet} from 'react-router-dom';
-import Header from './Header';
-import Footer from './footer/Footer'
-import NavBar from './navbar/NavBar'
+import Navbar from './nav/Navbar';
+import '../App.css'
+import Copywright from './nav/Copywright';
 import {GeneralContextProvider} from '../context/GeneralContextProvider';
-import {TokenAccessProvider} from '../context/TokenAccessProvider';
-import {PriceContextProvider} from '../context/PriceContextProvider';
-
 
 const Layout = () => {
   return (
-    <div 
-    style={{margin:"0px",padding:"0px",position:"relative",width:"100vw",diplay:"flex",justifyContent:"flex-start",alignItmes:"center",flexDirection:"column",}}
-    
-    >
-      
+    <div className="Appcenter"  >
       <GeneralContextProvider>
-        <PriceContextProvider>
-      <NavBar/>
-       <Header />
-       <TokenAccessProvider>
-        <Outlet />
-        </TokenAccessProvider>
-        <Footer />
-        </PriceContextProvider>
+        <Navbar/>
+        <Outlet/>
+        <Copywright/>
         </GeneralContextProvider>
     </div>
   )

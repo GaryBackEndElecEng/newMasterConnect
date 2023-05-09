@@ -1,0 +1,174 @@
+*{margin:0; padding:0; box-sizing: border-box;}
+
+:root{
+   
+    --font-family:"'Philosopher', sans-serif";
+}
+
+/*----------- top level--------------- */
+/* GENERAL */
+
+.alignColunm{
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    
+    
+
+}
+.ourSpeciality>h2{
+    display:flex;
+    flex-direction:column;
+justify-self:flex-start;
+align-items:flex-start;
+color:white;
+
+}
+.backgroundMain{
+background: var(--background-111);
+min-height:200vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+place-items:center;
+padding-bottom:5vh;
+}
+.backgroundMain >div{
+    margin:auto;
+}
+h1,h2{font-family:var( --font-family)}
+.title{
+    font-family: var(--font-family);
+    font-size:1200%;
+    background-image:var( --background-text-1);
+    -webkit-background-clip:text;
+    -moz-background-clip: text;
+    background-size:100% 100%;
+    background-clip:text;
+    color:transparent;
+    
+}
+.alignRow{
+    margin:2rem auto;
+    justify-content:center;
+    align-items:center;
+    flex-direction:row;
+    flex-wrap:nowrap
+
+}
+@media screen and (max-width:900px){
+    .title{
+        font-size:600%;
+    }
+}
+@media screen and (max-width:600px){
+    .title{
+        font-size:550%;
+       
+    }
+}
+.hr_line{
+    height:1.5px;
+    width:62%;
+    background:var(--background-text-1);
+    margin:5rem auto;
+}
+/*----------- top level END--------------- */
+/*----------- STARPROJCONTACT--------------- */
+
+.startProjTitle{
+    font-family:var(--font-family-1);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    -webkit-text-stroke: 1px white;
+    font-size:100px;
+    margin:auto 1rem;
+    animation: swirlText 20s linear infinite;
+
+}
+
+.custStartProj .custStartInner{
+    margin:1rem auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+}
+.custStartProj .custStartInner button{
+    margin-top:1rem;
+}
+@keyframes swirlText {
+    from {background-position:0% 0%}
+    50% {background-position:100% 100%}
+    100% {background-position:0% 0%}
+}
+@media screen and (max-width:900px){
+    
+}
+@media screen and (max-width:600px){
+    .startProjTitle{
+        font-size:250%;
+       
+    }
+}
+/*----------- STARPROJCONTACT END--------------- */
+/*----------- FAQS END--------------- */
+
+.QAGrid{
+    margin: auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:center;
+    gap:10px;
+    width:100%;
+    overflow-y:hidden;
+}
+.QAGridPic{
+    margin: auto 0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:center;
+    gap:5px;
+    width:100%;
+    position:relative;
+    
+}
+.QAgrid >div{
+    margin: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    scroll-margin-block: center;
+    overflow-y:scroll;
+    /* border:1px solid red; */
+    height:46vh;
+    padding:0.5rem;
+
+}
+
+.scrollChild{
+    margin:auto;
+    /* scroll-margin-block: center; */
+}
+@media screen and (max-width:900px){
+    .QAgrid >div{
+        
+        height:55vh;
+       
+    
+    }
+}
+@media screen and (max-width:600px){
+    .QAgrid >div{
+        
+        height:80vh;
+       
+    
+    }
+}
+/*----------- FAQS END--------------- */

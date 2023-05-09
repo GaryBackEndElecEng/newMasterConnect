@@ -16,7 +16,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 
 
-const Projects = ({language,turnOn}) => {
+const Projects = ({language,turnOn,staticImage}) => {
     const theme = useTheme();
     const [viewSummary,setViewSummary]=useState({loaded:false,obj:{}});
     const [viewDesc,setViewDesc]=useState({loaded:false,obj:{}});
@@ -50,6 +50,7 @@ const handleSDesc =(obj)=>{
                     <Grid item xs={12} sm={6} md={4} key={`${index}-${obj.id}`} sx={{ padding: "1rem" }}>
                         <Card elevation={20} 
                             sx={{ background: "white", padding: "1rem ", alignItems: "center", justifyContent: "flex-start", flexDirection: "column", display: "flex" ,position:"relative"}}
+                            className={styles.projectCard}
                         >
                             <Stack direction="column" spacing={0} sx={{position: "relative",width:"100%"}}>
                             <MouseIcon className={styles.clickSummary}  sx={{fontSize:"2rem"}} onClick={()=>handleSummary(obj)}  />
@@ -58,7 +59,7 @@ const handleSDesc =(obj)=>{
                             </Stack>
                             
                             
-                            <CardMedia component="img" image={obj.image}/>
+                            <CardMedia component="img" image={`${staticImage}/${obj.image}`}/>
                             
                             <Typography component="h1" variant="h5"
                                 sx={{ marginTop: "2rem" }}

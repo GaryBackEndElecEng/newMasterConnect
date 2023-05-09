@@ -1,49 +1,345 @@
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 
+/*--------------- GENERAL----------------------- */
+.center{
+    justify-content:center;
+    align-items:center;
+}
 
-.home:hover:after{
-    display:block;
-    position:absolute;
-    background: white;
-    color:black;
-    padding:1rem;
-    top:150%;
-    width:50%;
-    font-family:"Roboto";
-    content:"page turner for HOME";
+/*--------------- COVER PAGE----------------------- */
+.mainCover{
+    opacity:0;
+    background:var(--background-33);
 }
-.destination:hover:after{
-    display:block;
-    position:absolute;
-    background: white;
-    color:black;
-    padding:1rem;
-    top:150%;
-    width:50%;
-    font-family:"Roboto";
-    content:"page turner for DESTINATION";
+.mainCover h1 {
+    font-family:var(--font-family);
 }
-.technology:hover:after{
-    display:block;
-    position:absolute;
-    background: white;
-    color:black;
-    padding:1rem;
-    top:150%;
-    width:50%;
-    font-family:"Roboto";
-    content:"page turner for TECHNOLOGY";
+.manHonorOn{
+opacity:1;
+transform:translateX(0%);
+transition: all 4s ease-in-out;
 }
-.contactMsg{
-    background:rgba(0, 0, 0,.3);
-    color:white;
-    box-shadow:1px 2px 10px lightblue, -1px -2px 10px lightblue;
+.manHonorOff{
+opacity:0;
+transform:translateX(-100%);
+transition: all 4s ease-in-out;
+}
+.companyOn{
+    opacity:1;
+    position:absolute;
+    top:-100%;
+    transform:translateY(0%);
+    animation: showUp 5s ease-in-out;
+}
+.companyOff{
+    opacity:0;
+    position:absolute;
+    top:-100%;
+    transform:translateY(-100%);
+    transition:all 2s ease-in-out;
+}
+@keyframes showUp {
+    from { opacity:0;transform:translateY(-100%);}
+    to { opacity:1;}
+}
+@media screen and (max-width:900px){
+    .companyOn{
+        top:-160%;
+        
+    }
+}
+@media screen and (max-width:600px){
+    .companyOn{
+        top:-70%;
+        
+    }
+}
+
+/*--------------- COVER PAGE-END----------------------- */
+
+/*--------------- BANNER RINGS ON----------------------- */
+.ringsCenter{
+    margin-top:10vh;
+    justify-content:center;
+    align-items:center;
+    background:rgba(255, 255, 255, 0.384);
     text-align:center;
-    animation: slideUp 10s ease-in-out;
 }
-@keyframes slideUp {
-    from {opacity:0;transform:translateY(100%);}
-    50% {opacity:1;transform:translate(10%,50%)}
-    to {opacity:1;transform:translate(10%,10%)}
+.custbannerRings h1, .custbannerRings h2{
+    font-family:var( --font-family );
+    color:black;
 }
+.ourRingsOnFontStyle{
+    opacity:1;
+    /* line-height:2; */
+    -webkit-background-clip:text;
+    background-clip:text;
+    font-weight:bold;
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+    -webkit-text-stroke:1px rgb(182, 194, 10);
+
+    transform:translateY(0%);
+    transition:all 2s ease-in-out;
+}
+.ourRingsOff{
+    opacity:0;
+    transform:translateY(90%);
+    transition:all 2s ease-in-out;
+}
+.ringsFontStyleOn{
+    opacity:1;
+    font-family:var(--font-family);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+transform:translateY(0%);
+-webkit-text-fill-color: transparent;
+-webkit-text-stroke: 1px black;
+transition: all 5s ease-in-out;
+}
+.ourRingsFontStyleOff{
+    opacity:0;
+    font-family:var(--font-family);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+text-shadow:15px 15px;
+transform:translateY(170%);
+-webkit-text-fill-color: transparent;
+-webkit-text-stroke: 1px black;
+transition: all 5s ease-in-out;
+}
+.whitenOn{
+    opacity:0.3;
+    z-index:2000;
+    position:absolute;
+    top:0%;
+    left:0%;
+    background:white;
+    width:100vw;
+    height:100%;
+    border:1px solid red;
+    transition:opacity 2s ease-in-out;
+}
+.whitenOff{
+    opacity:0;
+    z-index:200;
+    position:absolute;
+    top:0%;
+    left:0%;
+    background:white;
+    width:100%;
+    height:100%;
+    transition:opacity 2s ease-in-out;
+}
+.hr_line{
+    margin:3rem auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:lightgrey;
+    width:80%;
+    margin:auto;
+    height:2px;
+    position:relative;
+    
+}
+.hr_line:before{
+    position:absolute;
+    color:lightgrey;
+    display:block;
+    content:"<";
+    left:0%;
+    font-size:120%;
+
+}
+.hr_line:after{
+    position:absolute;
+    color:lightgrey;
+    display:block;
+    content:">";
+    right:0%;
+    font-size:120%;
+
+}
+@media screen and (max-width:900px){}
+@media screen and (max-width:600px){
+    .hr_line{width:50%;}
+}
+/*--------------- Banner Rings-END----------------------- */
+/*--------------- SELECTION-START----------------------- */
+.custSelect h1{
+    font-family:var(--font-family);
+    color:black;
+}
+.flexColumnCenter{
+    margin:auto;
+    display:flex;
+    /* margin-top:5vh; */
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.selectCenter{
+    margin:auto;
+    margin-top:5vh;
+    justify-content:center;
+    align-items:center;
+}
+.selectRowParent{
+    justify-content:flex-start;
+    align-items:center;
+    flex-wrap:nowrap;
+    column-gap:10px;
+    width:100%;
+    scroll-snap-type: x mandatory;
+    scrollbar-shadow-color: antiquewhite;
+    scroll-snap-align: center;
+    scroll-behavior:smooth;
+    overflow-x:scroll;
+
+
+}
+.selectRowParent >div{
+    margin:auto;
+    flex:0 0 33%;
+    scroll-snap-align: center;
+    scroll-behavior:smooth;
+}
+.iconButtonBack{
+    position:absolute;
+    top:40%;
+    left:-0.5%;
+    /* font-size:60px; */
+}
+.iconButtonForward{
+    position:absolute;
+    top:40%;
+    right:-0.5%;
+    /* font-size:60px; */
+}
+.selectionType{
+    font-size:300%;
+    margin-bottom:2rem;
+}
+
+@media screen and (max-width:900px){
+    .selectRowParent{
+        justify-content:flex-start;
+        align-items:center;
+        flex-wrap:nowrap;
+        column-gap:10px;
+        width:100%;
+        scroll-snap-type: x mandatory;
+        scroll-snap-align: center;
+        overflow-x:scroll;
+    
+    
+    }
+    .selectRowParent >div{
+        margin:auto;
+        flex:0 0 100%;
+        scroll-snap-align: center;
+    }
+}
+
+/*--------------- SELECTION-END----------------------- */
+
+/*--------------- CREATE YOUR OWN START----------------------- */
+.custCreateMain  h1{
+    color:white;
+    font-family:var(--font-family);
+
+}
+.innerBox{
+    position:relative;
+    left:1%;
+    margin:0 1rem;
+    
+
+}
+.createSteps{
+    position:relative;
+    padding:1rem;
+    top:0%;
+    left:0%;
+    margin:0;
+    flex-wrap:wrap;
+    /* border:1px solid red; */
+    box-shadow:1px 1px 10px 1px white;
+    background:linear-gradient(to right,rgba(255,255,255,0.3),black);
+    border-radius:20% 0% 20% 0%;
+    justify-content:flex-start;
+    align-items:flex-start;
+    
+
+}
+.stepBox{
+    margin:1rem;
+    display:flex;
+    position:relative;
+    flex-direction:column;
+    justify-content:center;
+    padding:0.5rem;
+    width:300px;
+    height:300px;
+    border-radius:20% 0% 20% 0%;
+    background:linear-gradient(to right,rgba(255,255,255,0.3),black);
+
+}
+.custCreateMain .arrow1,
+.custCreateMain .arrow2,
+.custCreateMain .arrow3{
+    color:red;
+    margin-left:0.5rem;
+    font-size:120%;
+    animation:leftRight 2s linear infinite;
+}
+.custCreateMain .arrow4{
+    color:red;
+    margin-left:1rem;
+    animation:heart 1.5s linear infinite;
+}
+@keyframes leftRight {
+    from {transform:translateX(-10%);}
+    to {transform:translateX(0%);}
+}
+@keyframes heart {
+    from {transform:scale(0.8);}
+    to {transform:scale(1);}
+}
+@media screen and (max-width:900px){
+    .createSteps{
+        left:0%;
+        width:100%;
+        margin-right:1rem;
+    }
+    .innerBox{
+        width:97%;
+        margin:0 1rem;
+        left:0%;
+    
+    }
+}
+@media screen and (max-width:600px){
+    .createSteps{
+        left:0%;
+    }
+}
+.custCreateMain .steps{
+    color:red;
+}
+.custCreateMain .number{
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    -webkit-text-stroke: 1px white;
+    -webkit-text-fill-color: transparent;
+    font-size:50px;
+    text-align:center;
+
+}
+
+/*--------------- CREATE YOUR OWN END----------------------- */

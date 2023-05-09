@@ -7,7 +7,7 @@ import { TokenAccessContext } from '../../context/TokenAccessProvider';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import CoverPage from './CoverPage';
 import styled from 'styled-components';
-// import styles from './design11.module.css'
+import styles from './design11.module.css'
 import Design11Helmet from './Design11Helmet';
 import jsonArray from './JsonArray.json';
 import RegisterPage from '../RegisterPage';
@@ -52,8 +52,7 @@ const Restaurant = () => {
     const location = useLocation();
     const pathname = location.pathname;
     const theme = useTheme();
-    const { setTitle, setStyleName, average, getProductDesigns, getPathLocation, pageRatings,staticImage } = useContext(GeneralContext);
-    const { paid } = useContext(TokenAccessContext);
+    const { setTitle, setStyleName, average, productDesigns, getPathLocation, pageRatings,staticImage } = useContext(GeneralContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const [keyWords, setKeyWords] = useState([]);
     const [desc, setDesc] = useState("");
@@ -75,7 +74,8 @@ const Restaurant = () => {
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
     const [pageRatingHelmet, setPageRatingHelmet] = useState([]);
     const [productServices, setProductServices] = useState([]);
-    const [obj,setObj]=useState({});
+    const arrStar=[1,2,3,4,5];
+    
 
     useEffect(() => {
         if (pageRatings.loaded && pageRatings.data) {
@@ -102,24 +102,7 @@ const Restaurant = () => {
 
     }, [design1, design2, design3, design4, design5, design6, design7, design8, design9, design10]);
 
-    useMemo(() => {
-        let arr=[];
-        if (getProductDesigns.loaded) {
-            let obj = getProductDesigns.data.filter(obj => (obj.name === "Restaurant"))[0]
-            if(obj.services.length >0){
-                arr=obj.services;
-                setObj(obj)
-            }
-            if(obj.postServices.length > 0) {
-                arr=obj.services.concat(obj.postServices);
-                setProductServices(arr);
-            }
-            if(obj.extraServices.length >0){
-            arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
-            setProductServices(arr[0]);
-            }else{setProductServices(arr)}
-        }
-    }, [getProductDesigns.loaded, getProductDesigns.data])
+   
 
 
     useEffect(() => {
@@ -138,6 +121,7 @@ const Restaurant = () => {
 
     return (
         <MainRestaurant
+        className={styles.mainRestaurant}
         >
             <RegisterPage />
             <GetRegisterPages />
@@ -172,16 +156,12 @@ const Restaurant = () => {
             <Grid container spacing={{ xs: 0, md: 0 }}
                 sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "0px", sm: "0px" }, margin: "1rem auto", }}
             >
-                <Grid item xs={12} md={2} sx={{ padding: "1rem", backgroundImage: `url(${dinning})`, backgroundSize: { xs: "100% 100%", md: "100% 50%" } }} >
-                    <Grid container spacing={0} sx={{ color: "white" }} >
+                <Grid item xs={12} md={2} sx={{ padding: "1rem", backgroundImage: `url(${dinning})`, backgroundSize: { xs: "100% 100%", md: "400% 100%" },backgroundPosition:"35% 100%" }} >
+                    <Grid container spacing={0} sx={{ color: "white",background:"rgba(255,255,255,0.2)" }} >
                         <Grid item xs={12}  >
                             <Typography component="h1" variant="h1" sx={{ fontFamily: "great vibes" }}>La Cuisine</Typography>
                             <Stack direction="row">
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
-                                <StarIcon sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />
+                                {arrStar.map(obj=>(<StarIcon key={obj} sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />))}
                             </Stack>
                         </Grid>
                         <Grid item xs={12} >
@@ -205,15 +185,11 @@ const Restaurant = () => {
             <Typography component="h1" variant="h3">Top Menu</Typography>
             <hr style={{ borderBottom: "2px solid red" }} />
             <ItemList resArr={restArr} title={"Title"} />
-            <Included product={obj} staticImage={staticImage}/>
+            
             <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
                 <Typography component="h1" variant="h4" sx={{ textAlign: "center", margin: "1rem auto" }}>Please comment - we aim to improve</Typography>
                 <PageFeedback />
-                {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
-                    {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-                        :
-                        <ModalContainer />}
-                </Stack>}
+                
             </Container>
 
 

@@ -41,8 +41,8 @@ const SolarPanel = () => {
   const location=useLocation();
   const pathname=location.pathname;
   const theme = useTheme();
-  const { staticImage, setTitle, setStyleName,average,getPathLocation,pageRatings,getProductDesigns } = useContext(GeneralContext);
-  const { paid } = useContext(TokenAccessContext);
+  const { staticImage, setTitle, setStyleName,average,getPathLocation,pageRatings,productDesigns } = useContext(GeneralContext);
+
   const [getArray, setGetArray] = useState([]);
   const staticUrl = `${staticImage}/solar`;
   const [solarDesc, setSolarDesc] = useState({ loaded: false, data: [] });
@@ -106,8 +106,8 @@ const SolarPanel = () => {
       { id: 8, title: "cause-and-effect", image: "solar9.png", summary: "Power for marin devises when at dock or out in the ocean. Having power when you your life depends on it.",page:"/design13" },
     ]
     let getProductPrice=0
-    if(getProductDesigns.loaded){
-      getProductPrice=getProductDesigns.data.filter(obj=>(obj.extra_kwargs===pathname))[0].monthly
+    if(productDesigns.loaded){
+      getProductPrice=productDesigns.data.filter(obj=>(obj.extra_kwargs===pathname))[0].monthly
     }else{getProductPrice=15}
     
     let arr = [];
@@ -118,7 +118,7 @@ const SolarPanel = () => {
       }else{arr.push({ ...obj, desc:"",monthly:getProductPrice })}
     });
     setGetArray(arr);
-  }, [setGetArray, solarDesc,getProductDesigns,pathname]);
+  }, [setGetArray, solarDesc,productDesigns,pathname]);
 
   return (
     <Solarmain
@@ -155,11 +155,7 @@ const SolarPanel = () => {
       <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
                 <Typography component="h1" variant="h4" sx={{ textAlign: "center", margin: "1rem auto" }}>Please comment - we aim to improve</Typography>
                 <PageFeedback />
-                {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
-                    {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-                        :
-                        <ModalContainer />}
-                </Stack>}
+               
             </Container>
 
 

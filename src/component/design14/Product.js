@@ -24,17 +24,38 @@ width:100vw;
 position:relative;
 min-height:46vh;
 margin-top:0px;
-
-
-
+margin-top:2rem;
+@media screen and (max-width:900px){
+    margin-top:2rem;
+}
+@media screen and (max-width:600px){
+    margin-top:3.5rem;
+}
 `;
+const StackMediaTrain=styled(Stack)`
+margin:auto;
+width:100%;
+justify-content:flex-start;
+align-items:center;
+flex-wrap:nowrap;
+animation: ${({start})=>start ? "autoSlider" : ""} 16s linear alternate infinite;
+@keyframes autoSlider {
+    from {
+        transform: translateX(0%);
+    }
+    to{
+        transform: translateX(-${({length})=>(length-1)*100}%);
+    }
+   
+}
+`;
+
 const Product = () => {
     const location = useLocation();
     const pathname = location.pathname;
     const [getProducts, setGetProducts] = useState({ loaded: false, data: [] });
     const [start, setStart] = useState({ id: null, loaded: false });
-    const { setTitle, setStyleName,average,getPathLocation,pageRatings,staticImage,getProductDesigns } = useContext(GeneralContext);
-    const { paid } = useContext(TokenAccessContext);
+    const { setTitle, setStyleName,average,getPathLocation,pageRatings,staticImage,productDesigns } = useContext(GeneralContext);
     const [pageRatingHelmet, setPageRatingHelmet] = useState(null);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const [seeDetail, setSeeDetail] = useState({loaded:false,id:null});
@@ -43,6 +64,8 @@ const Product = () => {
     const [keywords, setKeywords] = useState([]);
     const [summary, setSummary] = useState([]);
     const image=`${staticImage}/design14.png`;
+    const [length,setLength]=React.useState(null);
+
     useEffect(() => {
         if (pageRatings.loaded && pageRatings.data) {
             let tempPageRating=pageRatings.data.filter(obj => (obj.page === pathname))
@@ -50,16 +73,17 @@ const Product = () => {
             setPageRatingHelmet(pageRatings.data.filter(obj => (obj.page === pathname)))
                 }
         }
-        if(getProductDesigns.loaded){
-        let getOBJ=getProductDesigns.data.filter(obj=>(obj.extra_kwargs==="/design14"))[0];
+        if(productDesigns.loaded){
+        let getOBJ=productDesigns.data.filter(obj=>(obj.extra_kwargs==="/design14"))[0];
         setOBJ(getOBJ);
         }
-    }, [pathname, pageRatings,getProductDesigns]);
+    }, [pathname, pageRatings,productDesigns]);
 
     useEffect(() => {
         let arr=[];
         if (products) {
             setGetProducts({ loaded: true, data: products });
+            setLength(products.length);
             products.forEach((obj,index)=>{
                 arr.push(`${obj.name} is a sample product  to help display a web-page.`)
             });
@@ -106,7 +130,9 @@ const Product = () => {
     }
 
     return (
-        <MainCover>
+        <MainCover
+        className={styles.mainCover}
+        >
             <RegisterPage />
             <GetRegisterPages />
             <PageRating />
@@ -121,7 +147,7 @@ const Product = () => {
             <CoverPage sliderArray={sliderImg} />
             <Grid container spacing={{ xs: 1, md: 2 }}>
                 {getProducts.loaded && getProducts.data.map((obj, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={`${obj.id}-product--${index}`}>
+                    <Grid item xs={12}  md={4} key={`${obj.id}-product--${index}`}>
                         <Card elevation={10}
                             sx={{ position: "relative", display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column" }}
                             
@@ -149,21 +175,28 @@ const Product = () => {
                             }
                             </Stack>
                             }
-                            <Stack direction="row" spacing={{ xs: 1, md: 2 }} sx={{ margin: "auto", width: "100%", overFlowX: "scroll", cursor: "pointer" }}
+                            <Stack direction="row" spacing={{ xs: 1, md: 4,sm:2 }} sx={{ margin: "auto", width: "100%", overFlowX: "auto", cursor: "pointer",postion:"relative" }}
 
                                 onClick={(e) => handleSlide(e, obj.id)}
                             >
+                                <StackMediaTrain
+                                direction="row"
+                                start={start.loaded && start.id===obj.id}
+                                length={obj.imageArr.length}
+                                spacing={10}
+                                >
                                 {obj.imageArr && obj.imageArr.map((obj1, index) => (
                                     <CardMedia
-                                        className={(start.loaded && start.id === obj.id) ? styles.cardSlide : styles.card}
+                                        // className={(start.loaded && start.id === obj.id) ? styles.cardSlide : styles.card}
                                         key={`${obj1.id}--image=${index}`}
                                         component="img"
                                         defer={true}
                                         src={obj1.image}
-                                        sx={{ maxWidth: '200%', maxHeight: "350px" }}
+                                        sx={{ width: '100%', maxHeight: {xs:"350px",sm:"500px",md:"500px"},aspectRatio:"4/3" }}
 
                                     />
                                 ))}
+                                </StackMediaTrain>
                             </Stack>
                             <CardContent
                                 sx={{ margin: "auto", display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column" }}>
@@ -179,15 +212,10 @@ const Product = () => {
 
                 ))}
             </Grid>
-            <Included product={OBJ} staticImage={staticImage}/>
+            
             <Container maxWidth="lg" sx={{ margin: "1rem auto" }}>
                 <Typography component="h1" variant="h4" sx={{ textAlign: "center", margin: "1rem auto" }}>Please comment - we aim to improve</Typography>
                 <PageFeedback />
-                {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
-                    {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-                        :
-                        <ModalContainer />}
-                </Stack>}
             </Container>
         </MainCover>
     )

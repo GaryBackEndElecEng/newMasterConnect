@@ -1,12 +1,11 @@
-.cardSlide {
-    opacity:1;
-    animation: slideOver2 16s linear infinite;
-    transition:opacity 1.5s ease-in;
-}
+
 
 .card {
     animation: slideOver1 16s ease-in-out reverse;
 
+}
+.mainCover h1, .mainCover span, .mainCover p{
+    color:black;
 }
 
 @keyframes slideOver {
@@ -29,7 +28,7 @@
     }
 }
 
-@keyframes slideOver2 {
+/* @keyframes slideOver2 {
     0% {
         transform: translateX(100%) scale(0.8);
         opacity:1;
@@ -43,7 +42,93 @@
         opacity:1;
     }
    
+} */
+.showmsg{
+
+-webkit-text-stroke: 2px black;
+  -webkit-text-fill-color: grey;
+  color:transparent;
+  animation: playShowMsg 2.5s ease-in-out;
 }
+.hide{
+    opacity:0;
+}
+@keyframes playShowMsg {
+    0% {
+        -webkit-text-stroke: 0.5px green;
+        transform: translateX(-100%) scale(1.5);
+        opacity:0;
+    }
+    50% {
+        -webkit-text-stroke: 1px blue;
+        transform: translateX(0%) scale(1.25);
+        opacity:1;
+    }
+    100% {
+        -webkit-text-stroke: 2px black;
+        transform: translateX(0%) scale(1);
+        opacity:1;
+    }
+}
+.showtextOn{
+  opacity:1;
+  position:absolute; 
+  top:0%;
+  left:0%; 
+  background:rgba(0,0,0,0);
+  -webkit-text-stroke: 2px black;
+  -webkit-text-fill-color: white;
+  transform:scale(0.8);
+  color:transparent;
+  animation: showText 4s ease-in-out;
+}
+.showTextOff{
+    opacity:0;
+}
+@keyframes showText {
+    0% {
+        transform: translate(-100%,30%) scale(2);
+        opacity:0;
+        background:rgba(0,0,0,0.3);
+    }
+    20% {
+        transform: translate(30%,30%) scale(2);
+        opacity:1;
+        background:rgba(0,0,0,0.3);
+    }
+    100% {
+        transform: translate(0%,0%) scale(0.8);
+        opacity:1;
+        background:rgba(0,0,0,0);
+    }
+}
+@media screen and (max-width:600px){
+    @keyframes showText {
+        0% {
+            transform: translate(-100%,30%) scale(1.5);
+            opacity:0;
+            background:rgba(0,0,0,0.3);
+        }
+        20% {
+            transform: translate(30%,30%) scale(1.5);
+            opacity:1;
+            background:rgba(0,0,0,0.3);
+        }
+        100% {
+            transform: translate(0%,0%) scale(0.8);
+            opacity:1;
+            background:rgba(0,0,0,0);
+        }
+    }
+}
+.showtextOff{
+    opacity:0;  
+    background:rgba(0,0,0,0.3);
+    -webkit-text-stroke: 2px black;
+    -webkit-text-fill-color: white;
+    color:transparent;
+    transition: all 2s ease-in-out;
+  }
 
 .slideStack {
     animation: scroll1 30s linear infinite;

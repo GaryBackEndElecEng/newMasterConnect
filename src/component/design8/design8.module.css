@@ -1,11 +1,14 @@
 *{margin:0;padding:0;box-sizing:border-box}
 
+.mainBanner3Container h1,.mainBanner3Container p, .mainBanner3Container span{
+color:black;
+}
 .showStack{
 display:block;
 animation: growAbout 1s ease-in;
 margin-top:1rem;
 opacity:1;
-background:rgba(255, 255, 255,.3);
+background:rgba(0,0,0,.3);
 padding:1rem;
 }
 @keyframes growAbout{
@@ -24,7 +27,7 @@ padding:1rem;
     margin:auto;
     top:10%;
     padding:1rem;
-    background:rgba(255, 255, 255,0.3) ;
+    background:rgba(0,0,0,0.3) ;
 
 }
 @keyframes transformX{
@@ -35,6 +38,9 @@ padding:1rem;
 opacity:1;
 animation: dropDown 2s ease-in-out;
 
+}
+.showAbout h1, .showAbout p{
+    color:black;
 }
 .white{
     opacity:0.3;

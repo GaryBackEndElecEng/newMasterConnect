@@ -1,193 +1,125 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React from "react";
+import {GeneralContext} from '../../context/GeneralContextProvider';
+// import styles from "./about.module.css";
+import styled from "styled-components";
+import AboutMain from "./AboutMain";
+import AboutMainAfter from "./AboutMainAfter";
+import Imagery from "./Imagery";
+import Longevity from "./Longevity";
+import Folder from "./Folder";
+import Scroller from "./Scroller";
+import DiveIn from './DiveIn';
 
-import { GeneralContext } from '../../context/GeneralContextProvider';
-import { useTheme } from '@mui/material/styles';
-import { Box,  Paper, Typography } from '@mui/material';
-import styled from 'styled-components';
-import {  ContainerAboutFront, ContainerAboutFront2 } from '../../styled/Container.styled';
-// import { loadGoogleFont as googleFont } from '../utils/loadGoogleFont';
-import RegisterPage from '../RegisterPage';
-import CheckOutStuffQuote from './CheckOutStuffQuote';
-// import styles from './about.module.css'
-import { Container } from '@mui/system';
-import DottedWorld from './DottedWorld';
-import Stripe1 from './Stripe1';
-import GetRegisterPages from '../utils/GetRegisterPages';
-import AboutHelmet from './AboutHelmet';
-import MyAccountDesc from './MyAccountDesc';
-var preCount = 0;
 
-const ContainerAboutFluid=styled.div.attrs({className:" container-fluid "})`
-width:100vw;
-position:relative;
+const MainContainer=styled.div`
 margin:0;
-// margin-top:4rem;
-padding:10px;
+padding:0 0.5rem;
+width:100vw;
+font-family: var(--font-family);
 display:flex;
-flex-direction:column;
-align-items:space-between;
+align-items:stretch;
 justify-content:center;
-overflow:hidden;
-animation: clearIn 1s ease-in-out;
-@keyframes clearIn {
-  from {opacity:0;}
-  to {opacity:1;}
+flex-direction:column;
+height:auto;
+background: var(--background-111);
+animation:slideLeft 1.5s ease-in-out;
+@keyframes slideLeft {
+    from {opacity:0.5;transform:translateX(100%);}
+    to {opacity:1;transform:translateX(0%);}
 }
-
 @media screen and (max-width:900px){
-   margin-top:0;
+  margin:auto ;
+  // border:1px solid red;
 }
-@media screen and (max-width:600px){
-   margin-top:-50px;
-}
-
 `;
-
-const GlobalBox = styled(Box)`
-margin:auto;
-display: "flex";
-justify-content: "flex-start";
-align-items: "center";
-flex-direction: "column";
-padding: "0.5rem";
-width: "100%";
-height:"auto";
-`;
-
-
 const About = () => {
-  const theme = useTheme();
-  const { setTitle, setStyleName,allCategory,setChangePage,generalInfo,getPathLocation } = useContext(GeneralContext);
-  const [about,setAbout]=useState([]);
-  const [counter, setCounter] = useState(0);
-  const [allcatHelmet,setAllcatHelmet]=useState([]);
-  const scrollRef = useRef(null);
- const missionContent= about.length>0 && about.filter(obj=>(obj.title==="Mission")) ? about.filter(obj=>(obj.title==="Mission"))[0] : null;
- const Fact = about.length>0 && about.filter(obj=>(obj.title==="Fact")) ? about.filter(obj=>(obj.title==="Fact"))[0]:null;
- const getGeneralInfo = generalInfo.loaded ? generalInfo.data:null;
-  
-useEffect(()=>{
-  if(allCategory.loaded){
-  const getData=allCategory.data.filter(obj=>(obj.section==="about"))[0].categories
-  // console.log(getData)
-  setAllcatHelmet(getData)
-      if(getData){
-        let newArr=[];
-        getData.forEach((obj,index)=>{
-          newArr.push({...obj,id:index})
-        });
-        return setAbout(newArr)
-      }
-  
-  
-  }
-},[allCategory.loaded,allCategory.data]);
-
-// console.log(about)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setCounter(incPreCount());
-      // if(window.scrollY===800){
-      // incPreCount();
-      // }
-    }, 0)
-    function incPreCount() {
-      if (preCount < 361) {
-        return preCount++
-      } else { return preCount = 0 }
+  const {contactInfo,open, setOpen,staticImage,generalInfo}= React.useContext(GeneralContext);
+  const happyMain = `${staticImage}/happy/happyMain.png`;
+  const happyOffice = `${staticImage}/happy/happyOffice.png`;
+  const longevity=`${staticImage}/extra/longevity.png`;
+  const web=`${staticImage}/extra/web.png`;
+  const smart=`${staticImage}/extra/smart.png`;
+  const custom=`${staticImage}/extra/custom.png`;
+  const partner=`${staticImage}/extra/partner.png`;
+  const db=`${staticImage}/extra/db.png`;
+  const scale=`${staticImage}/extra/scale.png`;
+  const connect=`${staticImage}/folder/connect.png`;
+  const ownership=`${staticImage}/folder/ownership.png`;
+  const design=`${staticImage}/folder/design.png`;
+  // const [showPic, setShowPic] = React.useState({loaded:false,id:0});
+  const [close, setClose] = React.useState(false);
+  const [slide, setSlide] = React.useState(false);
+  const [goText, setGoText] = React.useState(null);
+  const [getWidth,setGetWidth]=React.useState(null);
+  const [fontSize,setFontSize]=React.useState(null);
+  React.useEffect(()=>{
+    if(window.scrollY ){
+        window.scroll(0,0);
     }
-  }, [])
+    setGetWidth(window.innerWidth);
+    // console.log(window.innerWidth)
+  },[]);
+  React.useEffect(()=>{
+    if(getWidth <900){
+      setFontSize("h2");
+    }
+    if(getWidth < 600){
+      setFontSize("h3");
+    }else{
+      setFontSize("h2");
+    }
+  },[]);
+  
+    const arr=[
+        {id:1,name:"Longevity",content:"Born in Mississauga , Ontario, served in the Technology hardware and software industry for 30 years, where innovation and problem-solving has always been the forefront to mastering innovative techniques and always with a smile.",image:longevity},
+        {id:2,name:"Web Dev & Design Focus",content:"Masterconnect Digital has smart innovative creative design concepts and solid inexpensive development services. We use fundamental coding to give you a truly scalable and custom design and provide options for high scalability that suits growing firms.",image:web},
+        {id:3,name:"Smart Design",content:"  Masterconnect Digital progressive designs fit all screen sizes, from a mobile to a desktop and dynamically accommodate all effects. Given our speciality in coding, each screen size can have the same or different effect, bringing improved client experience to the viewer.",image:smart},
+        {id:4,name:"Truly Custom",content:" Masterconnect Digital uses fundamental coding schemes to maximize flexibility in providing exactly what the client and or industry desires.  ",image:custom},
+        {id:5,name:"partnership & Collaboration ",content:"You can expect to receive clear transparent communication from the beginning of your web design project until completion. Once your project is launched, we have automated features that allow us to effectively maintain your site with no worries. ",image:partner},
+        {id:6,name:" Database owner ship",content:" All our customers have their private database so you don't have to worry about information piracy. Your database is locked.",image:db},
+        {id:7,name:" Database scalability",content:" All our databases are scalable upto 100 million transactions. So there is no worry about migration for a long time.",image:scale},
+    ]
+  React.useEffect(() => {
+    setTimeout(() => {
+      setClose(true);
+    }, 5000);
+    if (close) {
+      setTimeout(() => {
+        setSlide(true);
+      }, 3000);
+    }
+    if (slide) {
+      setTimeout(() => {
+        setGoText(true);
+      }, 4000);
+    }
+  }, [close, slide]);
 
-  useEffect(() => {
-    setTitle("About Us");
-    setStyleName("Who We Are");
-    setChangePage(false);
-    if(window.scrollY){
-      window.scroll(0,0);
-      
+  const handleClose=(e)=>{
+    e.preventDefault();
+    if(open ===true){
+      setOpen(false);
+    }
   }
-  }, [setTitle,setStyleName,setChangePage]);
-
- 
+  
   return (
-    <ContainerAboutFluid>
-      <AboutHelmet categories={allcatHelmet} getGeneralInfo={getGeneralInfo}  getPathLocation={getPathLocation.loaded ? getPathLocation.data :""}/>
-      <RegisterPage/>
-      <GetRegisterPages/>
-      <ContainerAboutFront
-        alpha={counter}
-      >
-      </ContainerAboutFront>
-      <Container component="div" max-width="xl">
-        <Paper component="div"
-          elevation={10}
-          sx={{
-            margin: "auto",
-            display: "flex", jusitifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column", justifyContent: "center",
-            padding: "10px", width: "100%",
-          }}
-        >
-          <Typography component="h1" variant="h3" sx={{ fontFamily: "Playfair Display", fontStyle: "italic", margin: "auto" }}>Mission</Typography>
-          <Typography component="h1" variant="body2" sx={{ fontFamily: "Roboto", fontSize: "20px", margin: "auto" }}>
-            {missionContent !==null && missionContent["content"]}
-          </Typography>
-        </Paper>
-      </Container>
-      <Container maxWidth="xl" component="div"
-        sx={{
-          position: "relative", margin: "6rem auto", display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column",
+    <MainContainer onMouseOut={(e)=>handleClose(e)}>
+      <AboutMain fontSize={fontSize} getWidth={getWidth}/>
+      <Imagery
+        slide={slide}
+        happyOffice={happyOffice}
+        happyMain={happyMain}
+        goText={goText}
+        getWidth={getWidth}
+        fontSize={fontSize}
+      />
+      <AboutMainAfter  getWidth={getWidth} fontSize={fontSize}/>
+      <Longevity arr={arr} getWidth={getWidth} fontSize={fontSize}/>
+      <Folder connect={connect} ownership={ownership} design={design} getWidth={getWidth} fontSize={fontSize}/>
+      <DiveIn getWidth={getWidth} />
+      <Scroller contactInfo={generalInfo} getWidth={getWidth} fontSize={fontSize}/>
+    </MainContainer>
+  );
+};
 
-        }}
-      ><Paper component="div" elevation={5}
-        sx={{
-          width: "100%", borderRadius: "3%",
-          background: theme.palette.common.transparent,
-          display: "flex", jusitifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column", justifyContent: "center",
-          padding: "10px", margin: "auto"
-        }}>
-          <Box component="div" sx={{
-            width: "100%", height: "50vh", margin: "auto", position: "relative"
-
-          }}
-          >
-            <DottedWorld count={counter} Fact={Fact} />
-          </Box>
-        </Paper>
-        
-      </Container>
-      <ContainerAboutFront2
-        alpha={counter}
-      ></ContainerAboutFront2>
-
-      <Container maxWidth="xl"
-        sx={{
-          position: "relative", margin: { xs: "7rem auto", sm: "auto" }, display: "flex", justifyContent: "flex-start", alignItems: "center", flexDirection: "column", width: "100%", marginBottom: { xs: "1rem", sm: "3rem" }
-
-        }}
-      >
-        <GlobalBox ref={scrollRef}
-          sx={{
-            alignSelf: "flex-end", justifySelf: "flex-start",
-            width: "100%", height: "auto",
-            position: "relative",
-            boxShadow: `1px 2px 3px  ${theme.palette.common.dark}`,
-            borderRadius: "2%",
-            background: { sm: theme.palette.common.background2, xs: theme.palette.common.dark },
-            marginBottom: { xs: "1rem", sm: "auto" }, margin: { xs: "2rem auto", sm: "auto" }
-          }}
-        >
-          <Stripe1 scrollRef={scrollRef} />
-        </GlobalBox>
-      </Container>
-      <MyAccountDesc />
-      <CheckOutStuffQuote/>
-    </ContainerAboutFluid>
-  )
-}
-
-export default About
+export default About;

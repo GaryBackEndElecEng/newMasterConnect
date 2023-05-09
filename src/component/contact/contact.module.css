@@ -1,200 +1,155 @@
+*{box-sizing:border-box;padding:0;margin:0;}
 
-.not{
-    display:none;
-   
-}
-.validEmail,.validName,.validContent{
-    display:block;
-    color:green;
-    animation: showCheck 1s ease-in;
-}
-.notValidEmail,.notValidName,.notValidContent{
-    display:block;
-    color:red;
-    animation: showCheck 1s ease-in;
-}
-.notValidCell{
-    color:red;
-}
-.notValidCell:hover:after{
-    display:block;
-    position:absolute;
-    left:30%;
-    top:50%;
-    color:red;
-    content:"So we can contact you";
-    animation:content 1s ease-in;
-}
-@keyframes content {
-    from { opacity:0;}
-    to {opacity:1;}
-}
-.validSite,.validCell {
-    color:green;
-}
-.notValidSite:hover:after{
-    display:block;
-    position:absolute;
-    color:red;
-    left:30%;
-    top:60%;
-    content:"So we know what you want";
-}
+:root{
+    --font-family:"'Philosopher', sans-serif";
+    --font-family2: "'Philosopher', sans-serif";
+    --background-image-2:linear-gradient(to left, blue, rgb(188, 243, 116) 50%,rgb(236, 28, 13));
+  }
 
-
-.notValidEmail:hover:after{
-    display:block;
-    position:absolute;
-    top:70%;
-    left:10%;
-    color:red;
-    content:"missing your email";
-    animation: showCheck 0.5s ease-in;
-}
-.notValidName:hover:after{
-    display:block;
-    position:absolute;
-    top:70%;
-    left:10%;
-    color:red;
-    content:"missing your name";
-    animation: showCheck 0.5s ease-in;
-}
-.notValidContent:hover:after{
-    display:block;
-    position:absolute;
-    top:75%;
-    left:10%;
-    color:red;
-    content:"what can we help with?";
-    animation: showCheck 0.5s ease-in;
-}
-.showAppBar{
-    position:relative;
+.childGrid > h1{
+    font-family: var(--font-family);
+    color:linear-gradient(#e66465, #9198e5);
 
 }
-@keyframes showCheck{
-    from{opacity:0;transform:scale(0);}
-    to{opacity:1;transform:scale(1);}
+.childGrid > h2{
+    font-family: var(--font-family);
+    color:white;
 }
-
-.removeAppBar{
-    display:none;
-}
-@keyframes removeAppbar {
-from{transform:scale(1);}
-to{transform:scale(0);}
-}
-
-.lastPara {
-    color:red;
-}
-.mainContainer{
-    display:block;
-    position:relative;
-    margin:0;
-    margin-top:0.5rem;
-    width:100%;
-    z-index:1000;
-    animation: revealMain 1.5s ease-in;
-}
-@media screen and (max-width:600px){
-    .mainContainer{
-    margin-top:4rem;
-    }
-}
-@keyframes revealMain {
-    from{transform:scale(0);}
-    to {transform:scale(1);}
-}
-.helpYouContainer{
-    box-shadow:3px 10px 50px grey;
+.childGridForm{
     display:flex;
-    justify-content:center;
-    align-items:center;
     flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    gap:10px;
+}
+.childGridForm > div{
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    gap:10px;
+}
+.childGridForm >form{
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:center;
+    gap:10px;
+    
     
 }
-.helpYouTypo{
-margin:auto;
-box-shadow:-2px -8px 15px white, 2px 8px 15px white;
-
-}
-
-.helpYou{
+.contentInput{
+    display:flex;
+    flex-direction:column;
     margin:auto;
+    justify-self:center;
+    align-self:center;
+    
+    margin:10px;
+}
+.childGridForm >form> div,.childGridForm >form>label{
+    color:white;
+    /* border:1px solid red; */
+}
+.hr_line{
+height:3px;
+background-image:var(--background-image-2);
+width:100%;
+margin:3rem auto;
+}
+/* ---------ChatWithUs.js-START---------- */
+.chatWithUsOut{
+    position:relative;
+    justify-content:center;
+    align-items:center;
+}
+.chatWithUsIn{
+    justify-content:center;
+    align-items:center;
+}
+/* -------ANCHOR START------- */
+a[href ="tel"],a[href ="mailto"]{
+    position:relative;
+    color:purple;
+    border-left:1px solid white;
+    padding:5px;
+    font-family: var(--font-family);
+}
+a[href ="tel"]>h1,a[href ="mailto"]>h1{
+font-size:150%;
+transition:all 0.8s ease-in-out;
+}
+a[href ="tel"]>h1:hover,a[href ="mailto"]>h1:hover{
+font-size:160%;
+color:blue;
+transition:all 0.8s ease-in-out;
+}
+a[href ="tel"]:before{
+    position:absolute;
     text-align:center;
+    vertical-align: middle;
+    padding-top:5px;
+    border-radius:50%;
+    transform:translate(20%,-160%);
 }
+a[href ="mailto"]:before{
+    position:absolute;
+    text-align:center;
+    vertical-align: middle;
+    padding-top:5px;
+    border-radius:50%;
+    transform:translate(20%,-180%);
+}
+a[href ="tel"]:hover:before{
+content:"Call me";
+font-size:1.5rem;
+width:120px;
+height:30px;
+box-shadow:1px 1px 6px 1px white;
+animation: showUp 1s ease-in-out;
+}
+a[href ="mailto"]:hover:before{
+content:"send me an email";
+font-size:1.5rem;
+width:160px;
+height:60px;
+box-shadow:1px 1px 6px 1px white;
+animation: email 1s ease-in-out;
+}
+@keyframes showUp {
+    from {transform:translate(0px,0px);opacity:0;}
+    to {transform:translate(20%,-160%);opacity:1;}
+}
+@keyframes email {
+    from {transform:translate(0px,0px);opacity:0;}
+    to {transform:translate(20%,-180%);opacity:1;}
+}
+/* -------ANCHOR END------- */
 .contactMsg{
- margin:auto;
- display:flex;
- justify-content:center;
- align-items:center; 
- position:relative;
- color:black;
-  background:rgba(255,255,255,.3)  
-}
-@media screen and (max-width:600px){
-    .contactMsg{
-        font-size:32px;
-        transform:scale(0.8);
-    }
-}
-.line{
-    margin-bottom:8px;
-    color:lightblue;
-    padding:auto 9px;
-
-}
-
-/* <REQUESTAQUOTE/> */
-.formMsg{
-position:absolute;
-top:24%;
-left:35%;
-z-index:1000;
-animation:MsgAppear 3s ease-in;
-}
-@keyframes MsgAppear {
-    from {opacity:0;transform:translateY(200%);}
-    to{opacity:1;transform:translateY(0%);}
-}
-@media screen and (max-width:600px){
-    .formMsg{
-    left:15%;
-    top:25%;
-    }
-}
-.formMsgIssue{
     position:absolute;
-    top:27%;
-    left:30%;
-    z-index:1000;
-    animation:MsgAppear 3s ease-in;
-    }
-    @keyframes MsgAppear {
-        from {opacity:0;transform:translateY(200%);}
-        to{opacity:1;transform:translateY(0%);}
-    }
-    @media screen and (max-width:600px){
-        .formMsg{
-        left:20%;
-        }
-    }
-
-
-
-.whiteImage{
-    position:absolute;
-    left:0%;
     top:0%;
-    opacity:0.7;
-    z-index:2;
-    width:100%;
-    height:100%;
+    justify-content:flex-start;
+    align-items:center;
+    background-color:rgba(0,0,0,0.8);
+    z-index:2000;
+    padding:1rem;
+    height:auto;
 }
-@media screen and (max-width:600px){
-    .whiteImage{
-        opacity:0.8;
-    }
+.contactMsg >h1{
+    color:white;
+    font-family: var(--font-family);
 }
+.message{
+    margin:auto;
+    margin:1rem auto;
+    margin-left:1rem;
+}
+.message >h1{
+
+    color:white;
+    font-family: var(--font-family);
+    margin:1rem auto;
+}
+/* ---------ChatWithUs.js-END---------- */

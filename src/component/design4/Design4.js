@@ -1,68 +1,212 @@
-import React, { useEffect, useContext, useState,useMemo } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {useLocation} from 'react-router-dom';
-import {  Box, Stack, Container, Grid, Typography, Paper, Button,  } from '@mui/material';
+import { Stack, Grid, Container, Typography, } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-// import { PriceContext } from '../../context/PriceContextProvider';
+import { PriceContext } from '../../context/PriceContextProvider';
 import { TokenAccessContext } from '../../context/TokenAccessProvider';
-import ImgSlider from './ImgSlider';
-import ProductServices from '../ProductServices';
-import Stars from './Stars'
 import { useTheme } from '@mui/material/styles';
-import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import styled from 'styled-components';
+// import styles from './design3.module.css';
 import ModalContainer from '../utils/ModalContainer';
 import PageFeedback from '../utils/PageFeedback';
 import PageRating from '../utils/PageRating';
+import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
+import Titlebar from './Titlebar'
 import RegisterPage from '../RegisterPage';
-import styled from 'styled-components';
+import Statement from './Statement';
+import ImageDisplay from './ImageDisplay';
 import GetRegisterPages from '../utils/GetRegisterPages';
-import Design4Helmet from './Design4Helmet';
+import Design3Helmet from './Design3Helmet';
+import ProductServices from '../ProductServices';
 import Included from '../utils/Included';
 
-let prevCount = 1;
-const bgflowers = "https://www.coolgreenandshady.com/wp-content/uploads/2020/04/124-GHM_PS-2016-2-1024x375.jpg"
-const bgPatterns = "http://localhost:3000/images/wallPaperPattern.png"
+const BoxAutomate = styled.h4.attrs({className:"BoxAutomate"})`
 
-const ContainerFlowersBgImage=styled.div.attrs({className:"containerFluidImage"})`
-position:relative;
-width:100vw;
-height:auto;
-margin:auto;
-margin-top:-100px;
-padding-top:5rem;
-padding-bottom:2rem;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:flex-start;
-background-image:url(${({bgImage})=>bgImage});
-background-size: 25% 25%;
+display:${({display})=>display};
+background:${({bg})=>bg};
+position:absolute;
+font-family:Roboto;
+animation:showPara 1.5s ease-in;
+transition:width 1.5s ease-in;
+left:10%;
+padding:1rem;
+width:80%;
+top:50%;
+border-radius:25%;
+box-shadow: 1px 2px 13px 5px white;
+@keyframes showPara {
+    from {
+        opacity:0;
+        transform:scale(0);
+    }
+    to {
+        opacity:1;
+        transform:scale(1);
+    }
+}
 
-@media screen and (max-width:900px){
-   margin-top:-50px;
-   background-size: 100% 50%;
-   padding-top:1rem;
+@media screen and (max-width:1200px){
+    top:45%;
+    left:40%;
+}
+@media screen and (max-width:860px){
+    top:30%;
+    left:8%;
+    padding:1rem;
+    
 }
 @media screen and (max-width:600px){
-   margin-top:-90px;
-   background-size: 100% 50%;
-   padding-top:1rem;
-}
-
-`;
-const CustTypo = styled(Typography)`
-animation: showLeft 1s ease-in-out;
-
-@keyframes showLeft {
-    from {opacity:0;transform:translateX(-100%);}
-    to {opacity:1;transform:translateX(0%);}
-}
-@media screen and (max-width:900px){
     top:10%;
+    left:5%;
+    font-size:18px;
+}
+
+@media screen and (max-width:550px){
+    top:24%;
+    left:8%;
+    font-size:18px;
+}
+
+media screen and (max-width:400px){
+    top:10%;
+    left:5%;
+    font-size:18px;
+}
+
+
+
+
+`;
+
+
+const MoonWalk = styled.div`
+display:flex;
+flex-direction:column;
+position:relative;
+justify-content:center;
+align-items:center;
+padding:1rem;
+border-radius:50%;
+background-image:url(${({bg})=>bg});
+background-size:100% 100%;
+height:50vw;
+width:50vw;
+margin:auto;
+display:${({display})=>display};
+alt:www.master-connect.ca;
+
+animation:moonMove 3s ease-in;
+
+@keyframes moonMove {
+    from {
+        opacity:0;
+        transform:scale(0.5) translateX(-300%);
+        height:0px;
+    }
+    to {
+        opacity:1;
+        transform:scale(1) translateX(0%);
+        height:50vw;
+
+    }
+}
+@media screen and (max-width:1000px){
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:0.5rem;
+    height:350px;
+    width:350px;
+    position:absolute;
+    left:57%;
+    top:-360px;
+    
+
+    @keyframes moonMove {
+        from {
+            opacity:0;
+            transform:scale(0.5) translate(-980px,-500px);
+        }
+        to {
+            opacity:1;
+            transform:scale(1) translate(0px,0px);
+    
+        }
+    }
+}
+@media screen and (max-width:560px){
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:0.5rem;
+    height:250px;
+    width:250px;
+    position:absolute;
+    left:55%;
+    top:-250px;
+
+    @keyframes moonMove {
+        from {
+            opacity:0;
+            transform:scale(0.5) translate(-600px,-700px);
+        }
+        to {
+            opacity:1;
+            transform:scale(1) translate(0%,0%);
+    
+        }
+    }
+}
+
+
+
+@media screen and (max-width:500px){
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:0.5rem;
+    height:200px;
+    width:200px;
+    position:absolute;
+    left:50%;
+    top:-250px;
+
+    @keyframes moonMove {
+        from {
+            opacity:0;
+            transform:scale(0.5) translate(-400px,-800px);
+        }
+        to {
+            opacity:1;
+            transform:scale(1) translate(0%,0%);
+    
+        }
+    }
 }
 `;
-const CustomDesign4=styled.div`
+
+
+const ContainerFluidBgImage = styled.div`
+margin:0px;
+margin-top:5px;
+width:100%;
+min-height:120vh;
+background-image:url(${({ bgImage }) => bgImage});
+background-size:100% 100%;
+
+@media screen and (max-width:900px){
+    min-height:450px;
+    margin-top:-5px;
+
+}
+@media screen and (max-width:800px){
+    min-height:550px;
+    margin-top:-5px;
+}
+@media screen and (max-width:660px){
+    min-height:850px;
+    margin-top:-55px;
+}
+
+`;
+const CustomDesign3=styled.div`
 margin:0;
 animation: clearIn 2s ease-in-out;
 @keyframes clearIn {
@@ -78,21 +222,26 @@ margin-top:-2px;
 }
 `;
 
+
 const Design4 = () => {
     const location=useLocation();
     const pathname=location.pathname
-    const theme = useTheme();
-    const { setTitle, setStyleName, workArr, flowerImg,setChangePage,staticImage,average,getPathLocation,pageRatings,getProductDesigns } = useContext(GeneralContext);
     // const {getProductList}=useContext(PriceContext);
-    const {paid}=useContext(TokenAccessContext);
-    const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
-    const getFlowers = flowerImg.loaded ? flowerImg.data : null;
+    const { setTitle, setStyleName,staticImage, workArr,setChangePage,average,getPathLocation,pageRatings,getProductDesigns } = useContext(GeneralContext);
+    // const {paid}=useContext(TokenAccessContext);
+    const [showPara, setShowPara] = useState('none'); 
+    const [showPurcahseBtn,setShowPurchaseBtn]=useState(false);
+    const [startStatement,setStartStatement]=useState(false);
+    const [startMoon,setStartMoon]=useState(false);
+    const [startBoxAnimation,setStartBoxAnimation]=useState(false);
+    const earthPic = `${staticImage}/earth.png`;
+    const imgMoon= `${staticImage}/moon.png`
     const [summary, setSummary] = useState(false);
     const [desc, setDesc] = useState(false);
     const [keywords, setKeywords] = useState(false);
     const [image, setimage] = useState(false);
-    const [OBJ, setOBJ] = useState(false);
-    const [show, setShow] = useState({loaded:false,id:null});
+    const [OBJ, setOBJ] = useState({});
+    const theme = useTheme();
     const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
     const [productServices,setProductServices]=useState([]);
     
@@ -101,26 +250,16 @@ const Design4 = () => {
             setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
         }
     },[pathname,pageRatings]);
-    
 
-    useMemo(()=>{
+    useEffect(()=>{
         let arr=[];
         if(getProductDesigns.loaded){
-            let obj=getProductDesigns.data.filter(obj=>(obj.name==="Flower Store"))[0]
-            let kewds=obj.desc.split(" ")
-            .filter(wd=>(wd !=="the"))
-            .filter(wd=>(wd !=="This"))
-            .filter((wd)=>(wd !=="a"))
-            .filter(wd=>(wd !=="for"))
-            .filter(wd=>(wd !=="in"))
-            .filter(wd=>(wd !=="is"))
-            .filter(wd=>(wd !=="of"))
-            .filter(wd=>(wd !=="are"))
+            let obj=getProductDesigns.data.filter(obj=>(obj.name==="SpaceFrontier"))[0]
             setSummary(obj.summary);
             setDesc(obj.desc);
-            setKeywords(kewds);
+            setKeywords("Moon-struck,Web,Design,web-page,page product,purchase-a-site");
             setimage(`${staticImage}/${obj.imageName}`);
-            setOBJ(obj)
+            setOBJ(obj);
             if(obj.services.length >0){
                 arr=obj.services;
             }
@@ -132,236 +271,124 @@ const Design4 = () => {
             arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
             setProductServices(arr[0]);
             }else{setProductServices(arr)}
-            
         }
         if(window.scrollY){
             window.scroll(0,0);
             
         }
-    },[getProductDesigns.loaded,getProductDesigns.data,staticImage,]);
-
-    const fourArrL = [{ 'id': 0, 'name': 'Sweet Blossom Collection',"comment":"This changes a page: Thanks for pressing Me" }, { 'id': 1, 'name': 'Bunches Collection | 50% Off',"comment":"This changes a page: Pretty cool!" }, { 'id': 2, 'name': 'Sympathy & Funeral Flowers',"comment":"This changes a page: Hope you don't buy this often" }, { 'id': 3, 'name': 'Designer Collection - Half Price',"comment":"This changes a page: BUY ME!" }]
-    const fourArrR = [
-        {
-            'id': 0, star: 3.5, phrase: "Many thanks for flowers - the bouquet was beautiful and the service was great. Will certainly use you again!",
-            'name': 'Joanna,Regina'
-        },
-        {
-            'id': 1, star: 4.5, phrase: "Bloomex is amazing! It does a great job for delivery and the products are always top notch",
-            'name': 'Sara, North York'
-        },
-        {
-            'id': 2, star: 4, phrase: "I really enjoy how easy it is to go online and make the selection. The feed back from those receiving the product is very positive",
-            'name': 'Betty, Montreal'
-        },
-        {
-            'id': 3, star: 5, phrase: "I have used your service numerous times and have always been very happy! Everyone who has received flowers were very impressed and happy THANK YOU!!!",
-            'name': 'Veronica, Alberta'
-        }]
-    const [count, setCount] = useState(1);
-
-    const handleLeft = () => {
-        if (prevCount > 0 && prevCount <= 14) {
-            setCount(prevCount--);
-        } else {
-
-            prevCount = 14;
-            setCount(prevCount);
-        }
-    }
-    const handleRight = () => {
-        if (prevCount > 0 && prevCount <= 13) {
-            setCount(prevCount++);
-        } else {
-            prevCount = 1;
-            setCount(prevCount);
-        }
-    }
+    },[getProductDesigns.loaded,getProductDesigns.data,staticImage,setOBJ,OBJ,setProductServices]);
 
     useEffect(() => {
-        const title1 = workArr.filter(obj => (obj.id === 4))[0].title
+        const title1 = workArr.filter(obj => (obj.id === 3))[0].title
         setTitle(title1);
-        setStyleName("Style 5");
+        setStyleName("Style 4");
         setChangePage(false);
-    }, [setStyleName, setTitle,workArr,setChangePage]);
+        setTimeout(() => {
+            setShowPara("block");
+        }, 3400)
+    }, [setTitle, setStyleName,setChangePage,workArr]);
 
-    useEffect(() => {
-        const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
-        if (getUser_id) {
+    
+    useEffect(()=>{
+        const getUser_id=localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")):null;
+        if(getUser_id){
             setShowPurchaseBtn(true);
         }
-    }, [])
-
-    useEffect(() => {
-        const forwardCount = () => {
-            if (prevCount > 0 && prevCount <= 13) {
-                setCount(prevCount++);
-                setTimeout(() => {
-                    forwardCount();
-                }, 4000)
-            } else {
-                prevCount = 1;
-                setCount(prevCount);
+        setTimeout(()=>{
+            setStartStatement(true);
+        },1000);
+        setTimeout(()=>{
+            if(startStatement){
+                setStartMoon(true);
             }
-        }
-        forwardCount();
-    }, [setCount]);
-
-    const handleShow=(e,id)=>{
-        e.preventDefault();
-        setShow({loaded:true,id:id})
-
-    }
+        },4000);
+        setTimeout(()=>{
+            if(startMoon){
+                setStartBoxAnimation(true);
+            }
+        },4000)
+    },[startStatement,startMoon]);
+    
 
     return (
-        <CustomDesign4>
-            <ContainerFlowersBgImage bgImage={bgPatterns} className="sliderHeader" >
-                <Design4Helmet 
-                summary={summary}
-                 desc={desc}
+        <CustomDesign3>
+        <GetRegisterPages/>
+                <RegisterPage />
+                <PageRating/>
+                <Design3Helmet 
+                summary={summary} 
+                desc={desc}
                  image={image}
                  keywords={keywords}
                  OBJ={OBJ}
-                 average={average !==0 ? average:"4"} 
-                getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
-                pageRatings={pageRatingHelmet}
+                 average={average !==0 ? average:"4"}
+                 getPathLocation={getPathLocation.loaded ? getPathLocation.data:""}
+                 pageRatings={pageRatingHelmet}
                  />
-                <GetRegisterPages/>
-                <RegisterPage />
-                <PageRating/>
-                <Container maxWidth="xl" className="text-center"
+            <ContainerFluidBgImage bgImage={earthPic} >
+                
+                <Stack direction="column" sx={{ marginTop: "0px", width: "100%",marginBottom:"1rem" }}>
+                    <Titlebar />
+                </Stack>
+                <Grid
+               
                     sx={{
-                        margin: { xs: "0.25rem -20px", sm: "1rem -10px", md: "auto" },
-                        padding: { xs: "0px", sm: "0px", md: "0.25rem" },
-                        display: "flex", justifyContent: "flex-start", alignItems: "center",
-                        flexDirection: "column",
+                        color: theme.palette.secondary.main,
+                        width: { md: "100%", xs: "auto" }, display: "flex",
+                        flexDirection: { md: "row", xs: "column" }, justifyContent: { md: "space-between", xs: "flex-start" },
+                        alignItems: "center", margin: "auto",
                     }}
+                    
                 >
-                    <Paper component="div" elevation={4}
+                    <Grid item xs={12} md={6}
                         sx={{
-                            position: "relative",
-                            minHeight: "450px", width: "100%", height: "100%", margin: "1rem auto",
-                            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                            background: "tranparent", backgroundImage: `url(${bgflowers})`, backgroundSize: "100% 100%"
+                            margin: { md: "auto", xs: "0 auto" },
+                             width: "100%",
+                            alignSelf: "flex-start", 
+                            justifySelf: "flex-start",
+                            position:"relative",
                         }}
                     >
-                        <Paper
-                            sx={{
-                                padding: "2px 15px", background: "rgba(255,255,0,.3)", color: theme.palette.common.dark,margin:"2rem auto"
-                            }}>
-                            <Typography component="h1" variant="h3">
-                                Flowers
-                            </Typography>
-                        </Paper>
-
-                        <Grid container spacing={{xs:0,sm:1,md:2}}
-                            sx={{
-                                margin: {xl:"5rem 1rem"}, justifyContent: "center",
-                                alignItems: "flex-start",
-                                width: "95%", height: "100%",
-                                background: theme.palette.card.light, padding: "1rem 1rem",
-
-                            }}
+                       {startStatement && <Statement/>}
+                    </Grid>
+                    <Grid item xs={12} md={6}
+                        sx={{
+                            color: theme.palette.secondary.main,
+                            width: "100%",
+                            height:"100%",
+                            margin: "auto",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            position: "relative",
+                        }}
+                    >
+                       {startMoon && <MoonWalk
+                            bg={imgMoon}
+                           
                         >
-                            <Grid item xs={12} md={3} className="leftSide" sx={{position:"relative"}}>
-                                {fourArrL.map((obj) => (
-                                    <Box key={obj.id} sx={{margin:"0.5rem auto"}} onClick={(e)=>handleShow(e,obj.id)}
-                                    onMouseOut={()=>setShow({loaded:false})}>
-                                        <Button href="#"
-                                            sx={{ boxShadow: "1px 2px 2px solid black", border: "1px solid grey" }}>
-                                            {obj.name}
-                                        </Button>
-                                        {(show.loaded && show.id===obj.id) && 
-                                    <CustTypo component="h1" variant="h5"
-                                    sx={{position:"absolute",top:{md:"100%",sm:"0%",xs:"-40%"},
-                                    boxShadow:"1px 1px 15px 7px grey",background:theme.palette.common.background,
-                                    color:"white",
-                                    width:{xs:"100%",sm:"25%",md:"80%"},
-                                    left:{lg:"15%"}
-                                }}
-                                    >
-                                        {obj.comment}
-                                    </CustTypo>}
-                                    </Box>
-                                ))}
-                            </Grid>
-                            <Grid item xs={12} md={6} className="main"
-                                sx={{
-                                    position: "relative",
-                                    boxShadow: "1px 2px 3px grey",
-                                    display: "flex", justifyContent: "center", alignItems: "center",
-                                    height: "650px",
-                                    alignSelf: "center", justifySelf: "center",
-                                    margin:{xs:"0.5rem -20px",sm:"0.5rem -10px",md:"0.5rem auto"}
-                                }}
+                            
+                           {startBoxAnimation && <BoxAutomate 
+                            display={showPara} 
+                            bg={theme.palette.common.fadeCharcoal}
+                            
                             >
-                                <ImgSlider count={count} getFlowers={getFlowers} />
+                                “The universe is a pretty big place. If it’s just us, seems like an awful waste of space.”- Jody Foster
+                            </BoxAutomate>}
+                        </MoonWalk>}
+                    </Grid>
 
-                            </Grid>
-                            <Grid item xs={12} md={3} className="rightSide">
-                                {fourArrR.map((obj) => (
-                                    <Box key={obj.id}>
-                                        <Typography component="div" variant="h5" >
-                                            <Button href="#"
-                                                sx={{
-                                                    boxShadow: "1px 2px 2px solid black", border: "1px solid grey",
-                                                    display: "flex", flexDirection: "column", alignItems: "center"
-                                                }}
-                                            >
-                                                {obj.name}
+                </Grid>
+                
+            </ContainerFluidBgImage>
+            <ImageDisplay/>
+            <Included product={OBJ ? OBJ:null} staticImage={staticImage}/>
+            <PageFeedback/>
+            
+        </CustomDesign3>
 
-                                                <Box><Stars rating={obj.star} /></Box>
-                                            </Button>
-                                        </Typography>
-                                        <Typography component="h1" variant="body2" sx={{ textAlign: "left", padding: "1rem 0", background: theme.palette.common.light }}>{obj.phrase.substring(0, 126)}</Typography>
-                                    </Box>
-                                ))}
-                            </Grid>
-                        </Grid>
-                        <Button variant={"contained"} className="w3-button w3-display-left" onClick={() => { handleLeft() }}
-                            sx={{
-                                fontSize: "20px", alignSelf: "flex-start", position: "absolute", left: {lg:"22%",sm:"0%",xs:"0%"},
-                                background: theme.palette.primary.light,
-                                top: { xs: "55%", sm: "auto" }
-                            }}
-                        ><ArrowBackIosNewIcon /></Button>
-                        <Button variant="contained" className="w3-button w3-display-right" onClick={() => { handleRight() }}
-                            sx={{
-                                fontSize: "20px", alignSelf: "flex-end", position: "absolute", right: {lg:"22%",sm:"0%",xs:"0%"},
-                                background: theme.palette.primary.light,
-                                top: { xs: "55%", sm: "auto" }
-                            }}
-                        ><ArrowForwardIosIcon /></Button>
-                        <Box
-                            sx={{
-                                margin: "auto",
-                                position: "absolute",
-                                top: "5%",
-                                left: "5%",
-                                fontSize: "20px",
-                                fontWeight: "bold",
-                                color: theme.palette.secondary.dark
-                            }}
-                        >
-                            {count}
-                        </Box>
-                    </Paper>
-                </Container>
-
-            </ContainerFlowersBgImage>
-            <Included product={OBJ} staticImage={staticImage}/>
-            <Container maxWidth="md">
-                {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
-                    {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-                        :
-                        <ModalContainer />}
-                </Stack>}
-                <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
-        <PageFeedback/>
-            </Container>
-        </CustomDesign4>
     )
-
-};
+}
 
 export default Design4

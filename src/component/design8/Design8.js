@@ -17,7 +17,7 @@ import BannerThree from './BannerThree';
 import styled from 'styled-components';
 import Design8Helmet from './Design8Helmet';
 import ProductServices from '../ProductServices';
-import Included from '../utils/Included';
+
 
 
 
@@ -49,9 +49,7 @@ margin-top:-50px;
 const Design8 = () => {
   const location=useLocation();
     const pathname=location.pathname;
-  const { setTitle, setStyleName, setChangePage, staticImage,average,getProductDesigns,getPathLocation,pageRatings } = useContext(GeneralContext);
-  const { getProductList } = useContext(PriceContext);
-  const {paid}=useContext(TokenAccessContext);
+  const { setTitle, setStyleName, setChangePage, staticImage,average,productDesigns,getPathLocation,pageRatings } = useContext(GeneralContext);
   const [summary, setSummary] = useState(false);
   const [desc, setDesc] = useState(false);
   const [keywords, setKeywords] = useState(false);
@@ -82,8 +80,8 @@ const Design8 = () => {
   
   useEffect(() => {
     let arr=[];
-    if (getProductDesigns.loaded && getProductDesigns.data) {
-      let obj = getProductDesigns.data.filter(obj => (obj.name === "Success"))[0];
+    if (productDesigns.loaded && productDesigns.data) {
+      let obj = productDesigns.data.filter(obj => (obj.name === "Success"))[0];
       let kewds = obj.desc.split(" ")
         .filter(wd => (wd !== "the"))
         .filter(wd => (wd !== "This"))
@@ -115,7 +113,7 @@ const Design8 = () => {
       window.scroll(0, 0);
 
     }
-  }, [getProductDesigns.loaded, getProductDesigns.data, staticImage]);
+  }, [productDesigns.loaded, productDesigns.data, staticImage]);
 
   return (
     <Main>
@@ -136,14 +134,9 @@ const Design8 = () => {
       <Banner />
       <BannerTwo />
       <BannerThree />
-      <Included product={OBJ} staticImage={staticImage}/>
       <Container maxWidth="md">
-        {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
-          {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-            :
-            <ModalContainer />}
-        </Stack>}
-        <Typography component="h1" variant="h5" sx={{ textAlign: "center", margin: "1rem auto" }}>Please comment on the design,below. We strive to improve.</Typography>
+        
+        <Typography component="h1" variant="h5" sx={{ textAlign: "center", margin: "1rem auto" ,color:"black"}}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback />
       </Container>
 

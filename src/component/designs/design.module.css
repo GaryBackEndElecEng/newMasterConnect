@@ -1,0 +1,553 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* -------COVERPAGE----------------------------*/
+.custCoverDesign >div{
+  margin:auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  position:relative;
+  animation:slideInDown 1.25s ease-in-out;
+}
+.custCoverDesign h1{
+  font-family:var(--font-family);
+  /* color:black; */
+}
+.fontStyleTitle{
+  font-family: var(--font-family);
+  margin-bottom:2rem;
+  background-size:200% 200%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  font-size:1500%;
+  -webkit-text-stroke:1.5px white;
+  color: transparent;
+  animation:swirl 20s linear infinite;
+}
+@keyframes swirl {
+  from {background-position:0% 0%;}
+  50% {background-position:100% 100%;}
+  to {background-position:0% 0%;}
+}
+.fontStyleSubTitle{
+  font-family: var(--font-family);
+  margin-bottom:2rem;
+  /* background-image: var(--background-design-CoverPage); */
+  background-size:400% 150%;
+  background-position:50% 40%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  filter:saturate(2);
+  background-clip: text;
+  -webkit-text-stroke:2px black;
+  font-size:700%;
+  color: transparent;
+ 
+}
+
+@media screen and (max-width:900px){
+  .custCoverDesign >div{
+    margin:auto;
+    justify-content:flex-end;
+    top:3%;
+    background:rgba(0,0,0,0.5);
+  }
+  .fontStyleTitle{
+    font-size:700%;
+    text-align:center;
+  }
+  .fontStyleSubTitle{
+    font-size:500%;
+    text-align:center;
+    background-size:850% 190%;
+    background-position:50% 50%;
+  }
+}
+@media screen and (max-width:600px){
+  .custCoverDesign >div{
+    margin:auto;
+    width:100%;
+    justify-content:flex-end;
+    top:3%;
+    padding:0.5rem;
+    background:rgba(0,0,0,0.5);
+  }
+  .fontStyleTitle{
+    font-size:600%;
+    text-align:center;
+  }
+  .fontStyleSubTitle{
+    font-size:300%;
+    text-align:center;
+    background-size:550% 150%;
+    background-position:50% 50%;
+  }
+}
+/* -------COVERPAGE-END---------------------------*/
+  .fontStyle{
+    font-family: var(--font-family);
+    background-image: var(--background-image-1-left);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom:0.62rem;
+        transition: all 1s ease-in;
+  }
+  .fontStyle_2{
+    font-family: var(--font-family);
+    background-image: var(--background-555);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom:0.62rem;
+       transition: all 1s ease-in;
+
+  }
+  .fontStyleGirlOff{
+    font-family: var(--font-family);
+    background-image: var(--background-image-1-left);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom:0.62rem;
+        transition: all 1s ease-in;
+  }
+  .fontStyleGirlOn{
+    font-family: var(--font-family);
+    background-image: var(--background-555);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom:0.62rem;
+       transition: all 1s ease-in;
+
+  }
+  .fontTypeClose{
+    display:none;
+  }
+  .fontStyle1{
+    font-family: var(--font-family);
+    background-image: var(--background-image-2-right);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom:0.62rem;
+        /* text-align: center; */
+  }
+  .fontType{
+    font-family:var(--font-family);
+    color:white;
+    padding:auto 1rem;
+    margin:auto 0.62rem;
+  }
+  .alignItem{
+    justify-content:center;
+    align-items:center;
+  }
+  .hr_line{
+    width:62%;
+    height:3px;
+    background:var(--background-3);
+    margin:3rem auto;
+  }
+  .hr_line2{
+    width:62.7%;
+    height:3px;
+    background:var(--background-3);
+    margin-top:0.5rem;
+    margin-bottom:1rem;
+  }
+.mainDesign{
+    min-height:280vh;
+    width:100vw;
+    margin:0;
+    padding:0;
+    margin-top:-50px;
+    box-sizing:border-box;
+    background:var( --background-design);
+}
+/* ----------------BANNER TOP---------------- */
+.btContainer{
+  margin:4.5rem auto;
+  justify-content:flex-start;
+  align-items:flex-start;
+}
+.btContainer>div{
+  margin:auto;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+}
+.btImageParent{
+  width:130px;
+
+  overflow-x:hidden;
+  position:relative;
+  
+  
+}
+.subMainGrid{
+  justify-content:flex-start;
+  align-items:center;
+  gap:0.5rem;
+  
+}
+.subMainGrid >div{
+  padding:10px;
+}
+.gridChildImg{
+  margin:auto;
+  min-height:200px;
+  margin-left:10px;
+  animation: slideAlways 20s linear infinite ;
+  
+}
+@keyframes slideAlways{
+  from{background-position:0% 50%}
+  to{background-position:100% 50%}
+  
+  
+  }
+.bannerTopFollow{
+  display:flex;
+  flex-direction: column;
+  animation: sweepIn 3.5s ease-in-out;
+}
+@keyframes sweepIn{
+from{transform: translateX(-100%);}
+to{transform: translateX(0%);}
+}
+/* ----------------BANNER TOP---------------- */
+/* ----------------masterProduct---------------- */
+
+/* not using scrollParent and child*/
+.scrollParent{
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    flex-direction:column;
+    scroll-snap-type: y mandatory;
+    scroll-snap-stop:always;
+    /* scroll-snap-destination:x% y%*/
+    box-sizing:border-box;
+    overflow-y:scroll;
+    /* scrollbar-color:purple; */
+    scrollbar-color: grey;
+    width:100%;
+    height:80vh;
+    padding:0.5rem ;
+   
+    box-shadow:1px 1px 20px 1px white;
+}
+.scrollChild{
+   flex:0 0 100%;
+   scroll-behavior:smooth;
+    scroll-snap-align: start;
+    /* scroll-padding-block: 0px; */
+    scroll-margin-left:0px;
+    /* border:1px solid red; */
+}
+@media screen and (max-width:900px){
+  .scrollParent{
+    height:95dvh;
+  }
+  .scrollChild{
+    scroll-behavior:smooth;
+     scroll-snap-align: center;
+     
+ }
+}
+@media screen and (max-width:600px){
+  .scrollParent{
+    height:100dvh;
+  }
+  .scrollChild{
+    scroll-behavior:smooth;
+     scroll-snap-align: center;
+     
+ }
+}
+/* ----------------PRODUCT---------------- */
+
+.mainProductGrid{
+   position:relative;
+    margin:auto;
+    /* margin:auto; */
+    place-items:center;
+    justify-content:center;
+    align-items:flex-start;
+
+    
+    
+}
+
+.childGridProduct >h1{
+    font-family: var(--font-family);
+    
+}
+.productCard{
+    background:transparent;
+    height:100%;
+    width:100%;
+    /* box-shadow:1px 1px 5px 1px white; */
+    
+}
+.productFont{
+    background-color:rgba(0,0,0,.3);
+    padding:auto 2rem;
+}
+.scrollArrowRight,.scrollArrowLeft{
+   position:absolute;
+   top:35%;
+}
+.scrollArrowRight{
+   right:-2%;
+}
+.scrollArrowLeft{
+   left:-3%;
+}
+@media screen and (max-width:900px){
+    .childProductGrid{
+        margin-left:10px;
+    }
+    
+}
+/* ----------------TABS---------------- */
+.scrollButtonContainer{
+  position:absolute;
+  z-index:2000;
+  top:0%;
+  left:40%;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  gap:20px;
+  
+
+}
+.scrollButtonContainer >button{
+  margin:auto;
+  flex:0 0 100px;
+  box-shadow:1px 1px 3px 1px rgb(4, 219, 235);
+}
+
+@media screen and (max-width:900px){
+  .scrollButtonContainer{
+    position:absolute;
+    z-index:2000;
+    top:20%;
+    left:60%;
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    gap:20px;
+    
+  
+  }
+  .mainDesign{
+    min-height:300vh;
+    width:100vw;
+    margin:0;
+    padding:0;
+    margin-top:-50px;
+    box-sizing:border-box;
+    background:var( --background-33 );
+}
+}
+@media screen and (max-width:600px){
+  .scrollButtonContainer{
+    display:none;
+  }
+  .mainDesign{
+    /* min-height:320vh; */
+    width:100vw;
+    margin:0;
+    padding:0;
+    margin-top:-50px;
+    box-sizing:border-box;
+    background:var( --background-33 );
+}
+}
+/* ----------------TABS---------------- */
+
+/* ----------------PRODUCT---------------- */
+
+/* ----------------BANNER1---------------- */
+
+.gridBBCont > div {
+  margin:auto;
+  position:relative;
+  align-self:flex-start;
+  justify-self:flex-start;
+  
+}
+.containerGirl_2{
+  text-align:center;
+}
+/* .containerGirl{
+  width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+} */
+.containerGirl > div{
+  margin:auto;
+  display:flex;
+justify-content:flex-end;
+align-items:center;
+flex-direction:column;
+}
+.containerGirl > div > div{
+  margin:auto;
+}
+
+
+.earthCont > div{
+  background:rgba(0,0,0,.35);
+}
+
+
+
+@media screen and (max-width:900px){
+  .mainDesign{
+    min-height:none;
+    height:auto;
+  }
+  .gridBBCont>div{
+    justify-content:flex-start;
+    align-items:flex-start;
+  }
+ 
+    
+    
+}
+@media screen and (max-width:900px){
+  
+}
+@media screen and (max-width:600px){
+  
+}
+/* ----------------BANNER1---------------- */
+/* ----------------CONTACTiNFO---------------- */
+.contactInfo{
+  margin:auto 10px;
+  opacity:1;
+  display:flex;
+  width:100%;
+  min-height:50vh;
+  flex-direction:column;
+  margin-bottom:2rem;
+  position:relative;
+  align-items:center;
+  justify-content:center;
+  transform:translateX(0%);
+  transition:all 1.5s ease-in-out;
+}
+.contactInfoClose{
+  margin:auto 10px;
+opacity:0;
+min-height:50vh;
+display:flex;
+width:100%;
+  flex-direction:column;
+  margin-bottom:2rem;
+  position:relative;
+  align-items:center;
+  justify-content:center;
+transform:translateX(-20%);
+transition:all 1.5s ease-in-out;
+}
+.link:hover:before{
+  display:block;
+  position:absolute;
+  top:56%;
+  left:58%;
+  width:200px;
+  height:200px;
+  font-size:30px;
+  font-family: var(--font-family);
+  background-image: var(--background-image-1-left);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  content:attr(data-content);
+  animation:slideInDown 1s ease-in-out;
+}
+@keyframes slideInDown{
+  from {opacity:0;transform:translate(-10%,-100%);}
+  to {opacity:1;transform:translate(0%,0%);}
+}
+/* ----------------CONTACTINFO---------------- */
+@media screen and (max-width:600px){
+  .mainDesign{
+    min-height:320vh;
+    width:100vw;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    margin-top:-50px;
+    box-sizing:border-box;
+    background:var( --background-33 );
+}
+.contactInfo{
+  margin:auto 10px;
+  padding:10px;
+  opacity:1;
+  
+}
+.contactInfoClose{
+  margin:auto 10px;
+  padding:10px;
+
+}
+}
+/* ----------------CONTACTINFO---------------- */
+/* ----------------SOCIALMEDIA---------------- */
+.icon{
+color:white;
+width:50px;
+height:50px;
+}
+.highlightOn{
+  color:blue;
+  position:absolute;
+  writing-mode:vertical-rl;
+  top:-10%;
+  
+}
+.highlightOff{
+  color:white;
+  position:absolute;
+  writing-mode:vertical-rl;
+  top:0%;
+  
+}
+@media screen and (max-width:900px){
+  .icon{
+    width:40px;
+    height:40px;
+    }
+}
+@media screen and (max-width:600px){
+  .icon{
+    width:35px;
+    height:35px;
+    }
+}
+/* ----------------SOCIALMEDIA---------------- */
+
+

@@ -13,12 +13,10 @@ import RegisterPage from '../RegisterPage';
 import GetRegisterPages from '../utils/GetRegisterPages';
 import PageRating from '../utils/PageRating';
 import PageFeedback from '../utils/PageFeedback';
-import { useTheme } from '@mui/material/styles';
 import MidBanner from './MidBanner';
 import BannerGetQuote from './BannerGetQuote';
-import ModalContainer from '../utils/ModalContainer';
 import Included from '../utils/Included';
-import { set } from 'date-fns/esm';
+
 
 const MainContainerDv = styled.div`
 width:100vw;
@@ -82,9 +80,8 @@ top:5.5%;
 const InteriorDecorator = () => {
     const location=useLocation();
     const pathname=location.pathname;
-    const { setTitle, setStyleName,average,getProductDesigns,getPathLocation,pageRatings,staticImage
+    const { setTitle, setStyleName,average,productDesigns,getPathLocation,pageRatings,staticImage
      } = useContext(GeneralContext);
-    const {user_id,paid}=useContext(TokenAccessContext);
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/interiorDesign`;
     const design1 = `${url}/interierDesign1.png`;
     const design2 = `${url}/interierDesign2.png`;
@@ -103,30 +100,23 @@ const InteriorDecorator = () => {
     const [keyWords, setKeyWords] = useState([]);
     const[obj,setObj]=useState({});
     const [desc, setDesc] = useState("");
-    const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
+   
     const z_index = opacity === 0 ? "-1111" : "1";
     let ticking = false;
     let lastPos = 0;
     const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
-    const [productServices,setProductServices]=useState([]);
+   
     useMemo(()=>{
         let arr=[];
-        if(getProductDesigns.loaded){
-            let obj=getProductDesigns.data.filter(obj=>(obj.name==="Interior Designer"))[0];
+        if(productDesigns.loaded){
+            let obj=productDesigns.data.filter(obj=>(obj.name==="Interior Designer"))[0];
             if(obj.services.length >0){
-                arr=obj.services;
                 setObj(obj)
             }
-            if(obj.postServices.length > 0) {
-                arr=obj.services.concat(obj.postServices);
-                setProductServices(arr);
-            }
-            if(obj.extraServices.length >0){
-            arr=obj.services.concat(obj.postServices).concat(obj.extraServices);
-            setProductServices(arr[0]);
-            }else{setProductServices(arr)}
+            
+            
         }
-    },[getProductDesigns.loaded,getProductDesigns.data]);
+    },[productDesigns.loaded,productDesigns.data]);
 
     useEffect(()=>{
         if(pageRatings.loaded && pageRatings.data){
@@ -162,11 +152,8 @@ const InteriorDecorator = () => {
         if (window.scrollY) {
             window.scroll(0, 0);
         }
-        const getUser_id = localStorage.getItem("user_id") ? parseInt(localStorage.getItem("user_id")) : null;
-        if (getUser_id) {
-          setShowPurchaseBtn(true);
-        }
-    }, [user_id,setTitle,setStyleName]);
+        
+    }, [setTitle,setStyleName]);
 
     const doFunc = (scrollCount) => {
         if (scrollCount < 1400) {
@@ -240,11 +227,7 @@ const InteriorDecorator = () => {
                  <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>Give your thought</Typography>
                     <hr />
                     <PageFeedback />
-                    {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
-                        {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-                            :
-                            <ModalContainer />}
-                    </Stack>}
+                    
                 </Container>
                 
             </BannerFeedBackStack>

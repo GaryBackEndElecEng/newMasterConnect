@@ -42,16 +42,15 @@ const Design9 = () => {
   const location=useLocation();
     const pathname=location.pathname;
   const theme = useTheme();
-  const { setTitle, setStyleName, setChangePage, staticImage,average,getProductDesigns,getPathLocation,pageRatings } = useContext(GeneralContext);
-  const { getProductList } = useContext(PriceContext);
-  const {paid}=useContext(TokenAccessContext);
+  const { setTitle, setStyleName, setChangePage, staticImage,average,productDesigns,getPathLocation,pageRatings } = useContext(GeneralContext);
+  // const {paid}=useContext(TokenAccessContext);
   const [frenchEnglish, setFrenchEnglish] = useState({ language: thisArray });
   const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
   const [turnOn, setTurnedOn] = useState(false);
   const [summary, setSummary] = useState(false);
   const [desc, setDesc] = useState(false);
   const [keywords, setKeywords] = useState(false);
-  const [image, setimage] = useState(false);
+  const [image, setimage] = useState(null);
   const [OBJ, setOBJ] = useState(false);
   const [lang, setLang] = useState(false);
   const [pageRatingHelmet,setPageRatingHelmet]=useState([]);
@@ -71,8 +70,8 @@ const Design9 = () => {
 
   useEffect(() => {
     let arr=[];
-    if (getProductDesigns.loaded && getProductDesigns.data) {
-      let obj = getProductDesigns.data.filter(obj => (obj.name === "Realstate"))[0];
+    if (productDesigns.loaded && productDesigns.data) {
+      let obj = productDesigns.data.filter(obj => (obj.name.startsWith("Realstate")))[0];
       let kewds = obj.desc.split(" ")
         .filter(wd => (wd !== "the"))
         .filter(wd => (wd !== "This"))
@@ -104,7 +103,7 @@ const Design9 = () => {
       window.scroll(0, 0);
 
     }
-  }, [getProductDesigns.loaded, getProductDesigns.data, staticImage]);
+  }, [productDesigns.loaded, productDesigns.data, staticImage]);
 
   const checkedOn = (e) => {
     setTurnedOn(e.target.checked)
@@ -151,17 +150,13 @@ const Design9 = () => {
         <Switch checked={turnOn} onChange={(e) => checkedOn(e)} />
       </Stack>
       <CoverPage lang={lang} />
-      <Projects language={frenchEnglish.language} turnOn={turnOn} />
+      <Projects language={frenchEnglish.language} turnOn={turnOn} staticImage={staticImage} />
       <Included product={OBJ} staticImage={staticImage}/>
     </CustomBox>
     <Container maxWidth={"md"}>
-        {!paid && <Stack direction={"column"} sx={{ margin: "1rem auto" }}>
-          {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-            :
-            <ModalContainer />}
-        </Stack>}
         <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback/>
+        
       </Container>
     </>
   )

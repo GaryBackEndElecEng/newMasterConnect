@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState, useRef } from 'react';
 import {  Stack,  Grid, Typography, } from '@mui/material';
+import {Link} from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContextProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
 import { useTheme } from '@mui/material/styles';
@@ -90,7 +91,9 @@ const Banner = () => {
                             <Typography component="h1" variant="body2" sx={{ margin: {xs:"1rem auto",sm:"1rem auto"} }}>{obj.content}</Typography>
                             <Typography component="h1" variant="body2" sx={{ margin: {xs:"2rem auto",sm:"1rem auto"} }}>{obj.content1}</Typography>
                             <Typography component="h1" variant="body2" sx={{ margin: {xs:"1rem auto",sm:"1rem auto"} }}>{obj.content2}</Typography>
-
+                            <Link to="/contact">
+                            <Typography component="h1" variant="body2" sx={{ margin: {xs:"1rem auto",sm:"1rem auto"} }}>See more?</Typography>
+                            </Link>
                         </CustStack>
                     ))}
                     <hr style={{ width: "50%", color: theme.palette.common.blueGrey, height: "0.5rem" }} />
@@ -107,9 +110,16 @@ const Banner = () => {
 
                     />
                     {trigger &&
-                        <Typography component="h1" variant="h4" className={styles.showPhrase}>
+                    <div style={{padding:"0.5rem"}} className={styles.showPhrase}>
+                        <Typography component="h1" variant="h4" >
                             Testing your Daily Limits is a Micro-Achievement and Rewards a Break.
+                            
                         </Typography>
+                        <Typography component="h1" variant="h4" >
+                            Sit back and let Us Do The Work!!-<Link to="/contact" style={{color:"red"}}><span style={{color:"red"}}>click to see</span></Link>
+
+                        </Typography>
+                        </div>
                     }
                 </Grid>
             </Grid>

@@ -1,0 +1,215 @@
+*{box-sizing:border-box;padding:0;margin:0;}
+/*----------------- MAIN PAGE----------------- */
+
+
+/*----------------- MAIN PAGE-END---------------- */
+
+/*----------------- COVER PAGE----------------- */
+.custcover p , .custcover h1,.custcard h1{
+    font-family:var(--font-family);
+    color:rgb(49, 40, 0);
+}
+
+.custcover .titleBlock{
+    position:relative;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.titleBlock .fontTitle{
+    margin:auto;
+font-size:1630%;
+background-clip:text;
+-webkit-background-clip:text;
+background-position:100% 100%;
+background-size:200% 200%;
+color:transparent;
+-webkit-text-stroke:2px white ;
+animation: textanimate 60s linear infinite;
+
+}
+.titleBlock .fontSubTitle{
+    margin:auto;
+font-size:950%;
+background-clip:text;
+-webkit-background-clip:text;
+background-position:100% 100%;
+background-size:200% 200%;
+color:transparent;
+-webkit-text-stroke:2px grey ;
+animation: textanimate 70s linear infinite;
+
+}
+.videoNameON{
+    transform:scale(1.2);
+    color:rgb(49, 40, 0);
+    transition:all 2s ease-in-out;
+}
+.videoNameOff{
+    transform:scale(1);
+    color:black;
+    transition:all 2s ease-in-out;
+}
+@keyframes textanimate {
+    from {background-position:0% 0%}
+    50% {background-position:100% 100%}
+    to {background-position:0% 0%}
+}
+@media screen and (max-width:900px){
+    .titleBlock .fontTitle{
+        font-size:1050%;
+    }
+    .titleBlock .fontSubTitle{
+        font-size:760%;
+    }
+}
+@media screen and (max-width:600px){
+    .titleBlock .fontTitle{
+        font-size:800%;
+    }
+    
+    .titleBlock .fontSubTitle{
+        font-size:500%;
+    }
+}
+/*----------------- COVER PAGE END----------------- */
+/*----------------- VIDEO BANNER START----------------- */
+.custSectionBanner >div{
+flex:0 0 40%;
+padding:0.5rem;
+margin:auto;
+display:flex;
+flex-direction:column;
+justify-content:flex-start;
+align-items:center;
+
+}
+.custSectionBanner h1 {
+    padding:auto 1rem;
+    font-family:var(--font-family);
+}
+.bannerFont{
+margin:0 auto;
+margin-bottom:2rem;
+font-size:750%;
+z-index:200;
+background-clip:text;
+-webkit-background-clip:text;
+background-position:100% 100%;
+background-size:200% 200%;
+color:transparent;
+/* -webkit-text-fill-color: transparent; */
+-webkit-text-stroke:2px grey ;
+animation: animateText 6s linear ;
+}
+.bannerFont_2{
+margin:0 auto;
+padding:auto 1rem;
+display:flex;
+justify-content:center;
+align-items:flex-start;
+flex-wrap:wrap;
+column-gap:15px;
+margin-bottom:2rem;
+font-size:750%;
+animation: animateText 3s linear ;
+}
+
+@keyframes letterAnimate {
+    from {opacity:0;transform:translateX(-100%) scaleX(-1);background-position:0% 0%;}
+    to {opacity:1;transform:translateX(0%) scaleX(1);background-position:100% 100%;}
+}
+@keyframes animateText {
+    from {opacity:0;transform:translateX(-100%) scaleX(0);}
+    to {opacity:1;transform:translateX(0%) scaleX(1);}
+}
+@media screen and (max-width:900px){
+    .custSectionbanner{
+        padding:0.5rem;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        
+    }
+    .custSectionBanner >div{
+        flex:1;
+        }
+    .bannerFont{
+        font-size:200%;
+    }
+    .bannerFont_2{
+        width:95vw;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        font-size:750%;
+    }
+    .custSectionBanner h1{
+        padding:1rem;
+    }
+}
+@media screen and (max-width:600px){
+    .custSectionBanner >div{
+        flex:1;
+        }
+    .bannerFont{
+        font-size:200%;
+    }
+    .bannerFont_2{
+        width:98vw;
+        font-size:750%;
+    }
+    .custSectionBanner h1{
+        padding:1rem;
+    }
+}
+
+/*----------------- VIDEO BANNER END----------------- */
+/*-----------------  VIDEOLIST START----------------- */
+.custCard {
+    background:var(--background-color-video);
+}
+.custcard h1, .custcard p, .custcard span{
+color:rgb(29, 26, 1);
+}
+.custcard div{
+    margin:center 0;
+    padding:auto 0.76rem;
+    display:flex;
+    flex-direction:column;
+    row-gap:1rem;
+}
+/*----------------- VIDEOLIST END----------------- */
+/*----------------- VIDEOOPEN START----------------- */
+.msgClickToPlay{
+    opacity:0;
+    font-family:var(--font-family);
+    background:rgba(0,0,0,.5);
+    width:300px;
+    height:300px;
+    position:relative;
+    top:-50%;left:20%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    animation: growInOut 5s ease-in-out;
+}
+.fontStyleMsg{
+    margin:auto;
+    font-size:220%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-stroke: 1.5px white;
+    /* -webkit-text-fill-color: pink; */
+    color:transparent;
+}
+@keyframes growInOut {
+    from {opacity:0; transform:scale(0.3);}
+    30% {opacity:1; transform:scale(1);}
+    to {opacity:0; transform:scale(0.3);}
+}
+/*----------------- VIDEOOPEN END----------------- */

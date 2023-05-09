@@ -1,0 +1,439 @@
+*{margin:0;padding:0;box-sizing: border-box;}
+:root{
+    --font-family:"'Philosopher', sans-serif";
+    --font-family2: "'Philosopher', sans-serif";
+    --background-image-1-left:linear-gradient(to left, violet, rgb(152, 7, 255), rgb(18, 243, 18), rgb(248, 236, 236), yellow, orange, red);
+    --background-image-1-turn:linear-gradient(0.25turn, violet, indigo, green, blue, yellow, orange, red);
+    
+    --background-image-2-left:linear-gradient(to left, blue, rgb(188, 243, 116) 50%,rgb(255, 21, 5));
+    --background-1:linear-gradient(to right, rgb(255, 21, 5), rgba(10, 243, 49, 0.562) 30% );
+    --background-33:            
+    linear-gradient(136deg, rgba(240, 12, 12, 0.8), rgba(0, 0, 0, 0.8) 20% );
+    --background-44:            
+     linear-gradient(136deg, rgba(24, 25, 26, 0.8), rgba(10, 126, 221, 0.9) 70.71%);
+    --background-555:            
+     linear-gradient(136deg, rgb(252, 4, 4), rgba(250, 245, 247, 1) 40.71%);
+  }
+
+  /* ----------------COVERPAGE START-------------- */
+  
+  
+  /* ----------------COVERPAGE END-------------- */
+  /* ----------------MAIN-------------- */
+.fontStyle{
+font-family: var(--font-family);
+background-image: var(--background-image-1-left);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom:0.62rem;
+    transition: all 1s ease-in;
+
+}
+.fontStyleEffect{
+font-family: var(--font-family);
+background-image: var(--background-image-1-left);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom:0.62rem;
+    transition: all 1s ease-in;
+    animation: colorEffect 10s linear infinite alternate;
+
+}
+@keyframes colorEffect {
+  from {background-position:0% 0%;}
+  to {background-position:100% 100%;}
+}
+.fontStyle_2{
+font-family: var(--font-family);
+background-image: var(--background-1);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom:0.62rem;
+    box-shadow:1px 1px 5px 1px black;
+    transition: all 1s ease-in;
+
+}
+.fontType{
+    background: var( --background-555);
+    font-family: var(--font-family);
+    color:black;
+    padding:10px;
+    transition:all 1s ease-in-out;
+}
+.mainProcess{
+    margin:0;
+    margin-top:-50px;
+    min-height:160vh;
+    /* border:1px solid black; */
+    display:flex;
+    width:100vw;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:auto;
+    color:black;
+    font-family:var( --font-family);
+    background:var( --background-33);
+}
+h1{
+    color:white;
+    font-family:var( --font-family);
+}
+/*------------------ mainTop------------------*/
+.mainTop{
+    margin:4.5rem auto;
+    min-height:60vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    /* border:1px solid black; */
+}
+.topGridCont{
+    justify-content:center;
+    align-items:flex-start;
+    /* border:1px solid red; */
+}
+.topGridCont >div{
+    margin:auto;
+    display:flex;
+    min-height:400px;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+.topGridCont div {
+    margin:auto;
+}
+.processSteps{
+width:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+.topOnParent{
+    margin:1rem auto;
+    width:100%;
+    position:relative;
+    opacity:1;
+    display:flex;
+    height:400px;
+    justify-content:flex-start;
+    flex-direction:column;
+    align-items:center;
+    overflow-y:hidden;
+    transition:opacity 1.5s ease-in-out;
+}
+.topOffParent{
+    opacity:0;
+    width:100%;
+    height:400px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    transition:opacity 1.5s ease-in-out;
+}
+.topOnParent >div{
+    position:relative;
+    flex:0 0 100%;
+    height:400px;
+    width:700px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background-size:100% 100%;
+    background-position:50% 50%;
+    background-color:black;
+    /* border:1px solid red; */
+    animation: slideIn 24s linear infinite alternate;
+}
+@keyframes slideIn {
+    0% {transform:translateY(0%);opacity:1;}
+    20% {transform:translateY(-100%);opacity:1;}
+    40% {transform:translateY(-200%);opacity:1;}
+    60% {transform:translateY(-300%);opacity:1;}
+    80% {transform:translateY(-400%);opacity:1;}
+    100% {transform:translateY(-500%);opacity:1;}
+
+    
+
+}
+@media screen and (max-width:600px){
+    .topOnParent >div{
+        height:400px;
+        width:350px;
+    }
+}
+
+/*------------------ mainTop------------------*/
+
+
+  /* ----------------MAIN-------------- */
+  /* ----------------FOLDER-------------- */
+
+  .mainFolder{
+    margin:auto;
+    width:100%;
+    height:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    
+  }
+  .folderTitle{
+    margin:1rem auto;
+    color:black;
+    text-align:center;
+    font-weight:bold;
+  }
+  .parentPage{
+    margin:auto;
+    height:auto;
+    display:flex;
+    position:relative;
+    justify-content:center;
+    align-items:center;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    overflow:hidden;
+    width:100%;
+    height:100vh;
+    padding:1rem;
+    
+   
+  }
+  .parentPage >div{
+    margin:0;
+    padding:0;
+  }
+  
+  .tabName{
+    position:absolute;
+    top:-30%;
+    transform:rotate(90deg);
+    left:-130%;
+    width:inherit;
+    height:inherit;
+   
+    
+  }
+  .sectionOn{
+    opacity:1;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin-right:1%;
+  }
+  .sectionOff{
+    display:none;
+  }
+  
+  
+  @media screen and (max-width:900px){
+    .mainFolder{
+        margin: 1rem auto;
+        margin-bottom:3rem;
+        /* border:1px solid white; */
+      }
+      .parentPage{
+        background:white;
+        overflow-y:scroll;
+        flex-direction:column;
+        justify-content:flex-start;
+        background:white;
+        height:110vh;
+      }
+      .parentPage > div{
+        margin:0;
+        padding:0;
+      }
+      .sectionOn{
+
+        opacity:1;
+        margin-right:1%;
+
+      }
+   
+      .tabName{
+        position:absolute;
+        top:-0%;
+        left:0%;
+        width:inherit;
+        transform:rotate(0deg);
+        
+      }
+      
+  }
+  @media screen and (max-width:600px){
+    .mainFolder{
+        margin: 5vh auto;
+        background:white;
+      }
+    
+      .tabName{
+        display:none;
+        
+        
+      }
+      .parentPage {
+        background:white;
+        overflow-y:scroll;
+        flex-direction:column;
+        justify-content:flex-start;
+        background:white;
+      }
+  }
+  /* ----------------FOLDER-------------- */
+  /* ----------------DIVEIN START-------------- */
+
+  .diveInMain{
+    margin:15vh auto;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  }
+  .moveLettersOn{
+    margin:auto;
+    background:rgba(0,0,0,.3);
+    transform:translateY(0%);
+    transition:all 1s ease-in-out;
+  }
+  .moveLettersOff{
+    margin:auto;
+    background:transparent;
+    transform:translateY(-200%);
+    transition:all 1s ease-in-out;
+  }
+
+  .startProject{
+    color:white;
+  }
+  .startProject:hover {
+    font-family: var(--font-family);
+    background-image: var(--background-image-1-left);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom:0.62rem;
+        font-size:70px;
+        text-decoration:underline;
+        transition: all 0.5s ease-in;
+  }
+  @media screen and (max-width:600px){
+    .moveLettersOff{
+        
+        transform:translateY(-110%);
+        
+      }
+  }
+  /* ----------------DIVEIN END-------------- */
+
+
+
+
+/* ----------------CONTACTiNFO---------------- */
+.contactInfo{
+    margin:auto 10px;
+    opacity:1;
+    display:flex;
+    width:100%;
+    min-height:50vh;
+    flex-direction:column;
+    margin-bottom:2rem;
+    position:relative;
+    align-items:center;
+    justify-content:center;
+    transform:translateX(0%);
+    transition:all 1.5s ease-in-out;
+  }
+  .contactInfoClose{
+    margin:auto 10px;
+  opacity:0;
+  min-height:50vh;
+  display:flex;
+  width:100%;
+    flex-direction:column;
+    margin-bottom:2rem;
+    position:relative;
+    align-items:center;
+    justify-content:center;
+  transform:translateX(-20%);
+  transition:all 1.5s ease-in-out;
+  }
+  .link:hover:before{
+    display:block;
+    position:absolute;
+    top:56%;
+    left:58%;
+    width:200px;
+    height:200px;
+    font-size:30px;
+    font-family: var(--font-family);
+    background-image: var(--background-image-1-left);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    content:attr(data-content);
+    animation:slideInDown 1s ease-in-out;
+  }
+  @keyframes slideInDown{
+    from {opacity:0;transform:translate(-10%,-100%);}
+    to {opacity:1;transform:translate(0%,0%);}
+  }
+  /* ----------------CONTACTINFO---------------- */
+  @media screen and (max-width:600px){
+    /* .mainProcess{
+      
+  } */
+  .contactInfo{
+    margin:auto 10px;
+    padding:10px;
+    opacity:1;
+    
+  }
+  .contactInfoClose{
+    margin:auto 10px;
+    padding:10px;
+  
+  }
+  }
+  /*------------ CONTACTUS------------ -----*/
+
+  .contactEffect {
+    margin:1rem auto;
+    font-family:var(--font-family);
+    background-clip:text;
+    -webkit-background-clip:text;
+    color:transparent;
+    -webkit-text-stroke: 1px white;
+    font-size:600%;
+    background-size:200% 200%;
+    background-position:50% 50%;
+    
+  }
+  .custProcessContact button > svg {
+    font-size:35px;
+    color:white;
+  }
+  @media screen and (max-width:900px){
+    
+  }
+  @media screen and (max-width:600px){}
+  /*------------ CONTACTUS- END----------- -----*/
