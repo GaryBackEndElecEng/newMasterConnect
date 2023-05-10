@@ -16,9 +16,9 @@ flex-wrap:wrap;
 min-height:40vh;
 column-gap:20px;
 z-index:100;
-opacity:${({vidblogopen})=>vidblogopen ? "1":"0"};
+opacity:${({opacity})=>opacity };
 background:var(--background-111);
-animation:${({vidblogopen})=>vidblogopen ? "slideUp" :""} 1.5s ease-in-out;
+animation:${({animation})=>animation };
 @keyframes slideUp {
     from {transform:translateY(40%);}
     to {transform:translateY(0%);}
@@ -38,7 +38,7 @@ flex:0 0 33%;
 cursor:pointer;
 text-align:center;
 background:transparent;
-animation: ${({vidblogopen})=>vidblogopen ? "swirlUp" : ""} 20s linear infinite;
+animation: ${({animation})=>animation } ;
 @keyframes swirlUp {
     0% {transform:translate(0%,0%) scaleX(1) scaleY(1);}
     25% {transform:translate(3%,0%) scaleX(0.9) scaleY(1);}
@@ -53,7 +53,7 @@ flex:0 0 33%;
 cursor:pointer;
 text-align:center;
 background:transparent;
-animation: ${({vidblogopen})=>vidblogopen ? "swirlUp" : ""} 20s linear infinite reverse ;
+animation: ${({animation})=>animation } ;
 @keyframes swirlUp {
     0% {transform:translate(0%,0%) scaleX(1) scaleY(1);}
     25% {transform:translate(3%,0%) scaleX(0.9) scaleY(1);}
@@ -94,14 +94,25 @@ const VideoBlogs = () => {
     <CustVideoBlog 
     className={styles.custVideoBlog} 
     ref={vidblogRef}
-    vidblogopen={vidblogopen}
+    opacity={vidblogopen ? "1":"0"}
+    animation={vidblogopen ? "slideUp 1.55s ease-in-out":""}
     >
-        <CustVideo elevation={3} vidblogopen={vidblogopen}  onClick={(e)=>handleNavigate(e,"/video")} className={styles.custVideo} style={{background:"transparent"}}>
+        <CustVideo elevation={3}
+         animation={vidblogopen ? "swirlUp 20s linear infinite" : ""} 
+         onClick={(e)=>handleNavigate(e,"/video")}
+          className={styles.custVideo}
+          style={{background:"transparent"}}
+          >
             <Typography component="h1" variant="h3" className={styles.fontStyle} style={{color:"transparent"}}>videos</Typography>
             <CardMedia component="img" src={video} alt="www.masterconnect.ca"/>
         </CustVideo>
 
-        <CustBlog elevation={3} vidblogopen={vidblogopen} onClick={(e)=>handleNavigate(e,"/blog")} className={styles.custBlog} style={{background:"transparent"}}>
+        <CustBlog elevation={3} 
+        animation={vidblogopen ? "swirlUp 20s linear infinite reverse" : ""}
+        onClick={(e)=>handleNavigate(e,"/blog")} 
+        className={styles.custBlog}
+        style={{background:"transparent"}}
+        >
             <Typography component="h1" variant="h3" className={styles.fontStyle} style={{color:"transparent"}}>blogs</Typography>
             <CardMedia component="img" src={blog} alt="www.masterconnect.ca"/>
         </CustBlog>

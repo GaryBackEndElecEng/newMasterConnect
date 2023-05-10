@@ -25,15 +25,15 @@ const CustCard = styled(Card)`
   position:relative;
 `;
 const CustcardImage=styled(CardMedia)`
-opacity:${({select})=>select ? "1":"0"};
+opacity:${({opacity})=>opacity};
 transition:all 2s ease-in-out;
 
 `;
 
 const SelectCard = ({ obj,getWidth }) => {
     const picRef=React.useRef(null);
-    const [select,setSelect]=React.useState(false);
-    const [selected,setSelected]=React.useState(false);
+    const [select,setSelect]=React.useState(null);
+    const [selected,setSelected]=React.useState(null);
 
     React.useEffect(()=>{
         const observer=new IntersectionObserver(entries=>{
@@ -59,7 +59,8 @@ const SelectCard = ({ obj,getWidth }) => {
   return (
     <CustCard className={styles.customCard} onMouseOut={()=>setSelected(false)} onMouseOver={()=>setSelected(true)} onClick={()=>handleShowCard900()}>
       <CustcardImage
-      select={select}
+      
+      opacity={select ? "1":"0"}
         component={"img"}
         src={obj.image}
         alt="www.masterconnect.ca"

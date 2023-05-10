@@ -26,8 +26,8 @@ justify-content:center;
 align-items:center;
 margin:auto;
 
-opacity:${({show})=>show ? "1":"0"};
-transform: translateY(${({show})=>show ? "0%":"50%"});
+opacity:${({opacity})=>opacity };
+transform: translateY(${({transformy})=>transformy});
 transition: all 1s ease-in-out;
 @media screen and (max-width:600px){
     margin:auto 16px;
@@ -38,7 +38,7 @@ transition: all 1s ease-in-out;
 const ServiceItem = ({obj}) => {
     const [fontSize,setFontSize]=React.useState(null);
     const servRef=React.useRef();
-    const [show,setShow]=React.useState(false);
+    const [show,setShow]=React.useState(null);
     const [newObj,setNewObj]=React.useState({});
 
     
@@ -77,7 +77,9 @@ const ServiceItem = ({obj}) => {
     },[]);
   return (
     <CustGrid
-    show={show}
+    
+    opacity={show ? "1": "0"}
+    transformy={show ?  "0%":"50%"}
     ref={servRef}
       container
       spacing={0}

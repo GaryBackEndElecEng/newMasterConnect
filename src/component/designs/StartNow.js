@@ -20,7 +20,7 @@ position:relative;
 const StartNow = () => {
     const navigate=useNavigate();
     const paraLeftRef = React.useRef();
-    const [turnon,setTurnon]=React.useState(false);
+    const [turnon,setTurnon]=React.useState(null);
     const threshold= window.innerWidth <600 ? 0.2 :0.7;
 
     React.useEffect(() => {

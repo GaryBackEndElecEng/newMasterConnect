@@ -9,7 +9,7 @@ const CustGrid=styled(Grid).attrs({className:styles.mainGrid})`
 margin:auto;
   justify-content:center;
   align-items:center;
-  opacity:${({show11})=>show11 ? "1":"0"};
+  opacity:${({opacity})=>opacity};
   transition: 1.5s ease-in;
 
 `;
@@ -57,7 +57,7 @@ setModal(true);
     style={{background:"var(--background-111)",zIndex:"100"}}
     >
         <Container maxWidth="xl">
-            <CustGrid container show11={show11}>
+            <CustGrid container opacity={show11 ? "1":"0"}>
                 <Grid item xs={12} sm={6} >
                     <Typography component="h1" variant={textSize} className={styles.textStatement} sx={{backgroundImage:`url(${lightEffect})`}}>
                     Helping Your Brand Big or Small

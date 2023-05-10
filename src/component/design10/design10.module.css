@@ -1,4 +1,64 @@
 *{margin:0;padding:0;box-sizing:border-box}
+.mainMidBanner p, .mainMidBanner h1, .mainMidBanner span{
+    color:black;
+}
+.custTopCover h1,.custTopCover p, .custTopCover span{
+    color:black;
+}
+.parent{
+    width:100%;
+    overflow:hidden;
+    height:100%;
+    width:100%;
+    box-sizing:border-box;
+}
+.wrapper{
+    margin:auto;
+    position:relative;
+    display:flex;
+    flex-wrap:nowrap;
+    align-items:center;
+    justify-content:flex-start;
+    width:  attr(length);
+    height:100vh;
+    height:100vh;
+    column-gap:0px;
+    
+    overflow-y:hidden;
+    
+}
+
+.imgWrapper{
+    position:relative;
+    flex: 0 0 100%;
+    margin:auto 0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    margin:0;
+    padding:0;
+   width:100%;
+   height:100%;
+   background:black;
+   animation: slideThrough 30s ease-in-out;
+}
+@keyframes slideThrough {
+    from {opacity:1;transform:translateX(-500%);}
+    to {opacity:1;transform:translateX(0%);}
+   }
+   .imgWrapper h1, .imgWrapper p, .ingWrapper span{
+    /* color:transparent; */
+   }
+.image{
+    border:1px solid black;
+    width:90%;
+    height:90%;
+}
+@keyframes slidethrough {
+ from {opacity:0;transform:translateX(0%);}
+ from {opacity:0;transform:translateX(0%);}
+}
 
 
 .imageClassIn{
@@ -24,4 +84,21 @@
 }
 .clickMenuOff{
     display:none;
+}
+@media screen and (max-width:900px){
+    .parent{
+        overflow-x:scroll;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop:always;
+    scroll-margin-block: center;
+    scroll-snap-align: center;
+    }
+    .imgWrapper{
+    scroll-behavior:smooth;
+    scroll-snap-align: start;
+    }
+    .image{
+        width:90%;
+        height:60%;
+    }
 }

@@ -40,6 +40,7 @@ const handleShowClick=(e)=>{
         <MainMidBanner
             bg={"white"}
             bs={theme.palette.common.orangeFade2}
+            className={styles.mainMidBanner}
         >
             <Stack direction="column" sx={{ justifyContent: "center", alignItems: "center", minHeight: "20vh", background: theme.palette.common.orangeFade2,position:"relative",marginBottom:"1rem", }}>
                 <hr style={{ width:"50%",color:"black"}}/>

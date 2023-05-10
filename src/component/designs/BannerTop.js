@@ -7,7 +7,7 @@ import styled from "styled-components";
 const CustomBannerTop = styled.div`
   margin: 1rem auto;
   margin-top: 5vh;
-  min-height: 30dvh;
+  min-height: 30vh;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -33,7 +33,7 @@ const CustomBtGrid = styled(Grid)`
 `;
 
 const BannerTop = () => {
-  const { staticImage,designStart } = React.useContext(GeneralContext);
+  const { staticImage, } = React.useContext(GeneralContext);
   const happy2 = `${staticImage}/happy/happy2.png`;
   return (
     <CustomBannerTop>

@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import styled from 'styled-components';
 import styles from './wedding.module.css';
 import BackupIcon from '@mui/icons-material/Backup';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const MainDiv=styled.div`  
 margin:0 auto;
@@ -154,9 +154,9 @@ const Contribute = ({bg}) => {
                                 <Stack direction="column"
                                     sx={{
                                         textAlign: "center", margin: "1rem auto",
-                                        alignItems: "center"
+                                        alignItems: "center",
                                     }}>
-                                    <Fab variant="extended" color="primary" sx={{ width: { xs: "50%", sm: "50%", md: "100%" }, padding: "1rem" }}>
+                                    <Fab variant="extended" color="primary" sx={{ width: { xs: "100%", sm: "50%", md: "100%" }, padding: "1rem" }}>
                                         Contribution <BackupIcon sx={{ ml: 1, color: "red" }} />
                                     </Fab>
                                 </Stack>

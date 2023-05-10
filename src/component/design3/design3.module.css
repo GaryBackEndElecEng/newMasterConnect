@@ -55,6 +55,12 @@ transition: all 4s ease-in-out;
         
     }
 }
+@media screen and (max-width:380px){
+    .companyOn{
+        top:-50%;
+        
+    }
+}
 
 /*--------------- COVER PAGE-END----------------------- */
 

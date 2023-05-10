@@ -17,7 +17,7 @@ transition:all 1s ease-in-out;
 const SocialMedia = ({contactInfo}) => {
     const {staticImage}=React.useContext(GeneralContext);
 const [mediaArr,setMediaArr]=React.useState({loaded:false,data:[]});
-const [open,setOpen]=React.useState(false);
+// const [open,setOpen]=React.useState(false);
 
     React.useEffect(()=>{
         function returnContext(arr){
@@ -52,7 +52,7 @@ const [open,setOpen]=React.useState(false);
     <CustSocialGrid
     container
     sx={{maxWidth:{xs:"320px",sm:"400px",md:"600px"},}}
-    open={open}
+    // open={true}
     >
         {
             mediaArr.loaded ?

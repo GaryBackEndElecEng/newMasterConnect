@@ -19,25 +19,25 @@ const CustFaqAnswer = styled(Box)`
 margin:auto 2px;
 opacity:${({opacity})=>opacity};
 background:var(--background-FaqQuestion);
-height:${({showitem})=>showitem ? "15vh":"0"};
+height:${({height1})=>height1};
 transition:all 1s linear;
 @media screen and (max-width:900px){
   transition:all 1s linear;
-    height:${({showitem})=>showitem ? "20vh":"0"};
+    height:${({heightsm})=>heightsm};
 }
 @media screen and (max-width:600px){
   transition:all 1s linear;
-    height:${({showitem})=>showitem ? "80vh":"0"};
+    height:${({heightxs})=>heightxs};
 }
 
 `;
 
 const FaqItem = ({obj,getWidth}) => {
     const faq_item=React.useRef(null);
-    const [openitem,setOpenitem]=React.useState(false);
-    const [showitem,setShowitem]=React.useState(false);
+    const [openitem,setOpenitem]=React.useState(null);
+    const [showitem,setShowitem]=React.useState(null);
     const fontSizeChange= openitem ? "120%":null;
-    const threshold= getWidth <900 ? 0.2:0.8;
+    const threshold= getWidth <900 ? 0.3:0.8;
     
 
     React.useEffect(() => {
@@ -89,10 +89,9 @@ const FaqItem = ({obj,getWidth}) => {
 
         <CustFaqAnswer
         opacity={showitem ? "1":"0"}
-        showitem={showitem}
-        // height={showitem ? "15vh":"0"}
-        // heightsm={showitem ? "20vh":"0"}
-        // heightxs={showitem ? "80vh":"0"}
+        height1={showitem ? "15vh":"0"}
+        heightsm={showitem ? "20vh":"0"}
+        heightxs={showitem ? "80vh":"0"}
         >
             {
             showitem && <Typography

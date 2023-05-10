@@ -11,7 +11,6 @@ const CustomBanner1 = styled.div`
   position: relative;
   margin: 4.6rem auto;
   padding:0.5rem;
-  // height: 100vh;
   // border:1px solid red;
   background: var(--background-44);
 

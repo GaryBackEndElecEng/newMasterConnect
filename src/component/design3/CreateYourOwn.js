@@ -17,7 +17,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const CustCreateOwn = styled.div`
   margin: 0 auto;
-  opacity: ${({ createOpen }) => (createOpen ? "1" : "0")};
+  opacity: ${({ opacity }) =>opacity};
   min-height: 65vh;
   display: flex;
   justify-content: flex-start;
@@ -27,7 +27,7 @@ const CustCreateOwn = styled.div`
   background-position: 50% 50%;
   background-size: 100% 100%;
   // position:relative;
-  animation: ${({createOpen})=>createOpen ? "rollIn":""} 2s ease-in-out;
+  animation: ${({animation})=>animation};
   @keyframes rollIn {
     from {
       opacity: 0;
@@ -55,6 +55,7 @@ const CreateYourOwn = ({ getWidth }) => {
   const { staticImage } = React.useContext(GeneralContext);
   const diamonBack = `${staticImage}/design3/diamonBack.png`;
   const [createOpen, setCreateOpen] = React.useState(false);
+  const threshold = window.innerWidth < 600 ? 0.2:0.5;
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -63,7 +64,7 @@ const CreateYourOwn = ({ getWidth }) => {
           setCreateOpen(true);
         }
       },
-      { threshold: 0.5 }
+      { threshold: threshold }
     );
     if (createRef.current) {
       observer.observe(createRef.current);
@@ -74,7 +75,8 @@ const CreateYourOwn = ({ getWidth }) => {
   return (
     <CustCreateOwn
       bgimage={diamonBack}
-      createOpen={createOpen}
+      opacity={createOpen ? "1" : "0"}
+      animation={createOpen ? "rollIn 2s ease-in-out":""}
       className={styles.custCreateMain}
       ref={createRef}
     >

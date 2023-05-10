@@ -10,7 +10,7 @@ const CustWeDesign = styled.div.attrs({className:styles.mainSection})`
 margin:0 auto;
 position:static;
 left:0px;
-opacity:${({show})=>show ? "1":"0"};
+opacity:${({opacity})=>opacity };
 margin-bottom:4.5vh;
 width:100vw;
 z-index:100;
@@ -21,7 +21,7 @@ justify-content:center;
 background:var(--background-111);
 background-size:120% 200%;
 background-position:50% 50%;  //start:Y:40% end -40%
-transition:all ${({show})=>show ? "1.5":"0.1"}s linear;
+transition:all ${({seconds})=>seconds }s linear;
 @media screen and (max-width:900px){
     background-position:50%  0%;
     background-size:150% 150%;
@@ -41,7 +41,7 @@ const WeDesign = () => {
     // const WebDesignRef3=React.useRef();
     // const {staticImage2}=React.useContext(GeneralContext);
     const [sizeLet,setSizeLet]=React.useState("h1");
-    const [sizeLet2,setSizeLet2]=React.useState("h3");
+    const [sizeLet2,setSizeLet2]=React.useState("span");
     const [show,setShow]=React.useState(false);
 
     React.useEffect(()=>{
@@ -50,12 +50,12 @@ const WeDesign = () => {
             setSizeLet2("h4");
         }if(window.innerWidth <600){
             setSizeLet("h4");
-            setSizeLet2("h6");
+            setSizeLet2("span");
         }else{
             setSizeLet("h2");
             setSizeLet2("h4");
         }
-    },[setSizeLet]);
+    },[setSizeLet,setSizeLet2]);
 
     
 
@@ -84,7 +84,8 @@ const WeDesign = () => {
     },[]);
   return (
     <CustWeDesign
-    show={show}
+    opacity={show ? "1":"0"}
+    seconds={show ? "1.5":"0.1"}
     className={styles.mainSection}
     >
         <Container maxWidth="xl" ref={WebDesignRef2} className={show ? styles.showWeDesign : styles.hideWeDesign}>
@@ -159,7 +160,7 @@ const WeDesign = () => {
                     <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif",marginTop:"3rem"}}
                     className={styles.weDesignLastPara}
                     >
-                     <span span className={styles.fontStyle}>Masterconnect</span> - connecting you is what we do.
+                     <span span className={styles.font_masterconnect}>Masterconnect</span> - connecting you is what we do.
                     </Typography>
                 </Stack>
             </div>

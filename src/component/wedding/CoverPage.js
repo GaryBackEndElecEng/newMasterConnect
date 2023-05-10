@@ -2,7 +2,7 @@ import React from 'react';
 import {Stack,Typography} from "@mui/material";
 import styled from "styled-components";
 import styles from './wedding.module.css';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 
 const CustCover=styled.div.attrs({className:"custCover"})`
 margin:0 auto;
@@ -75,7 +75,7 @@ opacity:${({shad})=>shad > 44 ? "0":30/(1+shad)};
 top:20%;
 left:33%; 
 margin:auto;
-background:var(--background-wedding);
+background:linear-gradient(136deg, ${({bg})=>bg}, rgb(165, 235, 245) 50% );
 // z-index:-200;
 transform:translateY(${({ transY }) => transY}%);
 box-shadow: 3px 5px ${({ shad }) => shad}px 1px  grey,-3px -5px ${({ shad }) => shad}px -1px  grey;
@@ -94,8 +94,8 @@ left:0%;
 }
 `;
 
-const CoverPage = ({weddingSky,weddingTreePx,weddingTree}) => {
-    const theme = useTheme();
+const CoverPage = ({weddingSky,weddingTreePx,weddingTree,bg}) => {
+    // const theme = useTheme();
     let adjustWedTreePerc=(-weddingTreePx *10/2/10);
     let adjustWedMsgPerc=(-weddingTreePx * 10/3/1);
     let shad=- weddingTreePx;
@@ -115,6 +115,7 @@ const CoverPage = ({weddingSky,weddingTreePx,weddingTree}) => {
         <WeddingMsg
         transY={adjustWedMsgPerc}
         shad={shad}
+        bg={bg}
         >
         <Stack direction="column" >
               <Typography component="h1" variant="h1"

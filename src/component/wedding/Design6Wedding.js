@@ -152,7 +152,7 @@ const Design6Wedding = () => {
           weddingSky={weddingSky}
           weddingTreePx={weddingTreePx}
           weddingTree={weddingTrees}
-          
+          bg={theme.palette.common.blueFade}
           />
         
           <Banner 

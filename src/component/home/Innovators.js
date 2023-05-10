@@ -1,10 +1,12 @@
-import { Box, Card, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
+
 import React from "react";
+import { Box, Card, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import styles from "./home.module.css";
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import InnovatorCard from './InnovatorCard';
 
 const CustStack=styled(Stack)`
 Margin:${({open})=>open ? "2rem auto":"0 auto"};
@@ -71,7 +73,6 @@ animation:${({open})=>open ? "innovationShowOn" : "innovationShowOff"} 1.5s ease
 `;
 
 const Innovators = () => {
-  const [open, setOpen] = React.useState({ id: null, loaded: false });
   const [fontSize, setFontSize] = React.useState(null);
   const[textFontSize,setTextFontSize]=React.useState("h4");
   
@@ -86,7 +87,7 @@ const Innovators = () => {
       setFontSize("h1");
       setTextFontSize("h4");
     }
-  }, []);
+  }, [setFontSize,setTextFontSize]);
   const arr = [
     {
       id: 1,
@@ -131,36 +132,15 @@ const Innovators = () => {
       more2: <Link style={{color:"red",cursor:"pointer"}} to="/contact">learn more</Link>,
     },
   ];
-  const handleOpen = (e, name) => {
-    e.preventDefault();
-    
-    switch(true){
-      case (open.id !==name && open.loaded):
-        setOpen({ loaded: true, id: name });
-        // console.log("open new + while open.loaded===true")
-        break;
-      case ( open.id ===name && open.loaded):
-        setOpen({ loaded: false, id: null });
-        // console.log("closes the opened")
-        break;
-      case (open.loaded):
-        setOpen({ loaded: false, id: null });
-        // console.log("has no effect")
-        break;
-      default:
-        setOpen({ loaded: true, id: name });
-        // console.log("opens single item initial start")
-        return
-    }
-  };
+  
 
   return (
     <div className={styles.mainInnovator}>
     <Container maxWidth="xl" sx={{margin:"5vh auto"}} >
-      <Grid container
+      <Grid container spacing={1}
        sx={{position:"relative",justifyContent:"center", alignItems:"flex-start"}}
       >
-        <Grid item xs={12} md={6} spacing={1} sx={{borderRight:{md:"1px solid white"}}} >
+        <Grid item xs={12} md={6} sx={{borderRight:{md:"1px solid white"}}} >
           <Typography
             component="h1"
             variant={fontSize}
@@ -169,60 +149,13 @@ const Innovators = () => {
             We are innovators in creative web design in Montreal.
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6} spacing={1} sx={{position:"relative"}}>
+        <Grid item xs={12} md={6} sx={{position:"relative"}}>
           <Typography component="h1" variant={"h2"} className={styles.font} sx={{textAlign:"center",marginBottom:"1rem",color:"white"}}> We Offer</Typography>
           {arr &&
             arr.map((obj, index) => (
-              <CustCard
-              open={open.loaded && open.id===obj.name}
-                key={`${obj.id}-${obj.name}-${index}`}
-                id={obj.name}
-              
-              >
-              
-                  <Stack className={(open.loaded && open.id===obj.name) ? styles.changeColor : styles.removeColor}
-                    direction="row"
-                    spacing={5}
-                    onClick={(e) => handleOpen(e, obj.name)}
-
-                    sx={{height:{sm:"auto",xs:"auto"},cursor:"pointer"}}
-                  >
-                    <IconButton sx={{width:"auto",height:{sm:"auto",xs:"auto"}}}>
-                      {(open.loaded && open.id===obj.name) ? <RemoveIcon sx={{ color: "black", mr: 10,cursor:"pointer" }} /> :<AddIcon sx={{ color: "white", mr: 1,cursor:"pointer" }} />}
-                      
-                    </IconButton>
-                    <Typography component="h1" 
-                    variant={(open.loaded && open.id===obj.name) ? "h3": textFontSize}
-                    className={(open.loaded && open.id===obj.name) ? styles.changeTextColor : styles.removeTextColor}
-                     >
-                      {obj.name}
-                    </Typography>
-                  </Stack>
-              
-                  <CustStack direction="column" spacing={2} open={open.loaded && open.id === obj.name} >
-
-                    <Stack direction={{xs:"column",sm:"row"}} spacing={{ xs: 2, md: 6 }} sx={{margin:"2rem auto"}} className={styles.openLoadedTrue}>
-                      <Typography component="h1" variant="h6" sx={{width:{sm:"70%",xs:"100%"}}}
-                      className={(open.loaded && open.id===obj.name) ? styles.mainTextOn :styles.maineTextOff}
-                      >
-                        {obj.desc}
-                      </Typography>
-                      <Box>
-                      <Typography component="h1" variant="h4" sx={{margin:"1rem auto"}}
-                      className={(open.loaded && open.id===obj.name) ? styles.mainTextOn :styles.maineTextOff}
-                      >
-                        More
-                      </Typography>
-                      <Typography component="h1" variant="h6"
-                      className={(open.loaded && open.id===obj.name) ? styles.mainTextOn :styles.maineTextOff}
-                      >
-                        {obj.more}
-                      </Typography>
-                      </Box>
-                    </Stack>
-                    <Box className={(open.loaded && open.id===obj.name) ? styles.mainTextMore2 :styles.maineTextOff}>{obj.more2}</Box>
-                  </CustStack>
-              </CustCard>
+              <div  key={`${obj.id}-${obj.name}-${index}`}>
+              <InnovatorCard obj={obj} fontSize={fontSize} textFontSize={textFontSize}  />
+              </div>
             ))}
         </Grid>
       </Grid>

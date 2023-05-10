@@ -94,13 +94,13 @@ animation:${({design})=>design ? "slideDownNow":""} 3.5s ease-in-out;
 const MainCoverFollow = styled(Stack)`
 margin:" auto";
 position:absolute;
-opacity:${({isdesign})=>isdesign ? "1":"0"};
+opacity:${({opacity})=>opacity};
 width:100%;
 top:26%;
 left:0%;
 
 padding:10px;
-animation:${({isdesign})=>isdesign ? "slideUp":""} 2.5s ease-in-out;
+animation:${({animation})=>animation };
 @keyframes slideUp {
     0% {opacity:0;transform:scaleY(-1) translateY(-10%) ;}
     100% {opacity:1;transform:scaleY(1) translateY(0%);}
@@ -172,7 +172,8 @@ const Cover = ({mainPic}) => {
                 </Stack>
             </MainInnerCover>
         <MainCoverFollow
-        isdesign={isdesign}
+        opacity={isdesign ? "1":"0"}
+        animation={isdesign ? "slideUp 2.5s ease-in-out":null}
         className={styles.mainCoverFollow}
         >
                     <p className={styles.fontStylelarge} style={{backgroundImage:`url(${colorEffect})`,fontFamily:"'Philosopher', sans-serif"}}>

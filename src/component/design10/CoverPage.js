@@ -19,6 +19,7 @@ z-index:${({z_index})=>z_index};
 opacity:${({opacity})=>opacity};
 flex-direction:column;
 marginBottom:0px;
+// height:100vh;
 justify-content:flex-start;
 align-items:center;
 background:${({ bg }) => bg};
@@ -41,7 +42,7 @@ animation: fadeIn 1.5s ease-in-out;
     // height:95vh;
 }
 `;
-const MainImage = styled.img`
+const MainImage = styled.img.attrs({className:"mainImg"})`
 z-index:${({z_index})=>z_index};
 display:${({display})=>display};
 animation:${({ keyEffect }) => keyEffect} 4s ease-in-out;

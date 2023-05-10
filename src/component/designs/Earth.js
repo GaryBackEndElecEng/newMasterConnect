@@ -14,7 +14,7 @@ opacity:${({turnon})=>turnon ? "1":"0"};
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  height:65dvh;
+  min-height:65vh;
   background-size:200% 200%;
   background-position:50% 70%;
   @media screen and (max-width:900px){
@@ -27,7 +27,7 @@ opacity:${({turnon})=>turnon ? "1":"0"};
     }
   }
   @media screen and (max-width:600px){
-    height:85dvh;
+    min-height:85vh;
     background-size:400% 200%;
     background-position:30% 50%;
     @keyframes growIn { 
@@ -40,7 +40,7 @@ opacity:${({turnon})=>turnon ? "1":"0"};
 const Earth = () => {
     const paraRightRef=React.useRef();
     const { staticImage } = React.useContext(GeneralContext);
-    const [turnOn,setTurnOn]=React.useState(false);
+    const [turnOn,setTurnOn]=React.useState(null);
     const earth = `${staticImage}/earth.png`;
     const max600=window.innerWidth < 600 ? "h5" :"h4";
     React.useEffect(()=>{

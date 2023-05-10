@@ -5,7 +5,7 @@ import {Stack,Typography} from '@mui/material';
 
 const MainCover=styled.div`
 margin:0;
-height:100dvh;
+min-height:100vh;
 width:100vw;
 display:flex;
 justify-content:flex-start;
@@ -15,8 +15,8 @@ background-image:url(${({bgimage})=>bgimage});
 background-position:50% 50%;
 background-size:100% 100%;
 filter:saturate(1);
-opacity:${({open1})=>open1 ? "1":"0"};
-animation:${({open1})=>open1 ? "showRing":"showBeauty"} ${({open1})=>open1 ? "3":"6"}s linear;
+opacity:${({opacity})=>opacity};
+animation:${({animation})=>animation};
 @keyframes showBeauty {
     from {opacity:0;background-position:100% 100%;background-size:200% 200%;filter:saturate(2);}
     27% {opacity:0.8;background-position:75% 50%;background-size:200% 200%;filter:saturate(1.5);}
@@ -48,8 +48,8 @@ justify-content:center;
 align-items:center;
 flex-direction:column;
 padding:0.5rem;
-opacity:${({open2})=>open2 ? "1":"0"};
-transform: translateY(${({open2})=>open2 ? "0" : "-100"}%);
+opacity:${({opacity})=>opacity};
+transform: translateY(${({transformy})=>transformy});
 transition:all 2.5s ease-in-out;
 @media screen and (max-width:900px){
     padding:auto 1rem;
@@ -63,10 +63,10 @@ transition:all 2.5s ease-in-out;
 `;
 
 const CoverDesign3 = ({coverPic,coverPic2,getWidth}) => {
-    const [open,setOpen]=React.useState(false);
-    const [open1,setOpen1]=React.useState(false);
-    const [open2,setOpen2]=React.useState(false);
-    const [open3,setOpen3]=React.useState(false);
+    const [open,setOpen]=React.useState(null);
+    const [open1,setOpen1]=React.useState(null);
+    const [open2,setOpen2]=React.useState(null);
+    const [open3,setOpen3]=React.useState(null);
     const [loadPic,setLoadPic]=React.useState({loaded:false,data:coverPic2});
 
     React.useEffect(()=>{
@@ -110,14 +110,16 @@ const CoverDesign3 = ({coverPic,coverPic2,getWidth}) => {
 
   return (
     <MainCover
-    open={open }
-    open1={open1 }
+    opacity={open1 ? "1":"0"}
+    animation={open1 ? `showRing 3s linear`:`showBeauty 6s linear`}
+    // open={open }
     bgimage={loadPic.loaded && loadPic.data}
     className={styles.mainCover}
     >
         <ImpactStatement 
         direction="column"
-        open2={open2}
+        opacity={open2 ? "1":"0"}
+        transformy={open2 ? "0%" : "-100%"}
         >
             <Typography component="h1" variant='h3' className={open3 ? styles.companyOn :styles.companyOff}
             style={{color:"white"}}

@@ -7,7 +7,7 @@ import styles from './design.module.css';
 const CustCoverDesign=styled.section`
 margin:0;
 padding:0;
-height:100dvh;
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;

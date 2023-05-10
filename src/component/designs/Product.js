@@ -17,10 +17,10 @@ const CustCardMedia = styled(CardMedia)`
   width: 850px;
   height: 70%;
   @media screen and (max-width: 900px) {
-    width: 780px;
+    width: 750px;
   }
   @media screen and (max-width: 600px) {
-    width: 350px;
+    width: 300px;
   }
 `;
 const CustCard = styled(Card).attrs({ className: "productCard" })`
@@ -37,7 +37,7 @@ const CustCard = styled(Card).attrs({ className: "productCard" })`
     width: 800px;
   }
   @media screen and (max-width: 600px) {
-    width: 350px;
+    width: 320px;
   }
 `;
 const CustCardGrid = styled(Grid).attrs({ className: "childProductGrid" })`

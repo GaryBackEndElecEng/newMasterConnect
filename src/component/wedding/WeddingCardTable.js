@@ -31,7 +31,8 @@ animation: ${({open})=>open ? "growUp":""} 1.25s ease-in-out;
 const CustTableDiv = styled.div`
 opacity:${({open2})=> open2 ? "1":"0"};
 width:100%;
-height:60dvh;
+height:60vh;
+height:60svh;
 box-shadow:var(--box-shadow-normal);
 background-image:url(${({bgimage})=>bgimage});
 background-size:100% 100%;

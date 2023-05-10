@@ -5,7 +5,7 @@ import { GeneralContext } from '../../context/GeneralContextProvider';
 import {TokenAccessContext} from '../../context/TokenAccessProvider';
 import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
 import CoverPage from './CoverPage';
-import ProductServices from '../ProductServices';
+import TopCoverpage from './TopCoverpage';
 import styled from 'styled-components';
 import Design10Helmet from './Design10Helmet';
 import jsonArray from './JsonArray.json';
@@ -93,7 +93,14 @@ const InteriorDecorator = () => {
     const design8 = `${url}/interierDesign8.png`;
     const design9 = `${url}/interierDesign9.png`;
     const contact = `${url}/contact.png`;
+    const coverPic1=`${url}/coverPic1.png`;
+    const coverPic2=`${url}/coverPic2.png`;
+    const coverPic3=`${url}/coverPic3.png`;
+    const coverPic4=`${url}/coverPic4.png`;
+    const coverPic5=`${url}/coverPic5.png`;
+    const coverPic6=`${url}/coverPic6.png`;
     const arr = [design1, design2, design3, design4, design5, design6, design7, design8, design9]
+    const coverArr=[coverPic1,coverPic2,coverPic3,coverPic4,coverPic5,coverPic6]
     const [opacity, setOpacity] = useState(1);
     const [getScroll, setGetScroll] = useState(0);
     const [loadArr, setLoadArr] = useState({ loaded: true, data: [] });
@@ -200,7 +207,7 @@ const InteriorDecorator = () => {
             <RegisterPage />
             <GetRegisterPages />
             <PageRating/>
-
+            <TopCoverpage coverArr={coverArr}/>
             <CoverPageStack direction={{ md: "row", xs: "column" }}
                 sx={{
                     marginTop: { md: "1rem", sm: "1rem", xs: "1rem" }, width: "100%", position: "fixed", left: "0%", zIndex: z_index,

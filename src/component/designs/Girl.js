@@ -10,7 +10,7 @@ const CustGirl = styled.div`
 margin:auto;
 background-image:url(${({bgimage})=>bgimage});
 opacity:${({turnon})=>turnon ? "1":"0"};
-height:400px;
+min-height:400px;
 width:${({turnon})=>turnon ? "100":"50"}%;
 background-position:50% 50%;
 background-size:100% 100%;
@@ -29,7 +29,7 @@ z-index:200;
 
 @media screen and (max-width:900px){
   width:100vw;
-  height:600px;
+  min-height:600px;
   background-size:150% 100%;
   transform:translateX(0%);
   @keyframes slideIn {
@@ -43,7 +43,8 @@ z-index:200;
   
 }
 @media screen and (max-width:600px){
-height:400px;
+min-height:400px;
+width:360px;
 background-size:200% 100%;
 @keyframes slideIn {
   from { opacity:0;transform:translateX(-100%);background-size:400% 200%;}

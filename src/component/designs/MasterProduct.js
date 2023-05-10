@@ -10,7 +10,7 @@ import Product from "./Product";
 const MasterProduct = ({staticImage,productDesigns}) => {
 
   return (
-    <Container maxWidth="xl" sx={{ position: "relative",minHeight:"100dvh",justifyContent:"center",alignItems:"center",flexDirection:"column",display:"flex", }}>
+    <Container maxWidth="xl" sx={{ position: "relative",minHeight:"100vh",justifyContent:"center",alignItems:"center",flexDirection:"column",display:"flex", }}>
       
        
       <div className={styles.scrollParent}>

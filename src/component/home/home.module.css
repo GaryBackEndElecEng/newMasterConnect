@@ -27,6 +27,20 @@ body{
     font-size:300%;
     animation:moveAlways2 30s linear infinite reverse;
   }
+  .font_masterconnect{
+    margin:auto;
+    align-self:center;
+    font-family: var(--font-family);
+    background-image: var(--background-image-1-left);
+    background-size:150% 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom:0.62rem;
+    font-size:300%;
+    animation:moveAlways2 30s linear infinite reverse;
+  }
   .fontStyle_2{
     font-family: var(--font-family);
     background-image: var(--background-555);
@@ -215,6 +229,7 @@ color:white;
     .fontStyleMedium{
       font-size:1300%;
     }
+   
   }
   @media screen and (max-width:800px){
     .fontStylelarge{
@@ -237,8 +252,8 @@ color:white;
       font-size:700%;
     }
     
-    .fontStyle{
-
+    .font_masterconnect{
+      font-size:200%;
     }
   }
   @media screen and (max-width:400px){
