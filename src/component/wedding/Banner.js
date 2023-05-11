@@ -14,7 +14,7 @@ position:static;
 top:22%;
 background:${({ bg,open }) =>open ?  bg : "white"};
 height:48vh;
-height:48svh;
+// height:48svh;
 width:100%;
 color:${({ color,open }) =>open ? color : "black"};
 animation: ${({open})=>open ? "openThis":""} 1.75s ease-in-out;

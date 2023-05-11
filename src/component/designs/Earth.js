@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 const CustEarth=styled.div`
 margin:0 auto;
-opacity:${({turnon})=>turnon ? "1":"0"};
+opacity:${({opacity})=>opacity };
   padding:1rem;
   display:flex;
   justify-content:center;
@@ -20,19 +20,20 @@ opacity:${({turnon})=>turnon ? "1":"0"};
   @media screen and (max-width:900px){
     background-size:200% 200%;
     background-position:200% 70%;
-    animation:${({turnon})=>turnon ? "growIn":""} 3.5s ease-in-out;
-    @keyframes growIn { 
+    animation:${({animation})=>animation};
+    @keyframes growIn1 { 
       from {opacity:0;background-position:200% 10%;}
       to {opacity:1;background-position:200% 70%;}
     }
   }
   @media screen and (max-width:600px){
     min-height:85vh;
-    background-size:400% 200%;
-    background-position:30% 50%;
-    @keyframes growIn { 
-      from {opacity:0;background-position:90% 50%;}
-      to {opacity:1;background-position:30% 50%;}
+    animation:${({animation})=>animation};
+    background-size:300% 200%;
+    background-position:50% 80%;
+    @keyframes growIn1 { 
+      from {opacity:0;background-position:90% 50%; background-size:300% 200%;}
+      to {opacity:1;background-position:50% 80% ; background-size:300% 200%;}
     }
   }
 `;
@@ -64,7 +65,8 @@ const Earth = () => {
     <CustEarth
             // className={styles.earthCont}
             style={{ backgroundImage: `url(${earth})` }}
-            turnon={turnOn }
+            animation={turnOn ? "growIn1 3.5s ease-in-out":""}
+            opacity={turnOn ? "1":"0"}
           >
             <div ref={paraRightRef}>
               <Typography

@@ -12,7 +12,7 @@ width:100%;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-min-height:100dvh;
+min-height:100vh;
 text-align:center;
 filter:saturate(2);
 background-image:url(${({ bgimage }) => bgimage});

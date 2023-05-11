@@ -16,8 +16,8 @@ display:flex;
 justify-content:space-around;
 align-items:center;
 flex-wrap:wrap;
-opacity:${({block})=>block ? "1":"0"};
-transform:translateY(${({block})=>block ? "0":"40"}%);
+opacity:${({opacity})=>opacity};
+transform:translateY(${({transformy})=>transformy});
 transition:all 1.5s ease-in-out;
 background:var(--background-video-banner);
 @media screen and (max-width:900px){
@@ -51,6 +51,7 @@ const VideoBanner = ({getWidth}) => {
     const swirl=`${staticImage}/extra/swirls.png`;
     const set_text= getWidth < 900 ? (getWidth <600 ? "h4":"h3"):"h2";
     const setThreshold=getWidth<900 ? (getWidth <600 ? 0.1 :0.3):0.7;
+   
 
     React.useEffect(()=>{
         const observer=new IntersectionObserver(entries=>{
@@ -73,7 +74,8 @@ const VideoBanner = ({getWidth}) => {
     <CustSectionBanner
     className={styles.custSectionBanner}
     ref={blockRef}
-    block={block}
+    opacity={block ? "1":"0"}
+    transformy={block ? "0%":"40%"}
     >
         <div>
             <CustWordWrapper>

@@ -40,7 +40,7 @@ const ServiceItem = ({obj}) => {
     const servRef=React.useRef();
     const [show,setShow]=React.useState(null);
     const [newObj,setNewObj]=React.useState({});
-
+  const threshold= window.innerWidth < 600? 0.2 : 0.7;
     
 
     React.useEffect(()=>{
@@ -69,7 +69,7 @@ const ServiceItem = ({obj}) => {
             if(entry.isIntersecting){
                 setShow(true);
             }
-        },{threshold:0.7});
+        },{threshold:threshold});
         if(servRef.current){
             observer.observe(servRef.current);
             return ()=>observer.disconnect();
@@ -79,7 +79,7 @@ const ServiceItem = ({obj}) => {
     <CustGrid
     
     opacity={show ? "1": "0"}
-    transformy={show ?  "0%":"50%"}
+    transformy={show ?  "0%":"20%"}
     ref={servRef}
       container
       spacing={0}

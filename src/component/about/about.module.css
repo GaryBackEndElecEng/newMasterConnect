@@ -155,7 +155,7 @@ background-color:rgba(0,0,0,0.3);
 .textSlideIn{
     margin:auto;
     text-align:center;
-    animation: slideIn 3s ease-in-out;
+    animation: slideIn 1s ease-in-out;
     
 }
 .textSlideIn h1 {
@@ -163,7 +163,7 @@ background-color:rgba(0,0,0,0.3);
     
 }
 .secondSlideIn{
-    animation: slideIn 6s ease-in-out;
+    animation: slideIn 2s ease-in-out;
     padding:1rem;
     background-color:rgba(0,0,0,.3);
 }

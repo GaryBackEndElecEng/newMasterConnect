@@ -21,7 +21,9 @@ const WeDevelop = ({
   const scroll1Ref = React.useRef();
   const scroll2Ref = React.useRef();
   const lionest = `${staticImage}/lionest.png`;
-  const monkey = `${staticImage}/monkey2.png`;
+  // const monkey = `${staticImage}/monkey2.png`;
+  const wolf=`${staticImage}/extra/wolf.png`;
+  // const wolf2=`${staticImage}/extra/wolf2.png`;
   const zebra3 = `${staticImage}/zebra/zebra3.png`;
   const [smallTitleBlock, setSmallTitleBlock] = React.useState(0);
   const [show, setShow] = React.useState(false);
@@ -81,7 +83,7 @@ const WeDevelop = ({
 
   return (
     <section className={styles.zebra} style={{background:"var(--background-111)"}}>
-      <SubWeDevDesign monkey={monkey} getTitleVariant1={getTitleVariant1} />
+      <SubWeDevDesign monkey={wolf} getTitleVariant1={getTitleVariant1} />
 
       <div className={styles.bannerWhite} ref={scroll1Ref}>
         <div className={show ? styles.scrollGroupOn : styles.scrollGroupOff}>

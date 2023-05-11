@@ -21,6 +21,7 @@ const HelpingBrands = () => {
     const [textSize,setTextSize]=React.useState("h1");
     const [show11,setShow11]=React.useState(false);
     const [modal,setModal]=React.useState(false);
+    const threshold= window.innerWidth < 600 ? 0.3 :0.5;
 
     React.useEffect(()=>{
         if(window.innerWidth <900){
@@ -37,7 +38,7 @@ React.useEffect(()=>{
         if(entry.isIntersecting){
             setShow11(true);
         }
-    },{threshold:0.5});
+    },{threshold:threshold});
 
     if(helpingRef.current){
         observer.observe(helpingRef.current);

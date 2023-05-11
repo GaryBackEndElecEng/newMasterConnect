@@ -47,8 +47,8 @@ const About = () => {
   const ownership=`${staticImage}/folder/ownership.png`;
   const design=`${staticImage}/folder/design.png`;
   // const [showPic, setShowPic] = React.useState({loaded:false,id:0});
-  const [close, setClose] = React.useState(false);
-  const [slide, setSlide] = React.useState(false);
+  const [close, setClose] = React.useState(null);
+  const [slide, setSlide] = React.useState(null);
   const [goText, setGoText] = React.useState(null);
   const [getWidth,setGetWidth]=React.useState(null);
   const [fontSize,setFontSize]=React.useState(null);
@@ -82,7 +82,7 @@ const About = () => {
   React.useEffect(() => {
     setTimeout(() => {
       setClose(true);
-    }, 5000);
+    }, 6000);
     if (close) {
       setTimeout(() => {
         setSlide(true);

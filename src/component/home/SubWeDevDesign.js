@@ -11,8 +11,9 @@ position:relative;
 opacity:${({isMovePic})=>isMovePic ? "1":"0"};
   min-height:45vh;
   background-image:url(${({bgimage})=> bgimage});
-  background-position: 50% 100%;
-  background-size:100% 120%;
+  background-position: 50% 80%;
+  background-size:100% 200%;
+  filter:saturate(1.5);
   width:100%;
   overflow:hidden;
   // box-shadow:0 1px 0 1px 5px 1px white;
@@ -24,6 +25,8 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
   }
   @media screen and (max-width:900px){
     width:100%;
+    background-position: 50% 80%;
+  background-size:100% 100%;
   }
   @media screen and (max-width:600px){
     width:350px;

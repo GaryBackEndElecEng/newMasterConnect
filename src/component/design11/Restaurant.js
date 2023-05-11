@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Stack, Typography, Container, Grid, Button, Divider } from '@mui/material';
+import { Stack, Typography, Container, Grid, Avatar, Divider } from '@mui/material';
 import { GeneralContext } from '../../context/GeneralContextProvider';
-import { TokenAccessContext } from '../../context/TokenAccessProvider';
 // import { PriceContext } from '../../context/PriceContextProvider';
-import UserSignedInPurchaseBtn from '../utils/UserSignedInPurchaseBtn';
+import NavContainer from './NavContainer';
 import CoverPage from './CoverPage';
 import styled from 'styled-components';
-import styles from './design11.module.css'
+import styles from './design11.module.css';
+import SideBar from './SideBar';
 import Design11Helmet from './Design11Helmet';
 import jsonArray from './JsonArray.json';
 import RegisterPage from '../RegisterPage';
@@ -47,6 +47,40 @@ position:relative;
 }
 
 `;
+const CustChildGrid=styled(Grid)`
+margin:0;
+padding:0;
+position:relative;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background-image:url(${({bgimage})=>bgimage});
+background-size:400% 100%;
+animation : restoGrowIn 5s ease-in-out;
+@keyframes restoGrowIn {
+    from {background-size: 200% 200%;}
+    to {background-size: 400% 100%;}
+}
+background-position: 35% 100%;
+@media screen and (max-width:900px){
+    background-size:100% 100%;
+background-position: 50% 50%;
+@keyframes restoGrowIn {
+    from {background-size: 200% 200%;}
+    to {background-size: 400% 100%;}
+}
+}
+@media screen and (max-width:600px){
+    background-size:100% 100%;
+    background-position:50% 50%;
+    @keyframes restoGrowIn {
+        from {background-size: 200% 200%;}
+        to {background-size: 100% 100%;}
+    }
+}
+`;
 
 const Restaurant = () => {
     const location = useLocation();
@@ -59,6 +93,7 @@ const Restaurant = () => {
     const url = `https://new-master.s3.ca-central-1.amazonaws.com/static/images/Restaurant`;
     const dinning = `${url}/dinning.png`;
     const menu = `${url}/menu.png`;
+    const spoon=`${staticImage}/extra/spoon.png`;
     const design1 = `${url}/rest1.png`;
     const design2 = `${url}/rest2.png`;
     const design3 = `${url}/rest3.png`;
@@ -72,6 +107,7 @@ const Restaurant = () => {
     const arr = [design1, design2, design3, design4, design5, design6]
     const [restArr, setRestArr] = useState({ loaded: false, data: [] });
     const logo = "https://new-master.s3.ca-central-1.amazonaws.com/static/logo.png";
+    const logo2=`${staticImage}/images/Restaurant/logo.png`;
     const [pageRatingHelmet, setPageRatingHelmet] = useState([]);
     const [productServices, setProductServices] = useState([]);
     const arrStar=[1,2,3,4,5];
@@ -134,52 +170,19 @@ const Restaurant = () => {
                 getPathLocation={getPathLocation.loaded ? getPathLocation.data : ""}
                 pageRatings={pageRatingHelmet}
             />
-            <Container maxWidth="xl" sx={{ margin: "2rem auto", backgroundImage: { xs: `url(${menu})`, md: "none" }, backgroundSize: "100% 100%", marginBottom: { md: "4rem", xs: "0px" } }}>
-                <Divider sx={{ marginBottom: "1rem", color: { xs: "white", md: "black" }, border: { md: `2px solid black`, xs: "2px solid white" } }} />
-                <Grid container spacing={{ xs: 1, sm: 2 }}
-                >
-                    <Grid item xs={12} sm={8}>
-                        <Stack direction="row" spacing={1} sx={{ flex: "6", color: { xs: "white", md: "black" } }}>
-                            <Button sx={{ color: { xs: "white", md: "black" } }}> Menu</Button>
-                            <Button sx={{ color: { xs: "white", md: "black" } }}> Register</Button>
-                            <Button sx={{ color: { xs: "white", md: "black" } }}> Extras</Button>
-                        </Stack>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                        <Stack direction="row" spacing={1} sx={{ flex: "6" }}>
-                            <Button sx={{ color: { xs: "white", md: "black" } }}> log-in</Button>
-                        </Stack>
-                    </Grid>
-                </Grid>
-                <Divider sx={{ marginBottom: "2rem", color: { xs: "white", md: "black" }, border: { md: `2px solid black`, xs: "2px solid white" } }} />
-            </Container>
+            <NavContainer menu={menu} logo={logo2}/>
             <Grid container spacing={{ xs: 0, md: 0 }}
-                sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "0px", sm: "0px" }, margin: "1rem auto", }}
+                sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "-70px", sm: "-70px" },isolation:"isolate",margin:"0",padding:"0",background:"black",minHeight:{xs:"100vh"} }}
             >
-                <Grid item xs={12} md={2} sx={{ padding: "1rem", backgroundImage: `url(${dinning})`, backgroundSize: { xs: "100% 100%", md: "400% 100%" },backgroundPosition:"35% 100%" }} >
-                    <Grid container spacing={0} sx={{ color: "white",background:"rgba(255,255,255,0.2)" }} >
-                        <Grid item xs={12}  >
-                            <Typography component="h1" variant="h1" sx={{ fontFamily: "great vibes" }}>La Cuisine</Typography>
-                            <Stack direction="row">
-                                {arrStar.map(obj=>(<StarIcon key={obj} sx={{ ml: 1, color: theme.palette.common.darkBlue, fontSize: "26px" }} />))}
-                            </Stack>
-                        </Grid>
-                        <Grid item xs={12} >
-                            <Typography component="h1" variant="h4" sx={{ marginLeft: "10px", margin: "1rem auto" }}>Fine Cuisine</Typography>
-                            <Typography component="h1" variant="h6" sx={{ marginLeft: "10px" }}>123 my address,</Typography>
-                            <Typography component="h1" variant="h6" sx={{ marginLeft: "10px" }}>city, Country</Typography>
-
-
-                        </Grid>
-                    </Grid>
-
-                </Grid>
-                <Grid item xs={12} md={10}
-
+                <CustChildGrid item xs={12} md={2} bgimage={dinning}
+                    sx={{height:{md:"100vh",xs:"40vh"}}}
                 >
-                    <Container maxWidth="xl" sx={{ overflow: "hidden", marginTop: { md: "-50px", xs: "60px", sm: "0px" }, maxHeight: "100vh", position: "relative", margin: "2rem auto" }}>
-                        <CoverPage arr={arr} />
-                    </Container>
+                            <SideBar spoon={spoon}/>
+                </CustChildGrid>
+                <Grid item xs={12} md={10}
+                    sx={{position:"relative",height:{md:"100vh",xs:"120vh",sm:"50vh"},padding:"0",margin:"auto",left:{md:"-15px",sm:"15px"},width:"100%",}}
+                >
+                <CoverPage arr={arr} />
                 </Grid>
             </Grid>
             <Typography component="h1" variant="h3">Top Menu</Typography>

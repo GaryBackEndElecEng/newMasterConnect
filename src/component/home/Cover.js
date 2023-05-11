@@ -7,7 +7,7 @@ import styles from "./home.module.css";
 // //start:Y:10% end -40%
 const CustCover = styled.div.attrs({className:styles.mainSection})`
 // margin:0 auto;
-opacity:${({design})=>design ? "1" :"0"};
+opacity:${({opacity})=>opacity};
 margin-bottom:0;
 width:100%;
 height:100vh;
@@ -23,7 +23,7 @@ background-image:url(${({bgimage})=>bgimage});
 background-size:100% 150%;
 background-position:50% 10%;  
 transition:opacity 2s linear;
-animation: ${({show})=>show ? "startEffect":""} 2s ease-in-out;
+animation: ${({animation})=>animation} ;
 @keyframes startEffect {
     from {opacity:0;background-position:50% 70%;}
     to {opacity:1;background-position:50% 10%;}
@@ -59,13 +59,13 @@ animation: ${({show})=>show ? "startEffect":""} 2s ease-in-out;
 const MainInnerCover = styled.div`
 margin:" auto";
 position:absolute;
-opacity:${({design})=>design ? "1":"0"};
+opacity:${({opacity})=>opacity};
 width:100%;
 top:-61%;
 left:-1%;
 
 padding:10px;
-animation:${({design})=>design ? "slideDownNow":""} 3.5s ease-in-out;
+animation:${({animation})=>animation};
 @keyframes slideDownNow {
     0% {opacity:0;transform:translateY(-150%) skew(45deg,45deg);}
     20% {opacity:0.1;transform:translateY(-100%) skew(45deg,45deg);}
@@ -152,15 +152,17 @@ const Cover = ({mainPic}) => {
    
   return (
     <CustCover
-    show={show}
+    animation={show ? "startEffect 2s ease-in-out" :""}
+    opacity={show ? "1":"0"}
     bgimage={mainPic}
-    isWidth={getWidth && getWidth > 900 ? true:false}
-    design={design}
+    // isWidth={getWidth && getWidth > 900 ? true:false}
+    // design={design}
     className={styles.mainSection}
     >
         <div style={{position:"relative",width:"100vw",margin:0,padding:0,height:"100vh",top:"0px",left:"0px",}}>
         <MainInnerCover
-        design={design}
+        opacity={design ? "1":"0"}
+        animation={show ? "slideDownNow 3.5s ease-in-out":""}
         className={styles.mainInnerCover}
         >
                 <Stack direction="column" sx={{justifyContent:"flex-start",alignItems:"center",width:"100%",height:"100vh",}}>

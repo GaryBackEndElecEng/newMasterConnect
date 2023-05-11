@@ -16,8 +16,8 @@ const ShowCardIcon = styled(Card)`
   gap: 10px;
   background:${({match})=>match ? " var(--background-image-2-left)"  :
    " var(--background-image-1-left)"};
-  transform: translateY(${({ match }) => (match ? "0%" : "-10%")});
-  animation: ${({match})=>match ? "slideUp":"slideDown"};
+  transform: translateY(${({ transformy }) => (transformy)});
+  animation: ${({animation})=>animation};
   @keyframes slideUp {
     from {transform:translateY(0%) scale(1);}
     to {transform:translateY(-10%) scale(1.1);}
@@ -28,11 +28,12 @@ const ShowCardIcon = styled(Card)`
   }
 `;
 const SocialItem = ({ obj,index }) => {
-    const [open,setOpen]=React.useState(false);
+    const [open,setOpen]=React.useState(null);
     const [match,setMatch]=React.useState({loaded:false,id:null});
     const normal={writingMode:"vertical-rl",position:"absolute",left:"0%",fontSize:"100%",zIndex:"200",top:"0%",color:"white",transition:"all 1s ease-in-out"};
     const hover={writingMode:null,position:"relative",left:"0%",fontSize:"110%",zIndex:"200",top:"-10%",color:"blue",transition:"all 1s ease-in-out"};
     const changeStyle=match.loaded && match.id === index ? hover :normal;
+    const isMatch=(match.loaded && match.id === index ) ? true:null;
 
     const handleMouseOver=(e,index)=>{
         setOpen(true);
@@ -52,7 +53,9 @@ const SocialItem = ({ obj,index }) => {
     
       <ShowCardIcon
         open={open}
-        match={match.loaded && match.id === index}
+        match={isMatch}
+        transformy={isMatch ? "0%" : "-10%"}
+        animation={isMatch ? "slideUp 0.75s linear":"slideDown 0.7s linear"}
         elevation={3}
         onMouseOver={(e) => handleMouseOver(e, index)}
         onMouseOut={handleMouseOut}
@@ -60,7 +63,7 @@ const SocialItem = ({ obj,index }) => {
         
       >
         <small 
-        className={(match.loaded && match.id === index) ? styles.highlightOn : styles.highlightOff}
+        className={(isMatch) ? styles.highlightOn : styles.highlightOff}
         style={changeStyle}
         >
             {obj.name}

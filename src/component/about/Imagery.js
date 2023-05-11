@@ -65,11 +65,13 @@ const TypoEffectMain=styled(Typography)`
 const Imagery = ({slide,happyOffice,happyMain,goText,getWidth,fontSize}) => {
   const thisRef=React.useRef();
   const [activate,setActivate]=React.useState(false);
+  
 
   React.useEffect(()=>{
     const observer= new IntersectionObserver((entries)=>{
       let entry=entries[0]
       setActivate(entry.isIntersecting);
+      
       if(entry.isIntersecting){
         
       }
@@ -80,7 +82,7 @@ const Imagery = ({slide,happyOffice,happyMain,goText,getWidth,fontSize}) => {
   return (
     <Container maxWidth="xl" sx={{height:"50vh",overflow:"hidden",marginTop:"10vh"}} className={styles.subContainer} ref={thisRef}>
 
-      {!slide ?
+      {!slide  ?
       
       <HappyOffice 
       bgImage={happyOffice}

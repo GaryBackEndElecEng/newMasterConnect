@@ -10,7 +10,7 @@ margin-top:0rem;
 margin-bottom:-30px;
 position:relative;
 padding:0;
-height:100dvh;
+height:100vh;
 display:flex;
 justify-content:center;
 // border:1px solid red;

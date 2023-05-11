@@ -1,177 +1,131 @@
 import React, { useState,  useEffect,} from 'react';
-import {  Container } from '@mui/material';
-// import { GeneralContext } from '../../context/GeneralContextProvider';
+import {  Container, Grid } from '@mui/material';
+import { GeneralContext } from '../../context/GeneralContextProvider';
 import styled from 'styled-components';
-// import styles from './design11.module.css';
+import styles from './design11.module.css';
 
-const MainCover = styled.div`
-width:${({ _width }) => _width}vw;
-height:100vh;
-display:inline-flex;
+const CustMainCover=styled.div`
+margin:0;
 position:relative;
-margin-left:0px;
-transform:translateX(${({ trans }) => trans}%);
-animation: alignTranslate 1s ease-in-out;
-@keyframes alignTranslate {
-    from {transform:translateX(0%);}
-    to {transform:translateX(0%);}
-}
-
-background:white;
-@media screen and (max-width:900px){
-    display:inline-flex;
-    width:${({ smWidth }) => smWidth}px;
-    transform:translateX(${({ smTrans }) => smTrans}%);
-    height:auto;
-}
-@media screen and (max-width:800px){
-    display:inline-flex;
-    width:${({ sm1Width }) => sm1Width}px;
-    transform:translateX(${({ smTrans }) => smTrans}%);
-    height:auto;
-}
-
-@media screen and (max-width:420px){
-    display:inline-flex;
-    height:auto;
-width:${({ xsWidth }) => xsWidth}px;
-    transform:translateX(${({ xsTrans }) => xsTrans}%);
-}
-@media screen and (max-width:400px){
-    display:inline-flex;
-    height:auto;
-width:${({ xs1Width }) => xs1Width}px;
-    transform:translateX(${({ xsTrans }) => xsTrans}%);
-}
-
-
-`;
-const MainImage = styled.img`
-
+inset:0;
+padding-inline:1rem;
+height:100%;
 width:100%;
-z-index:0;
-
+width:100%;
+display:flex;
+justify-content:flex-start;
+align-items:center;
+flex-direction:column;
+// border:1px solid red;
 @media screen and (max-width:900px){
-    width:900px;
+left:-2%;
 }
-@media screen and (max-width:800px){
-    width:800px;
+@media screen and (max-width:600px){}
+`;
+
+const CoverRestaurant=styled.div`
+height:100%;
+opacity:${({opacity})=>opacity};
+opacity:1;
+inset:0;
+width:100%;
+background-image:url(${({bgimage})=>bgimage});
+background-size:100% 100%;
+background-position: 50% 50%;
+filter:saturate(1.5);
+display: flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+animation: ${({animation})=>animation};
+@keyframes sweepIn {
+    from {opacity:0;transform:skew(45deg) ;backround-size:300% 200%; background-position:0% 0%;}
+    to {opacity:1;transform:skew(0deg) ;backround-size:100% 100%; background-position:50% 50%;}
+}
+@keyframes fadeOut {
+    from {opacity:1;}
+    to {opacity:0;}
+}
+@media screen and (max-width:900px){
+    min-height:50vh;
 }
 @media screen and (max-width:600px){
-    width:600px;
+    min-height:120vh;
+    background-size:300% 100%;
+background-position: 50% 50%;
+@keyframes sweepIn {
+    from {opacity:0;transform:skew(45deg) ;backround-size:300% 200%; background-position:0% 0%;}
+    to {opacity:1;transform:skew(0deg) ;backround-size:300% 100%; background-position:50% 50%;}
 }
-@media screen and (max-width:500px){
-    width:500px;
 }
-
-
 `;
-const SecondMain = styled(Container)`
-margin:2rem auto;
-display:flex;
-width:100vw;
-min-height:80vh;
-position:relative;
-justify-content:center;
-overflow:scroll;
-align-items:center;
-animation: growHere 1s ease-in-out;
-@keyframes growHere {
-    from {opacity:0;}
-    to {opacity:1;}
-}
 
-
-`;
-const ImageTitle=styled.img`
+const ImageDisplay=styled.img`
+margin:0;padding:0;
 width:100%;
-@media screen and (max-width:850px;){
-width:100%;
-
+height:85%;
+animation: rotateIn 3s ease-in-out;
+@keyframes rotateIn {
+    from {transform:rotateY(180deg);}
+    to {transform:rotateY(0deg);}
 }
-@media screen and (max-width:800px;){
-width:80%;
-
+@media screen and (max-width:900px){
+    height:100%;
 }
-@media screen and (max-width:600px;){
-width:100vw;
 
-}
-@media screen and (max-width:400px;){
-width:100vw;
-
-}
 `;
+
+
+
 
 const CoverPage = ({ arr }) => {
-    const [counter, setCounter] = useState(0);
-    const [atMax, setAtMax] = useState(false);
-    const [opacity, setOpacity] = useState(1);
-    let getWidth = 5 * 100;
-    const isAtMax = atMax ? "" : "transform 3.5s ease-in-out";
+    const {staticImage}=React.useContext(GeneralContext);
+    const menu1=`${staticImage}/images/Restaurant/menu1.png`;
+    const menu2=`${staticImage}/images/Restaurant/menu2.png`;
+    const mainCover=`${staticImage}/images/Restaurant/mainCover.png`;
+    const logo2=`${staticImage}/images/Restaurant/logo.png`;
+    const counterRef=React.useRef(null);
+    const [counter, setCounter] = useState(null);
+    const [start,setStart]=React.useState(null);
+    const [start2,setStart2]=React.useState(null);
+    
+    React.useEffect(()=>{
+        setTimeout(()=>{setStart(true)},7000);
+        setTimeout(()=>{ if(start) return setStart2(true)},2000);
+    },[start]);
+    
 
-    useEffect(() => {
-        let count = 0;
-        const incCount = () => {
-            // console.log("before count",count,)
-            if (count < 4) {
-                setAtMax(false);
-                setOpacity(1);
-                setTimeout(() => {
-                    setCounter(count);
-                    count= count + 1;
-                    // console.log("after count",count,);
-                    return incCount();
-                }, 7100)
-            } else if (count === 4) {
-                setCounter(4);
-                setOpacity(1);
-                setTimeout(() => {
-                    setCounter(0);
-                    setAtMax(true);
-                    count = 0;
-                    incCount();
-                    setOpacity(0);
-                }, 7000);
+        React.useEffect(()=>{
+            setCounter(0);
+            counterRef.current=0;
+        },[]);
 
-
-
-
-
-            }
-
-        }
-        incCount();
-    }, []);
-    // console.log(counter)
+   
 
     return (
-        <>
-            { opacity ===1 ? 
-            <MainCover
-                trans={-20.5 * counter}
-                smTrans={-20 * counter}
-                _width={getWidth}
-                smWidth={5 * 910}
-                sm1Width={5 * 820}
-                xsWidth={5 * 620}
-                xs1Width={5 * 522}
-                xsTrans={-20 * counter}
-                style={{ opacity: opacity, transition: isAtMax, position: "relative" }}
+        <CustMainCover>
+            {!start2 ?
+            <CoverRestaurant
+            bgimage={mainCover}
+            animation={!start ? "sweepIn 7s ease-in-out":"fadeOut 2s ease-in-out"}
+            opacity={!start ? "1":"0"}
             >
-                <MainImage src={arr[0]} alt="www.master-connect.ca" />
-                <MainImage src={arr[1]} alt="www.master-connect.ca" />
-                <MainImage src={arr[2]} alt="www.master-connect.ca" />
-                <MainImage src={arr[3]} alt="www.master-connect.ca" />
-                <MainImage src={arr[4]} alt="www.master-connect.ca" />
-            </MainCover>
-
+            <p className={styles.restoFontEffect}> Eitvell</p>
+            <p className={styles.restoFontEffect2}> Fine Cuisine</p>
+            </CoverRestaurant>
             :
-            <SecondMain maxWidth="xl">
+            <Grid container spacing={0} className={styles.gridFadeIn}>
+                <Grid item md={6} sm={6} xs={12} sx={{padding:"0",margin:"0"}}>
+                    <ImageDisplay src={menu1} alt="www.masterconnect.ca"/>
+                </Grid>
+                <Grid item md={6} sm={6} xs={12} sx={{padding:"0",margin:"0"}}>
+                    <ImageDisplay src={menu2} alt="www.masterconnect.ca"/>
+                </Grid>
+            </Grid>
+            }
 
-                <ImageTitle src={arr[5]} alt="www.master-connect.ca" style={{wisth:"100%"}}/>
-            </SecondMain>}
-        </>
+        
+        </CustMainCover>
 
     )
 }

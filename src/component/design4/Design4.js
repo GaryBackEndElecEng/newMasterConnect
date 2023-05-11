@@ -383,7 +383,11 @@ const Design4 = () => {
                 
             </ContainerFluidBgImage>
             <ImageDisplay/>
-            <Included product={OBJ ? OBJ:null} staticImage={staticImage}/>
+            <Stack direction="column" sx={{justifyContent:"center",alignItems:"center"}}>
+                <Typography component={"h1"} variant="h4" sx={{color:"black"}}>
+                Please provide Us with feedback to help us improve - Much Appreciated
+                </Typography>
+            </Stack>
             <PageFeedback/>
             
         </CustomDesign3>

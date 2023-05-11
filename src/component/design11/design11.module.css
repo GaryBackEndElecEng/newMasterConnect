@@ -2,7 +2,80 @@
 
 
 
+/*------------- NAV CONTAINER-------------- */
+.logo{
+    position:static;
+    width:7% !important;
+    height:7% !important;
+    padding-inline:5px;
+    box-shadow:1px 1px 6px 1px grey,-1px -1px 6px -1px grey;
+    background:black;
 
+}
+.gridFadeIn{
+    animation:fadeGridIn 2s ease-in;
+}
+@keyframes fadeGridIn{
+    from {opacity:0;}
+    to {opacity:1;}
+}
+.restoFontEffect{
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-stroke:1px white;
+    background-image:var(--background-resto);
+    background-size:200% 200%;
+    text-shadow:3px 3px;
+    color:transparent;
+    font-size:1000%;
+    animation: restoSlideIn 3.67s ease-in-out;
+
+}
+.restoFontEffect2{
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-stroke:1px white;
+    background-image:var(--background-resto) !important;
+    background-size:50% 50%;
+    color:transparent;
+    font-size:600%;
+    animation: restoSlideIn 3.67s ease-in-out;
+
+}
+@keyframes restoSlideIn{
+    from {opacity:0; transform:translateX(-100%);}
+    to {opacity:1; transform:translateX(0%);}
+}
+@media screen and (max-width:900px){
+    .logo{
+        width:10% !important;
+        height:10% !important;
+        margin-left:10%;
+    
+    }
+    .restoFontEffect{
+        font-size:800%;
+    
+    }
+    .restoFontEffect2{
+        font-size:400%;
+    
+    }
+}
+
+.custNavContainer h1, .custNavContainer p, .custNavContainer span{
+    color:black;
+}
+
+.sidebarMain > h1, .sidebarMain p, .sidebarMain > span{
+    color:white !important;
+}
+@media screen and (max-width:900px){
+    .firstContainer{
+        margin-bottom:1rem;
+    }
+}
+/*------------- NAV CONTAINER-------------- */
 
 .mainRestaurant h1, .mainRestaurant span,.mainRestaurant h2{
  color:black;
