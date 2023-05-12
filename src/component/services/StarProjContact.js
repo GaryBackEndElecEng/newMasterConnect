@@ -66,9 +66,9 @@ const CustStartProj = styled.div`
 const StarProjContact = ({ getWidth }) => {
   const startRef = React.useRef();
   const navigate=useNavigate();
-  const { staticImage2 } = React.useContext(GeneralContext);
-  const turtle = `${staticImage2}/water/turtle.png`;
-  const greenEffect = `${staticImage2}/extra/greenEffect.png`;
+  const { staticImage } = React.useContext(GeneralContext);
+  const turtle = `${staticImage}/water/turtle.png`;
+  const greenEffect = `${staticImage}/extra/greenEffect.png`;
   const [startOpen, setStartOpen] = React.useState(false);
 
   React.useEffect(() => {

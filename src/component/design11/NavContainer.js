@@ -16,7 +16,7 @@ margin-bottom:4rem;
     padding-inline:1rem;
 }
 @media screen and (max-width:600px){
-
+width:100%;
 }
 `;
 
@@ -28,21 +28,21 @@ const NavContainer = ({menu,logo}) => {
     >
                 <Divider sx={{ marginBottom: "1rem", color: { xs: "white", md: "black" }, border: { md: `2px solid black`, xs: "2px solid white" } }} />
                 <Grid container spacing={{ xs: 1, sm: 2 }}
-                sx={{position:"relative"}}
+                sx={{position:"relative",marginTop:{xs:"3rem",sm:"0.5rem"}}}
                 >
                    
                     <Grid item xs={12} sm={8}>
-                    <Stack direction="row" spacing={5} sx={{justifyContent:"flex-start",alignItems:"center",background:{xs:"rgba(0,0,0,.5)",md:"none"}}}>
+                    <Stack direction="row" spacing={5} sx={{justifyContent:"flex-start",alignItems:"center",background:{xs:"rgba(0,0,0,.5)",md:"none"},flex:"1"}}>
                     <Avatar src={logo} alt="www.masterconnect.ca" className={styles.logo} variant="square"/>
-                        <Stack direction="row" spacing={1} sx={{ flex: "6", color: { xs: "white", md: "black" } }}>
+                        <Stack direction="row" spacing={1} sx={{ flex: "1", color: { xs: "white", md: "black" } }}>
                             <Button sx={{ color: { xs: "white", md: "black" } }}> Menu</Button>
                             <Button sx={{ color: { xs: "white", md: "black" } }}> Register</Button>
                             <Button sx={{ color: { xs: "white", md: "black" } }}> Extras</Button>
                         </Stack>
                         </Stack>
                     </Grid>
-                    <Grid item xs={12} sm={4}>
-                        <Stack direction="row" spacing={1} sx={{ flex: "6",background:{xs:"rgba(0,0,0,.5)",md:"none"} }}>
+                    <Grid item xs={4} sm={4} sx={{display:{sm:"block",xs:"none"}}}>
+                        <Stack direction="row" spacing={1} sx={{ flex: "1",background:{xs:"rgba(0,0,0,.5)",md:"none"} }}>
                             <Button sx={{ color: { xs: "white", md: "black" } }}> log-in</Button>
                         </Stack>
                     </Grid>

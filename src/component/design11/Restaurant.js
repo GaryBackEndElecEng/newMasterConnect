@@ -32,6 +32,11 @@ flex-direction:column;
 justify-content:flex-start;
 align-items:center;
 position:relative;
+animation:restoAppearIn 1.5s ease-in;
+@keyframes restoAppearIn {
+     from {opacity:0;}
+     to {opacity:1;}
+}
 @media screen and (max-width:900px){
     margin-top:-25px;
 }

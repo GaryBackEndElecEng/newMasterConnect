@@ -116,6 +116,32 @@ h1,h2{font-family:var( --font-family)}
     }
 }
 /*----------- STARPROJCONTACT END--------------- */
+/*----------- SERVICEITEM END--------------- */
+.nameFontStyleOn{
+background-clip:text !important;
+-webkit-background-clip:text !important;
+-webkit-text-stroke:1px white !important;
+background-image:var(--background-service);
+background-size:100% 100%;
+background-position:50% 50%;
+color:transparent;
+transition:background-size 1.5s ease-in;
+
+}
+.nameFontStyleOff{
+background-clip:text;
+-webkit-background-clip:text;
+-webkit-text-stroke:1px white;
+background-image:var(--background-service);
+background-size:200% 200%;
+background-position:50% 50%;
+color:transparent;
+transition:background-size 1.5s ease-in;
+
+}
+/*----------- SERVICEITEM END--------------- */
+
+
 /*----------- FAQS END--------------- */
 
 .QAGrid{

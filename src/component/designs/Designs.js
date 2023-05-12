@@ -2,7 +2,7 @@ import React from "react";
 import { GeneralContext } from "../../context/GeneralContextProvider";
 import styles from "./design.module.css";
 // import { Container, Typography, Stack, IconButton } from "@mui/material";
-// import styled from "styled-components";
+import styled from "styled-components";
 import Banner1 from './Banner1';
 import BannerTop from './BannerTop';
 import MasterProduct from './MasterProduct';
@@ -10,7 +10,21 @@ import ContactInfo from './ContactInfo';
 import CoverPage from './CoverPage';
 
 
+const CustMainDesign=styled.div`
+min-height:280vh;
+  width:100vw;
+  margin:0;
+  padding:0;
+  margin-top:-50px;
+  box-sizing:border-box;
+  background:var( --background-design);
+  animation: designIn 1s ease-in;
+  @keyframes designIn {
+    from { opacity:0;}
+    to { opacity:1;}
+  }
 
+`;
 
 const Designs = () => {
   const { productDesigns,contactInfo,staticImage,open, setOpen } = React.useContext(GeneralContext);
@@ -45,7 +59,7 @@ const Designs = () => {
   }, [productDesigns.loaded,productDesigns.data]);
 
   return (
-    <div className={styles.mainDesign} >
+    <CustMainDesign className={styles.mainDesign} >
       <CoverPage getWidth={getWidth} />
       <BannerTop/>
       
@@ -60,7 +74,7 @@ const Designs = () => {
       <Banner1/>
     <ContactInfo contactInfo={contactInfo} />
       
-    </div>
+    </CustMainDesign>
   );
 };
 

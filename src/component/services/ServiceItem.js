@@ -35,10 +35,22 @@ transition: all 1s ease-in-out;
     
 }
 `;
+const CustTypo=styled(Typography)`
+background-clip:text !important;
+-webkit-background-clip:text !important;
+-webkit-text-stroke:1px white !important;
+background-image:${({backgroundimage})=>backgroundimage};
+background-size:${({backgroundsize})=>backgroundsize};
+background-position:50% 50%;
+color:transparent;
+transition:background-size 1.75s ease-in;
+`;
+
 const ServiceItem = ({obj}) => {
     const [fontSize,setFontSize]=React.useState(null);
     const servRef=React.useRef();
     const [show,setShow]=React.useState(null);
+    const [show1,setShow1]=React.useState(null);
     const [newObj,setNewObj]=React.useState({});
   const threshold= window.innerWidth < 600? 0.2 : 0.7;
     
@@ -66,6 +78,7 @@ const ServiceItem = ({obj}) => {
     React.useEffect(()=>{
         const observer=new IntersectionObserver((entries)=>{
             let entry=entries[0];
+            setShow1(entry.isIntersecting)
             if(entry.isIntersecting){
                 setShow(true);
             }
@@ -93,9 +106,12 @@ const ServiceItem = ({obj}) => {
         >
             <Stack direction="row" sx={{flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
             {newObj.icon}
-          <Typography component="h1" variant={fontSize}>
+          <CustTypo component="h1" variant={fontSize} 
+          backgroundsize={show1 ? "20% 20%":"100% 100%"}
+          backgroundimage={show1 ? "var(--background-service)" : "var(--background-service1)"}
+          >
             {newObj.name}
-          </Typography>
+          </CustTypo>
           </Stack>
         </Stack>
       </Grid>

@@ -63,12 +63,18 @@ const Cover = ({getWidth}) => {
   const logo = `${staticImage}/design2/logoMe.png`;
   const [isLoad, setIsLoad] = React.useState(false);
   const [getPic, setGetPic] = React.useState({ loaded: false, obj: {} });
-  
+  const [isLoaded,setIsLoaded]=React.useState(null);
+  const arr = [endPic, mainPic3];
+React.useEffect(()=>{
+ if(endPic && mainPic3){
+  setIsLoaded(true);
+ }
+},[endPic,mainPic3]);
 
   React.useEffect(() => {
     let count = 0;
-    const arr = [mainPic, stand, mainPic3];
-    setGetPic({ loaded: true, obj: { image: arr[0], animate: `animate${0}` } });
+    // const arr = [endPic, mainPic3];
+    setGetPic({ loaded: true, obj: { image: mainPic, animate: `animate${0}` } });
     const syncLoad = () => {
         setIsLoad(true);
       if (count <= arr.length - 1) {
@@ -87,12 +93,15 @@ const Cover = ({getWidth}) => {
         setIsLoad(false);
       }
     };
-   
+   if(endPic && mainPic3){
     syncLoad();
+   }
     
   }, []);
 
   return (
+    <>
+{isLoaded ?
     <MainCover
       height={getWidth < 600 ? "100dvh" : "100dvh"}
       bgimage={isLoad && getPic.loaded ? getPic.obj.image : endPic}
@@ -137,6 +146,10 @@ const Cover = ({getWidth}) => {
       </Card>
       </div>
     </MainCover>
+    :
+    <div><h5>loading....</h5></div>
+    }
+    </>
   );
 };
 

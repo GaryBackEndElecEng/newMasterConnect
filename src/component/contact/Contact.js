@@ -1,9 +1,10 @@
 import React from 'react';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 import styles from './contact.module.css';
-import {Grid, Container, Typography} from '@mui/material';
+import {Grid, Container, Typography, Stack} from '@mui/material';
 import styled from "styled-components";
 import RequestForm from './RequestForm';
+import SocialMedia from '../about/SocialMedia'
 
 
 
@@ -26,7 +27,7 @@ background: linear-gradient(217deg,
 `;
 
 const Contact = () => {
-  const { staticImage,open, setOpen } = React.useContext(GeneralContext);
+  const { staticImage,open, setOpen ,generalInfo} = React.useContext(GeneralContext);
  
   const cheetah=`${staticImage}/extra/cheetah.png`;
   
@@ -44,8 +45,11 @@ const Contact = () => {
           </Grid>
         </Grid>
         <div className={styles.hr_line}/>
-        
-        
+        <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",width:"100%",marginBottom:"2rem"}}>
+          <div style={{width:"350px"}}>
+        <SocialMedia contactInfo={generalInfo}/>
+        </div>
+        </Stack>
       </Container>
 
     </Main>

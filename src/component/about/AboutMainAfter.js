@@ -27,12 +27,16 @@ const AboutMainAfter = ({getWidth,fontSize}) => {
     
     if(window.innerWidth <600){
       setThisThreshold(0.25);
+    }else{
+      setThisThreshold(0.85);
     }
     const observer= new IntersectionObserver((entries,index)=>{
       entries.forEach(entry=>{
+        
+        
         if(entry.isIntersecting){
         setTurnOn1(true);
-        // console.log("Turned On")
+        
         }
       });
     },{threshold:thisThreshold});

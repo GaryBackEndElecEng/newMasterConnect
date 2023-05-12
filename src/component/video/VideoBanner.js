@@ -75,7 +75,7 @@ const VideoBanner = ({getWidth}) => {
     className={styles.custSectionBanner}
     ref={blockRef}
     opacity={block ? "1":"0"}
-    transformy={block ? "0%":"40%"}
+    transformy={block ? "0%":"15%"}
     >
         <div>
             <CustWordWrapper>

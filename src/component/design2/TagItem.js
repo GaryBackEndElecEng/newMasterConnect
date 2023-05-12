@@ -15,10 +15,10 @@ height:400px;
 background-image:url(${({bgimage})=>bgimage});
 filter:saturate(2);
 background-position:50% 27%;
-background-size:100% ${({selected})=>selected ? "200" : "100"}%;
+background-size:100% ${({backgroundsize})=>backgroundsize};
 padding-bottom:1rem;
 margin-bottom:5vh;
-animation:${({selected})=>selected ? "animate":"closeAnimate"} 2s linear;
+animation:${({animation})=>animation} ;
 @keyframes animate {
     from{background-size:100% 100%;}
     to{background-size:100% 200%;}
@@ -33,6 +33,7 @@ animation:${({selected})=>selected ? "animate":"closeAnimate"} 2s linear;
 const TagItem = ({obj}) => {
     const tagRef=React.useRef(null);
     const [selected,setSelected]=React.useState(false);
+    const not600 = window.innerWidth > 600 ? true :false;
 
     React.useEffect(()=>{
         if(!tagRef.current) return;
@@ -56,6 +57,8 @@ const TagItem = ({obj}) => {
         elevation={3} 
         ref={tagRef}
         selected={selected}
+        backgroundsize={selected && not600 ? "200%" :"100%"}
+        animation={selected && not600 ? "animate 2s linear":"closeAnimate 2s linear"}
         >
         
         <CardContent>

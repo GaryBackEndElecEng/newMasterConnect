@@ -80,7 +80,8 @@
 }
 .turnOn{
     opacity:1;
-    transition:opacity 1.5s ease-in-out;
+    transform:translateX(0%);
+    transition:all 1.5s ease-in-out;
 }
 .fontEffect{
     font-size:800%;
@@ -92,10 +93,12 @@
 }
 .turnOff{
     opacity:0;
-    transition:opacity 1.5s ease-in-out;
+    transform:translateY(12%);
+    transition:all 1.5s ease-in-out;
 }
 .aboutMainAfterTurnOn1{
     opacity:1;
+    transform:translateX(0%);
     animation:moveUp 1s ease-in-out;
 }
 @keyframes moveUp{

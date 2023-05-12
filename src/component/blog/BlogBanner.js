@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { GeneralContext } from "../../context/GeneralContextProvider";
 import styles from "./blog.module.css";
 import styled from "styled-components";
-import { Stack, Grid, Typography, Button } from "@mui/material";
+import { Stack, Grid, Typography, Button, Fab } from "@mui/material";
 // import api from "../axios/api";
 import GetBlogs from './GetBlogs';
 import GetArticles from './GetArticles';
@@ -68,7 +68,9 @@ const CustContainer = styled(Grid)`
 `;
 
 const BlogBanner = ({ getWidth }) => {
-  // const { staticImage2, staticImage } = React.useContext(GeneralContext);
+  const navigate=useNavigate();
+  const {  staticImage } = React.useContext(GeneralContext);
+  const customPage=`${staticImage}/customPage.png`;
   const [openBlog, setOpenBlog] = React.useState(false);
   const [openArticle, setOpenArticle] = React.useState(false);
   const [sticky,setSticky]=React.useState(false);
@@ -113,7 +115,9 @@ const BlogBanner = ({ getWidth }) => {
     setOpenBlog(false);
     setOpenArticle(false);
   };
-//   console.log(sticky,stickyYRef)
+  const handleContact=(e)=>{
+    navigate("/contact")
+  }
   return (
     <CustBlogBanner
       className={styles.custBlogBanner}
@@ -183,6 +187,12 @@ const BlogBanner = ({ getWidth }) => {
             <Typography component={"h1"} variant="h5" sx={{color:"black",margin:"1rem auto"}}>
               Blogs for the mind
             </Typography>
+            <div style={{position:"relative",maxWidth:"370px",isolation:"isolate",textAlign:"center",marginTop:"1rem"}}>
+              <img src={customPage} alt="www.masterconnect.ca" style={{maxWidth:"100%",paddingInline:2}}/>
+              <Fab color="primary" size="medium" variant="extended" onClick={(e)=>handleContact(e)}
+              sx={{marginTop:"1rem"}}
+              >send us a note</Fab>
+            </div>
             </Stack>
           )}
           {openArticle && (
@@ -193,6 +203,12 @@ const BlogBanner = ({ getWidth }) => {
             <Typography component={"h1"} variant="h5" sx={{color:"black",margin:"1rem auto"}}>
               Articles for the mind
             </Typography>
+            <div style={{position:"relative",maxWidth:"370px",isolation:"isolate",textAlign:"center",marginTop:"1rem"}}>
+              <img src={customPage} alt="www.masterconnect.ca" style={{maxWidth:"100%",paddingInline:2}}/>
+              <Fab color="primary" size="medium" variant="extended" onClick={(e)=>handleContact(e)}
+              sx={{marginTop:"1rem"}}
+              >send us a note</Fab>
+            </div>
             </Stack>
           )}
           </div>

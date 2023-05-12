@@ -52,6 +52,14 @@
     linear-gradient(136deg, rgba(6, 216, 253, 0.8), rgb(165, 235, 245) 50% );
     --background-designs-chat:linear-gradient(0.5turn, violet, indigo, green, blue, yellow, orange, red);
     --background-resto:linear-gradient(0.5turn, rgb(8, 4, 250), rgb(93, 90, 243), rgb(10, 179, 247), rgb(7, 215, 252), yellow, rgb(248, 233, 16), red);
+    --background-service:            
+    linear-gradient(to left, rgb(248, 6, 6), rgb(251, 252, 252) 55% );
+    --background-service1:            
+    linear-gradient(to right, rgb(248, 6, 6), rgb(7, 222, 250) 55% );
+    --background-icon-right:            
+    linear-gradient(217deg, rgb(10, 0, 0), rgb(251, 252, 252) 25% );
+    --background-icon-left:            
+    linear-gradient(37deg, rgb(15, 0, 0), rgb(251, 252, 252) 25% );
   }
   .App {
     margin:0;padding:0;
