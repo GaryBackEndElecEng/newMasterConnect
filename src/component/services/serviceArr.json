@@ -3,46 +3,51 @@
     "subname":"OUR SPECIALITY",
     "subname2":"Excite/Explore/Expand",
     "desc":[
-        "We at masterconnect,are precocious,passionate and driven-and we never settle for less than extraordinary. Our team is focused upon exciting the impulse to explore. Our websites are custom-crafted to captive,inspire, and then..conquer.",
+        "We at masterconnect are precocious, passionate and driven - we settle for the extraordinary. We are focused upon exciting the need to explore. Our websites are custom crafted to inspire and captivate your viewer for maximum exposure.",
 
-    "Our designers and developers have the vision and talent to make a website come alive- and perform at the max. nothing is left to chance, and each design element entices users to move further in. Your audience will feel pleasure when interacting with your business online. More pleasure= more customers. Time to redesign? let's get visionary."
+    "We make your website come alive in the aim to maintain interest. We design each element to entice your user to further explore. Our goal is to transform the look and feel of professionalism to your website - to ensure consumer confidence. Let us show you our magic. Our services include..."
 ],
     "items":[
     {
         "id":1,
-        "name":"Visual Design",
-        "desc":"We have penetrated the misteries of emmotional response to color,space,and eye-tracking design. Every element is geared to create maximum appeal. Our designs are blueprinted to make the first contact simply impossible to ignore. The visual appeal is the first impression of your brand-we make it count."
+        "name": "Visual Design",
+        "desc": "We have penetrated the misteries of emmotional response to color and space to maintain eye-tracking effects. Every element is geared to create maximum appeal. Our designs are blueprinted to make the first contact simply impossible to ignore. The first impression impacts your brand - Let's create !."
     },
     {
         "id":2,
-        "name":"Development",
-        "desc":"Our team has expert knowledge in all current technological advancements.Every detail is evaluated to ensure that the site performs for ultimate user pleasure and engagement. We insist upon a flawless user experience.",
+        "name": "Development",
+        "desc": "We have expert knowledge in all current technological advancements. Every detail is evaluated to ensure that the site performs for the ultimate user pleasure and engagement - flawless user experience.",
         "icon":""
     },
     {
         "id":3,
-        "name":"CMS Design & Implementation",
-        "desc":"Your website is a living, breathing soul - responsive to the touch. Our content management system techniques (CMS) allows peak performance, frequently updated, and above all - relevant. Our process is ongoing to breath life into the website and meet technological and user expectations renewals. There is nothing static about our approach - our CMS techniques allows for maximum impact with mnimal effort."
+        "name": "CMS Design & Impl.",
+        "desc": "Your website is a living, breathing soul - responsive to the touch. Our content management system techniques (CMS) allows peak performance, frequently updated, and above all - relevancy. Our process is ongoing to breath life into the website and meet technological and user expectations renewals. Our CMS techniques allows for maximum impact with mnimal effort on your side - let automation perform."
     },
     {
         "id":4,
-        "name":"Ecommerce",
-        "desc":"We provide a range of eccommerce solutions including custom shopping cart platforms and a range of pre-built platforms. From the smallest to the largest online stores, to perfect ecommerce enviroment to inspire trust and frequent user revisits, time and again."
+        "name": "Ecommerce",
+        "desc": "We provide a range of eccommerce solutions including custom shopping cart platforms and a range of pre-built platforms as well as integrated solutions. From the smallest to the largest online stores, to perfect ecommerce enviroment to inspire trust and frequent user revisits, time and again - pulling traffic to your site begins with a statement."
     },
     {
         "id":5,
-        "name":"Campaign Microsites",
-        "desc":"We work with all sizes of corporations to create microsites to reach targeted buyer personsonas and promote specific products. Watch the magic happen when our creative team get involved in your marketing initiatives by building microsites taht perform."
+        "name": "Campaign Microsites",
+        "desc": "We work with all sizes of corporations to create microsites to reach targeted buyer personsonas and promote specific products through story display - new and mobile content travels."
     },
     {
         "id":6,
-        "name":"Website Redesign Services",
-        "desc":"It takes a split second for a user to form an opinion about your company through the eye of a website. The first impression is a response to visual design elements on the page. We focus on first-appearance-interests through cognitive easing and the reason to why the landing page is teh most important page to a site. We can transform a clunky, outdated website into something fresh and appealing and fully optimized for mobile devices."
+        "name": "Website Redesign Serv(s)",
+        "desc": "It takes a split second for a user to form an opinion about your company through the eye of a website. The first impression is a response to visual design elements on the page. We focus on first-appearance-interests through cognitive easing and the reason to why the landing page is the most important page to a site - new content boosts hits and 1st impression lasts a lifetime."
     },
     {
-        "id":6,
-        "name":"Website maintenance Services",
-        "desc":"It would be nice if you could simply build a website, launch it, and get rewarded from profits and revenues. Website maintenance keeps your online presence relevant and up-to-date. The website browsers are continually being udated with new relevant performance enhancing features on a yearly basis. We know the drill and manage the details so that the performance never falters."
+        "id":7,
+        "name": "Maintenance Serv(s)",
+        "desc": "It would be nice if you could simply build a website, launch it, and get rewarded from profits and revenues. Website maintenance keeps your online presence relevant and up-to-date. The website browsers are continually being updated with new relevant performance enhancing features on a yearly basis. We know the drill and manage the details so that the performance never falters."
+    },
+    {
+        "id":8,
+        "name": "SEO",
+        "desc": "Google and other search engine provider are like librarian, pulling information about your site and catalogging the results so that your site can be found. We provide SEO services to bring your site discovery to a new level and more hits - its not just the word list, its also the formatting. Let us show you."
     }
 ]
 }

@@ -193,6 +193,32 @@ color:white;
     font-size:400%;
     animation:moveAlways2 30s linear infinite reverse;
   }
+  .fontStyleNormal{
+    margin:auto;
+    font-family: var(--font-family);
+    background-image: var(--background-image-1-left);
+    background-size:150% 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom:0.62rem;
+    font-size:400%;
+    
+  }
+  .fontStyleNormalSpan{
+    margin:auto;
+    font-family: var(--font-family);
+    background-image: var(--background-image-1-left);
+    background-size:150% 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom:0.62rem;
+    
+    
+  }
   
   .designCompanyOn{
     margin:auto ;
@@ -305,7 +331,7 @@ color:white;
         background-clip: text;
         color: transparent;
         margin-bottom:0.62rem;
-        font-size:250%;
+        font-size:200%;
         animation:moveAlways2 30s linear infinite reverse;
       
     }

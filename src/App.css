@@ -47,13 +47,13 @@
     --background-section-blog:linear-gradient(217deg, rgba(17, 1, 48, 0.8), rgb(247, 243, 243) 20% );
     --background-section-blog-sm:linear-gradient(217deg, rgba(17, 1, 48, 0.8), rgb(247, 243, 243) 5% );
     --background-FaqQuestion:            
-    linear-gradient(217deg, rgb(248, 6, 6), rgb(2, 46, 48) 15% );
+    linear-gradient(217deg, rgb(6, 200, 248), white 15% );
     --background-wedding:            
-    linear-gradient(136deg, rgba(6, 216, 253, 0.8), rgb(165, 235, 245) 50% );
+    linear-gradient(136deg, rgba(6, 216, 253, 0.8), rgb(165, 240, 245) 50% );
     --background-designs-chat:linear-gradient(0.5turn, violet, indigo, green, blue, yellow, orange, red);
     --background-resto:linear-gradient(0.5turn, rgb(8, 4, 250), rgb(93, 90, 243), rgb(10, 179, 247), rgb(7, 215, 252), yellow, rgb(248, 233, 16), red);
     --background-service:            
-    linear-gradient(to left, rgb(248, 6, 6), rgb(251, 252, 252) 55% );
+    linear-gradient(to left, rgb(7, 222, 250), rgb(248, 6, 6) 85% );
     --background-service1:            
     linear-gradient(to right, rgb(248, 6, 6), rgb(7, 222, 250) 55% );
     --background-icon-right:            
@@ -66,7 +66,7 @@
     font-family:var(--font-family);
     
   }
-  h1,h2,h3,h4,h5,h6{font-family:var( --font-family);color:"white"}
+  h1,h2,h3,h4,h5,h6,span,p{font-family:var( --font-family);color:"white"}
   
   .Appcenter{
     margin:0;
@@ -78,6 +78,9 @@
     display:flex;
     width:100vw;
     
+  }
+  .Appcenter h1, .Appcenter span, .Appcenter p {
+    font-family:var(--font-family);
   }
 
 img.sixDegreeCalc {

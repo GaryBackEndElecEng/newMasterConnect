@@ -85,7 +85,7 @@ const Services = () => {
         
               <Box sx={{marginTop:"10vh",padding:"auto 10px",marginRight:{xs:"auto",sm:"auto"}}}>
                 <Box style={{ margin: {md:" 2vh auto",xs:"auto"},overflow:"hidden", }}>
-                  <Typography component="h1" variant="h5" sx={{marginLeft:"16px"}}>
+                  <Typography component="h1" variant="h5" >
                    {arr.data.subname}
                   </Typography>
                   <p className={styles.title}>{arr.data.name}</p>
@@ -132,7 +132,7 @@ const Services = () => {
                   
                   </Grid>
                   <Grid item xs={12} sm={12} md={8} className={styles.ourSpeciality} sx={{padding:"1rem"}}>
-                    <Typography component="h1" variant="h5" sx={{color:"white"}}>
+                    <Typography component="h1" variant="h5" sx={{color:"white",fontFamily:"var(--font-family)"}}>
                     {arr.data.subname2}
                     </Typography>
                     {arr.data.desc.map(((obj,index)=>(
@@ -140,7 +140,7 @@ const Services = () => {
                     <Typography
                       component="h2"
                       variant="h5"
-                      sx={{ margin: "5rem auto",color:"white",paddingLeft:{sm:"10px",md:"auto",xs:"5px"},paddingRight:{sm:"10px",md:"auto",xs:"5px"} }}
+                      sx={{ margin: "5rem auto",color:"white",paddingLeft:{sm:"10px",md:"auto",xs:"5px"},paddingRight:{sm:"10px",md:"auto",xs:"5px"},fontFamily:"var(--font-family)" }}
                     >
                       {obj}
                     </Typography>

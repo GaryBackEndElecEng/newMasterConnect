@@ -7,7 +7,9 @@ const CustMainCover=styled.div`
 margin:auto 25px;
 padding:4rem 2rem;
 width:100%;
-height:90vh;
+min-height:90vh;
+overflow-x:hidden;
+overflow-y:auto;
 position:relative;
 top:20%;
 background-color:black;
@@ -17,7 +19,7 @@ animation:appearIn 1s ease-in-out;
     to {opacity:1;}
 }
 @media screen and (max-width:900px){
-    height:1000px;
+    height:130vh;
     padding:auto;
 }
 @media screen and (max-width:600px){

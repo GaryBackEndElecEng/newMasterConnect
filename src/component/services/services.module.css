@@ -1,9 +1,6 @@
 *{margin:0; padding:0; box-sizing: border-box;}
 
-:root{
-   
-    --font-family:"'Philosopher', sans-serif";
-}
+
 
 /*----------- top level--------------- */
 /* GENERAL */
@@ -38,10 +35,10 @@ padding-bottom:5vh;
 .backgroundMain >div{
     margin:auto;
 }
-h1,h2{font-family:var( --font-family)}
+
 .title{
     font-family: var(--font-family);
-    font-size:1200%;
+    font-size:1000%;
     background-image:var( --background-text-1);
     -webkit-background-clip:text;
     -moz-background-clip: text;
@@ -58,23 +55,28 @@ h1,h2{font-family:var( --font-family)}
     flex-wrap:nowrap
 
 }
-@media screen and (max-width:900px){
-    .title{
-        font-size:600%;
-    }
-}
-@media screen and (max-width:600px){
-    .title{
-        font-size:550%;
-       
-    }
-}
 .hr_line{
     height:1.5px;
     width:62%;
     background:var(--background-text-1);
     margin:5rem auto;
 }
+
+@media screen and (max-width:900px){
+    .title{
+        font-size:600%;
+    }
+    .hr_line{
+        margin:2rem auto;
+    }
+}
+@media screen and (max-width:600px){
+    .title{
+        font-size:450%;
+       
+    }
+}
+
 /*----------- top level END--------------- */
 /*----------- STARPROJCONTACT--------------- */
 
@@ -139,6 +141,7 @@ color:transparent;
 transition:background-size 1.5s ease-in;
 
 }
+
 /*----------- SERVICEITEM END--------------- */
 
 

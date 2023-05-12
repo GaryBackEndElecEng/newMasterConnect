@@ -4,12 +4,12 @@ import {GeneralContext} from '../../context/GeneralContextProvider';
 import styles from "./navbar.module.css";
 import styled from 'styled-components';
 import { IconButton, Typography,Grid } from "@mui/material";
-import InfoIcon from "@mui/icons-material/Info";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import NewspaperIcon from "@mui/icons-material/Newspaper";
-import RssFeedIcon from "@mui/icons-material/RssFeed";
-import HomeIcon from "@mui/icons-material/Home";
+// import InfoIcon from "@mui/icons-material/Info";
+// import ContactMailIcon from "@mui/icons-material/ContactMail";
+// import DesignServicesIcon from "@mui/icons-material/DesignServices";
+// import NewspaperIcon from "@mui/icons-material/Newspaper";
+// import RssFeedIcon from "@mui/icons-material/RssFeed";
+// import HomeIcon from "@mui/icons-material/Home";
 
 const CustNav=styled.nav.attrs({className:styles.custNav})`
 position:fixed;
@@ -67,7 +67,7 @@ cursor:pointer;
 }
 
 `;
-const CustNavGrid=styled(Grid).attrs({className:styles.custNavGridList})`
+const CustNavGrid=styled(Grid)`
 opacity:${({open})=>open ? "1":"0"};
 width:${({open})=>open ? "100":"0"}%;
 height:${({open})=>open ? "auto":"0px"};
@@ -78,15 +78,19 @@ padding:10px;
 transform:${({open})=>open ? "scale(1)":"scale(0)"};
 transition: all 0.75s ease-in-out;
 color: white;
+@media screen and (max-width:600px){
+  gap:0px;
+  padding-inline:5px;
+}
 `;
-const CustGridChild=styled(Grid).attrs({className:styles.custGridChild})`
+const CustGridChild=styled(Grid)`
 display:${({open})=>open ? "flex":"none"};
 opacity:${({open})=>open ? "1":"0"};
 width:auto;
 height:auto;
 margin:auto;
 justify-self: space-around;
-align-items: space-around;
+align-items: center;
 flex-direction:row;
 flex-wrap:nowrap;
 padding:5px;
@@ -95,6 +99,15 @@ transition: all 0.75s ease-in-out;
 color: white;
 box-shadow:1px 1px 4px 1px white;
 cursor:pointer;
+@media screen and (max-width:600px){
+ 
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  padding:2px;
+  margin:0px;
+}
 `;
 
 
@@ -106,6 +119,8 @@ const Navbar = () => {
   const [activate,setActivate]=React.useState(null);
   const is600=window.innerWidth <600 ? true : false;
   const is900=window.innerWidth <900 && window.innerWidth >600 ? true: false;
+  const iconbuttonFontsize=is600 ? "8px":"none";
+
   React.useEffect(() => {
     setGetWidth(window.innerWidth);
     setOpen(false);
@@ -174,6 +189,7 @@ const Navbar = () => {
             open={open}
             className={styles.custNavGridList}
             onMouseOut={(e)=>handleClose(e)}
+            spacing={1}
             >
               {navList && navList.map((obj,index)=>(
               <CustGridChild
@@ -185,10 +201,10 @@ const Navbar = () => {
               md={4} 
               onClick={(e) => handleNavigate(e, obj.link)}
               >
-                <IconButton>
+                <IconButton >
                   {obj.icon}
                 </IconButton>
-                <Typography component="h1" variant="h6" sx={{color:"white"}}>
+                <Typography component="h1" variant={is600 ? "body1" : "h6"} sx={{color:"white"}}>
                   
                   {obj.name}
                 </Typography>

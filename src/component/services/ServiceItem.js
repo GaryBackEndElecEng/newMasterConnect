@@ -10,25 +10,34 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import WebIcon from '@mui/icons-material/Web';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import EngineeringIcon from '@mui/icons-material/Engineering';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 const icons_=[
-    {name:"Visual Design",icon:< BrushIcon sx={{mr:2,color:'red',fontSize:{sm:"30px",md:"40px"}}}/>},
-    {name:"Development",icon:< DeveloperBoardIcon sx={{mr:2,color:'red',fontSize:{sm:"30px",md:"40px"}}}/>},
-    {name:"CMS Design & Implementation",icon:< ManageAccountsIcon sx={{mr:2,color:'red',fontSize:{sm:"30px",md:"40px"}}}/>},
-    {name:"Ecommerce",icon:< StorefrontIcon sx={{mr:2,color:'red',fontSize:{sm:"30px",md:"40px"}}}/>},
-    {name:"Campaign Microsites",icon:< WebIcon sx={{mr:2,color:'red',fontSize:{sm:"30px",md:"40px"}}}/>},
-    {name:"Website Redesign Services",icon:< DesignServicesIcon sx={{mr:2,color:'red',fontSize:{sm:"30px",md:"40px"}}}/>},
-    {name:"Website maintenance Services",icon:< EngineeringIcon sx={{mr:2,color:'red',fontSize:{sm:"30px",md:"40px"}}}/>},
+    {id:1,name:"Visual Design",icon:< BrushIcon sx={{mr:2,fontSize:{sm:"30px",md:"40px"}}}/>},
+    {id:2,name:"Development",icon:< DeveloperBoardIcon sx={{mr:2,fontSize:{sm:"30px",md:"40px"}}}/>},
+    {id:3,name:"CMS Design & Impl.",icon:< ManageAccountsIcon sx={{mr:2,fontSize:{sm:"30px",md:"40px"}}}/>},
+    {id:4,name:"Ecommerce",icon:< StorefrontIcon sx={{mr:2,fontSize:{sm:"30px",md:"40px"}}}/>},
+    {id:5,name:"Campaign Microsites",icon:< WebIcon sx={{mr:2,fontSize:{sm:"30px",md:"40px"}}}/>},
+    {id:6,name:"Website Redesign Serv(s)",icon:< DesignServicesIcon sx={{mr:2,fontSize:{sm:"30px",md:"40px"}}}/>},
+    {id:7,name:"Maintenance Serv(s)",icon:< EngineeringIcon sx={{mr:2,fontSize:{sm:"30px",md:"40px"}}}/>},
+    {id:8,name:"Maintenance Serv(s)",icon:< QueryStatsIcon sx={{mr:2,fontSize:{sm:"30px",md:"40px"}}}/>},
 ]
 
 const CustGrid=styled(Grid)`
 justify-content:center;
 align-items:center;
-margin:auto;
+margin:0;
+padding-inline:1rem;
+padding-block:0;
 
 opacity:${({opacity})=>opacity };
 transform: translateY(${({transformy})=>transformy});
 transition: all 1s ease-in-out;
+@media screen and (max-width:900px){
+    // margin:auto 0.5rem;
+    // margin-left:0px;
+    
+}
 @media screen and (max-width:600px){
     margin:auto 16px;
     margin-left:0px;
@@ -38,12 +47,12 @@ transition: all 1s ease-in-out;
 const CustTypo=styled(Typography)`
 background-clip:text !important;
 -webkit-background-clip:text !important;
--webkit-text-stroke:1px white !important;
+-webkit-text-stroke:1px ${({strokecolor})=>strokecolor} !important;
 background-image:${({backgroundimage})=>backgroundimage};
 background-size:${({backgroundsize})=>backgroundsize};
 background-position:50% 50%;
 color:transparent;
-transition:background-size 1.75s ease-in;
+transition:all 1.75s ease-in;
 `;
 
 const ServiceItem = ({obj}) => {
@@ -52,12 +61,13 @@ const ServiceItem = ({obj}) => {
     const [show,setShow]=React.useState(null);
     const [show1,setShow1]=React.useState(null);
     const [newObj,setNewObj]=React.useState({});
-  const threshold= window.innerWidth < 600? 0.2 : 0.7;
+  const threshold= window.innerWidth < 600 ? 0.5 : 1;
+  const iconColor= show1 ? {color:"blue",transition:"color 1.5s ease-in"} :{color:"red",transition:"color 1.5s ease-in"}
     
 
     React.useEffect(()=>{
         icons_.forEach(ob=>{
-            if(obj.name===ob.name){
+            if(obj.id===ob.id){
                 let aa={id:obj.id,name:obj.name,desc:obj.desc,icon:ob.icon}
               setNewObj(aa)
             }
@@ -66,12 +76,12 @@ const ServiceItem = ({obj}) => {
 
     React.useEffect(()=>{
         if(window.innerWidth<900){
-            setFontSize("h2");
+            setFontSize("h4");
         }if(window.innerWidth<600){
-            setFontSize("h3");
+            setFontSize("h4");
 
         }else{
-            setFontSize("h2");
+            setFontSize("h3");
 
         }
     },[]);
@@ -85,7 +95,7 @@ const ServiceItem = ({obj}) => {
         },{threshold:threshold});
         if(servRef.current){
             observer.observe(servRef.current);
-            return ()=>observer.disconnect();
+            // return ()=>observer.disconnect();
         }
     },[]);
   return (
@@ -99,27 +109,29 @@ const ServiceItem = ({obj}) => {
       
     >
       <div className={styles.hr_line} />
-      <Grid item xs={12} md={7}>
+      <Grid item xs={12} md={6}>
         <Stack
           direction="column"
           sx={{ justifyContent: "center", alignItems: "center" }}
         >
             <Stack direction="row" sx={{flexWrap:"wrap",justifyContent:"center",alignItems:"center"}}>
-            {newObj.icon}
+           <span style={iconColor}> {newObj.icon}</span>
           <CustTypo component="h1" variant={fontSize} 
-          backgroundsize={show1 ? "20% 20%":"100% 100%"}
+          backgroundsize={show1 ? "50% 100%":"150% 200%"}
           backgroundimage={show1 ? "var(--background-service)" : "var(--background-service1)"}
+          strokecolor={show1 ? "white":"blue"}
           >
             {newObj.name}
           </CustTypo>
           </Stack>
         </Stack>
       </Grid>
-      <Grid item xs={12} md={5}>
+      <Grid item xs={12} md={6}>
         <Typography component="h1" variant="h6" sx={{paddingLeft:{sm:"10px",md:"auto",xs:"5px"},paddingRight:{sm:"10px",md:"auto",xs:"5px"}}}>
           {newObj.desc}
         </Typography>
       </Grid>
+      
     </CustGrid>
   );
 };

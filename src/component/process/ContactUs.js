@@ -13,7 +13,7 @@ margin:0rem auto;
 margin-bottom:2rem;
 width:100vw;
 min-height:50vh;
-opacity:${({contactOpen})=>contactOpen ? "1":"0"};
+opacity:${({opacity})=>opacity};
 display: flex;
 justify-content:space-around;
 align-items:center;
@@ -21,16 +21,19 @@ flex-wrap:wrap;
 background-image:url(${({bgimage})=>bgimage});
 background-size:100% 100%;
 background-position: 100% 100%;
-animation: ${({contactOpen})=>contactOpen ? "growUp":""} 2s ease-in-out;
+filter:saturate(${({saturate})=>saturate});
+animation: ${({animation})=>animation} ;
 
 @keyframes growUp {
     from {opacity:0;transform:translateY(-70%);
         background-size:200% 200%;
         background-position:0% 0%;
+        filter:saturate(1);
     }
     to {opacity:1;transform:translateY(0%);
         background-size:100% 100%;
         background-position:50% 50%;
+        filter:saturate(2);
     }
 }
 @media screen and (max-width:900px){
@@ -42,10 +45,12 @@ animation: ${({contactOpen})=>contactOpen ? "growUp":""} 2s ease-in-out;
         from {opacity:0;transform:translateY(-70%);
             background-size:200% 200%;
             background-position:0% 0%;
+            filter:saturate(1);
         }
         to {opacity:1;transform:translateY(0%);
             background-size:300% 100%;
             background-position:45% 100%;
+            filter:saturate(2);
         }
     }
 }
@@ -83,9 +88,12 @@ const ContactUs = () => {
 
   return (
     <CustProcessContact
-    contactOpen={contactOpen}
+    
+    opacity={contactOpen ? "1":"0"}
+    animation={contactOpen ? "growUp 2s ease-in-out":""}
     ref={contactRef}
     bgimage={zebra1}
+    saturate={contactOpen ? "2":"1"}
     className={styles.custProcessContact}
     >
         <Stack direction="column" spacing={2}>

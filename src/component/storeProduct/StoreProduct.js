@@ -39,9 +39,7 @@ const StoreProduct = () => {
     const location=useLocation();
     const pathname=location.pathname;
     const theme = useTheme();
-    const { setTitle, setStyleName, staticImage,getPathLocation,pageRatings,average ,getProductDesigns} = useContext(GeneralContext);
-    const {paid}=useContext(TokenAccessContext);
-    const {getProductList}=useContext(PriceContext);
+    const { setTitle, setStyleName, staticImage,getPathLocation,pageRatings,average ,productDesigns} = useContext(GeneralContext);
     const [showPurchaseBtn, setShowPurchaseBtn] = useState(false);
     const [getVidComps, setGetVidComps] = useState({});
     const [autoPlay, setAutoPlay] = useState(true);
@@ -64,17 +62,17 @@ const StoreProduct = () => {
         if(pageRatings.loaded && pageRatings.data){
             setPageRatingHelmet(pageRatings.data.filter(obj=>(obj.page===pathname)))
         }
-        if(getProductDesigns.loaded){
-            let obj=getProductDesigns.data.filter(obj=>(obj.name==="Product Front page"))[0];
+        if(productDesigns.loaded){
+            let obj=productDesigns.data.filter(obj=>(obj.name==="Product Front page"))[0];
             setOBJ(obj)
             
         }
-    },[pathname,pageRatings,getProductDesigns.loaded,getProductDesigns.data]);
+    },[pathname,pageRatings,productDesigns.loaded,productDesigns.data]);
 
     useEffect(() => {
         let tempArr = [];
         const arr2 = [mangrave1, mangrave2, mangrave3];
-        const storeProduct=(getProductList.loaded && getProductList.data) ? getProductList.data.filter(obj=>(obj.extra_kwargs===pathname))[0]:null;
+        const storeProduct=(productDesigns.loaded && productDesigns.data) ? productDesigns.data.filter(obj=>(obj.extra_kwargs===pathname))[0]:null;
             arr2.forEach((img,index)=>{
                 tempArr.push({id:index,image:img,title:"Sample product"})
             });
@@ -84,7 +82,7 @@ const StoreProduct = () => {
             setKeyWords("store page","man-cave","master-connect","Great Web designs!!","it's a must see!","great product"," Great Design");
         
 
-    }, [mangrave1, mangrave2, mangrave3,pathname,getProductList]);
+    }, [mangrave1, mangrave2, mangrave3,pathname,productDesigns]);
 
     useEffect(() => {
         setTitle("Product Page");
@@ -169,13 +167,9 @@ const StoreProduct = () => {
                     <Player src={video} bgChanged={bgChanged}/>
                 </Grid>
             </Grid>
-            <Included product={OBJ ? OBJ:null} staticImage={staticImage}/>
+          
             <PageFeedback />
-                {!paid && <Stack direction="column" sx={{ margin: "1rem auto" }}>
-                    {showPurchaseBtn ? <UserSignedInPurchaseBtn />
-                        :
-                        <ModalContainer />}
-                </Stack>}
+                
         </MainProductDiv>
 
     )

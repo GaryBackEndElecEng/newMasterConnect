@@ -18,7 +18,7 @@ cursor:pointer;
 const CustFaqAnswer = styled(Box)`
 margin:auto 2px;
 opacity:${({opacity})=>opacity};
-background:var(--background-FaqQuestion);
+background:white;
 height:${({height1})=>height1};
 transition:all 1s linear;
 @media screen and (max-width:900px){
@@ -38,6 +38,7 @@ const FaqItem = ({obj,getWidth}) => {
     const [showitem,setShowitem]=React.useState(null);
     const fontSizeChange= openitem ? "120%":null;
     const threshold= getWidth <900 ? 0.3:0.8;
+    const bold= showitem ? "bold":"400";
     
 
     React.useEffect(() => {
@@ -68,7 +69,6 @@ const FaqItem = ({obj,getWidth}) => {
     }
   return (
     <CustFaqItem
-    openitem={openitem}
     onClick={(e)=>handleClickShow(e)}
     margin={openitem ? "3rem 0":"2rem 0"}
     opacity={openitem ? "1":"0.5"}
@@ -79,11 +79,11 @@ const FaqItem = ({obj,getWidth}) => {
         <Typography
         component="h1"
         variant="h6"
-        sx={{ margin: "0.5rem 2px",fontSize:fontSizeChange }}
+        sx={{ margin: "0.5rem 2px",fontSize:fontSizeChange,color:"black",fontWeight:bold }}
         >
             {obj.question}
         </Typography>
-           {showitem ? <ArrowDropDownIcon sx={{color:"white",fontSize:"190%"}}/> : <ArrowDropUpIcon sx={{color:"red",fontSize:"190%"}}/> }
+           {showitem ? <ArrowDropDownIcon sx={{color:"white",fontSize:"190%"}}/> : <ArrowDropUpIcon sx={{color:"black",fontSize:"190%"}}/> }
         </Stack>
         
 
@@ -97,7 +97,7 @@ const FaqItem = ({obj,getWidth}) => {
             showitem && <Typography
             component="h1"
             variant="h6"
-            sx={{ margin: "auto" }}
+            sx={{ margin: "auto" ,color:"black"}}
             >
                 {obj.answer}
             </Typography>

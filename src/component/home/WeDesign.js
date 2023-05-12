@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import styled from "styled-components";
 import { Stack, Typography, Container, } from "@mui/material";
 import styles from "./home.module.css";
+import PhraseEffect from './PhraseEffect';
 
 const CustWeDesign = styled.div.attrs({className:styles.mainSection})`
 margin:0 auto;
@@ -36,7 +37,7 @@ transition:all ${({seconds})=>seconds }s linear;
 
 
 
-const WeDesign = () => {
+const WeDesign = ({generalInfo}) => {
     const WebDesignRef2=React.useRef();
     // const WebDesignRef3=React.useRef();
     // const {staticImage2}=React.useContext(GeneralContext);
@@ -95,7 +96,12 @@ const WeDesign = () => {
                     <p className={styles.fontStyleDesignOn}
                     sx={{width:"100%",fontFamily:"'Philosopher', sans-serif"}}
                     >
-                    Digital Stories, Videos and Data Retension through Technology and effects
+                    We specialize in Digital Stories, Videos and Data Retension through Technology and effects
+                    </p>
+                    <p className={styles.fontStyleDesignOn}
+                    sx={{width:"100%",fontFamily:"'Philosopher', sans-serif"}}
+                    >
+                    We Want Your Business
                     </p>
                 
             </div>
@@ -103,41 +109,46 @@ const WeDesign = () => {
                 <Stack direction="column" sx={{justifyContent:"center",alignItems:"flex-start",width:"100%"}}
                
                 >
+                    <p className={styles.fontStyleNormal}
+                    style={{width:"100%"}}
+                    >
+                    Our Values:
+                    </p>
                     <Typography component="h1" variant={sizeLet2}>
                     <span className={styles.fontStyle}>H</span>onor
                     </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif",width:"100%"}}>
-                        We understand the importance of your company's site to its image and virtue.
+                    <Typography component="h1" variant={sizeLet2} style={{width:"100%"}}>
+                        We understand the importance of your company's site to its image and virtue is honorable to us to serve you.
                     </Typography>
                     <Typography component="h1" variant={sizeLet2}>
                     <span className={styles.fontStyle}>I</span>ntegrity
                     </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif"}}>
-                    The wholeness of the design needs to convey your company's values. In understanding this, we commit to your needs.
+                    <Typography component="h1" variant={sizeLet2} >
+                    The wholeness of the design needs to convey your company's values.
                     </Typography>
                     <Typography component="h1" variant={sizeLet2}>
                     <span className={styles.fontStyle}>R</span>eturn
                     </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif"}}>
+                    <Typography component="h1" variant={sizeLet2} >
                     Revenue works on both ends- serving clients well while saving $$$ is core to your business and core to our aim - to meet your expectation.
                     </Typography>
                     <Typography component="h1" variant={sizeLet2}>
                     <span className={styles.fontStyle}>E</span>volution
                     </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif"}}>
-                    We understand that a site's functionality, look and touch reflects your company's texture, appearance and performance. We design & develop with forward thinking to allow your site to grow as you grow - envisioning what will be, is what we do.
+                    <Typography component="h1" variant={sizeLet2} >
+                    We understand that a site's functionality, look and touch reflects your company's texture, appearance, performance and values. We design & develop with forward thinking to incorporate scalability.
                     </Typography>
                     <Typography component="h1" variant={sizeLet2}>
                     <span className={styles.fontStyle}>U</span>nity
                     </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif"}}>
-                    Understanding what you are about, requires harmony and starts with an introduction. We are keen in knowing you. With a listening ear, understanding who you are, allows us to design a unique solution that meets your expectation and differentiates you from others.
+                    <Typography component="h1" variant={sizeLet2} >
+                    Understanding who your are, requires communication discoveries. With united talk, the act, allows us to design with uniqueness to meet your needs.
                     </Typography>
                     <Typography component="h1" variant={sizeLet2}>
                     <span className={styles.fontStyle}>S</span>teadfast
                     </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif"}}>
-                        We are loyal, consistent and devoted to your needs - through hardwork and perserverance. In doing so, allows us to grow with you. In doing so, allows us to becomes friends. 
+                    <Typography component="h1" variant={sizeLet2} >
+                        We are loyal and devoted to your needs, with military backing - much through hardwork and perserverance. Loyalty allows us to grow with you and to becomes friends. 
                     </Typography>
                     
                     
@@ -147,17 +158,13 @@ const WeDesign = () => {
                 <Stack direction="column" sx={{justifyContent:"center",alignItems:"flex-start",width:"100%"}}
                 
                 >
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif",marginTop:"3rem"}}
+                    <Typography component="h1" variant={sizeLet2} style={{marginTop:"3rem"}}
                     className={styles.ourwebDesignBg}
                     >
-                     Our <Link to="/designs" className={styles.linkOn}>web-Design</Link> and development <Link to="/services" className={styles.linkOn}>Services</Link> contains B2B, B2C web design,mobile applications, digital strategy,email marketing and CMS development Services. 
+                     Our <Link to="/designs" className={styles.linkOn}>web-Design</Link> and development <Link to="/services" className={styles.linkOn}>Services</Link> contains B2B, B2C web design, mobile applications, digital strategy, email marketing and CMS development Services. 
                     </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif",marginTop:"3rem"}}
-                    className={styles.ourwebDesignBg}
-                    >
-                     We believe and thrive to help, 
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{fontFamily:"'Philosopher', sans-serif",marginTop:"3rem"}}
+                    < PhraseEffect sizeLet2={sizeLet2} generalInfo={generalInfo}/>
+                    <Typography component="h1" variant={sizeLet2} style={{marginTop:"3rem"}}
                     className={styles.weDesignLastPara}
                     >
                      <span span className={styles.font_masterconnect}>Masterconnect</span> - connecting you is what we do.

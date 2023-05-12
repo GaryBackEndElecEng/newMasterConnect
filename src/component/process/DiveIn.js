@@ -11,44 +11,22 @@ margin:auto;
 position:relative;
 background-image:url(${({bgimage})=>bgimage});
 background-position:50% 50%;
-background-size:${({openThis})=>openThis ? "120% 120%":"100% 100%"};
+background-size:${({backgroundsize})=>backgroundsize};
+filter:saturate(${({saturate})=>saturate});
 display:flex;
 justifyContent:flex-start;
 alignItems:center;
 flexDirection:column;
-animation:${({openThis})=>openThis ? "growIn" : "growOut"} 2s ease-in-out;
+animation:${({animation})=>animation};
 @keyframes growIn {
-  from {background-size:100% 100%;}
-  to {background-size:120% 120%;}
+  from {background-size:100% 100%;filter:saturate(1);}
+  to {background-size:120% 120%;filter:saturate(2);}
 }
 @keyframes growOut {
-  from {background-size:120% 120%;}
-  to {background-size:100% 100%;}
+  from {background-size:120% 120%;filter:saturate(2);}
+  to {background-size:100% 100%;filter:saturate(1);}
 }
-// @media screen and (max-width:900px){
-//   background-position:50% 50%;
-//   background-size:${({openThis})=>openThis ? "200 % 200%":"100% 100%"};
-//   @keyframes growIn {
-//   from {background-size:100% 100%;}
-//   to {background-size:200% 200%;}
-// }
-// @keyframes growOut {
-//   from {background-size:200% 200%;}
-//   to {background-size:100% 100%;}
-// }
-// }
-// @media screen and (max-width:600px){
-//   background-position:50% 50%;
-// background-size:${({openThis})=>openThis ? "200 % 200%":"100% 100%"};
-// @keyframes growIn {
-//   from {background-size:100% 100%;}
-//   to {background-size:200% 200%;}
-// }
-// @keyframes growOut {
-//   from {background-size:200% 200%;}
-//   to {background-size:100% 100%;}
-// }
-// }
+
 `;
 
 
@@ -109,6 +87,9 @@ const DiveIn = () => {
         bgimage={lepard} 
         ref={box1Ref}
         openThis={openThis}
+        backgroundsize={openThis ? "120% 120%":"100% 100%"}
+        animation={openThis ? "growIn 2s ease-in-out" : "growOut 2s ease-in-out"}
+        saturate={openThis ? "2": "1"}
         
         sx={{
             height:{xs:"400px",sm:"600px",md:"800px"},
@@ -117,7 +98,8 @@ const DiveIn = () => {
         >
           <Link to="/contact" className={isMousover ? styles.moveLettersOn : styles.moveLettersOff}>
             <div >
-            <Typography component={"h1"} variant={letterSize} className={isMousover ? styles.fontType : styles.fontStyle}sx={{textAlign:"center"}}>Dive In</Typography>
+            <Typography component={"h1"} variant={letterSize} className={isMousover ? styles.fontType : styles.fontStyle}
+            sx={{textAlign:"center"}}>Dive In</Typography>
             <Typography component={"h1"} variant={letterSize}>Improve your hit rates and exposure</Typography>
             </div>
             </Link>

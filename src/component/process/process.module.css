@@ -310,7 +310,7 @@ align-items:center;
   .moveLettersOn{
     margin:auto;
     background:rgba(0,0,0,.3);
-    transform:translateY(0%);
+    transform:translateY(100%);
     transition:all 1s ease-in-out;
   }
   .moveLettersOff{
@@ -339,6 +339,10 @@ align-items:center;
     .moveLettersOff{
         
         transform:translateY(-110%);
+        
+      }
+      .moveLettersOn{
+        transform:translateY(80%);
         
       }
   }

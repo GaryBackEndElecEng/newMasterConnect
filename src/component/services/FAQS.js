@@ -18,7 +18,7 @@ const CustFAQS = styled.div`
   background: inherit;
 //   border:1px solid red;
 
-  animation: ${({ animation }) => animation} 1.5s ease-in-out;
+  animation: ${({ animation }) => animation} ;
   @keyframes slideUp {
     from {
       opacity: 0;
@@ -52,7 +52,7 @@ height:100%;
 background-size:120% 120%;
 background-position:50% 50%;
 background-image:url(${({bgimage})=>bgimage});
-animation: ${({animation})=>animation} 2.5s ease-in;
+animation: ${({animation})=>animation};
 
 @keyframes growOut {
 from {background-size:160% 160%;};
@@ -117,7 +117,7 @@ const FAQS = ({getWidth}) => {
   return (
     <CustFAQS 
     opacity={openFaqs || getWidth < 900 ? "1":"0"}
-    animation={openFaqs || getWidth <900 ? "slideUp" : "slideDown"}
+    animation={openFaqs || getWidth <900 ? "slideUp 1.5s ease-out" : "slideDown 1.5s ease-in"}
     ref={faqRef}
     >
       <div className={styles.hr_line}  />
@@ -133,7 +133,7 @@ const FAQS = ({getWidth}) => {
           >
             <CusCheetaImg
               bgimage={cheetaFramed}
-              animation={openFaqs ? "growOut":""}
+              animation={openFaqs ? "growOut 1.5s ease-in-out":""}
             ></CusCheetaImg>
           </Grid>
           <Grid

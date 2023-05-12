@@ -56,7 +56,7 @@ animation:clearIn 1.5s ease-in-out;
 
 
 function Home() {
-  const { open, setOpen, staticImage } =
+  const {  setOpen, staticImage,generalInfo } =
     React.useContext(GeneralContext);
   const afterZebra = `${staticImage}/zebra/afterZebra.png`;
   const lion = `${staticImage}/lion.png`;
@@ -91,7 +91,7 @@ function Home() {
     }
   }, [growOpacityText]);
 
-  
+ 
 
   
 
@@ -106,7 +106,7 @@ function Home() {
       <HomeHelmet/>
       <Cover mainPic={mainPic}/>
       <div className={styles.mainMain}>
-      <WeDesign  />
+      <WeDesign generalInfo={generalInfo} />
 
       <WeDevelop
         titleBlock={titleBlock}
