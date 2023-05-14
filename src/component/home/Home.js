@@ -61,9 +61,10 @@ function Home() {
   const afterZebra = `${staticImage}/zebra/afterZebra.png`;
   const lion = `${staticImage}/lion.png`;
   const lepard = `${staticImage}/lepard2.png`;
+  const bango3 = `${staticImage}/extra/bango3.png`;
   const blackDesign = `${staticImage}/blackDesign.png`;
   const mainPic = `${staticImage}/main.png`;
-  const lionRef = React.useRef(null);
+  
   const [getVariant1, setGetVariant1] = React.useState("");
   const [getTitleVariant1, setGetTitlevariant1] = React.useState("");
   let [titleBlock, setTitleBlock] = React.useState(0);
@@ -119,7 +120,7 @@ function Home() {
       />
       <WeGrow growOpacityText={growOpacityText} growDownText={growDownText} />
 
-      <MainServices pic={lion} pic2={lepard} black={blackDesign}/>
+      <MainServices pic={lion} pic2={bango3} black={blackDesign}/>
       <Innovators/>
       <HelpingBrands/>
       <VideoBlogs />

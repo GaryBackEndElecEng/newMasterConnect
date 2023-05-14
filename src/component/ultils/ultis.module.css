@@ -19,7 +19,7 @@
     font-family: var(--font-family);
 }
 .handleClickOn{
-    opacity:0.9;
+    opacity:1;
     font-weight:400;
     font-family: var(--font-family);
     font-size:150%;

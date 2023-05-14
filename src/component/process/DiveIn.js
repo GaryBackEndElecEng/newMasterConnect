@@ -51,13 +51,10 @@ const DiveIn = () => {
     React.useEffect(()=>{
         const observer= new IntersectionObserver((entries)=>{
             let entry=entries[0];
-                if(entry.isIntersecting){
-                    setOpenThis(true);
-                    setIsmouseover(true)
-                }else{
-                  setOpenThis(false);
-                    setIsmouseover(false)
-                };
+                
+                    setOpenThis(entry.isIntersecting);
+                    setIsmouseover(entry.isIntersecting)
+              
     
         },{threshold:0.7});
         //OBSERVING
@@ -86,7 +83,6 @@ const DiveIn = () => {
         <CustBoxRef
         bgimage={lepard} 
         ref={box1Ref}
-        openThis={openThis}
         backgroundsize={openThis ? "120% 120%":"100% 100%"}
         animation={openThis ? "growIn 2s ease-in-out" : "growOut 2s ease-in-out"}
         saturate={openThis ? "2": "1"}

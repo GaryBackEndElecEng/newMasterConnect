@@ -457,6 +457,15 @@ color:white;
   flex-direction:column;
   overflow:hidden;
 }
+.fontServices{
+  background-clip:text !important;
+  -webkit-background-clip:text !important;
+  color:transparent !important;
+  -webkit-text-stroke:1px white !important;
+  background:var(--background-8);
+  font-size:200%;
+}
+
   
   .afterZebraWhiteMain >div>div > h1{
     color:white;
@@ -464,6 +473,7 @@ color:white;
   }
   .afterZebraWhiteMain > div{
     position:absolute;
+    background:rgba(0,0,0,0.7);
     top:10%;
     right:1%;
     display:flex;
@@ -471,6 +481,7 @@ color:white;
     justify-content:center;
     align-items:center;
     flex-direction:column;
+    padding-block:1rem;
     gap:5px;
   }
  
@@ -498,9 +509,9 @@ color:white;
     }
     
     .afterZebraWhiteMain > div{
-      top:5%;
-      left:0%;
-      width:100%;
+      top:10%;
+      right:0%;
+      width:70%;
       display:flex;
       justify-content:center;
       align-items:center;
@@ -531,8 +542,9 @@ color:white;
       width:100%;
       justify-content:center;
       align-items:center;
+      background:transparent;
       gap:5px;
-      background-color:rgba(0,0,0,0.5);
+      
     }
   }
   .mainZebra{

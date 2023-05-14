@@ -4,6 +4,9 @@ import {GeneralContext} from '../../context/GeneralContextProvider';
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Stack, Box, Typography, IconButton, Container } from "@mui/material";
 import styles from "./ultis.module.css";
+// import styled from 'styled-components';
+
+
 
 const ServiceDisplay = ({arr}) => {
     const {staticImage2,setIsServiceClicked}=React.useContext(GeneralContext);

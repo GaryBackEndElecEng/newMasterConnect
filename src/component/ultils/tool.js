@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState,useReducer} from 'react'
 
 export const intersectionTool = ({reference,state,threshold}) => {
     const observer=new IntersectionObserver((entries)=>{
@@ -87,4 +87,30 @@ const returnArr=[];
     return returnArr;
   
 }
+
+
+
+export const Counter=({getCount,Length})=> {
+    //useReducer((state,action to be sent to dispatch)=>{},{paramters})
+    const [state, dispatch] = React.useReducer((state, action) => {
+      switch (action.type) {
+        case "add":
+          return { ...state, addCount: action.payload };
+        case "ADD_NAME":
+          return { ...state, names: [...state.names, state.name],name:""};
+        default:
+          return;
+      }
+    }, {
+      names: [],
+      addCount: 0,
+    });
+  //() => dispatch({ type: "add", payload: addCount + 1 }) =>result: state.addCount
+  
+    return (
+      <></>
+    )
+  
+  }
+ 
 

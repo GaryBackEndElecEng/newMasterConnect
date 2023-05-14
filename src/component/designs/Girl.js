@@ -78,8 +78,6 @@ const Girl = () => {
           if (entry.target) {
             if (entry.isIntersecting) {
              setTurnOn(true)
-            }else{
-                setTurnOn(false);
             }
           }
     

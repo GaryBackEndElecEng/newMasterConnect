@@ -8,9 +8,9 @@ import Services from "../ultils/Services";
 const CustService=styled.section.attrs({className:styles.afterZebraWhiteMain})`
 position:relative;
   margin: auto;
-    background-size:130% ${({show2})=>show2 ? 120 :100}%;
-    background-position:${({show2})=>show2 ? 0 : 50}% 50%;
-    background:var(--background-111);
+    background-size:150% ${({show2})=>show2 ? 150 :100}%;
+    background-position:${({show2})=>show2 ? 0 : 50}% 0%;
+    // background-color:var(--background-111);
     z-index:100;
     min-height:85vh;
     width:90vw;
@@ -20,23 +20,31 @@ position:relative;
     display:flex;
     flex-direction:column;
     justify-content:center;
-    transition:all 1.5s ease-in;
     // border:1px solid red;
     margin-bottom:10vh;
-   animation: ${({show,show2,})=>show || show2 ? "showMsgLionOn" : "showMsgLionOff"} 1.5s ease-in:
+   animation:${({animation})=>animation};
    
-   @keyframes showMsgLionOff{
-    from { opacity:1;}
-    to { opacity:0;}
+  @keyframes showMsgBango{
+    from { opacity:0;background-size:100% 100%;background-position:50% 50%;}
+    to { opacity:1;background-size:150% 100%;background-position:50% 0%;}
   }
-  @keyframes showMsgLionOn{
-    from { opacity:0;}
-    to { opacity:1;}
+  @keyframes showMsgBangoOn{
+    from { background-size:150% 100%;background-position:50% 0%;}
+    to {background-size:150% 150%;background-position:0% 0%;}
   }
   @media screen and (max-width:900px){
     margin:5vh auto;
-    min-height:25vh;
-    background-size:120% 100%;
+    min-height:65vh;
+    background-size:150% 100%;
+    background-position:50% 0%;
+    @keyframes showMsgBango{
+      from { opacity:0;background-size:100% 100%;background-position:50% 50%;}
+      to { opacity:1;background-size:150% 100%;background-position:0% 0%;}
+    }
+    @keyframes showMsgBangoOn{
+      from { background-size:150% 100%;background-position:0% 0%;}
+      to {background-size:150% 150%;background-position:50% 0%;}
+    }
       height:43vh;
       width:100%;
       flex-direction:column;
@@ -53,11 +61,15 @@ position:relative;
       }
   }
   @media screen and (max-width:600px){
-    background-size:${({show2})=>show2 ? 300 :160}% 120%;
+    background-size:${({show})=>show ? 300 :160}% 120%;
     background-position:12% 30%;
-    min-height:78vh;
+    min-height:86vh;
     width:100%;
     transition:all 1.5s ease-in;
+  }
+  @media screen and (max-width:385px){
+    min-height:110vh;
+    
   }
 `;
 
@@ -70,7 +82,7 @@ const MainServices = ({pic,pic2,black}) => {
 
     React.useEffect(()=>{
         if(show){
-            setTimeout(()=>{setShow2(true);},5000);
+            setTimeout(()=>{setShow2(true);},4000);
         }
     },[show]);
     
@@ -92,18 +104,26 @@ const MainServices = ({pic,pic2,black}) => {
   return (
     <div className={styles.mainService} style={{width:"100%"}}>
     <CustService
-    bgimage={show2 ? pic2 :pic}
+    className={styles.afterZebraWhiteMain}
+    bgimage={pic2}
     ref={serviceRef}
     show={show}
     show2={show2}
     hasClicked={isServiceClicked}
     black={black}
+    animation={show2 ? 
+      "showMsgBangoOn 1.5s ease-in-out"
+    :
+    (show ? "showMsgBango 1.5s ease-in-out" :"")
+  }
   >
     <div
-    
+    className={styles.headServices}
     >
       <div>
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h2"
+        className={styles.fontServices}
+        >
           Services
         </Typography>
       </div>

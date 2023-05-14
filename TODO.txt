@@ -17,8 +17,8 @@ React.useEffect(()=>{
 },[forward,reverse,count]);
 
 TODO-NEW:
-- automate HIRE 
-- hide wording in services " ..more"
+
+-correct about>folder height
 -Front page=>"WE Grow"=> new page for Growing Corporate Markets
 1.) Great Site=> encourage Comms
 2.)SEO => search mechanisms
@@ -40,6 +40,8 @@ TODO-OLD
 
 
 COMPLETE:
+- hide wording in services " ..more"
+- automate HIRE 
 - fix time dates- create hook on purchase
 -ADD FB,LINKEDLN AND INSTAGRAM LINKS
 -DO A FULL PURCHASE REQUEST ( THROUGH CALCULATOR, FROM SIMPLE REGISTER AND PURCHASE)

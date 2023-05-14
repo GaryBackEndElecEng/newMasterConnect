@@ -1,7 +1,7 @@
 import React from "react";
 // import {GeneralContext} from '../../context/GeneralContextProvider';
 import { Box, } from "@mui/material";
-import styles from "./ultis.module.css";
+// import styles from "./ultis.module.css";
 import ServiceDisplay from './ServiceDisplay';
 
 const Services = () => {
@@ -67,8 +67,9 @@ const Services = () => {
       sx={{
         padding: "auto 10px",
         width:{md: "90%",sm:"80%",xs:"100%"},
+        height:"auto",
         backgroundColor: {
-          xs: "rgba(0,0,0,.4)",
+          xs: "rgba(0,0,0,.6)",
           sm: "rgba(0,0,0,.4)",
           md: "rgba(0,0,0,.2)",
         },

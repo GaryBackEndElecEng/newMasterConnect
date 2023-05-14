@@ -283,7 +283,7 @@ const Folder = ({ connect, design, ownership }) => {
                         What matters to us is data ownership. Data retention is vital to a company's success through online data presense and accessibility, in the holistic view of connecting.
                     </Typography>
                     <Typography component="h2" variant={fontSizeH6}>
-                        We create quick and secure data access through effient front-to-back requests to ensure data access reliability.
+                        We create quick and secure data access through efficient front-to-back requests to ensure data access reliability.
                     </Typography>
                     <Typography component="h2" variant={fontSizeH6}>
                         We want your business.
