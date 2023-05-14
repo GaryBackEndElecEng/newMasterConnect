@@ -59,6 +59,38 @@ background-image: var(--background-1);
     transition: all 1s ease-in;
 
 }
+.guidingYou{
+font-family: var(--font-family);
+background-image: var(--background-process);
+background-size:200% 200%;
+background-position:50% 50%;
+-webkit-background-clip: text;
+-moz-background-clip: text;
+background-clip: text;
+color: transparent;
+margin-bottom:0.62rem;
+-webkit-text-stroke:1px white;
+box-shadow:1px 1px 5px 1px black;
+animation:cycleColor 16s linear infinite;
+}
+.guidingYou_2{
+font-family: var(--font-family);
+background-size:150% 100%;
+background-position:50% 50%;
+-webkit-background-clip: text;
+-moz-background-clip: text;
+background-clip: text;
+filter:saturate(2) !important;
+-webkit-text-stroke:0.5px white;
+color: transparent;
+margin-bottom:0.62rem;
+animation:cycleColor 20s linear infinite;
+}
+@keyframes cycleColor {
+  from { background-size:10% 100%;background-position:0% 50%;}
+  50% { background-size:150% 100%;background-position:50% 50%;}
+  to { background-size:10% 100%;background-position:50% 30%;}
+}
 .fontType{
     background: var( --background-555);
     font-family: var(--font-family);

@@ -24,7 +24,7 @@ background-size:100% 100%;
   background-position:55% 50%;
 }
 @media screen and (max-width:600px){
-  min-height:60vh;
+  min-height:65vh;
   background-size:150% 100%;
   background-position:55% 50%;
 }

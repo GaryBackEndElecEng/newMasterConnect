@@ -20,6 +20,7 @@ import Included from '../utils/Included';
 const MainProductDiv = styled.div`
 width:100vw;
 margin-top:2px;
+padding-block:4rem;
 background:${({bg})=>bg};
 color:${({bg})=>(bg ==="white"? "black":"white")};
 @media screen and (max-width:900px){
@@ -131,7 +132,7 @@ const StoreProduct = () => {
                     <Grid container spacing={0}>
                         <Grid item xs={12} sm={6} sx={{padding:{sm:"0.75rem",xs:"0.5rem"},position:"relative"}}>
                             <Typography component="h1" variant="h3" sx={{margin:"0.5rem auto",textAlign:"center"}}>Weed Wacker</Typography>
-                            <Typography component="h1" variant="body1" sx={{position:"relative"}}>
+                            <Typography component="h1" variant="body1" sx={{position:"relative",color:bgChanged}}>
                             <CardMedia component="img" src={mangrave1} alt="www.master-connect.ca"
                                 sx={{ borderRadius: "30%", width: "100%",height:"100%", textAlign: "left",boxShadow:"1px 1px 10px 4px rgba(0,0,0,.5)",margin:"1rem auto",background:bgOpposite }}
                             />

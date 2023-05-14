@@ -62,7 +62,7 @@ const PhraseEffect = ({sizeLet2,generalInfo}) => {
     <CustPhrase
     ref={paraRef}
     opacity={showIn ? "1":"0"}
-    translatey={showIn ? "0%" : "-200%"}
+    translatey={showIn ? "0%" : "-50%"}
     component="h1" variant={sizeLet2} style={{marginTop:"3rem"}}
     className={styles.ourwebDesignBg}
     >

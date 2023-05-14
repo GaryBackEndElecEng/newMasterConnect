@@ -27,20 +27,7 @@ body{
     font-size:300%;
     animation:moveAlways2 30s linear infinite reverse;
   }
-  .font_masterconnect{
-    margin:auto;
-    align-self:center;
-    font-family: var(--font-family);
-    background-image: var(--background-image-1-left);
-    background-size:150% 100%;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-bottom:0.62rem;
-    font-size:300%;
-    animation:moveAlways2 30s linear infinite reverse;
-  }
+  
   .fontStyle_2{
     font-family: var(--font-family);
     background-image: var(--background-555);
@@ -226,16 +213,7 @@ color:white;
     /* background:rgba(0,0,0,.3); */
     transition: all 1s ease-in-out;
   }
-  .weDesignLastPara{
-    margin:0;
-    justify-content:flex-start;
-    align-items:center;
-    flex-direction:row;
-    display:flex;
-    flex-wrap:wrap;
-    gap:0px;
-
-  }
+  
   
   @keyframes showUp {
     from {opacity:0;transform:translateY(-50%);}
@@ -278,9 +256,7 @@ color:white;
       font-size:700%;
     }
     
-    .font_masterconnect{
-      font-size:200%;
-    }
+    
   }
   @media screen and (max-width:400px){
     .fontStylelarge{
@@ -292,9 +268,7 @@ color:white;
       font-size:600%;
     }
     
-    .fontStyle{
-
-    }
+    
   }
   
   @media screen and (max-width:900px){

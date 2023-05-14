@@ -523,11 +523,13 @@ transition:all 1.5s ease-in-out;
   margin:auto 10px;
   padding:10px;
   opacity:1;
+  top:0%;
   
 }
 .contactInfoClose{
   margin:auto 10px;
   padding:10px;
+  
 
 }
 }

@@ -58,18 +58,18 @@ const BannerThree = () => {
                             sx={{ justifyContent: "flex-start", alignItems: "center", width: "75%", margin: "1rem auto" }}
                         >
 
-                            <Typography component="h1" variant="h3" sx={{ margin: "1rem auto" }}>Contact</Typography>
+                            <Typography component="h1" variant="h3" sx={{ margin: "1rem auto",color:"black" }}>Contact</Typography>
 
-                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "1rem auto", sm: "1rem auto" } }}>Your Address</Typography>
-                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "1rem auto", sm: "1rem auto" } }}>City, Postal</Typography>
+                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "1rem auto", sm: "1rem auto" },color:"black" }}>Your Address</Typography>
+                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "1rem auto", sm: "1rem auto" },color:"black" }}>City, Postal</Typography>
 
                         </Stack>
                         <Stack direction="column" spacing={{ xs: 0, sm: 1 }}
                             sx={{ justifyContent: "flex-start", alignItems: "center", width: "75%", margin: "1rem auto" }}>
 
-                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "2rem auto", sm: "1rem auto" } }}>Tel: Telephone</Typography>
-                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "1rem auto", sm: "1rem auto" } }}>Fax: your Fax</Typography>
-                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "1rem auto", sm: "1rem auto" } }}>email: email</Typography>
+                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "2rem auto", sm: "1rem auto" },color:"black" }}>Tel: Telephone</Typography>
+                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "1rem auto", sm: "1rem auto" },color:"black" }}>Fax: your Fax</Typography>
+                            <Typography component="h1" variant="body2" sx={{ margin: { xs: "1rem auto", sm: "1rem auto" },color:"black" }}>email: email</Typography>
 
                         </Stack>
 

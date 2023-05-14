@@ -16,10 +16,21 @@ React.useEffect(()=>{
     }
 },[forward,reverse,count]);
 
+TODO-NEW:
+- automate HIRE 
+- hide wording in services " ..more"
+-Front page=>"WE Grow"=> new page for Growing Corporate Markets
+1.) Great Site=> encourage Comms
+2.)SEO => search mechanisms
+3.) scalability=> Dynamic SEO, Social Marketing, making videos
+4.) product sales through Ecommerce=> bringing clients to site;
+5.) Micro sites=> encourage sales
 
-TODO
+-bango Tiger
 
--Fix process page 600px formating
+TODO-OLD
+
+
 
 -Fix Google register and signin:([GSI_LOGGER]: The given origin is not allowed for the given client ID.)
 :gapi-script,react-google-login

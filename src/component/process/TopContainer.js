@@ -1,5 +1,5 @@
 import React from "react";
-// import { GeneralContext } from "../../context/GeneralContextProvider";
+import { GeneralContext } from "../../context/GeneralContextProvider";
 import styles from "./process.module.css";
 import { Container, Typography,Grid } from "@mui/material";
 import styled from "styled-components";
@@ -11,6 +11,8 @@ padding:0.5rem;
 width:100%;
 `;
 const TopContainer = ({slideArr}) => {
+    const {staticImage}=React.useContext(GeneralContext);
+    const greenEffect=`${staticImage}/extra/greenEffect.png`;
     const is600 = window.innerWidth <600 ? true:false;
     const styleFont={fontFamily: "var(--font-family)",
         backgroundImage: "var(--background-1)",
@@ -28,8 +30,8 @@ const TopContainer = ({slideArr}) => {
             <Grid container className={styles.topGridCont}>
                 <Grid item xs={12} sm={12} md={6} >
                     <div>
-                <Typography component="h1" variant={is600 ? "h1":"h1"} className={styles.fontStyle_2} >Guiding</Typography>
-                <Typography component="h1" variant={is600 ? "h3":"h2"} className={styles.fontStyle_2} style={styleFont}> you from design, frontend and backend to launch,,,</Typography>
+                <Typography component="h1" variant={is600 ? "h1":"h1"} className={styles.guidingYou} >Guiding</Typography>
+                <Typography component="h1" variant={is600 ? "h3":"h2"} className={styles.guidingYou_2}  sx={{backgroundImage:`url(${greenEffect})`}}> you from design, frontend and backend to launch,,,</Typography>
                 </div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} >

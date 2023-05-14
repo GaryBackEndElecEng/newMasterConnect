@@ -2,14 +2,14 @@ import React from "react";
 import { GeneralContext } from "../../context/GeneralContextProvider";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Stack, Typography, Fab, Container, Grid, Box } from "@mui/material";
+import {  Fab, } from "@mui/material";
 import styles from "./services.module.css";
 
 const CustStartProj = styled.div`
   margin:1rem 0;
   margin-top:2rem;
   padding:auto 1rem;
-  opacity: ${({ startopen }) => (startopen ? "1" : "0")};
+  opacity: ${({ opacity }) =>opacity};
   min-height: 55vh;
   background-image: url(${({ bgimage }) => bgimage});
   background-size: 100% 100%;
@@ -19,8 +19,7 @@ const CustStartProj = styled.div`
   align-items: center;
   flex-direction: row;
   column-gap:2rem;
-  animation: ${({ startopen }) => (startopen ? "startSlideUp" : "")} 3.5s
-    ease-in-out;
+  animation: ${({ animation }) =>animation};
   @keyframes startSlideUp {
     from {
       opacity: 0;
@@ -35,7 +34,7 @@ const CustStartProj = styled.div`
       transform: translateY(0%);
     }
   }
-  @media screen and (maxWidth:900px){
+  @media screen and (max-width:900px){
     flex-direction:column;
     width:100vw;
     background-size: 200% 200%;
@@ -55,11 +54,25 @@ const CustStartProj = styled.div`
         }
       }
   }
-  @media screen and (maxWidth:600px){
+  @media screen and (max-width:600px){
     flex-direction:column;
     width:100vw;
-    background-size: 200% 200%;
-    background-position: 0% 50%;
+    background-size: 300% 200%;
+    background-position: 70% 70%;
+    @keyframes startSlideUp {
+      from {
+        opacity: 0;
+        background-size: 300% 200%;
+        background-position: 0% 0%;
+        transform: translateY(40%);
+      }
+      to {
+        opacity: 1;
+        background-size: 300% 100%;
+        background-position: 70% 70%;
+        transform: translateY(0%);
+      }
+    }
   }
 `;
 
@@ -97,13 +110,14 @@ const StarProjContact = ({ getWidth }) => {
   return (
     <CustStartProj
       bgimage={turtle}
-      startopen={startOpen}
+      opacity={startOpen ? "1":"0"}
+      animation={startOpen ? "startSlideUp 3.5s ease-in-out": ""}
       className={styles.custStartProj}
-      
+      ref={startRef}
     >
       <div className={styles.custStartInner}>
         <p
-        ref={startRef}
+        
           className={styles.startProjTitle}
           style={{ backgroundImage: `url(${greenEffect})`,backgroundSize:"200% 200%"}}
         >

@@ -52,16 +52,25 @@ function adjustTop(index,iswidth){
 
   const handleTab = (e, index) => {
 
-    if (e && index && !isWidth600  ) {
-      if (!activate.state && index >0) {
-        setActivate({ id: `folder-${index}`, state: true });
-        
-      } else if(index===0) {
-        setActivate({ id: `folder-${0}`, state: true });
-      }else{
-        setActivate({ id: null, state: false });
+    if (e && index  && !isWidth600  ) {
+      
+      switch (activate.state){
+        case (!activate.state && index >0):
+          setActivate({id: `folder-${index}`, state: true});
+          break;
+        case (activate.state && index >0 && activate.id !== `folder-${index}`):
+          setActivate({id: null, state: false});
+          setTimeout(()=>{
+            setActivate({id: `folder-${index}`, state: true});
+          },0);
+          break;
+          case (activate.state && activate.id === `folder-${index}`):
+            setActivate({ id: `folder-${0}`, state: true });
+          break;
+          default:
+            setActivate({ id: `folder-${0}`, state: true });
+            return;
       }
-    //   setActivate({ id: `folder-${0}`, state: true });
         
     }
   };

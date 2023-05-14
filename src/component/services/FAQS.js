@@ -8,6 +8,7 @@ import FaqItem from './FaqItem';
 
 const CustFAQS = styled.div`
   margin: 1rem;
+  width:100%;
   opacity: ${({ opacity }) => opacity};
   padding: 0.5rem 1rem;
 //   min-height: 50dvh;

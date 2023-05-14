@@ -13,7 +13,7 @@ const ScrollerDataContent = ({obj}) => {
                       variant="h5"
                       sx={{ margin: "1rem auto" }}
                     >
-                      {obj.name} : {obj.value}
+                      {obj.name} : {obj.type}
                     </Typography>
                   </a>
   )

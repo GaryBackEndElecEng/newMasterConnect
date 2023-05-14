@@ -54,6 +54,21 @@ background-position:50% 50%;
 color:transparent;
 transition:all 1.75s ease-in;
 `;
+const MoreTypo=styled(Typography)`
+opacity:1;
+display:${({display})=>display};
+animation:scaleThis 1.5s ease-in-out;
+@keyframes scaleThis {
+from {transform:scaleY(0) ;opacity:1;}
+to {transform:scaleY(1);opacity:1;}
+}
+@media screen and (max-width:900px){
+  
+}
+@media screen and (max-width:600px){
+  
+}
+`;
 
 const ServiceItem = ({obj}) => {
     const [fontSize,setFontSize]=React.useState(null);
@@ -61,9 +76,18 @@ const ServiceItem = ({obj}) => {
     const [show,setShow]=React.useState(null);
     const [show1,setShow1]=React.useState(null);
     const [newObj,setNewObj]=React.useState({});
+    const [fullSentence,setFullSentence]=React.useState(null);
+    const [isMore,setIsMore]=React.useState(null);
   const threshold= window.innerWidth < 600 ? 0.5 : 1;
   const iconColor= show1 ? {color:"blue",transition:"color 1.5s ease-in"} :{color:"red",transition:"color 1.5s ease-in"}
     
+const getFirst=React.useCallback(()=>{
+  let paraArr=obj.desc.split(".")
+  let para=paraArr[0]
+  
+  return para
+},[obj]);
+
 
     React.useEffect(()=>{
         icons_.forEach(ob=>{
@@ -85,6 +109,7 @@ const ServiceItem = ({obj}) => {
 
         }
     },[]);
+
     React.useEffect(()=>{
         const observer=new IntersectionObserver((entries)=>{
             let entry=entries[0];
@@ -98,6 +123,11 @@ const ServiceItem = ({obj}) => {
             // return ()=>observer.disconnect();
         }
     },[]);
+
+    const handleDesc=()=>{
+      setFullSentence(true);
+    }
+
   return (
     <CustGrid
     
@@ -127,9 +157,29 @@ const ServiceItem = ({obj}) => {
         </Stack>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Typography component="h1" variant="h6" sx={{paddingLeft:{sm:"10px",md:"auto",xs:"5px"},paddingRight:{sm:"10px",md:"auto",xs:"5px"}}}>
-          {newObj.desc}
+      
+        <Typography component="h1" variant="h6" 
+        sx={{paddingLeft:{sm:"10px",md:"auto",xs:"5px"},paddingRight:{sm:"10px",md:"auto",xs:"5px"}}}
+        className={!fullSentence ? styles.showSentence : styles.hideSentence}
+        >
+          {getFirst()}....
+          <span
+          onClick={()=>handleDesc()}
+          style={{color:"blue",fontSize:"26px",textDecoration:"underline",cursor:"pointer"}}
+          >
+            more
+          </span>
         </Typography>
+        
+        <MoreTypo
+        display={fullSentence ? "block":"none"}
+         component="h1"
+         variant="h6"
+         sx={{paddingLeft:{sm:"10px",md:"auto",xs:"5px"},paddingRight:{sm:"10px",md:"auto",xs:"5px"}}}
+        >
+          {newObj.desc}
+        </MoreTypo>
+      
       </Grid>
       
     </CustGrid>

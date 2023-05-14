@@ -6,6 +6,13 @@ import styled from "styled-components";
 import { Stack, Typography, Container, } from "@mui/material";
 import styles from "./home.module.css";
 import PhraseEffect from './PhraseEffect';
+import Honor from './Honor';
+import Integrity from './Integrity';
+import Return from './Return';
+import Evolution from './Evolution';
+import Unity from './Unity';
+import Steadfast from './Steadfast';
+import ConnectingYou from './ConnectingYou';
 
 const CustWeDesign = styled.div.attrs({className:styles.mainSection})`
 margin:0 auto;
@@ -114,44 +121,12 @@ const WeDesign = ({generalInfo}) => {
                     >
                     Our Values:
                     </p>
-                    <Typography component="h1" variant={sizeLet2}>
-                    <span className={styles.fontStyle}>H</span>onor
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2} style={{width:"100%"}}>
-                        We understand the importance of your company's site to its image and virtue is honorable to us to serve you.
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2}>
-                    <span className={styles.fontStyle}>I</span>ntegrity
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2} >
-                    The wholeness of the design needs to convey your company's values.
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2}>
-                    <span className={styles.fontStyle}>R</span>eturn
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2} >
-                    Revenue works on both ends- serving clients well while saving $$$ is core to your business and core to our aim - to meet your expectation.
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2}>
-                    <span className={styles.fontStyle}>E</span>volution
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2} >
-                    We understand that a site's functionality, look and touch reflects your company's texture, appearance, performance and values. We design & develop with forward thinking to incorporate scalability.
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2}>
-                    <span className={styles.fontStyle}>U</span>nity
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2} >
-                    Understanding who your are, requires communication discoveries. With united talk, the act, allows us to design with uniqueness to meet your needs.
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2}>
-                    <span className={styles.fontStyle}>S</span>teadfast
-                    </Typography>
-                    <Typography component="h1" variant={sizeLet2} >
-                        We are loyal and devoted to your needs, with military backing - much through hardwork and perserverance. Loyalty allows us to grow with you and to becomes friends. 
-                    </Typography>
-                    
-                    
+                    <Honor sizeLet2={sizeLet2}/>
+                    <Integrity sizeLet2={sizeLet2}/>
+                    <Return sizeLet2={sizeLet2}/>
+                    <Evolution sizeLet2={sizeLet2}/>
+                    <Unity sizeLet2={sizeLet2}/>
+                    <Steadfast sizeLet2={sizeLet2}/>
                 </Stack>
             </div>
             <div className={styles.mainInnerSection}>
@@ -164,11 +139,7 @@ const WeDesign = ({generalInfo}) => {
                      Our <Link to="/designs" className={styles.linkOn}>web-Design</Link> and development <Link to="/services" className={styles.linkOn}>Services</Link> contains B2B, B2C web design, mobile applications, digital strategy, email marketing and CMS development Services. 
                     </Typography>
                     < PhraseEffect sizeLet2={sizeLet2} generalInfo={generalInfo}/>
-                    <Typography component="h1" variant={sizeLet2} style={{marginTop:"3rem"}}
-                    className={styles.weDesignLastPara}
-                    >
-                     <span span className={styles.font_masterconnect}>Masterconnect</span> - connecting you is what we do.
-                    </Typography>
+                    <ConnectingYou  sizeLet2={sizeLet2} />
                 </Stack>
             </div>
         </Container>
