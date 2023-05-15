@@ -52,7 +52,9 @@ width:100%;
 height:100%;
 background-size:120% 120%;
 background-position:50% 50%;
-background-image:url(${({bgimage})=>bgimage});
+background-image:url(${({bgimage})=>bgimage}),url(${({bgimage2})=>bgimage2});
+background-blend-mode:multiply;
+// cross-fade(url(${({bgimage})=>bgimage}),url(${({bgimage2})=>bgimage2}),25%);
 animation: ${({animation})=>animation};
 
 @keyframes growOut {
@@ -85,6 +87,7 @@ const FAQS = ({getWidth}) => {
   const [getFAQS, setGetFAQS] = React.useState({ loaded: false, data: [] });
   const [openFaqs, setOpenFaqs] = React.useState(false);
   const cheetaFramed = `${staticImage}/cheetaFramed.png`;
+  const FAQS=`${staticImage}/FAQS.png`;
   const threshold=getWidth < 900 ? (getWidth < 600 ? 0.1 : 0.5) : 0.5;
 
   React.useEffect(() => {
@@ -134,6 +137,7 @@ const FAQS = ({getWidth}) => {
           >
             <CusCheetaImg
               bgimage={cheetaFramed}
+              bgimage2={FAQS}
               animation={openFaqs ? "growOut 1.5s ease-in-out":""}
             ></CusCheetaImg>
           </Grid>

@@ -60,6 +60,7 @@ import Package from "./component/packages/Package";
 import SolarPanel from "./component/design13/SolarPanel.js";
 import Video from "./component/video/Video";
 import Product from "./component/design14/Product";
+import Corporate from './component/corporate/Corporate';
 
 function App() {
   return (
@@ -114,6 +115,7 @@ function App() {
             <Route path="/customPage" element={<CustomPage />} />
             <Route path="/aboutPage" element={<AboutPage />} />
             <Route path="/contactPage" element={<ContactPage />} />
+            <Route path="/corporate" element={<Corporate />} />
             <Route path="/prices" element={<Prices />} />
             <Route path={"/Video"} element={<Video />} />
             <Route path="/calculate" element={<Calculate />} />

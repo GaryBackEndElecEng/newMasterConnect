@@ -1,0 +1,185 @@
+
+*{padding:0;margin:0;box-sizing:border-box}
+
+
+.custCorporate >div{
+    padding-inline:3rem;
+}
+
+/*-----------COVER PAGE----------------------- */
+.fontCartoon {
+    background:var(--background-image-1-turn);
+    color:transparent;
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-stroke:1px black;
+    font-size:250%;
+
+}
+.statement{
+    position:absolute;
+    margin:auto;
+    display:flex;
+    background:white;
+    z-index:1;
+    border-radius:10%;
+    padding:3rem;
+    box-shadow:1px 1px 20px 1px black;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    animation: comeIn 2s linear;
+}
+@keyframes comeIn {
+    from {opacity:0; transform:translate(-50%,-80%);}
+    to {opacity:1; transform:translate(0%,0%);}
+}
+.fontStyleStatement{
+    margin: 1rem auto;
+    font-size:500% !important;
+    background:var(--background-image-1-turn);
+    color:transparent !important;
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-stroke:1px black !important;
+
+}
+.subStatement{
+margin:auto;
+}
+.number{
+    font-size:180% !important;
+    color:red;
+    margin-right:10px;
+}
+
+@keyframes growUp {
+    from {opacity:0; transform:translateY(300%);}
+    to {opacity:1; transform:translateY(0%);}
+}
+@keyframes growShrinkNumber {
+    from {opacity:0; transform:scale(1) translateX(-500%);}
+    50% {opacity:1; transform:scale(2);}
+    to {opacity:1; transform:scale(1) translateX(0%);}
+}
+@media screen and (max-width:900px){
+    
+    .fontCartoon{
+        font-size:170%;
+    }
+   
+
+    .fontStyleStatement{
+        font-size:350% !important;
+        left:0%;
+    }
+}
+@media screen and (max-width:600px){
+    .statement{
+        top:0%;
+        height:58vh;
+        overflow-y:scroll;
+        justify-content:flex-start;
+        padding:1rem;
+    }
+    .fontCartoon{
+        font-size:150%;
+    }
+    .fontStyleStatement{
+        font-size:180% !important;
+        left:0%;
+    }
+}
+@keyframes sweepIn {
+    from {opacity:0; transform:translate(-30%,-50%);}
+    to {opacity:1; transform:translate(0%,0%);}
+}
+/*-----------COVER PAGE END----------------------- */
+/*-----------SCALABLE START----------------------- */
+.hr_line{
+    height:2px;
+    width:100%;
+    margin:2rem 15vw;
+    padding-inline:5rem;
+   
+    background:var(--background-service);
+}
+.parentGridScalable{
+    justify-content:center;
+    align-items:flex-start;
+}
+.parentGridScalable >div{
+margin:auto;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+.parentGridScalable >div >ul{
+margin:auto;
+align-self: stretch;
+}
+.fontStyleScalable{
+    margin: 1rem auto;
+    font-size:500% !important;
+    background:var(--background-scalableFont);
+    color:transparent !important;
+    background-clip:text;
+    padding-bottom:1rem;
+    -webkit-background-clip:text;
+    -webkit-text-stroke:1px white !important;
+
+}
+.fontStyleScalable2{
+    margin: 1rem auto;
+    font-size:500% !important;
+    background:var(--background-scalableFont2);
+    color:transparent !important;
+    background-clip:text;
+    padding-bottom:1rem;
+    -webkit-background-clip:text;
+    -webkit-text-stroke:1px white !important;
+
+}
+.fontStyleScalable3{
+    margin: 1rem auto;
+    font-size:400% !important;
+    background:var(--background-image-2-left);
+    color:transparent !important;
+    background-size:25% 25%;
+    background-clip:text;
+    padding-bottom:1rem;
+    -webkit-background-clip:text;
+    -webkit-text-stroke:1px white !important;
+    animation:colorUp 5s linear infinite;
+}
+@keyframes colorUp {
+    from { background-size:25% 25%}
+    50% { background-size:150% 150%}
+    to { background-size:25% 25%}
+}
+.stackScalable{
+    margin-top:2rem !important;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+}
+
+.buttonFlex{
+    display: flex ;
+    flex-direction:row !important;
+    justify-content:space-around !important;
+    align-items:center;
+    flex-wrap:wrap;
+}
+@media screen and (max-width:600px){
+    .fontStyleScalable,.fontStyleScalable1,.fontStyleScalable2,.fontStyleScalable3{
+        font-size:250% !important;
+    }
+    .buttonFlex{
+        flex-direction:column !important;
+        gap:10px;
+    }
+}
+/*-----------SCALABLE END----------------------- */
+

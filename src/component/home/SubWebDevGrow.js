@@ -15,6 +15,7 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
     min-height:50vh;
     width:100%;
     background-image:url(${({bgimage})=>bgimage});
+    filter:saturate(1.75);
     background-position: 100% 50%;
     background-size:100% 150%;
     // border:1px solid white;
@@ -88,6 +89,7 @@ animation:${({isMovePara})=>isMovePara ? "moveLeftParaGrow":""} 2s ease-out;
 
 
 const SubWebDevGrow = ({zebra3,getTitleVariant1}) => {
+  const navigate=useNavigate();
     const zebra3Ref=React.useRef();
     const weDev3Ref=React.useRef();
     // const {staticImage2}=React.useContext(GeneralContext);
@@ -123,6 +125,11 @@ const SubWebDevGrow = ({zebra3,getTitleVariant1}) => {
         }
     },[]);
 
+      const handleCorporate=(e)=>{
+          e.preventDefault();
+          navigate("/corporate");
+      }
+
   return (
     <CustBanner3
           isMovePic={isMovePic}
@@ -152,9 +159,11 @@ const SubWebDevGrow = ({zebra3,getTitleVariant1}) => {
               </Typography>
             </div>
             <Stack direction="column" className={styles.contact} >
-              <Fab variant="extended" color="success" size="medium" sx={{width:{xs:"90%"}}}>
+              <Fab variant="extended" color="success" size="medium" sx={{width:{xs:"90%"}}}
+              onClick={(e)=>handleCorporate(e)}
+              >
                 <ExpandIcon sx={{ mr: 2 }} />
-                Send a Thought
+                Secret to Growth
               </Fab>
             </Stack>
           </CustGrow>

@@ -58,84 +58,64 @@ animation:${({ animate }) =>animate };
 `;
 
 const Cover = ({getWidth}) => {
-  const countRef = React.useRef(null);
+  // const countRef = React.useRef(null);
   const { staticImage } = React.useContext(GeneralContext);
   // const stand=`${staticImage}/design2/stand.JPG`;
   const endPic = `${staticImage}/design2/barn_ial.JPG`;
-  const mainPic = `${staticImage}/design2/flowerStand.JPG`;
+  // const mainPic = `${staticImage}/design2/flowerStand.JPG`;
   // const mainPic1 = `${staticImage2}/design2/mainPic1.png`;
   const mainPic3 = `${staticImage}/design2/mainPic3.png`;
   const logo = `${staticImage}/design2/logoMe.png`;
-  const [isLoaded,setIsLoaded]=React.useState(null);
+  const [isStarted,setIsStarted]=React.useState(null);
+  const [isStarted2,setIsStarted2]=React.useState(null);
+  const [loadObj,setLoadObj]=React.useState({loaded:false,obj:{}});
   
+  
+React.useEffect(()=>{
   const arr = [mainPic3, endPic];
-
-
-const returnObj =React.useCallback((arr,count)=>{
-  let state={loaded:false,obj:{}};
-  
-  if(  count <= arr.length -1){
-        state={
-          loaded:true,
-          obj:{
-          id:count,
-          image:arr[count],
-          animate:`animate${count} 10s linear`,
-          isLoad:null,
-          }
-        };
-      }else{
-        state={
-          loaded:true,
-          obj:{
-          id:arr.length-1,
-          image:arr[arr.length-1],
-          animate:`endFrame 10s ease-in-out`,
-          isLoad:true
-          }};
+  if(!isStarted){
+    setLoadObj({
+      loaded:true,
+      obj:{
+        id:1,
+        image:arr[0],
+        animate:`animate${0} 10s linear`,
+        isLoad:null,
       }
+    });
+    setTimeout(()=>{setIsStarted(true)},10000);
+  } if(isStarted) {
+    setTimeout(()=>{setIsStarted2(true)},10000);
+    setLoadObj({
+      loaded:true,
+      obj:{
+        id:2,
+        image:arr[1],
+        animate:`endFrame 10s ease-in-out`,
+        isLoad:true,
+      }
+    });
+  }
+  if(isStarted2){
+//can add something else here
+  }
+},[isStarted,isStarted2]);
 
-  return state;
-},[countRef]);
-
-
-
-  React.useEffect(() => {
-    let count = 0;
-   countRef.current=count;
-    const syncLoad = () => {
-        if (countRef.current <= arr.length -1) {
-          setIsLoaded(true);
-          returnObj(arr,countRef.current);
-          // console.log(countRef.current);
-          setTimeout(() => {
-            countRef.current++;
-            syncLoad();
-          }, 10000);
-        }else{
-          setIsLoaded(false)
-        } 
-    };
-   if(endPic && mainPic3){
-    syncLoad();
-   }
-    
-  }, []);
 
   return (
     <>
-{returnObj(arr).loaded ?
+{loadObj.loaded ?
     <MainCover
       height={getWidth < 600 ? "100dvh" : "100dvh"}
-      bgimage={returnObj(arr,countRef.current).loaded && returnObj(arr,countRef.current).obj.image }
-      count={countRef.current}
-      isLoad={returnObj(arr,countRef.current).obj.isLoad}
-      animate={returnObj(arr,countRef.current).obj.animate}
+      bgimage={loadObj.loaded && loadObj.obj.image }
+      count={loadObj.obj.id}
+      isLoad={loadObj.obj.isLoad}
+      animate={loadObj.obj.animate}
       width={`${getWidth}px`}
       
     >
         <div className={styles.mainCoverGuid}>
-      <Card elevation={3} className={!isLoaded ? styles.coverCard :styles.coverCardHide} 
+      <Card elevation={3} className={loadObj.obj.isLoad ? styles.coverCard :styles.coverCardHide} 
       sx={{background:"rgba(0,0,0,0.2)"}}>
         <Stack
         className={styles.stackTitleLogo}

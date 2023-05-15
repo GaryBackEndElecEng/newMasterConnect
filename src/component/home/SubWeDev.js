@@ -14,6 +14,7 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
     min-height:50vh;
     width:100%;
     background-image:url(${({bgimage})=>bgimage});
+    filter:saturate(1.75);
     background-position: 50% 50%;
     background-size:100% 150%;
     // border:1px solid white;

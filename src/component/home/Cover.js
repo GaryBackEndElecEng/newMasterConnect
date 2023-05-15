@@ -20,6 +20,7 @@ flex-direction: column;
 align-items: center;
 justify-content:center;
 background-image:url(${({bgimage})=>bgimage});
+filter:saturate(2);
 background-size:100% 150%;
 background-position:50% 10%;  
 transition:opacity 2s linear;

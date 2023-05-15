@@ -8,17 +8,17 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 
 const NewBanner1=styled.div.attrs({className:styles.banner1})`
 position:relative;
-opacity:${({isMovePic})=>isMovePic ? "1":"0"};
+opacity:${({opacity})=>opacity};
   min-height:45vh;
   background-image:url(${({bgimage})=> bgimage});
   background-position: 50% 50%;
   background-size:100% 150%;
-  filter:saturate(1.5);
+  filter:saturate(2);
   width:100%;
   overflow:hidden;
   // box-shadow:0 1px 0 1px 5px 1px white;
   margin:5px auto;
-  animation: ${({isMovePic})=> isMovePic ? "monkeyEffect":""} 2s ease-in-out;
+  animation: ${({animation})=> animation};
   @keyframes monkeyEffect {
     from { opacity:0;transform:translateX(-100%);background-position:100% 80%;}
     to { opacity:1;transform:translateX(0%) ;background-position:50% 100%;}
@@ -62,9 +62,9 @@ color:white;
 width:30%;
 padding:3px;
 // box-shadow:1px 1px 6px 2px white;
-opacity:${({isMovePara})=>isMovePara ? "1":"0"};
+opacity:${({opacity})=>opacity};
 transform:translateX(0%);
-animation: ${({isMovePara})=>isMovePara ? "weDesignEffect" : ""} 5s ease-in-out;
+animation: ${({animation})=>animation};
 @keyframes weDesignEffect {
   from { opacity:0;transform:translateY(-100%);}
   to { opacity:1;transform:translateY(0%);}
@@ -139,13 +139,15 @@ const SubWeDevDesign = ({monkey,getTitleVariant1}) => {
     <NewBanner1
         ref={lionRef}
         bgimage={monkey}
-        isMovePic={isMovePic}
+        animation={isMovePic ? "monkeyEffect 2s ease-in-out":""}
+        opacity={isMovePic ? "1":"0"}
           className={styles.banner1}
           
         >
           <CustWeDesign 
           ref={weDesignRef}
-          isMovePara={isMovePara}
+          opacity={isMovePara ? "1":"0"}
+          animation={isMovePara ? "weDesignEffect 5s ease-in-out":""}
           >
             <Typography
               component="h1"

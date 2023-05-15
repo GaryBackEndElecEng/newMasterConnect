@@ -17,6 +17,7 @@ position:relative;
     overflow:hidden;
     opacity:${({show})=>show ? 1:0};
     background-image:url(${({bgimage})=>bgimage});
+    filter:saturate(1.75);
     display:flex;
     flex-direction:column;
     justify-content:center;
