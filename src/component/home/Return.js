@@ -32,7 +32,7 @@ transition: all 1.75s ease-in;
 }
 `;
 
-const Return = ({sizeLet2}) => {
+const Return = ({sizeLet2,obj}) => {
     const returnRef=React.useRef(null);
     const [openReturn,setOpenReturn]=React.useState(null);
     const threshold=window.innerWidth <600 ? 0.2:0.8;
@@ -48,7 +48,7 @@ const observer=new IntersectionObserver(entries=>{
         observer.observe(returnRef.current);
     }
     },[]);
-
+    
     
   return (
     <CustBox
@@ -61,10 +61,10 @@ const observer=new IntersectionObserver(entries=>{
      variant={sizeLet2}
      translatex={openReturn ? "0%":"10%"}
     >
-   <span className={styles.fontStyle}>R</span>eturn
+   <span className={styles.fontStyle}>{obj.letter}</span>{obj.name}
     </HonorTypo>
     <Typography component="h1" variant={sizeLet2} style={{width:"100%"}}>
-    Revenue works on both ends- serving clients well while saving $$$ is core to your business and core to our aim - to meet your expectation.
+    {obj.desc}
     </Typography>
     </CustBox>
   )

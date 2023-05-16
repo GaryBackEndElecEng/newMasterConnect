@@ -25,6 +25,24 @@ background: linear-gradient(217deg,
   to {transform:translateX(0%);opacity:1;}
 }
 `;
+const CustChildGrid=styled(Grid)`
+display:flex;
+flex-direction:column !important;
+background-image:url(${({bgimage})=>bgimage});
+background-size:100% 100%;
+background-position: 50% 50%;
+animation: growIn 4s ease-in-out;
+@keyframes growIn {
+  from {background-size:200% 200%;}
+  to {background-size:100% 100%;}
+}
+@media screen and (max-width:900px){
+
+}
+@media screen and (max-width:600px){
+
+}
+`;
 
 const Contact = () => {
   const { staticImage,open, setOpen ,generalInfo} = React.useContext(GeneralContext);
@@ -36,10 +54,14 @@ const Contact = () => {
       <Container maxWidth="lg">
       <div className={styles.hr_line}/>
         <Grid container spacing={3} className={styles.mainGrid}>
-          <Grid item xs={12} sm={6} md={6} className={styles.childGrid} style={{backgroundImage:`url(${cheetah})`,backgroundPosition:"50% 30%"}}>
-          <Typography component="h1" variant="h1">Hello.</Typography>
-          <Typography component="h2" variant="h3">How can we help with for today?</Typography>
-          </Grid>
+          <CustChildGrid
+          bgimage={cheetah}
+           item xs={12} sm={6} md={6} 
+           className={styles.childGrid} 
+          >
+          <Typography component="h1" variant="h1" className={styles.fontStyleCt}>Hello.</Typography>
+          <Typography component="h2" variant="h3" sx={{margin:"2rem auto"}}>How can we help?</Typography>
+          </CustChildGrid>
           <Grid item xs={12} sm={6} md={6} className={styles.childGridForm} sx={{display:"flex",flexDirection:"column"}}>
             <RequestForm/>
           </Grid>

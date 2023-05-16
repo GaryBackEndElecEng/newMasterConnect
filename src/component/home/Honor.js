@@ -31,7 +31,7 @@ transition: all 1.75s ease-in;
 }
 `;
 
-const Honor = ({sizeLet2}) => {
+const Honor = ({sizeLet2,obj}) => {
     const honorRef=React.useRef(null);
     const [openHonor,setOpenHonor]=React.useState(null);
     const threshold=window.innerWidth <600 ? 0.2:0.8;
@@ -60,10 +60,10 @@ const observer=new IntersectionObserver(entries=>{
      variant={sizeLet2}
      translatex={openHonor ? "0%":"10%"}
     >
-    <span className={styles.fontStyle}>H</span>onor
+    <span className={styles.fontStyle}>{obj.letter}</span>{obj.name}
     </HonorTypo>
     <Typography component="h1" variant={sizeLet2} style={{width:"100%"}}>
-        We understand the importance of your company's site to its image and virtue is honorable to us to serve you.
+        {obj.desc}
     </Typography>
     </CustBox>
   )

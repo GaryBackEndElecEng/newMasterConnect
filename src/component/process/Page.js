@@ -25,23 +25,25 @@ const CustPage = styled.div`
 
   @media screen and (max-width: 900px) {
     position:relative;
+   
     top: 0%;
     left:0%;
     padding-top: 1%;
     opacity:1;
-    width: 820px;
+    max-width: 820px;
     height:auto;
     background:white;
-    padding:5px;
+    padding:1rem ;
     z-index:1;
    
   }
   @media screen and (max-width: 600px) {
     position:relative;
-    width: 350px;
+    max-width: 350px;
     height: auto;
     opacity:1;
     background:white;
+    padding:0.5rem ;
     left:0%
     
     

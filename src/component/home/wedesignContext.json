@@ -1,0 +1,21 @@
+[
+    {
+        "id":1,"object":"honor","letter":"H","name":"onor","desc":"We understand the importance of your company's site to its image and virtue is honorable to us to serve you."
+    },
+    {
+        "id":2,"object":"integrity","letter":"I","name":"ntegrity","desc":"The wholeness of the design needs to convey your company's values."
+    },
+    {
+        "id":3,"object":"return","letter":"R","name":"eturn","desc":"Revenue works on both ends- serving clients well while saving $$$ is core to your business. Meeting your expectations is our Aim."
+    },
+    {
+        "id":4,"object":"evolution","letter":"E","name":"volution","desc":"We understand that a site's functionality, look and touch reflects your company's values. We dynamically develop with forward thinking to incorporate scalability."
+    },
+    {
+        "id":5,"object":"unity","letter":"U","name":"nity","desc":"Understanding who your are, requires understanding unity. This allows us to design with uniqueness to meet your needs and branding."
+    },
+    {
+        "id":6,"object":"steadfast","letter":"S","name":"teadfast","desc":"We are loyal and devoted to your needs, with military backing - much through hardwork and perserverance. With loyalty and persistance, we will become friends. We are in this for the long haul."
+    }
+    
+]

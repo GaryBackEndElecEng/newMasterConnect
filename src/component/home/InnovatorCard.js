@@ -70,38 +70,35 @@ animation: ${({open})=>open ? "smoothOpen": "smoothClose"} 1s ease-in;
 `;
 const InnovatorCard = ({obj,fontSize,textFontSize}) => {
     const [open, setOpen] = React.useState({ id: null, loaded: false });
+    const selected=(open.loaded && open.id===obj.name) ? true:false;
     
 
     const handleOpen = (e, name) => {
         e.preventDefault();
         
         switch(true){
-          case (open.id !==name && open.loaded):
-            setOpen({ loaded: true, id: name });
-            // console.log("open new + while open.loaded===true")
-            break;
-          case ( open.id ===name && open.loaded):
-            setOpen({ loaded: false, id: null });
-            // console.log("closes the opened")
-            break;
-          case (open.loaded):
-            setOpen({ loaded: false, id: null });
-            // console.log("has no effect")
-            break;
+            case (selected):
+              setOpen({ loaded: false, id: null });
+              console.log("here")
+              break;
+            case (open.loaded === false || open.id !== name):
+                setOpen({ loaded: true, id: name });
+              break;
+            
           default:
-            setOpen({ loaded: true, id: name });
-            // console.log("opens single item initial start")
+            
+            console.log("here")
             return
         }
       };
   return (
     <CustCard
-              open={open.loaded && open.id===obj.name}
+              open={selected}
                 id={obj.name}
               
               >
               
-                  <Stack className={(open.loaded && open.id===obj.name) ? styles.changeColor : styles.removeColor}
+                  <Stack className={selected ? styles.changeColor : styles.removeColor}
                     direction="row"
                     spacing={5}
                     onClick={(e) => handleOpen(e, obj.name)}
@@ -109,12 +106,12 @@ const InnovatorCard = ({obj,fontSize,textFontSize}) => {
                     sx={{height:{sm:"auto",xs:"auto"},cursor:"pointer"}}
                   >
                     <IconButton sx={{width:"auto",height:{sm:"auto",xs:"auto"}}}>
-                      {(open.loaded && open.id===obj.name) ? <RemoveIcon sx={{ color: "black", mr: 10,cursor:"pointer" }} /> :<AddIcon sx={{ color: "white", mr: 1,cursor:"pointer" }} />}
+                      {selected ? <RemoveIcon sx={{ color: "black", mr: 10,cursor:"pointer" }} /> :<AddIcon sx={{ color: "white", mr: 1,cursor:"pointer" }} />}
                       
                     </IconButton>
                     <Typography component="h1" 
-                    variant={(open.loaded && open.id===obj.name) ? "h3": textFontSize}
-                    className={(open.loaded && open.id===obj.name) ? styles.changeTextColor : styles.removeTextColor}
+                    variant={selected ? "h3": textFontSize}
+                    className={selected ? styles.changeTextColor : styles.removeTextColor}
                      >
                       {obj.name}
                     </Typography>
@@ -124,24 +121,24 @@ const InnovatorCard = ({obj,fontSize,textFontSize}) => {
 
                     <Stack direction={{xs:"column",sm:"row"}} spacing={{ xs: 2, md: 6 }} sx={{margin:"2rem auto"}} className={styles.openLoadedTrue}>
                       <Typography component="h1" variant="h6" sx={{width:{sm:"70%",xs:"100%"}}}
-                      className={(open.loaded && open.id===obj.name) ? styles.mainTextOn :styles.maineTextOff}
+                      className={selected ? styles.mainTextOn :styles.maineTextOff}
                       >
                         {obj.desc}
                       </Typography>
                       <Box>
                       <Typography component="h1" variant="h4" sx={{margin:"1rem auto"}}
-                      className={(open.loaded && open.id===obj.name) ? styles.mainTextOn :styles.maineTextOff}
+                      className={selected? styles.mainTextOn :styles.maineTextOff}
                       >
                         More
                       </Typography>
                       <Typography component="h1" variant="h6"
-                      className={(open.loaded && open.id===obj.name) ? styles.mainTextOn :styles.maineTextOff}
+                      className={selected ? styles.mainTextOn :styles.maineTextOff}
                       >
                         {obj.more}
                       </Typography>
                       </Box>
                     </Stack>
-                    <Box className={(open.loaded && open.id===obj.name) ? styles.mainTextMore2 :styles.maineTextOff}>{obj.more2}</Box>
+                    <Box className={selected ? styles.mainTextMore2 :styles.maineTextOff}>{obj.more2}</Box>
                   </CustStack>
               </CustCard>
   )

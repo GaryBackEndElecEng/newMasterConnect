@@ -207,15 +207,14 @@ export const GeneralContextProvider = (props) => {
   const [design10Start,setDesign10Start]=React.useState(null);
   const navList=[
     {id:1,name:"home",link:"/",icon:<HomeIcon className="navIcon" sx={{ color: "red" }} />,},
-    {id:1,name:"about us",link:"/about",icon:<InfoIcon className="navIcon" sx={{ color: "white" }} />,},
-    {id:1,name:"start a project",link:"/start-project",icon:<AccountTreeIcon className="navIcon" sx={{ color: "white" }} />,},
-    {id:1,name:"Contact Us",link:"/contact",icon:<ContactMailIcon className="navIcon" sx={{ color: "white" }} />,},
-    {id:1,name:"Our Designs",link:"/designs",icon:<HomeIcon className="navIcon" sx={{ color: "white" }} />,},
-    {id:1,name:"Our Blogs",link:"/blog",icon:<RssFeedIcon className="navIcon" sx={{ color: "white" }} />,},
-    {id:1,name:"Our Videos",link:"/video",icon:<NewspaperIcon className="navIcon" sx={{ color: "white" }} />,},
-    {id:1,name:"Services",link:"/services",icon:<CompassCalibrationIcon className="navIcon" sx={{ color: "white" }} />,},
-    {id:1,name:"Our Designs",link:"/designs",icon:<DesignServicesIcon className="navIcon" sx={{ color: "white" }} />,},
-    {id:1,name:"Our Process",link:"/process",icon:<MemoryIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:2,name:"about us",link:"/about",icon:<InfoIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:3,name:"start a project",link:"/start-project",icon:<AccountTreeIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:4,name:"Contact Us",link:"/contact",icon:<ContactMailIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:5,name:"Our Designs",link:"/designs",icon:<DesignServicesIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:6,name:"Our Blogs",link:"/blog",icon:<RssFeedIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:7,name:"Our Videos",link:"/video",icon:<NewspaperIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:8,name:"Services",link:"/services",icon:<CompassCalibrationIcon className="navIcon" sx={{ color: "white" }} />,},
+    {id:9,name:"Our Process",link:"/process",icon:<MemoryIcon className="navIcon" sx={{ color: "white" }} />,},
   ];
 
   //OLD BELOW-----------------------------------/

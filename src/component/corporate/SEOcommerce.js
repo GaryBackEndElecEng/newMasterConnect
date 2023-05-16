@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import styles from './corporate.module.css';
-import {Typography,Grid, Avatar, Fab} from '@mui/material';
+import {Typography,Grid,Fab} from '@mui/material';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 
 const CustSEOcommerce=styled.div`
@@ -31,11 +31,24 @@ height:130vh;
 `;
 
 const SEOcommerce = ({generalInfo,typoSize}) => {
+    const SEORef=React.useRef(null);
   const {staticImage}=React.useContext(GeneralContext);
+  const [startSEO,setStartSEO]=React.useState(null);
     const pointer=`${staticImage}/corporate/pointer2.png`;
     const navigate=useNavigate();
     const [contactInfo,setContactInfo]=React.useState({loaded:false,data:{}})
-    
+    const threshold=window.innerWidth < 900 ? (window.innerWidth <600 ? 0.3 :0.5):0.9;
+
+    React.useEffect(()=>{
+        const observer = new IntersectionObserver(entries=>{
+            let entry=entries[0];
+            setStartSEO(entry.isIntersecting);
+        },{threshold:threshold});
+
+        if(SEORef.current){
+            observer.observe(SEORef.current);
+        }
+    },[]);
 
     React.useEffect(()=>{
         if(generalInfo.loaded){
@@ -68,8 +81,10 @@ const SEOcommerce = ({generalInfo,typoSize}) => {
         sx={{maxHeight:"100%"}}
         className={styles.parentGridScalable}
         >
-            <Grid item xs={12} sm={12} md={4}>
-                <p className={styles.fontStyleScalable}
+            <Grid item xs={12} sm={12} md={4}
+            ref={SEORef}
+            >
+                <p className={startSEO ? styles.fontStyleScalableOn :styles.fontStyleScalable}
                 >
                     SEO , Ecommerce
                 </p>
@@ -81,6 +96,9 @@ const SEOcommerce = ({generalInfo,typoSize}) => {
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={8}>
+            <p className={startSEO ? styles.fontStyleScalableOn :styles.fontStyleScalable}>
+                 ISSUE
+                </p>
                 <ul>
             <Typography component="li" variant="h5" sx={{color:"white"}}>
                     incorrect words or not-found words on a site dramtically reduces hits.

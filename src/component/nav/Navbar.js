@@ -17,18 +17,24 @@ top:${({open})=>open ? "0":"2"}%;
 left:${({open})=>open ? "0":"0"}%;
 z-index:${({open})=>open ? "10000":"100"};
 width:${({open})=>open ? "90":"0"}vw;
-height:${({open})=>open ? "30":"0"}vw;
+height:${({open})=>open ? "50":"0"}vh;
 transition:all 0.75s ease-in-out;
 background:var(--background-1111);
+@media screen and (max-width:1200px){
+  width:${({open})=>open ? "100" : "0"}vw;
+  height: ${({open})=>open ? "70" : "0"}vh;
+  left:0%;
+  top:0%;
+}
 @media screen and (max-width:900px){
   width:${({open})=>open ? "100" : "0"}vw;
-  height: ${({open})=>open ? "50" : "0"}dvh;
+  height: ${({open})=>open ? "50" : "0"}vh;
   left:0%;
   top:0%;
 }
 @media screen and (max-width:600px){
   width:${({open})=>open ? "100" : "0"}vw;
-  height: ${({open})=>open ? "100" : "0"}dvh;
+  height: ${({open})=>open ? "100" : "0"}vh;
   left:0%;
   top:0%;
   
@@ -71,8 +77,9 @@ const CustNavGrid=styled(Grid)`
 opacity:${({open})=>open ? "1":"0"};
 width:${({open})=>open ? "100":"0"}%;
 height:${({open})=>open ? "auto":"0px"};
-justify-content: space-around;
-align-items: center;
+justify-content: center;
+align-items: flex-start;
+// align-content:start;
 gap: 10px;
 padding:10px;
 transform:${({open})=>open ? "scale(1)":"scale(0)"};

@@ -2,7 +2,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import styles from './corporate.module.css';
-import {Typography,Grid, Avatar, Fab} from '@mui/material';
+import {Typography,Grid,  Fab} from '@mui/material';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 
 const CustScalable=styled.div`
@@ -24,17 +24,30 @@ height:120vh;
     
 }
 @media screen and (max-width:380px){
-    height:290vh;
+    height:277vh;
     
 }
 `;
 
 const Scalable = ({generalInfo,typoSize}) => {
+    const scaleRef=React.useRef(null);
     const {staticImage}=React.useContext(GeneralContext);
     const pointer=`${staticImage}/corporate/pointer2.png`;
     const navigate=useNavigate();
-    const [contactInfo,setContactInfo]=React.useState({loaded:false,data:{}})
+    const [contactInfo,setContactInfo]=React.useState({loaded:false,data:{}});
+    const [startScale,setStartScale]=React.useState(null);
+    const threshold=window.innerWidth < 900 ? (window.innerWidth <600 ? 0.3 :0.5):0.9;
     
+    React.useEffect(()=>{
+        const observer = new IntersectionObserver(entries=>{
+            let entry=entries[0];
+            setStartScale(entry.isIntersecting);
+        },{threshold:threshold});
+
+        if(scaleRef.current){
+            observer.observe(scaleRef.current);
+        }
+    },[]);
 
     React.useEffect(()=>{
         if(generalInfo.loaded){
@@ -69,16 +82,22 @@ const Scalable = ({generalInfo,typoSize}) => {
         sx={{maxHeight:"100%"}}
         className={styles.parentGridScalable}
         >
-            <Grid item xs={12} sm={12} md={4}>
-                <p className={styles.fontStyleScalable}
+            <Grid item xs={12} sm={12} md={4}
+            ref={scaleRef}
+            >
+                <p className={startScale ? styles.fontStyleScalableOn :styles.fontStyleScalable}
                 >
                     SCALABILITY
                 </p>
                 <Typography component="h1" variant={typoSize}>
                     "Increase or decrease resources to meet higher or lower demand."
                 </Typography>
+                
             </Grid>
             <Grid item xs={12} sm={12} md={8}>
+            <p className={startScale ? styles.fontStyleScalableOn :styles.fontStyleScalable}>
+                 ISSUE
+                </p>
                 <ul>
             <Typography component="li" variant="h5" sx={{color:"white"}}>
                     increased traffic slows down corporate response ?

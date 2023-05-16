@@ -2,12 +2,30 @@ import React from "react";
 import { GeneralContext } from "../../context/GeneralContextProvider";
 import styles from "./process.module.css";
 // import { Container, Typography, Stack,Grid } from "@mui/material";
-// import styled from "styled-components";
+import styled from "styled-components";
 import TopContainer from './TopContainer';
 import Folder from './Folder';
 import DiveIn from './DiveIn';
 import ContactUs from './ContactUs';
 import CoverPage from './CoverPage';
+
+const CustProcess = styled.div`
+margin:0;
+min-height:100vh;
+margin-top:-70px;
+/* border:1px solid black; */
+display:flex;
+width:100vw;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:var( --background-33);
+animation:appearIn 1.5s ease-in-out;
+@keyframes appearIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+`;
 
 const Process = () => {
     const {staticImage,open, setOpen}=React.useContext(GeneralContext);
@@ -75,7 +93,7 @@ const Process = () => {
         }
       }
   return (
-    <div style={{background:"var( --background-33)",marginTop:"-70px",minHeight:"100vh"}}>
+    <CustProcess >
     <div
     className={styles.mainProcess}
     onMouseOut={(e)=>handleClose(e)}
@@ -86,7 +104,7 @@ const Process = () => {
         <DiveIn/>
         <ContactUs/>
     </div>
-    </div>
+    </CustProcess>
   )
 }
 

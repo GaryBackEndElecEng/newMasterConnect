@@ -2,7 +2,7 @@ import React from 'react';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 import styled from 'styled-components';
 import styles from './corporate.module.css';
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import corporateArr from './corpArr';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
@@ -264,18 +264,26 @@ const CoverPage = ({start}) => {
                 
                 (
                 corpArr.data.map((obj,index)=>(
-                    <Typography component="h2" variant={"h6"}
-                    key={`${obj.id}--statement--${index}`}
+                    <p key={`${obj.id}--statement--${index}`}
                     className={styles.subStatement}
-                    style={{animation:`${styles.growUp} ${index*2 + 2}s ease-in`}}
                     >
                         <span><ArrowRightAltIcon
                         className={styles.number}
                         sx={{animation:`${styles.growShrinkNumber} ${index*2 + 2}s ease-in`}}
                         />
+                        
                         </span>
-                        {obj.desc}
-                    </Typography>
+                    <span
+                    style={{animation:`${styles.growShrinkWord} ${index*2 + 2}s ease-in`,fontSize:`${100 + 30/(index+1)}%`}}
+                    >
+                        {obj.name}
+                    </span>
+                    <span
+                    style={{animation:`${styles.growUp} ${index*2 + 2}s ease-in`}}
+                    >
+                       {obj.desc}
+                    </span>
+                    </p>
                 ))
                 )
                 

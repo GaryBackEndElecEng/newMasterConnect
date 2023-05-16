@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 import styled from "styled-components";
 import { Stack, Typography, Container, } from "@mui/material";
 import styles from "./home.module.css";
+import wedesignContext from './wedesignContext';
+
 import PhraseEffect from './PhraseEffect';
 import Honor from './Honor';
 import Integrity from './Integrity';
@@ -51,6 +53,53 @@ const WeDesign = ({generalInfo}) => {
     const [sizeLet,setSizeLet]=React.useState("h1");
     const [sizeLet2,setSizeLet2]=React.useState("span");
     const [show,setShow]=React.useState(false);
+    const [getHonor,setGetHonor]=React.useState({loaded:false,data:{}});
+    const [getIntegrity,setGetIntegrity]=React.useState({loaded:false,data:{}});
+    const [getReturn,setGetReturn]=React.useState({loaded:false,data:{}});
+    const [getEvolution,setGetEvolution]=React.useState({loaded:false,data:{}});
+    const [getUnity,setGetUnity]=React.useState({loaded:false,data:{}});
+    const [getSteadfast,setGetSteadfast]=React.useState({loaded:false,data:{}});
+
+    React.useEffect(()=>{
+        if(wedesignContext){
+            setGetHonor(
+                {
+                    loaded:true,
+                    data:wedesignContext.filter(obj=>(obj.object==="honor"))[0]
+                }
+            )
+            setGetIntegrity(
+                {
+                    loaded:true,
+                    data:wedesignContext.filter(obj=>(obj.object==="integrity"))[0]
+                }
+            )
+            setGetReturn(
+                {
+                    loaded:true,
+                    data:wedesignContext.filter(obj=>(obj.object==="return"))[0]
+                }
+            )
+            setGetEvolution(
+                {
+                    loaded:true,
+                    data:wedesignContext.filter(obj=>(obj.object==="evolution"))[0]
+                }
+            )
+            setGetUnity(
+                {
+                    loaded:true,
+                    data:wedesignContext.filter(obj=>(obj.object==="unity"))[0]
+                }
+            )
+            setGetSteadfast(
+                {
+                    loaded:true,
+                    data:wedesignContext.filter(obj=>(obj.object==="steadfast"))[0]
+                }
+            )
+        }
+    },[]);
 
     React.useEffect(()=>{
         if(window.innerWidth <900){
@@ -121,12 +170,12 @@ const WeDesign = ({generalInfo}) => {
                     >
                     Our Values:
                     </p>
-                    <Honor sizeLet2={sizeLet2}/>
-                    <Integrity sizeLet2={sizeLet2}/>
-                    <Return sizeLet2={sizeLet2}/>
-                    <Evolution sizeLet2={sizeLet2}/>
-                    <Unity sizeLet2={sizeLet2}/>
-                    <Steadfast sizeLet2={sizeLet2}/>
+                    <Honor sizeLet2={sizeLet2} obj={getHonor.loaded && getHonor.data}/>
+                    <Integrity sizeLet2={sizeLet2} obj={getIntegrity.loaded && getIntegrity.data}/>
+                    <Return sizeLet2={sizeLet2} obj={getReturn.loaded && getReturn.data}/>
+                    <Evolution sizeLet2={sizeLet2} obj={getEvolution.loaded && getEvolution.data}/>
+                    <Unity sizeLet2={sizeLet2} obj={getUnity.loaded && getUnity.data}/>
+                    <Steadfast sizeLet2={sizeLet2} obj={getSteadfast.loaded && getSteadfast.data}/>
                 </Stack>
             </div>
             <div className={styles.mainInnerSection}>

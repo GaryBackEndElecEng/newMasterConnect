@@ -5,6 +5,7 @@ import styles from './home.module.css';
 import styled from 'styled-components';
 import {Typography,Stack,Fab,Box} from "@mui/material";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
+import BrushIcon from '@mui/icons-material/Brush';
 
 const NewBanner1=styled.div.attrs({className:styles.banner1})`
 position:relative;
@@ -12,7 +13,7 @@ opacity:${({opacity})=>opacity};
   min-height:45vh;
   background-image:url(${({bgimage})=> bgimage});
   background-position: 50% 50%;
-  background-size:100% 150%;
+  background-size:100% 190%;
   filter:saturate(2);
   width:100%;
   overflow:hidden;
@@ -21,7 +22,7 @@ opacity:${({opacity})=>opacity};
   animation: ${({animation})=> animation};
   @keyframes monkeyEffect {
     from { opacity:0;transform:translateX(-100%);background-position:100% 80%;}
-    to { opacity:1;transform:translateX(0%) ;background-position:50% 100%;}
+    to { opacity:1;transform:translateX(0%) ;background-position:50% 50%;}
   }
   @media screen and (max-width:900px){
     width:100%;
@@ -32,14 +33,14 @@ opacity:${({opacity})=>opacity};
     width:350px;
     top:0%;
     background-size:300% 150%;
-    background-position: 10% 90%;
+    background-position: 15% 100%;
     @keyframes monkeyEffect {
       from { opacity:0;transform:translateX(-100%) skew(45deg,45deg);background-position:100% 80%;}
-      to { opacity:1;transform:translateX(0%) skew(0deg,0deg);background-position:10% 90%;}
+      to { opacity:1;transform:translateX(0%) skew(0deg,0deg);background-position:15% 100%;}
     }
     
   }
-  @media screen and (max-width:400px){
+  @media screen and (max-width:380px){
     width:350px;
     top:0%;
     background-size:300% 150%;
@@ -78,13 +79,13 @@ animation: ${({animation})=>animation};
 @media screen and (max-width:600px){
   right:0%;
   width:100%;
-  top:20%;
+  top:25%;
   left:0%;
 }
 @media screen and (max-width:385px){
   right:0%;
   width:100%;
-  top:5%;
+  top:0%;
   left:0%;
 }
 `;
@@ -132,7 +133,7 @@ const SubWeDevDesign = ({monkey,getTitleVariant1}) => {
 
     const handleSendRequest=(e)=>{
         e.preventDefault();
-        navigate('/contact');
+        navigate('/designs');
       }
 
   return (
@@ -160,12 +161,12 @@ const SubWeDevDesign = ({monkey,getTitleVariant1}) => {
             <Typography component="h1" variant="h5" className={styles.write}
             sx={{fontFamily:"'Philosopher', sans-serif",width:{xs:"85%"}}}
             >
-              We design, using the 3-click method along with the golden-rule to attain symmetrical and responsive balance.
+              We design, using the 3-click method along with the golden-rule to attain symmetrical and responsive balance with effect.
             </Typography>
             <Stack direction="column" className={styles.contact}>
               <Fab variant="extended" color="secondary" size="medium" onClick={(e)=>handleSendRequest(e)}>
-                <RecentActorsIcon sx={{ mr: 2 }} />
-                Send a hello
+                <BrushIcon sx={{ mr: 2 }} />
+                View Our Designs
               </Fab>
             </Stack>
           </CustWeDesign>

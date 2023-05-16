@@ -24,15 +24,7 @@ align-items:flex-start;
 color:white;
 
 }
-.backgroundMain{
-background: var(--background-111);
-min-height:200vh;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-place-items:center;
-padding-bottom:5vh;
-}
+
 .backgroundMain >div{
     margin:auto;
 }
@@ -66,7 +58,31 @@ padding-bottom:5vh;
     background:var(--background-text-1);
     margin:5rem auto;
 }
-
+.childGridSeal::after{
+    opacity:0;
+text-align:center;
+place-items:center;
+position:absolute;
+content:"Thanks for comming";
+min-width:180px;
+min-height:60px;
+padding:1rem;
+top:20%;
+left:40%;
+background:rgba(0,0,0,0.5);
+border-radius:0%;
+color:white;
+font-size:110%;
+animation: rotateIn 10s ease-in-out;
+}
+.hide{
+    opacity:0;
+}
+@keyframes rotateIn {
+    from {opacity:0; transform:translateY(-300%) skew(45deg);}
+    50% {opacity:1; transform:translateY(0%) skew(0deg);}
+    to {opacity:0; transform:translateY(-100%) skew(45deg);}
+}
 @media screen and (max-width:900px){
     .title{
         font-size:550%;
@@ -97,7 +113,7 @@ padding-bottom:5vh;
 
 }
 
-.custStartProj .custStartInner{
+.custStartInner{
     margin:1rem auto;
     display:flex;
     justify-content:center;
@@ -105,7 +121,7 @@ padding-bottom:5vh;
     flex-direction:column;
 
 }
-.custStartProj .custStartInner button{
+.custStartInner button{
     margin-top:1rem;
 }
 @keyframes swirlText {

@@ -622,12 +622,7 @@ color:white;
  
   
   /*-------------- INNOVATORS --------- */
-  .mainInnovator{
-    background:var(--background-111);
-    z-index:100;
-    width:100vw;
-    margin: 5vh auto;
-  }
+  
   .changeColor{
     background:white;
     transition:all 1s ease-in;

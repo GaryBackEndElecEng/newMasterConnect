@@ -31,6 +31,9 @@ React.useEffect(()=>{
     if(!start){
         setTimeout(()=>{setStart(true);},1500);
     }
+    if(window.scrollY){
+        window.scroll(0,0);
+    }
 },[]);
 
   return (

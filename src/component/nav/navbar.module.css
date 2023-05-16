@@ -41,12 +41,11 @@
   color: white;
   margin-right: 1rem;
 }
-/* .custNavGridList{
-  opacity:0;
+.custNavGridList >div:last-child{
+  justify-self:start;
+  
 }
-.custNavGridList:hover{
-opacity:1;
-} */
+
 .smallNav:active {
   background-color: black;
 }

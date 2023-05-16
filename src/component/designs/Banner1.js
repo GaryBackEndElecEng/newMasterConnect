@@ -44,7 +44,7 @@ const Banner1 = () => {
         }}
       >
         <Grid item xs={12} sm={12} md={6}>
-          <Stack direction="column" sx={{justifyContent:"center",alignItems:"stretch",position:"relative",width:"100%" }}
+          <Stack direction="column" sx={{justifyContent:"stretch",alignItems:"stretch",position:"relative",width:"100%" }}
           ref={paraLeftRef}
           >
            

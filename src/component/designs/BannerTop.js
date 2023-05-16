@@ -27,14 +27,18 @@ const CustomBannerTop = styled.div`
   }
 `;
 const CustomBtGrid = styled(Grid)`
-  margin: 4.5rem auto;
+  margin:auto;
   justify-content: flex-start;
   align-items: flex-start;
+
 `;
 
 const BannerTop = () => {
   const { staticImage, } = React.useContext(GeneralContext);
   const happy2 = `${staticImage}/happy/happy2.png`;
+  const is3001=window.innerWidth < 300 ? "h4":"h2";
+  const is3002=window.innerWidth < 300 ? "h4":"h3";
+
   return (
     <CustomBannerTop>
       <Container maxWidth="xl" sx={{ marginTop: "1vh" }}>
@@ -43,10 +47,10 @@ const BannerTop = () => {
           spacing={{ xs: 2, sm: 1, md: 6 }}
           className={styles.btContainer}
         >
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <Typography
               component="h1"
-              variant="h2"
+              variant={is3001}
               className={styles.fontStyle}
             >
               FEATURED PROJECTS
@@ -54,7 +58,7 @@ const BannerTop = () => {
             <div className={styles.bannerTopFollow}>
               <Typography
                 component="h1"
-                variant="h3"
+                variant={is3002}
                 sx={{ margin: "1rem auto" }}
                 className={styles.fontStyle1}
               >
@@ -62,7 +66,7 @@ const BannerTop = () => {
               </Typography>
               <Typography
                 component="h1"
-                variant="h3"
+                variant={is3002}
                 sx={{ margin: "1rem auto" }}
                 className={styles.fontStyle1}
               >
@@ -76,7 +80,7 @@ const BannerTop = () => {
               spacing={{ xs: 0, sm: 2, md: 3 }}
               className={styles.subMainGrid}
             >
-              <Grid item xs={12} sx={{ borderLeft: "1px solid white" }}>
+              <Grid item xs={12} sx={{ borderLeft: "1px solid white",paddingInline:"0.5rem" }}>
                 <Typography component="h1" variant="h5">
                   From hot coffee and sneakers to healthcare and spaceships, we
                   will get it done to your liking.All that is needed is to get

@@ -10,7 +10,8 @@ const CustStartProj = styled.div`
   margin-top:2rem;
   padding:auto 1rem;
   opacity: ${({ opacity }) =>opacity};
-  min-height: 55vh;
+  min-height: 65vh;
+  width:100vw;
   background-image: url(${({ bgimage }) => bgimage});
   background-size: 100% 100%;
   background-position: 50% 50%;
@@ -18,6 +19,7 @@ const CustStartProj = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
+  transform:translateY(${({translatey})=>translatey});
   column-gap:2rem;
   animation: ${({ animation }) =>animation};
   @keyframes startSlideUp {
@@ -25,7 +27,7 @@ const CustStartProj = styled.div`
       opacity: 0;
       background-size: 200% 200%;
       background-position: 0% 0%;
-      transform: translateY(40%);
+      transform: translateY(20%);
     }
     to {
       opacity: 1;
@@ -38,18 +40,18 @@ const CustStartProj = styled.div`
     flex-direction:column;
     width:100vw;
     background-size: 200% 200%;
-    background-position: 0% 50%;
+    background-position: 90% 90%;
     @keyframes startSlideUp {
         from {
           opacity: 0;
           background-size: 200% 200%;
           background-position: 0% 0%;
-          transform: translateY(40%);
+          transform: translateY(20%);
         }
         to {
           opacity: 1;
-          background-size: 200% 100%;
-          background-position: 0% 50%;
+          background-size: 200% 200%;
+          background-position: 90% 90%;
           transform: translateY(0%);
         }
       }
@@ -64,7 +66,7 @@ const CustStartProj = styled.div`
         opacity: 0;
         background-size: 300% 200%;
         background-position: 0% 0%;
-        transform: translateY(40%);
+        transform: translateY(20%);
       }
       to {
         opacity: 1;
@@ -82,17 +84,19 @@ const StarProjContact = ({ getWidth }) => {
   const { staticImage } = React.useContext(GeneralContext);
   const turtle = `${staticImage}/water/turtle.png`;
   const greenEffect = `${staticImage}/extra/greenEffect.png`;
-  const [startOpen, setStartOpen] = React.useState(false);
+  const [startOpen1, setStartOpen1] = React.useState(null);
+  const threshold= window.innerWidth < 900 ? 0.2:0.8;
+  
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         let entry = entries[0];
         if (entry.isIntersecting) {
-          setStartOpen(true);
+          setStartOpen1(true);
         }
       },
-      { threshold: 0.8 }
+      { threshold: threshold }
     );
     if (startRef.current) {
       observer.observe(startRef.current);
@@ -110,9 +114,10 @@ const StarProjContact = ({ getWidth }) => {
   return (
     <CustStartProj
       bgimage={turtle}
-      opacity={startOpen ? "1":"0"}
-      animation={startOpen ? "startSlideUp 3.5s ease-in-out": ""}
+      opacity={startOpen1 ? "1":"0"}
+      animation={startOpen1 ? "startSlideUp 3.5s ease-in-out": ""}
       className={styles.custStartProj}
+      translatey={startOpen1 ? "0%": "20%"}
       ref={startRef}
     >
       <div className={styles.custStartInner}>

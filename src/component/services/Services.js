@@ -11,6 +11,21 @@ import FAQS from './FAQS';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
+const CustService=styled.div.attrs({className:"container-fluid"})`
+margin:auto;
+background:var( --background-111);
+justify-content:center;
+align-items:center;
+flex-direction:column;
+place-items:center;
+padding-bottom:5vh;
+animation:appearIn 1.5s ease-in-out;
+@keyframes appearIn { 
+  from {opacity:0;}
+  to {opacity:1;}
+}
+`;
+
 const CustImgSeal=styled(CardMedia)`
 margin:auto;
 width:100%;
@@ -63,15 +78,11 @@ const Services = () => {
       setMore(true);
   }
 
-  const handleOpenFaqs=(e)=>{
-    e.preventDefault();
-    setOpenFAQS(true);
-  }
+ 
 
   return (
-    <div
-      style={{ background: "var( --background-111)", marginTop: "0px",margin:"auto 0px" }}
-      className={`container-fluid ${styles.backgroundMain}`}
+    <CustService
+    className={styles.backgroundMain}
     >
       <Container maxWidth="xl">
         <Box
@@ -100,7 +111,10 @@ const Services = () => {
                    
                   }}
                 >
-                  <Grid item xs={12} sm={12} md={4} >
+                  <Grid item xs={12} sm={12} md={4}
+                  sx={{position:"relative",isolation:"isolate"}}
+                  className={ servStart ? styles.childGridSeal :styles.hide}
+                  >
                     
                     <CustImgSeal 
                     opacity={servStart ? "1":"0"}
@@ -108,7 +122,8 @@ const Services = () => {
                     component="img"
                      src={seal} 
                     alt="www.masterconnect.ca" height={"400px"}
-                     sx={{width:{md:"100%",xs:"100%"},padding:"1rem"}} 
+                     style={{width:"100%",padding:"1rem"}} 
+                     className={styles.custImgSeal}
                     />
                   
                   </Grid>
@@ -188,7 +203,7 @@ const Services = () => {
 
       <StarProjContact getWidth={getWidth}/>
       </div>
-    </div>
+    </CustService>
   );
 };
 

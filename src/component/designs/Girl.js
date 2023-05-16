@@ -59,8 +59,10 @@ background-size:200% 100%;
 @media screen and (max-width:390px){
 min-height:380px;
 width:350px;
-
-
+}
+@media screen and (max-width:300px){
+min-height:380px;
+width:270px;
 }
 `;
 

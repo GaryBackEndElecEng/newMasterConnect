@@ -6,6 +6,15 @@
     --background-image-2:linear-gradient(to left, blue, rgb(188, 243, 116) 50%,rgb(236, 28, 13));
   }
 
+
+.fontStyleCt{
+    -webkit-background-clip:text;
+    background-clip:text;
+    background-image:var(--background-1111);
+    background-size:50% 50%;
+    -webkit-text-stroke:1px white;
+    color:transparent ;
+}
 .childGrid > h1{
     font-family: var(--font-family);
     color:linear-gradient(#e66465, #9198e5);

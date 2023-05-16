@@ -134,7 +134,7 @@ const navigate=useNavigate();
 
     const handleDesigns=(e)=>{
         e.preventDefault();
-        navigate('/designs');
+        navigate('/process');
       }
   return (
     <CustBanner2
@@ -163,7 +163,7 @@ const navigate=useNavigate();
             <Stack direction="column" className={styles.contact} sx={{opacity:1}}>
               <Fab variant="extended" color="primary" size="medium" onClick={(e)=>handleDesigns(e)} sx={{width:{xs:"80%",md:"90%"}}}>
                 <DeveloperBoardIcon sx={{ mr: 2 }} />
-                See Designs
+                See Our Process
               </Fab>
             </Stack>
           </CustDevpara>

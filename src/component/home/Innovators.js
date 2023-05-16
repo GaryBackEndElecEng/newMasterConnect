@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Box, Card, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
+import {  Card, Container, Grid, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import styles from "./home.module.css";
 import styled from "styled-components";
@@ -8,23 +8,14 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import InnovatorCard from './InnovatorCard';
 
-const CustStack=styled(Stack)`
-Margin:${({open})=>open ? "2rem auto":"0 auto"};
-opacity:${({open})=>open ? 1:0};
-height:${({open})=>open ? "100%":"0"};
-justify-content:center;
+const MainInnovator=styled.div`
+background:var(--background-111);
 z-index:100;
-align-items:center;
-box-shadow:1px 1px 5px 1px white;
-animation: ${({open})=>open ? "smoothOpen": "smoothClose"} 1s ease-in;
-@keyframes smoothOpen {
-    from { opacity:0.5; height:0;}
-    to { opacity:1; height:100%;}
-}
-@keyframes smoothClose {
-    from { opacity:1; height:100%;}
-    to { opacity:0; height:5vh;}
-}
+width:100vw;
+margin: 5vh auto;
+// border:1px solid red;
+padding-block:2rem;
+
 @media screen and (max-width:900px){
 
 }
@@ -33,44 +24,7 @@ animation: ${({open})=>open ? "smoothOpen": "smoothClose"} 1s ease-in;
 }
 
 `;
-const CustCard = styled(Card)`
-position:relative;
-margin:${({open})=>open ? "2vh auto" : "0px"};
-height:${({open})=>open ? "50vh":"4.7vh"};
-background:${({open})=>open ? "var( --background-555 )":"transparent"};
-box-shadow:${({open})=>open ? "1px 1px 15px 1px white":"none"};
-animation:${({open})=>open ? "innovationShowOn" : "innovationShowOff"} 1.5s ease-in;
-@keyframes innovationShowOn{
-  from {height:4.7vh}
-  to {height:50vh}
-}
-@keyframes innovationShowOff{
-  from {opacity:1;height:50vh}
-  to {opacity:1;height:4.7vh}
-}
-@media screen and (max-width:900px){
-  height:${({open})=>open ? "50vh":"3.8vh"};
-  @keyframes innovationShowOn{
-    from {opacity:1;height:3.8vh}
-    to {opacity:1;height:50vh
-  }
-  @keyframes innovationShowOff{
-    from {opacity:1;height:50vh}
-    to {opacity:1;height:3.8vh}
-  }
-}
-@media screen and (max-width:600px){
-  height:${({open})=>open ? "95vh":"3.9vh"};
-  @keyframes innovationShowOn{
-    from {opacity:1;height:3.9vh}
-    to {opacity:1;height:95vh
-  }
-  @keyframes innovationShowOff{
-    from {opacity:1;height:95vh
-    to {opacity:1;height:3.9vh}
-  }
-}
-`;
+
 
 const Innovators = () => {
   const [fontSize, setFontSize] = React.useState(null);
@@ -135,7 +89,9 @@ const Innovators = () => {
   
 
   return (
-    <div className={styles.mainInnovator}>
+    <MainInnovator
+     className={styles.mainInnovator}
+     >
     <Container maxWidth="xl" sx={{margin:"5vh auto"}} >
       <Grid container spacing={1}
        sx={{position:"relative",justifyContent:"center", alignItems:"flex-start"}}
@@ -160,7 +116,7 @@ const Innovators = () => {
         </Grid>
       </Grid>
     </Container>
-    </div>
+    </MainInnovator>
   );
 };
 

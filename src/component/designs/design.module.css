@@ -46,6 +46,27 @@
   color: transparent;
  
 }
+@media screen and (max-width:1300px){
+  
+  .fontStyleTitle{
+    font-size:900%;
+    text-align:center;
+  }
+  .fontStyleSubTitle{
+    font-size:500%;
+    text-align:center;
+    background-size:850% 190%;
+    background-position:50% 50%;
+  }
+}
+@media screen and (max-width:1100px){
+  
+  .fontStyleTitle{
+    font-size:800%;
+    text-align:center;
+  }
+  
+}
 
 @media screen and (max-width:900px){
   .custCoverDesign >div{
@@ -65,6 +86,7 @@
     background-position:50% 50%;
   }
 }
+
 @media screen and (max-width:600px){
   .custCoverDesign >div{
     margin:auto;
@@ -95,6 +117,7 @@
         color: transparent;
         margin-bottom:0.62rem;
         transition: all 1s ease-in;
+        width:100%;
   }
   .fontStyle_2{
     font-family: var(--font-family);
@@ -164,15 +187,7 @@
     margin-top:0.5rem;
     margin-bottom:1rem;
   }
-/* .mainDesign{
-    min-height:280vh;
-    width:100vw;
-    margin:0;
-    padding:0;
-    margin-top:-50px;
-    box-sizing:border-box;
-    background:var( --background-design);
-} */
+
 /* ----------------BANNER TOP---------------- */
 .btContainer{
   margin:4.5rem auto;

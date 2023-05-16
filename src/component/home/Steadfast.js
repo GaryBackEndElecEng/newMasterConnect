@@ -32,7 +32,7 @@ transition: all 1.75s ease-in;
 }
 `;
 
-const Steadfast = ({sizeLet2}) => {
+const Steadfast = ({sizeLet2,obj}) => {
     const steadfastRef=React.useRef(null);
     const [openSteadfast,setOpenSteadfast]=React.useState(null);
     const threshold=window.innerWidth <600 ? 0.2:0.8;
@@ -61,10 +61,10 @@ const observer=new IntersectionObserver(entries=>{
      variant={sizeLet2}
      translatex={openSteadfast ? "0%":"10%"}
     >
-    <span className={styles.fontStyle}>S</span>teadfast
+    <span className={styles.fontStyle}>{obj.letter}</span>{obj.name}
     </HonorTypo>
     <Typography component="h1" variant={sizeLet2} style={{width:"100%"}}>
-    We are loyal and devoted to your needs, with military backing - much through hardwork and perserverance. Loyalty allows us to grow with you and to becomes friends. 
+    {obj.desc} 
     </Typography>
     </CustBox>
   )

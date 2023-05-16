@@ -32,7 +32,7 @@ transition: all 1.75s ease-in;
 }
 `;
 
-const Integrity = ({sizeLet2}) => {
+const Integrity = ({sizeLet2,obj}) => {
     const integrityRef=React.useRef(null);
     const [openIntegrity,setOpenIntegrity]=React.useState(null);
     const threshold=window.innerWidth <600 ? 0.2:0.8;
@@ -61,10 +61,10 @@ const observer=new IntersectionObserver(entries=>{
      variant={sizeLet2}
      translatex={openIntegrity ? "0%":"10%"}
     >
-    <span className={styles.fontStyle}>I</span>ntegrity
+    <span className={styles.fontStyle}>{obj.letter}</span>{obj.name}
     </HonorTypo>
     <Typography component="h1" variant={sizeLet2} style={{width:"100%"}}>
-    The wholeness of the design needs to convey your company's values.
+    {obj.desc}
     </Typography>
     </CustBox>
   )

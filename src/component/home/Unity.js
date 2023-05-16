@@ -32,7 +32,7 @@ transition: all 1.75s ease-in;
 }
 `;
 
-const Unity = ({sizeLet2}) => {
+const Unity = ({sizeLet2,obj}) => {
     const unityRef=React.useRef(null);
     const [openUnity,setOpenUnity]=React.useState(null);
     const threshold=window.innerWidth <600 ? 0.2:0.8;
@@ -61,10 +61,10 @@ const observer=new IntersectionObserver(entries=>{
      variant={sizeLet2}
      translatex={openUnity ? "0%":"10%"}
     >
-     <span className={styles.fontStyle}>U</span>nity
+     <span className={styles.fontStyle}>{obj.letter}</span>{obj.name}
     </HonorTypo>
     <Typography component="h1" variant={sizeLet2} style={{width:"100%"}}>
-    Understanding who your are, requires communication discoveries. With united talk, the act, allows us to design with uniqueness to meet your needs.
+   {obj.desc}
     </Typography>
     </CustBox>
   )

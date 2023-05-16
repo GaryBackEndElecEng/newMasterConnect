@@ -32,7 +32,7 @@ transition: all 1.75s ease-in;
 }
 `;
 
-const Evolution = ({sizeLet2}) => {
+const Evolution = ({sizeLet2,obj}) => {
     const evolutionRef=React.useRef(null);
     const [openEvolution,setOpenEvolution]=React.useState(null);
     const threshold=window.innerWidth <600 ? 0.2:0.8;
@@ -61,10 +61,10 @@ const observer=new IntersectionObserver(entries=>{
      variant={sizeLet2}
      translatex={openEvolution ? "0%":"10%"}
     >
-   <span className={styles.fontStyle}>E</span>volution
+   <span className={styles.fontStyle}>{obj.letter}</span>{obj.name}
     </HonorTypo>
     <Typography component="h1" variant={sizeLet2} style={{width:"100%"}}>
-    We understand that a site's functionality, look and touch reflects your company's texture, appearance, performance and values. We design & develop with forward thinking to incorporate scalability.
+    {obj.desc}
     </Typography>
     </CustBox>
   )
