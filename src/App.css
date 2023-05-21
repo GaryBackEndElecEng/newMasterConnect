@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+box-sizing: border-box;
 }
 :root{
     --font-family:"'Philosopher', sans-serif";
@@ -34,7 +34,7 @@
      --background-hopefulHarvest:linear-gradient(to right, rgb(247, 6, 6), rgb(6, 150, 61)80% ,rgba(240, 244, 245, 0.9)90%);
      --background-hopefulHarvest-main:linear-gradient(217deg, rgba(5, 71, 8, 0.486), rgb(245, 248, 246)52.5% ,rgba(9, 63, 2, 0.664)95%);
      --background-hopefulHarvest-flowDisp:linear-gradient(217deg,rgb(41, 2, 2), rgb(117, 110, 5)50% ,rgb(8, 8, 8)60%);
-     --background-hopefulHarvest-handCrafted:linear-gradient(217deg,rgb(253, 6, 6), rgb(242, 248, 245)50% ,rgb(1, 32, 9)90%);
+     --background-hopefulHarvest-handCrafted:linear-gradient(217deg,rgb(253, 6, 6), rgb(242, 248, 245)50% ,rgb(195, 236, 10)90%);
      --background-hopefulHarvest-family:            
     linear-gradient(136deg, rgba(240, 12, 12, 0.8), rgb(233, 240, 241) 20% );
      --background-hopefulHarvest-msg:            

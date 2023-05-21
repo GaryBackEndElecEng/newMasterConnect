@@ -154,7 +154,7 @@ const Navbar = () => {
     }
   };
   const handleNavigate = (e, link) => {
-    // e.preventDefault();
+    e.preventDefault();
     setOpen(false);
       navigate(link);
   };

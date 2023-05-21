@@ -5,6 +5,7 @@ import {GeneralContext} from '../../context/GeneralContextProvider';
 import styled from 'styled-components';
 import BlogCover from './BlogCover';
 import BlogBanner from './BlogBanner';
+import BlogHelmet from './BlogHelmet';
 
 const CustBlob=styled.div`
 margin:0;
@@ -29,7 +30,7 @@ animation: slideInRight 1.5s ease-in-out;
 
 
 const Blog = () => {
-  // const {staticImage2}=React.useContext(GeneralContext);
+  const {generalInfo}=React.useContext(GeneralContext);
   const [getWidth,setGetWidth]=React.useState(null);
 
   React.useEffect(()=>{
@@ -41,7 +42,7 @@ const Blog = () => {
 
   return (
     <CustBlob>
-
+<BlogHelmet generalInfo={generalInfo.loaded ? generalInfo.data : null}/>
 <BlogCover getWidth={getWidth} />
 <BlogBanner getWidth={getWidth}/>
     </CustBlob>

@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { Typography, Container, Grid, Stack,  } from "@mui/material";
 import { GeneralContext } from "../../context/GeneralContextProvider.js";
+import Design1Helmet from './Design1Helmet';
 import styled from "styled-components";
 import styles from "./design1.module.css";
 import introArr from "./intro";
@@ -40,7 +41,7 @@ const CustomDesign1 = styled.div`
 const Design1 = () => {
   const location = useLocation();
   const pathname = location.pathname;
-  const { getPathLocation, pageRatings, staticImage,staticImage2,open, setOpen,setCssSet }=React.useContext(GeneralContext);
+  const { productDesigns, pageRatings, staticImage,staticImage2,open, setOpen,setCssSet,generalInfo }=React.useContext(GeneralContext);
   const image1 =
     "https://master-connect.s3.ca-central-1.amazonaws.com/static/pics/shortTermRental2.png";
 
@@ -50,11 +51,24 @@ const Design1 = () => {
   const [rating, setRating] = React.useState({ loaded: false, data: {} });
   const [play, setPlay] = React.useState(false);
   const [Ratings,setRatings]=React.useState({loaded:false,data:[]});
+  const [productDesign,setProductDesign]=React.useState({loaded:false,data:{}});
+  const [pageRate,setPageRate]=React.useState({loaded:false,data:[]});
+  
 
   React.useEffect(()=>{
     setRatings({loaded:true,data:ratings});
+    if(productDesigns.loaded){
+      setProductDesign({loaded:true,
+      data:productDesigns.data.filter(obj=>(obj.extra_kwargs === "/design1"))[0]
+      })
+    }
+    if(pageRatings.loaded){
+      let pageArr=pageRatings.data.filter(obj=>(obj.page==='/design1'));
+      setPageRate({loaded:true,data:pageArr});
+    }
     
-},[]);
+},[productDesigns.loaded,productDesigns.data,pageRatings.loaded,pageRatings.data]);
+
 
   React.useEffect(() => {
     //pageRatings.data.filter(obj=>(obj.page==="/design1"))
@@ -99,6 +113,11 @@ const Design1 = () => {
   
   return (
     <CustomDesign1>
+      <Design1Helmet 
+      generalInfo={generalInfo.loaded ? generalInfo.data :null}
+        product={productDesign.loaded ? productDesign.data :null}
+        pageRate={pageRate.loaded ? pageRate.data :null}
+      />
       <CoverPage staticImage={staticImage}/>
       <Container maxWidth="xl"
       onMouseOut={(e)=>handleClose(e)}

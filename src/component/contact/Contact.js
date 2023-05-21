@@ -4,7 +4,8 @@ import styles from './contact.module.css';
 import {Grid, Container, Typography, Stack} from '@mui/material';
 import styled from "styled-components";
 import RequestForm from './RequestForm';
-import SocialMedia from '../about/SocialMedia'
+import SocialMedia from '../about/SocialMedia';
+import ContactHelmet  from './ContactHelmet';
 
 
 
@@ -51,6 +52,7 @@ const Contact = () => {
   
   return (
     <Main  >
+      <ContactHelmet generalInfo={generalInfo.loaded ? generalInfo.data :null}/>
       <Container maxWidth="lg">
       <div className={styles.hr_line}/>
         <Grid container spacing={3} className={styles.mainGrid}>

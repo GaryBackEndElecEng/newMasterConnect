@@ -1,0 +1,29 @@
+[
+    {
+        "id":1,
+        "object":"Connect",
+        "name":"Relationship",
+        "image":"folder/connect.png",
+        "desc1":"We believe the most effective connections are emmotional. Emmotions links to long term memory and has the most long term effects to memory.",
+        "desc2":" Our interactive web design agency , will help you connect with your audience in exciting and engaging ways through what you do. We want you to be successful and will work effortlessly to help you achieve your goals.",
+        "desc3":"This is our mission"
+    },
+    {
+        "id":2,
+        "object":"Design",
+        "name":"Creation",
+        "image":"folder/design.png",
+        "desc1":"Brainstorming new ideas helps develop the best strategies and inspired solutions for your brand. In general brands needs to grow and breath responsive to corporate growth.",
+        "desc2":"We leverage intelligence and technology to create great experiences. Each brand is designed to be unique in every perspect. Like brands, every digital initiative needs to be a custumized and unique approach in driving a statement. As Brands, Corporate identity is unique and so is it's website.",
+        "desc3":"website, like brands must be unique"
+    },
+    {
+        "id":3,
+        "object":"OwnerShip",
+        "name":"Data Control",
+        "image":"folder/ownership.png",
+        "desc1":"What matters to us is data ownership. Data retention is vital to a company's success through online data presense and accessibility, in the holistic view of connecting.",
+        "desc2":" We create quick and secure data access through efficient front-to-back requests to ensure data access reliability.",
+        "desc3":"We want your business."
+    }
+]

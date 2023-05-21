@@ -1,12 +1,13 @@
 import React from "react";
 import {GeneralContext} from '../../context/GeneralContextProvider';
 // import styles from "./about.module.css";
+import AboutHelmet from "./AboutHelmet";
 import styled from "styled-components";
 import AboutMain from "./AboutMain";
 import AboutMainAfter from "./AboutMainAfter";
 import Imagery from "./Imagery";
 import Longevity from "./Longevity";
-import Folder from "./Folder";
+import FolderMain from "./FolderMain";
 import Scroller from "./Scroller";
 import DiveIn from './DiveIn';
 
@@ -33,7 +34,7 @@ animation:slideLeft 1.5s ease-in-out;
 }
 `;
 const About = () => {
-  const {contactInfo,open, setOpen,staticImage,generalInfo}= React.useContext(GeneralContext);
+  const {open, setOpen,staticImage,generalInfo}= React.useContext(GeneralContext);
   const happyMain = `${staticImage}/happy/happyMain.png`;
   const happyOffice = `${staticImage}/happy/happyOffice.png`;
   const longevity=`${staticImage}/extra/longevity.png`;
@@ -46,6 +47,7 @@ const About = () => {
   const connect=`${staticImage}/folder/connect.png`;
   const ownership=`${staticImage}/folder/ownership.png`;
   const design=`${staticImage}/folder/design.png`;
+
   // const [showPic, setShowPic] = React.useState({loaded:false,id:0});
   const [close, setClose] = React.useState(null);
   const [slide, setSlide] = React.useState(null);
@@ -104,6 +106,9 @@ const About = () => {
   
   return (
     <MainContainer onMouseOut={(e)=>handleClose(e)}>
+      <AboutHelmet generalInfo={generalInfo.loaded? generalInfo.data :null}
+        arr={arr ? arr : null}
+      />
       <AboutMain fontSize={fontSize} getWidth={getWidth}/>
       <Imagery
         slide={slide}
@@ -115,7 +120,7 @@ const About = () => {
       />
       <AboutMainAfter  getWidth={getWidth} fontSize={fontSize}/>
       <Longevity arr={arr} getWidth={getWidth} fontSize={fontSize}/>
-      <Folder connect={connect} ownership={ownership} design={design} getWidth={getWidth} fontSize={fontSize}/>
+      <FolderMain getWidth={getWidth} fontSize={fontSize}/>
       <DiveIn getWidth={getWidth} />
       <Scroller contactInfo={generalInfo} getWidth={getWidth} fontSize={fontSize}/>
     </MainContainer>

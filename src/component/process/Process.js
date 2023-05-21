@@ -1,13 +1,14 @@
 import React from "react";
 import { GeneralContext } from "../../context/GeneralContextProvider";
 import styles from "./process.module.css";
-// import { Container, Typography, Stack,Grid } from "@mui/material";
+import wedesignContext from '../home/wedesignContext';
 import styled from "styled-components";
 import TopContainer from './TopContainer';
 import Folder from './Folder';
 import DiveIn from './DiveIn';
 import ContactUs from './ContactUs';
 import CoverPage from './CoverPage';
+import ProcessHelmet from './ProcessHelmet';
 
 const CustProcess = styled.div`
 margin:0;
@@ -28,18 +29,19 @@ animation:appearIn 1.5s ease-in-out;
 `;
 
 const Process = () => {
-    const {staticImage,open, setOpen}=React.useContext(GeneralContext);
+    const {staticImage,open, setOpen,generalInfo}=React.useContext(GeneralContext);
     const meet=`${staticImage}/process/meet.png`;
     const recommendation=`${staticImage}/process/recommendation.png`;
     const design=`${staticImage}/process/design.png`;
     const Program=`${staticImage}/process/program.png`;
     const Review=`${staticImage}/process/review.png`;
     const launch=`${staticImage}/process/launch.png`;
-
+    
     React.useEffect(()=>{
         if(window.scrollY){
             window.scroll(0,0);
         }
+        
     },[]);
 
     const slideArr=[
@@ -86,6 +88,7 @@ const Process = () => {
         }
 
     ];
+
     const handleClose=(e)=>{
         e.preventDefault();
         if(open ===true){
@@ -94,6 +97,11 @@ const Process = () => {
       }
   return (
     <CustProcess >
+        <ProcessHelmet 
+        arr={slideArr}
+        wedesignContext={wedesignContext ? wedesignContext :[]}
+         generalInfo={generalInfo.loaded ? generalInfo.data :[]}
+        />
     <div
     className={styles.mainProcess}
     onMouseOut={(e)=>handleClose(e)}

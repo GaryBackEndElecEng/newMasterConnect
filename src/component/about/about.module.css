@@ -255,25 +255,9 @@ background-color:rgba(0,0,0,0.3);
 
 /*----- LONGEVITY  END ---------------------- */
 /*----- FOLDER  START ---------------------- */
-.mainFolder{
-    margin:10vh auto;
-    display:flex;
-    width:100%;
-    justify-content:flex-start;
-    align-items:center;
-    flex-direction:column;
-    position:relative;
-    min-height:90vh;
-    overflow:hidden;
-    
-    
-}
+
 .folder{
-    position:absolute;
-    margin:3rem auto;
-    top:0%;
-    left:0%;
-    height:100%;
+    
 }
 
 
@@ -291,7 +275,7 @@ background-color:rgba(0,0,0,0.3);
 .tab{
     
     height:100%;
-    width:15%;
+    width:10%;
     display:flex;
     justify-content:center;
 
@@ -302,33 +286,27 @@ background-color:rgba(0,0,0,0.3);
 
 
 
-.tab >h1{
-    position:absolute;
-    top:10%;
-    left:-30%;
-    transform:rotate(90deg);
-}
-.textArea{
-    color:white;
-}
+
+
 .textArea >h1{
     font-family: var(--font-family);
-    background-image: var(--background-image-1-left);
+    background-image: var(--background-hopefulHarvest-handCrafted);
         -webkit-background-clip: text;
         -moz-background-clip: text;
         background-clip: text;
         color: transparent;
+        background-size:25% 100%;
+        
 }
 .textArea >h2{
     padding:1rem;
     margin:1rem auto;
+
 }
 @media screen and (max-width:900px){
-    .mainFolder{
-        min-height:87vh;
-    }
-    .folder{
-        width:100%;
+    
+    .custFolderMain >div{
+        scroll-snap-align:center !important;
     }
     .tab{
         max-height:5vh;

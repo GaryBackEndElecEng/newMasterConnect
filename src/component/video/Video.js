@@ -1,11 +1,12 @@
 import React from 'react';
-// import {GeneralContext} from '../../context/GeneralContextProvider';
+import {GeneralContext} from '../../context/GeneralContextProvider';
 // import styles from './video.module.css';
 // import {Stack,Grid,Typography} from '@mui/material';
 import styled from 'styled-components';
 import CoverPage from './CoverPage';
 import VideoList from './VideoList';
 import VideoBanner from "./VideoBanner";
+import VideoHelmet from './VideoHelmet';
 
 
 const CustMainVideo=styled.div`
@@ -23,7 +24,7 @@ animation:slideLeft 1.5s ease-in-out;
 
 
 const Video = () => {
-    // const {staticImage2}=React.useContext(GeneralContext);
+    const {generalInfo}=React.useContext(GeneralContext);
     const [getWidth,setGetWidth]=React.useState(null);
 
     React.useEffect(()=>{
@@ -35,7 +36,7 @@ const Video = () => {
 
   return (
     <CustMainVideo>
-
+<VideoHelmet generalInfo={generalInfo.loaded ? generalInfo.data : null}/>
     <CoverPage getWidth={getWidth}/>
     <VideoBanner getWidth={getWidth}/>
     <VideoList getWidth={getWidth}/>

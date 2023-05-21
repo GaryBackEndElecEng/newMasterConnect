@@ -2,6 +2,7 @@ import React from "react";
 import { GeneralContext } from "../../context/GeneralContextProvider";
 import styles from "./design.module.css";
 // import { Container, Typography, Stack, IconButton } from "@mui/material";
+import DesignHelmet from './DesignHelmet';
 import styled from "styled-components";
 import Banner1 from './Banner1';
 import BannerTop from './BannerTop';
@@ -27,7 +28,7 @@ min-height:280vh;
 `;
 
 const Designs = () => {
-  const { productDesigns,contactInfo,staticImage,open, setOpen } = React.useContext(GeneralContext);
+  const { productDesigns,contactInfo,staticImage,generalInfo } = React.useContext(GeneralContext);
   const [iconWidth, setIconWidth] = React.useState(null);
   const [length, setLength] = React.useState(null);
   const [max600, setMax600] = React.useState(false);
@@ -60,6 +61,9 @@ const Designs = () => {
 
   return (
     <CustMainDesign className={styles.mainDesign} >
+      <DesignHelmet productsArr={productDesigns.loaded ? productDesigns.data : null}
+        generalInfo={generalInfo.loaded ? generalInfo.data : null}
+      />
       <CoverPage getWidth={getWidth} />
       <BannerTop/>
       

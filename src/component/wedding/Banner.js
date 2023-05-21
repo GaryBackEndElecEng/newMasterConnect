@@ -24,6 +24,7 @@ animation: ${({open})=>open ? "openThis":""} 1.75s ease-in-out;
 }
 @media screen and (max-width:600px){
   top:66%;
+  height:55vh;
 }
 `;
 

@@ -106,6 +106,7 @@ function Home() {
     >
       <HomeHelmet/>
       <Cover mainPic={mainPic}/>
+      
       <div className={styles.mainMain}>
       <WeDesign generalInfo={generalInfo} />
 

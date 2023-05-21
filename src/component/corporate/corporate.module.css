@@ -144,14 +144,15 @@ align-self: stretch;
 }
 .fontStyleScalableOn{
     margin: 1rem auto;
-    font-size:550% !important;
+    font-size:500% !important;
     background:var(--background-image-1-left);
     color:transparent !important;
     background-clip:text;
     padding-bottom:1rem;
     -webkit-background-clip:text;
     -webkit-text-stroke:1px white !important;
-    transition: all 2s ease-in;
+    background-size:25% 25%;
+    animation: colorUp 10x linear;
 
 }
 .fontStyleScalable2{
@@ -201,7 +202,7 @@ align-self: stretch;
         font-size:250% !important;
     }
     .fontStyleScalableOn{
-        font-size:260% !important;
+        font-size:250% !important;
     }
     .buttonFlex{
         flex-direction:column !important;

@@ -8,6 +8,8 @@ import serviceObj from "./serviceArr";
 import ServiceItem from './ServiceItem';
 import StarProjContact from './StarProjContact';
 import FAQS from './FAQS';
+import ServiceHelmet from './ServiceHelmet';
+import wedesignContext from '../home/wedesignContext';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
@@ -45,7 +47,7 @@ animation:${({animation})=>animation};
 
 
 const Services = () => {
-  const {staticImage}=React.useContext(GeneralContext);
+  const {staticImage,generalInfo}=React.useContext(GeneralContext);
   const seal=`${staticImage}/seal.PNG`;
   const connection=`${staticImage}/extra/connection2Effect.png`;
   const [arr, setArr] = React.useState({ loaded: false, data: {} });
@@ -84,6 +86,11 @@ const Services = () => {
     <CustService
     className={styles.backgroundMain}
     >
+      <ServiceHelmet
+        arr={serviceObj ? serviceObj.items :null}
+        generalInfo={generalInfo.loaded ? generalInfo.data :null}
+        wedesignContext={wedesignContext ? wedesignContext :null}
+      />
       <Container maxWidth="xl">
         <Box
           className={styles.alignColunm}
