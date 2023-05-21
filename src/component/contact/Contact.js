@@ -6,6 +6,7 @@ import styled from "styled-components";
 import RequestForm from './RequestForm';
 import SocialMedia from '../about/SocialMedia';
 import ContactHelmet  from './ContactHelmet';
+import BioBanner from './BioBanner';
 
 
 
@@ -68,14 +69,14 @@ const Contact = () => {
             <RequestForm/>
           </Grid>
         </Grid>
-        <div className={styles.hr_line}/>
+        <BioBanner />
+      </Container>
+      <div className={styles.hr_line}/>
         <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",width:"100%",marginBottom:"2rem"}}>
           <div style={{width:"350px"}}>
         <SocialMedia contactInfo={generalInfo}/>
         </div>
         </Stack>
-      </Container>
-
     </Main>
   )
 }

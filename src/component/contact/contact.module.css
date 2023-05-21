@@ -162,3 +162,15 @@ animation: email 1s ease-in-out;
     margin:1rem auto;
 }
 /* ---------ChatWithUs.js-END---------- */
+/* ---------BioBanner-END---------- */
+.gridChild > div >div{
+    margin:auto !important;
+}
+.gridChild >div> div > h2,.gridChild >div> div > h3{
+    margin:1rem auto !important;
+    color:white;
+    font-family:var(--font-family);
+   
+}
+
+/* ---------BioBanner.js-END---------- */

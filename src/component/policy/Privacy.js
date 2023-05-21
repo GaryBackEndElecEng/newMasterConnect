@@ -35,7 +35,7 @@ const Privacy = () => {
           setTitle("Privacy Policy")
           setStyleName("Privacy")
     },[setTitle,setStyleName]);
-    
+
   return (
     <MainPrivacy>
         <PolicyHelmet conical={getPathLocation.loaded ? getPathLocation.data:""}/>
@@ -45,22 +45,22 @@ const Privacy = () => {
                 {privacy.loaded && privacy.data.map(obj => (
                     <Stack spacing={{ xs: 0, sm: 1, md: 2 }} key={obj.id} sx={{ padding: { xs: "0rem  ", sm: "0.5rem" }, margin: "auto",textAlign:"center",width:"100%"  }}>
                         
-                        <Typography component='h1' variant="h3" sx={{ margin: "2rem auto", textAlign: "center",fontWeight:"bold", }}>
+                        <Typography component='h2' variant="h3" sx={{ margin: "2rem auto", textAlign: "center",fontWeight:"bold", }}>
                             {obj.title}
                         </Typography>
-                        <Typography component='h1' variant="h6" sx={{ margin: "2rem auto", padding: { xs: " 0rem 0.5rem" } }}>
-                            {obj.sectionTitle}
+                        <Typography component='h2' variant="h4" sx={{ margin: "2rem auto", padding: { xs: " 0rem 0.5rem" } }}>
+                            {obj.subSectionTitle}
                         </Typography>
-                        <Typography component='h1' variant="body1" sx={{ margin: "1rem auto", }}>
+                        <Typography component='h2' variant="body1" sx={{ margin: "1rem auto", }}>
                             {obj.content && obj.content}
                         </Typography>
-                        <Typography component='h1' variant="body1" sx={{ margin: "1rem auto", textAlign: "center", }}>
+                        <Typography component='h2' variant="body1" sx={{ margin: "1rem auto", textAlign: "center", }}>
                             {obj.content1}
                         </Typography>
-                        <Typography component='h1' variant="body1" sx={{ margin: "1rem auto", textAlign: "center", }}>
+                        <Typography component='h2' variant="body1" sx={{ margin: "1rem auto", textAlign: "center", }}>
                             {obj.content2}
                         </Typography>
-                        <Typography component='h1' variant="body1" sx={{ margin: "1rem auto", textAlign: "center", }}>
+                        <Typography component='h2' variant="body1" sx={{ margin: "1rem auto", textAlign: "center", }}>
                             {obj.content3}
                         </Typography>
 
