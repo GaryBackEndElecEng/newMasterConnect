@@ -3,6 +3,76 @@
 
 
 /*----------- top level--------------- */
+/*----------- top Banner start--------------- */
+h1,h2,h3,p {
+    font-family:var(--font-family);
+}
+.titleTopBanner{
+    font-family: var(--font-family);
+    text-align:center;
+    font-size:1000%;
+    margin:1rem auto;
+    -webkit-background-clip:text;
+    -moz-background-clip: text;
+    background-size:100% 100%;
+    background-clip:text;
+    color:transparent;
+    -webkit-text-stroke:1px white;
+    animation:topBannerTitleOn 40s linear infinite;
+}
+.subTitleBanner{
+    font-family: var(--font-family);
+    margin:1rem auto;
+    -webkit-background-clip:text;
+    background-image:var(--background-scalableFont2);
+    -moz-background-clip: text;
+    background-size:50% 150%;
+    background-position:50% 100%;
+    background-clip:text;
+    color:transparent;
+    -webkit-text-stroke:1px white;
+    animation: growInOut 10s ease-in-out infinite;
+}
+.topBannerChildGrid >div{
+ margin:auto 1rem;
+ display:flex;
+ flex-direction:column;
+ width:100%;
+ justify-content:center;
+ align-items:flex-start !important;
+ padding-inline:2rem;
+}
+.hr_line_top{
+    height:1.5px;
+    width:62%;
+    background:var(--background-text-1);
+    margin:3rem auto;
+}
+@keyframes growInOut {
+    from {transform: scale(1) translate(1%,1%);}
+    50% {transform:scale(1.03) translate(0%,0%);}
+    to {transform:scale(1) translate(1%,1%);}
+}
+@keyframes topBannerTitleOn {
+    from {background-size:15% 15%;}
+    50% {background-size:100% 100%;}
+    to {background-size:15% 15%;}
+}
+@media screen and (max-width:900px){
+    .titleTopBanner{
+        font-size:700%;
+    }
+    .topBannerChildGrid >div{
+        padding-inline:0;
+    }
+}
+@media screen and (max-width:600px){
+    .titleTopBanner{
+        font-size:450%;
+    }
+}
+/*----------- top banner end--------------- */
+
 /* GENERAL */
 
 .alignColunm{
@@ -142,7 +212,7 @@ animation: rotateIn 10s ease-in-out;
 /*----------- SERVICEITEM END--------------- */
 .servIntro{
     display:block;
-    animation:scaleIn 1.5s ease-in;
+    animation:scaleIn 1s ease-in;
 }
 @keyframes scaleIn {
     from {transform:scaleY(0);}
@@ -174,7 +244,7 @@ transition:background-size 1.5s ease-in;
 display:block;
 opacity:1 !important;
 height:auto;
-transition:all 1.5s ease-in-out;
+transition:all 1s ease-in-out;
 }
 .hideSentence{
 display:none;

@@ -3,7 +3,9 @@ import { GeneralContext } from "../../context/GeneralContextProvider";
 // import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import {  Typography, Container, Grid, Box, CardMedia, Stack, Fab } from "@mui/material";
+import topStuff from './topbanner.json';
 import styles from "./services.module.css";
+import TopBanner from './TopBanner';
 import serviceObj from "./serviceArr";
 import ServiceItem from './ServiceItem';
 import StarProjContact from './StarProjContact';
@@ -19,12 +21,16 @@ background:var( --background-111);
 justify-content:center;
 align-items:center;
 flex-direction:column;
-place-items:center;
+justify-content:flex-start;
 padding-bottom:5vh;
 animation:appearIn 1.5s ease-in-out;
 @keyframes appearIn { 
   from {opacity:0;}
   to {opacity:1;}
+}
+@media screen and (max-width:900px){
+  margin:auto 0;
+  padding-inline:0;
 }
 `;
 
@@ -47,6 +53,7 @@ animation:${({animation})=>animation};
 
 
 const Services = () => {
+  const sealRef=React.useRef(null);
   const {staticImage,generalInfo}=React.useContext(GeneralContext);
   const seal=`${staticImage}/seal.PNG`;
   const connection=`${staticImage}/extra/connection2Effect.png`;
@@ -54,19 +61,25 @@ const Services = () => {
   const [textSize, setTextSize] = React.useState("h1");
   const [getWidth,setGetWidth]=React.useState(null);
   const [servStart,setServStart]=React.useState(null);
+  const [startSeal,setStartSeal]=React.useState(false);
   const [more,setMore]=React.useState(null);
   const [openFAQS,setOpenFAQS]=React.useState(null);
+  const [threshold,setThreshold]=React.useState(null);
 
   React.useEffect(() => {
     setArr({ loaded: true, data: serviceObj });
     if (window.innerWidth < 900) {
       setTextSize("h2");
+      setThreshold(0.4);
     } else if (window.innerWidth < 600) {
       setTextSize("h3");
+      setThreshold(0.4);
     } else {
       setTextSize("h1");
+      setThreshold(0.5);
     }
   }, []);
+
   React.useEffect(()=>{
     if(window.scrollY){
       window.scroll(0,0);
@@ -76,6 +89,23 @@ const Services = () => {
       setServStart(true);
     },3000);
   },[]);
+
+  React.useEffect(()=>{
+    const observer= new IntersectionObserver(entries=>{
+      let entry=entries[0];
+      setStartSeal(entry.isIntersecting);
+    },{threshold:threshold});
+
+    if(sealRef.current){
+      observer.observe(sealRef.current);
+
+    }else{
+      return ()=>observer.disconnect();
+    }
+
+  },[]);
+
+
   const handleMore=()=>{
       setMore(true);
   }
@@ -87,14 +117,16 @@ const Services = () => {
     className={styles.backgroundMain}
     >
       <ServiceHelmet
+      nameDesc={topStuff}
         arr={serviceObj ? serviceObj.items :null}
         generalInfo={generalInfo.loaded ? generalInfo.data :null}
         wedesignContext={wedesignContext ? wedesignContext :null}
       />
+      <TopBanner getWidth={getWidth}/>
       <Container maxWidth="xl">
         <Box
           className={styles.alignColunm}
-          
+          ref={sealRef}
         >
           {arr.loaded &&
         
@@ -117,15 +149,16 @@ const Services = () => {
                     paddingInline:{xs:1}
                    
                   }}
+                  
                 >
                   <Grid item xs={12} sm={12} md={4}
                   sx={{position:"relative",isolation:"isolate"}}
-                  className={ servStart ? styles.childGridSeal :styles.hide}
+                  className={ startSeal ? styles.childGridSeal :styles.hide}
                   >
                     
                     <CustImgSeal 
-                    opacity={servStart ? "1":"0"}
-                    animation={servStart ? "startSeal 2s ease-in-out" : ""}
+                    opacity={startSeal ? "1":"0"}
+                    animation={startSeal ? "startSeal 1.25s ease-in-out" : ""}
                     component="img"
                      src={seal} 
                     alt="www.masterconnect.ca" height={"400px"}
@@ -151,7 +184,7 @@ const Services = () => {
                         >
                           {obj.slice(0,100)}...
                           <span onClick={()=>handleMore()}
-                          style={{color:"blue",textDecoration:"underline",fontSize:"26px",cursor:"pointer"}}
+                          style={{color:"pink",textDecoration:"underline",fontSize:"22px",cursor:"pointer"}}
                           >more</span>
                           </Typography>
                           )
@@ -206,7 +239,7 @@ const Services = () => {
       </div>
       }
      
-      <div style={{margin:"2rem auto"}}>
+      <div style={{margin:"2rem 0"}}>
 
       <StarProjContact getWidth={getWidth}/>
       </div>

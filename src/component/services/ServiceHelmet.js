@@ -3,12 +3,12 @@ import {Helmet} from "react-helmet";
 
 
 
-const ServiceHelmet = ({arr,generalInfo,wedesignContext}) => {
+const ServiceHelmet = ({arr,generalInfo,wedesignContext,topStuff}) => {
 
     const [getDesc,setGetDesc]=React.useState([]);
     const [wordList,setWordList]=React.useState([]);
     const [email,setEmail]=React.useState(null);
-    let webPage="";
+    let webPage="",nameDesc="";
 
     React.useEffect(()=>{
           if(generalInfo){
@@ -40,6 +40,38 @@ const ServiceHelmet = ({arr,generalInfo,wedesignContext}) => {
         setWordList(wordArr);
         setGetDesc(descArr);
     },[]);
+    
+    if(topStuff){
+    nameDesc=topStuff.map(obj=>(
+    {
+        "@context": "https://schema.org",
+        "@type": "QAPage",
+        "mainEntity": {
+          "@type": "Question",
+          "name": obj.name,
+          "text":obj.name,
+          "answerCount": 1,
+          "dateCreated": "2023-05-10T21:11Z",
+          "author": {
+            "@type": "Person",
+            "name": "Gary Wallace"
+          },
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": obj.desc,
+            "upvotecount": 1,
+            "dateCreated": "2023-05-10T21:11Z",
+            "url": "https://www.masterconnect.ca/services",
+            "author": {
+              "@type": "Person",
+              "name": "Gary Wallace"
+            }
+          }
+        }
+      }
+      ));
+    }
+   
 
     webPage={
       "@context": "http://schema.org",
@@ -68,6 +100,9 @@ const ServiceHelmet = ({arr,generalInfo,wedesignContext}) => {
         
         <script type="application/ld+json">
           {JSON.stringify(webPage)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(nameDesc)}
         </script>
         </Helmet>
   )

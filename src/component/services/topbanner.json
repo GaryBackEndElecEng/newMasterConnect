@@ -1,0 +1,20 @@
+[
+    {
+        "id":1,
+        "name":"increase Hits",
+        "desc":"5% of sales contributes to being easily found.",
+        "image":"extra/increasehits.png"
+    },
+    {
+        "id":2,
+        "name":"Client to Personnel alignment",
+        "desc":"Improves sales, administration efficiency and improved client relations.",
+        "image":"extra/align.png"
+    },
+    {
+        "id":3,
+        "name":"Become a Contributor",
+        "desc":"Sharing information improves Corporate Branding and increases hits",
+        "image":"extra/share.png"
+    }
+]

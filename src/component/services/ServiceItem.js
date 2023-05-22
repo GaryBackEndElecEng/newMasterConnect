@@ -165,7 +165,7 @@ const getFirst=React.useCallback(()=>{
           {getFirst()}....
           <span
           onClick={()=>handleDesc()}
-          style={{color:"blue",fontSize:"26px",textDecoration:"underline",cursor:"pointer"}}
+          style={{color:"pink",fontSize:"22px",textDecoration:"underline",cursor:"pointer"}}
           >
             more
           </span>
