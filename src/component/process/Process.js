@@ -47,15 +47,15 @@ const Process = () => {
     const slideArr=[
         {
             id:1,name:"1.Discovery",size:"h4",comment:" Get to know you",image:meet,
-         desc:"The first phase of a good web development project is Discovery. In Short, its the theprocess of learning. ",
+         desc:"The first phase of a good web development project is Discovery. In Short, its the the process of learning. ",
          desc1:" We need to learn about you, your organization's goals and users so that we can begin to lay an optimal website that caters to your audience.",
-         desc2:" The Discovery phase begins with gathering information in the aim to determine key user personas, and site functionality in view of the finished product. This will alow us to derive recommendations to maximize a great user experience."
+         desc2:" The Discovery phase begins with gathering key user personas, and site functionality in view of the finished product. This will alow us to derive recommendations to maximize a great user experience."
         },
 
         {
             id:2,name:"2.Recommend",size:"h5",comment:" Provide you options and enhancements",image:recommendation,
             desc:"From our discoveries, we will use the resolved findings as the basis for strategy and recommendations for the site. ",
-            desc1:"This phase consists of making recommendations for the user experience and information architecture, including site map, core features and functionality. This will allow us to derive content visual displays intuitive, engaging to enhance page exposure from great user experience",
+            desc1:"This phase consists of making recommendations for the user experience and information architecture, including site map, core features and functionality. This will allow us to derive content visual displays intuitive and engaging to enhance page exposure from great user experience",
             desc2:" Once completed, we can then proceed with the actual design."
         },
 
@@ -69,22 +69,22 @@ const Process = () => {
         {
             id:4,name:"4.Program",size:"h4",comment:" Build the code , both frontend and backend",image:Program,
             desc:"This process consists of deep routed programming, using HTML, CSS, React, JQuery and other programming languages. This stage consists of building and testing the code and performance with the latest browser versions. ",
-            desc1:" The choose content will also be custumized to allow easy updates and site content management after the launch. This involves transferring all your content to a designated repositoire and site for security your safety concerns.",
+            desc1:" The chosen content will also be customized to allow easy updates and site content management after the launch. This involves transferring all your content to a designated repositoire and site for security and safety concerns.",
             desc2:"Once the programming is complete, a review is needed by us to ensure that all processes has been completed with high assurance."
         },
 
         {
-            id:5,name:"5.Review",size:"h4",comment:" apply extensive testing to determine its performance and data capture",image:Review, 
-            desc:" ",
-            desc1:" This critical step insures that all facets are catered and verified. as a whole before the launch stage.",
-            desc2:" You will have 100% transparency on the bugs and refinements during this stage. testing clients will test the site for bug discovies during this QA process. Once complete and all bugs has been resolved, we can now launch the site, upon your approval."
+            id:5,name:"5.Review",size:"h4",comment:" This stage has extensive testing to determine its overall performance.",image:Review, 
+            desc:" This critical step insures that all facets are catered too and verified, as a whole before the launch stage.",
+            desc1:" You will have 100% transparency on the bugs and refinements during this stage. testing clients will test the site for bug discovies during this QA process.",
+            desc2:"Once complete and all bugs has been resolved, we can now launch the site, upon your approval."
     },
 
         {
-            id:6,name:"6.Launch",size:"h4",comment:" Build SEO to help grow your connections on the web and then publish",image:launch,
-            desc:"This final stage, includes a launch plan for finally launching the site. ",
-            desc1:" This stage, includes reviewing all files and confirming one last time that all content is as viewable, accurate and functional as it was on the development server.",
-            desc2:" Once your site is live ( FANATASTIC!), our team is available for ongoing website optimization and support when request"
+            id:6,name:"6.Launch",size:"h4",comment:" Launch - Build SEO and site registration- mandatory for all websites.",image:launch,
+            desc:"This final stage, includes a launch plan for finally launching of the site. This includes SEO and registration plan.",
+            desc1:" This stage reviews all files, with final confirm site-operability from presentation to registration stages.",
+            desc2:" Once complete, your site becomes live ( FANATASTIC!). Our team is available for ongoing website optimization and support when request, like tuning a car."
         }
 
     ];

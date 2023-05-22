@@ -27,7 +27,7 @@ const RegisterPage = () => {
         if(location.pathname){
         changePage();
         }
-      },[location.pathname]);
+      },[location.pathname,setRegisterPage]);
 
   return (
     <></>

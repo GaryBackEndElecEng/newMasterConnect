@@ -18,8 +18,8 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
     background-position: 50% 50%;
     background-size:100% 150%;
     // border:1px solid white;
-    animation:${({isMovePic})=>isMovePic ? "moveLeftAndGrow":""} 2s ease-out;
-@keyframes moveLeftAndGrow {
+    animation:${({animation})=>animation};
+@keyframes moveLeftAndGrow1 {
     from {opacity:0;transform:translateY(-50%);background-size:100% 90%;}
     to {opacity:1;transform:translateY(0%);background-size:100% 150%;}
 }
@@ -27,7 +27,7 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
 @media screen and (max-width:900px){
   background-position: 50% 0%;
   background-size:150% 150%;
-  @keyframes moveLeftAndGrow {
+  @keyframes moveLeftAndGrow1 {
     from {opacity:0;transform:translateY(-50%);background-size:100% 90%;}
     to {opacity:1;transform:translateY(0%);background-size:150% 150%;}
 }
@@ -37,7 +37,7 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
   min-height:50vh;
   background-position: 50% 55%;
   background-size:200% 150%;
-  @keyframes moveLeftAndGrow {
+  @keyframes moveLeftAndGrow1 {
     from {opacity:0;transform:translateY(-50%);background-size:100% 90%;}
     to {opacity:1;transform:translateY(0%);background-size:200% 150%;}
 }
@@ -53,8 +53,8 @@ position:absolute;
     flex-direction:column;
     align-items:center;
     margin-left:40px;
-animation:${({isMovePara})=>isMovePara ? "moveLeftAndGrow":""} 5s ease-out;
-@keyframes moveLeftAndGrow {
+animation:${({animation})=>animation};
+@keyframes moveParaAndGrow {
     from {transform:translateX(100%);}
     to {transform:translateX(0%);}
 }
@@ -142,10 +142,12 @@ const navigate=useNavigate();
           ref={lionestRef}
           isMovePic={isMovePic}
           bgimage={lionest}
+          animation={isMovePic ? "moveLeftAndGrow1 2s ease-in":""}
         >
           <CustDevpara
           ref={weDevRef}
           isMovePara={isMovePara}
+          animation={isMovePic ? "moveParaAndGrow 5s ease-in" : ""}
           >
             <div>
               <Typography

@@ -116,6 +116,9 @@ animation:${({animation})=>animation };
 @media screen and (max-width:600px){
     top:26%;
 }
+@media screen and (max-width:420px){
+    top:20%;
+}
 @media screen and (max-width:400px){
     top:22%;
 }

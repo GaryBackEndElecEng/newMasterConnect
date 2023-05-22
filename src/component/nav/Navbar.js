@@ -4,12 +4,7 @@ import { GeneralContext } from "../../context/GeneralContextProvider";
 import styles from "./navbar.module.css";
 import styled from "styled-components";
 import { IconButton, Typography, Grid, Stack } from "@mui/material";
-// import InfoIcon from "@mui/icons-material/Info";
-// import ContactMailIcon from "@mui/icons-material/ContactMail";
-// import DesignServicesIcon from "@mui/icons-material/DesignServices";
-// import NewspaperIcon from "@mui/icons-material/Newspaper";
-// import RssFeedIcon from "@mui/icons-material/RssFeed";
-// import HomeIcon from "@mui/icons-material/Home";
+import RegisterPage from "../RegisterPage";
 
 const CustNav = styled.nav.attrs({ className: styles.custNav })`
   position: fixed;
@@ -284,6 +279,7 @@ const Navbar = () => {
                 </Stack>
           </Ukrain>
         </div>
+        <RegisterPage/>
       </div>
     </CustNav>
   );
