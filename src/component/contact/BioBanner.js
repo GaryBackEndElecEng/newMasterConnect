@@ -46,6 +46,15 @@ align-items:center;
 flex-direction:column;
 width:100%;
 `;
+const Description=styled.div`
+opacity:${({opacity})=>opacity};
+animation:${({animation})=>animation};
+height:${({height})=>height};
+@keyframes appearIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+`;
 
 
 const BioBanner = () => {
@@ -96,22 +105,32 @@ const handleCovert=(e)=>{
                     :
                     <Fab size="medium" color="info" variant="extended" onClick={(e)=>handleCovert(e)}>English</Fab>}
                     {
-                    getIntro.loaded && getIntroFr.loaded && !french ? 
-                    <div>
+                    getIntro.loaded && getIntroFr.loaded && 
+                    <> 
+                    <Description
+                    opacity={!french ? "1":"0"}
+                    animation={!french ? "appearIn 1.5s ease-in":""}
+                    height={!french ? "auto":"0px"}
+                    >
                     <Typography component="h2" variant={"h2"} sx={{margin:"2rem auto"}}>{getIntro.object.title}</Typography>
                     <Typography component="h3" variant={"h6"}>{getIntro.object.content}</Typography>
                     <Typography component="h3" variant={"h6"}>{getIntro.object.content1}</Typography>
                     <Typography component="h3" variant={"h6"}>{getIntro.object.content2}</Typography>
                     <Typography component="h3" variant={"h6"}>{getIntro.object.content3}</Typography>
-                    </div>
-                :
-                <div>
+                    </Description>
+                
+                <Description
+                opacity={french ? "1":"0"}
+                animation={french ? "appearIn 1.5s ease-in":""}
+                height={french ? "auto":"0px"}
+                >
                     <Typography component="h2" variant={"h2"} sx={{margin:"2rem auto"}}>{getIntroFr.object.title}</Typography>
                     <Typography component="h3" variant={"h6"}>{getIntroFr.object.content}</Typography>
                     <Typography component="h3" variant={"h6"}>{getIntroFr.object.content1}</Typography>
                     <Typography component="h3" variant={"h6"}>{getIntroFr.object.content2}</Typography>
                     <Typography component="h3" variant={"h6"}>{getIntroFr.object.content3}</Typography>
-                    </div>
+                    </Description>
+                    </>
                 }
                 </Stack>
             </GridChild>
