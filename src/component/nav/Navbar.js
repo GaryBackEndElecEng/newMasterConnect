@@ -268,7 +268,7 @@ const Navbar = () => {
                       textAlign: "center",
                     }}
                   >
-                    Long live!
+                    Long live/Vive!
                   </Typography>
                   <Typography
                     component="h1"

@@ -50,6 +50,12 @@ const Contact = () => {
   const { staticImage,open, setOpen ,generalInfo} = React.useContext(GeneralContext);
  
   const cheetah=`${staticImage}/extra/cheetah.png`;
+
+  React.useEffect(()=>{
+    if(window.scrollY){
+      window.scroll(0,0);
+    }
+  },[]);
   
   return (
     <Main  >

@@ -34,7 +34,7 @@ const Ukraine = () => {
     >
         <CustStack direction="row" spacing={2}>
             <Typography component="h2" variant={fontSize}> живе! </Typography>
-            <Typography component="h2" variant={fontSize}> long live! </Typography>
+            <Typography component="h2" variant={fontSize}> long live/Vive! </Typography>
             <Typography component="h2" variant={fontSize}> Ukraine </Typography>
         </CustStack>
     </CustUkraine>

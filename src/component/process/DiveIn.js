@@ -18,11 +18,11 @@ justifyContent:flex-start;
 alignItems:center;
 flexDirection:column;
 animation:${({animation})=>animation};
-@keyframes growIn {
+@keyframes growInDive {
   from {background-size:100% 100%;filter:saturate(1);}
   to {background-size:120% 120%;filter:saturate(2);}
 }
-@keyframes growOut {
+@keyframes growOutDive {
   from {background-size:120% 120%;filter:saturate(2);}
   to {background-size:100% 100%;filter:saturate(1);}
 }
@@ -84,7 +84,7 @@ const DiveIn = () => {
         bgimage={lepard} 
         ref={box1Ref}
         backgroundsize={openThis ? "120% 120%":"100% 100%"}
-        animation={openThis ? "growIn 2s ease-in-out" : "growOut 2s ease-in-out"}
+        animation={openThis ? "growInDive 2s ease-in-out" : "growOutDive 2s ease-in-out"}
         saturate={openThis ? "2": "1"}
         
         sx={{

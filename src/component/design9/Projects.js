@@ -136,7 +136,7 @@ const handleSDesc =(obj)=>{
                                    className={styles.showDescription}
                                 >
                                     <Typography component="h1" variant="body2" 
-                                    sx={{background:theme.palette.common.background3,color:"white",padding:"1rem",width:"100%"}}
+                                    sx={{background:"white",color:"black",padding:"1rem",width:"100%"}}
                                     >
                                         {viewDesc.obj.desc}
                                     </Typography>

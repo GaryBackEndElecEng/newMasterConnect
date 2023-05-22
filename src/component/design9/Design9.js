@@ -151,10 +151,10 @@ const Design9 = () => {
       </Stack>
       <CoverPage lang={lang} />
       <Projects language={frenchEnglish.language} turnOn={turnOn} staticImage={staticImage} />
-      <Included product={OBJ} staticImage={staticImage}/>
+      
     </CustomBox>
     <Container maxWidth={"md"}>
-        <Typography component="h1" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
+        <Typography component="h2" variant="h5" sx={{textAlign:"center",margin:"1rem auto"}}>Please comment on the design,below. We strive to improve.</Typography>
         <PageFeedback/>
         
       </Container>
