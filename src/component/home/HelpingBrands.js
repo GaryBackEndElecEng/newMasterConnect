@@ -15,7 +15,7 @@ align-items:center;
 flex-direction:center;
 @media screen and (max-width:920px){
     margin: auto 1rem;
-    border:1px solid red;
+   
 }
 `;
 
