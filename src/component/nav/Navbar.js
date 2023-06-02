@@ -232,52 +232,7 @@ const Navbar = () => {
                 </CustGridChild>
               ))}
           </CustNavGrid>
-          <Ukrain
-            direction="column"
-            width={open ? "100%" : "0%"}
-            opacity={open ? "1" : "0"}
-            bgimage={ukrain} 
-          >
           
-              <Stack direction={{ xs: "column", sm: "row" }}
-              spacing={{xs:1,sm:3}}
-              sx={{background:"black",paddingInline:"2rem"}}
-              >
-                  <Typography
-                    component="h1"
-                    variant={is600 ? "h5":"h3"}
-                    sx={{
-                      color: "white",
-                      background: "black",
-                      textAlign: "center",
-                    }}
-                  >
-                    живе!
-                  </Typography>
-                  <Typography
-                    component="h1"
-                    variant={is600 ? "h5":"h3"}
-                    sx={{
-                      color: "white",
-                      background: "black",
-                      textAlign: "center",
-                    }}
-                  >
-                    Long live/Vive!
-                  </Typography>
-                  <Typography
-                    component="h1"
-                    variant={is600 ? "h5":"h3"}
-                    sx={{
-                      color: "white",
-                      background: "black",
-                      textAlign: "center",
-                    }}
-                  >
-                    Ukraine
-                  </Typography>
-                </Stack>
-          </Ukrain>
         </div>
         <RegisterPage/>
       </div>

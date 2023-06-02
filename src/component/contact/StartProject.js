@@ -1,7 +1,8 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 import styles from './contact.module.css';
-import {Grid, Container, Typography, Stack} from '@mui/material';
+import {Grid, Container, Typography, Stack,Fab} from '@mui/material';
 import styled from "styled-components";
 import RequestProject from './RequestProject';
 import SocialMedia from '../about/SocialMedia';
@@ -77,6 +78,7 @@ bottom:5%;
 `;
 
 const StartProject = () => {
+  const navigate=useNavigate();
   const {staticImage,generalInfo}=React.useContext(GeneralContext);
   const rino=`${staticImage}/rino.png`;
   const setSize=window.innerWidth < 900 ? "h3":"h1";
@@ -85,6 +87,10 @@ const StartProject = () => {
       window.scroll(0,0);
     }
   },[]);
+  const handleContact=(e)=>{
+    e.preventDefault();
+    navigate("/contact");
+  }
 
   return (
     <Main >
@@ -107,6 +113,16 @@ const StartProject = () => {
           <RequestProject/>
           </Grid>
         </Grid>
+        <Container maxWidth="sm" sx={{display:"flex",flexDirection:"column"}}>
+          <div className={styles.hr_line}/>
+          <Fab color="primary" size="large" variant="extended"
+          onClick={(e)=>handleContact(e)}
+          >
+          <Typography component="h1" variant={"h6"}> Contact Us</Typography>
+          </Fab>
+        </Container>
+        
+      
         <div className={styles.hr_line}/>
         <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",width:"100%",marginBottom:"2rem"}}>
           <div style={{width:"350px"}}>

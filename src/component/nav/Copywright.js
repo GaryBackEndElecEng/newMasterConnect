@@ -4,7 +4,7 @@ import CopyrightIcon from "@mui/icons-material/Copyright";
 import { Typography, Stack, CardMedia, Card } from "@mui/material";
 import { Link } from "react-router-dom";
 import {GeneralContext} from '../../context/GeneralContextProvider';
-import Ukraine from './Ukraine';
+import PhoneUkraine from './PhoneUkraine';
 
 const Copywright = () => {
   const {staticImage}=React.useContext(GeneralContext);
@@ -24,7 +24,7 @@ const Copywright = () => {
   }, []);
   return (
     <div className={styles.copywriteContainer} >
-      <Ukraine/>
+      <PhoneUkraine/>
       <div className={styles.main}>
         <Stack direction={{ sm: "row", xs: "column",position:"relative" }} spacing={3}>
           <Link to="/" style={{cursor:"pointer"}}>

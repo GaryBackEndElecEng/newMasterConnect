@@ -25,26 +25,39 @@ const CustFamily = styled.div.attrs({ className: styles.custFamily })`
   background: var(--background-hopefulHarvest-family);
   min-height: 50vh;
 `;
+ const SubCustomFamily=styled.div`
+ width:100%;
+ position:relative;
+ margin: 1rem auto;
+padding-inline:50px;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 
+@media screen and (max-width:900px){
+  padding-inline:0;
+}
+ `;
+ 
 const FamilyOwned = ({ getWidth }) => {
   const { staticImage } = React.useContext(GeneralContext);
   const familyPic = `${staticImage}/design2/familyPic.png`;
   return (
     <CustFamily>
-      <Container maxWidth="xl" sx={{ margin: "1rem auto" }}>
-        <Grid container spacing={{md:6,sm:2,xs:4}}>
-          <Grid item xs={12}  md={6} >
-            <div>
+      <SubCustomFamily>
+        <Grid container spacing={{md:6,sm:1,xs:4}} sx={{width:"100%"}}>
+          <Grid item xs={12}  md={6}  >
+            <div style={{width:"100%"}}>
               <Card
-                // elevation={3}
-                sx={{ background: "var(--background-hopefulHarvest-familyTypo)", }}
+                sx={{width:"100%"}}
                 className={styles.familyCard}
               >
                 <CardMedia
                   component="img"
                   src={familyPic}
                   alt="www.masterconnect.ca"
-                  sx={{ maxHeight: { xs: "350px", sm: "400px", md: "350px" },background:" var(--background-hopefulHarvest-family)",filter:"saturate(1.5)" }}
+                  sx={{ maxHeight: { xs: "80%", sm: "400px", md: "80%" },background:" var(--background-hopefulHarvest-family)",filter:"saturate(1.5)" }}
                 />
                 <CardContent
                   sx={{
@@ -58,7 +71,7 @@ const FamilyOwned = ({ getWidth }) => {
                 >
                   <Typography
                     component="h1"
-                    variant={getWidth < 900 ? "h4":"h3"}
+                    variant={getWidth < 900 ? "h5":"h3"}
                     sx={{  marginBottom: "0.5rem",color:"white" }}
                   >
                     Canadians at Heart
@@ -97,8 +110,7 @@ const FamilyOwned = ({ getWidth }) => {
                 sx={{ margin: "1rem",color:"black" }}
               >
                 " Today, our goal is to provide Canadians with a healthy choice
-                in Vegetables, Fruits and Flowers with a natural and
-                trusted-source of Natural, Hand-Picked Food and Flowers for
+                in Vegetables, Fruits and Flowers for
                 years to come."
               </Typography>
               <Typography component="h1" variant="body1" sx={{color:"black" }}>
@@ -111,7 +123,7 @@ const FamilyOwned = ({ getWidth }) => {
                 address: address, kingston, Ontario,
               </Typography>
               <Typography component="h1" variant="h6" sx={{padding:"15px",color:"red"}}>
-                Clients can't find you? - Contact Us for improved Search Optimization!-<Link to="/contact">CONTACT</Link>
+                Clients can't find you? - Contact Us and we will put you on the map!-<Link to="/contact">CONTACT</Link>
               </Typography>
               <Typography component="h1" variant="h5"sx={{color:"black"}}>
                 Call Us!
@@ -122,7 +134,7 @@ const FamilyOwned = ({ getWidth }) => {
             </div>
           </Grid>
         </Grid>
-      </Container>
+      </SubCustomFamily>
     </CustFamily>
   );
 };

@@ -57,7 +57,7 @@ const HandCrafted = ({ getWidth }) => {
             variant="h3"
             sx={{ margin: "auto", marginBottom: "3rem" }}
           >
-            We Hand-Select the Strongest and healthiest variaty of Flowers
+            We Hand-Select Only The Best
           </Typography>
           <Grid container spacing={2} sx={{ width: `100%` }}>
             <Grid
@@ -122,7 +122,7 @@ const HandCrafted = ({ getWidth }) => {
                     toxins for the health
                   </Typography>
                 </ul>
-                <Typography component="h1" variant="h4"> We Cutomize your site to help pull Clientele</Typography>
+                <Typography component="h1" variant="h4"> We customize your site to help you sell!</Typography>
               </Stack>
             </Grid>
           </Grid>

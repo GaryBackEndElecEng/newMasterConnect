@@ -7,23 +7,17 @@ import styled from "styled-components";
 
 
 
-const ShowCardIcon = styled(Card)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position:relative;
-  gap: 10px;
-  background:${({match})=>match ? " var(--background-icon-left)"  :
-   " var(--background-icon-right)"};
-  transform: translateY(${({ transformy }) => (transformy)});
+const ShowCardIcon = styled.div`
+  margin:auto;
+  background:transparent !important;
+  transform: translateY(${({ transformy }) => (transformy)}) scale(${({scale})=>scale});
   animation: ${({animation})=>animation};
   @keyframes slideUp {
     from {transform:translateY(0%) scale(1);}
-    to {transform:translateY(-10%) scale(1);}
+    to {transform:translateY(-15%) scale(1.05);}
   }
   @keyframes slideDown {
-    from {transform:translateY(-10%) scale(1);}
+    from {transform:translateY(-15%) scale(1.05);}
     to {transform:translateY(0%) scale(1);}
   }
 `;
@@ -52,22 +46,15 @@ const SocialItem = ({ obj,index }) => {
   return (
     
       <ShowCardIcon
-        open={open}
-        match={isMatch}
         transformy={isMatch ? "-10%" : "0%"}
-        animation={isMatch ? "slideUp 0.75s linear":"slideDown 0.7s linear"}
-        elevation={3}
+        scale={isMatch ? "1.05":"1"}
+        animation={isMatch ? "slideUp 0.5s linear":"slideDown 0.5s linear"}
         onMouseOver={(e) => handleMouseOver(e, index)}
         onMouseOut={handleMouseOut}
         onClick={(e)=>handleClick(e,obj.link)}
         
       >
-        <small 
-       
-        style={changeStyle}
-        >
-            {obj.name}
-        </small>
+        
         {obj.icon}
       </ShowCardIcon>
    

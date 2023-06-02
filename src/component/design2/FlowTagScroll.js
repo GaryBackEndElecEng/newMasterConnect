@@ -5,6 +5,7 @@ import { Grid, Typography,} from "@mui/material";
 import { GeneralContext } from "../../context/GeneralContextProvider";
 import styles from "./design2.module.css";
 import TagItem from './TagItem';
+import FlowerTagParent from './FlowerTagParent';
 
 const FlowTagScroll = ({getWidth}) => {
     
@@ -32,31 +33,20 @@ const FlowTagScroll = ({getWidth}) => {
                     <div style={{margin:"auto 20px"}}>
                     <Typography component="h1" variant="h2" sx={{margin:"1rem auto"}}>Flower Type-<span style={{color:"red",fontSize:"63%"}}> in stock</span></Typography>
                     <Typography component="h1" variant="h6">
-                        This allows an amazing display of flower types and provides a fluid ease of search for the client.  
+                        This allows the viewer to scroll through specific flower types.  
                     </Typography>
                     <Typography component="h1" variant="ul" sx={{margin:"1rem auto"}}>Perennials
                     <Typography component="li" variant="h6">
-                    <span style={{color:"blue"}}>shade</span>:We can customize your site to your desire.  
+                    <span style={{color:"blue"}}>shade</span>:let us customize your site to maximize product displays.  
                     </Typography>
                     <Typography component="li" variant="h6">
-                        <span style={{color:"blue"}}>un-shade</span>:You need to build up your clientele and improve on Internet search results?-<Link to="/contact" ><span style={{fontWeight:"bold"}}>CALL US!   </span></Link>
+                        <span style={{color:"blue"}}>un-shade</span>:give your viewers to priviledge to see your product displays!-<Link to="/contact" ><span style={{fontWeight:"bold"}}>CALL US!   </span></Link>
                     </Typography>
                     </Typography>
                     </div>
                 </Grid>
-                <Grid item xs={12} md={6}>
-            <div className={styles.scrollparent}>
-                {flowerTags.loaded ? flowerTags.data.map((obj,index)=>(
-                    <div key={`${obj.id}--flowerTag--${index}`}
-                    className={styles.scrollChild}>
-                        <TagItem obj={obj} />
-                        </div>
-                ))
-            :
-            <div><h5>loading...</h5></div>
-            }
-
-            </div>
+                <Grid item xs={12} md={6} sx={{position:"relative"}}>
+            <FlowerTagParent flowerTags={flowerTags}/>
             </Grid>
             </Grid>
         

@@ -205,6 +205,7 @@ export const GeneralContextProvider = (props) => {
   const [sectionArticle,setSectionArticle]=React.useState({loaded:false,data:[],id:null});
   const [designStart,setDesignStart]=React.useState(false);
   const [design10Start,setDesign10Start]=React.useState(null);
+  const [getPhoneApp,setGetPhoneApp]=React.useState({loaded:false,obj:{}});
   const navList=[
     {id:1,name:"home",link:"/",icon:<HomeIcon className="navIcon" sx={{ color: "red" }} />,},
     {id:2,name:"about us",link:"/about",icon:<InfoIcon className="navIcon" sx={{ color: "white" }} />,},
@@ -327,14 +328,10 @@ export const GeneralContextProvider = (props) => {
           }
           setMyAccount({ loaded: true, data: body.filter(obj => (obj.name === "myAccount"))[0].catWordSnippet })
 
-          // let custTemplate = body.filter(obj => (obj.name === "templates"))
-          // if (custTemplate.length > 0) {
-          //   setTemplates({ loaded: true, data: custTemplate[0].imageCategory })
-          // }
-          // let servDepSummary = body.filter(obj => (obj.section === "serviceDependency"))[0].catWordSnippet[0]
-          // if (servDepSummary) {
-          //   setServDependantSummary({ loaded: true, data: servDepSummary })
-          // }
+          let phoneapp=body.filter(obj=>(obj.name==="phoneApp"))[0].imageCategory[0]
+          if(phoneapp){
+            setGetPhoneApp({loaded:true,obj:phoneapp});
+          }
 
         }
       } catch (error) {
@@ -380,7 +377,7 @@ export const GeneralContextProvider = (props) => {
 
 
   return (
-    <GeneralContext.Provider value={{ allCategory, getServiceArray, setGetServiceArray, ourServices, setOurServices, whyWorkWithUs, setWhyWorkWithUs, mainService, setMainService, allServiceArray, setAllServiceArray, mainLinks, footerLinks, resume, setResume, title, setTitle, styleName, setStyleName, loaded, setLoaded, activate, setActivate, load3, setLoad3, url, changePage, setChangePage, stopP5, setStopP5, navItems, linkArr, dropDown, page, setPage, workArr, turnOn, setTurnOn, zIndex, setZIndex, removeText, setRemoveText, requestInfo, setRequestInfo, isRequestInfo, setIsRequestInfo, requestQuote, setRequestQuote, callbackQuoteRequest, setCallBackQuoteRequest, callBackConfirmed, setCallBackConfirmed, loadProduct, register, setRegister, registerConfirmed, setRegisterConfirmed, email, setEmail, name, setName, content, setContent, removeApp, setRemoveApp, checkHeight, setCheckHeight, stopP5Contact, setStopP5Contact, fadeLogo, setFadeLogo, removeBlock, setRemoveBlock, open, setOpen, infoOkay, setInfoOkay, issue, setIssue, loadingData, setLoadingData, serverUrl, loggedIn, setLoggedIn, error, setError, loginError, setLoginError, isCheckoutSuccess, setIsCheckoutSuccess, session_id, setSession_id, registerPage, setRegisterPage, showRegistration, setShowRegistration, openSignin, setOpenSignin, generalInfo, setGeneralInfo, sponsor, setSponsor, flowerImg, setFlowerImg, special, setSpecial, extraImages, MyRef, postSession_id, setPostSession_id, privacy, termsOfSvc, staticImage,staticImage2, links, setLinks, hits, setHits, extraServices, setExtraServices, extraSession_id, setExtraSession_id, productInfo, success, opacity, setOpacity, pageRatings, userSelection, setUserSelection, userSelectionArray, setUserSelectionArray, answeredFilled, setAnsweredFilled, questionResults, setQuestionResults, UUID, setUUID, blogMain, setBlogMain, average, setAverage, openGetQuote, setOpenGetQuote, getPathLocation, setGetPathLocation, myAccount, templates, whyChooseUs, getAboutList, setGetAboutList, getContactList, customTemplates, setCustomTemplates, getProductDesigns, setGetProductDesigns, serviceDependancy, servDependantSummary, FAQS, SetFAQS,video,startProject,setStartProject,formData,setFormData,fullName,setFullName, coName,setCoName,cell,setCell,coSite,setCoSite,productDesigns,setProductDesigns,scrollOne, setScrollOne ,openvideo, setOpenvideo,isServiceClicked, setIsServiceClicked,select,setSelect,sectionBlog,setSectionBlog, sectionArticle,setSectionArticle,designStart,setDesignStart,navList,contactInfo,design10Start,setDesign10Start  }}>
+    <GeneralContext.Provider value={{ allCategory, getServiceArray, setGetServiceArray, ourServices, setOurServices, whyWorkWithUs, setWhyWorkWithUs, mainService, setMainService, allServiceArray, setAllServiceArray, mainLinks, footerLinks, resume, setResume, title, setTitle, styleName, setStyleName, loaded, setLoaded, activate, setActivate, load3, setLoad3, url, changePage, setChangePage, stopP5, setStopP5, navItems, linkArr, dropDown, page, setPage, workArr, turnOn, setTurnOn, zIndex, setZIndex, removeText, setRemoveText, requestInfo, setRequestInfo, isRequestInfo, setIsRequestInfo, requestQuote, setRequestQuote, callbackQuoteRequest, setCallBackQuoteRequest, callBackConfirmed, setCallBackConfirmed, loadProduct, register, setRegister, registerConfirmed, setRegisterConfirmed, email, setEmail, name, setName, content, setContent, removeApp, setRemoveApp, checkHeight, setCheckHeight, stopP5Contact, setStopP5Contact, fadeLogo, setFadeLogo, removeBlock, setRemoveBlock, open, setOpen, infoOkay, setInfoOkay, issue, setIssue, loadingData, setLoadingData, serverUrl, loggedIn, setLoggedIn, error, setError, loginError, setLoginError, isCheckoutSuccess, setIsCheckoutSuccess, session_id, setSession_id, registerPage, setRegisterPage, showRegistration, setShowRegistration, openSignin, setOpenSignin, generalInfo, setGeneralInfo, sponsor, setSponsor, flowerImg, setFlowerImg, special, setSpecial, extraImages, MyRef, postSession_id, setPostSession_id, privacy, termsOfSvc, staticImage,staticImage2, links, setLinks, hits, setHits, extraServices, setExtraServices, extraSession_id, setExtraSession_id, productInfo, success, opacity, setOpacity, pageRatings, userSelection, setUserSelection, userSelectionArray, setUserSelectionArray, answeredFilled, setAnsweredFilled, questionResults, setQuestionResults, UUID, setUUID, blogMain, setBlogMain, average, setAverage, openGetQuote, setOpenGetQuote, getPathLocation, setGetPathLocation, myAccount, templates, whyChooseUs, getAboutList, setGetAboutList, getContactList, customTemplates, setCustomTemplates, getProductDesigns, setGetProductDesigns, serviceDependancy, servDependantSummary, FAQS, SetFAQS,video,startProject,setStartProject,formData,setFormData,fullName,setFullName, coName,setCoName,cell,setCell,coSite,setCoSite,productDesigns,setProductDesigns,scrollOne, setScrollOne ,openvideo, setOpenvideo,isServiceClicked, setIsServiceClicked,select,setSelect,sectionBlog,setSectionBlog, sectionArticle,setSectionArticle,designStart,setDesignStart,navList,contactInfo,design10Start,setDesign10Start,getPhoneApp  }}>
       {props.children}
     </GeneralContext.Provider>
   )

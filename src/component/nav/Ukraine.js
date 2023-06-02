@@ -4,40 +4,44 @@ import styled from 'styled-components';
 import { Stack, Typography } from '@mui/material';
 
 const CustUkraine=styled.div`
-margin:2rem auto;
+margin:1rem auto;
+position:relative;
 padding-inline:1rem;
-width:100%;
-height:10vh;
+width:40%;
+height:5vh;
 display:flex;
 justify-content:center;
 align-items:center;
 background-image:url(${({bgimage})=>bgimage});
 background-size:100% 100%;
 background-position:50% 50%;
+@media screen and (max-width:900px){
+  width:60%;
+}
+@media screen and (max-width:900px){
+  width:100%;
+}
 `;
 const CustStack= styled(Stack)`
 margin:auto;
+position:absolute;
 justify-content:center;
 align-items:center;
 padding:0.5rem;
 background:white;
+top:-30%;
+left:30%;
 `;
 
 const Ukraine = () => {
     const {staticImage}=React.useContext(GeneralContext);
     const ukrain=`${staticImage}/extra/ukrain.png`;
-    const fontSize= window.innerWidth < 900 ? (window.innerWidth < 600 ? "h5" :"h4"):"h3";
+    
 
   return (
     <CustUkraine
     bgimage={ukrain}
-    >
-        <CustStack direction="row" spacing={2}>
-            <Typography component="h2" variant={fontSize}> живе! </Typography>
-            <Typography component="h2" variant={fontSize}> long live/Vive! </Typography>
-            <Typography component="h2" variant={fontSize}> Ukraine </Typography>
-        </CustStack>
-    </CustUkraine>
+    />
   )
 }
 

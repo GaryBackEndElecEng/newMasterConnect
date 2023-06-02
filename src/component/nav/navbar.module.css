@@ -188,6 +188,7 @@
 width:65px;
 height:65px;
 }
+
 @media screen and (max-width:900px){
   .privacyPolicy{
     justify-content:end;

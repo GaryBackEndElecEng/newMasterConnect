@@ -7,7 +7,7 @@ import {GeneralContext} from '../../context/GeneralContextProvider';
 import SocialItem from './SocialItem';
 
 const CustSocialGrid=styled(Grid)`
-margin:auto;
+margin: 2rem auto;
 opacity:1;
 justify-content:center;
 align-items:center;
@@ -30,10 +30,12 @@ const [mediaArr,setMediaArr]=React.useState({loaded:false,data:[]});
                         Arr.push({name:"facebook",link:value,icon:<Avatar src={`${staticImage}/icons/facbbook.png`} className={styles.icon} alt="www.masterconnect.ca"/>});
                     }else if(key.startsWith("l") || key.startsWith("L")){
                         Arr.push({name:"linkedln",link:value,icon:<Avatar src={`${staticImage}/icons/linkedln.png`} className={styles.icon} alt="www.masterconnect.ca"/>});
-                    }else if(key.startsWith("i") || key.startsWith("I")){
+                    }else if(key.startsWith("in") || key.startsWith("I")){
                         Arr.push({name:"Intagarm",link:value,icon:<Avatar src={`${staticImage}/icons/instagram.png`} className={styles.icon} alt="www.masterconnect.ca"/>});
                     }else if(key.startsWith("m") || key.startsWith("M")){
-                        Arr.push({name:"Masterconnect",link:value,icon:<Avatar src={`${staticImage}/logo.png`} className={styles.icon} alt="www.masterconnect.ca"/>});
+                        Arr.push({name:"Masterconnect",link:value,icon:<Avatar src={`${staticImage}/logo.png`} className={styles.iconLogo} alt="www.masterconnect.ca"/>});
+                    }else if(key.startsWith("git") || key.startsWith("M")){
+                        Arr.push({name:"Masterconnect",link:value,icon:<Avatar src={`${staticImage}/icons/gitHub.png`} className={styles.icon} alt="www.masterconnect.ca"/>});
                     }
                 });
             }
@@ -51,13 +53,13 @@ const [mediaArr,setMediaArr]=React.useState({loaded:false,data:[]});
   return (
     <CustSocialGrid
     container
-    sx={{maxWidth:{xs:"320px",sm:"400px",md:"600px"},}}
+    sx={{maxWidth:{xs:"320px",sm:"800px",md:"900px"},}}
     // open={true}
     >
         {
             mediaArr.loaded ?
             mediaArr.data.map((obj,index)=>(
-                <Grid item xs={3} key={`${index}-icons`}>
+                <Grid item xs={4}  sm={2} key={`${index}-icons`}>
                     
                     <SocialItem obj={obj}
                     index={index}/>

@@ -133,14 +133,10 @@ h1{font-family:var(--font-family);}
     width:100%;
     margin:1rem auto;
     background:white;
-    
 }
-.mainGrid > div{
-    margin:0 auto;
-    
-}
+
 .sidebar{
-    background:var(--background-555);
+   padding-inline:20px;
     margin:auto 20px;
     display:flex;
     flex-direction:column;
@@ -156,37 +152,20 @@ h1{font-family:var(--font-family);}
     
     
 }
-.scrollparent{
-    margin:auto;
-    display:flex;
-    width:100%;
-    flex-direction:row;
-    justify-content:flex-start;
-    align-items:center;
-    flex-wrap:nowrap;
-    overflow-x:scroll;
-    /* overflow-y:auto; */
-    /* border:1px solid red; */
-    scroll-snap-align: center;
-    scroll-margin-block: 10px;
-    scroll-snap-type: x mandatory;
-}
+/* .scroll_parent > div{
+   scroll-behavior: auto;
+} */
 
-.scrollChild{
-    margin:auto;
-    flex:0 0 100%;
-    flex-direction:column;
-    justify-content:flex-start;
-    align-items:center;
-    scroll-snap-align:center;
-}
+
 .tagItem{
     margin:auto;
+    width:100%;
     position:relative;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    scroll-snap-align: center;
+   
+    /* scroll-snap-align: center; */
 }
 
 /* -------------FLOWER TAG SCROLL -END------------------------------- */

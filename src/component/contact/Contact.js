@@ -1,7 +1,8 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 import styles from './contact.module.css';
-import {Grid, Container, Typography, Stack} from '@mui/material';
+import {Grid, Container, Typography, Stack, Fab} from '@mui/material';
 import styled from "styled-components";
 import RequestForm from './RequestForm';
 import SocialMedia from '../about/SocialMedia';
@@ -47,6 +48,7 @@ animation: growIn 4s ease-in-out;
 `;
 
 const Contact = () => {
+  const navigate=useNavigate();
   const { staticImage,open, setOpen ,generalInfo} = React.useContext(GeneralContext);
  
   const cheetah=`${staticImage}/extra/cheetah.png`;
@@ -56,6 +58,10 @@ const Contact = () => {
       window.scroll(0,0);
     }
   },[]);
+  const handleProject=(e)=>{
+    e.preventDefault();
+    navigate("/start-project");
+  }
   
   return (
     <Main  >
@@ -75,13 +81,22 @@ const Contact = () => {
             <RequestForm/>
           </Grid>
         </Grid>
+        <Container maxWidth="sm" sx={{display:"flex",flexDirection:"column"}}>
+        <div className={styles.hr_line}/>
+      <Fab color="primary" size="large" variant="extended"
+      onClick={(e)=>handleProject(e)}
+      >
+       <Typography component="h1" variant={"h6"}> Start a Project</Typography>
+      </Fab>
+      </Container>
         <BioBanner />
       </Container>
+      
       <div className={styles.hr_line}/>
         <Stack direction="column" sx={{justifyContent:"center",alignItems:"center",width:"100%",marginBottom:"2rem"}}>
-          <div style={{width:"350px"}}>
+          
         <SocialMedia contactInfo={generalInfo}/>
-        </div>
+       
         </Stack>
     </Main>
   )

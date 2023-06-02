@@ -77,7 +77,7 @@ function App() {
           />
           <Route
             path="/masterconnectCa_sitemap.xml"
-            element={<MasterconnectCa />}
+            element={<MasterconnectCa />} 
           />
           <Route path="/" element={<Layout />}>
             {/* <Route path="/articles" element={<Article />} /> */}

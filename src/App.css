@@ -36,11 +36,11 @@ box-sizing: border-box;
      --background-hopefulHarvest-flowDisp:linear-gradient(217deg,rgb(41, 2, 2), rgb(117, 110, 5)50% ,rgb(8, 8, 8)60%);
      --background-hopefulHarvest-handCrafted:linear-gradient(217deg,rgb(253, 6, 6), rgb(242, 248, 245)50% ,rgb(195, 236, 10)90%);
      --background-hopefulHarvest-family:            
-    linear-gradient(136deg, rgba(240, 12, 12, 0.8), rgb(233, 240, 241) 20% );
+    linear-gradient(136deg, rgba(139, 138, 138, 0.8), rgb(233, 240, 241) 20% );
      --background-hopefulHarvest-msg:            
-    linear-gradient(217deg, rgb(248, 6, 6), rgb(231, 238, 237) 15% );
+    linear-gradient(217deg, rgb(119, 119, 119), rgb(231, 238, 237) 15% );
      --background-hopefulHarvest-familyTypo:            
-    linear-gradient(136deg, rgba(240, 12, 12, 0.8), rgb(46, 1, 1) 50% );
+    linear-gradient(136deg, rgba(17, 17, 17, 0.8), rgb(39, 38, 38) 50% );
     --background-design3:linear-gradient(to right, rgba(185, 182, 9, 0.692),rgba(0, 0, 0, 0.9)30%);
     --background-videoList:linear-gradient(217deg,rgb(80, 55, 2), rgb(60, 61, 60)10%);
     --background-video-banner:linear-gradient(217deg,rgb(80, 55, 2), rgb(60, 61, 60)10%);

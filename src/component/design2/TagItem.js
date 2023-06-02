@@ -15,18 +15,10 @@ height:400px;
 background-image:url(${({bgimage})=>bgimage});
 filter:saturate(2);
 background-position:50% 27%;
-background-size:100% ${({backgroundsize})=>backgroundsize};
+background-size:100% 200%;
 padding-bottom:1rem;
 margin-bottom:5vh;
-animation:${({animation})=>animation} ;
-@keyframes animate {
-    from{background-size:100% 100%;}
-    to{background-size:100% 200%;}
-}
-@keyframes closeAnimate {
-    from{background-size:100% 200%;}
-    to{background-size:100% 100%;}
-}
+
 
 `;
 
@@ -56,9 +48,6 @@ const TagItem = ({obj}) => {
         bgimage={obj.image}
         elevation={3} 
         ref={tagRef}
-        selected={selected}
-        backgroundsize={selected && not600 ? "200%" :"100%"}
-        animation={selected && not600 ? "animate 2s linear":"closeAnimate 2s linear"}
         >
         
         <CardContent>

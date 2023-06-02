@@ -15,7 +15,7 @@ const MainDesign2=styled.div`
 margin:0;
 height:auto;
 display:flex;
-
+// padding-inline:20px;
 position:relative;
 justify-content:center;
 align-items:center;

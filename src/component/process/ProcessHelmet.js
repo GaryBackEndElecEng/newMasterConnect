@@ -1,10 +1,11 @@
 import React from 'react';
 import {Helmet} from "react-helmet";
+import {GeneralContext} from '../../context/GeneralContextProvider';
 
 
 
 const ProcessHelmet = ({arr,generalInfo,wedesignContext}) => {
-
+    const {staticImage}=React.useContext(GeneralContext);
     const [getDesc,setGetDesc]=React.useState([]);
     const [wordList,setWordList]=React.useState([]);
     const [email,setEmail]=React.useState(null);
@@ -39,8 +40,8 @@ const ProcessHelmet = ({arr,generalInfo,wedesignContext}) => {
       "@type": "WebPage",
       "url":"https://www.masterconnect.ca/process",
       "name": "process page - masterconnect.ca",
-      "image":arr.map(obj=>(obj.image)),
-      "description": arr.map(obj=>(obj.desc.slice(0,100))).join(",,,,,"),
+      "image":arr && arr.map(obj=>(`${staticImage}/${obj.webImage}`)),
+      "description":arr && arr.map(obj=>(obj.content.slice(0,100))).join(",,,,,"),
       "publisher": {
           "@type": "Organization",
           "name": generalInfo.name,
@@ -54,9 +55,9 @@ const ProcessHelmet = ({arr,generalInfo,wedesignContext}) => {
   return (
     <Helmet>
     <title>Process </title>
-    <meta name="description" content={arr.map(obj=>(obj.desc.slice(0,100))).join(",,,,")}/>
-        <meta name="summary" content={arr.map(obj=>(obj.desc.slice(0,100))).join(",,,")}/>
-        <meta name="keywords" content={arr.map(obj=>(obj.name))}/>
+    <meta name="description" content={ arr && arr.map(obj=>(obj.content1.slice(0,100))).join(",,,,")}/>
+        <meta name="summary" content={arr && arr.map(obj=>(obj.content.slice(0,100))).join(",,,")}/>
+        <meta name="keywords" content={arr && arr.map(obj=>(obj.title))}/>
         <link rel="canonical" href={`https://www.masterconnect.ca/process`} />
         
         <script type="application/ld+json">

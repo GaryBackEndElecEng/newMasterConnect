@@ -18,6 +18,7 @@ import Innovators from './Innovators';
 import HelpingBrands from './HelpingBrands';
 import Cover from './Cover';
 import LetUsHelp from './LetUsHelp';
+import SocialMedia from '../about/SocialMedia';
 
 const theme = createTheme({
   typo: {
@@ -128,7 +129,9 @@ function Home() {
       <Scroller />
       <LetUsHelp/>
       <Partners />
+      <SocialMedia contactInfo={generalInfo}/>
       </div>
+      
     </CustMainHome>
   );
 }

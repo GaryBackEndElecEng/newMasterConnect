@@ -51,7 +51,7 @@ const CustPage = styled.div`
  
 `;
 const Page = ({ slideArr, obj, index }) => {
-    const {activate}=React.useContext(GeneralContext);
+    const {activate,staticImage}=React.useContext(GeneralContext);
   const pageRef = React.useRef();
   const [iswidth, setIswidth] = React.useState(false);
   const [isWidth600,setIsWidth600]=React.useState(false);
@@ -63,6 +63,7 @@ const Page = ({ slideArr, obj, index }) => {
     } if(window.innerWidth <600){
         setIsWidth600(true);
     };
+    
   }, []);
   
 // isWidth IS TRUE => LESS 900PX 
@@ -112,24 +113,27 @@ const Page = ({ slideArr, obj, index }) => {
       />
       <section className={(isPage ) || (index ===0 ) || (iswidth)? styles.sectionOn:styles.sectionOff}>
         <Card elevation={3} sx={{background:"transparent",margin:"1rem auto"}}>
-        <CardMedia component="img" src={obj.image} height={"50%"} alt="www.masterconnect.ca"/>
+        <CardMedia component="img" src={`${staticImage}/${obj.webImage}`} height={"50%"} alt="www.masterconnect.ca"/>
         <Typography component="h1" variant="h3" className={styles.folderTitle}>
-          {obj.name}
+          {obj.title}
         </Typography>
         <Typography component="h1" variant="h5" className={styles.folderTitle}>
           General
         </Typography>
         <Typography component="h1" variant="h6" style={{ color: "black", textAlign:"center" }}>
-          {obj.comment}
+          {obj.sectionTitle}
         </Typography>
         <Typography component="h1" variant="h6" style={{ color: "black",margin:"0.5rem auto"}}>
-          {obj.desc}
+          {obj.content}
         </Typography>
         <Typography component="h1" variant="h6" style={{ color: "black" }}>
-          {obj.desc1}
+          {obj.content1}
         </Typography>
         <Typography component="h1" variant="h6" style={{ color: "black",margin:"0.5rem auto",marginBottom:"3rem" }}>
-          {obj.desc2}
+          {obj.content2}
+        </Typography>
+        <Typography component="h1" variant="h6" style={{ color: "black",margin:"0.5rem auto",marginBottom:"3rem" }}>
+          {obj.content3}
         </Typography>
         </Card>
       </section>
