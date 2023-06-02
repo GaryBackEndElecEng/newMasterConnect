@@ -10,6 +10,9 @@ import styled from "styled-components";
 const ShowCardIcon = styled.div`
   margin:auto;
   background:transparent !important;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   transform: translateY(${({ transformy }) => (transformy)}) scale(${({scale})=>scale});
   animation: ${({animation})=>animation};
   @keyframes slideUp {

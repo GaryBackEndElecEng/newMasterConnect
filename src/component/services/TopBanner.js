@@ -5,13 +5,18 @@ import styles from './services.module.css';
 import styled from 'styled-components';
 import arr from './topbanner.json';
 
-const CustTopBanner = styled(Container).attrs({className:styles.custTopBanner})`
+const CustTopBanner = styled.div.attrs({className:styles.custTopBanner})`
 margin:3rem 0;
+position:relative;
+z-index:1;
+width:100%;
 padding-block:1.5rem;
+isolation:isolate;
 display:flex;
 justify-content:center;
+border-radius:5%;
 align-items:center;
-background:var(--background-topBanner);
+background:var(--background-topBannerTop);
 background-size:100% 100%;
 flex-direction:column;
 opacity:${({opacity})=>opacity};
@@ -19,16 +24,21 @@ transition:all 1.5s ease-in-out;
 transform:translateY(${({translatey})=>translatey});
 @media screen and (max-width:900px){
     padding-block:3.5rem;
+    border-radius:3%;
+    background:var(--background-topBanner);
 }
 @media screen and (max-width:600px){
     padding-block:3rem;
+    border-radius:2%;
 }
 `;
 const ChildGridPic=styled(Grid)`
 min-height:30vh;
+width:100%;
 background:url(${({bgimage})=>bgimage});
 background-size:${({backgroundsize})=>backgroundsize};
 background-position:50% 50%;
+filter:saturate(2);
 transition:all 3s ease-in-out;
 @media screen and (max-width:900px){
 min-height:20vh;
@@ -42,6 +52,16 @@ const ChildGrid= styled(Grid).attrs({className:styles.topBannerchildGrid})`
 margin:auto;
 align-self:center;
 
+
+`;
+const CoverEffect = styled.div`
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+z-index:-1;
+background:black;
+border-radius:inherit;
 `;
 
 const TopBanner = ({getWidth}) => {
@@ -51,7 +71,8 @@ const {staticImage}=React.useContext(GeneralContext);
 const greenEffect=`${staticImage}/extra/blueEffect.png`;
 const [startBanner,setStartBanner]=React.useState(null);
 const [threshold,setThreshold]=React.useState(null);
-const letSize=getWidth < 900 ? (getWidth < 600 ? "h5":"h4"):"h2";
+const letSize=getWidth < 900 ? (getWidth < 600 ? "h6":"h4"):"h2";
+const titleFont=getWidth < 900 ? (getWidth < 600 ? "h4":"h3"):"h2";
 
 React.useEffect(()=>{
 if(getWidth <900){setThreshold(0.5);}
@@ -74,26 +95,26 @@ else {setThreshold(0.8);}
         }
     },[]);
 
-  return (
-    <CustTopBanner
-    maxWidth="xl"
+  return(
+    <Container maxWidth="xl">
+<CustTopBanner
     opacity={startBanner ? "1":"0"}
     translatey={startBanner ? "0%":"-10%"}
     ref={bannerRef}
+    className={styles.custTopBanner}
     >
-        <Typography component="h1" variant={"h3"}>What We Do:</Typography>
+        <CoverEffect/>
+        <Typography component="h1" variant={titleFont} >What We Do:</Typography>
         <p 
         className={styles.titleTopBanner}
         style={{backgroundImage:`url(${greenEffect})`}}
         >Increase $$$</p>
+       
             {getArr.loaded ? getArr.data.map((obj,index)=>(
-                <div key={`${obj.id}--topBanner--${index}`}>
-                    <div className={styles.hr_line_top}/>
-                    <Grid container spacing={{xs:1,sm:1,md:3}}
-                
-                    sx={{margin:"0.5rem auto"}}
-                    >
-                
+                <Grid container spacing={{xs:1,sm:1,md:3}}
+                sx={{margin:{sm:"0.5rem auto",xs:"auto"}}}
+                key={`${obj.id}--${index}`}
+                >
                     <ChildGridPic item xs={12} sm={4}
                     backgroundsize={startBanner ? "100% 100%":"200% 200%"}
                     bgimage={`${staticImage}/${obj.image}`}
@@ -108,8 +129,7 @@ else {setThreshold(0.8);}
                         <Typography component="h1" variant={getWidth < 600 ? "h6":"h5"} sx={{margin:"auto"}}>{obj.desc}</Typography>
                         </div>
                     </ChildGrid>
-                </Grid>
-            </div>
+                    </Grid>
             
             ))
         :
@@ -118,6 +138,7 @@ else {setThreshold(0.8);}
         
 
         </CustTopBanner>
+        </Container>
   )
 }
 

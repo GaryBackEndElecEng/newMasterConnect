@@ -32,7 +32,7 @@ background:var(--background-111);
 background-size:120% 200%;
 background-position:50% 50%;  //start:Y:40% end -40%
 transition:all ${({seconds})=>seconds }s linear;
-@media screen and (max-width:900px){
+@media screen and (max-width:920px){
     background-position:50%  0%;
     background-size:150% 150%;
 }

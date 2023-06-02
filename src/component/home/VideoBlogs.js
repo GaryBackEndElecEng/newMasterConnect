@@ -19,8 +19,8 @@ z-index:100;
 opacity:${({opacity})=>opacity };
 background:var(--background-111);
 animation:${({animation})=>animation };
-@keyframes slideUp {
-    from {transform:translateY(40%);}
+@keyframes slideUpVideo {
+    from {transform:translateY(20%);}
     to {transform:translateY(0%);}
 }
 @media screen and (max-width:900px){
@@ -95,7 +95,7 @@ const VideoBlogs = () => {
     className={styles.custVideoBlog} 
     ref={vidblogRef}
     opacity={vidblogopen ? "1":"0"}
-    animation={vidblogopen ? "slideUp 1.55s ease-in-out":""}
+    animation={vidblogopen ? "slideUpVideo 1.55s ease-in-out":""}
     >
         <CustVideo elevation={3}
          animation={vidblogopen ? "swirlUp 20s linear infinite" : ""} 

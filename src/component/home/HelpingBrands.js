@@ -5,6 +5,20 @@ import {Grid, Container, Typography, Stack, Fab} from '@mui/material';
 import styled from "styled-components";
 import Modal from './Modal';
 
+const CustHelpingBrand= styled.div.attrs({className:styles.mainHelping})`
+margin:5vh 10px;
+width:100%;
+position:relative;
+place-items:center;
+justify-content:center;
+align-items:center;
+flex-direction:center;
+@media screen and (max-width:920px){
+    margin: auto 1rem;
+    border:1px solid red;
+}
+`;
+
 const CustGrid=styled(Grid).attrs({className:styles.mainGrid})`
 margin:auto;
   justify-content:center;
@@ -24,8 +38,8 @@ const HelpingBrands = () => {
     const threshold= window.innerWidth < 600 ? 0.3 :0.5;
 
     React.useEffect(()=>{
-        if(window.innerWidth <900){
-            setTextSize("h2");
+        if(window.innerWidth <920){
+            setTextSize("h3");
         }else if(window.innerWidth <600){
             setTextSize("h3");
         }else{
@@ -52,13 +66,13 @@ setModal(true);
 }
 
   return (
-    <div
+    <CustHelpingBrand
     className={styles.mainHelping}
     ref={helpingRef}
     style={{background:"var(--background-111)",zIndex:"100"}}
     >
         <Container maxWidth="xl">
-            <CustGrid container opacity={show11 ? "1":"0"}>
+            <CustGrid container opacity={show11 ? "1":"0"} spacing={{xs:1,sm:2}}>
                 <Grid item xs={12} sm={6} >
                     <Typography component="h1" variant={textSize} className={styles.textStatement} sx={{backgroundImage:`url(${lightEffect})`}}>
                     Helping Your Brand Big or Small
@@ -79,7 +93,7 @@ setModal(true);
             
         </Container>
        {modal && <Modal/>}
-    </div>
+    </CustHelpingBrand>
   )
 }
 

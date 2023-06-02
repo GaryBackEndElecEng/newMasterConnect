@@ -29,6 +29,14 @@ animation: ${({animation})=>animation} ;
     from {opacity:0;background-position:50% 70%;}
     to {opacity:1;background-position:50% 10%;}
 }
+@media screen and (max-width:920px){
+    background-position:50%  0%;
+    background-size:120% 100%;
+    @keyframes startEffect {
+        from {opacity:0;background-position:50% 70%;background-size:150% 150%;}
+        to {opacity:1;background-position:50% 0%;background-size:100% 100%;}
+    }
+}
 @media screen and (max-width:900px){
     background-position:50%  0%;
     background-size:100% 100%;
@@ -57,12 +65,12 @@ animation: ${({animation})=>animation} ;
 
 
 `;
-const MainInnerCover = styled.div`
+const MainInnerCover = styled.div.attrs({className:styles.mainInnerCover})`
 margin:" auto";
 position:absolute;
 opacity:${({opacity})=>opacity};
 width:100%;
-top:-61%;
+top:-64%;
 left:-1%;
 
 padding:10px;
@@ -74,47 +82,68 @@ animation:${({animation})=>animation};
     50% {opacity:0.4;transform:translateY(-0%) skew(45deg,45deg);}
     100% {opacity:1;transform:translateY(0%) skew(0deg,0deg);}
 }
+@media screen and (max-width:920px){
+    top:-75%;
+    left:1%;
+}
 @media screen and (max-width:900px){
-    top:-80%;
-    left:3%;
+    top:-75%;
+    left:1%;
 }
 @media screen and (max-width:800px){
-    top:-102%;
+    top:-97%;
     left:3%;
 }
 @media screen and (max-width:600px){
-    top:-105%;
+    top:-100%;
     left:0%;
 }
 @media screen and (max-width:400px){
+    top:-100%;
+    left:0%;
+}
+@media screen and (max-width:380px){
     top:-95%;
     left:0%;
 }
 
 `;
-const MainCoverFollow = styled(Stack)`
+const MainCoverFollow = styled(Stack).attrs({className:styles.mainCoverFollow})`
 margin:" auto";
 position:absolute;
 opacity:${({opacity})=>opacity};
 width:100%;
-top:26%;
+top:33%;
 left:0%;
 
 padding:10px;
 animation:${({animation})=>animation };
-@keyframes slideUp {
-    0% {opacity:0;transform:scaleY(-1) translateY(-10%) ;}
-    100% {opacity:1;transform:scaleY(1) translateY(0%);}
+@keyframes slideUpDesign {
+    from {opacity:0;transform:scaleY(-1) translateY(-10%) ;}
+    to {opacity:1;transform:scaleY(1) translateY(0%);}
     
+}
+@media screen and (max-width:920px){
+    top:22%;
+    @keyframes slideUpDesign {
+        from {opacity:0;transform:translateY(-20%);}
+        to {opacity:1;transform: translateY(0%);}
+        
+    }
 }
 @media screen and (max-width:900px){
     top:18%;
+    @keyframes slideUpDesign {
+        from {opacity:0;transform:translateY(-20%);}
+        to {opacity:1;transform: translateY(0%);}
+        
+    }
 }
 @media screen and (max-width:800px){
     top:20%;
 }
 @media screen and (max-width:600px){
-    top:26%;
+    top:20%;
 }
 @media screen and (max-width:420px){
     top:20%;
@@ -179,8 +208,8 @@ const Cover = ({mainPic}) => {
             </MainInnerCover>
         <MainCoverFollow
         opacity={isdesign ? "1":"0"}
-        animation={isdesign ? "slideUp 2.5s ease-in-out":null}
-        className={styles.mainCoverFollow}
+        animation={isdesign ? "slideUpDesign 2.5s ease-in-out":null}
+        // className={styles.mainCoverFollow}
         >
                     <p className={styles.fontStylelarge} style={{backgroundImage:`url(${colorEffect})`,fontFamily:"'Philosopher', sans-serif"}}>
                     Design

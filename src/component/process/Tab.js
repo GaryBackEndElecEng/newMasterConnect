@@ -27,6 +27,7 @@ position:absolute;
 const Tab = ({index,obj,iswidth,isPage,isWidth600}) => {
   const {activate,setActivate}=React.useContext(GeneralContext);
 const [fontsize,setFontsize]=React.useState(null);
+const getFontSize=window.innerWidth < 900 ? "h6":"h4";
 
 //This is used for <900 && > 600
 function adjustTop(index,iswidth){
@@ -84,17 +85,17 @@ function adjustTop(index,iswidth){
         <Box
           sx={{
             position: "relative",
-            height: { md: "230px", xs: "35px" },
+            height: { md: "290px", xs: "35px" },
             width: { md: "70px", xs: "150px", sm: "130px" },
             
           }}
         >
           <Typography
             component="h1"
-            variant={iswidth ? "h6" :obj.size}
+            variant={getFontSize}
             className={styles.tabName}
           >
-            {obj.name}
+            {obj.title}
           </Typography>
         </Box>
       </CustTab>

@@ -5,6 +5,24 @@ import {Stack,Card,Typography, Container,Grid,CardMedia} from "@mui/material";
 import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 import styled from "styled-components";
 
+const CustomPartners = styled.div.attrs({className:styles.section5Container})`
+min-height:55vh;
+margin:2rem auto;
+background:var(--background-111);
+width:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+@media screen and (max-width:900px){
+    min-height:40vh;
+}
+@media screen and (max-width:600px){
+    margin: 3rem auto;
+    min-height:55vh;
+}
+`;
+
 const LogoStackChild=styled(Stack)`
 padding:10px;
 animation: slideLogo 35s ease-in-out infinite;
@@ -51,7 +69,7 @@ const Partners = () => {
         
     ]
   return (
-    <div  className={styles.section5Container} style={{background:"var(--background-111)",zIndex:"100"}}>
+    <CustomPartners  className={styles.section5Container} >
     <Container maxWidth="md" sx={{margin:"auto"}} >
         <Typography component="h1" variant="h5" className={styles.section5Title} sx={{margin:"1rem auto",marginBottom:"2rem",fontFamily:"'Philosopher', sans-serif"}}>
         WE PARTNERED WITH THE BEST-IN-CLASS OF TECHNOLOGY PLATFORMS.
@@ -74,7 +92,7 @@ const Partners = () => {
             }
         </Stack>
     </Container>
-    </div>
+    </CustomPartners>
   )
 }
 

@@ -11,13 +11,13 @@ import InnovatorCard from './InnovatorCard';
 const MainInnovator=styled.div`
 background:var(--background-111);
 z-index:100;
-width:100vw;
+width:100%;
 margin: 5vh auto;
 // border:1px solid red;
 padding-block:2rem;
 
-@media screen and (max-width:900px){
-
+@media screen and (max-width:920px){
+margin:auto 0.5rem;
 }
 @media screen and (max-width:600px){
   
@@ -29,9 +29,11 @@ padding-block:2rem;
 const Innovators = () => {
   const [fontSize, setFontSize] = React.useState(null);
   const[textFontSize,setTextFontSize]=React.useState("h4");
+  const specFont=window.innerWidth < 920 ? (window.innerWidth < 600 ? "h4" : "h3") : "h2"
+
   
   React.useEffect(() => {
-    if (window.innerWidth < 900) {
+    if (window.innerWidth < 920) {
       setFontSize("h3");
       setTextFontSize("h4")
     } if (window.innerWidth < 600) {
@@ -92,14 +94,14 @@ const Innovators = () => {
     <MainInnovator
      className={styles.mainInnovator}
      >
-    <Container maxWidth="xl" sx={{margin:"5vh auto"}} >
+    <Container maxWidth="xl" sx={{margin:{xs:"5vh auto",md:"5vh auto",sm:"5vh 0.5rem"}}} >
       <Grid container spacing={1}
        sx={{position:"relative",justifyContent:"center", alignItems:"flex-start"}}
       >
         <Grid item xs={12} md={6} sx={{borderRight:{md:"1px solid white"}}} >
           <Typography
             component="h1"
-            variant={fontSize}
+            variant={specFont}
             className={styles.fontStyle_2}
           >
             We are innovators in creative web design in Montreal.

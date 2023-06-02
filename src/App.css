@@ -30,7 +30,7 @@ box-sizing: border-box;
      --writing-mode-horizontal:horizontal-rl;
      /* writing-mode: var(--writing-mode-vertical); long word=> text-overflow: ellipsis;*/
      --background-design1:linear-gradient(217deg, rgba(253, 195, 5, 0.8), rgba(18, 153, 231, 0.26) 10.71%,rgb(13, 182, 212) 70%);
-     --background-text-1:linear-gradient(to right, rgba(253, 8, 8, 1), rgba(194, 140, 23, 0.726)25%, rgb(253, 252, 252)50%);
+     --background-text-1:linear-gradient(to right, rgb(7, 32, 250), rgb(216, 223, 243)75%, rgb(253, 252, 252)10%);
      --background-hopefulHarvest:linear-gradient(to right, rgb(247, 6, 6), rgb(6, 150, 61)80% ,rgba(240, 244, 245, 0.9)90%);
      --background-hopefulHarvest-main:linear-gradient(217deg, rgba(5, 71, 8, 0.486), rgb(245, 248, 246)52.5% ,rgba(9, 63, 2, 0.664)95%);
      --background-hopefulHarvest-flowDisp:linear-gradient(217deg,rgb(41, 2, 2), rgb(117, 110, 5)50% ,rgb(8, 8, 8)60%);
@@ -65,6 +65,7 @@ box-sizing: border-box;
     --background-scalableFont:linear-gradient(0.5turn, rgb(245, 12, 12), rgb(237, 243, 241),rgb(245, 13, 13));
     --background-scalableFont2:linear-gradient(0.5turn, rgb(237, 243, 241),rgb(245, 13, 13),rgb(237, 243, 241));
     --background-topBanner:linear-gradient(0.5turn,black, rgb(10, 10, 10), rgb(3, 29, 51),rgb(4, 4, 131),rgb(3, 29, 51),rgb(10, 10, 10),black);
+    --background-topBannerTop:conic-gradient(black, rgb(10, 10, 10) 180deg, rgb(3, 29, 51),rgb(4, 4, 131),rgb(3, 29, 51),rgb(10, 10, 10),black);
   }
   .App {
     margin:0;padding:0;

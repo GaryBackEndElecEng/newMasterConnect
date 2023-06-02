@@ -33,7 +33,7 @@ position:relative;
     from { background-size:150% 100%;background-position:50% 0%;}
     to {background-size:150% 150%;background-position:0% 0%;}
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:920px){
     margin:5vh auto;
     min-height:65vh;
     background-size:150% 100%;

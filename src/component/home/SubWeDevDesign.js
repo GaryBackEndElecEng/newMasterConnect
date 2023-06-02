@@ -24,6 +24,11 @@ opacity:${({opacity})=>opacity};
     from { opacity:0;transform:translateX(-100%);background-position:100% 80%;}
     to { opacity:1;transform:translateX(0%) ;background-position:50% 50%;}
   }
+  @media screen and (max-width:920px){
+    width:100%;
+    background-position: 30% 70%;
+  background-size:150% 120%;
+  }
   @media screen and (max-width:900px){
     width:100%;
     background-position: 50% 80%;
@@ -70,6 +75,12 @@ animation: ${({animation})=>animation};
   from { opacity:0;transform:translateY(-100%);}
   to { opacity:1;transform:translateY(0%);}
 }
+@media screen and (max-width:920px){
+  right:0%;
+  top:48%;
+  width:70%;
+  background:rgba(0,0,0,.1);
+}
 @media screen and (max-width:900px){
   right:0%;
   top:40%;
@@ -80,6 +91,12 @@ animation: ${({animation})=>animation};
   right:0%;
   width:100%;
   top:25%;
+  left:0%;
+}
+@media screen and (max-width:400px){
+  right:0%;
+  width:100%;
+  top:0%;
   left:0%;
 }
 @media screen and (max-width:385px){

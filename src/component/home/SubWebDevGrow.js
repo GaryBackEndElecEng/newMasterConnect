@@ -24,6 +24,14 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
     from {opacity:0;transform:translateY(100%);background-size:100% 90%;}
     to {opacity:1;transform:translateY(0%);background-size:100% 150%;}
 }
+@media screen and (max-width:920px){
+  background-size:150% 150%;
+  background-position: 40% 50%;
+  @keyframes moveLeftAndGrow {
+    from {opacity:0;transform:translateY(100%);background-size:100% 90%;}
+    30% {opacity:1;transform:translateY(10%);background-size:100% 120%;}
+    to {opacity:1;transform:translateY(0%);background-size:150% 150%;}
+}
 @media screen and (max-width:900px){
   background-size:150% 150%;
   background-position: 20% 50%;
@@ -55,6 +63,12 @@ animation:${({isMovePara})=>isMovePara ? "moveLeftParaGrow":""} 2s ease-out;
     from {opacity:0;transform:translateX(-100%);}
     to {opacity:1;transform:translateX(0%);}
 }
+@media screen and (max-width:920px){
+  top:48%;
+  right:3%;
+  width:635px;
+  padding:10px;
+}
 @media screen and (max-width:900px){
   top:40%;
   right:3%;
@@ -69,6 +83,15 @@ animation:${({isMovePara})=>isMovePara ? "moveLeftParaGrow":""} 2s ease-out;
 }
 @media screen and (max-width:600px){
   top:32%;
+  right:0%;
+  margin:auto ;
+  padding:auto 5px;
+  width:350px;
+  width:100%;
+  
+}
+@media screen and (max-width:400px){
+  top:-5%;
   right:0%;
   margin:auto ;
   padding:auto 5px;

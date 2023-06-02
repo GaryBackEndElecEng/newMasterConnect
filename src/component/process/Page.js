@@ -16,6 +16,7 @@ const CustPage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  // border:1px solid red;
   padding-left: 5%;
   flex-direction: column;
   background: ${({ index,isPage }) =>
@@ -50,7 +51,19 @@ const CustPage = styled.div`
   }
  
 `;
-const Page = ({ slideArr, obj, index }) => {
+
+const CustomCard=styled(Card)`
+margin:auto;
+background:transparent;
+margin:auto;
+width:100%;
+height:85vh;
+@media screen and (max-width:900px){
+  height:auto;
+}
+`;
+
+const Page = ({ obj, index }) => {
     const {activate,staticImage}=React.useContext(GeneralContext);
   const pageRef = React.useRef();
   const [iswidth, setIswidth] = React.useState(false);
@@ -112,8 +125,8 @@ const Page = ({ slideArr, obj, index }) => {
        isWidth600={isWidth600}
       />
       <section className={(isPage ) || (index ===0 ) || (iswidth)? styles.sectionOn:styles.sectionOff}>
-        <Card elevation={3} sx={{background:"transparent",margin:"1rem auto"}}>
-        <CardMedia component="img" src={`${staticImage}/${obj.webImage}`} height={"50%"} alt="www.masterconnect.ca"/>
+        <CustomCard elevation={3} >
+        <CardMedia component="img" src={`${staticImage}/${obj.webImage}`} height={"40%"} alt="www.masterconnect.ca"/>
         <Typography component="h1" variant="h3" className={styles.folderTitle}>
           {obj.title}
         </Typography>
@@ -135,7 +148,7 @@ const Page = ({ slideArr, obj, index }) => {
         <Typography component="h1" variant="h6" style={{ color: "black",margin:"0.5rem auto",marginBottom:"3rem" }}>
           {obj.content3}
         </Typography>
-        </Card>
+        </CustomCard>
       </section>
     </CustPage>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Grid,Avatar} from '@mui/material';
+import {Grid,Avatar, Container} from '@mui/material';
 import styles from './about.module.css';
 import styled from 'styled-components';
 import {GeneralContext} from '../../context/GeneralContextProvider';
@@ -11,7 +11,16 @@ margin: 2rem auto;
 opacity:1;
 justify-content:center;
 align-items:center;
+// border:1px solid red;
 transition:all 1s ease-in-out;
+@media screen and (max-width:900px){
+    margin:3rem auto;
+}
+@media screen and (max-width:400px){
+    // padding-inline:10px;
+    margin:2rem auto;
+    
+}
 `;
 
 const SocialMedia = ({contactInfo}) => {
@@ -51,9 +60,10 @@ const [mediaArr,setMediaArr]=React.useState({loaded:false,data:[]});
     
 
   return (
+    <Container maxWidth="lg" >
     <CustSocialGrid
     container
-    sx={{maxWidth:{xs:"320px",sm:"800px",md:"900px"},}}
+    spacing={{xs:2,sm:3,md:4}}
     // open={true}
     >
         {
@@ -72,6 +82,7 @@ const [mediaArr,setMediaArr]=React.useState({loaded:false,data:[]});
         }
    
     </CustSocialGrid>
+    </Container>
   )
 }
 

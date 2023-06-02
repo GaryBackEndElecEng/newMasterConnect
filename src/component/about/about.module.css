@@ -632,7 +632,17 @@ cursor:pointer;
 /*---------SOCIAL MEDIA---------------*/
 .iconLogo{
     
-    width:50%;
+    width:60%;
+}
+
+@media screen and (max-width:900px){
+    .icon{
+        width:50%;
+    }
+    .iconLogo{
+    
+        width:70%;
+    }
 }
 /*---------SOCIAL MEDIA---------------*/
 

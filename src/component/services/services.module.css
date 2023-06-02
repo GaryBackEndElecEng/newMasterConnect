@@ -1,5 +1,17 @@
 *{margin:0; padding:0; box-sizing: border-box;}
-
+@property --angle-color {
+    syntax:"<angle>";
+    inherits:false;
+    initial-value:0deg;
+}
+:root{
+    --clr-1:rgb(3, 87, 253);
+    --clr-2:rgb(36, 149, 255);
+    --clr-3:rgb(119, 199, 252);
+    --clr-4:rgb(98, 194, 250);
+    --clr-5:rgb(36, 149, 255);
+    --clr-6:hsl(220, 98%, 60%);
+}
 
 
 /*----------- top level--------------- */
@@ -19,6 +31,28 @@ h1,h2,h3,p {
     color:transparent;
     -webkit-text-stroke:1px white;
     animation:topBannerTitleOn 40s linear infinite;
+}
+ .custTopBanner::after,.custTopBanner::before{
+    content:"";
+    position:absolute !important;
+    inset:-0.4rem !important;
+    z-index:-2 !important;
+    border-radius:inherit;
+   filter:blur(17px);
+    background:conic-gradient(
+        from  var(--angle-color),
+        var(--clr-1),
+        var(--clr-2),
+        var(--clr-3),
+        var(--clr-2),
+        var(--clr-1),
+        var(--clr-4)
+    ) !important;
+animation: rotateThis 25s linear infinite;
+}
+@keyframes rotateThis {
+    0% {--angle-color:0deg;}
+    100% {--angle-color:360deg;}
 }
 .subTitleBanner{
     font-family: var(--font-family);
@@ -64,6 +98,11 @@ h1,h2,h3,p {
     }
     .topBannerChildGrid >div{
         padding-inline:0;
+        margin:auto;
+        width:100%;
+    }
+    .custTopBanner::after,.custTopBanner::before{
+        inset:-0.3rem !important;
     }
 }
 @media screen and (max-width:600px){
