@@ -49,8 +49,8 @@ const CustBlogChild = styled.div`
   }
 `;
 const CustContainer = styled(Grid)`
-  opacity: ${({ setopen }) => (setopen ? "1" : "0")};
-  min-height: ${({ setopen }) => (setopen ? "100" : "5")}vh;
+  opacity: ${({ opacity }) => opacity};
+  min-height: ${({ minheight }) => minheight}vh;
   margin: 3rem auto;
   position: relative;
   padding: 1rem;
@@ -86,14 +86,16 @@ const BlogBanner = ({ getWidth }) => {
   React.useEffect(()=>{
     document.addEventListener("scroll",()=>{
         let Y=window.scrollY;
-        if(stickyYRef < Y){
+        // console.log(Y,stickyYRef)
+        if(stickyYRef < Y && window.innerWidth > 920 ){
             setSticky(true);
-        }else{
+        }else {
             setSticky(false);
         }
     });
   },[stickyYRef]);
 
+ 
   const handleLinkOpen = (e, link) => {
     e.preventDefault();
     
@@ -172,11 +174,14 @@ const BlogBanner = ({ getWidth }) => {
         </div>
       </CustBlogChild>
 
-      <CustContainer container setopen={openBlog || openArticle ? true : false}>
+      <CustContainer container
+       opacity={openBlog || openArticle ? "1": "0"}
+       minheight={openBlog || openArticle ? "100" : "5"}
+      >
         <Grid item xs={12} md={2} id={"IdSticky"}>
             <div 
             // style={{top:`${stickyYRef + 50}px`}}
-            className={(sticky && getWidth >900) ? styles.stickysmallgridYes : styles.stickysmallgrid} 
+            className={(sticky) ? styles.stickysmallgridYes : styles.stickysmallgrid} 
              
             >
           {openBlog && (

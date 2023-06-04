@@ -40,8 +40,6 @@ const ArticleCard = ({obj,getWidth}) => {
     React.useEffect(()=>{
       if(obj.article[0]){
         setImageSection({loaded:true,img:obj.article[0].imageSection});
-      }else{
-        setImageSection({loaded:false,img:""});
       }
     },[obj]);
 
