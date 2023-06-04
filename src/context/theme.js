@@ -47,6 +47,38 @@ export const theme = createTheme({
       dark:"#7b1fa2",
       
     },
+    background1:{
+      black:"#191919",
+      aqua:"#BAFFFF",
+      red:"#F25757",
+      blue:"#0000FF",
+      slate:"#8499B1",
+      gradient:"linear-gradient(to left,#191919,#BAFFFF,#F25757,#0000FF,#8499B1)"
+    },
+    background2:{
+      black:"#251605",
+      aqua:"#AF9AB2",
+      red:"#D6F8D6",
+      blue:"#040483",
+      slate:"#00A5CF",
+      gradient:"linear-gradient(to left,#00A5CF,#040483,#D6F8D6,#AF9AB2,#251605)"
+    },
+    background3:{
+      black:"#050517",
+      aqua:"#2D82B7",
+      white:"#fefee3",
+      red:"#d14081",
+      teal:"#1EA896",
+      gradient:"linear-gradient(to left,#D14081,#2D82B7,#FEFEE3,#050517,#1EA896)"
+    },
+    background4:{
+      blue:"#011638 ",
+      grey:"#717568 ",
+      white:"#FFEAEC ",
+      lightBlue:"#79ADDC ",
+      greyblue:"#AEE5D8 ",
+      gradient:"linear-gradient(to left,#AEE5D8,#79ADDC,#FFEAEC,#717568,#011638)"
+    },
     sand:alpha("#DB9A59",.5),
     aqua:alpha("#00A68D",.5),
     lightGreen:alpha(green[900],.7),

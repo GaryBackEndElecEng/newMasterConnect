@@ -47,7 +47,7 @@ const ChatWithUs = ({contactMsg}) => {
           <Typography
             component="h1"
             variant="h5"
-            sx={{ fontFamily: "Phylosopher", padding: "2px" }}
+            sx={{ fontFamily: "Phylosopher", padding: "2px",color:"blue" }}
           >
             416.917.5768
           </Typography>
@@ -57,7 +57,7 @@ const ChatWithUs = ({contactMsg}) => {
         <Typography
           component="h1"
           variant="h5"
-          sx={{ fontFamily: "Phylosopher" }}
+          sx={{ fontFamily: "Phylosopher",}}
         >
           Using your email
         </Typography>
@@ -65,7 +65,7 @@ const ChatWithUs = ({contactMsg}) => {
           <Typography
             component="h1"
             variant="h5"
-            sx={{ fontFamily: "Phylosopher", padding: "2px" }}
+            sx={{ fontFamily: "Phylosopher", padding: "2px",color:"blue" }}
           >
             masterconnect
           </Typography>

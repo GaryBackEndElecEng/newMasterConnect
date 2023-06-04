@@ -22,7 +22,7 @@ position:relative;
     flex-direction:column;
     justify-content:center;
     // border:1px solid red;
-    margin-bottom:10vh;
+    padding-bottom:10vh;
    animation:${({animation})=>animation};
    
   @keyframes showMsgBango{
@@ -34,7 +34,7 @@ position:relative;
     to {background-size:150% 150%;background-position:0% 0%;}
   }
   @media screen and (max-width:920px){
-    margin:5vh auto;
+    padding:5vh auto;
     min-height:65vh;
     background-size:150% 100%;
     background-position:50% 0%;

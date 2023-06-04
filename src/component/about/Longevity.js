@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./about.module.css";
-import styled from "styled-components";
+// import styled from "styled-components";
 import LongevityItem from "./LongevityItem";
 
 import {
-  Stack,
-  Typography,
-  Grid,
+  
   Container,
 } from "@mui/material";
 

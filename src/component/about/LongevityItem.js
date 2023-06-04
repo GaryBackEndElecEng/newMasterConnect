@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./about.module.css";
-import styled from "styled-components";
+// import styled from "styled-components";
 
-import { Stack, Typography, Grid, Container,fontSize } from "@mui/material";
+import { Typography, Grid,  } from "@mui/material";
 
 const LongevityItem = ({ obj }) => {
   const MyRef = React.useRef(null);

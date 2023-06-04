@@ -17,7 +17,7 @@ body{
     margin:auto;
     align-self:center;
     font-family: var(--font-family);
-    background-image: var(--background-image-1-left);
+    background-image: var(--background-image-1-left_1);
     background-size:150% 100%;
     -webkit-background-clip: text;
     -moz-background-clip: text;
@@ -161,7 +161,7 @@ color:white;
     margin:auto;
     align-self:center;
     font-family: var(--font-family);
-    background-image: var(--background-image-1-left);
+    background-image: var(--background-image-1-left_1);
     background-size:150% 100%;
     -webkit-background-clip: text;
     -moz-background-clip: text;
@@ -174,8 +174,8 @@ color:white;
   .fontStyleNormal{
     margin:auto;
     font-family: var(--font-family);
-    background-image: var(--background-image-1-left);
-    background-size:150% 100%;
+    background-image: var(--background-image-1-left_1);
+    background-size:100% 100%;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
@@ -488,7 +488,7 @@ color:white;
   /* background:var(--background-111); */
   width:100%;
   z-index:100;
-  margin:5vh auto;
+  padding:5vh auto;
   padding:auto 2vh;
   display:flex;
   justify-content:center;
@@ -829,8 +829,8 @@ color:white;
   /*-------------- HELPING BRANDS END --------- */
    /* ---------- SCROLLER START---------------- */
    .mainScroller{
-    width:100vw;
-    background:var(--background-111);
+    width:100%;
+    /* background:var(--background-111); */
     z-index:100;
     margin:0 auto;
     overflow:hidden;
@@ -895,7 +895,7 @@ color:white;
   .mainWhatWeDo{
     margin:5vh auto;
     min-height:50vh;
-    background:var(--background-111);
+    background:transparent;
     width:100vw;
     display:flex;
     flex-direction:column;
@@ -912,7 +912,7 @@ color:white;
   }
   .fontStyle2{
     color:transparent;
-    background-image:var(--background-33-light);
+    background-image:var(--background-image-1-left_1);
     background-clip:text;
     -webkit-background-clip: text;
     background-size:100% 100%;

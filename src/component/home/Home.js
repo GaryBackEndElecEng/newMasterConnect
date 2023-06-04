@@ -102,7 +102,7 @@ function Home() {
   return (
     <CustMainHome
       className={styles.custMainHome}
-      style={{ fontFamily: theme.typo.fontFamily,background:"black" }}
+      style={{ fontFamily: theme.typo.fontFamily,background:"#272D2D" }}
       
     >
       <HomeHelmet/>

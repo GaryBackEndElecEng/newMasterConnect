@@ -20,16 +20,16 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
     // border:1px solid white;
     animation:${({animation})=>animation};
 @keyframes moveLeftAndGrow1 {
-    from {opacity:0;transform:translateY(-50%);background-size:100% 90%;}
-    to {opacity:1;transform:translateY(0%);background-size:100% 150%;}
+    from {opacity:0;background-size:100% 90%;}
+    to {opacity:1;background-size:100% 150%;}
 }
 
 @media screen and (max-width:920px){
   background-position: 40% 30%;
   background-size:180% 180%;
   @keyframes moveLeftAndGrow1 {
-    from {opacity:0;transform:translateY(-50%);background-size:100% 90%;}
-    to {opacity:1;transform:translateY(0%);background-size:150% 150%;}
+    from {opacity:0;background-size:100% 90%;}
+    to {opacity:1;background-size:150% 150%;}
 }
 @media screen and (max-width:900px){
   background-position: 50% 0%;
@@ -45,8 +45,8 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
   background-position: 50% 55%;
   background-size:200% 150%;
   @keyframes moveLeftAndGrow1 {
-    from {opacity:0;transform:translateY(-50%);background-size:100% 90%;}
-    to {opacity:1;transform:translateY(0%);background-size:200% 150%;}
+    from {opacity:0;background-size:100% 90%;}
+    to {opacity:1;background-size:200% 150%;}
 }
 }
 

@@ -27,7 +27,7 @@ opacity:${({opacity})=>opacity};
 margin:auto;
 align-self:center;
 font-family: var(--font-family);
-background-image: var(--background-image-1-left);
+background-image: var(--background-image-1-left_1);
 background-size:150% 100%;
 -webkit-background-clip: text;
 -moz-background-clip: text;

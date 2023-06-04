@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Modal from './Modal';
 
 const CustHelpingBrand= styled.div.attrs({className:styles.mainHelping})`
-margin:5vh 10px;
+padding:5vh 10px;
 width:100%;
 position:relative;
 place-items:center;
@@ -69,7 +69,7 @@ setModal(true);
     <CustHelpingBrand
     className={styles.mainHelping}
     ref={helpingRef}
-    style={{background:"var(--background-111)",zIndex:"100"}}
+    // style={{zIndex:"100"}}
     >
         <Container maxWidth="xl">
             <CustGrid container opacity={show11 ? "1":"0"} spacing={{xs:1,sm:2}}>

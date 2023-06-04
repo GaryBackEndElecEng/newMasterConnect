@@ -9,10 +9,10 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import InnovatorCard from './InnovatorCard';
 
 const MainInnovator=styled.div`
-background:var(--background-111);
+// background:var(--background-111);
 z-index:100;
 width:100%;
-margin: 5vh auto;
+padding: 5vh auto;
 // border:1px solid red;
 padding-block:2rem;
 
@@ -94,17 +94,17 @@ const Innovators = () => {
     <MainInnovator
      className={styles.mainInnovator}
      >
-    <Container maxWidth="xl" sx={{margin:{xs:"5vh auto",md:"5vh auto",sm:"5vh 0.5rem"}}} >
+    <Container maxWidth="xl" sx={{padding:{xs:"5vh auto",md:"5vh auto",sm:"5vh 0.5rem"}}} >
       <Grid container spacing={1}
        sx={{position:"relative",justifyContent:"center", alignItems:"flex-start"}}
       >
-        <Grid item xs={12} md={6} sx={{borderRight:{md:"1px solid white"}}} >
+        <Grid item xs={12} md={6}  >
           <Typography
             component="h1"
             variant={specFont}
             className={styles.fontStyle_2}
           >
-            We are innovators in creative web design in Montreal.
+            We are innovators in creative web design in Beautiful Montreal.
           </Typography>
         </Grid>
         <Grid item xs={12} md={6} sx={{position:"relative"}}>

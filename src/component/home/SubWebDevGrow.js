@@ -11,7 +11,7 @@ import SubWeDev from './SubWeDev';
 const CustBanner3=styled.div.attrs({className:styles.banner3})`
 position:relative;
 opacity:${({isMovePic})=>isMovePic ? "1":"0"};
-    margin:5vh auto;
+    padding:5vh auto;
     min-height:50vh;
     width:100%;
     background-image:url(${({bgimage})=>bgimage});
@@ -21,32 +21,32 @@ opacity:${({isMovePic})=>isMovePic ? "1":"0"};
     // border:1px solid white;
     animation:${({isMovePic})=>isMovePic ? "moveLeftAndGrow":""} 3s ease-out;
 @keyframes moveLeftAndGrow {
-    from {opacity:0;transform:translateY(100%);background-size:100% 90%;}
-    to {opacity:1;transform:translateY(0%);background-size:100% 150%;}
+    from {opacity:0;background-size:100% 90%;}
+    to {opacity:1;background-size:100% 150%;}
 }
 @media screen and (max-width:920px){
   background-size:150% 150%;
   background-position: 40% 50%;
   @keyframes moveLeftAndGrow {
-    from {opacity:0;transform:translateY(100%);background-size:100% 90%;}
-    30% {opacity:1;transform:translateY(10%);background-size:100% 120%;}
-    to {opacity:1;transform:translateY(0%);background-size:150% 150%;}
+    from {opacity:0;background-size:100% 90%;}
+    30% {opacity:1;background-size:100% 120%;}
+    to {opacity:1;background-size:150% 150%;}
 }
 @media screen and (max-width:900px){
   background-size:150% 150%;
   background-position: 20% 50%;
   @keyframes moveLeftAndGrow {
-    from {opacity:0;transform:translateY(100%);background-size:100% 90%;}
-    30% {opacity:1;transform:translateY(10%);background-size:100% 120%;}
-    to {opacity:1;transform:translateY(0%);background-size:150% 150%;}
+    from {opacity:0;background-size:100% 90%;}
+    30% {opacity:1;background-size:100% 120%;}
+    to {opacity:1;background-size:150% 150%;}
 }
 }
 @media screen and (max-width:600px){
   background-size:200% 120%;
   background-position: 30% 80%;
   @keyframes moveLeftAndGrow {
-    from {opacity:0;transform:translateY(100%);background-size:100% 90%;}
-    to {opacity:1;transform:translateY(0%);background-size:200% 120%;}
+    from {opacity:0;background-size:100% 90%;}
+    to {opacity:1;background-size:200% 120%;}
 }
 }
 `;

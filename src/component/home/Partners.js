@@ -8,7 +8,7 @@ import styled from "styled-components";
 const CustomPartners = styled.div.attrs({className:styles.section5Container})`
 min-height:55vh;
 margin:2rem auto;
-background:var(--background-111);
+background:transparent;
 width:100%;
 display:flex;
 flex-direction:column;

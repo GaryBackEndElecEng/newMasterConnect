@@ -17,7 +17,7 @@ min-height:40vh;
 column-gap:20px;
 z-index:100;
 opacity:${({opacity})=>opacity };
-background:var(--background-111);
+// background:var(--background-111);
 animation:${({animation})=>animation };
 @keyframes slideUpVideo {
     from {transform:translateY(20%);}

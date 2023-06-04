@@ -19,10 +19,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 animation: slideIn 1s ease-out;
-background: linear-gradient(217deg,
-   rgba(25,0,0,.8), rgba(255,0,0,0) 70.71%),            
-   linear-gradient(127deg, rgba(0,25,0,.8), rgba(0,255,0,0) 70.71%),            
-    linear-gradient(336deg, rgba(0,100,255,.8), rgba(0,0,255,0) 70.71%);
+background:linear-gradient(127deg, rgba(40,25,30,.8), rgba(0,255,0,0.1) 70.71%),        linear-gradient(336deg, rgba(0,100,255,.8), rgba(0,0,255,0) 70.71%);
 @keyframes slideIn {
   from {transform:translateX(-100%);opacity:0.5;}
   to {transform:translateX(0%);opacity:1;}

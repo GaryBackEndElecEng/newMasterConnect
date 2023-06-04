@@ -24,6 +24,11 @@ height:100%;
 position:absolute;
 inset:0;
 z-index:0;
+animation: ${({animation})=>animation};
+@keyframes turnRotate {
+  from {transform: rotate(360deg);}
+  to {transform: rotate(0deg);}
+}
 `;
 
 
@@ -32,7 +37,22 @@ z-index:0;
 const PhoneApp = () => {
     
     const {staticImage,getPhoneApp}=React.useContext(GeneralContext);
+    const phoneRef=React.useRef(null);
     const logo=`${staticImage}/logo.png`;
+    const [turn,setTurn]=React.useState(null);
+
+    React.useEffect(()=>{
+      const observer = new IntersectionObserver(entries=>{
+        let entry= entries[0];
+        if(entry.isIntersecting){
+          setTurn(true);
+        }
+      },{threshold:1});
+      if(phoneRef.current){
+        observer.observe(phoneRef.current);
+        return ()=>observer.disconnect();
+      }
+    },[]);
 
     const handleApp=(e)=>{
         if(getPhoneApp.loaded){
@@ -44,12 +64,14 @@ const PhoneApp = () => {
   return (
     <CustStackPhone direction="column" 
     onClick={(e)=>handleApp(e)}
+    ref={phoneRef}
     >
 
     <Typography component="h1" variant={"h5"}sx={{background:"rgba(0,0,0,0.2)",zIndex:"1"}}>Download</Typography>
     <Typography component="h1" variant={"h6"}sx={{background:"rgba(0,0,0,0.2)",zIndex:"1"}}>app</Typography>
     <CustImage
     src={logo} alt="www.masterconnect.ca"
+    animation={turn ? "turnRotate 5s ease-in-out" : ""}
     />
     
     

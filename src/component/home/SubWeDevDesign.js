@@ -21,8 +21,8 @@ opacity:${({opacity})=>opacity};
   margin:5px auto;
   animation: ${({animation})=> animation};
   @keyframes monkeyEffect {
-    from { opacity:0;transform:translateX(-100%);background-position:100% 80%;}
-    to { opacity:1;transform:translateX(0%) ;background-position:50% 50%;}
+    from { opacity:0;background-position:100% 80%;}
+    to { opacity:1 ;background-position:50% 50%;}
   }
   @media screen and (max-width:920px){
     width:100%;
@@ -40,8 +40,8 @@ opacity:${({opacity})=>opacity};
     background-size:300% 150%;
     background-position: 15% 100%;
     @keyframes monkeyEffect {
-      from { opacity:0;transform:translateX(-100%) skew(45deg,45deg);background-position:100% 80%;}
-      to { opacity:1;transform:translateX(0%) skew(0deg,0deg);background-position:15% 100%;}
+      from { opacity:0;background-position:100% 80%;}
+      to { opacity:1;background-position:15% 100%;}
     }
     
   }
@@ -51,8 +51,8 @@ opacity:${({opacity})=>opacity};
     background-size:300% 150%;
     background-position: 10% 60%;
     @keyframes monkeyEffect {
-      from { opacity:0;transform:translateX(-100%) skew(45deg,45deg);background-position:100% 80%;}
-      to { opacity:1;transform:translateX(0%) skew(0deg,0deg);background-position:10% 60%;}
+      from { opacity:0;background-position:100% 80%;}
+      to { opacity:1;background-position:10% 60%;}
     }
     
   }

@@ -221,7 +221,6 @@ background-color:rgba(0,0,0,0.3);
 }
 .intersectingElevate{
     padding: auto 5px;
-   box-shadow:1px 1px 6px 1px white;
    transition: all 1.5s ease-in-out;
 }
 .intersectingElevateRemove{

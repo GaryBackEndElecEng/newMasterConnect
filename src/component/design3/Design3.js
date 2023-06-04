@@ -12,6 +12,7 @@ const CustMainDesign3=styled.div`
 margin:0;
 width:100vw;
 // min-height:100vh;
+background:var(--background-design3);
 
 
 `;
