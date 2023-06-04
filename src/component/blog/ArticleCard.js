@@ -34,7 +34,16 @@ const ArticleCard = ({obj,getWidth}) => {
   const cardRef=React.useRef(null);
   const {  setSectionBlog } =React.useContext(GeneralContext);
     const [show,setShow]=useState(false);
+    const [imageSection,setImageSection]=React.useState({loaded:false,img:""});
     const threshold=getWidth <900 ? (getWidth <600 ? 0.1:0.2) :0.2;
+
+    React.useEffect(()=>{
+      if(obj.article[0]){
+        setImageSection({loaded:true,img:obj.article[0].imageSection});
+      }else{
+        setImageSection({loaded:false,img:""});
+      }
+    },[obj]);
 
     React.useEffect(()=>{
         const observer=new IntersectionObserver(entries=>{
@@ -64,7 +73,7 @@ const ArticleCard = ({obj,getWidth}) => {
         {obj.title}
       </Typography>
       <CardMedia
-        src={obj.article[0].imageSection}
+        src={imageSection.loaded && imageSection.img}
         component={"img"}
         alt="www.masterconnect.ca"
         height="50%"
