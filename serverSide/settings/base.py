@@ -35,10 +35,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY_newMaster',SECRET_KEY1)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","www.masterconnect.ca","www.master-connect.ca","www.garymaster-connect.com","garymaster-connect.com",]
+ALLOWED_HOSTS = ['127.0.0.1','localhost',"newmasterconnect.herokuapp.com","www.master-connect.com","www.masterconnect.ca","www.master-connect.ca","www.garymaster-connect.com","garymaster-connect.com","www.masterultils.com","main.d2qd9rlb5mzqqb.amplifyapp.com","garymasterconnect.com","amplifyapp.com"]
 
 
 # Application definition
@@ -245,7 +245,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://checkout.stripe.com",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
-    
+    "https://www.masterultils.com",
+    "https://main.d2qd9rlb5mzqqb.amplifyapp.com",
+    "https://www.garymasterconnect.com",
+    "https://main.*.amplifyapp.com",
 ]
 CORS_URLS_REGEX =r"^.*$"
 
