@@ -152,7 +152,6 @@ const SectionArticle = () => {
 
             <div
               style={{ padding: "0.5rem", textAlign: "left" }}
-              className
               dangerouslySetInnerHTML={createMarkup(obj.summary)}
             />
 

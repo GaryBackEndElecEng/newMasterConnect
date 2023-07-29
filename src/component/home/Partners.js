@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './home.module.css';
 import {GeneralContext} from '../../context/GeneralContextProvider';
 import {Stack,Card,Typography, Container,Grid,CardMedia} from "@mui/material";
-import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
+// import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
 import styled from "styled-components";
 
 const CustomPartners = styled.div.attrs({className:styles.section5Container})`
@@ -62,10 +62,12 @@ const Partners = () => {
         {id:7,name:"Django",icon:<CardMedia component="img" src={`${url}/django.png`}   className={styles.cardMedia}  sx={{width:width,height:height}}/>},
         {id:8,name:"Python",icon:<CardMedia component="img" src={`${url}/python.png`}   className={styles.cardMedia}  sx={{width:width,height:height}}/>},
         {id:9,name:"Javascript",icon:<CardMedia component="img" src={`${url}/javascript.png`}   className={styles.cardMedia}  sx={{width:width,height:height}}/>},
+        {id:14,name:"NextJS",icon:<CardMedia component="img" src={`${url}/next.png`}   className={styles.cardMedia}  sx={{width:width,height:height}}/>},
         {id:10,name:"Postgres",icon:<CardMedia component="img" src={`${url}/psql.png`}   className={styles.cardMedia}  sx={{width:width,height:height}}/>},
         {id:11,name:"SQL",icon:<CardMedia component="img" src={`${url}/sql.png`}   className={styles.cardMedia}  sx={{width:width,height:height}}/>},
         {id:12,name:"React",icon:<CardMedia component="img" src={`${url}/react.png`}   className={styles.cardMedia}  sx={{width:width,height:height}}/>},
         {id:13,name:"Figma",icon:<CardMedia component="img" src={`${url}/figma.png`}   className={styles.cardMedia}  sx={{width:width,height:height}}/>},
+        
         
     ]
   return (
